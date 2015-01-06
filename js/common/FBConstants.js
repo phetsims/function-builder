@@ -8,5 +8,5 @@ define( function( require ) {
 
   return {
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) }
-  }
+  };
 } );

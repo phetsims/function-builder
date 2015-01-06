@@ -30,10 +30,6 @@ define( function( require ) {
    */
   function NumericScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = null;
-
     Screen.call( this,
       screenTitle,
       createIcon(),
