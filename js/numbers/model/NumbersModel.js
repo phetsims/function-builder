@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Model for the 'Intro' screen.
+ * Model for the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,14 +15,14 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function IntroModel() {
+  function NumbersModel() {
 
     PropertySet.call( this, {
       //TODO
     } );
   }
 
-  return inherit( PropertySet, IntroModel, {
+  return inherit( PropertySet, NumbersModel, {
 
     step: function( dt ) {
       //TODO

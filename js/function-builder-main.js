@@ -9,17 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AlgebraicScreen = require( 'FUNCTION_BUILDER/algebraic/AlgebraicScreen' );
+  var EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var IntroScreen = require( 'FUNCTION_BUILDER/intro/IntroScreen' );
-  var NumericScreen = require( 'FUNCTION_BUILDER/numeric/NumericScreen' );
+  var NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
+  var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
   var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.name' );
 
-  var screens = [ new IntroScreen(), new NumericScreen(), new AlgebraicScreen() ];
+  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen() ];
 
   var options = {
     credits: {

@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View for the 'Numeric' screen.
+ * View for the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,15 +17,15 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
-   * @param {NumericModel} model
+   * @param {PatternsModel} model
    * @constructor
    */
-  function NumericView( model ) {
+  function PatternsView( model ) {
 
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
     //TODO
-    this.addChild( new Text( 'Numeric: Under Construction', {
+    this.addChild( new Text( 'Patterns: Under Construction', {
       font: new FBFont( 36 ),
       center: this.layoutBounds.center
     } ) );
@@ -39,7 +39,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
-  return inherit( ScreenView, NumericView, {
+  return inherit( ScreenView, PatternsView, {
 
     step: function( dt ) {
       //TODO

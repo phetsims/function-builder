@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View for the 'Intro' screen.
+ * View for the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,15 +17,15 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
-   * @param {IntroModel} model
+   * @param {NumbersModel} model
    * @constructor
    */
-  function IntroView( model ) {
+  function NumbersView( model ) {
 
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
     //TODO
-    this.addChild( new Text( 'Intro: Under Construction', {
+    this.addChild( new Text( 'Numbers: Under Construction', {
       font: new FBFont( 36 ),
       center: this.layoutBounds.center
     } ) );
@@ -39,7 +39,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
-  return inherit( ScreenView, IntroView, {
+  return inherit( ScreenView, NumbersView, {
 
     step: function( dt ) {
       //TODO

@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Model for the 'Numeric' screen.
+ * Model for the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,14 +15,14 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function NumericModel() {
+  function PatternsModel() {
 
     PropertySet.call( this, {
       //TODO
     } );
   }
 
-  return inherit( PropertySet, NumericModel, {
+  return inherit( PropertySet, PatternsModel, {
 
     step: function( dt ) {
       //TODO

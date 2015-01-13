@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * The 'Intro' screen.
+ * The 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,15 +9,15 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
+  var EquationsView = require( 'FUNCTION_BUILDER/equations/view/EquationsView' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var IntroModel = require( 'FUNCTION_BUILDER/intro/model/IntroModel' );
-  var IntroView = require( 'FUNCTION_BUILDER/intro/view/IntroView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!FUNCTION_BUILDER/intro' );
+  var screenTitle = require( 'string!FUNCTION_BUILDER/equations' );
 
   // creates the icon for this screen
   var createIcon = function() {
@@ -28,16 +28,16 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function IntroScreen() {
+  function EquationsScreen() {
 
     Screen.call( this,
       screenTitle,
       createIcon(),
-      function() { return new IntroModel(); },
-      function( model ) { return new IntroView( model ); },
+      function() { return new EquationsModel(); },
+      function( model ) { return new EquationsView( model ); },
       { backgroundColor: FBColors.SCREEN_BACKGROUND }
     );
   }
 
-  return inherit( Screen, IntroScreen );
+  return inherit( Screen, EquationsScreen );
 } );

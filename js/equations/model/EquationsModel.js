@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Model for the 'Intro' screen.
+ * Model for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,14 +15,14 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function AlgebraicModel() {
+  function EquationsModel() {
 
     PropertySet.call( this, {
       //TODO
     } );
   }
 
-  return inherit( PropertySet, AlgebraicModel, {
+  return inherit( PropertySet, EquationsModel, {
 
     step: function( dt ) {
       //TODO

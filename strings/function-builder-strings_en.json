@@ -1,6 +1,6 @@
 {
   "function-builder.name": "Function Builder",
-  "intro": "Intro",
-  "numeric": "Numeric",
-  "algebraic": "Algebraic"
+  "patterns": "Patterns",
+  "numbers": "Numbers",
+  "equations": "Equations"
 }
