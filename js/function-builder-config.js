@@ -9,7 +9,7 @@
 
 require.config( {
 
-  deps: ['function-builder-main'],
+  deps: [ 'function-builder-main' ],
 
   paths: {
 
