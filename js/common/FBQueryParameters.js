@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var getQueryParameter = window.phetcommon.getQueryParameter;
+  var getQueryParameter = phet.phetcommon.getQueryParameter;
 
   return {
     // enables developer-only features
