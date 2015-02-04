@@ -29,15 +29,6 @@ define( function( require ) {
     }
   };
 
-  // Appending '?dev' to the URL will enable developer-only features.
-  if ( FBQueryParameters.DEV ) {
-    options = _.extend( {
-      // add dev-specific options here
-      showHomeScreen: false,
-      screenIndex: 3
-    }, options );
-  }
-
   SimLauncher.launch( function() {
     var sim = new Sim( simTitle, screens, options );
     sim.start();
