@@ -1,0 +1,14 @@
+{
+  "function-builder.name": {
+    "value": "Function Builder"
+  },
+  "patterns": {
+    "value": "Patterns"
+  },
+  "numbers": {
+    "value": "Numbers"
+  },
+  "equations": {
+    "value": "Equations"
+  }
+}
