@@ -7,6 +7,7 @@
     "function-builder",
     "assert",
     "axon",
+    "babel",
     "brand",
     "chipper",
     "dot",
