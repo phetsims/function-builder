@@ -2,6 +2,7 @@
   "name": "function-builder",
   "version": "1.0.0-dev.1",
   "license": "GPLv3",
+  "requirejsNamespace": "FUNCTION_BUILDER",
   "simTitleStringKey": "FUNCTION_BUILDER/function-builder.name",
   "phetLibs": [
     "function-builder",
