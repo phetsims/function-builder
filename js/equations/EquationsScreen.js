@@ -22,7 +22,7 @@ define( function( require ) {
   // creates the icon for this screen
   var createIcon = function() {
     //TODO
-    return new Rectangle( 0, 0, 100, 100, { fill: 'white' } );
+    return new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } );
   };
 
   /**
