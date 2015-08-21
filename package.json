@@ -15,7 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "FUNCTION_BUILDER",
-    "simTitleStringKey": "FUNCTION_BUILDER/function-builder.name",
     "phetLibs": [
       "vegas",
       "vibe"
