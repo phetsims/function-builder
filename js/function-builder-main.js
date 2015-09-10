@@ -16,7 +16,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.name' );
+  var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
   var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen() ];
 
