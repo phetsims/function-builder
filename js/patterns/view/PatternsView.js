@@ -12,9 +12,11 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
+  var PatternsViewProperties = require( 'FUNCTION_BUILDER/patterns/view/PatternsViewProperties' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {PatternsModel} model
@@ -24,15 +26,20 @@ define( function( require ) {
 
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
-    //TODO
-    this.addChild( new Text( 'Patterns: Under Construction', {
-      font: new FBFont( 36 ),
-      center: this.layoutBounds.center
-    } ) );
+    var viewProperties = new PatternsViewProperties();
+
+    var sceneControl = new PatternsSceneControl( viewProperties.sceneProperty, {
+      centerX: this.layoutBounds.centerX,
+      top: this.layoutBounds.top + 20
+    } );
+    this.addChild( sceneControl );
 
     // Reset All button
     var resetAllButton = new ResetAllButton( {
-      listener: function() { model.reset(); },
+      listener: function() {
+        model.reset();
+        viewProperties.reset();
+      },
       right:  this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
