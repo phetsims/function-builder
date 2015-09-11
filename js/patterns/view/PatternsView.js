@@ -101,12 +101,16 @@ define( function( require ) {
           } );
 
         // fade in the new scene
-        sceneNode.opacity = 0;
-        sceneNode.visible = true;
         var tweenNewParameters = { opacity: 0 };
         var tweenNewOpacity = new TWEEN.Tween( tweenNewParameters )
+          .onStart( function() {
+            sceneNode.opacity = 0;
+            sceneNode.visible = true;
+          } )
           .to( { opacity: 1 }, 500 )
-          .onUpdate( function() { sceneNode.opacity = tweenNewParameters.opacity; } );
+          .onUpdate( function() {
+            sceneNode.opacity = tweenNewParameters.opacity;
+          } );
 
         // start by fading out the old scene
         tweenOldOpacity.onComplete( function() {
