@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Scene control for the "Patterns" screen.
+ * Scene control for the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

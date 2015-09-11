@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View-specific properties for the "Patterns" screen.
+ * View-specific properties for the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
