@@ -47,7 +47,7 @@ define( function( require ) {
 
     options.children = [];
 
-    // Background function shape
+    // Background is shaped like a function
     var backgroundShape = new FunctionShape( {
       width: options.backgroundWidth,
       aspectRatio: options.aspectRatio,
