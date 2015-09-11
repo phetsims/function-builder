@@ -23,7 +23,8 @@ define( function( require ) {
     options = _.extend( {
 
       // background
-      backgroundWidth: 100,
+      backgroundWidth: 100, // {number} width, height is computed so that aspect ratio remains the same at all sizes
+      aspectRatio: 1.5, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
       fill: 'white', // {Color|string}
       stroke: 'black', // {Color|string}
@@ -41,7 +42,7 @@ define( function( require ) {
 
     // To improve readability of shape code
     var width = options.backgroundWidth;
-    var height = 0.65 * width;
+    var height = width / options.aspectRatio;
     var xInset = options.xInsetFactor * width;
 
     // Background shape described starting at left center, moving clockwise. Looks like this:
