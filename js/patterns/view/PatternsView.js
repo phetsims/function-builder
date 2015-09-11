@@ -59,7 +59,7 @@ define( function( require ) {
       composed: null
     };
 
-    // Make the selected scene visible
+    // Make the selected scene visible, create it if necessary
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
       // Create scenes on demand
