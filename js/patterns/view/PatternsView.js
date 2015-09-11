@@ -77,7 +77,8 @@ define( function( require ) {
 
         var sceneOptions = {
           visible: false,
-          center: thisView.layoutBounds.center
+          center: thisView.layoutBounds.center, //TODO temporary
+          cursor: 'pointer' //TODO temporary
         };
 
         if ( sceneName === 'single' ) {
@@ -100,9 +101,14 @@ define( function( require ) {
       if ( oldSceneName ) {
 
         var oldSceneNode = sceneNodes[ oldSceneName ];
+        oldSceneNode.pickable = false;
 
         // fades in the new scene
-        newFadeIn = new FadeIn( sceneNode );
+        newFadeIn = new FadeIn( sceneNode, {
+          onComplete: function() {
+            sceneNode.pickable = true;
+          }
+        } );
 
         // fades out the old scene
         oldFadeOut = new FadeOut( oldSceneNode, {
