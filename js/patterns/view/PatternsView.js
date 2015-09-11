@@ -52,7 +52,7 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-    // Scenes are stored here as they are created, field names match values of viewProperties.sceneNameProperty
+    // Scenes are created on demand, stored here as they are created, field names match values of viewProperties.sceneNameProperty
     var sceneNodes = {
       single: null,
       dual: null,
