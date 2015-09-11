@@ -101,12 +101,12 @@ define( function( require ) {
       if ( oldSceneName ) {
 
         var oldSceneNode = sceneNodes[ oldSceneName ];
-        oldSceneNode.pickable = false;
+        oldSceneNode.pickable = false; // prevent interaction with the old scene while it's fading out
 
         // fades in the new scene
         newFadeIn = new FadeIn( sceneNode, {
           onComplete: function() {
-            sceneNode.pickable = true;
+            sceneNode.pickable = true; // prevent interaction with the new scene until it's fully faded in
           }
         } );
 
