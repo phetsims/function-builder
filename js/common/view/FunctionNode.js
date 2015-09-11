@@ -45,7 +45,7 @@ define( function( require ) {
     var height = width / options.aspectRatio;
     var xInset = options.xInsetFactor * width;
 
-    // Background shape described starting at left center, moving clockwise. Looks like this:
+    // Background shape, described starting at left center, moving clockwise. Looks like this:
     //
     //    ---------
     //    \        \
