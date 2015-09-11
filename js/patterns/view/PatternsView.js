@@ -49,8 +49,8 @@ define( function( require ) {
         model.reset();
         viewProperties.reset();
       },
-      right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10
+      right: this.layoutBounds.maxX - 20,
+      bottom: this.layoutBounds.maxY - 20
     } );
     this.addChild( resetAllButton );
 
