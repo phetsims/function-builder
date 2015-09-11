@@ -26,8 +26,8 @@ define( function( require ) {
       backgroundWidth: 100, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.5, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
-      fill: 'white', // {Color|string}
-      stroke: 'black', // {Color|string}
+      fill: 'white', // {Color|string|null}
+      stroke: 'black', // {Color|string|null}
       lineWidth: 1,
 
       // optional icon
@@ -36,7 +36,14 @@ define( function( require ) {
       yMarginFactor: 0.05  // {number} y-margin between the icon and top/bottom the background
 
     }, options );
-    assert && assert( 2 * options.inset < options.width );
+
+    // validate options
+    assert && assert( options.backgroundWidth > 0 );
+    assert && assert( options.aspectRatio > 0 );
+    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
+    assert && assert( options.lineWidth >= 0 );
+    assert && assert( options.xMarginFactor >= 0 );
+    assert && assert( options.yMarginFactor >= 0 );
 
     options.children = [];
 
