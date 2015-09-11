@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FunctionShape = require( 'FUNCTION_BUILDER/common/view/FunctionShape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -22,51 +23,37 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // background
+      // FunctionShape
       backgroundWidth: 100, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.5, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
+
+      // Path
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1,
 
       // optional icon
-      icon: null, // {Node}
-      xMarginFactor: 0.10, // {number} x-margin between the icon and left-right ends of background
-      yMarginFactor: 0.05  // {number} y-margin between the icon and top/bottom the background
+      icon: null, // {Node|null}
+      xMarginFactor: 0.10, // {number} portion of width that determines the x-margin around the icon
+      yMarginFactor: 0.05  // {number} portion of height that determines the y-margin around the icon
 
     }, options );
 
     // validate options
-    assert && assert( options.backgroundWidth > 0 );
-    assert && assert( options.aspectRatio > 0 );
-    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
     assert && assert( options.lineWidth >= 0 );
     assert && assert( options.xMarginFactor >= 0 );
     assert && assert( options.yMarginFactor >= 0 );
 
     options.children = [];
 
-    // To improve readability of shape code
-    var width = options.backgroundWidth;
-    var height = width / options.aspectRatio;
-    var xInset = options.xInsetFactor * width;
-
-    // Background shape, described starting at left center, moving clockwise. Looks like this:
-    //
-    //    ---------
-    //    \        \
-    //    /        /
-    //    ---------
-    //
-    var backgroundNode = new Path( new Shape()
-      .moveTo( xInset, height / 2 )
-      .lineTo( 0, 0 )
-      .lineTo( width - xInset, 0 )
-      .lineTo( width, height / 2 )
-      .lineTo( width - xInset, height )
-      .lineTo( 0, height )
-      .close(), {
+    // Background function shape
+    var backgroundShape = new FunctionShape( {
+      width: options.backgroundWidth,
+      aspectRatio: options.aspectRatio,
+      xInsetFactor: options.xInsetFactor
+    } );
+    var backgroundNode = new Path( backgroundShape, {
       fill: options.fill,
       stroke: options.stroke,
       lineWidth: options.lineWidth
@@ -77,8 +64,8 @@ define( function( require ) {
     if ( options.icon ) {
 
       // scale down if needed, maintain aspect ratio
-      var maxWidth = width - 2 * ( options.xMarginFactor * width );
-      var maxHeight = height - 2 * ( options.yMarginFactor * height );
+      var maxWidth = backgroundNode.width - 2 * ( options.xMarginFactor * backgroundNode.width );
+      var maxHeight = backgroundNode.height - 2 * ( options.yMarginFactor * backgroundNode.height );
       assert && assert( maxWidth > 0 && maxHeight > 0 );
       var scale = Math.min( 1, Math.min( maxWidth / options.icon.width, maxHeight / options.icon.height ) );
       options.icon.setScaleMagnitude( scale );
@@ -88,7 +75,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.xInset = xInset; // @public for layout
+    this.xInset = backgroundShape.xInset; // @public for layout
   }
 
   return inherit( Node, FunctionNode );
