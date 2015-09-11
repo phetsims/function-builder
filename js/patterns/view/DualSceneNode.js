@@ -11,13 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
 
   function DualSceneNode( options ) {
-
-    options.children = [ new Text( 'dual', { font: new PhetFont( 40 ) } ) ];
-
+    options.children = [ new PatternsIconFactory.createDualSceneIcon( 200 ) ];
     Node.call( this, options );
   }
 

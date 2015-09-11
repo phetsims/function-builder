@@ -12,12 +12,10 @@ define( function( require ) {
   var ComposedSceneNode = require( 'FUNCTION_BUILDER/patterns/view/ComposedSceneNode' );
   var DualSceneNode = require( 'FUNCTION_BUILDER/patterns/view/DualSceneNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
   var PatternsViewProperties = require( 'FUNCTION_BUILDER/patterns/view/PatternsViewProperties' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SingleSceneNode = require( 'FUNCTION_BUILDER/patterns/view/SingleSceneNode' );
@@ -62,38 +60,39 @@ define( function( require ) {
     };
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
+      // Create scenes on demand
+      if ( !sceneNodes[ sceneName ] ) {
+
+        var sceneOptions = {
+          visible: false,
+          center: thisView.layoutBounds.center
+        };
+
+        var scene;
+        if ( sceneName === 'single' ) {
+          scene = new SingleSceneNode( sceneOptions );
+        }
+        else if ( sceneName === 'dual' ) {
+          scene = new DualSceneNode( sceneOptions );
+        }
+        else if ( sceneName === 'composed' ) {
+          scene = new ComposedSceneNode( sceneOptions );
+        }
+        else {
+          throw new Error( 'unsupported sceneName: ' + sceneName );
+        }
+        sceneNodes[ sceneName ] = scene;
+        scenesParent.addChild( scene );
+
+      }
+
+      // Hide the previous scene
       if ( oldSceneName ) {
         sceneNodes[ oldSceneName ].visible = false;
       }
 
-      if ( sceneName === 'single' ) {
-        if ( sceneNodes.single ) {
-          sceneNodes.single.visible = true;
-        }
-        else {
-          sceneNodes.single = new SingleSceneNode( { center: thisView.layoutBounds.center } );
-          scenesParent.addChild( sceneNodes.single );
-        }
-      }
-      else if ( sceneName === 'dual' ) {
-        if ( sceneNodes.dual ) {
-          sceneNodes.dual.visible = true;
-        }
-        else {
-          sceneNodes.dual = new DualSceneNode( { center: thisView.layoutBounds.center } );
-          scenesParent.addChild( sceneNodes.dual );
-        }
-      }
-      else if ( sceneName === 'composed' ) {
-        if ( sceneNodes.composed ) {
-          sceneNodes.composed.visible = true;
-        }
-        else {
-          sceneNodes.composed = new ComposedSceneNode( { center: thisView.layoutBounds.center } );
-          scenesParent.addChild( sceneNodes.composed );
-        }
-      }
-
+      // Show the selected scene
+      sceneNodes[ sceneName ].visible = true;
     } );
   }
 

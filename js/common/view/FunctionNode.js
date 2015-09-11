@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
