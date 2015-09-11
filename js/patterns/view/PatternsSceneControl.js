@@ -57,11 +57,11 @@ define( function( require ) {
   };
 
   /**
-   * @param {Property<string>} sceneProperty - which scene is visible, 'single'|'dual'|'composed'
+   * @param {Property<string>} sceneNameProperty - name of the scene that is visible, 'single'|'dual'|'composed'
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsSceneControl( sceneProperty, options ) {
+  function PatternsSceneControl( sceneNameProperty, options ) {
 
     options = options || {};
     options.orientation = 'horizontal';
@@ -71,7 +71,7 @@ define( function( require ) {
     options.buttonContentXMargin = 10;
     options.buttonContentYMargin = 5;
 
-    RadioButtonGroup.call( this, sceneProperty, [
+    RadioButtonGroup.call( this, sceneNameProperty, [
       { value: 'single', node: createSingleIcon() },
       { value: 'dual', node: createDualIcon() },
       { value: 'composed', node: createComposedIcon() }

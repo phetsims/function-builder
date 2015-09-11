@@ -14,7 +14,7 @@ define( function( require ) {
 
   function PatternsViewProperties() {
     PropertySet.call( this, {
-      scene: 'single' // {string} which scene is visible, 'single'|'dual'|'composed'
+      sceneName: 'single' // {string} name of the scene that is visible, 'single'|'dual'|'composed'
     } );
   }
 
