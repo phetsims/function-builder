@@ -62,6 +62,8 @@ define( function( require ) {
     // Make the selected scene visible, create it if necessary
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
+      sceneControl.pickable = false; // so we don't select a scene while animation is in progress
+
       // Create scenes on demand
       var sceneNode = sceneNodes[ sceneName ];
       if ( !sceneNode ) {
@@ -110,6 +112,9 @@ define( function( require ) {
           .to( { opacity: 1 }, 500 )
           .onUpdate( function() {
             sceneNode.opacity = tweenNewParameters.opacity;
+          } )
+          .onComplete( function() {
+            sceneControl.pickable = true;
           } );
 
         // start by fading out the old scene
@@ -121,6 +126,7 @@ define( function( require ) {
       else {
         // No animation for the initial selection
         sceneNode.visible = true;
+        sceneControl.pickable = true;
       }
     } );
   }
