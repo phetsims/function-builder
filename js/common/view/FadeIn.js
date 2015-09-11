@@ -1,5 +1,6 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
+//TODO migrate to common code?
 /**
  * Fades in a node over time by modulating its opacity.
  *
