@@ -35,7 +35,7 @@ define( function( require ) {
     this.tween = new TWEEN.Tween( parameters )
       .to( { opacity: 1 }, options.duration )
       .onStart( function() {
-        node.opacity = 0;
+        node.opacity = parameters.opacity;
         node.visible = true;
         options.onStart();
       } )
