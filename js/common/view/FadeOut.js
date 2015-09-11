@@ -49,10 +49,12 @@ define( function( require ) {
 
   return inherit( Object, FadeOut, {
 
+    // starts the animation
     start: function() {
       this.tween.start();
     },
 
+    // stops the animation, onComplete is not called
     stop: function() {
       this.tween.stop();
       this.onStop(); //TODO move this to tween instance when we upgrade to a version that supports onStop
