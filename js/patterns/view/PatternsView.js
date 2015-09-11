@@ -11,6 +11,8 @@ define( function( require ) {
   // modules
   var ComposedSceneNode = require( 'FUNCTION_BUILDER/patterns/view/ComposedSceneNode' );
   var DualSceneNode = require( 'FUNCTION_BUILDER/patterns/view/DualSceneNode' );
+  var FadeIn = require( 'FUNCTION_BUILDER/common/view/FadeIn' );
+  var FadeOut = require( 'FUNCTION_BUILDER/common/view/FadeOut' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -59,10 +61,15 @@ define( function( require ) {
       composed: null
     };
 
+    // For stopping animations that are in progress.
+    var newFadeIn, oldFadeOut;
+
     // Make the selected scene visible, create it if necessary
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
-      sceneControl.pickable = false; // so we don't select a scene while animation is in progress
+      // Stop any animation that is in progress
+      oldFadeOut && oldFadeOut.stop();
+      newFadeIn && newFadeIn.stop();
 
       // Create scenes on demand
       var sceneNode = sceneNodes[ sceneName ];
@@ -92,41 +99,27 @@ define( function( require ) {
       // Fade scenes in/out as selection changes
       if ( oldSceneName ) {
 
-        // fade out the old scene
         var oldSceneNode = sceneNodes[ oldSceneName ];
-        var tweenOldParameters = { opacity: 1 };
-        var tweenOldOpacity = new TWEEN.Tween( tweenOldParameters )
-          .to( { opacity: 0 }, 500 )
-          .onUpdate( function() {
-            oldSceneNode.opacity = tweenOldParameters.opacity;
-            oldSceneNode.visible = ( oldSceneNode.opacity > 0 );
-          } );
 
-        // fade in the new scene
-        var tweenNewParameters = { opacity: 0 };
-        var tweenNewOpacity = new TWEEN.Tween( tweenNewParameters )
-          .onStart( function() {
-            sceneNode.opacity = 0;
-            sceneNode.visible = true;
-          } )
-          .to( { opacity: 1 }, 500 )
-          .onUpdate( function() {
-            sceneNode.opacity = tweenNewParameters.opacity;
-          } )
-          .onComplete( function() {
-            sceneControl.pickable = true;
-          } );
+        // fades in the new scene
+        newFadeIn = new FadeIn( sceneNode );
 
-        // start by fading out the old scene
-        tweenOldOpacity.onComplete( function() {
-          tweenNewOpacity.start();
+        // fades out the old scene
+        oldFadeOut = new FadeOut( oldSceneNode, {
+          onComplete: function() {
+            oldSceneNode.visible = false;
+            newFadeIn.start();
+          },
+          onStop: function() {
+            oldSceneNode.visible = false;
+          }
         } );
-        tweenOldOpacity.start();
+
+        oldFadeOut.start();
       }
       else {
         // No animation for the initial selection
         sceneNode.visible = true;
-        sceneControl.pickable = true;
       }
     } );
   }
