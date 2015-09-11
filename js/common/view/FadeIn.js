@@ -24,7 +24,7 @@ define( function( require ) {
       onStart: function() {}, // {function} called when the animation starts
       onComplete: function() {}, // {function} called when the animation completes
       onStop: function() {} // {function} called if the animation is stopped
-    } );
+    }, options );
 
     this.node = node; // @private
     this.onStop = options.onStop; // @private
