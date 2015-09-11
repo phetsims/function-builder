@@ -52,12 +52,14 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-    //TODO use a better pattern for creating scenes on demand, and switching between scenes
+    // Scenes are stored here as they are created, field names match values of viewProperties.sceneNameProperty
     var sceneNodes = {
       single: null,
       dual: null,
       composed: null
     };
+
+    // Make the selected scene visible
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
       // Create scenes on demand
@@ -83,7 +85,6 @@ define( function( require ) {
         }
         sceneNodes[ sceneName ] = scene;
         scenesParent.addChild( scene );
-
       }
 
       // Hide the previous scene
