@@ -63,37 +63,61 @@ define( function( require ) {
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
 
       // Create scenes on demand
-      if ( !sceneNodes[ sceneName ] ) {
+      var sceneNode = sceneNodes[ sceneName ];
+      if ( !sceneNode ) {
 
         var sceneOptions = {
           visible: false,
           center: thisView.layoutBounds.center
         };
 
-        var scene;
         if ( sceneName === 'single' ) {
-          scene = new SingleSceneNode( sceneOptions );
+          sceneNode = new SingleSceneNode( sceneOptions );
         }
         else if ( sceneName === 'dual' ) {
-          scene = new DualSceneNode( sceneOptions );
+          sceneNode = new DualSceneNode( sceneOptions );
         }
         else if ( sceneName === 'composed' ) {
-          scene = new ComposedSceneNode( sceneOptions );
+          sceneNode = new ComposedSceneNode( sceneOptions );
         }
         else {
           throw new Error( 'unsupported sceneName: ' + sceneName );
         }
-        sceneNodes[ sceneName ] = scene;
-        scenesParent.addChild( scene );
+        sceneNodes[ sceneName ] = sceneNode;
+        scenesParent.addChild( sceneNode );
       }
 
-      // Hide the previous scene
+      // Fade scenes in/out as selection changes
       if ( oldSceneName ) {
-        sceneNodes[ oldSceneName ].visible = false;
-      }
 
-      // Show the selected scene
-      sceneNodes[ sceneName ].visible = true;
+        // fade out the old scene
+        var oldSceneNode = sceneNodes[ oldSceneName ];
+        var tweenOldParameters = { opacity: 1 };
+        var tweenOldOpacity = new TWEEN.Tween( tweenOldParameters )
+          .to( { opacity: 0 }, 500 )
+          .onUpdate( function() {
+            oldSceneNode.opacity = tweenOldParameters.opacity;
+            oldSceneNode.visible = ( oldSceneNode.opacity > 0 );
+          } );
+
+        // fade in the new scene
+        sceneNode.opacity = 0;
+        sceneNode.visible = true;
+        var tweenNewParameters = { opacity: 0 };
+        var tweenNewOpacity = new TWEEN.Tween( tweenNewParameters )
+          .to( { opacity: 1 }, 500 )
+          .onUpdate( function() { sceneNode.opacity = tweenNewParameters.opacity; } );
+
+        // start by fading out the old scene
+        tweenOldOpacity.onComplete( function() {
+          tweenNewOpacity.start();
+        } );
+        tweenOldOpacity.start();
+      }
+      else {
+        // No animation for the initial selection
+        sceneNode.visible = true;
+      }
     } );
   }
 

@@ -15,9 +15,8 @@
   },
   "phet": {
     "requirejsNamespace": "FUNCTION_BUILDER",
-    "phetLibs": [
-      "vegas",
-      "vibe"
+    "preload": [
+      "../sherpa/lib/Tween-r12.js"
     ]
   }
 }
