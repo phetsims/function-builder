@@ -95,7 +95,7 @@ define( function( require ) {
     var nextButton = new RectangularPushButton( _.extend( { content: nextArrowNode }, buttonOptions ) );
     var previousButton = new RectangularPushButton( _.extend( { content: previousArrowNode }, buttonOptions ) );
 
-    // All items, arranged in the proper orientation
+    // All items, arranged in the proper orientation, with margins and spacing
     var scrollingWidth = isHorizontal ? ( items.length * ( maxItemWidth + options.spacing ) + options.spacing ) : ( maxItemWidth + 2 * options.margin );
     var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( items.length * ( maxItemHeight + options.spacing ) + options.spacing );
     var scrollingNode = new Rectangle( 0, 0, scrollingWidth, scrollingHeight );
