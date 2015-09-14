@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Carousel = require( 'FUNCTION_BUILDER/common/view/Carousel' );
   var ComposedSceneNode = require( 'FUNCTION_BUILDER/patterns/view/ComposedSceneNode' );
   var DualSceneNode = require( 'FUNCTION_BUILDER/patterns/view/DualSceneNode' );
   var FadeIn = require( 'FUNCTION_BUILDER/common/view/FadeIn' );
@@ -19,7 +18,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
   var PatternsViewProperties = require( 'FUNCTION_BUILDER/patterns/view/PatternsViewProperties' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SingleSceneNode = require( 'FUNCTION_BUILDER/patterns/view/SingleSceneNode' );
@@ -133,18 +131,29 @@ define( function( require ) {
       }
     } );
 
-    //XXX Carousel testing
+    //TODO delete this : Carousel testing
+    var Carousel = require( 'FUNCTION_BUILDER/common/view/Carousel' );
+    var Circle = require( 'SCENERY/nodes/Circle' );
+    var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
-    var items = [];
+    var vItems = [];
+    var hItems = [];
     colors.forEach( function( color ) {
-      items.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
+      vItems.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
+      hItems.push( new Circle( 30, { fill: color, stroke: 'black' } ) );
     } );
-    var carousel = new Carousel( items, {
+    var vCarousel = new Carousel( vItems, {
       orientation: 'vertical',
-      left: this.layoutBounds.left + 20,
-      bottom: this.layoutBounds.bottom - 20
+      left: this.layoutBounds.left + 50,
+      top: this.layoutBounds.top + 50
     } );
-    this.addChild( carousel );
+    this.addChild( vCarousel );
+    var hCarousel = new Carousel( hItems, {
+      orientation: 'horizontal',
+      left: this.layoutBounds.left + 50,
+      bottom: this.layoutBounds.bottom - 50
+    } );
+    this.addChild( hCarousel );
   }
 
   return inherit( ScreenView, PatternsView, {

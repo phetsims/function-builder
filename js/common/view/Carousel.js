@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var HSeparator = require( 'SUN/HSeparator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -21,6 +22,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
+  var VSeparator = require( 'SUN/VSeparator' );
 
   // constants
   var DEFAULT_OPTIONS = {
@@ -35,7 +37,10 @@ define( function( require ) {
     arrowButtonColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} base color for the arrow buttons
     arrowSize: new Dimension2( 7, 20 ), // {Color|string} color used for the arrow icons, in horizontal orientation
     arrowStroke: 'black', // {Color|string} color used for the arrow icons
-    arrowLineWidth: 3 // {number} line width used to stroke the arrow icons
+    arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
+    separators: true, // {boolean} whether to put separators between items
+    separatorColor: 'black', // {Color|string} color for separators
+    separatorLineWidth: 0.5 // {number} lineWidth for separators
   };
 
   /**
