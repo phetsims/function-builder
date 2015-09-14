@@ -83,6 +83,7 @@ define( function( require ) {
       xMargin: 4,
       buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
       baseColor: options.arrowButtonColor,
+      disabledBaseColor: options.fill,
       cornerRadius: options.cornerRadius
     };
     if ( isHorizontal ) {
@@ -95,15 +96,17 @@ define( function( require ) {
     var previousButton = new RectangularPushButton( _.extend( { content: previousArrowNode }, buttonOptions ) );
 
     // All items, arranged in the proper orientation
-    var scrollingNode = new Node();
+    var scrollingWidth = isHorizontal ? ( items.length * ( maxItemWidth + options.spacing ) + options.spacing ) : ( maxItemWidth + 2 * options.margin );
+    var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( items.length * ( maxItemHeight + options.spacing ) + options.spacing );
+    var scrollingNode = new Rectangle( 0, 0, scrollingWidth, scrollingHeight );
     items.forEach( function( item, index ) {
       if ( isHorizontal ) {
-        item.centerX = ( maxItemWidth / 2 ) + ( index * ( maxItemWidth + options.spacing ) );
+        item.centerX = options.spacing + ( maxItemWidth / 2 ) + ( index * ( maxItemWidth + options.spacing ) );
         item.centerY = options.margin + maxItemHeight / 2;
       }
       else {
         item.centerX = options.margin + ( maxItemWidth / 2 );
-        item.centerY = ( maxItemHeight / 2 ) + ( index * ( maxItemHeight + options.spacing ) );
+        item.centerY = options.spacing + ( maxItemHeight / 2 ) + ( index * ( maxItemHeight + options.spacing ) );
       }
       scrollingNode.addChild( item );
     } );
@@ -114,6 +117,7 @@ define( function( require ) {
     var windowHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( scrollingDelta + options.spacing );
     var windowNode = new Node( {
       children: [ scrollingNode ],
+      //TODO different for vertical
       clipArea: new Shape.rect( options.spacing / 2, 0, windowWidth - options.spacing, windowHeight )
     } );
 
@@ -122,8 +126,12 @@ define( function( require ) {
     var backgroundHeight = isHorizontal ? windowHeight : ( windowWidth + nextButton.height + previousButton.height );
     var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
-      stroke: options.stroke
     } );
+
+    // Outline, on top of everything
+    var backgroundOutline = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
+      stroke: options.stroke,
+    } )
 
     // Layout
     if ( isHorizontal ) {
@@ -154,20 +162,20 @@ define( function( require ) {
 
       //TODO support disabling
       // visibility of buttons
-      nextButton.visible = scrollIndex < scrollIndexRange.max;
-      previousButton.visible = scrollIndex > scrollIndexRange.min;
+      nextButton.enabled = scrollIndex < scrollIndexRange.max;
+      previousButton.enabled = scrollIndex > scrollIndexRange.min;
 
       //TODO abstract Tween away, remove duplicate code, stop any animation that is already running
       // Set up the animation to scroll to the next location.
       if ( isHorizontal ) {
         new TWEEN.Tween( scrollingNode )
-          .to( { left: options.spacing - ( scrollIndex * scrollingDelta ) }, 400 )
+          .to( { left: -scrollIndex * scrollingDelta }, 400 )
           .easing( TWEEN.Easing.Cubic.InOut )
           .start();
       }
       else {
         new TWEEN.Tween( scrollingNode )
-          .to( { top: options.spacing - ( scrollIndex * scrollingDelta ) }, 400 )
+          .to( { top: -scrollIndex * scrollingDelta }, 400 )
           .easing( TWEEN.Easing.Cubic.InOut )
           .start();
       }
@@ -181,7 +189,7 @@ define( function( require ) {
       scrollIndex.set( scrollIndex.get() - 1 );
     } );
 
-    options.children = [ backgroundNode, windowNode, nextButton, previousButton ];
+    options.children = [ backgroundNode, windowNode, nextButton, previousButton, backgroundOutline ];
     Node.call( this, options );
   }
 
