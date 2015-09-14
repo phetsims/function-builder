@@ -89,7 +89,7 @@ define( function( require ) {
       buttonOptions.minHeight = maxItemHeight + ( 2 * options.margin );
     }
     else {
-      buttonOptions.minWidth = maxItemWidth + ( 2 * options.margin )
+      buttonOptions.minWidth = maxItemWidth + ( 2 * options.margin );
     }
     var nextButton = new RectangularPushButton( _.extend( { content: nextArrowNode }, buttonOptions ) );
     var previousButton = new RectangularPushButton( _.extend( { content: previousArrowNode }, buttonOptions ) );
