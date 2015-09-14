@@ -40,7 +40,8 @@ define( function( require ) {
     arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
     separators: true, // {boolean} whether to put separators between items
     separatorColor: 'black', // {Color|string} color for separators
-    separatorLineWidth: 0.5 // {number} lineWidth for separators
+    separatorLineWidth: 0.5, // {number} lineWidth for separators
+    hideDisabledButtons: true // {boolean} whether to hide arrow buttons when they are disabled
   };
 
   /**
@@ -163,27 +164,45 @@ define( function( require ) {
     var scrollIndex = new Property( scrollIndexRange.min ); // {number}
 
     // Scroll when the buttons are pressed
+    var scrollTween;
     scrollIndex.link( function( scrollIndex ) {
 
       assert && assert( scrollIndexRange.contains( scrollIndex ), 'scrollIndex out of range: ' + scrollIndex );
 
-      //TODO support disabling
-      // visibility of buttons
+      // stop any animation that's in progress
+      scrollTween && scrollTween.stop();
+
+      // button state
       nextButton.enabled = scrollIndex < scrollIndexRange.max;
       previousButton.enabled = scrollIndex > scrollIndexRange.min;
+      if ( options.hideDisabledButtons ) {
+        nextButton.visible = nextButton.enabled;
+        previousButton.visible = previousButton.enabled;
+      }
 
-      //TODO abstract Tween away, remove duplicate code, stop any animation that is already running
-      // Set up the animation to scroll to the next location.
+      //TODO replace calls to Tween with a wrapper
+      // Set up the animation to scroll the carousel's contents.
+      var parameters;
+      var animationDuration = 400; // ms
+      var easing = TWEEN.Easing.Cubic.InOut;
       if ( isHorizontal ) {
-        new TWEEN.Tween( scrollingNode )
-          .to( { left: -scrollIndex * scrollingDelta }, 400 )
-          .easing( TWEEN.Easing.Cubic.InOut )
+        parameters = { left: scrollingNode.left };
+        scrollTween = new TWEEN.Tween( parameters )
+          .easing( easing )
+          .to( { left: -scrollIndex * scrollingDelta }, animationDuration )
+          .onUpdate( function() {
+            scrollingNode.left = parameters.left;
+          } )
           .start();
       }
       else {
-        new TWEEN.Tween( scrollingNode )
-          .to( { top: -scrollIndex * scrollingDelta }, 400 )
-          .easing( TWEEN.Easing.Cubic.InOut )
+        parameters = { top: scrollingNode.top };
+        scrollTween = new TWEEN.Tween( parameters )
+          .easing( easing )
+          .to( { top: -scrollIndex * scrollingDelta }, animationDuration )
+          .onUpdate( function() {
+            scrollingNode.top = parameters.top;
+          } )
           .start();
       }
     } );
