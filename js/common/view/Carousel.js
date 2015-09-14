@@ -125,13 +125,13 @@ define( function( require ) {
     var backgroundWidth = isHorizontal ? ( windowWidth + nextButton.width + previousButton.width ) : windowWidth;
     var backgroundHeight = isHorizontal ? windowHeight : ( windowWidth + nextButton.height + previousButton.height );
     var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
-      fill: options.fill,
+      fill: options.fill
     } );
 
     // Outline, on top of everything
     var backgroundOutline = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
-      stroke: options.stroke,
-    } )
+      stroke: options.stroke
+    } );
 
     // Layout
     if ( isHorizontal ) {
