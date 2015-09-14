@@ -140,7 +140,7 @@ define( function( require ) {
       items.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
     } );
     var carousel = new Carousel( items, {
-      orientation: 'horizontal',
+      orientation: 'vertical',
       left: this.layoutBounds.left + 20,
       bottom: this.layoutBounds.bottom - 20
     } );

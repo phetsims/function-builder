@@ -115,15 +115,17 @@ define( function( require ) {
     // Clipping window, to show a subset of the items
     var windowWidth = isHorizontal ? ( scrollingDelta + options.spacing ) : ( maxItemWidth + 2 * options.margin );
     var windowHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( scrollingDelta + options.spacing );
+    var clipArea = isHorizontal ?
+                   Shape.rectangle( options.spacing / 2, 0, windowWidth - options.spacing, windowHeight ) :
+                   Shape.rectangle( 0, options.spacing / 2, windowWidth, windowHeight - options.spacing );
     var windowNode = new Node( {
       children: [ scrollingNode ],
-      //TODO different for vertical
-      clipArea: new Shape.rect( options.spacing / 2, 0, windowWidth - options.spacing, windowHeight )
+      clipArea: clipArea
     } );
 
     // Background
     var backgroundWidth = isHorizontal ? ( windowWidth + nextButton.width + previousButton.width ) : windowWidth;
-    var backgroundHeight = isHorizontal ? windowHeight : ( windowWidth + nextButton.height + previousButton.height );
+    var backgroundHeight = isHorizontal ? windowHeight : ( windowHeight + nextButton.height + previousButton.height );
     var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       fill: options.fill
     } );
@@ -144,7 +146,7 @@ define( function( require ) {
       nextButton.centerX = previousButton.centerX = windowNode.centerX = backgroundNode.centerX;
       nextButton.bottom = backgroundNode.bottom;
       previousButton.top = backgroundNode.top;
-      windowNode.centerY = previousButton.centerY;
+      windowNode.centerY = backgroundNode.centerY;
     }
 
     // Number of times that we can scroll the carousel
