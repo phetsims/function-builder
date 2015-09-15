@@ -27,7 +27,7 @@ define( function( require ) {
     var vItems = [];
     var hItems = [];
     colors.forEach( function( color ) {
-      vItems.push( new Rectangle( 0, 0, 75, 75, { fill: color, stroke: 'black' } ) );
+      vItems.push( new Rectangle( 0, 0, 50, 50, { fill: color, stroke: 'black' } ) );
       hItems.push( new FunctionNode( { fill: color } ) );
     } );
 
