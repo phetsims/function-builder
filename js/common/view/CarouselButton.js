@@ -37,7 +37,7 @@ define( function( require ) {
 
       // button
       baseColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} button fill color
-      stoke: 'black', // {Color|string|null} button stroke
+      stroke: 'black', // {Color|string|null} button stroke
       buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
 
       // arrow
