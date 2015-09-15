@@ -71,9 +71,7 @@ define( function( require ) {
    */
   function Carousel( items, options ) {
 
-    var thisCarousel = this;
-
-    /// options
+    // options
     options = _.extend( _.clone( DEFAULT_OPTIONS ), options );
     assert && assert( options.orientation === 'horizontal' || options.orientation === 'vertical' );
 
@@ -122,7 +120,8 @@ define( function( require ) {
     var nextButton = new RectangularPushButton( _.extend( { content: nextArrowNode }, buttonOptions ) );
     var previousButton = new RectangularPushButton( _.extend( { content: previousArrowNode }, buttonOptions ) );
 
-    // All items, arranged in the proper orientation, with margins and spacing
+    // All items, arranged in the proper orientation, with margins and spacing.
+    // Translation of this node will be animated to give the effect of scrolling through the items.
     var scrollingWidth = isHorizontal ? ( items.length * ( maxItemWidth + options.spacing ) + options.spacing ) : ( maxItemWidth + 2 * options.margin );
     var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( items.length * ( maxItemHeight + options.spacing ) + options.spacing );
     var scrollingNode = new Rectangle( 0, 0, scrollingWidth, scrollingHeight );
@@ -137,11 +136,14 @@ define( function( require ) {
       }
       scrollingNode.addChild( item );
     } );
+
+    // How much to translate scrollingNode each time an arrow button is pressed
     var scrollingDelta = options.numberOfVisibleItems * ( maxItemLength + options.spacing );
 
-    // Clipping window, to show a subset of the items
-    var windowWidth = isHorizontal ? ( scrollingDelta + options.spacing ) : ( maxItemWidth + 2 * options.margin );
-    var windowHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( scrollingDelta + options.spacing );
+    // Clipping window, to show a subset of the items.
+    // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
+    var windowWidth = isHorizontal ? ( scrollingDelta + options.spacing ) : scrollingNode.width;
+    var windowHeight = isHorizontal ? scrollingNode.height : ( scrollingDelta + options.spacing );
     var clipArea = isHorizontal ?
                    Shape.rectangle( options.spacing / 2, 0, windowWidth - options.spacing, windowHeight ) :
                    Shape.rectangle( 0, options.spacing / 2, windowWidth, windowHeight - options.spacing );
@@ -150,15 +152,15 @@ define( function( require ) {
       clipArea: clipArea
     } );
 
-    // Background
+    // Background - the carousel's fill color
     var backgroundWidth = isHorizontal ? ( windowWidth + nextButton.width + previousButton.width ) : windowWidth;
     var backgroundHeight = isHorizontal ? windowHeight : ( windowHeight + nextButton.height + previousButton.height );
     var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       fill: options.fill
     } );
 
-    // Outline, on top of everything
-    var backgroundOutline = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
+    // Foreground - the carousel's outline, created as a separate node so that it can be placed on top of everything, for a clean look.
+    var foregroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       stroke: options.stroke
     } );
 
@@ -176,29 +178,28 @@ define( function( require ) {
       windowNode.centerY = backgroundNode.centerY;
     }
 
-    // Number of sets of items, where 1 set is visible in the carousel at a time.
-    var numberOfItemSets = items.length / options.numberOfVisibleItems;
-    if ( !Util.isInteger( numberOfItemSets ) ) {
-      numberOfItemSets = Math.floor( numberOfItemSets + 1 );
+    // Number of sets of items, where one set is visible in the carousel at a time.
+    var numberOfSets = items.length / options.numberOfVisibleItems;
+    if ( !Util.isInteger( numberOfSets ) ) {
+      numberOfSets = Math.floor( numberOfSets + 1 );
     }
 
     // Index of the 'set' of items that is visible in the carousel.
-    var scrollIndexRange = new Range( 0, numberOfItemSets - 1 );
-    assert && assert( scrollIndexRange.contains( options.defaultScrollIndex ) );
-    var scrollIndexProperty = new Property( options.defaultScrollIndex );
+    var setIndexProperty = new Property( options.defaultScrollIndex );
 
     // Scroll when the buttons are pressed
     var scrollTween;
-    scrollIndexProperty.link( function( scrollIndex ) {
+    setIndexProperty.link( function( scrollIndex ) {
 
-      assert && assert( scrollIndexRange.contains( scrollIndex ), 'scrollIndex out of range: ' + scrollIndex );
+      assert && assert( scrollIndex >= 0 && scrollIndex <= numberOfSets - 1,
+        'scrollIndex out of range: ' + scrollIndex );
 
       // stop any animation that's in progress
       scrollTween && scrollTween.stop();
 
       // button state
-      nextButton.enabled = scrollIndex < scrollIndexRange.max;
-      previousButton.enabled = scrollIndex > scrollIndexRange.min;
+      nextButton.enabled = scrollIndex < ( numberOfSets - 1 );
+      previousButton.enabled = scrollIndex > 0;
       if ( options.hideDisabledButtons ) {
         nextButton.visible = nextButton.enabled;
         previousButton.visible = previousButton.enabled;
@@ -233,17 +234,17 @@ define( function( require ) {
 
     // Buttons modify the scroll index
     nextButton.addListener( function() {
-      scrollIndexProperty.set( scrollIndexProperty.get() + 1 );
+      setIndexProperty.set( setIndexProperty.get() + 1 );
     } );
     previousButton.addListener( function() {
-      scrollIndexProperty.set( scrollIndexProperty.get() - 1 );
+      setIndexProperty.set( setIndexProperty.get() - 1 );
     } );
 
     // public fields
-    this.scrollIndexRange = scrollIndexRange; // @public (read-only)
-    this.scrollIndexProperty = scrollIndexProperty; // @public
+    this.numberOfSets = numberOfSets; // @public (read-only) number of 'sets' of items, where one set is visible at a time
+    this.setIndexProperty = setIndexProperty; // @public index of the set that is currently visible
 
-    options.children = [ backgroundNode, windowNode, nextButton, previousButton, backgroundOutline ];
+    options.children = [ backgroundNode, windowNode, nextButton, previousButton, foregroundNode ];
     Node.call( this, options );
   }
 
