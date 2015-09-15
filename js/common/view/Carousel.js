@@ -11,11 +11,10 @@ define( function( require ) {
 
   // modules
   var CarouselButton = require( 'FUNCTION_BUILDER/common/view/CarouselButton' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   //var HSeparator = require( 'SUN/HSeparator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PageControl = require( 'FUNCTION_BUILDER/common/view/PageControl' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -49,14 +48,14 @@ define( function( require ) {
     separatorColor: 'black', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
 
-    // dots - similar to iOS HIG 'page control'
-    dots: true, // {boolean} whether to show dots
-    dotRadius: 3, // {number} radius of the dots
-    dotSelectedColor: 'black', // {Color|string} dot color for the set that is selected (visible)
-    dotUnselectedColor: 'rgb( 200, 200, 200 )', // {Color|string} dot color for sets that are not selected (not visible)
+    // iOS-style page control
+    pageControlVisible: true, // {boolean} whether to show an iOS-style page control
+    pageControlLocation: 'bottom', // {string} where to place the dots, 'top'|'bottom'|'left'|'right'
+    pageControlSpacing: 6, // {number} spacing between page control and carousel background
+    dotRadius: 3, // {number} radius of the dots in the page control
     dotSpacing: 10, // {number} space between dots
-    dotCarouselSpacing: 6, // {number} spacing between dots and carousel background
-    dotsLocation: 'bottom' // {string} where to place the dots, 'top'|'bottom'|'left'|'right'
+    pageVisibleColor: 'black', // {Color|string} dot color for the set that is selected (visible)
+    pageNotVisibleColor: 'rgb( 200, 200, 200 )' // {Color|string} dot color for sets that are not selected (not visible)
   };
 
   /**
@@ -70,8 +69,8 @@ define( function( require ) {
     var defaultOptions = _.clone( DEFAULT_OPTIONS );
 
     // If options doesn't specify a location for dots, set a valid default
-    if ( options.orientation && !options.dotsLocation ) {
-      defaultOptions.dotsLocation = ( options.orientation === 'horizontal' ) ? 'bottom' : 'left';
+    if ( options.orientation && !options.pageControlLocation ) {
+      defaultOptions.pageControlLocation = ( options.orientation === 'horizontal' ) ? 'bottom' : 'left';
     }
 
     // Override defaults with specified options
@@ -79,7 +78,7 @@ define( function( require ) {
 
     // Validate options
     assert && assert( _.contains( [ 'horizontal', 'vertical' ], options.orientation ), 'invalid orientation=' + options.orientation );
-    assert && assert( _.contains( [ 'bottom', 'top', 'left', 'right' ], options.dotsLocation ), 'invalid dotsLocation=' + options.dotsLocation );
+    assert && assert( _.contains( [ 'bottom', 'top', 'left', 'right' ], options.pageControlLocation ), 'invalid pageControlLocation=' + options.pageControlLocation );
 
     // To improve readability
     var isHorizontal = ( options.orientation === 'horizontal' );
@@ -180,50 +179,47 @@ define( function( require ) {
       numberOfSets = Math.floor( numberOfSets + 1 );
     }
 
-    // Dots, ala iOS HIG 'page control'
-    var dotsParent = null;
-    if ( options.dots ) {
+    // Index of the 'set' of items that is visible in the carousel.
+    var setIndexProperty = new Property( options.defaultSetIndex );
 
-      // Create a dot for each set of items.
-      dotsParent = new Node();
-      for ( var i = 0; i < numberOfSets; i++ ) {
-        var dotCenter = ( i * ( 2 * options.dotRadius + options.dotSpacing ) );
-        dotsParent.addChild( new Circle( options.dotRadius, {
-          fill: options.dotUnselectedColor,
-          x: isHorizontal ? dotCenter : 0,
-          y: isHorizontal ? 0 : dotCenter
-        } ) );
-      }
+    // iOS-style page control
+    var pageControl = null;
+    if ( options.pageControlVisible ) {
+
+      pageControl = new PageControl( numberOfSets, setIndexProperty, {
+        orientation: options.orientation,
+        dotRadius: options.dotRadius,
+        pageVisibleColor: options.pageVisibleColor,
+        pageNotVisibleColor: options.pageNotVisibleColor,
+        dotSpacing: options.dotSpacing
+      } );
 
       // Layout
       if ( isHorizontal ) {
-        dotsParent.centerX = backgroundNode.centerX;
-        if ( options.dotsLocation === 'top' ) {
-          dotsParent.bottom = backgroundNode.top - options.dotCarouselSpacing;
+        pageControl.centerX = backgroundNode.centerX;
+        if ( options.pageControlLocation === 'top' ) {
+          pageControl.bottom = backgroundNode.top - options.pageControlSpacing;
         }
-        else if ( options.dotsLocation === 'bottom' ) {
-          dotsParent.top = backgroundNode.bottom + options.dotCarouselSpacing;
+        else if ( options.pageControlLocation === 'bottom' ) {
+          pageControl.top = backgroundNode.bottom + options.pageControlSpacing;
         }
         else {
-          throw new Error( 'incompatible dotsLocation=' + options.dotsLocation + ' for orientation=' + options.orientation );
+          throw new Error( 'incompatible pageControlLocation=' + options.pageControlLocation + ' for orientation=' + options.orientation );
         }
       }
       else {
-        dotsParent.centerY = backgroundNode.centerY;
-        if ( options.dotsLocation === 'left' ) {
-          dotsParent.right = backgroundNode.left - options.dotCarouselSpacing;
+        pageControl.centerY = backgroundNode.centerY;
+        if ( options.pageControlLocation === 'left' ) {
+          pageControl.right = backgroundNode.left - options.pageControlSpacing;
         }
-        else if ( options.dotsLocation === 'right' ) {
-          dotsParent.left = backgroundNode.right + options.dotCarouselSpacing;
+        else if ( options.pageControlLocation === 'right' ) {
+          pageControl.left = backgroundNode.right + options.pageControlSpacing;
         }
         else {
-          throw new Error( 'incompatible dotsLocation=' + options.dotsLocation + ' for orientation=' + options.orientation );
+          throw new Error( 'incompatible pageControlLocation=' + options.pageControlLocation + ' for orientation=' + options.orientation );
         }
       }
     }
-
-    // Index of the 'set' of items that is visible in the carousel.
-    var setIndexProperty = new Property( options.defaultSetIndex );
 
     // Scroll when the buttons are pressed
     var scrollTween;
@@ -267,14 +263,6 @@ define( function( require ) {
           } )
           .start();
       }
-
-      // Set the dot for the selected set
-      if ( dotsParent ) {
-        if ( oldSetIndex || oldSetIndex === 0 ) {
-          dotsParent.getChildAt( oldSetIndex ).fill = options.dotUnselectedColor;
-        }
-        dotsParent.getChildAt( setIndex ).fill = options.dotSelectedColor;
-      }
     } );
 
     // Buttons modify the set index
@@ -289,15 +277,25 @@ define( function( require ) {
     this.numberOfSets = numberOfSets; // @public (read-only) number of 'sets' of items, where one set is visible at a time
     this.setIndexProperty = setIndexProperty; // @public index of the set that is currently visible
 
+    // @private
+    this.disposeCarousel = function() {
+      if ( pageControl ){
+        pageControl.dispose();
+      }
+    };
+
     options.children = [ backgroundNode, windowNode, nextButton, previousButton, foregroundNode ];
-    if ( dotsParent ) {
-      options.children.push( dotsParent );
+    if ( pageControl ) {
+      options.children.push( pageControl );
     }
 
     Node.call( this, options );
   }
 
-  return inherit( Node, Carousel, {}, {
+  return inherit( Node, Carousel, {
+
+    dispose: function() { this.disposeCarousel(); }
+  }, {
 
     // @static @public (read-only)
     DEFAULT_OPTIONS: DEFAULT_OPTIONS
