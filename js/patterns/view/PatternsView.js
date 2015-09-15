@@ -133,7 +133,7 @@ define( function( require ) {
 
     {
       //TODO delete this : Carousel testing
-      var Carousel = require( 'FUNCTION_BUILDER/common/view/Carousel' );
+      var Carousel = require( 'SCENERY_PHET/Carousel' );
       var Circle = require( 'SCENERY/nodes/Circle' );
       var Rectangle = require( 'SCENERY/nodes/Rectangle' );
       var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
