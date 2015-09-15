@@ -213,7 +213,7 @@ define( function( require ) {
       }
     } );
 
-    // Buttons modify the scroll index
+    // Buttons modify the set index
     nextButton.addListener( function() {
       setIndexProperty.set( setIndexProperty.get() + 1 );
     } );
