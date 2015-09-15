@@ -14,7 +14,7 @@ define( function( require ) {
 
   // modules
   var CarouselButton = require( 'FUNCTION_BUILDER/common/view/CarouselButton' );
-  //var HSeparator = require( 'SUN/HSeparator' );
+  var HSeparator = require( 'SUN/HSeparator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'FUNCTION_BUILDER/common/view/PageControl' );
@@ -22,7 +22,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
-  //var VSeparator = require( 'SUN/VSeparator' );
+  var VSeparator = require( 'SUN/VSeparator' );
 
   // constants
   var DEFAULT_OPTIONS = {
@@ -277,8 +277,8 @@ define( function( require ) {
     } );
 
     // public fields
-    this.numberOfPages = numberOfPages; // @public (read-only) number of pages that the items are divided into
-    this.pageNumberProperty = pageNumberProperty; // @public page number that is currently visible
+    this.numberOfPages = numberOfPages; // @public (read-only) {number} number of pages in the carousel
+    this.pageNumberProperty = pageNumberProperty; // @public {Property<number>} page number that is currently visible
 
     // @private
     this.disposeCarousel = function() {
