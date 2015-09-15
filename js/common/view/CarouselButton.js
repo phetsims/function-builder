@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function CarouselButton( options ) {
 
-    // see RectangularPushButton for additional options
+    // see supertype for additional options
     options = _.extend( {
 
       // button
