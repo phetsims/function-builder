@@ -1,7 +1,6 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 //TODO add optional item separators
-//TODO add optional dots feature
 /**
  * A scrolling carousel.
  *
@@ -12,6 +11,7 @@ define( function( require ) {
 
   // modules
   var CarouselButton = require( 'FUNCTION_BUILDER/common/view/CarouselButton' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var Dimension2 = require( 'DOT/Dimension2' );
   //var HSeparator = require( 'SUN/HSeparator' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -49,10 +49,13 @@ define( function( require ) {
     separatorColor: 'black', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
 
-    // dots
-    dotRadius: 2, // {number} radius of the dots
-    dotSelectedColor: 'black', // {Color|string}
-    dotUnselectedColor: 'gray' // {Color|string}
+    // dots - similar to iOS HIG 'page control'
+    dots: true, // {boolean} whether to show dots
+    dotRadius: 3, // {number} radius of the dots
+    dotSelectedColor: 'black', // {Color|string} dot color for the set that is selected (visible)
+    dotUnselectedColor: 'rgb( 200, 200, 200 )', // {Color|string} dot color for sets that are not selected (not visible)
+    dotSpacing: 10, // {number} space between dots
+    dotCarouselSpacing: 6 // {number} spacing between dots and carousel background
   };
 
   /**
@@ -165,21 +168,35 @@ define( function( require ) {
       numberOfSets = Math.floor( numberOfSets + 1 );
     }
 
+    // Dots, ala iOS HIG 'page control'
+    var dotsParent = null;
+    if ( options.dots ) {
+      dotsParent = new Node();
+      for ( var i = 0; i < numberOfSets; i++ ) {
+        var dotCenter = ( i * ( 2 * options.dotRadius + options.dotSpacing ) );
+        dotsParent.addChild( new Circle( options.dotRadius, {
+          fill: options.dotUnselectedColor,
+          x: isHorizontal ? dotCenter : 0,
+          y: isHorizontal ? 0 : dotCenter
+        } ) );
+      }
+    }
+
     // Index of the 'set' of items that is visible in the carousel.
     var setIndexProperty = new Property( options.defaultSetIndex );
 
     // Scroll when the buttons are pressed
     var scrollTween;
-    setIndexProperty.link( function( scrollIndex ) {
+    setIndexProperty.link( function( setIndex, oldSetIndex ) {
 
-      assert && assert( scrollIndex >= 0 && scrollIndex <= numberOfSets - 1, 'scrollIndex out of range: ' + scrollIndex );
+      assert && assert( setIndex >= 0 && setIndex <= numberOfSets - 1, 'setIndex out of range: ' + setIndex );
 
       // stop any animation that's in progress
       scrollTween && scrollTween.stop();
 
       // button state
-      nextButton.enabled = scrollIndex < ( numberOfSets - 1 );
-      previousButton.enabled = scrollIndex > 0;
+      nextButton.enabled = setIndex < ( numberOfSets - 1 );
+      previousButton.enabled = setIndex > 0;
       if ( options.hideDisabledButtons ) {
         nextButton.visible = nextButton.enabled;
         previousButton.visible = previousButton.enabled;
@@ -194,7 +211,7 @@ define( function( require ) {
         parameters = { left: scrollingNode.left };
         scrollTween = new TWEEN.Tween( parameters )
           .easing( easing )
-          .to( { left: -scrollIndex * scrollingDelta }, animationDuration )
+          .to( { left: -setIndex * scrollingDelta }, animationDuration )
           .onUpdate( function() {
             scrollingNode.left = parameters.left;
           } )
@@ -204,11 +221,19 @@ define( function( require ) {
         parameters = { top: scrollingNode.top };
         scrollTween = new TWEEN.Tween( parameters )
           .easing( easing )
-          .to( { top: -scrollIndex * scrollingDelta }, animationDuration )
+          .to( { top: -setIndex * scrollingDelta }, animationDuration )
           .onUpdate( function() {
             scrollingNode.top = parameters.top;
           } )
           .start();
+      }
+
+      // Set the dot for the selected set
+      if ( dotsParent ) {
+        if ( oldSetIndex || oldSetIndex === 0 ) {
+          dotsParent.getChildAt( oldSetIndex ).fill = options.dotUnselectedColor;
+        }
+        dotsParent.getChildAt( setIndex ).fill = options.dotSelectedColor;
       }
     } );
 
@@ -225,6 +250,18 @@ define( function( require ) {
     this.setIndexProperty = setIndexProperty; // @public index of the set that is currently visible
 
     options.children = [ backgroundNode, windowNode, nextButton, previousButton, foregroundNode ];
+    if ( dotsParent ) {
+      options.children.push( dotsParent );
+      if ( isHorizontal ) {
+        dotsParent.centerX = backgroundNode.centerX;
+        dotsParent.top = backgroundNode.bottom + options.dotCarouselSpacing;
+      }
+      else {
+        dotsParent.right = backgroundNode.left - options.dotCarouselSpacing;
+        dotsParent.centerY = backgroundNode.centerY;
+      }
+    }
+
     Node.call( this, options );
   }
 
