@@ -48,6 +48,8 @@ define( function( require ) {
       arrowLineCap: 'round' // {string} 'butt'|'round'|'square'
 
     }, options );
+
+    // validate options
     assert && assert( ANGLES.hasOwnProperty( options.arrowDirection ), 'invalid direction: ' + options.direction );
 
     // Generic arrow shape, points 'up'
