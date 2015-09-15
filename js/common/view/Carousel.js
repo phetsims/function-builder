@@ -54,7 +54,6 @@ define( function( require ) {
     dotRadius: 2, // {number} radius of the dots
     dotSelectedColor: 'black', // {Color|string}
     dotUnselectedColor: 'gray' // {Color|string}
-
   };
 
   /**
@@ -74,9 +73,11 @@ define( function( require ) {
     // Dimensions of largest item
     var maxItemWidth = _.max( items, function( item ) { return item.width; } ).width;
     var maxItemHeight = _.max( items, function( item ) { return item.height; } ).height;
+
+    // This quantity is used make some other computations independent of orientation.
     var maxItemLength = isHorizontal ? maxItemWidth : maxItemHeight;
 
-    // Next/previous buttons
+    // Options common to both buttons
     var buttonOptions = {
       xMargin: 5,
       yMargin: 5,
@@ -84,14 +85,12 @@ define( function( require ) {
       disabledBaseColor: options.fill, // same as carousel background
       stroke: options.buttonStroke,
       lineWidth: options.buttonLineWidth,
-      cornerRadius: options.cornerRadius // same as carousel background
+      cornerRadius: options.cornerRadius, // same as carousel background
+      minWidth: isHorizontal ? 0 : maxItemWidth + ( 2 * options.margin ), // fill the width of a vertical carousel
+      minHeight: isHorizontal ? maxItemHeight + ( 2 * options.margin ) : 0 // fill the height of a horizontal carousel
     };
-    if ( isHorizontal ) {
-      buttonOptions.minHeight = maxItemHeight + ( 2 * options.margin );
-    }
-    else {
-      buttonOptions.minWidth = maxItemWidth + ( 2 * options.margin );
-    }
+
+    // Next/previous buttons
     var nextButton = new CarouselButton( _.extend( {
       arrowDirection: isHorizontal ? 'right' : 'down'
     }, buttonOptions ) );
