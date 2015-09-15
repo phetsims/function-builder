@@ -55,7 +55,8 @@ define( function( require ) {
     dotSelectedColor: 'black', // {Color|string} dot color for the set that is selected (visible)
     dotUnselectedColor: 'rgb( 200, 200, 200 )', // {Color|string} dot color for sets that are not selected (not visible)
     dotSpacing: 10, // {number} space between dots
-    dotCarouselSpacing: 6 // {number} spacing between dots and carousel background
+    dotCarouselSpacing: 6, // {number} spacing between dots and carousel background
+    dotsLocation: 'bottom' // {string} where to place the dots, 'top'|'bottom'|'left'|'right'
   };
 
   /**
@@ -65,9 +66,20 @@ define( function( require ) {
    */
   function Carousel( items, options ) {
 
-    // options
-    options = _.extend( _.clone( DEFAULT_OPTIONS ), options );
-    assert && assert( options.orientation === 'horizontal' || options.orientation === 'vertical' );
+    // Make a copy of default options, so we can modify it
+    var defaultOptions = _.clone( DEFAULT_OPTIONS );
+
+    // If options doesn't specify a location for dots, set a valid default
+    if ( options.orientation && !options.dotsLocation ) {
+      defaultOptions.dotsLocation = ( options.orientation === 'horizontal' ) ? 'bottom' : 'left';
+    }
+
+    // Override defaults with specified options
+    options = _.extend( defaultOptions, options );
+
+    // Validate options
+    assert && assert( _.contains( [ 'horizontal', 'vertical' ], options.orientation ), 'invalid orientation=' + options.orientation );
+    assert && assert( _.contains( [ 'bottom', 'top', 'left', 'right' ], options.dotsLocation ), 'invalid dotsLocation=' + options.dotsLocation );
 
     // To improve readability
     var isHorizontal = ( options.orientation === 'horizontal' );
@@ -171,6 +183,8 @@ define( function( require ) {
     // Dots, ala iOS HIG 'page control'
     var dotsParent = null;
     if ( options.dots ) {
+
+      // Create a dot for each set of items.
       dotsParent = new Node();
       for ( var i = 0; i < numberOfSets; i++ ) {
         var dotCenter = ( i * ( 2 * options.dotRadius + options.dotSpacing ) );
@@ -179,6 +193,32 @@ define( function( require ) {
           x: isHorizontal ? dotCenter : 0,
           y: isHorizontal ? 0 : dotCenter
         } ) );
+      }
+
+      // Layout
+      if ( isHorizontal ) {
+        dotsParent.centerX = backgroundNode.centerX;
+        if ( options.dotsLocation === 'top' ) {
+          dotsParent.bottom = backgroundNode.top - options.dotCarouselSpacing;
+        }
+        else if ( options.dotsLocation === 'bottom' ) {
+          dotsParent.top = backgroundNode.bottom + options.dotCarouselSpacing;
+        }
+        else {
+          throw new Error( 'incompatible dotsLocation=' + options.dotsLocation + ' for orientation=' + options.orientation );
+        }
+      }
+      else {
+        dotsParent.centerY = backgroundNode.centerY;
+        if ( options.dotsLocation === 'left' ) {
+          dotsParent.right = backgroundNode.left - options.dotCarouselSpacing;
+        }
+        else if ( options.dotsLocation === 'right' ) {
+          dotsParent.left = backgroundNode.right + options.dotCarouselSpacing;
+        }
+        else {
+          throw new Error( 'incompatible dotsLocation=' + options.dotsLocation + ' for orientation=' + options.orientation );
+        }
       }
     }
 
@@ -252,14 +292,6 @@ define( function( require ) {
     options.children = [ backgroundNode, windowNode, nextButton, previousButton, foregroundNode ];
     if ( dotsParent ) {
       options.children.push( dotsParent );
-      if ( isHorizontal ) {
-        dotsParent.centerX = backgroundNode.centerX;
-        dotsParent.top = backgroundNode.bottom + options.dotCarouselSpacing;
-      }
-      else {
-        dotsParent.right = backgroundNode.left - options.dotCarouselSpacing;
-        dotsParent.centerY = backgroundNode.centerY;
-      }
     }
 
     Node.call( this, options );
