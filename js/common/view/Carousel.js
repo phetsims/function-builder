@@ -100,6 +100,7 @@ define( function( require ) {
     }, buttonOptions ) );
 
     // All items, arranged in the proper orientation, with margins and spacing.
+    // Horizontal carousel arrange items left-to-right, vertical is top-to-bottom.
     // Translation of this node will be animated to give the effect of scrolling through the items.
     var scrollingLength = ( items.length * ( maxItemLength + options.spacing ) + options.spacing ); // orientation independent
     var scrollingWidth = isHorizontal ? scrollingLength : ( maxItemWidth + 2 * options.margin );
@@ -123,7 +124,7 @@ define( function( require ) {
 
     // Clipping window, to show a subset of the items.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
-    var windowLength = ( scrollingDelta + options.spacing );
+    var windowLength = ( scrollingDelta + options.spacing ); // orientation independent
     var windowWidth = isHorizontal ? windowLength : scrollingNode.width;
     var windowHeight = isHorizontal ? scrollingNode.height : windowLength;
     var clipArea = isHorizontal ?
