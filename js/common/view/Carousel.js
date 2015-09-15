@@ -122,17 +122,19 @@ define( function( require ) {
 
     // All items, arranged in the proper orientation, with margins and spacing.
     // Translation of this node will be animated to give the effect of scrolling through the items.
-    var scrollingWidth = isHorizontal ? ( items.length * ( maxItemWidth + options.spacing ) + options.spacing ) : ( maxItemWidth + 2 * options.margin );
-    var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : ( items.length * ( maxItemHeight + options.spacing ) + options.spacing );
+    var scrollingLength = ( items.length * ( maxItemLength + options.spacing ) + options.spacing ); // orientation independent
+    var scrollingWidth = isHorizontal ? scrollingLength : ( maxItemWidth + 2 * options.margin );
+    var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : scrollingLength;
     var scrollingNode = new Rectangle( 0, 0, scrollingWidth, scrollingHeight );
     items.forEach( function( item, index ) {
+      var itemCenter = options.spacing + ( maxItemLength / 2 ) + ( index * ( maxItemLength + options.spacing ) ); // orientation independent
       if ( isHorizontal ) {
-        item.centerX = options.spacing + ( maxItemWidth / 2 ) + ( index * ( maxItemWidth + options.spacing ) );
-        item.centerY = options.margin + maxItemHeight / 2;
+        item.centerX = itemCenter;
+        item.centerY = options.margin + ( maxItemHeight / 2 );
       }
       else {
         item.centerX = options.margin + ( maxItemWidth / 2 );
-        item.centerY = options.spacing + ( maxItemHeight / 2 ) + ( index * ( maxItemHeight + options.spacing ) );
+        item.centerY = itemCenter;
       }
       scrollingNode.addChild( item );
     } );
@@ -142,8 +144,9 @@ define( function( require ) {
 
     // Clipping window, to show a subset of the items.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
-    var windowWidth = isHorizontal ? ( scrollingDelta + options.spacing ) : scrollingNode.width;
-    var windowHeight = isHorizontal ? scrollingNode.height : ( scrollingDelta + options.spacing );
+    var windowLength = ( scrollingDelta + options.spacing );
+    var windowWidth = isHorizontal ? windowLength : scrollingNode.width;
+    var windowHeight = isHorizontal ? scrollingNode.height : windowLength;
     var clipArea = isHorizontal ?
                    Shape.rectangle( options.spacing / 2, 0, windowWidth - options.spacing, windowHeight ) :
                    Shape.rectangle( 0, options.spacing / 2, windowWidth, windowHeight - options.spacing );
