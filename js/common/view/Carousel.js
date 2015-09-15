@@ -2,7 +2,6 @@
 
 //TODO add optional item separators
 //TODO add optional dots feature
-//TODO trying to handle both orientations in one type is messy
 /**
  * A scrolling carousel.
  *
