@@ -18,6 +18,14 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Shape = require( 'KITE/Shape' );
 
+  // maps arrow directions to rotation angles, in radians
+  var ANGLES = {
+    up: 0,
+    down: Math.PI,
+    left: -Math.PI / 2,
+    right: Math.PI / 2
+  };
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -34,35 +42,22 @@ define( function( require ) {
 
       // arrow
       arrowDirection: 'up', // {string} direction that the arrow points, 'up'|'down'|'left'|'right'
-      arrowSize: new Dimension2( 7, 20 ), // {Color|string} color used for the arrow icons, in horizontal orientation
+      arrowSize: new Dimension2( 20, 7 ), // {Dimension2} size of the arrow, in 'up' directions
       arrowStroke: 'black', // {Color|string} color used for the arrow icons
       arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
       arrowLineCap: 'round' // {string} 'butt'|'round'|'square'
 
     }, options );
+    assert && assert( ANGLES.hasOwnProperty( options.arrowDirection ), 'invalid direction: ' + options.direction );
 
-    // Generic arrow shape, points to the right
+    // Generic arrow shape, points 'up'
     var arrowShape = new Shape()
       .moveTo( 0, 0 )
-      .lineTo( options.arrowSize.width, options.arrowSize.height / 2 )
-      .lineTo( 0, options.arrowSize.height );
+      .lineTo( options.arrowSize.width / 2, -options.arrowSize.height )
+      .lineTo( options.arrowSize.width, 0 );
 
-    // Transform arrow shape to proper direction
-    switch ( options.arrowDirection ) {
-      case 'up':
-        arrowShape = arrowShape.transformed( Matrix3.rotation2( -Math.PI / 2 ) );
-        break;
-      case 'down':
-        arrowShape = arrowShape.transformed( Matrix3.rotation2( Math.PI / 2 ) );
-        break;
-      case 'left':
-        arrowShape = arrowShape.transformed( Matrix3.rotation2( Math.PI ) );
-        break;
-      case 'right':
-        break;
-      default:
-        throw new Error( 'invalid direction: ' + options.arrowDirection );
-    }
+    // Transform arrow shape to match direction
+    arrowShape = arrowShape.transformed( Matrix3.rotation2( ANGLES[ options.arrowDirection ] ) );
 
     // Arrow node
     options.content = new Path( arrowShape, {
