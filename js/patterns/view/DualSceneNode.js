@@ -13,8 +13,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
 
-  function DualSceneNode( options ) {
-    options.children = [ new PatternsIconFactory.createDualSceneIcon( 200 ) ];
+  function DualSceneNode( layoutBounds, options ) {
+    var icon = new PatternsIconFactory.createDualSceneIcon( 200 );
+    icon.center = layoutBounds.center;
+    options.children = [ icon ];
     Node.call( this, options );
   }
 

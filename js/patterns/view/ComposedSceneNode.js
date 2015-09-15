@@ -13,8 +13,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
 
-  function ComposedSceneNode( options ) {
-    options.children = [ new PatternsIconFactory.createComposedSceneIcon( 200 ) ];
+  function ComposedSceneNode( layoutBounds, options ) {
+    var icon = new PatternsIconFactory.createComposedSceneIcon( 200 );
+    icon.center = layoutBounds.center;
+    options.children = [ icon ];
     Node.call( this, options );
   }
 

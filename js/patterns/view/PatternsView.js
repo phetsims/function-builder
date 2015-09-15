@@ -75,20 +75,16 @@ define( function( require ) {
       var sceneNode = sceneNodes[ sceneName ];
       if ( !sceneNode ) {
 
-        var sceneOptions = {
-          visible: false,
-          center: thisView.layoutBounds.center, //TODO temporary
-          cursor: 'pointer' //TODO temporary
-        };
+        var sceneOptions = { visible: false };
 
         if ( sceneName === 'single' ) {
-          sceneNode = new SingleSceneNode( sceneOptions );
+          sceneNode = new SingleSceneNode( thisView.layoutBounds, sceneOptions );
         }
         else if ( sceneName === 'dual' ) {
-          sceneNode = new DualSceneNode( sceneOptions );
+          sceneNode = new DualSceneNode( thisView.layoutBounds, sceneOptions );
         }
         else if ( sceneName === 'composed' ) {
-          sceneNode = new ComposedSceneNode( sceneOptions );
+          sceneNode = new ComposedSceneNode( thisView.layoutBounds, sceneOptions );
         }
         else {
           throw new Error( 'unsupported sceneName: ' + sceneName );
