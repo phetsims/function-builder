@@ -1,6 +1,5 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
-//TODO add optional item separators
 /**
  * A carousel UI component.
  * A set of N items is divided into M 'pages', based on how many items are visible in the carousel.
@@ -47,7 +46,7 @@ define( function( require ) {
     hideDisabledButtons: false, // {boolean} whether to hide buttons when they are disabled
 
     // item separators
-    separatorsVisible: true, // {boolean} whether to put separators between items
+    separatorsVisible: false, // {boolean} whether to put separators between items
     separatorColor: 'black', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
 
@@ -114,15 +113,26 @@ define( function( require ) {
       arrowDirection: isHorizontal ? 'left' : 'up'
     }, buttonOptions ) );
 
+    // Computations related to layout of items
+    var numberOfSeparators = ( options.separatorsVisible ) ? ( items.length - 1 ) : 0;
+    var scrollingLength = ( items.length * ( maxItemLength + options.spacing ) + ( numberOfSeparators * options.spacing) + options.spacing );
+    var scrollingWidth = isHorizontal ? scrollingLength : ( maxItemWidth + 2 * options.margin );
+    var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : scrollingLength;
+    var itemCenter = options.spacing + ( maxItemLength / 2 );
+
+    // Options common to all separators
+    var separatorOptions = {
+      stroke: options.separatorColor,
+      lineWidth: options.separatorLineWidth
+    };
+
     // All items, arranged in the proper orientation, with margins and spacing.
     // Horizontal carousel arrange items left-to-right, vertical is top-to-bottom.
     // Translation of this node will be animated to give the effect of scrolling through the items.
-    var scrollingLength = ( items.length * ( maxItemLength + options.spacing ) + options.spacing ); // orientation independent
-    var scrollingWidth = isHorizontal ? scrollingLength : ( maxItemWidth + 2 * options.margin );
-    var scrollingHeight = isHorizontal ? ( maxItemHeight + 2 * options.margin ) : scrollingLength;
     var scrollingNode = new Rectangle( 0, 0, scrollingWidth, scrollingHeight );
     items.forEach( function( item, index ) {
-      var itemCenter = options.spacing + ( maxItemLength / 2 ) + ( index * ( maxItemLength + options.spacing ) ); // orientation independent
+
+      // add the item
       if ( isHorizontal ) {
         item.centerX = itemCenter;
         item.centerY = options.margin + ( maxItemHeight / 2 );
@@ -132,14 +142,52 @@ define( function( require ) {
         item.centerY = itemCenter;
       }
       scrollingNode.addChild( item );
+
+      // center for the next item
+      itemCenter += ( options.spacing + maxItemLength );
+
+      // add optional separator
+      if ( options.separatorsVisible ) {
+        var separator;
+        if ( isHorizontal ) {
+
+          // vertical separator, to the left of the item
+          separator = new VSeparator( scrollingHeight, _.extend( {
+            centerX: itemCenter + ( maxItemLength / 2 ) + options.spacing,
+            centerY: item.centerY
+          }, separatorOptions ) );
+          scrollingNode.addChild( separator );
+
+          // center for the next item
+          itemCenter = separator.centerX + options.spacing + ( maxItemLength / 2 );
+        }
+        else {
+
+          // horizontal separator, below the item
+          separator = new HSeparator( scrollingWidth, _.extend( {
+            centerX: item.centerX,
+            centerY: itemCenter + ( maxItemLength / 2 ) + options.spacing
+          }, separatorOptions ) );
+          scrollingNode.addChild( separator );
+
+          // center for the next item
+          itemCenter = separator.centerY + options.spacing + ( maxItemLength / 2 );
+        }
+      }
     } );
 
     // How much to translate scrollingNode each time a next/previous button is pressed
     var scrollingDelta = options.itemsPerPage * ( maxItemLength + options.spacing );
+    if ( options.separatorsVisible ) {
+      scrollingDelta += ( options.itemsPerPage * options.spacing );
+    }
 
     // Clipping window, to show one page at a time.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
-    var windowLength = ( scrollingDelta + options.spacing ); // orientation independent
+    var windowLength = ( scrollingDelta + options.spacing );
+    if ( options.separatorsVisible ) {
+      windowLength -= options.spacing;
+    }
     var windowWidth = isHorizontal ? windowLength : scrollingNode.width;
     var windowHeight = isHorizontal ? scrollingNode.height : windowLength;
     var clipArea = isHorizontal ?
@@ -150,14 +198,14 @@ define( function( require ) {
       clipArea: clipArea
     } );
 
-    // Background - the carousel's fill color
+    // Background - displays the carousel's fill color
     var backgroundWidth = isHorizontal ? ( windowWidth + nextButton.width + previousButton.width ) : windowWidth;
     var backgroundHeight = isHorizontal ? windowHeight : ( windowHeight + nextButton.height + previousButton.height );
     var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       fill: options.fill
     } );
 
-    // Foreground - the carousel's outline, created as a separate node so that it can be placed on top of everything, for a clean look.
+    // Foreground - displays the carousel's outline, created as a separate node so that it can be placed on top of everything, for a clean look.
     var foregroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight, options.cornerRadius, options.cornerRadius, {
       stroke: options.stroke
     } );
@@ -282,7 +330,7 @@ define( function( require ) {
 
     // @private
     this.disposeCarousel = function() {
-      if ( pageControl ){
+      if ( pageControl ) {
         pageControl.dispose();
       }
     };
