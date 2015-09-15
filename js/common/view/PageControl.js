@@ -37,7 +37,7 @@ define( function( require ) {
     var isHorizontal = ( options.orientation === 'horizontal' );
 
     // Create a dot for each page.
-    // Add them to an intermediate parent node, so that additional children can't be added.
+    // Add them to an intermediate parent node, so that additional children can't be inadvertently added.
     // For horizontal orientation, pages are ordered left-to-right.
     // For vertical orientation, pages are ordered top-to-bottom.
     var dotsParent = new Node();

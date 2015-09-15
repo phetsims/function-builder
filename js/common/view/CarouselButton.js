@@ -2,7 +2,7 @@
 
 //TODO sun#197 ideally, only 2 corners of the button should be rounded (the corners in the direction of the arrow)
 /**
- * Button used for scrolling in a carousel, has an arrow that points in the direction of scrolling.
+ * Next/previous button in a Carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
