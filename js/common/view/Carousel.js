@@ -30,22 +30,38 @@ define( function( require ) {
 
   // constants
   var DEFAULT_OPTIONS = {
+
+    // container
     orientation: 'horizontal', // {string} 'horizontal'|'vertical'
-    numberOfVisibleItems: 4, // {number} how many items are visible
-    spacing: 10, // {number} spacing between items, and between items on the end and buttons
-    margin: 10, // {number} margin beteen items and the edges of the carousel
     fill: 'white', // {Color|string|null} background color of the carousel
     stroke: 'black', // {Color|string|null} color used to stroke the border of the carousel
     lineWidth: 1, // {number} width of the border around the carousel
     cornerRadius: 4, // {number} radius applied to the carousel and arrow buttons
+
+    // items
+    numberOfVisibleItems: 4, // {number} how many items are visible
+    spacing: 10, // {number} spacing between items, and between items on the end and buttons
+    margin: 10, // {number} margin between items and the edges of the carousel
+
+    // arrow buttons
     arrowButtonColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} base color for the arrow buttons
     arrowSize: new Dimension2( 7, 20 ), // {Color|string} color used for the arrow icons, in horizontal orientation
     arrowStroke: 'black', // {Color|string} color used for the arrow icons
     arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
+    hideDisabledButtons: false, // {boolean} whether to hide arrow buttons when they are disabled
+
+    // item separators
     separators: true, // {boolean} whether to put separators between items
     separatorColor: 'black', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
-    hideDisabledButtons: true // {boolean} whether to hide arrow buttons when they are disabled
+
+    // dots
+    dotRadius: 2, // {number} radius of the dots
+    dotSelectedColor: 'black', // {Color|string}
+    dotUnselectedColor: 'gray', // {Color|string}
+
+    // scroll index
+    defaultScrollIndex: 0
   };
 
   /**
@@ -55,9 +71,10 @@ define( function( require ) {
    */
   function Carousel( items, options ) {
 
-    options = _.extend( _.clone( DEFAULT_OPTIONS ), options );
+    var thisCarousel = this;
 
-    // validate options
+    /// options
+    options = _.extend( _.clone( DEFAULT_OPTIONS ), options );
     assert && assert( options.orientation === 'horizontal' || options.orientation === 'vertical' );
 
     // To improve readability
@@ -159,17 +176,20 @@ define( function( require ) {
       windowNode.centerY = backgroundNode.centerY;
     }
 
-    // Number of times that we can scroll the carousel
-    var numberOfScrolls = items.length / options.numberOfVisibleItems;
-    if ( !Util.isInteger( numberOfScrolls ) ) {
-      numberOfScrolls = Math.floor( numberOfScrolls + 1 );
+    // Number of sets of items, where 1 set is visible in the carousel at a time.
+    var numberOfItemSets = items.length / options.numberOfVisibleItems;
+    if ( !Util.isInteger( numberOfItemSets ) ) {
+      numberOfItemSets = Math.floor( numberOfItemSets + 1 );
     }
-    var scrollIndexRange = new Range( 0, numberOfScrolls - 1 );
-    var scrollIndex = new Property( scrollIndexRange.min ); // {number}
+
+    // Index of the 'set' of items that is visible in the carousel.
+    var scrollIndexRange = new Range( 0, numberOfItemSets - 1 );
+    assert && assert( scrollIndexRange.contains( options.defaultScrollIndex ) );
+    var scrollIndexProperty = new Property( options.defaultScrollIndex );
 
     // Scroll when the buttons are pressed
     var scrollTween;
-    scrollIndex.link( function( scrollIndex ) {
+    scrollIndexProperty.link( function( scrollIndex ) {
 
       assert && assert( scrollIndexRange.contains( scrollIndex ), 'scrollIndex out of range: ' + scrollIndex );
 
@@ -213,11 +233,15 @@ define( function( require ) {
 
     // Hook up the scrolling nodes to the buttons.
     nextButton.addListener( function() {
-      scrollIndex.set( scrollIndex.get() + 1 );
+      scrollIndexProperty.set( scrollIndexProperty.get() + 1 );
     } );
     previousButton.addListener( function() {
-      scrollIndex.set( scrollIndex.get() - 1 );
+      scrollIndexProperty.set( scrollIndexProperty.get() - 1 );
     } );
+
+    // public fields
+    this.scrollIndexRange = scrollIndexRange; // @public (read-only)
+    this.scrollIndexProperty = scrollIndexProperty; // @public
 
     options.children = [ backgroundNode, windowNode, nextButton, previousButton, backgroundOutline ];
     Node.call( this, options );
