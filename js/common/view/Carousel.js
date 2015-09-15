@@ -12,20 +12,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CarouselButton = require( 'FUNCTION_BUILDER/common/view/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var HSeparator = require( 'SUN/HSeparator' );
+  //var HSeparator = require( 'SUN/HSeparator' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RectangularButtonView = require( 'SUN/buttons/RectangularButtonView' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
-  var VSeparator = require( 'SUN/VSeparator' );
+  //var VSeparator = require( 'SUN/VSeparator' );
 
   // constants
   var DEFAULT_OPTIONS = {
@@ -82,33 +78,13 @@ define( function( require ) {
     var maxItemHeight = _.max( items, function( item ) { return item.height; } ).height;
     var maxItemLength = isHorizontal ? maxItemWidth : maxItemHeight;
 
-    // Generic arrow shape, points to the right
-    var arrowShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( options.arrowSize.width, options.arrowSize.height / 2 )
-      .lineTo( 0, options.arrowSize.height );
-
-    // 'Next' arrow points to the right or down
-    var nextArrowShape = isHorizontal ? arrowShape : arrowShape.transformed( Matrix3.rotation2( Math.PI / 2 ) );
-    // 'Previous' point to the left or up
-    var previousArrowShape = isHorizontal ? arrowShape.transformed( Matrix3.rotation2( Math.PI ) ) : arrowShape.transformed( Matrix3.rotation2( -Math.PI / 2 ) );
-
-    // Arrow paths
-    var arrowOptions = {
-      stroke: options.arrowStroke,
-      lineWidth: options.arrowLineWidth,
-      lineCap: 'square'
-    };
-    var nextArrowNode = new Path( nextArrowShape, arrowOptions );
-    var previousArrowNode = new Path( previousArrowShape, arrowOptions );
-
     // Arrow buttons
     var buttonOptions = {
-      xMargin: 4,
-      buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
+      xMargin: 5,
+      yMargin: 5,
       baseColor: options.arrowButtonColor,
-      disabledBaseColor: options.fill,
-      cornerRadius: options.cornerRadius
+      disabledBaseColor: options.fill, // same as carousel background
+      cornerRadius: options.cornerRadius // same as carousel background
     };
     if ( isHorizontal ) {
       buttonOptions.minHeight = maxItemHeight + ( 2 * options.margin );
@@ -116,8 +92,12 @@ define( function( require ) {
     else {
       buttonOptions.minWidth = maxItemWidth + ( 2 * options.margin );
     }
-    var nextButton = new RectangularPushButton( _.extend( { content: nextArrowNode }, buttonOptions ) );
-    var previousButton = new RectangularPushButton( _.extend( { content: previousArrowNode }, buttonOptions ) );
+    var nextButton = new CarouselButton( _.extend( {
+      direction: isHorizontal ? 'right' : 'down'
+    }, buttonOptions ) );
+    var previousButton = new CarouselButton( _.extend( {
+      direction: isHorizontal ? 'left' : 'up'
+    }, buttonOptions ) );
 
     // All items, arranged in the proper orientation, with margins and spacing.
     // Translation of this node will be animated to give the effect of scrolling through the items.
