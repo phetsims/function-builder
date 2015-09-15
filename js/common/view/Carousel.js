@@ -32,18 +32,18 @@ define( function( require ) {
     stroke: 'black', // {Color|string|null} color used to stroke the border of the carousel
     lineWidth: 1, // {number} width of the border around the carousel
     cornerRadius: 4, // {number} radius applied to the carousel and arrow buttons
+    defaultSetIndex: 0, // {number} determines which 'set' of items is initially visible, see this.setIndexProperty
 
     // items
     numberOfVisibleItems: 4, // {number} how many items are visible
     spacing: 10, // {number} spacing between items, and between items on the end and buttons
     margin: 10, // {number} margin between items and the edges of the carousel
 
-    // arrow buttons
-    arrowButtonColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} base color for the arrow buttons
-    arrowSize: new Dimension2( 7, 20 ), // {Color|string} color used for the arrow icons, in horizontal orientation
-    arrowStroke: 'black', // {Color|string} color used for the arrow icons
-    arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
-    hideDisabledButtons: false, // {boolean} whether to hide arrow buttons when they are disabled
+    // next/previous buttons
+    buttonColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} base color for the buttons
+    buttonStroke: undefined, // {Color|string|null|undefined} stroke around the buttons (null is no stroke, undefined derives color from buttonColor)
+    buttonLineWidth: 1, // {number} lineWidth of buttons
+    hideDisabledButtons: false, // {boolean} whether to hide buttons when they are disabled
 
     // item separators
     separators: true, // {boolean} whether to put separators between items
@@ -53,10 +53,8 @@ define( function( require ) {
     // dots
     dotRadius: 2, // {number} radius of the dots
     dotSelectedColor: 'black', // {Color|string}
-    dotUnselectedColor: 'gray', // {Color|string}
+    dotUnselectedColor: 'gray' // {Color|string}
 
-    // scroll index
-    defaultScrollIndex: 0
   };
 
   /**
@@ -82,8 +80,10 @@ define( function( require ) {
     var buttonOptions = {
       xMargin: 5,
       yMargin: 5,
-      baseColor: options.arrowButtonColor,
+      baseColor: options.buttonColor,
       disabledBaseColor: options.fill, // same as carousel background
+      stroke: options.buttonStroke,
+      lineWidth: options.buttonLineWidth,
       cornerRadius: options.cornerRadius // same as carousel background
     };
     if ( isHorizontal ) {
@@ -122,7 +122,7 @@ define( function( require ) {
     // How much to translate scrollingNode each time an arrow button is pressed
     var scrollingDelta = options.numberOfVisibleItems * ( maxItemLength + options.spacing );
 
-    // Clipping window, to show a subset of the items.
+    // Clipping window, to show one 'set' of items at a time.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
     var windowLength = ( scrollingDelta + options.spacing ); // orientation independent
     var windowWidth = isHorizontal ? windowLength : scrollingNode.width;
@@ -168,7 +168,7 @@ define( function( require ) {
     }
 
     // Index of the 'set' of items that is visible in the carousel.
-    var setIndexProperty = new Property( options.defaultScrollIndex );
+    var setIndexProperty = new Property( options.defaultSetIndex );
 
     // Scroll when the buttons are pressed
     var scrollTween;
