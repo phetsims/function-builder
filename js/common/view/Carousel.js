@@ -46,8 +46,8 @@ define( function( require ) {
     hideDisabledButtons: false, // {boolean} whether to hide buttons when they are disabled
 
     // item separators
-    separatorsVisible: false, // {boolean} whether to put separators between items
-    separatorColor: 'black', // {Color|string} color for separators
+    separatorsVisible: true, // {boolean} whether to put separators between items
+    separatorColor: 'rgb( 180, 180, 180 )', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
 
     // iOS-style page control
@@ -153,7 +153,7 @@ define( function( require ) {
 
           // vertical separator, to the left of the item
           separator = new VSeparator( scrollingHeight, _.extend( {
-            centerX: itemCenter + ( maxItemLength / 2 ) + options.spacing,
+            centerX: item.centerX + ( maxItemLength / 2 ) + options.spacing,
             centerY: item.centerY
           }, separatorOptions ) );
           scrollingNode.addChild( separator );
@@ -166,7 +166,7 @@ define( function( require ) {
           // horizontal separator, below the item
           separator = new HSeparator( scrollingWidth, _.extend( {
             centerX: item.centerX,
-            centerY: itemCenter + ( maxItemLength / 2 ) + options.spacing
+            centerY: item.centerY + ( maxItemLength / 2 ) + options.spacing
           }, separatorOptions ) );
           scrollingNode.addChild( separator );
 
