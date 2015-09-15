@@ -133,24 +133,25 @@ define( function( require ) {
 
     {
       //TODO delete this : Carousel testing
-      var Carousel = require( 'SCENERY_PHET/Carousel' );
-      var Circle = require( 'SCENERY/nodes/Circle' );
+      var Carousel = require( 'SUN/Carousel' );
       var Rectangle = require( 'SCENERY/nodes/Rectangle' );
       var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
       var vItems = [];
       var hItems = [];
       colors.forEach( function( color ) {
         vItems.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
-        hItems.push( new Circle( 30, { fill: color, stroke: 'black' } ) );
+        hItems.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
       } );
       var vCarousel = new Carousel( vItems, {
         orientation: 'vertical',
+        separatorsVisible: true,
         left: this.layoutBounds.left + 50,
         top: this.layoutBounds.top + 50
       } );
       this.addChild( vCarousel );
       var hCarousel = new Carousel( hItems, {
         orientation: 'horizontal',
+        pageControlVisible: true,
         left: this.layoutBounds.left + 50,
         bottom: this.layoutBounds.bottom - 50
       } );
