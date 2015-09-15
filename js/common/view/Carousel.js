@@ -93,10 +93,10 @@ define( function( require ) {
       buttonOptions.minWidth = maxItemWidth + ( 2 * options.margin );
     }
     var nextButton = new CarouselButton( _.extend( {
-      direction: isHorizontal ? 'right' : 'down'
+      arrowDirection: isHorizontal ? 'right' : 'down'
     }, buttonOptions ) );
     var previousButton = new CarouselButton( _.extend( {
-      direction: isHorizontal ? 'left' : 'up'
+      arrowDirection: isHorizontal ? 'left' : 'up'
     }, buttonOptions ) );
 
     // All items, arranged in the proper orientation, with margins and spacing.

@@ -33,9 +33,11 @@ define( function( require ) {
       buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
 
       // arrow
+      arrowDirection: 'up', // {string} direction that the arrow points, 'up'|'down'|'left'|'right'
       arrowSize: new Dimension2( 7, 20 ), // {Color|string} color used for the arrow icons, in horizontal orientation
       arrowStroke: 'black', // {Color|string} color used for the arrow icons
-      arrowLineWidth: 3 // {number} line width used to stroke the arrow icons
+      arrowLineWidth: 3, // {number} line width used to stroke the arrow icons
+      arrowLineCap: 'round' // {string} 'butt'|'round'|'square'
 
     }, options );
 
@@ -46,7 +48,7 @@ define( function( require ) {
       .lineTo( 0, options.arrowSize.height );
 
     // Transform arrow shape to proper direction
-    switch ( options.direction ) {
+    switch ( options.arrowDirection ) {
       case 'up':
         arrowShape = arrowShape.transformed( Matrix3.rotation2( -Math.PI / 2 ) );
         break;
@@ -59,14 +61,14 @@ define( function( require ) {
       case 'right':
         break;
       default:
-        throw new Error( 'invalid direction: ' + options.direction );
+        throw new Error( 'invalid direction: ' + options.arrowDirection );
     }
 
     // Arrow node
     options.content = new Path( arrowShape, {
       stroke: options.arrowStroke,
       lineWidth: options.arrowLineWidth,
-      lineCap: 'square'
+      lineCap: options.arrowLineCap
     } );
 
     RectangularPushButton.call( this, options );
