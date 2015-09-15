@@ -31,7 +31,7 @@ define( function( require ) {
     fill: 'white', // {Color|string|null} background color of the carousel
     stroke: 'black', // {Color|string|null} color used to stroke the border of the carousel
     lineWidth: 1, // {number} width of the border around the carousel
-    cornerRadius: 4, // {number} radius applied to the carousel and arrow buttons
+    cornerRadius: 4, // {number} radius applied to the carousel and next/previous buttons
     defaultSetIndex: 0, // {number} determines which 'set' of items is initially visible, see this.setIndexProperty
 
     // items
@@ -76,7 +76,7 @@ define( function( require ) {
     var maxItemHeight = _.max( items, function( item ) { return item.height; } ).height;
     var maxItemLength = isHorizontal ? maxItemWidth : maxItemHeight;
 
-    // Arrow buttons
+    // Next/previous buttons
     var buttonOptions = {
       xMargin: 5,
       yMargin: 5,
@@ -119,7 +119,7 @@ define( function( require ) {
       scrollingNode.addChild( item );
     } );
 
-    // How much to translate scrollingNode each time an arrow button is pressed
+    // How much to translate scrollingNode each time a next/previous button is pressed
     var scrollingDelta = options.numberOfVisibleItems * ( maxItemLength + options.spacing );
 
     // Clipping window, to show one 'set' of items at a time.
