@@ -2,7 +2,10 @@
 
 //TODO add optional item separators
 /**
- * A scrolling carousel.
+ * A carousel UI component.
+ * A set of N items is divided into M 'pages', based on how many items are visible in the carousel.
+ * Pressing the next and previous buttons moves through the pages.
+ * Movement through the pages is animated, so that items appear to scroll by.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -30,7 +33,7 @@ define( function( require ) {
     stroke: 'black', // {Color|string|null} color used to stroke the border of the carousel
     lineWidth: 1, // {number} width of the border around the carousel
     cornerRadius: 4, // {number} radius applied to the carousel and next/previous buttons
-    defaultSetIndex: 0, // {number} determines which 'set' of items is initially visible, see this.setIndexProperty
+    defaultPageNumber: 0, // {number} determines which page is initially visible, see this.pageNumberProperty
 
     // items
     numberOfVisibleItems: 4, // {number} how many items are visible
@@ -54,8 +57,8 @@ define( function( require ) {
     pageControlSpacing: 6, // {number} spacing between page control and carousel background
     dotRadius: 3, // {number} radius of the dots in the page control
     dotSpacing: 10, // {number} space between dots
-    pageVisibleColor: 'black', // {Color|string} dot color for the set that is selected (visible)
-    pageNotVisibleColor: 'rgb( 200, 200, 200 )' // {Color|string} dot color for sets that are not selected (not visible)
+    pageVisibleColor: 'black', // {Color|string} dot color for the page that is selected (visible)
+    pageNotVisibleColor: 'rgb( 200, 200, 200 )' // {Color|string} dot color for pages that are not selected (not visible)
   };
 
   /**
@@ -134,7 +137,7 @@ define( function( require ) {
     // How much to translate scrollingNode each time a next/previous button is pressed
     var scrollingDelta = options.numberOfVisibleItems * ( maxItemLength + options.spacing );
 
-    // Clipping window, to show one 'set' of items at a time.
+    // Clipping window, to show one page at a time.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
     var windowLength = ( scrollingDelta + options.spacing ); // orientation independent
     var windowWidth = isHorizontal ? windowLength : scrollingNode.width;
@@ -173,20 +176,20 @@ define( function( require ) {
       windowNode.centerY = backgroundNode.centerY;
     }
 
-    // Number of sets of items, where one set is visible in the carousel at a time.
-    var numberOfSets = items.length / options.numberOfVisibleItems;
-    if ( !Util.isInteger( numberOfSets ) ) {
-      numberOfSets = Math.floor( numberOfSets + 1 );
+    // Number of pages
+    var numberOfPages = items.length / options.numberOfVisibleItems;
+    if ( !Util.isInteger( numberOfPages ) ) {
+      numberOfPages = Math.floor( numberOfPages + 1 );
     }
 
-    // Index of the 'set' of items that is visible in the carousel.
-    var setIndexProperty = new Property( options.defaultSetIndex );
+    // Number of the page that is visible in the carousel.
+    var pageNumberProperty = new Property( options.defaultPageNumber );
 
     // iOS-style page control
     var pageControl = null;
     if ( options.pageControlVisible ) {
 
-      pageControl = new PageControl( numberOfSets, setIndexProperty, {
+      pageControl = new PageControl( numberOfPages, pageNumberProperty, {
         orientation: options.orientation,
         dotRadius: options.dotRadius,
         pageVisibleColor: options.pageVisibleColor,
@@ -223,16 +226,16 @@ define( function( require ) {
 
     // Scroll when the buttons are pressed
     var scrollTween;
-    setIndexProperty.link( function( setIndex ) {
+    pageNumberProperty.link( function( pageNumber ) {
 
-      assert && assert( setIndex >= 0 && setIndex <= numberOfSets - 1, 'setIndex out of range: ' + setIndex );
+      assert && assert( pageNumber >= 0 && pageNumber <= numberOfPages - 1, 'pageNumber out of range: ' + pageNumber );
 
       // stop any animation that's in progress
       scrollTween && scrollTween.stop();
 
       // button state
-      nextButton.enabled = setIndex < ( numberOfSets - 1 );
-      previousButton.enabled = setIndex > 0;
+      nextButton.enabled = pageNumber < ( numberOfPages - 1 );
+      previousButton.enabled = pageNumber > 0;
       if ( options.hideDisabledButtons ) {
         nextButton.visible = nextButton.enabled;
         previousButton.visible = previousButton.enabled;
@@ -247,7 +250,7 @@ define( function( require ) {
         parameters = { left: scrollingNode.left };
         scrollTween = new TWEEN.Tween( parameters )
           .easing( easing )
-          .to( { left: -setIndex * scrollingDelta }, animationDuration )
+          .to( { left: -pageNumber * scrollingDelta }, animationDuration )
           .onUpdate( function() {
             scrollingNode.left = parameters.left;
           } )
@@ -257,7 +260,7 @@ define( function( require ) {
         parameters = { top: scrollingNode.top };
         scrollTween = new TWEEN.Tween( parameters )
           .easing( easing )
-          .to( { top: -setIndex * scrollingDelta }, animationDuration )
+          .to( { top: -pageNumber * scrollingDelta }, animationDuration )
           .onUpdate( function() {
             scrollingNode.top = parameters.top;
           } )
@@ -265,17 +268,17 @@ define( function( require ) {
       }
     } );
 
-    // Buttons modify the set index
+    // Buttons modify the page number
     nextButton.addListener( function() {
-      setIndexProperty.set( setIndexProperty.get() + 1 );
+      pageNumberProperty.set( pageNumberProperty.get() + 1 );
     } );
     previousButton.addListener( function() {
-      setIndexProperty.set( setIndexProperty.get() - 1 );
+      pageNumberProperty.set( pageNumberProperty.get() - 1 );
     } );
 
     // public fields
-    this.numberOfSets = numberOfSets; // @public (read-only) number of 'sets' of items, where one set is visible at a time
-    this.setIndexProperty = setIndexProperty; // @public index of the set that is currently visible
+    this.numberOfPages = numberOfPages; // @public (read-only) number of pages that the items are divided into
+    this.pageNumberProperty = pageNumberProperty; // @public page number that is currently visible
 
     // @private
     this.disposeCarousel = function() {
