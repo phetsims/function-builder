@@ -223,7 +223,7 @@ define( function( require ) {
 
     // Scroll when the buttons are pressed
     var scrollTween;
-    setIndexProperty.link( function( setIndex, oldSetIndex ) {
+    setIndexProperty.link( function( setIndex ) {
 
       assert && assert( setIndex >= 0 && setIndex <= numberOfSets - 1, 'setIndex out of range: ' + setIndex );
 
