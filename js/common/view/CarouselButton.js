@@ -20,7 +20,7 @@ define( function( require ) {
 
   // maps arrow directions to rotation angles, in radians
   var ANGLES = {
-    up: 0,
+    up: 0, // arrow shape is created in 'up' direction
     down: Math.PI,
     left: -Math.PI / 2,
     right: Math.PI / 2
