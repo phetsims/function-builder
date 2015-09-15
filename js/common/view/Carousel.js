@@ -231,7 +231,7 @@ define( function( require ) {
       }
     } );
 
-    // Hook up the scrolling nodes to the buttons.
+    // Buttons modify the scroll index
     nextButton.addListener( function() {
       scrollIndexProperty.set( scrollIndexProperty.get() + 1 );
     } );
