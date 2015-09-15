@@ -173,8 +173,7 @@ define( function( require ) {
     var scrollTween;
     setIndexProperty.link( function( scrollIndex ) {
 
-      assert && assert( scrollIndex >= 0 && scrollIndex <= numberOfSets - 1,
-        'scrollIndex out of range: ' + scrollIndex );
+      assert && assert( scrollIndex >= 0 && scrollIndex <= numberOfSets - 1, 'scrollIndex out of range: ' + scrollIndex );
 
       // stop any animation that's in progress
       scrollTween && scrollTween.stop();
@@ -188,7 +187,7 @@ define( function( require ) {
       }
 
       //TODO replace calls to Tween with a wrapper
-      // Set up the animation to scroll the carousel's contents.
+      // Set up the animation to scroll the items in the carousel.
       var parameters;
       var animationDuration = 400; // ms
       var easing = TWEEN.Easing.Cubic.InOut;
