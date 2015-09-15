@@ -33,32 +33,32 @@ define( function( require ) {
     stroke: 'black', // {Color|string|null} color used to stroke the border of the carousel
     lineWidth: 1, // {number} width of the border around the carousel
     cornerRadius: 4, // {number} radius applied to the carousel and next/previous buttons
-    defaultPageNumber: 0, // {number} determines which page is initially visible, see this.pageNumberProperty
+    defaultPageNumber: 0, // {number} page that is initially visible
 
     // items
-    numberOfVisibleItems: 4, // {number} how many items are visible
-    spacing: 10, // {number} spacing between items, and between items on the end and buttons
+    itemsPerPage: 4, // {number} number of items per page, or how many items are visible at a time in the carousel
+    spacing: 10, // {number} spacing between items, between items and optional separators, and between items and buttons
     margin: 10, // {number} margin between items and the edges of the carousel
 
     // next/previous buttons
     buttonColor: 'rgba( 200, 200, 200, 0.5 )', // {Color|string} base color for the buttons
     buttonStroke: undefined, // {Color|string|null|undefined} stroke around the buttons (null is no stroke, undefined derives color from buttonColor)
-    buttonLineWidth: 1, // {number} lineWidth of buttons
+    buttonLineWidth: 1, // {number} lineWidth of borders on buttons
     hideDisabledButtons: false, // {boolean} whether to hide buttons when they are disabled
 
     // item separators
-    separators: true, // {boolean} whether to put separators between items
+    separatorsVisible: true, // {boolean} whether to put separators between items
     separatorColor: 'black', // {Color|string} color for separators
     separatorLineWidth: 0.5, // {number} lineWidth for separators
 
     // iOS-style page control
     pageControlVisible: true, // {boolean} whether to show an iOS-style page control
-    pageControlLocation: 'bottom', // {string} where to place the dots, 'top'|'bottom'|'left'|'right'
+    pageControlLocation: 'bottom', // {string} where to place the page control, 'top'|'bottom'|'left'|'right'
     pageControlSpacing: 6, // {number} spacing between page control and carousel background
     dotRadius: 3, // {number} radius of the dots in the page control
     dotSpacing: 10, // {number} space between dots
-    pageVisibleColor: 'black', // {Color|string} dot color for the page that is selected (visible)
-    pageNotVisibleColor: 'rgb( 200, 200, 200 )' // {Color|string} dot color for pages that are not selected (not visible)
+    pageVisibleColor: 'black', // {Color|string} dot color for the page that is visible
+    pageNotVisibleColor: 'rgb( 200, 200, 200 )' // {Color|string} dot color for pages that are not visible
   };
 
   /**
@@ -135,7 +135,7 @@ define( function( require ) {
     } );
 
     // How much to translate scrollingNode each time a next/previous button is pressed
-    var scrollingDelta = options.numberOfVisibleItems * ( maxItemLength + options.spacing );
+    var scrollingDelta = options.itemsPerPage * ( maxItemLength + options.spacing );
 
     // Clipping window, to show one page at a time.
     // Clips at the midpoint of spacing between items so that you don't see any stray bits of the items that shouldn't be visible.
@@ -177,7 +177,7 @@ define( function( require ) {
     }
 
     // Number of pages
-    var numberOfPages = items.length / options.numberOfVisibleItems;
+    var numberOfPages = items.length / options.itemsPerPage;
     if ( !Util.isInteger( numberOfPages ) ) {
       numberOfPages = Math.floor( numberOfPages + 1 );
     }
