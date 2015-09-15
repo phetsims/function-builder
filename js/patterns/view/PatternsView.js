@@ -99,12 +99,14 @@ define( function( require ) {
         var oldSceneNode = sceneNodes[ oldSceneName ];
 
         // prevent interaction with the scenes while animation is taking place
-        oldSceneNode.pickable = sceneNode.pickable = false;
+        //TODO fix this
+        //oldSceneNode.pickable = sceneNode.pickable = false;
 
         // fades in the new scene
         newFadeIn = new FadeIn( sceneNode, {
           onComplete: function() {
-            sceneNode.pickable = true; // allow interaction with the scene when the animation has completed
+            //TODO fix this
+            //sceneNode.pickable = true; // allow interaction with the scene when the animation has completed
           }
         } );
 
@@ -126,33 +128,6 @@ define( function( require ) {
         sceneNode.visible = true;
       }
     } );
-
-    {
-      //TODO delete this : Carousel testing
-      var Carousel = require( 'SUN/Carousel' );
-      var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-      var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
-      var vItems = [];
-      var hItems = [];
-      colors.forEach( function( color ) {
-        vItems.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
-        hItems.push( new Rectangle( 0, 0, 60, 60, { fill: color, stroke: 'black' } ) );
-      } );
-      var vCarousel = new Carousel( vItems, {
-        orientation: 'vertical',
-        separatorsVisible: true,
-        left: this.layoutBounds.left + 50,
-        top: this.layoutBounds.top + 50
-      } );
-      this.addChild( vCarousel );
-      var hCarousel = new Carousel( hItems, {
-        orientation: 'horizontal',
-        pageControlVisible: true,
-        left: this.layoutBounds.left + 50,
-        bottom: this.layoutBounds.bottom - 50
-      } );
-      this.addChild( hCarousel );
-    }
   }
 
   return inherit( ScreenView, PatternsView, {
