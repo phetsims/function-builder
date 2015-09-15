@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * An iOS-style page indicator. See the iOS Human Interface Guidelines.
+ * An iOS-style page control. See the 'Navigation' section of the iOS Human Interface Guidelines.
  * A page control indicates the number of pages and which one is currently visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
