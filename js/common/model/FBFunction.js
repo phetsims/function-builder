@@ -13,7 +13,7 @@ define( function( require ) {
 
   /**
    * @param {string} name - name of the function, not visible to the user, used internally for debugging
-   * @param {HTMLImageElement} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
+   * @param {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
    * @constructor
    */
   function FBFunction( name, image ) {

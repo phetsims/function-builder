@@ -78,13 +78,13 @@ define( function( require ) {
         var sceneOptions = { visible: false };
 
         if ( sceneName === 'single' ) {
-          sceneNode = new SingleSceneNode( thisView.layoutBounds, sceneOptions );
+          sceneNode = new SingleSceneNode( model, thisView.layoutBounds, sceneOptions );
         }
         else if ( sceneName === 'dual' ) {
-          sceneNode = new DualSceneNode( thisView.layoutBounds, sceneOptions );
+          sceneNode = new DualSceneNode( model, thisView.layoutBounds, sceneOptions );
         }
         else if ( sceneName === 'composed' ) {
-          sceneNode = new ComposedSceneNode( thisView.layoutBounds, sceneOptions );
+          sceneNode = new ComposedSceneNode( model, thisView.layoutBounds, sceneOptions );
         }
         else {
           throw new Error( 'unsupported sceneName: ' + sceneName );

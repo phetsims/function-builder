@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
   var Carousel = require( 'SUN/Carousel' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -16,22 +17,20 @@ define( function( require ) {
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function SingleSceneNode( layoutBounds, options ) {
+  function SingleSceneNode( model, layoutBounds, options ) {
 
+    //TODO delete this placeholder
     var icon = new PatternsIconFactory.createSingleSceneIcon( 200 );
     icon.center = layoutBounds.center;
 
-    //TODO delete Carousel test
-    // items
-    var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
-    var vItems = [];
-    var hItems = [];
-    colors.forEach( function( color ) {
-      vItems.push( new Rectangle( 0, 0, 50, 50, { fill: color, stroke: 'black' } ) );
-      hItems.push( new FunctionNode( { fill: color } ) );
+    // Input cards, in a vertical carousel
+    var inputNodes = [];
+    model.inputs.forEach( function( input ) {
+      inputNodes.push( new CardStackNode( input.image, {
+        numberOfCards: 2
+      } ) );
     } );
-
-    var vCarousel = new Carousel( vItems, {
+    var inputsCarousel = new Carousel( inputNodes, {
       orientation: 'vertical',
       pageControlVisible: true,
       separatorsVisible: true,
@@ -40,6 +39,12 @@ define( function( require ) {
       centerY: layoutBounds.centerY
     } );
 
+    //TODO delete Carousel test
+    var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
+    var hItems = [];
+    colors.forEach( function( color ) {
+      hItems.push( new FunctionNode( { fill: color } ) );
+    } );
     var hCarousel = new Carousel( hItems, {
       orientation: 'horizontal',
       pageControlVisible: true,
@@ -48,7 +53,7 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 50
     } );
 
-    options.children = [ icon, vCarousel, hCarousel ];
+    options.children = [ icon, inputsCarousel, hCarousel ];
     Node.call( this, options );
   }
 
