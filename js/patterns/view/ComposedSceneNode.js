@@ -20,5 +20,10 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  return inherit( Node, ComposedSceneNode );
+  return inherit( Node, ComposedSceneNode, {
+
+    reset: function() {
+      //TODO
+    }
+  } );
 } );

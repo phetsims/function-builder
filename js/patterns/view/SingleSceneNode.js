@@ -56,9 +56,20 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 50
     } );
 
+    // @private
+    this.resetSingleSceneNode = function() {
+      inputsCarousel.reset();
+      functionsCarousel.reset();
+    };
+
     options.children = [ icon, inputsCarousel, functionsCarousel ];
     Node.call( this, options );
   }
 
-  return inherit( Node, SingleSceneNode );
+  return inherit( Node, SingleSceneNode, {
+
+    reset: function() {
+      this.resetSingleSceneNode();
+    }
+  } );
 } );

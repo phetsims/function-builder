@@ -31,8 +31,10 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
+    // Properties that are specific to the view
     var viewProperties = new PatternsViewProperties();
 
+    // Control for switching between scenes
     var sceneControl = new PatternsSceneControl( viewProperties.sceneNameProperty, {
       centerX: this.layoutBounds.centerX,
       top: this.layoutBounds.top + 20
@@ -42,17 +44,6 @@ define( function( require ) {
     // Parent for all scenes, to maintain rendering order, since scenes are created on demand.
     var scenesParent = new Node();
     this.addChild( scenesParent );
-
-    // Reset All button
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-        viewProperties.reset();
-      },
-      right: this.layoutBounds.maxX - 20,
-      bottom: this.layoutBounds.maxY - 20
-    } );
-    this.addChild( resetAllButton );
 
     // Scenes are created on demand, stored here as they are created, field names match values of viewProperties.sceneNameProperty
     var sceneNodes = {
@@ -128,6 +119,27 @@ define( function( require ) {
         sceneNode.visible = true;
       }
     } );
+
+    // Resets this screen
+    var resetAll = function() {
+
+      // Reset model and view
+      model.reset();
+      viewProperties.reset();
+
+      // Reset any scenes that have been instantiated
+      for ( var property in sceneNodes ) {
+        sceneNodes[ property ] && sceneNodes[ property ].reset();
+      }
+    };
+
+    // Reset All button
+    var resetAllButton = new ResetAllButton( {
+      right: this.layoutBounds.maxX - 20,
+      bottom: this.layoutBounds.maxY - 20,
+      listener: resetAll
+    } );
+    this.addChild( resetAllButton );
   }
 
   return inherit( ScreenView, PatternsView, {

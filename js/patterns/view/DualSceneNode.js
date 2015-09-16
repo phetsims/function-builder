@@ -20,5 +20,10 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  return inherit( Node, DualSceneNode );
+  return inherit( Node, DualSceneNode, {
+
+    reset: function() {
+      //TODO
+    }
+  } );
 } );
