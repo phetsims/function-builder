@@ -16,13 +16,13 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {HTMLImageElement|MipMapArray} image - client is responsible for ensuring that it fits on card
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( image, options ) {
+  function CardNode( options ) {
 
     options = _.extend( {
+      image: null, // {HTMLImageElement|MipMapArray|null} client is responsible for ensuring that image fits on card
       size: new Dimension2( 60, 60 ),
       cornerRadius: 5,
       fill: 'white',
@@ -32,19 +32,22 @@ define( function( require ) {
       yMargin: 5,
       imageScale: 0.3
     }, options );
+    options.children = [];
 
-    var background = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
+    options.children.push( backgroundNode );
 
-    var imageNode = new Image( image, {
-      scale: options.imageScale,
-      center: background.center
-    } );
+    if ( options.image ) {
+      options.children.push( new Image( options.image, {
+        scale: options.imageScale,
+        center: backgroundNode.center
+      } ) );
+    }
 
-    options.children = [ background, imageNode ];
     Node.call( this, options );
   }
 

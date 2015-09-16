@@ -27,14 +27,14 @@ define( function( require ) {
     }, options );
     options.children = [];
 
-    // Create overlapping cards
+    // Create a stack of overlapping cards
     var previousNode = null;
     for ( var i = 0; i < options.numberOfCards; i++ ) {
-      var cardNode = new CardNode( image );
-      if ( previousNode ) {
-        cardNode.left = previousNode.left + options.xOffset;
-        cardNode.top = previousNode.top + options.yOffset;
-      }
+      var cardNode = new CardNode( {
+        image: image,
+        left: previousNode ? ( previousNode.left + options.xOffset ) : 0,
+        top: previousNode ? ( previousNode.top + options.yOffset ) : 0
+      } );
       options.children.push( cardNode );
       previousNode = cardNode;
     }
