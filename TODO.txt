@@ -9,3 +9,4 @@ Mipmap washes out color of invertRGB.png
 Add highlight to center of identity.png
 Mipmap makes lines less distinct in many icons.
 White cards on white carousels, could use a bit of color difference.
+Gray next/previous buttons on carousel give the impression of being disabled.
