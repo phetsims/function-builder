@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
   var Carousel = require( 'SUN/Carousel' );
@@ -86,6 +87,12 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
+    // Builder in the center of the screen
+    var builderNode = new BuilderNode( {
+      centerX: layoutBounds.centerX,
+      centerY: inputsCarousel.centerY
+    } );
+
     // Link input and output carousels, so that display the same page number
     assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
@@ -102,7 +109,7 @@ define( function( require ) {
       outputsCarousel.reset();
     };
 
-    options.children = [ inputsCarousel, functionsCarousel, outputsCarousel, eraserButton ];
+    options.children = [ builderNode, inputsCarousel, functionsCarousel, outputsCarousel, eraserButton ];
     Node.call( this, options );
   }
 

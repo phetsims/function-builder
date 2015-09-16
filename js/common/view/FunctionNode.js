@@ -31,6 +31,7 @@ define( function( require ) {
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1,
+      lineDash: null, // {number[]}
 
       // optional icon
       icon: null, // {Node|null} icon, client is responsible for ensuring that it fits in shape
@@ -73,7 +74,8 @@ define( function( require ) {
     var backgroundNode = new Path( backgroundShape, {
       fill: options.fill,
       stroke: options.stroke,
-      lineWidth: options.lineWidth
+      lineWidth: options.lineWidth,
+      lineDash: options.lineDash
     } );
     options.children.push( backgroundNode );
 
