@@ -14,12 +14,14 @@ define( function( require ) {
   /**
    * @param {string} name - name of the function, not visible to the user, used internally for debugging
    * @param {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
+   * @param {Color|string} backgroundColor - background color used for function icons
    * @constructor
    */
-  function FBFunction( name, image ) {
+  function FBFunction( name, image, backgroundColor ) {
 
     this.name = name; // @public (read-only)
     this.image = image; // @public (read-only)
+    this.backgroundColor = backgroundColor; // @public (read-only)
   }
 
   return inherit( Object, FBFunction );

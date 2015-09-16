@@ -16,7 +16,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {HTMLImageElement|MipMapArray} image
+   * @param {HTMLImageElement|MipMapArray} image - client is responsible for ensuring that it fits on card
    * @param {Object} [options]
    * @constructor
    */

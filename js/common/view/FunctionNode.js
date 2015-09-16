@@ -33,7 +33,7 @@ define( function( require ) {
       lineWidth: 1,
 
       // optional icon
-      icon: null, // {Node|null}
+      icon: null, // {Node|null} icon, client is responsible for ensuring that it fits in shape
       xMarginFactor: 0.10, // {number} portion of width that determines the x-margin around the icon
       yMarginFactor: 0.05  // {number} portion of height that determines the y-margin around the icon
 
@@ -61,14 +61,7 @@ define( function( require ) {
 
     // Add optional icon
     if ( options.icon ) {
-
-      // scale down if needed, maintain aspect ratio
-      var maxWidth = backgroundNode.width - 2 * ( options.xMarginFactor * backgroundNode.width );
-      var maxHeight = backgroundNode.height - 2 * ( options.yMarginFactor * backgroundNode.height );
-      assert && assert( maxWidth > 0 && maxHeight > 0 );
-      var scale = Math.min( 1, Math.min( maxWidth / options.icon.width, maxHeight / options.icon.height ) );
-      options.icon.setScaleMagnitude( scale );
-
+      options.icon.center = backgroundNode.center;
       options.children.push( options.icon );
     }
 

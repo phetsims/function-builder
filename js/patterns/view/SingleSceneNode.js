@@ -12,6 +12,7 @@ define( function( require ) {
   var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
   var Carousel = require( 'SUN/Carousel' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
@@ -39,13 +40,15 @@ define( function( require ) {
       centerY: layoutBounds.centerY
     } );
 
-    //TODO delete Carousel test
-    var colors = [ 'red', 'blue', 'green', 'yellow', 'pink', 'white', 'orange', 'magenta', 'purple', 'pink' ];
-    var hItems = [];
-    colors.forEach( function( color ) {
-      hItems.push( new FunctionNode( { fill: color } ) );
+    // Functions, in a horizontal carousel
+    var functionNodes = [];
+    model.functions.forEach( function( functionInstance ) {
+      functionNodes.push( new FunctionNode( {
+        fill: functionInstance.backgroundColor,
+        icon: new Image( functionInstance.image, { scale: 0.3 } )
+      } ) );
     } );
-    var hCarousel = new Carousel( hItems, {
+    var functionsCarousel = new Carousel( functionNodes, {
       orientation: 'horizontal',
       pageControlVisible: true,
       itemsPerPage: 3,
@@ -53,7 +56,7 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 50
     } );
 
-    options.children = [ icon, inputsCarousel, hCarousel ];
+    options.children = [ icon, inputsCarousel, functionsCarousel ];
     Node.call( this, options );
   }
 

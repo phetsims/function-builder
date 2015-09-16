@@ -55,18 +55,18 @@ define( function( require ) {
     this.functions = [
 
       // No i18n of names necessary, they are used internally for debugging
-      new FBFunction( 'mirror', mirrorImage ),
-      new FBFunction( 'rotate90', rotate90Image ),
-      new FBFunction( 'grayscale', grayScaleImage ),
-      new FBFunction( 'rotate180', rotate180Image ),
-      new FBFunction( 'identity', identityImage ),
-      new FBFunction( 'invertRGB', invertRGBImage ),
-      new FBFunction( 'disappear', disappearImage ),
-      new FBFunction( 'shrink75', shrink75Image ),
-      new FBFunction( 'warhol', warholImage ),
-      new FBFunction( 'mysteryA', mysteryAImage ),
-      new FBFunction( 'mysteryB', mysteryBImage ),
-      new FBFunction( 'mysteryC', mysteryCImage )
+      new FBFunction( 'mirror', mirrorImage, 'rgb( 128, 197, 237 )' ),
+      new FBFunction( 'rotate90', rotate90Image, 'rgb( 147, 231, 128 )' ),
+      new FBFunction( 'grayscale', grayScaleImage, 'rgb( 232, 232, 232 )' ),
+      new FBFunction( 'rotate180', rotate180Image, 'rgb( 147, 231, 128 )' ),
+      new FBFunction( 'identity', identityImage, 'rgb( 255, 161, 43 )' ),
+      new FBFunction( 'invertRGB', invertRGBImage, 'black' ),
+      new FBFunction( 'disappear', disappearImage, 'rgb( 246, 164, 255 )' ),
+      new FBFunction( 'shrink75', shrink75Image, 'rgb( 250, 186, 75 )' ),
+      new FBFunction( 'warhol', warholImage, 'rgb( 0, 222, 224 )' ),
+      new FBFunction( 'mysteryA', mysteryAImage, 'rgb( 127, 225, 173 )' ),
+      new FBFunction( 'mysteryB', mysteryBImage, 'rgb( 249, 144, 99 )' ),
+      new FBFunction( 'mysteryC', mysteryCImage, 'rgb( 222, 186, 247 )' )
     ];
 
     // @public (read-only)
