@@ -20,7 +20,7 @@ define( function( require ) {
 
   function SingleSceneNode( model, layoutBounds, options ) {
 
-    // Input cards, in a vertical carousel
+    // Inputs, in a vertical carousel
     var inputNodes = [];
     model.inputs.forEach( function( input ) {
       inputNodes.push( new CardStackNode( input.image, {
