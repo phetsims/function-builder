@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
   var Carousel = require( 'SUN/Carousel' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -51,13 +52,39 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 50
     } );
 
+    // Outputs, in a vertical carousel
+    var outputNodes = [];
+    for ( var i = 0; i < inputNodes.length; i++ ) {
+      outputNodes.push( new CardNode( {
+        fill: null,
+        stroke: null
+      } ) );
+    }
+    var outputsCarousel = new Carousel( outputNodes, {
+      orientation: 'vertical',
+      pageControlVisible: true,
+      separatorsVisible: true,
+      itemsPerPage: 4,
+      right: layoutBounds.right - 50,
+      centerY: inputsCarousel.centerY
+    } );
+
+    // Link scrolling of input and output carousels
+    inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
+      outputsCarousel.pageNumberProperty.set( pageNumber );
+    } );
+    outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
+      inputsCarousel.pageNumberProperty.set( pageNumber );
+    } );
+
     // @private
     this.resetSingleSceneNode = function() {
       inputsCarousel.reset();
       functionsCarousel.reset();
+      outputsCarousel.reset();
     };
 
-    options.children = [ inputsCarousel, functionsCarousel ];
+    options.children = [ inputsCarousel, functionsCarousel, outputsCarousel ];
     Node.call( this, options );
   }
 
