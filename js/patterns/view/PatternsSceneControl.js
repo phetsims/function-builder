@@ -13,7 +13,7 @@ define( function( require ) {
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
-  var FUNCTION_WIDTH = 25;
+  var FUNCTION_WIDTH = 30;
 
   /**
    * @param {Property<string>} sceneNameProperty - name of the scene that is visible, 'single'|'dual'|'composed'
@@ -24,7 +24,7 @@ define( function( require ) {
 
     options = options || {};
     options.orientation = 'horizontal';
-    options.spacing = 15;
+    options.spacing = 20;
     options.baseColor = 'white';
     options.selectedLineWidth = 2;
     options.buttonContentXMargin = 10;
