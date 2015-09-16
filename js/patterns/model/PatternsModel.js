@@ -15,32 +15,32 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   // function images
-  var functionDisappearImage = require( 'mipmap!FUNCTION_BUILDER/function-disappear.png' );
-  var functionGrayScaleImage = require( 'mipmap!FUNCTION_BUILDER/function-grayscale.png' );
-  var functionIdentityImage = require( 'mipmap!FUNCTION_BUILDER/function-identity.png' );
-  var functionInvertRGBImage = require( 'mipmap!FUNCTION_BUILDER/function-invert-rgb.png' );
-  var functionMysteryAImage = require( 'mipmap!FUNCTION_BUILDER/function-mystery-A.png' );
-  var functionMysteryBImage = require( 'mipmap!FUNCTION_BUILDER/function-mystery-B.png' );
-  var functionMysteryCImage = require( 'mipmap!FUNCTION_BUILDER/function-mystery-C.png' );
-  var functionReflectYImage = require( 'mipmap!FUNCTION_BUILDER/function-reflect-y.png' );
-  var functionRotate90Image = require( 'mipmap!FUNCTION_BUILDER/function-rotate-90.png' );
-  var functionRotate180Image = require( 'mipmap!FUNCTION_BUILDER/function-rotate-180.png' );
-  var functionShrink75Image = require( 'mipmap!FUNCTION_BUILDER/function-shrink-75.png' );
-  var functionWarholImage = require( 'mipmap!FUNCTION_BUILDER/function-warhol.png' );
+  var disappearImage = require( 'mipmap!FUNCTION_BUILDER/functions/disappear.png' );
+  var grayScaleImage = require( 'mipmap!FUNCTION_BUILDER/functions/grayscale.png' );
+  var identityImage = require( 'mipmap!FUNCTION_BUILDER/functions/identity.png' );
+  var invertRGBImage = require( 'mipmap!FUNCTION_BUILDER/functions/invertRGB.png' );
+  var mirrorImage = require( 'mipmap!FUNCTION_BUILDER/functions/mirror.png' );
+  var mysteryAImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryA.png' );
+  var mysteryBImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryB.png' );
+  var mysteryCImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryC.png' );
+  var rotate90Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate90.png' );
+  var rotate180Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate180.png' );
+  var shrink75Image = require( 'mipmap!FUNCTION_BUILDER/functions/shrink75.png' );
+  var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
 
   // input images
-  var beakerImage = require( 'mipmap!FUNCTION_BUILDER/input-beaker.png' );
-  var butterflyImage = require( 'mipmap!FUNCTION_BUILDER/input-butterfly.png' );
-  var cherriesImage = require( 'mipmap!FUNCTION_BUILDER/input-cherries.png' );
-  var circleImage = require( 'mipmap!FUNCTION_BUILDER/input-circle.png' );
-  var feetImage = require( 'mipmap!FUNCTION_BUILDER/input-feet.png' );
-  var planetImage = require( 'mipmap!FUNCTION_BUILDER/input-planet.png' );
-  var rectangleImage = require( 'mipmap!FUNCTION_BUILDER/input-rectangle.png' );
-  var snowflakeImage = require( 'mipmap!FUNCTION_BUILDER/input-snowflake.png' );
-  var starImage = require( 'mipmap!FUNCTION_BUILDER/input-star.png' );
-  var stickFigureImage = require( 'mipmap!FUNCTION_BUILDER/input-stick-figure.png' );
-  var sunImage = require( 'mipmap!FUNCTION_BUILDER/input-sun.png' );
-  var triangleImage = require( 'mipmap!FUNCTION_BUILDER/input-triangle.png' );
+  var beakerImage = require( 'mipmap!FUNCTION_BUILDER/inputs/beaker.png' );
+  var butterflyImage = require( 'mipmap!FUNCTION_BUILDER/inputs/butterfly.png' );
+  var cherriesImage = require( 'mipmap!FUNCTION_BUILDER/inputs/cherries.png' );
+  var circleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/circle.png' );
+  var feetImage = require( 'mipmap!FUNCTION_BUILDER/inputs/feet.png' );
+  var planetImage = require( 'mipmap!FUNCTION_BUILDER/inputs/planet.png' );
+  var rectangleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/rectangle.png' );
+  var snowflakeImage = require( 'mipmap!FUNCTION_BUILDER/inputs/snowflake.png' );
+  var starImage = require( 'mipmap!FUNCTION_BUILDER/inputs/star.png' );
+  var stickFigureImage = require( 'mipmap!FUNCTION_BUILDER/inputs/stickFigure.png' );
+  var sunImage = require( 'mipmap!FUNCTION_BUILDER/inputs/sun.png' );
+  var triangleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
    * @constructor
@@ -55,18 +55,18 @@ define( function( require ) {
     this.functions = [
 
       // No i18n of names necessary, they are used internally for debugging
-      new Function( 'reflect-y', functionReflectYImage ),
-      new Function( 'rotate-90', functionRotate90Image ),
-      new Function( 'grayscale', functionGrayScaleImage ),
-      new Function( 'rotate-180', functionRotate180Image ),
-      new Function( 'identity', functionIdentityImage ),
-      new Function( 'invert-rgb', functionInvertRGBImage ),
-      new Function( 'disappear', functionDisappearImage ),
-      new Function( 'shrink-75', functionShrink75Image ),
-      new Function( 'warhol', functionWarholImage ),
-      new Function( 'mystery-A', functionMysteryAImage ),
-      new Function( 'mystery-B', functionMysteryBImage ),
-      new Function( 'mystery-C', functionMysteryCImage )
+      new Function( 'mirror', mirrorImage ),
+      new Function( 'rotate90', rotate90Image ),
+      new Function( 'grayscale', grayScaleImage ),
+      new Function( 'rotate180', rotate180Image ),
+      new Function( 'identity', identityImage ),
+      new Function( 'invertRGB', invertRGBImage ),
+      new Function( 'disappear', disappearImage ),
+      new Function( 'shrink75', shrink75Image ),
+      new Function( 'warhol', warholImage ),
+      new Function( 'mysteryA', mysteryAImage ),
+      new Function( 'mysteryB', mysteryBImage ),
+      new Function( 'mysteryC', mysteryCImage )
     ];
 
     // @public (read-only)
