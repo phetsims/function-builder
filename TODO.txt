@@ -5,3 +5,7 @@ Size icons to fit for cards and functions, requires uniform size for .png files.
 Center eraser button on output carousel.
 Address issue of eraser button being close to output carousel's next button.
 Items in carousels should be containers that manage what's in them and handle interactivity.
+Mipmap washes out color of invertRGB.png
+Add highlight to center of identity.png
+Mipmap makes lines less distinct in many icons.
+White cards on white carousels, could use a bit of color difference.
