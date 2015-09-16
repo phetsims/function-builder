@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FunctionShape = require( 'FUNCTION_BUILDER/common/view/FunctionShape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    * @param {Object} [options]
@@ -22,7 +22,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // FunctionShape
+      // Shape
       backgroundWidth: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.8, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
@@ -40,18 +40,36 @@ define( function( require ) {
     }, options );
 
     // validate options
+    assert && assert( options.backgroundWidth > 0 );
+    assert && assert( options.aspectRatio > 0 );
+    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
     assert && assert( options.lineWidth >= 0 );
     assert && assert( options.xMarginFactor >= 0 );
     assert && assert( options.yMarginFactor >= 0 );
 
     options.children = [];
 
-    // Background is shaped like a function
-    var backgroundShape = new FunctionShape( {
-      width: options.backgroundWidth,
-      aspectRatio: options.aspectRatio,
-      xInsetFactor: options.xInsetFactor
-    } );
+    // To improve readability of shape code
+    var width = options.backgroundWidth;
+    var height = width / options.aspectRatio;
+    var xInset = options.xInsetFactor * width;
+
+    // Background shape is described starting at left center, moving clockwise. It looks like this:
+    //
+    //    ---------
+    //    \        \
+    //    /        /
+    //    ---------
+    //
+    var backgroundShape = new Shape()
+      .moveTo( xInset, height / 2 )
+      .lineTo( 0, 0 )
+      .lineTo( width - xInset, 0 )
+      .lineTo( width, height / 2 )
+      .lineTo( width - xInset, height )
+      .lineTo( 0, height )
+      .close();
+
     var backgroundNode = new Path( backgroundShape, {
       fill: options.fill,
       stroke: options.stroke,
@@ -67,7 +85,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.xInset = backgroundShape.xInset; // @public for layout
+    this.xInset = xInset; // @public for layout
   }
 
   return inherit( Node, FunctionNode );
