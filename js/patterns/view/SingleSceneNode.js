@@ -70,6 +70,7 @@ define( function( require ) {
     } );
 
     // Link scrolling of input and output carousels
+    assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputsCarousel.pageNumberProperty.set( pageNumber );
     } );
