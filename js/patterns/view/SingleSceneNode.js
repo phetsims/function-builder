@@ -69,7 +69,7 @@ define( function( require ) {
       centerY: inputsCarousel.centerY
     } );
 
-    // Link scrolling of input and output carousels
+    // Link input and output carousels, so that display the same page number
     assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputsCarousel.pageNumberProperty.set( pageNumber );
