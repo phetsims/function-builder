@@ -12,6 +12,7 @@ define( function( require ) {
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
   var Carousel = require( 'SUN/Carousel' );
+  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -74,6 +75,14 @@ define( function( require ) {
       centerY: inputsCarousel.centerY
     } );
 
+    //TODO this isn't centered due to the page control on the carousel
+    // Eraser button, centered below the output carousel
+    var eraserButton = new EraserButton( {
+      iconWidth: 28,
+      centerX: outputsCarousel.centerX,
+      top: outputsCarousel.bottom + 10
+    } );
+
     // Link input and output carousels, so that display the same page number
     assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
@@ -90,7 +99,7 @@ define( function( require ) {
       outputsCarousel.reset();
     };
 
-    options.children = [ inputsCarousel, functionsCarousel, outputsCarousel ];
+    options.children = [ inputsCarousel, functionsCarousel, outputsCarousel, eraserButton ];
     Node.call( this, options );
   }
 
