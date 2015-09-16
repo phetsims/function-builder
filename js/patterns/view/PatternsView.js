@@ -133,7 +133,7 @@ define( function( require ) {
       }
     };
 
-    // Reset All button
+    // Reset All button at bottom-right
     var resetAllButton = new ResetAllButton( {
       right: this.layoutBounds.maxX - 20,
       bottom: this.layoutBounds.maxY - 20,

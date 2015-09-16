@@ -20,7 +20,7 @@ define( function( require ) {
 
   function SingleSceneNode( model, layoutBounds, options ) {
 
-    // Inputs, in a vertical carousel
+    // Inputs, in a vertical carousel at left-center
     var inputNodes = [];
     model.inputs.forEach( function( input ) {
       inputNodes.push( new CardStackNode( input.image, {
@@ -36,7 +36,7 @@ define( function( require ) {
       centerY: layoutBounds.centerY
     } );
 
-    // Functions, in a horizontal carousel
+    // Functions, in a horizontal carousel at bottom-center
     var functionNodes = [];
     model.functions.forEach( function( functionInstance ) {
       functionNodes.push( new FunctionNode( {
@@ -52,7 +52,7 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 50
     } );
 
-    // Outputs, in a vertical carousel
+    // Outputs, in a vertical carousel at right-center
     var outputNodes = [];
     for ( var i = 0; i < inputNodes.length; i++ ) {
       outputNodes.push( new CardNode( {
