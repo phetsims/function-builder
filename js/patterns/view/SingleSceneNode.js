@@ -36,10 +36,11 @@ define( function( require ) {
     var inputsCarousel = new Carousel( inputNodes, {
       orientation: 'vertical',
       pageControlVisible: true,
+      pageControlLocation: 'left',
       separatorsVisible: true,
       itemsPerPage: 4,
       left: layoutBounds.left + 50,
-      centerY: layoutBounds.centerY
+      top: layoutBounds.top + 50
     } );
 
     // Functions, in a horizontal carousel at bottom-center
@@ -53,9 +54,10 @@ define( function( require ) {
     var functionsCarousel = new Carousel( functionNodes, {
       orientation: 'horizontal',
       pageControlVisible: true,
+      pageControlLocation: 'bottom',
       itemsPerPage: 3,
       centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - 50
+      bottom: layoutBounds.bottom - 15
     } );
 
     // Outputs, in a vertical carousel at right-center
@@ -69,10 +71,11 @@ define( function( require ) {
     var outputsCarousel = new Carousel( outputNodes, {
       orientation: 'vertical',
       pageControlVisible: true,
+      pageControlLocation: 'right',
       separatorsVisible: true,
       itemsPerPage: 4,
-      right: layoutBounds.right - 50,
-      centerY: inputsCarousel.centerY
+      right: layoutBounds.right - ( inputsCarousel.left - layoutBounds.left ),
+      top: inputsCarousel.top
     } );
 
     //TODO this isn't centered due to the page control on the carousel
@@ -80,7 +83,7 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       iconWidth: 28,
       centerX: outputsCarousel.centerX,
-      top: outputsCarousel.bottom + 10
+      top: outputsCarousel.bottom + 30
     } );
 
     // Link input and output carousels, so that display the same page number
