@@ -16,8 +16,13 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
+  /**
+   * @param model
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {Object} [options]
+   * @constructor
+   */
   function SingleSceneNode( model, layoutBounds, options ) {
 
     // Inputs, in a vertical carousel at left-center
