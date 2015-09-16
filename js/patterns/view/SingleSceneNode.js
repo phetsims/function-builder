@@ -15,14 +15,9 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function SingleSceneNode( model, layoutBounds, options ) {
-
-    //TODO delete this placeholder
-    var icon = new PatternsIconFactory.createSingleSceneIcon( 200 );
-    icon.center = layoutBounds.center;
 
     // Input cards, in a vertical carousel
     var inputNodes = [];
@@ -62,7 +57,7 @@ define( function( require ) {
       functionsCarousel.reset();
     };
 
-    options.children = [ icon, inputsCarousel, functionsCarousel ];
+    options.children = [ inputsCarousel, functionsCarousel ];
     Node.call( this, options );
   }
 
