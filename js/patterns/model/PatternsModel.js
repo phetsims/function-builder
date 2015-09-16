@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Function = require( 'FUNCTION_BUILDER/common/model/Function' );
+  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'FUNCTION_BUILDER/common/model/Input' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -55,18 +55,18 @@ define( function( require ) {
     this.functions = [
 
       // No i18n of names necessary, they are used internally for debugging
-      new Function( 'mirror', mirrorImage ),
-      new Function( 'rotate90', rotate90Image ),
-      new Function( 'grayscale', grayScaleImage ),
-      new Function( 'rotate180', rotate180Image ),
-      new Function( 'identity', identityImage ),
-      new Function( 'invertRGB', invertRGBImage ),
-      new Function( 'disappear', disappearImage ),
-      new Function( 'shrink75', shrink75Image ),
-      new Function( 'warhol', warholImage ),
-      new Function( 'mysteryA', mysteryAImage ),
-      new Function( 'mysteryB', mysteryBImage ),
-      new Function( 'mysteryC', mysteryCImage )
+      new FBFunction( 'mirror', mirrorImage ),
+      new FBFunction( 'rotate90', rotate90Image ),
+      new FBFunction( 'grayscale', grayScaleImage ),
+      new FBFunction( 'rotate180', rotate180Image ),
+      new FBFunction( 'identity', identityImage ),
+      new FBFunction( 'invertRGB', invertRGBImage ),
+      new FBFunction( 'disappear', disappearImage ),
+      new FBFunction( 'shrink75', shrink75Image ),
+      new FBFunction( 'warhol', warholImage ),
+      new FBFunction( 'mysteryA', mysteryAImage ),
+      new FBFunction( 'mysteryB', mysteryBImage ),
+      new FBFunction( 'mysteryC', mysteryCImage )
     ];
 
     // @public (read-only)

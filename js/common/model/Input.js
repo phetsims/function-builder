@@ -1,5 +1,10 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
+/**
+ * An input to a function.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
