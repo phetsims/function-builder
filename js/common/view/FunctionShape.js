@@ -15,9 +15,9 @@ define( function( require ) {
   function FunctionShape( options ) {
 
     options = _.extend( {
-      width: 100, // {number} width, height is computed so that aspect ratio remains the same at all sizes
+      width: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.5, // {number} aspect ratio, width/height
-      xInsetFactor: 0.15 // {number} x-inset of arrow-like ends of the background
+      xInsetFactor: 0.2 // {number} x-inset of arrow-like ends of the background
     }, options );
 
     // validate options
