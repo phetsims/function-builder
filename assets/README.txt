@@ -1,1 +1,0 @@
-Original artwork files for this simulation
