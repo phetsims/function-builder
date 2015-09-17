@@ -36,7 +36,7 @@ define( function( require ) {
       bodyLineWidth: 1,
 
       // ends
-      endRadius: 20,
+      endRadius: 15,
       endColor: 'rgb( 200, 186, 190 )',
       endStroke: 'black',
       endLineWidth: 1,
@@ -98,12 +98,12 @@ define( function( require ) {
     } );
 
     // Left (input) slot
-    var slotWidth = 0.5 * options.endRadius;
+    var slotWidth = 0.4 * options.endRadius;
     var slotHeight = 0.75 * options.bodySize.height;
-    var slotYOffset = 0.05 * slotHeight;
+    var slotYOffset = 0.025 * slotHeight;
     var leftSlotShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( slotWidth, slotYOffset )
+      .moveTo( 0, slotYOffset )
+      .lineTo( slotWidth, 0 )
       .lineTo( slotWidth, slotHeight )
       .lineTo( 0, slotHeight - slotYOffset )
       .close();
