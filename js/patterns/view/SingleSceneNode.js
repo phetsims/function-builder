@@ -18,7 +18,13 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PageControl = require( 'SUN/PageControl' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
+  // constants
+  var PAGE_CONTROL_SPACING = 8;
+  var INPUTS_PER_PAGE = 4;
+  var FUNCTION_PER_PAGE = 3;
 
   /**
    * @param model
@@ -41,7 +47,7 @@ define( function( require ) {
       pageControlVisible: true,
       pageControlLocation: 'left',
       separatorsVisible: true,
-      itemsPerPage: 4,
+      itemsPerPage: INPUTS_PER_PAGE,
       left: layoutBounds.left + 50,
       top: layoutBounds.top + 50
     } );
@@ -58,7 +64,7 @@ define( function( require ) {
       orientation: 'horizontal',
       pageControlVisible: true,
       pageControlLocation: 'bottom',
-      itemsPerPage: 3,
+      itemsPerPage: FUNCTION_PER_PAGE,
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - 15
     } );
@@ -73,12 +79,11 @@ define( function( require ) {
       pageControlVisible: true,
       pageControlLocation: 'right',
       separatorsVisible: true,
-      itemsPerPage: 4,
+      itemsPerPage: INPUTS_PER_PAGE,
       right: layoutBounds.right - ( inputsCarousel.left - layoutBounds.left ),
       top: inputsCarousel.top
     } );
 
-    //TODO this isn't centered due to the page control on the carousel
     // Eraser button, centered below the output carousel
     var eraserButton = new EraserButton( {
       iconWidth: 28,
@@ -90,6 +95,23 @@ define( function( require ) {
     var builderNode = new BuilderNode( {
       centerX: layoutBounds.centerX,
       centerY: inputsCarousel.centerY
+    } );
+
+    // Page controls for each carousel
+    var inputsPageControl = new PageControl( inputsCarousel.numberOfPages, inputsCarousel.pageNumberProperty, {
+      orientation: 'vertical',
+      right: inputsCarousel.left - PAGE_CONTROL_SPACING,
+      centerY: inputsCarousel.centerY
+    } );
+    var outputsPageControl = new PageControl( outputsCarousel.numberOfPages, outputsCarousel.pageNumberProperty, {
+      orientation: 'vertical',
+      left: outputsCarousel.right + PAGE_CONTROL_SPACING,
+      centerY: outputsCarousel.centerY
+    } );
+    var functionsPageControl = new PageControl( functionsCarousel.numberOfPages, functionsCarousel.pageNumberProperty, {
+      orientation: 'horizontal',
+      centerX: functionsCarousel.centerX,
+      top: functionsCarousel.bottom + PAGE_CONTROL_SPACING
     } );
 
     // Link input and output carousels, so that display the same page number
@@ -108,7 +130,8 @@ define( function( require ) {
       outputsCarousel.reset();
     };
 
-    options.children = [ builderNode, inputsCarousel, functionsCarousel, outputsCarousel, eraserButton ];
+    options.children = [ builderNode, inputsCarousel, outputsCarousel, functionsCarousel, eraserButton,
+      inputsPageControl, outputsPageControl, functionsPageControl ];
     Node.call( this, options );
   }
 
