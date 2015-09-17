@@ -51,23 +51,6 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    // Functions, in a horizontal carousel at bottom-center
-    var functionNodes = [];
-    model.functions.forEach( function( functionInstance ) {
-      functionNodes.push( new FunctionNode( {
-        fill: functionInstance.backgroundColor,
-        icon: new Image( functionInstance.image, { scale: 0.3 } )
-      } ) );
-    } );
-    var functionsCarousel = new Carousel( functionNodes, {
-      orientation: 'horizontal',
-      pageControlVisible: true,
-      pageControlLocation: 'bottom',
-      itemsPerPage: FUNCTION_PER_PAGE,
-      centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - 15
-    } );
-
     // Outputs, in a vertical carousel at right-center
     var outputNodes = [];
     for ( var i = 0; i < inputNodes.length; i++ ) {
@@ -90,7 +73,24 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
-    // Builder in the center of the screen
+    // Functions, in a horizontal carousel at bottom-center
+    var functionNodes = [];
+    model.functions.forEach( function( functionInstance ) {
+      functionNodes.push( new FunctionNode( {
+        fill: functionInstance.backgroundColor,
+        icon: new Image( functionInstance.image, { scale: 0.3 } )
+      } ) );
+    } );
+    var functionsCarousel = new Carousel( functionNodes, {
+      orientation: 'horizontal',
+      pageControlVisible: true,
+      pageControlLocation: 'bottom',
+      itemsPerPage: FUNCTION_PER_PAGE,
+      centerX: layoutBounds.centerX,
+      bottom: layoutBounds.bottom - 15
+    } );
+
+    // Function builder, in the center of the screen
     var builderNode = new BuilderNode( {
       centerX: layoutBounds.centerX,
       centerY: inputsCarousel.centerY
@@ -113,7 +113,7 @@ define( function( require ) {
       top: functionsCarousel.bottom + PAGE_CONTROL_SPACING
     } );
 
-    // Link input and output carousels, so that display the same page number
+    // Link input and output carousels, so that they display the same page number
     assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputsCarousel.pageNumberProperty.set( pageNumber );
@@ -122,15 +122,19 @@ define( function( require ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // @private
+    // @private Resets this node
     this.resetSingleSceneNode = function() {
       inputsCarousel.reset();
       functionsCarousel.reset();
       outputsCarousel.reset();
     };
 
-    options.children = [ builderNode, inputsCarousel, outputsCarousel, functionsCarousel, eraserButton,
-      inputsPageControl, outputsPageControl, functionsPageControl ];
+    options.children = [
+      builderNode,
+      inputsCarousel, outputsCarousel, functionsCarousel,
+      inputsPageControl, outputsPageControl, functionsPageControl,
+      eraserButton
+    ];
     Node.call( this, options );
   }
 
