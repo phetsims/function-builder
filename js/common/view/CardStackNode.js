@@ -14,13 +14,13 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {HTMLImageElement|MipMapArray} image
    * @param {Object} [options]
    * @constructor
    */
-  function CardStackNode( image, options ) {
+  function CardStackNode( options ) {
 
     options = _.extend( {
+      image: null, // {HTMLImageElement|MipMapArray|null}
       numberOfCards: 2,
       xOffset: 5,
       yOffset: 5
@@ -31,7 +31,7 @@ define( function( require ) {
     var previousNode = null;
     for ( var i = 0; i < options.numberOfCards; i++ ) {
       var cardNode = new CardNode( {
-        image: image,
+        image: options.image,
         left: previousNode ? ( previousNode.left + options.xOffset ) : 0,
         top: previousNode ? ( previousNode.top + options.yOffset ) : 0
       } );

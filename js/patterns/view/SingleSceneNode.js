@@ -18,6 +18,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    * @param model
@@ -30,8 +31,9 @@ define( function( require ) {
     // Inputs, in a vertical carousel at left-center
     var inputNodes = [];
     model.inputs.forEach( function( input ) {
-      inputNodes.push( new CardStackNode( input.image, {
-        numberOfCards: 2
+      inputNodes.push( new CardStackNode( {
+        numberOfCards: 2,
+        image: input.image
       } ) );
     } );
     var inputsCarousel = new Carousel( inputNodes, {
@@ -64,10 +66,7 @@ define( function( require ) {
     // Outputs, in a vertical carousel at right-center
     var outputNodes = [];
     for ( var i = 0; i < inputNodes.length; i++ ) {
-      outputNodes.push( new CardNode( {
-        fill: null,
-        stroke: null
-      } ) );
+      outputNodes.push( new Rectangle( 0, 0, inputNodes[ 0 ].width, inputNodes[ 0 ].height ) );
     }
     var outputsCarousel = new Carousel( outputNodes, {
       orientation: 'vertical',
