@@ -32,8 +32,9 @@ define( function( require ) {
 
   return inherit( FBFunction, Disappear, {
 
-    apply: function( image ) {
-      return image; //TODO return null or fully transparent?
+    apply: function( card ) {
+      return card.clone(); //TODO return null or fully transparent?
     }
+
   } );
 } );

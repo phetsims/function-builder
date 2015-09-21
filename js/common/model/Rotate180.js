@@ -32,9 +32,8 @@ define( function( require ) {
 
   return inherit( FBFunction, Rotate180, {
 
-    apply: function( image ) {
-      //TODO
-      return image;
+    apply: function( card ) {
+      return card.clone(); //TODO
     }
   } );
 } );

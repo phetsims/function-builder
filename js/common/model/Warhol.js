@@ -1,7 +1,8 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Creates a 2x2 grid of the input card, using 4 colors (#FF51E7, #06FFAF, #FAFF69, #5871FF).
+ * All non-transparent pixels in the input are mapped to one of the 4 colors. Each background is one of the 4 colors.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,9 +33,8 @@ define( function( require ) {
 
   return inherit( FBFunction, Warhol, {
 
-    apply: function( image ) {
-      //TODO
-      return image;
+    apply: function( card ) {
+      return card.clone(); //TODO
     }
   } );
 } );

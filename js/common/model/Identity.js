@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * The identity function, creates an image that is identical to the input.
+ * The identity function, creates an output that is identical to the input.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,8 +32,8 @@ define( function( require ) {
 
   return inherit( FBFunction, Identity, {
 
-    apply: function( image ) {
-      return image;
+    apply: function( input ) {
+      return input.clone();
     }
   } );
 } );

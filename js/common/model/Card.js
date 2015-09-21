@@ -22,5 +22,10 @@ define( function( require ) {
     this.image = image; // @public (read-only)
   }
 
-  return inherit( Object, Card );
+  return inherit( Object, Card, {
+
+    clone: function() {
+      return new Card( this.name, this.image );
+    }
+  } );
 } );
