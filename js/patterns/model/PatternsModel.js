@@ -47,10 +47,6 @@ define( function( require ) {
    */
   function PatternsModel() {
 
-    PropertySet.call( this, {
-      //TODO
-    } );
-
     // @public (read-only)
     this.functions = [
 
@@ -86,6 +82,10 @@ define( function( require ) {
       new Input( 'triangle', triangleImage ),
       new Input( 'star', starImage )
     ];
+
+    PropertySet.call( this, {
+      selectedFunction: this.functions[0]
+    } );
   }
 
   return inherit( PropertySet, PatternsModel, {
