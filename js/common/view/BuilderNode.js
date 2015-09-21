@@ -20,10 +20,11 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
+   * @param {Builder} builder
    * @param {Object} [options]
    * @constructor
    */
-  function BuilderNode( options ) {
+  function BuilderNode( builder, options ) {
 
     options = _.extend( {
 
@@ -47,7 +48,6 @@ define( function( require ) {
       slotLineWidth: 2,
 
       // function placeholders
-      numberOfFunctions: 1,
       functionStroke: 'white',
       functionLineWidth: 1,
       functionLineDash: [ 3, 3 ]
@@ -125,7 +125,7 @@ define( function( require ) {
 
     // Function placeholders
     var functionNodes = [];
-    for ( var i = 0; i < options.numberOfFunctions; i++ ) {
+    for ( var i = 0; i < builder.numberOfFunctions; i++ ) {
       functionNodes.push( new FunctionNode( {
         fill: null,
         stroke: options.functionStroke,
@@ -139,9 +139,27 @@ define( function( require ) {
       center: bodyNode.center
     } );
 
+    // Synchronize with the pipeline
+    var functionPropertyObserver = function( functionInstance ) {
+      console.log( functionInstance.name );//XXX
+    };
+    builder.functionProperties.forEach( function( functionProperty ) {
+      functionProperty.link( functionPropertyObserver );
+    } );
+
+    // @private
+    this.disposeBuilderNode = function() {
+      builder.functionProperties.forEach( function( functionProperty ) {
+        functionProperty.unlink( functionPropertyObserver );
+      } );
+    };
+
     options.children = [ bodyNode, functionsParent, leftEnd, rightEnd, leftSlotNode, rightSlotNode ];
     Node.call( this, options );
   }
 
-  return inherit( Node, BuilderNode );
+  return inherit( Node, BuilderNode, {
+
+    dispose: function() { this.disposeBuilderNode(); }
+  } );
 } );

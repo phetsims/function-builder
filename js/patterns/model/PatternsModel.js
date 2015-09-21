@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'FUNCTION_BUILDER/common/model/Input' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   // function images
   var disappearImage = require( 'mipmap!FUNCTION_BUILDER/functions/disappear.png' );
@@ -83,12 +83,17 @@ define( function( require ) {
       new Input( 'star', starImage )
     ];
 
-    PropertySet.call( this, {
-      selectedFunction: this.functions[0]
+    // @public
+    this.builder = new Builder( {
+      numberOfFunctions: 1
     } );
   }
 
-  return inherit( PropertySet, PatternsModel, {
+  return inherit( Object, PatternsModel, {
+
+    reset: function() {
+     this.builder.reset();
+    },
 
     step: function( dt ) {
       //TODO

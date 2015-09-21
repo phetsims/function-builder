@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -22,6 +23,8 @@ define( function( require ) {
 
     options = _.extend( {
 
+      functionInstance: null, // {FBFunction|null} optional model element
+
       // Shape
       backgroundWidth: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.8, // {number} aspect ratio, width/height
@@ -34,7 +37,7 @@ define( function( require ) {
       lineDash: null, // {number[]}
 
       // optional icon
-      icon: null, // {Node|null} icon, client is responsible for ensuring that it fits in shape
+      iconScale: 1, // {number}
       xMarginFactor: 0.10, // {number} portion of width that determines the x-margin around the icon
       yMarginFactor: 0.05  // {number} portion of height that determines the y-margin around the icon
 
@@ -80,14 +83,19 @@ define( function( require ) {
     options.children.push( backgroundNode );
 
     // Add optional icon
-    if ( options.icon ) {
-      options.icon.center = backgroundNode.center;
-      options.children.push( options.icon );
+    if ( options.functionInstance ) {
+      var wrapperNode = new Node( {
+        children: [ new Image( options.functionInstance.image ) ],
+        scale: options.iconScale
+      } );
+      wrapperNode.center = backgroundNode.center;
+      options.children.push( wrapperNode );
     }
 
     Node.call( this, options );
 
-    this.xInset = xInset; // @public for layout
+    this.functionInstance = options.functionInstance; // @public (read-only)
+    this.xInset = xInset; // @public (read-only), for layout
   }
 
   return inherit( Node, FunctionNode );

@@ -12,6 +12,7 @@ define( function( require ) {
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
+  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -73,13 +74,24 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
+    // Clicking on a function selects it
+    var functionInputListener = new DownUpListener( {
+      down: function( event ) {
+        assert && assert( event.currentTarget instanceof FunctionNode );
+        model.builder.functionProperties[0].set( event.currentTarget.functionInstance );
+      }
+    } );
+
     // Functions, in a horizontal carousel at bottom-center
     var functionNodes = [];
     model.functions.forEach( function( functionInstance ) {
-      functionNodes.push( new FunctionNode( {
+      var functionNode = new FunctionNode( {
+        functionInstance: functionInstance,
         fill: functionInstance.backgroundColor,
-        icon: new Image( functionInstance.image, { scale: 0.3 } )
-      } ) );
+        iconScale: 0.3
+      } );
+      functionNodes.push( functionNode );
+      functionNode.addInputListener( functionInputListener );
     } );
     var functionsCarousel = new Carousel( functionNodes, {
       orientation: 'horizontal',
@@ -91,7 +103,7 @@ define( function( require ) {
     } );
 
     // Function builder, in the center of the screen
-    var builderNode = new BuilderNode( {
+    var builderNode = new BuilderNode( model.builder, {
       centerX: layoutBounds.centerX,
       centerY: inputsCarousel.centerY
     } );
