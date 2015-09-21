@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
-  var CardStackNode = require( 'FUNCTION_BUILDER/common/view/CardStackNode' );
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -36,8 +36,7 @@ define( function( require ) {
     // Inputs, in a vertical carousel at left-center
     var inputNodes = [];
     model.inputs.forEach( function( input ) {
-      inputNodes.push( new CardStackNode( {
-        numberOfCards: 2,
+      inputNodes.push( new CardNode( {
         image: input.image
       } ) );
     } );
@@ -87,7 +86,7 @@ define( function( require ) {
       pageControlLocation: 'bottom',
       itemsPerPage: FUNCTION_PER_PAGE,
       centerX: layoutBounds.centerX,
-      bottom: layoutBounds.bottom - 15
+      bottom: layoutBounds.bottom - 25
     } );
 
     // Function builder, in the center of the screen
