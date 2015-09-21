@@ -28,7 +28,7 @@ define( function( require ) {
 
     this.name = name; // @public (read-only)
 
-    // @public (read-only)
+    // @public (read-only) visual representation, in the model for convenience
     this.image = options.image;
     this.fill = options.fill;
     this.stroke = options.stroke;
