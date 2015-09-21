@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
-  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );

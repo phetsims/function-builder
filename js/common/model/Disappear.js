@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Make the image disappear.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

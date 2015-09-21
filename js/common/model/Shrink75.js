@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Shrinks by 75%.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

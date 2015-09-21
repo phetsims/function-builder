@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Reflects about the x axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

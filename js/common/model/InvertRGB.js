@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Inverts colors in RGB color space.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

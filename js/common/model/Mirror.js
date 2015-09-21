@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Creates a mirror image, a reflection about the y axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

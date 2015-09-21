@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * The identity function, creates an image that is identical to the input.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

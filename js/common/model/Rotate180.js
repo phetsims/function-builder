@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * TODO
+ * Rotates 180 degrees clockwise.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
