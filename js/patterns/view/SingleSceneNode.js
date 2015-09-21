@@ -18,7 +18,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
   var PAGE_CONTROL_SPACING = 8;
@@ -52,9 +51,11 @@ define( function( require ) {
 
     // Outputs, in a vertical carousel at right-center
     var outputNodes = [];
-    for ( var i = 0; i < inputNodes.length; i++ ) {
-      outputNodes.push( new Rectangle( 0, 0, inputNodes[ 0 ].width, inputNodes[ 0 ].height ) );
-    }
+    model.inputs.forEach( function( input ) {
+      outputNodes.push( new CardNode( {
+        image: input.image
+      } ) );
+    } );
     var outputsCarousel = new Carousel( outputNodes, {
       orientation: 'vertical',
       pageControlVisible: true,
