@@ -123,22 +123,22 @@ define( function( require ) {
       center: rightEnd.center
     } );
 
-    // Functions
-    var functionNodes = [];
-    builder.functionProperties.forEach( function( functionProperty, index ) {
-      var functionInstance = functionProperty.get();
-      functionNodes.push( new FunctionNode( functionInstance, {
-        left: ( index > 0 ) ? ( functionNodes[ index - 1 ].right - functionNodes[ index - 1 ].xInset - options.functionLineWidth / 2 ) : 0
-      } ) )
-    } );
-    var functionsParent = new Node( {
-      children: functionNodes,
-      center: bodyNode.center
-    } );
+    // Parent for all functions
+    var functionsParent = new Node();
 
     // Synchronize with the pipeline
     var functionPropertyObserver = function( functionInstance ) {
-      console.log( functionInstance.name );//XXX
+
+      //TODO change only the slot that corresponds to functionInstance, not all slots in the pipeline
+      functionsParent.removeAllChildren();
+      builder.functionProperties.forEach( function( functionProperty, index ) {
+        var functionInstance = functionProperty.get();
+        functionsParent.addChild( new FunctionNode( functionInstance, {
+          left: ( index > 0 ) ? ( functionsParent.getChildAt[ index - 1 ].right - functionsParent.getChildAt[ index - 1 ].xInset - options.functionLineWidth / 2 ) : 0
+        } ) );
+      } );
+
+      functionsParent.center = bodyNode.center;
     };
     builder.functionProperties.forEach( function( functionProperty ) {
       functionProperty.link( functionPropertyObserver );

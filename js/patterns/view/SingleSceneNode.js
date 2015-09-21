@@ -15,7 +15,6 @@ define( function( require ) {
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -86,7 +85,6 @@ define( function( require ) {
     var functionNodes = [];
     model.functions.forEach( function( functionInstance ) {
       var functionNode = new FunctionNode( functionInstance, {
-        iconScale: 0.3,
         cursor: 'pointer'
       } );
       functionNodes.push( functionNode );

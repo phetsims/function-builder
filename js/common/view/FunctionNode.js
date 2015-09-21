@@ -30,7 +30,7 @@ define( function( require ) {
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
 
       // optional icon
-      iconScale: 1, // {number}
+      iconScale: 0.3, // {number}
       xMarginFactor: 0.10, // {number} portion of width that determines the x-margin around the icon
       yMarginFactor: 0.05  // {number} portion of height that determines the y-margin around the icon
 
