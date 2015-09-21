@@ -12,13 +12,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} name - name of the function, not visible to the user, used internally for debugging
    * @param {Object} [options]
    * @constructor
    */
-  function FBFunction( name, options ) {
+  function FBFunction( options ) {
 
     options = _.extend( {
+      name: null, // {string} name of the function, not visible to the user, used internally for debugging
       image: null, // {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
       fill: 'white',
       stroke: 'black',
@@ -26,7 +26,7 @@ define( function( require ) {
       lineDash: null
     }, options );
 
-    this.name = name; // @public (read-only)
+    this.name = options.name; // @public (read-only)
 
     // @public (read-only) visual representation, in the model for convenience
     this.image = options.image;
@@ -36,5 +36,14 @@ define( function( require ) {
     this.lineDash = options.lineDash;
   }
 
-  return inherit( Object, FBFunction );
+  return inherit( Object, FBFunction, {
+
+    /**
+     * @param {*} input
+     * @returns {*} output, of the same type as input
+     */
+    apply: function( input ) {
+      throw new Error( 'must be implemented by subtypes' );
+    }
+  } );
 } );

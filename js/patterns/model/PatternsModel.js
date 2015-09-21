@@ -10,23 +10,21 @@ define( function( require ) {
 
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
+  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'FUNCTION_BUILDER/common/model/Input' );
-
-  // function images
-  var disappearImage = require( 'mipmap!FUNCTION_BUILDER/functions/disappear.png' );
-  var grayScaleImage = require( 'mipmap!FUNCTION_BUILDER/functions/grayscale.png' );
-  var identityImage = require( 'mipmap!FUNCTION_BUILDER/functions/identity.png' );
-  var invertRGBImage = require( 'mipmap!FUNCTION_BUILDER/functions/invertRGB.png' );
-  var mirrorImage = require( 'mipmap!FUNCTION_BUILDER/functions/mirror.png' );
-  var mysteryAImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryA.png' );
-  var mysteryBImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryB.png' );
-  var mysteryCImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryC.png' );
-  var rotate90Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate90.png' );
-  var rotate180Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate180.png' );
-  var shrink75Image = require( 'mipmap!FUNCTION_BUILDER/functions/shrink75.png' );
-  var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
+  var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
+  var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
+  var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
+  var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
+  var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
+  var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
+  var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
+  var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
+  var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
 
   // input images
   var beakerImage = require( 'mipmap!FUNCTION_BUILDER/inputs/beaker.png' );
@@ -49,20 +47,18 @@ define( function( require ) {
 
     // @public (read-only)
     this.functions = [
-
-      // No i18n of names necessary, they are used internally for debugging
-      new FBFunction( 'mirror', { image: mirrorImage, fill: 'rgb( 128, 197, 237 )' } ),
-      new FBFunction( 'rotate90', { image: rotate90Image, fill: 'rgb( 147, 231, 128 )' } ),
-      new FBFunction( 'grayscale', { image: grayScaleImage, fill: 'rgb( 232, 232, 232 )' } ),
-      new FBFunction( 'rotate180', { image: rotate180Image, fill: 'rgb( 147, 231, 128 )' } ),
-      new FBFunction( 'identity', { image: identityImage, fill: 'rgb( 255, 161, 43 )' } ),
-      new FBFunction( 'invertRGB', { image: invertRGBImage, fill: 'black' } ),
-      new FBFunction( 'disappear', { image: disappearImage, fill: 'rgb( 246, 164, 255 )' } ),
-      new FBFunction( 'shrink75', { image: shrink75Image, fill: 'rgb( 250, 186, 75 )' } ),
-      new FBFunction( 'warhol', { image: warholImage, fill: 'rgb( 0, 222, 224 )' } ),
-      new FBFunction( 'mysteryA', { image: mysteryAImage, fill: 'rgb( 127, 225, 173 )' } ),
-      new FBFunction( 'mysteryB', { image: mysteryBImage, fill: 'rgb( 249, 144, 99 )' } ),
-      new FBFunction( 'mysteryC', { image: mysteryCImage, fill: 'rgb( 222, 186, 247 )' } )
+      new Mirror(),
+      new Rotate90(),
+      new Grayscale(),
+      new Rotate180(),
+      new Identity(),
+      new InvertRGB(),
+      new Disappear(),
+      new Shrink75(),
+      new Warhol(),
+      new MysteryA(),
+      new MysteryB(),
+      new MysteryC()
     ];
 
     // @public (read-only)

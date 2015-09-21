@@ -1,10 +1,14 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
+/**
+ * Placeholder for a function.
+ * The absence of a function behaves like the identity function, will a different visual representation.
+ */
 define( function( require ) {
   'use strict';
 
   // modules
-  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -13,13 +17,15 @@ define( function( require ) {
   function PlaceholderFunction( options ) {
 
     options = _.extend( {
+      name: 'placeholder',
+      image: null,
       fill: null,
       stroke: 'white',
       lineDash: [ 3, 3 ]
     }, options );
 
-    FBFunction.call( this, 'placeholder', options );
+    Identity.call( this, options );
   }
 
-  return inherit( FBFunction, PlaceholderFunction );
+  return inherit( Identity, PlaceholderFunction );
 } );
