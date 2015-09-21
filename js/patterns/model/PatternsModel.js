@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Input = require( 'FUNCTION_BUILDER/common/model/Input' );
   var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
   var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
   var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
@@ -64,18 +64,18 @@ define( function( require ) {
     this.inputs = [
 
       // No i18n of names necessary, they are used internally for debugging
-      new Input( 'feet', feetImage ),
-      new Input( 'snowflake', snowflakeImage ),
-      new Input( 'butterfly', butterflyImage ),
-      new Input( 'stick-figure', stickFigureImage ),
-      new Input( 'planet', planetImage ),
-      new Input( 'sun', sunImage ),
-      new Input( 'beaker', beakerImage ),
-      new Input( 'cherries', cherriesImage ),
-      new Input( 'rectangle', rectangleImage ),
-      new Input( 'circle', circleImage ),
-      new Input( 'triangle', triangleImage ),
-      new Input( 'star', starImage )
+      new Card( 'feet', feetImage ),
+      new Card( 'snowflake', snowflakeImage ),
+      new Card( 'butterfly', butterflyImage ),
+      new Card( 'stick-figure', stickFigureImage ),
+      new Card( 'planet', planetImage ),
+      new Card( 'sun', sunImage ),
+      new Card( 'beaker', beakerImage ),
+      new Card( 'cherries', cherriesImage ),
+      new Card( 'rectangle', rectangleImage ),
+      new Card( 'circle', circleImage ),
+      new Card( 'triangle', triangleImage ),
+      new Card( 'star', starImage )
     ];
 
     // @public

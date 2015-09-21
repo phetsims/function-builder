@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * An input to a function.
+ * A card with a picture on it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,15 +12,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} name - name of the input, not visible to the user, used internally for debugging
-   * @param {HTMLImageElement|MipMapArray} image - image used to represent the input, as loaded by the image.js or mipmap.js plug-ins
+   * @param {string} name - name of the card, not visible to the user, used internally for debugging
+   * @param {HTMLImageElement|MipMapArray} image - image on the card, as loaded by the image.js or mipmap.js plug-ins
    * @constructor
    */
-  function Input( name, image ) {
+  function Card( name, image ) {
 
     this.name = name; // @public (read-only)
     this.image = image; // @public (read-only)
   }
 
-  return inherit( Object, Input );
+  return inherit( Object, Card );
 } );
