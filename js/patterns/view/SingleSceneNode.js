@@ -20,9 +20,9 @@ define( function( require ) {
   var PageControl = require( 'SUN/PageControl' );
 
   // constants
-  var PAGE_CONTROL_SPACING = 8;
-  var INPUTS_PER_PAGE = 4;
   var FUNCTION_PER_PAGE = 3;
+  var INPUTS_PER_PAGE = 4;
+  var PAGE_CONTROL_SPACING = 8;
 
   /**
    * @param model
