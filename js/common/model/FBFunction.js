@@ -39,6 +39,7 @@ define( function( require ) {
   return inherit( Object, FBFunction, {
 
     /**
+     * Applies the function to the input, produces the output.
      * @param {*} input
      * @returns {*} output, of the same type as input
      */
