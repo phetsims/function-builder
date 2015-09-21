@@ -131,11 +131,13 @@ define( function( require ) {
 
       //TODO change only the slot that corresponds to functionInstance, not all slots in the pipeline
       functionsParent.removeAllChildren();
-      builder.functionProperties.forEach( function( functionProperty, index ) {
-        var functionInstance = functionProperty.get();
-        functionsParent.addChild( new FunctionNode( functionInstance, {
-          left: ( index > 0 ) ? ( functionsParent.getChildAt[ index - 1 ].right - functionsParent.getChildAt[ index - 1 ].xInset - options.functionLineWidth / 2 ) : 0
-        } ) );
+      var previousNode = null;
+      builder.functionProperties.forEach( function( functionProperty ) {
+        var functionNode = new FunctionNode( functionProperty.get(), {
+          left: previousNode ? ( previousNode.right - previousNode.xInset - options.functionLineWidth / 2 ) : 0
+        } );
+        functionsParent.addChild( functionNode );
+        previousNode = functionNode;
       } );
 
       functionsParent.center = bodyNode.center;
