@@ -123,17 +123,14 @@ define( function( require ) {
       center: rightEnd.center
     } );
 
-    // Function placeholders
+    // Functions
     var functionNodes = [];
-    for ( var i = 0; i < builder.numberOfFunctions; i++ ) {
-      functionNodes.push( new FunctionNode( {
-        fill: null,
-        stroke: options.functionStroke,
-        lineWidth: options.functionLineWidth,
-        lineDash: options.functionLineDash,
-        left: ( i > 0 ) ? ( functionNodes[ i - 1 ].right - functionNodes[ i - 1 ].xInset - options.functionLineWidth / 2 ) : 0
-      } ) );
-    }
+    builder.functionProperties.forEach( function( functionProperty, index ) {
+      var functionInstance = functionProperty.get();
+      functionNodes.push( new FunctionNode( functionInstance, {
+        left: ( index > 0 ) ? ( functionNodes[ index - 1 ].right - functionNodes[ index - 1 ].xInset - options.functionLineWidth / 2 ) : 0
+      } ) )
+    } );
     var functionsParent = new Node( {
       children: functionNodes,
       center: bodyNode.center

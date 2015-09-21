@@ -1,10 +1,5 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
-/**
- * Used to represent the absence of a function, as an alternative to null or undefined.
- *
- * @author Chris Malley (PixelZoom, Inc.)
- */
 define( function( require ) {
   'use strict';
 
@@ -15,9 +10,16 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function NoFunction( options ) {
-    FBFunction.call( this, 'noFunction', options );
+  function PlaceholderFunction( options ) {
+
+    options = _.extend( {
+      fill: null,
+      stroke: 'white',
+      lineDash: [ 3, 3 ]
+    }, options );
+
+    FBFunction.call( this, 'placeholder', options );
   }
 
-  return inherit( FBFunction, NoFunction );
+  return inherit( FBFunction, PlaceholderFunction );
 } );

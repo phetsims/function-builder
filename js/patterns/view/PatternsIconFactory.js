@@ -12,6 +12,7 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NoFunction = require( 'FUNCTION_BUILDER/common/model/NoFunction' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
@@ -28,9 +29,10 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      return new FunctionNode( {
-        backgroundWidth: width,
+      return new FunctionNode( new NoFunction( {
         fill: FBColors.LIGHT_GREEN
+      } ), {
+        backgroundWidth: width
       } );
     },
 
@@ -43,14 +45,16 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      var topNode = new FunctionNode( {
-        backgroundWidth: width,
+      var topNode = new FunctionNode( new NoFunction( {
         fill: FBColors.LIGHT_GREEN
+      } ), {
+        backgroundWidth: width
       } );
 
-      var bottomNode = new FunctionNode( {
-        backgroundWidth: width,
+      var bottomNode = new FunctionNode( new NoFunction( {
         fill: FBColors.LIGHT_PURPLE
+      } ), {
+        backgroundWidth: width
       } );
 
       return new VBox( {
@@ -68,14 +72,16 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      var leftNode = new FunctionNode( {
-        backgroundWidth: width,
+      var leftNode = new FunctionNode( new NoFunction( {
         fill: FBColors.LIGHT_GREEN
+      } ), {
+        backgroundWidth: width
       } );
 
-      var rightNode = new FunctionNode( {
+      var rightNode = new FunctionNode( new NoFunction( {
+        fill: FBColors.LIGHT_PURPLE
+      } ), {
         backgroundWidth: width,
-        fill: FBColors.LIGHT_PURPLE,
         left: leftNode.right - leftNode.xInset - 1
       } );
 

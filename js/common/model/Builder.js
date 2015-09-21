@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var NoFunction = require( 'FUNCTION_BUILDER/common/model/NoFunction' );
+  var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
   var Property = require( 'AXON/Property' );
 
   /**
@@ -24,13 +24,10 @@ define( function( require ) {
       numberOfFunctions: 1 // {number} number of functions in the pipeline
     }, options );
 
-    // @public (read-only)
-    this.numberOfFunctions = options.numberOfFunctions;
-
     // @public {Property.<FBFunction>[]} - order of this array determines the order that functions are applied
     this.functionProperties = [];
     for ( var i = 0; i < options.numberOfFunctions; i++ ) {
-      this.functionProperties.push( new Property( new NoFunction() ) );
+      this.functionProperties.push( new Property( new PlaceholderFunction() ) );
     }
   }
 

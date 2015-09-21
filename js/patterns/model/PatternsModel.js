@@ -51,18 +51,18 @@ define( function( require ) {
     this.functions = [
 
       // No i18n of names necessary, they are used internally for debugging
-      new FBFunction( 'mirror', mirrorImage, 'rgb( 128, 197, 237 )' ),
-      new FBFunction( 'rotate90', rotate90Image, 'rgb( 147, 231, 128 )' ),
-      new FBFunction( 'grayscale', grayScaleImage, 'rgb( 232, 232, 232 )' ),
-      new FBFunction( 'rotate180', rotate180Image, 'rgb( 147, 231, 128 )' ),
-      new FBFunction( 'identity', identityImage, 'rgb( 255, 161, 43 )' ),
-      new FBFunction( 'invertRGB', invertRGBImage, 'black' ),
-      new FBFunction( 'disappear', disappearImage, 'rgb( 246, 164, 255 )' ),
-      new FBFunction( 'shrink75', shrink75Image, 'rgb( 250, 186, 75 )' ),
-      new FBFunction( 'warhol', warholImage, 'rgb( 0, 222, 224 )' ),
-      new FBFunction( 'mysteryA', mysteryAImage, 'rgb( 127, 225, 173 )' ),
-      new FBFunction( 'mysteryB', mysteryBImage, 'rgb( 249, 144, 99 )' ),
-      new FBFunction( 'mysteryC', mysteryCImage, 'rgb( 222, 186, 247 )' )
+      new FBFunction( 'mirror', { image: mirrorImage, fill: 'rgb( 128, 197, 237 )' } ),
+      new FBFunction( 'rotate90', { image: rotate90Image, fill: 'rgb( 147, 231, 128 )' } ),
+      new FBFunction( 'grayscale', { image: grayScaleImage, fill: 'rgb( 232, 232, 232 )' } ),
+      new FBFunction( 'rotate180', { image: rotate180Image, fill: 'rgb( 147, 231, 128 )' } ),
+      new FBFunction( 'identity', { image: identityImage, fill: 'rgb( 255, 161, 43 )' } ),
+      new FBFunction( 'invertRGB', { image: invertRGBImage, fill: 'black' } ),
+      new FBFunction( 'disappear', { image: disappearImage, fill: 'rgb( 246, 164, 255 )' } ),
+      new FBFunction( 'shrink75', { image: shrink75Image, fill: 'rgb( 250, 186, 75 )' } ),
+      new FBFunction( 'warhol', { image: warholImage, fill: 'rgb( 0, 222, 224 )' } ),
+      new FBFunction( 'mysteryA', { image: mysteryAImage, fill: 'rgb( 127, 225, 173 )' } ),
+      new FBFunction( 'mysteryB', { image: mysteryBImage, fill: 'rgb( 249, 144, 99 )' } ),
+      new FBFunction( 'mysteryC', { image: mysteryCImage, fill: 'rgb( 222, 186, 247 )' } )
     ];
 
     // @public (read-only)

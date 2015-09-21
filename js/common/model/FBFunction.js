@@ -13,15 +13,27 @@ define( function( require ) {
 
   /**
    * @param {string} name - name of the function, not visible to the user, used internally for debugging
-   * @param {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
-   * @param {Color|string} backgroundColor - background color used for function icons
+   * @param {Object} [options]
    * @constructor
    */
-  function FBFunction( name, image, backgroundColor ) {
+  function FBFunction( name, options ) {
+
+    options = _.extend( {
+      image: null, // {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: null
+    }, options );
 
     this.name = name; // @public (read-only)
-    this.image = image; // @public (read-only)
-    this.backgroundColor = backgroundColor; // @public (read-only)
+
+    // @public (read-only)
+    this.image = options.image;
+    this.fill = options.fill;
+    this.stroke = options.stroke;
+    this.lineWidth = options.lineWidth;
+    this.lineDash = options.lineDash;
   }
 
   return inherit( Object, FBFunction );

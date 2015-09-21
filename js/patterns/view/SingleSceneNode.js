@@ -85,9 +85,7 @@ define( function( require ) {
     // Functions, in a horizontal carousel at bottom-center
     var functionNodes = [];
     model.functions.forEach( function( functionInstance ) {
-      var functionNode = new FunctionNode( {
-        functionInstance: functionInstance,
-        fill: functionInstance.backgroundColor,
+      var functionNode = new FunctionNode( functionInstance, {
         iconScale: 0.3,
         cursor: 'pointer'
       } );

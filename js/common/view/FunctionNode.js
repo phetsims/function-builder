@@ -16,25 +16,18 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
+   * @param {FBFunction} functionInstance
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionNode( options ) {
+  function FunctionNode( functionInstance, options ) {
 
     options = _.extend( {
-
-      functionInstance: null, // {FBFunction|null} optional model element
 
       // Shape
       backgroundWidth: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.8, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
-
-      // Path
-      fill: 'white', // {Color|string|null}
-      stroke: 'black', // {Color|string|null}
-      lineWidth: 1,
-      lineDash: null, // {number[]}
 
       // optional icon
       iconScale: 1, // {number}
@@ -47,7 +40,6 @@ define( function( require ) {
     assert && assert( options.backgroundWidth > 0 );
     assert && assert( options.aspectRatio > 0 );
     assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
-    assert && assert( options.lineWidth >= 0 );
     assert && assert( options.xMarginFactor >= 0 );
     assert && assert( options.yMarginFactor >= 0 );
 
@@ -75,17 +67,17 @@ define( function( require ) {
       .close();
 
     var backgroundNode = new Path( backgroundShape, {
-      fill: options.fill,
-      stroke: options.stroke,
-      lineWidth: options.lineWidth,
-      lineDash: options.lineDash
+      fill: functionInstance.fill,
+      stroke: functionInstance.stroke,
+      lineWidth: functionInstance.lineWidth,
+      lineDash: functionInstance.lineDash
     } );
     options.children.push( backgroundNode );
 
-    // Add optional icon
-    if ( options.functionInstance ) {
+    // If the function has an icon ...
+    if ( functionInstance.image ) {
       var wrapperNode = new Node( {
-        children: [ new Image( options.functionInstance.image ) ],
+        children: [ new Image( functionInstance.image ) ],
         scale: options.iconScale
       } );
       wrapperNode.center = backgroundNode.center;
@@ -94,7 +86,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.functionInstance = options.functionInstance; // @public (read-only)
+    this.functionInstance = functionInstance; // @public (read-only)
     this.xInset = xInset; // @public (read-only), for layout
   }
 
