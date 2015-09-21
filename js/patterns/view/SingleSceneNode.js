@@ -88,7 +88,8 @@ define( function( require ) {
       var functionNode = new FunctionNode( {
         functionInstance: functionInstance,
         fill: functionInstance.backgroundColor,
-        iconScale: 0.3
+        iconScale: 0.3,
+        cursor: 'pointer'
       } );
       functionNodes.push( functionNode );
       functionNode.addInputListener( functionInputListener );
