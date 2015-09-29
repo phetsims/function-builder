@@ -12,6 +12,7 @@ define( function( require ) {
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -83,6 +84,7 @@ define( function( require ) {
       numberOfFunctions: 1
     } );
   }
+  functionBuilder.register( 'PatternsModel', PatternsModel );
 
   return inherit( Object, PatternsModel, {
 
