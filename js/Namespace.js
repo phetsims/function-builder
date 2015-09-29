@@ -1,6 +1,6 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
-//TODO move this to a common-code repository. phet-core?
+//TODO move to phet-core?
 /**
  * @author Jonathan Olson
  */
