@@ -27,11 +27,11 @@ define( function( require ) {
 
     /**
      * Registers a key-value pair with the namespace.
-     * @param {string}
+     * @param {string} key
      * @param {*} value
      */
     register: function( key, value ) {
-      assert && assert( !this[ key ] );
+      assert && assert( !this[ key ], key + ' is already registered for namespace ' + this.name );
       this[ key ] = value;
     }
   } );
