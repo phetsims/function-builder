@@ -26,19 +26,19 @@ define( function( require ) {
   var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
   var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
 
-  // input images
-  var beakerImage = require( 'mipmap!FUNCTION_BUILDER/inputs/beaker.png' );
-  var butterflyImage = require( 'mipmap!FUNCTION_BUILDER/inputs/butterfly.png' );
-  var cherriesImage = require( 'mipmap!FUNCTION_BUILDER/inputs/cherries.png' );
-  var circleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/circle.png' );
-  var feetImage = require( 'mipmap!FUNCTION_BUILDER/inputs/feet.png' );
-  var planetImage = require( 'mipmap!FUNCTION_BUILDER/inputs/planet.png' );
-  var rectangleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/rectangle.png' );
-  var snowflakeImage = require( 'mipmap!FUNCTION_BUILDER/inputs/snowflake.png' );
-  var starImage = require( 'mipmap!FUNCTION_BUILDER/inputs/star.png' );
-  var stickFigureImage = require( 'mipmap!FUNCTION_BUILDER/inputs/stickFigure.png' );
-  var sunImage = require( 'mipmap!FUNCTION_BUILDER/inputs/sun.png' );
-  var triangleImage = require( 'mipmap!FUNCTION_BUILDER/inputs/triangle.png' );
+  // input card images
+  var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );
+  var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
+  var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
+  var circleImage = require( 'image!FUNCTION_BUILDER/inputs/circle.png' );
+  var feetImage = require( 'image!FUNCTION_BUILDER/inputs/feet.png' );
+  var planetImage = require( 'image!FUNCTION_BUILDER/inputs/planet.png' );
+  var rectangleImage = require( 'image!FUNCTION_BUILDER/inputs/rectangle.png' );
+  var snowflakeImage = require( 'image!FUNCTION_BUILDER/inputs/snowflake.png' );
+  var starImage = require( 'image!FUNCTION_BUILDER/inputs/star.png' );
+  var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
+  var sunImage = require( 'image!FUNCTION_BUILDER/inputs/sun.png' );
+  var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
    * @constructor
@@ -62,7 +62,7 @@ define( function( require ) {
     ];
 
     // @public (read-only)
-    this.inputs = [
+    this.inputCards = [
 
       // No i18n of names necessary, they are used internally for debugging
       new Card( 'feet', feetImage ),
@@ -82,6 +82,14 @@ define( function( require ) {
     // @public
     this.builder = new Builder( {
       numberOfFunctions: 1
+    } );
+
+    var functionPropertyObserver = function( functionInstance, oldFunctionInstance ) {
+      //TODO update all output cards
+      console.log( 'function = ' + functionInstance.name ); //XXX
+    };
+    this.builder.functionProperties.forEach( function( functionProperty ) {
+      functionProperty.link( functionPropertyObserver );
     } );
   }
   functionBuilder.register( 'PatternsModel', PatternsModel );

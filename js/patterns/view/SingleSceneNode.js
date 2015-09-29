@@ -32,12 +32,10 @@ define( function( require ) {
    */
   function SingleSceneNode( model, layoutBounds, options ) {
 
-    // Inputs, in a vertical carousel at left-center
+    // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
-    model.inputs.forEach( function( input ) {
-      inputNodes.push( new CardNode( {
-        image: input.image
-      } ) );
+    model.inputCards.forEach( function( card ) {
+      inputNodes.push( new CardNode( card ) );
     } );
     var inputsCarousel = new Carousel( inputNodes, {
       orientation: 'vertical',
@@ -49,12 +47,10 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    // Outputs, in a vertical carousel at right-center
+    // Output cards, in a vertical carousel at right-center
     var outputNodes = [];
-    model.inputs.forEach( function( input ) {
-      outputNodes.push( new CardNode( {
-        image: input.image
-      } ) );
+    model.inputCards.forEach( function( card ) {
+      outputNodes.push( new CardNode( card ) );
     } );
     var outputsCarousel = new Carousel( outputNodes, {
       orientation: 'vertical',
