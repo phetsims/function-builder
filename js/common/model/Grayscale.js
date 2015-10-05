@@ -74,6 +74,7 @@ define( function( require ) {
       var outputImage = document.createElement( 'img' );
       outputImage.src = canvas.toDataURL();
 
+      //TODO for now, append the function name, so that we can track what functions have been applied to a card
       var outputName = card.name + '.' + this.name;
 
       return new Card( outputName, outputImage );
