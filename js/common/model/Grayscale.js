@@ -54,7 +54,7 @@ define( function( require ) {
       // Get image data
       var imageData = context.getImageData( 0, 0, canvas.width, canvas.height );
 
-      //TODO see Canvas.globalCompositeOperation for possibility of other image filtering, test for browser compatibility
+      //TODO see Canvas.globalCompositeOperation for (more efficient?) image filtering, test for browser compatibility
       // Average the red, green and blue values of each pixel. This drains the color from the image.
       var data = imageData.data;
       for ( var i = 0; i < data.length - 4; i += 4 ) {
