@@ -33,6 +33,16 @@ define( function( require ) {
   return inherit( FBFunction, InvertRGB, {
 
     apply: function( card ) {
+
+      //// invert colors
+      //var data = imageData.data;
+      //for ( var i = 0; i < data.length; i += 4 ) {
+      //  data[ i ] = 255 - data[ i ];
+      //  data[ i + 1 ] = 255 - data[ i + 1 ];
+      //  data[ i + 2 ] = 255 - data[ i + 2 ];
+      //  data[ i + 3 ] = 255;
+      //}
+
       return card.clone(); //TODO
     }
   } );
