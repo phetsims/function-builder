@@ -65,7 +65,7 @@ define( function( require ) {
       }
 
       // Draw the modified image data to the canvas.
-      context.putImageData( imageData, 0, 0 );
+      context.putImageData( imageData, 0, 0, 0, 0, canvas.width, canvas.height );
 
       //TODO pass canvas around in model, each Card has a canvas
       //TODO pass canvas.toDataURL() to scenery.Image in view when time to display it
