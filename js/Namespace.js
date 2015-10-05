@@ -19,6 +19,7 @@ define( function( require ) {
     this.name = name; // @public (read-only)
 
     if ( window.phet ) {
+      assert && assert( !window.phet[ name ] );
       window.phet[ name ] = this;
     }
   }
