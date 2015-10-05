@@ -33,7 +33,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Grayscale, {
 
-    //TODO this is untested
+    /**
+     * Applies the function.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       var inputImage = card.image;

@@ -141,6 +141,21 @@ define( function( require ) {
       eraserButton
     ];
     Node.call( this, options );
+
+    //XXX Grayscale test
+    {
+      var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+      var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
+      var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
+      var inputCard = new Card( 'butterfly', butterflyImage );
+      var grayscale = new Grayscale();
+      var outputCard = grayscale.apply( inputCard );
+      var outputCardNode = new CardNode( outputCard, {
+        centerX: layoutBounds.centerX,
+        centerY: layoutBounds.centerY + 100
+      } );
+      this.addChild( outputCardNode );
+    }
   }
 
   return inherit( Node, SingleSceneNode, {
