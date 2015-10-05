@@ -3,6 +3,7 @@
 //TODO move to phet-core?
 /**
  * @author Jonathan Olson
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
