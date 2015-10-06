@@ -22,6 +22,8 @@ define( function( require ) {
    */
   function Warhol( options ) {
 
+    //TODO this function needs to know the card dimensions
+
     options = _.extend( {
       name: 'warhol',
       image: warholImage,
