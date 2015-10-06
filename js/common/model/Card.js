@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -21,7 +20,6 @@ define( function( require ) {
 
     this.name = name; // @public (read-only)
     this.image = image; // @public (read-only)
-    this.size = new Dimension2( 60, 60 )
   }
 
   return inherit( Object, Card, {
