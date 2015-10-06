@@ -46,6 +46,7 @@ define( function( require ) {
       canvas.height = SCALE * inputImage.height;
       var context = canvas.getContext( '2d' );
 
+      //TODO or should we use context.scale?
       // Draw the scaled input image to the canvas
       context.drawImage( inputImage, 0, 0, canvas.width, canvas.height );
 
