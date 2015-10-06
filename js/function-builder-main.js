@@ -19,7 +19,8 @@ define( function( require ) {
   // strings
   var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
-  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
+  //var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
+  var screens = [ new TestScreen() ];
 
   var options = {
     credits: {
