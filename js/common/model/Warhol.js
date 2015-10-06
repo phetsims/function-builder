@@ -11,11 +11,18 @@ define( function( require ) {
 
   // modules
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var Color = require( 'SCENERY/util/Color' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
   var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
+
+  // constants
+  var LEFT_TOP_COLOR = new Color( 255, 81, 231 );
+  var RIGHT_TOP_COLOR = new Color( 250, 255, 105 );
+  var LEFT_BOTTOM_COLOR = new Color( 88, 113, 255 );
+  var RIGHT_BOTTOM_COLOR = new Color( 6, 255, 175 );
 
   /**
    * @param {Object} [options]
@@ -47,28 +54,28 @@ define( function( require ) {
       // Left-top quadrant
       context.beginPath();
       context.rect( 0, 0, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = '#FF51E7';
+      context.fillStyle = LEFT_TOP_COLOR.toCSS();
       context.fill();
       context.closePath();
 
       // Right-top quadrant
       context.beginPath();
       context.rect( canvas.width / 2, 0, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = '#FAFF69';
+      context.fillStyle = RIGHT_TOP_COLOR.toCSS();
       context.fill();
       context.closePath();
 
       // Left-bottom quadrant
       context.beginPath();
       context.rect( 0, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = '#5871FF';
+      context.fillStyle = LEFT_BOTTOM_COLOR.toCSS();
       context.fill();
       context.closePath();
 
       // Right-bottom quadrant
       context.beginPath();
       context.rect( canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = '#06FFAF';
+      context.fillStyle = RIGHT_BOTTOM_COLOR.toCSS();
       context.fill();
       context.closePath();
 
