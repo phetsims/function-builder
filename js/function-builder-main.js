@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  //var EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
-  //var NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
-  //var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
+  var EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
+  var NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
+  var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
@@ -19,8 +19,7 @@ define( function( require ) {
   // strings
   var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
-  //var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
-  var screens = [ new TestScreen() ];
+  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
 
   var options = {
     credits: {
