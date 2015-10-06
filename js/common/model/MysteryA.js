@@ -43,6 +43,8 @@ define( function( require ) {
       canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
+      //TODO should this draw into a canvas of card.size, then shift things around?
+
       // Divide into 4 quadrants and shifted clockwise
       context.drawImage( inputImage, 0, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2 );
       context.drawImage( inputImage, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
