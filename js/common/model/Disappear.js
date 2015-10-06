@@ -43,6 +43,7 @@ define( function( require ) {
       canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
+      //TODO or should this make the image fully transparent? should this function be invertible?
       // Create a new, blank imageData object
       var imageData = context.createImageData( canvas.width, canvas.height );
 
