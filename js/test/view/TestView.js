@@ -14,6 +14,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -27,6 +28,7 @@ define( function( require ) {
   var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
 
   // images
@@ -49,7 +51,6 @@ define( function( require ) {
    */
   function TestView() {
 
-    var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
     var cards = [
@@ -68,11 +69,11 @@ define( function( require ) {
     ];
 
     var functions = [
+      new Identity(),
       new Mirror(),
       new Rotate90(),
       new Grayscale(),
       new Rotate180(),
-      new Identity(),
       new InvertRGB(),
       new Disappear(),
       new Shrink75(),
@@ -82,12 +83,23 @@ define( function( require ) {
       new MysteryC()
     ];
 
+    // a row of function icons
+    var functionNodes = [];
+    functions.forEach( function( functionInstance ) {
+      functionNodes.push( new FunctionNode( functionInstance, { scale: 0.45 } ) );
+    } );
+    var functionsBox = new HBox( {
+     children: functionNodes,
+     spacing: 21
+    } );
+
+    // carousel items
     var items = [];
 
     // A row for each card
     cards.forEach( function( card ) {
 
-      var hBoxChildren = [ new CardNode( card ) ];
+      var hBoxChildren = [];
 
       functions.forEach( function( functionInstance ) {
         var outputCard = functionInstance.apply( card );
@@ -96,8 +108,7 @@ define( function( require ) {
 
       items.push( new HBox( {
         children: hBoxChildren,
-        spacing: 15,
-        center: thisView.layoutBounds.center
+        spacing: 15
       } ) );
     } );
 
@@ -106,11 +117,14 @@ define( function( require ) {
       pageControlVisible: true,
       pageControlLocation: 'right',
       separatorsVisible: true,
-      itemsPerPage: 6,
-      center: this.layoutBounds.center
+      itemsPerPage: 4
     } );
 
-    this.addChild( carousel );
+    this.addChild( new VBox( {
+      children: [ functionsBox, carousel ],
+      spacing: 15,
+      center: this.layoutBounds.center
+    } ) );
   }
 
   return inherit( ScreenView, TestView );
