@@ -39,45 +39,74 @@ define( function( require ) {
     FBFunction.call( this, options );
   }
 
+  /**
+   * Gets image data for 1 quadrant of the Warhol image.
+   * @param {ImageData} source
+   * @param {ImageData} destination
+   * @param {Color} foregroundColor
+   * @param {Color} backgroundColor
+   * @returns {ImageData}
+   */
+  function getQuadrantImageData( source, destination, foregroundColor, backgroundColor ) {
+    for ( var i = 0; i < destination.data.length - 4; i += 4 ) {
+      if ( source.data[ i + 3 ] === 0 ) {
+        // transparent pixel
+        destination.data[ i ] = backgroundColor.red;
+        destination.data[ i + 1 ] = backgroundColor.green;
+        destination.data[ i + 2 ] = backgroundColor.blue;
+        destination.data[ i + 3 ] = 255;
+      }
+      else {
+        // non-transparent pixel
+        destination.data[ i ] = foregroundColor.red;
+        destination.data[ i + 1 ] = foregroundColor.green;
+        destination.data[ i + 2 ] = foregroundColor.blue;
+        destination.data[ i + 3 ] = 255;
+      }
+    }
+    return destination;
+  }
+
   return inherit( FBFunction, Warhol, {
 
     apply: function( card ) {
 
       var inputImage = card.image;
 
-      // Create a canvas
+      //TODO can this be done with 1 canvas?
+      // Draw the image into a half-size canvas
+      var halfCanvas = document.createElement( 'canvas' );
+      halfCanvas.width = inputImage.width / 2;
+      halfCanvas.height = inputImage.height / 2;
+      var halfContext = halfCanvas.getContext( '2d' );
+      halfContext.drawImage( inputImage, 0, 0, halfCanvas.width, halfCanvas.height );
+      var imageData = halfContext.getImageData( 0, 0, inputImage.width / 2, inputImage.height / 2 );
+
+      // Create a canvas to hold the final image
       var canvas = document.createElement( 'canvas' );
       canvas.width = inputImage.width;
       canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
+      // Data to hold monochromatic image data
+      var monoData = context.createImageData( inputImage.width / 2, inputImage.height / 2 );
+      assert && assert( imageData.data.length === monoData.data.length );
+
       // Left-top quadrant
-      context.beginPath();
-      context.rect( 0, 0, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = LEFT_TOP_COLOR.toCSS();
-      context.fill();
-      context.closePath();
+      context.putImageData( getQuadrantImageData( imageData, monoData, RIGHT_BOTTOM_COLOR, LEFT_TOP_COLOR ),
+        0, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Right-top quadrant
-      context.beginPath();
-      context.rect( canvas.width / 2, 0, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = RIGHT_TOP_COLOR.toCSS();
-      context.fill();
-      context.closePath();
+      context.putImageData( getQuadrantImageData( imageData, monoData, LEFT_BOTTOM_COLOR, RIGHT_TOP_COLOR ),
+        canvas.width / 2, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Left-bottom quadrant
-      context.beginPath();
-      context.rect( 0, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = LEFT_BOTTOM_COLOR.toCSS();
-      context.fill();
-      context.closePath();
+      context.putImageData( getQuadrantImageData( imageData, monoData, RIGHT_TOP_COLOR, LEFT_BOTTOM_COLOR ),
+        0, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Right-bottom quadrant
-      context.beginPath();
-      context.rect( canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
-      context.fillStyle = RIGHT_BOTTOM_COLOR.toCSS();
-      context.fill();
-      context.closePath();
+      context.putImageData( getQuadrantImageData( imageData, monoData, LEFT_TOP_COLOR, RIGHT_BOTTOM_COLOR ),
+        canvas.width / 2, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Convert canvas to HTMLImageElement
       var outputImage = document.createElement( 'img' );
