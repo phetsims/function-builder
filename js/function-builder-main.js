@@ -14,11 +14,12 @@ define( function( require ) {
   var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
 
   // strings
   var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
-  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen() ];
+  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
 
   var options = {
     credits: {

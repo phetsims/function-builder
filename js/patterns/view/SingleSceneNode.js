@@ -141,54 +141,6 @@ define( function( require ) {
       eraserButton
     ];
     Node.call( this, options );
-
-    //XXX test functions
-    {
-      var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-      var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
-      var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
-      var HBox = require( 'SCENERY/nodes/HBox' );
-      var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
-      var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
-      var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
-      var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
-      var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
-      var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
-      var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
-      var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
-      var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
-
-      var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
-
-      var inputCard = new Card( 'butterfly', cherriesImage );
-
-      var functions = [
-        new Disappear(),
-        new Grayscale(),
-        new InvertRGB(),
-        new MysteryA(),
-        new MysteryB(),
-        new MysteryC(),
-        new Mirror(),
-        new Rotate90(),
-        new Rotate180(),
-        new Shrink75(),
-        new Warhol()
-      ];
-
-      var boxChildren = [ new CardNode( inputCard ) ];
-      functions.forEach( function( functionInstance ) {
-        var outputCard = functionInstance.apply( inputCard );
-        boxChildren.push( new CardNode( outputCard ) );
-      } );
-
-      this.addChild( new HBox( {
-        children: boxChildren,
-        spacing: 15,
-        centerX: layoutBounds.centerX,
-        centerY: layoutBounds.centerY + 100
-      } ) );
-    }
   }
 
   return inherit( Node, SingleSceneNode, {

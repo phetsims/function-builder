@@ -56,7 +56,7 @@ define( function( require ) {
 
       var outputName = card.name + '.' + this.name;
 
-      return new Card( outputName, outputImage )
+      return new Card( outputName, outputImage );
     }
 
   } );
