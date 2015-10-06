@@ -142,19 +142,35 @@ define( function( require ) {
     ];
     Node.call( this, options );
 
-    //XXX Grayscale test
+    //XXX test functions
     {
       var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+      var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
       var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
+      var HBox = require( 'SCENERY/nodes/HBox' );
+      var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
       var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
+
       var inputCard = new Card( 'butterfly', butterflyImage );
-      var grayscale = new Grayscale();
-      var outputCard = grayscale.apply( inputCard );
-      var outputCardNode = new CardNode( outputCard, {
+
+      var functions = [
+        new Disappear(),
+        new Grayscale(),
+        new InvertRGB()
+      ];
+
+      var boxChildren = [];
+      functions.forEach( function( functionInstance ) {
+        var outputCard = functionInstance.apply( inputCard );
+        boxChildren.push( new CardNode( outputCard ) );
+      } );
+
+      this.addChild( new HBox( {
+        children: boxChildren,
+        spacing: 15,
         centerX: layoutBounds.centerX,
         centerY: layoutBounds.centerY + 100
-      } );
-      this.addChild( outputCardNode );
+      } ) );
     }
   }
 
