@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -33,7 +34,29 @@ define( function( require ) {
   return inherit( FBFunction, Rotate180, {
 
     apply: function( card ) {
-      return card.clone(); //TODO
+
+      var inputImage = card.image;
+
+      // Create a canvas
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = inputImage.width;
+      canvas.height = inputImage.height;
+      var context = canvas.getContext( '2d' );
+
+      // Rotate 180 degrees
+      context.translate( canvas.width, canvas.height );
+      context.rotate( Math.PI );
+
+      // Draw the input image to the canvas
+      context.drawImage( inputImage, 0, 0 );
+
+      // Convert canvas to HTMLImageElement
+      var outputImage = document.createElement( 'img' );
+      outputImage.src = canvas.toDataURL();
+
+      var outputName = card.name + '.' + this.name;
+
+      return new Card( outputName, outputImage );
     }
   } );
 } );

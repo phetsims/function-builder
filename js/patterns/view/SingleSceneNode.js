@@ -73,7 +73,7 @@ define( function( require ) {
     var functionInputListener = new DownUpListener( {
       down: function( event ) {
         assert && assert( event.currentTarget instanceof FunctionNode );
-        model.builder.functionProperties[0].set( event.currentTarget.functionInstance );
+        model.builder.functionProperties[ 0 ].set( event.currentTarget.functionInstance );
       }
     } );
 
@@ -149,6 +149,8 @@ define( function( require ) {
       var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
       var HBox = require( 'SCENERY/nodes/HBox' );
       var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
+      var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
+      var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
       var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
       var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
 
@@ -158,6 +160,8 @@ define( function( require ) {
         new Disappear(),
         new Grayscale(),
         new InvertRGB(),
+        new Rotate90(),
+        new Rotate180(),
         new Shrink75()
       ];
 
