@@ -17,6 +17,7 @@ define( function( require ) {
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
   var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
   var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
@@ -67,17 +68,18 @@ define( function( require ) {
     ];
 
     var functions = [
-      new Disappear(),
-      new Grayscale(),
-      new InvertRGB(),
-      new MysteryA(),
-      new MysteryB(),
-      new MysteryC(),
       new Mirror(),
       new Rotate90(),
+      new Grayscale(),
       new Rotate180(),
+      new Identity(),
+      new InvertRGB(),
+      new Disappear(),
       new Shrink75(),
-      new Warhol()
+      new Warhol(),
+      new MysteryA(),
+      new MysteryB(),
+      new MysteryC()
     ];
 
     var items = [];

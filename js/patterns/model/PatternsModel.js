@@ -66,17 +66,17 @@ define( function( require ) {
 
       // No i18n of names necessary, they are used internally for debugging
       new Card( 'feet', feetImage ),
-      new Card( 'snowflake', snowflakeImage ),
-      new Card( 'butterfly', butterflyImage ),
-      new Card( 'stick-figure', stickFigureImage ),
-      new Card( 'planet', planetImage ),
-      new Card( 'sun', sunImage ),
-      new Card( 'beaker', beakerImage ),
-      new Card( 'cherries', cherriesImage ),
-      new Card( 'rectangle', rectangleImage ),
-      new Card( 'circle', circleImage ),
-      new Card( 'triangle', triangleImage ),
-      new Card( 'star', starImage )
+            new Card( 'snowflake', snowflakeImage ),
+            new Card( 'butterfly', butterflyImage ),
+            new Card( 'stick-figure', stickFigureImage ),
+            new Card( 'planet', planetImage ),
+            new Card( 'sun', sunImage ),
+            new Card( 'beaker', beakerImage ),
+            new Card( 'cherries', cherriesImage ),
+            new Card( 'rectangle', rectangleImage ),
+            new Card( 'circle', circleImage ),
+            new Card( 'triangle', triangleImage ),
+            new Card( 'star', starImage )
     ];
 
     // @public
