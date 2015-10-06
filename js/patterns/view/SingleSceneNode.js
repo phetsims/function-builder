@@ -151,18 +151,21 @@ define( function( require ) {
       var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
       var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
       var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
+      var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
       var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
       var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
       var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
       var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
+      var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
 
-      var inputCard = new Card( 'butterfly', butterflyImage );
+      var inputCard = new Card( 'butterfly', stickFigureImage );
 
       var functions = [
         new Disappear(),
         new Grayscale(),
         new InvertRGB(),
         new MysteryB(),
+        new MysteryC(),
         new Mirror(),
         new Rotate90(),
         new Rotate180(),
