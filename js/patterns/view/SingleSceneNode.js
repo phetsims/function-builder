@@ -176,7 +176,7 @@ define( function( require ) {
         new Warhol()
       ];
 
-      var boxChildren = [];
+      var boxChildren = [ new CardNode( inputCard ) ];
       functions.forEach( function( functionInstance ) {
         var outputCard = functionInstance.apply( inputCard );
         boxChildren.push( new CardNode( outputCard ) );
