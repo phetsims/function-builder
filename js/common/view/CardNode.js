@@ -23,7 +23,6 @@ define( function( require ) {
   function CardNode( card, options ) {
 
     options = _.extend( {
-      size: new Dimension2( 60, 60 ),
       cornerRadius: 5,
       fill: 'white',
       stroke: 'black',
@@ -33,7 +32,7 @@ define( function( require ) {
       imageScale: 0.3
     }, options );
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
+    var backgroundNode = new Rectangle( 0, 0, card.size.width, card.size.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke,
       lineWidth: options.lineWidth
