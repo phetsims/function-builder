@@ -155,10 +155,9 @@ define( function( require ) {
       var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
       var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
       var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
-      var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
-      var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
+      var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
 
-      var inputCard = new Card( 'butterfly', stickFigureImage );
+      var inputCard = new Card( 'butterfly', cherriesImage );
 
       var functions = [
         new Disappear(),
