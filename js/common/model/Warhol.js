@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -21,8 +22,6 @@ define( function( require ) {
    * @constructor
    */
   function Warhol( options ) {
-
-    //TODO this function needs to know the card dimensions
 
     options = _.extend( {
       name: 'warhol',
@@ -36,7 +35,50 @@ define( function( require ) {
   return inherit( FBFunction, Warhol, {
 
     apply: function( card ) {
-      return card.clone(); //TODO
+
+      var inputImage = card.image;
+
+      // Create a canvas
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = inputImage.width;
+      canvas.height = inputImage.height;
+      var context = canvas.getContext( '2d' );
+
+      // Left-top quadrant
+      context.beginPath();
+      context.rect( 0, 0, canvas.width / 2, canvas.height / 2 );
+      context.fillStyle = '#FF51E7';
+      context.fill();
+      context.closePath();
+
+      // Right-top quadrant
+      context.beginPath();
+      context.rect( canvas.width / 2, 0, canvas.width / 2, canvas.height / 2 );
+      context.fillStyle = '#FAFF69';
+      context.fill();
+      context.closePath();
+
+      // Left-bottom quadrant
+      context.beginPath();
+      context.rect( 0, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
+      context.fillStyle = '#5871FF';
+      context.fill();
+      context.closePath();
+
+      // Right-bottom quadrant
+      context.beginPath();
+      context.rect( canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 );
+      context.fillStyle = '#06FFAF';
+      context.fill();
+      context.closePath();
+
+      // Convert canvas to HTMLImageElement
+      var outputImage = document.createElement( 'img' );
+      outputImage.src = canvas.toDataURL();
+
+      var outputName = card.name + '.' + this.name;
+
+      return new Card( outputName, outputImage );
     }
   } );
 } );

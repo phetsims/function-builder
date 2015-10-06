@@ -156,6 +156,8 @@ define( function( require ) {
       var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
       var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
       var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
+      var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
+
       var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
 
       var inputCard = new Card( 'butterfly', cherriesImage );
@@ -170,7 +172,8 @@ define( function( require ) {
         new Mirror(),
         new Rotate90(),
         new Rotate180(),
-        new Shrink75()
+        new Shrink75(),
+        new Warhol()
       ];
 
       var boxChildren = [];
