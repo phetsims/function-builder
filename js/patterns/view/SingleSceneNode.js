@@ -150,6 +150,7 @@ define( function( require ) {
       var HBox = require( 'SCENERY/nodes/HBox' );
       var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
       var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
+      var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
       var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
       var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
       var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
@@ -163,6 +164,7 @@ define( function( require ) {
         new Disappear(),
         new Grayscale(),
         new InvertRGB(),
+        new MysteryA(),
         new MysteryB(),
         new MysteryC(),
         new Mirror(),

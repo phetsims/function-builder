@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -20,8 +21,6 @@ define( function( require ) {
    * @constructor
    */
   function MysteryA( options ) {
-
-    //TODO this function needs to know the card dimensions
 
     options = _.extend( {
       name: 'mysteryA',
@@ -35,7 +34,28 @@ define( function( require ) {
   return inherit( FBFunction, MysteryA, {
 
     apply: function( card ) {
-      return card.clone(); //TODO
+
+      var inputImage = card.image;
+
+      // Create a canvas
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = inputImage.width;
+      canvas.height = inputImage.height;
+      var context = canvas.getContext( '2d' );
+
+      // Divide into 4 quadrants and shifted clockwise
+      context.drawImage( inputImage, 0, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, 0, inputImage.width / 2, inputImage.height / 2 );
+
+      // Convert canvas to HTMLImageElement
+      var outputImage = document.createElement( 'img' );
+      outputImage.src = canvas.toDataURL();
+
+      var outputName = card.name + '.' + this.name;
+
+      return new Card( outputName, outputImage );
     }
   } );
 } );
