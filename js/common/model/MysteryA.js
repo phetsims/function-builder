@@ -21,6 +21,8 @@ define( function( require ) {
    */
   function MysteryA( options ) {
 
+    //TODO this function needs to know the card dimensions
+
     options = _.extend( {
       name: 'mysteryA',
       image: mysteryAImage,
