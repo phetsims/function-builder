@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * The 'Intro' screen.
+ * The 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
