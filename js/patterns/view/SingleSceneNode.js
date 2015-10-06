@@ -149,6 +149,7 @@ define( function( require ) {
       var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
       var HBox = require( 'SCENERY/nodes/HBox' );
       var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
+      var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
       var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
       var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
       var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
@@ -160,6 +161,7 @@ define( function( require ) {
         new Disappear(),
         new Grayscale(),
         new InvertRGB(),
+        new Mirror(),
         new Rotate90(),
         new Rotate180(),
         new Shrink75()
