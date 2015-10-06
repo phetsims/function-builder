@@ -9,11 +9,15 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
   var shrink75Image = require( 'mipmap!FUNCTION_BUILDER/functions/shrink75.png' );
+
+  // constants
+  var SCALE = 0.75;
 
   /**
    * @param {Object} [options]
@@ -33,7 +37,25 @@ define( function( require ) {
   return inherit( FBFunction, Shrink75, {
 
     apply: function( card ) {
-      return card.clone(); //TODO
+
+      var inputImage = card.image;
+
+      // Create a canvas
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = SCALE * inputImage.width;
+      canvas.height = SCALE * inputImage.height;
+      var context = canvas.getContext( '2d' );
+
+      // Draw the scaled input image to the canvas
+      context.drawImage( inputImage, 0, 0, canvas.width, canvas.height );
+
+      // Convert canvas to HTMLImageElement
+      var outputImage = document.createElement( 'img' );
+      outputImage.src = canvas.toDataURL();
+
+      var outputName = card.name + '.' + this.name;
+
+      return new Card( outputName, outputImage );
     }
   } );
 } );

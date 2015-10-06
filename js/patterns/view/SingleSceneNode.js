@@ -149,6 +149,7 @@ define( function( require ) {
       var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
       var HBox = require( 'SCENERY/nodes/HBox' );
       var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
+      var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
       var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
 
       var inputCard = new Card( 'butterfly', butterflyImage );
@@ -156,7 +157,8 @@ define( function( require ) {
       var functions = [
         new Disappear(),
         new Grayscale(),
-        new InvertRGB()
+        new InvertRGB(),
+        new Shrink75()
       ];
 
       var boxChildren = [];
