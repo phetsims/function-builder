@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Chops the image into 4 quadrants and shifts them clockwise.
+ * Reflects about the x axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -43,13 +43,12 @@ define( function( require ) {
       canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
-      //TODO should this draw into a canvas of card.size, then shift things around?
+      // Reflect about the x axis
+      context.translate( 0, canvas.height );
+      context.scale( 1, -1 );
 
-      // Divide into 4 quadrants and shifted clockwise
-      context.drawImage( inputImage, 0, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, 0, inputImage.width / 2, inputImage.height / 2 );
+      // Draw the input image to the canvas
+      context.drawImage( inputImage, 0, 0 );
 
       // Convert canvas to HTMLImageElement
       var outputImage = document.createElement( 'img' );

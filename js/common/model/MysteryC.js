@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Reflects about the y-axis and rotates 90 degrees clockwise.
+ * Chops the image into 4 quadrants and shifts them clockwise.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -39,17 +39,17 @@ define( function( require ) {
 
       // Create a canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.height;
-      canvas.height = inputImage.width;
+      canvas.width = inputImage.width;
+      canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
-      // Reflect about the y axis and rotate 90 degrees
-      context.translate( canvas.width, canvas.height );
-      context.rotate( Math.PI / 2 );
-      context.scale( -1, 1 );
+      //TODO should this draw into a canvas of card.size, then shift things around?
 
-      // Draw the input image to the canvas
-      context.drawImage( inputImage, 0, 0 );
+      // Divide into 4 quadrants and shifted clockwise
+      context.drawImage( inputImage, 0, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
+      context.drawImage( inputImage, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, 0, inputImage.width / 2, inputImage.height / 2 );
 
       // Convert canvas to HTMLImageElement
       var outputImage = document.createElement( 'img' );

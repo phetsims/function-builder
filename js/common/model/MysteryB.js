@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Reflects about the x axis.
+ * Reflects about the y-axis and rotates 90 degrees clockwise.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -39,13 +39,14 @@ define( function( require ) {
 
       // Create a canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.width;
-      canvas.height = inputImage.height;
+      canvas.width = inputImage.height;
+      canvas.height = inputImage.width;
       var context = canvas.getContext( '2d' );
 
-      // Reflect about the x axis
-      context.translate( 0, canvas.height );
-      context.scale( 1, -1 );
+      // Reflect about the y axis and rotate 90 degrees
+      context.translate( canvas.width, canvas.height );
+      context.rotate( Math.PI / 2 );
+      context.scale( -1, 1 );
 
       // Draw the input image to the canvas
       context.drawImage( inputImage, 0, 0 );
