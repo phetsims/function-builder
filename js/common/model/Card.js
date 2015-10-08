@@ -13,7 +13,7 @@ define( function( require ) {
 
   /**
    * @param {string} name - name of the card, not visible to the user, used internally for debugging
-   * @param {HTMLImageElement} image - image on the card, as loaded by the image.js or mipmap.js plug-ins
+   * @param {HTMLImageElement} image - image on the card, as loaded by the image.js plug-in
    * @constructor
    */
   function Card( name, image ) {
