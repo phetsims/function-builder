@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Make the image disappear.
+ * Erases the image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,24 +14,24 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
-  var disappearImage = require( 'mipmap!FUNCTION_BUILDER/functions/disappear.png' );
+  var eraseImage = require( 'mipmap!FUNCTION_BUILDER/functions/erase.png' );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
-  function Disappear( options ) {
+  function Erase( options ) {
 
     options = _.extend( {
       name: 'disappear',
-      image: disappearImage,
+      image: eraseImage,
       fill: 'rgb( 246, 164, 255 )'
     }, options );
 
     FBFunction.call( this, options );
   }
 
-  return inherit( FBFunction, Disappear, {
+  return inherit( FBFunction, Erase, {
 
     apply: function( card ) {
 
@@ -43,7 +43,6 @@ define( function( require ) {
       canvas.height = inputImage.height;
       var context = canvas.getContext( '2d' );
 
-      //TODO or should this make the image fully transparent? should this function be invertible?
       // Create a new, blank imageData object
       var imageData = context.createImageData( canvas.width, canvas.height );
 

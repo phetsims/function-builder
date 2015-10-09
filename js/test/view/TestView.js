@@ -12,7 +12,7 @@ define( function( require ) {
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
+  var Erase = require( 'FUNCTION_BUILDER/common/model/Erase' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
@@ -75,7 +75,7 @@ define( function( require ) {
       new Grayscale(),
       new Rotate180(),
       new InvertRGB(),
-      new Disappear(),
+      new Erase(),
       new Shrink75(),
       new Warhol(),
       new MysteryA(),

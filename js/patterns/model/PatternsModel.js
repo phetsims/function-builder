@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var Disappear = require( 'FUNCTION_BUILDER/common/model/Disappear' );
+  var Erase = require( 'FUNCTION_BUILDER/common/model/Erase' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
@@ -53,7 +53,7 @@ define( function( require ) {
       new Rotate180(),
       new Identity(),
       new InvertRGB(),
-      new Disappear(),
+      new Erase(),
       new Shrink75(),
       new Warhol(),
       new MysteryA(),
