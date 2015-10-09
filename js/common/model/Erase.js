@@ -25,7 +25,7 @@ define( function( require ) {
     options = _.extend( {
       name: 'disappear',
       image: eraseImage,
-      fill: 'rgb( 246, 164, 255 )'
+      fill: 'rgb( 0, 222, 224 )'
     }, options );
 
     FBFunction.call( this, options );

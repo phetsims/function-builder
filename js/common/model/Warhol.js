@@ -33,7 +33,7 @@ define( function( require ) {
     options = _.extend( {
       name: 'warhol',
       image: warholImage,
-      fill: 'rgb( 0, 222, 224 )'
+      fill: 'rgb( 250, 186, 75 )'
     }, options );
 
     FBFunction.call( this, options );

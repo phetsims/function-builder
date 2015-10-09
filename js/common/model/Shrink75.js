@@ -28,7 +28,7 @@ define( function( require ) {
     options = _.extend( {
       name: 'shrink75',
       image: shrink75Image,
-      fill: 'rgb( 250, 186, 75 )'
+      fill: 'rgb( 246, 164, 255 )'
     }, options );
 
     FBFunction.call( this, options );
