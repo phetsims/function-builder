@@ -71,8 +71,6 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
       //TODO can this be done with 1 canvas?
       // Draw the card's canvas into a half-size canvas
       var halfCanvas = this.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
