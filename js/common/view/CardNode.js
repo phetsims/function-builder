@@ -39,7 +39,9 @@ define( function( require ) {
       lineWidth: options.lineWidth
     } );
 
-    var imageNode = new Image( card.canvas, {
+    var imageNode = new Image( card.canvas.toDataURL(), {
+      initialWidth: card.canvas.width,
+      initialHeight: card.canvas.height,
       scale: options.imageScale,
       center: backgroundNode.center
     } );

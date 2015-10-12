@@ -64,7 +64,7 @@ define( function( require ) {
       canvas.height = imageData.height;
       var context = canvas.getContext( '2d' );
 
-      context.putImageData( imageData, 0, 0, 0, 0, canvas.width, canvas.height );
+      context.putImageData( imageData, 0, 0 );
 
       return new Card( name, canvas );
     }
