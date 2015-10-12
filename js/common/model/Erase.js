@@ -36,7 +36,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Create a new, blank imageData object
-      var imageData = card.context.createImageData( card.canvas.width, card.canvas.height );
+      var imageData = card.canvas.getContext( '2d' ).createImageData( card.canvas.width, card.canvas.height );
 
       return Card.withImageData( card.name + '.' + this.name, imageData );
     }

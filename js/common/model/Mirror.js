@@ -36,9 +36,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Create the output canvas
-      var canvas = document.createElement( 'canvas' );
-      canvas.width = card.canvas.width;
-      canvas.height = card.canvas.height;
+      var canvas = this.createCanvas( card.canvas.width, card.canvas.height );
       var context = canvas.getContext( '2d' );
 
       // Reflect about the y axis

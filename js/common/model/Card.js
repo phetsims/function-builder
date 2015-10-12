@@ -13,20 +13,19 @@ define( function( require ) {
 
   /**
    * @param {string} name - name of the card, not visible to the user, used internally for debugging
-   * @param {Canvas} canvas - canvas that contains the card's image
+   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
    * @constructor
    */
   function Card( name, canvas ) {
 
     this.name = name; // @public (read-only)
     this.canvas = canvas; // @public (read-only)
-    this.context = canvas.getContext( '2d' ); // @public (read-only)
   }
 
   return inherit( Object, Card, {
 
     getImageData: function() {
-       return this.context.getImageData( 0, 0, this.canvas.width, this.canvas.height )
+       return this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height )
     }
   }, {
 
@@ -38,11 +37,14 @@ define( function( require ) {
      * @static
      */
     withImage: function( name, image ) {
+
       var canvas = document.createElement( 'canvas' );
       canvas.width = image.width;
       canvas.height = image.height;
       var context = canvas.getContext( '2d' );
+
       context.drawImage( image, 0, 0 );
+
       return new Card( name, canvas );
     },
 

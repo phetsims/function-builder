@@ -36,9 +36,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Create the output canvas
-      var canvas = document.createElement( 'canvas' );
-      canvas.width = card.canvas.height; // swap width and height!
-      canvas.height = card.canvas.width;
+      var canvas = this.createCanvas( card.canvas.height, card.canvas.width ); // swap width and height!
       var context = canvas.getContext( '2d' );
 
       // Rotate 90 degrees

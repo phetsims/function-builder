@@ -75,17 +75,13 @@ define( function( require ) {
 
       //TODO can this be done with 1 canvas?
       // Draw the card's canvas into a half-size canvas
-      var halfCanvas = document.createElement( 'canvas' );
-      halfCanvas.width = card.canvas.width / 2;
-      halfCanvas.height = card.canvas.height / 2;
+      var halfCanvas = this.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( card.canvas, 0, 0, halfCanvas.width, halfCanvas.height );
       var imageData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
 
       // Create the output canvas
-      var canvas = document.createElement( 'canvas' );
-      canvas.width = card.canvas.width;
-      canvas.height = card.canvas.height;
+      var canvas = this.createCanvas( card.canvas.width, card.canvas.height );
       var context = canvas.getContext( '2d' );
 
       // Data to hold monochromatic image data

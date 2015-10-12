@@ -45,7 +45,20 @@ define( function( require ) {
      * @returns {*} output, of the same type as input
      */
     apply: function( input ) {
-      throw new Error( 'must be implemented by subtypes' );
+      throw new Error( 'must be implemented by subtype' );
+    },
+
+    /**
+     * Creates a canvas with specified dimensions.
+     * @param {number} width
+     * @param {number} height
+     * @returns {HTMLCanvasElement}
+     */
+    createCanvas: function( width, height ) {
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = width;
+      canvas.height = height;
+      return canvas;
     }
   } );
 } );
