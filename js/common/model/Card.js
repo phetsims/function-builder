@@ -25,7 +25,7 @@ define( function( require ) {
   return inherit( Object, Card, {
 
     getImageData: function() {
-       return this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
+      return this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
     }
   }, {
 
