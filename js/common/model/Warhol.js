@@ -54,15 +54,15 @@ define( function( require ) {
         destination.data[ i ] = backgroundColor.red;
         destination.data[ i + 1 ] = backgroundColor.green;
         destination.data[ i + 2 ] = backgroundColor.blue;
-        destination.data[ i + 3 ] = 255;
       }
       else {
         // non-transparent pixel -> foreground color
         destination.data[ i ] = foregroundColor.red;
         destination.data[ i + 1 ] = foregroundColor.green;
         destination.data[ i + 2 ] = foregroundColor.blue;
-        destination.data[ i + 3 ] = 255;
       }
+      // in both cases, opaque pixel
+      destination.data[ i + 3 ] = 255;
     }
     return destination;
   }
