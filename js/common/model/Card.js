@@ -30,7 +30,7 @@ define( function( require ) {
       return imageData;
     }
   }, {
-                                                            t
+
     /**
      * Creates a card using an image.
      * @param {string} name - name of the card, not visible to the user, used internally for debugging
