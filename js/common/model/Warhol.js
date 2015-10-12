@@ -41,65 +41,70 @@ define( function( require ) {
 
   /**
    * Gets image data for 1 quadrant of the Warhol image.
-   * @param {ImageData} source
-   * @param {ImageData} destination
+   * @param {ImageData} inputData
+   * @param {ImageData} outputData
    * @param {Color} foregroundColor
    * @param {Color} backgroundColor
    * @returns {ImageData}
    */
-  function getQuadrantImageData( source, destination, foregroundColor, backgroundColor ) {
-    for ( var i = 0; i < destination.data.length - 4; i += 4 ) {
-      if ( source.data[ i + 3 ] === 0 ) {
+  function getQuadrantImageData( inputData, outputData, foregroundColor, backgroundColor ) {
+
+    assert && assert( inputData.data.length === outputData.data.length );
+
+    // for each pixel ...
+    for ( var i = 0; i < outputData.data.length - 4; i += 4 ) {
+      if ( inputData.data[ i + 3 ] === 0 ) {
+
         // transparent pixel -> background color
-        destination.data[ i ] = backgroundColor.red;
-        destination.data[ i + 1 ] = backgroundColor.green;
-        destination.data[ i + 2 ] = backgroundColor.blue;
+        outputData.data[ i ] = backgroundColor.red;
+        outputData.data[ i + 1 ] = backgroundColor.green;
+        outputData.data[ i + 2 ] = backgroundColor.blue;
       }
       else {
+
         // non-transparent pixel -> foreground color
-        destination.data[ i ] = foregroundColor.red;
-        destination.data[ i + 1 ] = foregroundColor.green;
-        destination.data[ i + 2 ] = foregroundColor.blue;
+        outputData.data[ i ] = foregroundColor.red;
+        outputData.data[ i + 1 ] = foregroundColor.green;
+        outputData.data[ i + 2 ] = foregroundColor.blue;
       }
+
       // in both cases, opaque pixel
-      destination.data[ i + 3 ] = 255;
+      outputData.data[ i + 3 ] = 255;
     }
-    return destination;
+    return outputData;
   }
 
   return inherit( FBFunction, Warhol, {
 
     apply: function( card ) {
 
-      //TODO can this be done with 1 canvas?
-      // Draw the card's canvas into a half-size canvas
+      // Draw the card into a half-size canvas, effectively scaling by 50%
       var halfCanvas = this.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( card.canvas, 0, 0, halfCanvas.width, halfCanvas.height );
+
+      // Input and output image data
       var imageData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
+      var outputData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Create the output canvas
       var canvas = this.createCanvas( card.canvas.width, card.canvas.height );
       var context = canvas.getContext( '2d' );
 
-      // Data to hold monochromatic image data
-      var monoData = context.createImageData( halfCanvas.width, halfCanvas.height );
-      assert && assert( imageData.data.length === monoData.data.length );
-
       // Left-top quadrant
-      context.putImageData( getQuadrantImageData( imageData, monoData, RIGHT_BOTTOM_COLOR, LEFT_TOP_COLOR ),
+      context.putImageData( getQuadrantImageData( imageData, outputData, RIGHT_BOTTOM_COLOR, LEFT_TOP_COLOR ),
         0, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Right-top quadrant
-      context.putImageData( getQuadrantImageData( imageData, monoData, LEFT_BOTTOM_COLOR, RIGHT_TOP_COLOR ),
+      context.putImageData( getQuadrantImageData( imageData, outputData, LEFT_BOTTOM_COLOR, RIGHT_TOP_COLOR ),
         canvas.width / 2, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Left-bottom quadrant
-      context.putImageData( getQuadrantImageData( imageData, monoData, RIGHT_TOP_COLOR, LEFT_BOTTOM_COLOR ),
+      context.putImageData( getQuadrantImageData( imageData, outputData, RIGHT_TOP_COLOR, LEFT_BOTTOM_COLOR ),
         0, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       // Right-bottom quadrant
-      context.putImageData( getQuadrantImageData( imageData, monoData, LEFT_TOP_COLOR, RIGHT_BOTTOM_COLOR ),
+      context.putImageData( getQuadrantImageData( imageData, outputData, LEFT_TOP_COLOR, RIGHT_BOTTOM_COLOR ),
         canvas.width / 2, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
 
       return new Card( card.name + '.' + this.name, canvas );
