@@ -25,10 +25,12 @@ define( function( require ) {
   return inherit( Object, Card, {
 
     getImageData: function() {
-      return this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
+      var imageData = this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
+      assert && assert( imageData.width === this.canvas.width && imageData.height === this.canvas.height );
+      return imageData;
     }
   }, {
-
+                                                            t
     /**
      * Creates a card using an image.
      * @param {string} name - name of the card, not visible to the user, used internally for debugging
