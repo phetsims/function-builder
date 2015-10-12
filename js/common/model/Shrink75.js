@@ -36,6 +36,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Shrink75, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       // Create the output canvas

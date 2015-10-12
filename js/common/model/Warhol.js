@@ -76,6 +76,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Warhol, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       // Draw the card into a half-size canvas, effectively scaling by 50%

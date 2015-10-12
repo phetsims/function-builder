@@ -33,6 +33,11 @@ define( function( require ) {
 
   return inherit( FBFunction, InvertRGB, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       var imageData = card.getImageData();

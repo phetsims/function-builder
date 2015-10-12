@@ -33,6 +33,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Identity, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
       return Card.withImageData( card.name + '.' + this.name, card.getImageData() );
     }

@@ -33,6 +33,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Mirror, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       // Create the output canvas

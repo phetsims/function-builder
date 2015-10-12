@@ -33,6 +33,11 @@ define( function( require ) {
 
   return inherit( FBFunction, Erase, {
 
+    /**
+     * Applies this function to a card.
+     * @param {Card} card
+     * @returns {Card}
+     */
     apply: function( card ) {
 
       // Create a new, blank imageData object
