@@ -35,29 +35,20 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
-      // Create a canvas
+      // Create the output canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.width;
-      canvas.height = inputImage.height;
+      canvas.width = card.canvas.width;
+      canvas.height = card.canvas.height;
       var context = canvas.getContext( '2d' );
 
-      //TODO should this draw into a canvas of card.size, then shift things around?
-
       // Divide into 4 quadrants and shifted clockwise
-      context.drawImage( inputImage, 0, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, inputImage.width / 2, 0, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, inputImage.width / 2, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2 );
-      context.drawImage( inputImage, 0, inputImage.height / 2, inputImage.width / 2, inputImage.height / 2, 0, 0, inputImage.width / 2, inputImage.height / 2 );
+      var inputCanvas = card.canvas;
+      context.drawImage( inputCanvas, 0, 0, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, 0, inputCanvas.width / 2, inputCanvas.height / 2 );
+      context.drawImage( inputCanvas, inputCanvas.width / 2, 0, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2 );
+      context.drawImage( inputCanvas, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, 0, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2 );
+      context.drawImage( inputCanvas, 0, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, 0, 0, inputCanvas.width / 2, inputCanvas.height / 2 );
 
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
-
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return new Card( card.name + '.' + this.name, canvas );
     }
   } );
 } );

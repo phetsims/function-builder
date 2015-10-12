@@ -54,18 +54,18 @@ define( function( require ) {
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
     var cards = [
-      new Card( 'feet', feetImage ),
-      new Card( 'snowflake', snowflakeImage ),
-      new Card( 'butterfly', butterflyImage ),
-      new Card( 'stick-figure', stickFigureImage ),
-      new Card( 'planet', planetImage ),
-      new Card( 'sun', sunImage ),
-      new Card( 'beaker', beakerImage ),
-      new Card( 'cherries', cherriesImage ),
-      new Card( 'rectangle', rectangleImage ),
-      new Card( 'circle', circleImage ),
-      new Card( 'triangle', triangleImage ),
-      new Card( 'star', starImage )
+      Card.withImage( 'feet', feetImage ),
+      Card.withImage( 'snowflake', snowflakeImage ),
+      Card.withImage( 'butterfly', butterflyImage ),
+      Card.withImage( 'stick-figure', stickFigureImage ),
+      Card.withImage( 'planet', planetImage ),
+      Card.withImage( 'sun', sunImage ),
+      Card.withImage( 'beaker', beakerImage ),
+      Card.withImage( 'cherries', cherriesImage ),
+      Card.withImage( 'rectangle', rectangleImage ),
+      Card.withImage( 'circle', circleImage ),
+      Card.withImage( 'triangle', triangleImage ),
+      Card.withImage( 'star', starImage )
     ];
 
     var functions = [

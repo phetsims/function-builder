@@ -35,28 +35,20 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
-      // Create a canvas
+      // Create the output canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.height; // swap width and height!
-      canvas.height = inputImage.width;
+      canvas.width = card.canvas.height; // swap width and height!
+      canvas.height = card.canvas.width;
       var context = canvas.getContext( '2d' );
 
       // Rotate 90 degrees
       context.translate( canvas.width, 0 );
       context.rotate( Math.PI / 2 );
 
-      // Draw the input image to the canvas
-      context.drawImage( inputImage, 0, 0 );
+      // Draw the card's canvas to the output canvas
+      context.drawImage( card.canvas, 0, 0 );
 
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
-
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return new Card( card.name + '.' + this.name, canvas );
     }
 
   } );

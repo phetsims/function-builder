@@ -38,25 +38,21 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
-      // Create a canvas
+      // Create the output canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = SCALE * inputImage.width;
-      canvas.height = SCALE * inputImage.height;
+      canvas.width = card.canvas.width;
+      canvas.height = card.canvas.height;
       var context = canvas.getContext( '2d' );
 
-      //TODO or should we use context.scale?
-      // Draw the scaled input image to the canvas
-      context.drawImage( inputImage, 0, 0, canvas.width, canvas.height );
+      // Scale
+      var translationFactor = 0.5 * ( 1 - SCALE );
+      context.translate( translationFactor * canvas.width, translationFactor * canvas.height );
+      context.scale( SCALE, SCALE );
 
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
+      // Draw the card's canvas to the output canvas
+      context.drawImage( card.canvas, 0, 0 );
 
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return new Card( card.name + '.' + this.name, canvas );
     }
   } );
 } );

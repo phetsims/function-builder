@@ -35,19 +35,7 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
-      // Create a canvas
-      var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.width;
-      canvas.height = inputImage.height;
-      var context = canvas.getContext( '2d' );
-
-      // Draw the input image to the canvas
-      context.drawImage( inputImage, 0, 0 );
-
-      // Get image data
-      var imageData = context.getImageData( 0, 0, canvas.width, canvas.height );
+      var imageData = card.getImageData();
 
       // invert colors
       var data = imageData.data;
@@ -58,20 +46,7 @@ define( function( require ) {
         data[ i + 3 ] = 255;
       }
 
-      // Draw the modified image data to the canvas.
-      context.putImageData( imageData, 0, 0, 0, 0, canvas.width, canvas.height );
-
-      //TODO pass canvas around in model, each Card has a canvas
-      //TODO pass canvas.toDataURL() to scenery.Image in view when time to display it
-      //TODO or set Image renderer:webgl and pass it a canvas (doesn't support clipping, would need to try to keep all cards in 1 layer)
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
-
-      //TODO for now, append the function name, so that we can track what functions have been applied to a card
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return Card.withImageData( card.name + '.' + this.name, imageData );
     }
   } );
 } );

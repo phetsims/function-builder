@@ -35,12 +35,10 @@ define( function( require ) {
 
     apply: function( card ) {
 
-      var inputImage = card.image;
-
-      // Create a canvas
+      // Create the output canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.height;
-      canvas.height = inputImage.width;
+      canvas.width = card.canvas.height;
+      canvas.height = card.canvas.width;
       var context = canvas.getContext( '2d' );
 
       // Reflect about the y axis and rotate 90 degrees
@@ -48,16 +46,10 @@ define( function( require ) {
       context.rotate( Math.PI / 2 );
       context.scale( -1, 1 );
 
-      // Draw the input image to the canvas
-      context.drawImage( inputImage, 0, 0 );
+      // Draw the card's canvas to the output canvas
+      context.drawImage( card.canvas, 0, 0 );
 
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
-
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return new Card( card.name + '.' + this.name, canvas );
     }
   } );
 } );

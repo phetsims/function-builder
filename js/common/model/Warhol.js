@@ -50,14 +50,14 @@ define( function( require ) {
   function getQuadrantImageData( source, destination, foregroundColor, backgroundColor ) {
     for ( var i = 0; i < destination.data.length - 4; i += 4 ) {
       if ( source.data[ i + 3 ] === 0 ) {
-        // transparent pixel
+        // transparent pixel -> background color
         destination.data[ i ] = backgroundColor.red;
         destination.data[ i + 1 ] = backgroundColor.green;
         destination.data[ i + 2 ] = backgroundColor.blue;
         destination.data[ i + 3 ] = 255;
       }
       else {
-        // non-transparent pixel
+        // non-transparent pixel -> foreground color
         destination.data[ i ] = foregroundColor.red;
         destination.data[ i + 1 ] = foregroundColor.green;
         destination.data[ i + 2 ] = foregroundColor.blue;
@@ -74,22 +74,22 @@ define( function( require ) {
       var inputImage = card.image;
 
       //TODO can this be done with 1 canvas?
-      // Draw the image into a half-size canvas
+      // Draw the card's canvas into a half-size canvas
       var halfCanvas = document.createElement( 'canvas' );
-      halfCanvas.width = inputImage.width / 2;
-      halfCanvas.height = inputImage.height / 2;
+      halfCanvas.width = card.canvas.width / 2;
+      halfCanvas.height = card.canvas.height / 2;
       var halfContext = halfCanvas.getContext( '2d' );
-      halfContext.drawImage( inputImage, 0, 0, halfCanvas.width, halfCanvas.height );
-      var imageData = halfContext.getImageData( 0, 0, inputImage.width / 2, inputImage.height / 2 );
+      halfContext.drawImage( card.canvas, 0, 0, halfCanvas.width, halfCanvas.height );
+      var imageData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
 
-      // Create a canvas to hold the final image
+      // Create the output canvas
       var canvas = document.createElement( 'canvas' );
-      canvas.width = inputImage.width;
-      canvas.height = inputImage.height;
+      canvas.width = card.canvas.width;
+      canvas.height = card.canvas.height;
       var context = canvas.getContext( '2d' );
 
       // Data to hold monochromatic image data
-      var monoData = context.createImageData( inputImage.width / 2, inputImage.height / 2 );
+      var monoData = context.createImageData( halfCanvas.width, halfCanvas.height );
       assert && assert( imageData.data.length === monoData.data.length );
 
       // Left-top quadrant
@@ -108,13 +108,7 @@ define( function( require ) {
       context.putImageData( getQuadrantImageData( imageData, monoData, LEFT_TOP_COLOR, RIGHT_BOTTOM_COLOR ),
         canvas.width / 2, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
 
-      // Convert canvas to HTMLImageElement
-      var outputImage = document.createElement( 'img' );
-      outputImage.src = canvas.toDataURL();
-
-      var outputName = card.name + '.' + this.name;
-
-      return new Card( outputName, outputImage );
+      return new Card( card.name + '.' + this.name, canvas );
     }
   } );
 } );

@@ -39,7 +39,7 @@ define( function( require ) {
       lineWidth: options.lineWidth
     } );
 
-    var imageNode = new Image( card.image, {
+    var imageNode = new Image( card.canvas, {
       scale: options.imageScale,
       center: backgroundNode.center
     } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -32,8 +33,8 @@ define( function( require ) {
 
   return inherit( FBFunction, Identity, {
 
-    apply: function( input ) {
-      return input.clone();
+    apply: function( card ) {
+      return Card.withImageData( card.name + '.' + this.name, card.getImageData() );
     }
   } );
 } );
