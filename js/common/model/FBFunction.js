@@ -20,7 +20,7 @@ define( function( require ) {
 
     options = _.extend( {
       name: null, // {string} name of the function, not visible to the user, used internally for debugging
-      image: null, // {HTMLImageElement|MipMapArray} image - image used to represent the function, as loaded by the image.js or mipmap.js plug-ins
+      image: null, // {HTMLImageElement|MipMapArray} image - image used to represent the function
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,

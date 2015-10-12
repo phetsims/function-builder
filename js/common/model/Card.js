@@ -17,13 +17,16 @@ define( function( require ) {
    * @constructor
    */
   function Card( name, canvas ) {
-
     this.name = name; // @public (read-only)
     this.canvas = canvas; // @public (read-only)
   }
 
   return inherit( Object, Card, {
 
+    /**
+     * Get the image data associated with the card.
+     * @returns {ImageData}
+     */
     getImageData: function() {
       var imageData = this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
       assert && assert( imageData.width === this.canvas.width && imageData.height === this.canvas.height );
