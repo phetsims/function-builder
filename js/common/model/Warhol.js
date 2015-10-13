@@ -84,7 +84,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Draw the card into a half-size canvas, effectively scaling by 50%
-      var halfCanvas = this.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
+      var halfCanvas = Card.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( card.canvas, 0, 0, halfCanvas.width, halfCanvas.height );
 
@@ -93,7 +93,7 @@ define( function( require ) {
       var outputData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Create the output canvas
-      var canvas = this.createCanvas( card.canvas.width, card.canvas.height );
+      var canvas = Card.createCanvas( card.canvas.width, card.canvas.height );
       var context = canvas.getContext( '2d' );
 
       // Left-top quadrant

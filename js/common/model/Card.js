@@ -70,6 +70,19 @@ define( function( require ) {
       context.putImageData( imageData, 0, 0 );
 
       return new Card( name, canvas );
+    },
+
+    /**
+     * Creates a canvas with specified dimensions.
+     * @param {number} width
+     * @param {number} height
+     * @returns {HTMLCanvasElement}
+     */
+    createCanvas: function( width, height ) {
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = width;
+      canvas.height = height;
+      return canvas;
     }
   } );
 } );

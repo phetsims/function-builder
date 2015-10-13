@@ -41,7 +41,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Create the output canvas
-      var canvas = this.createCanvas( card.canvas.height, card.canvas.width ); // swap width and height!
+      var canvas = Card.createCanvas( card.canvas.height, card.canvas.width ); // swap width and height!
       var context = canvas.getContext( '2d' );
 
       // Reflect about the y axis and rotate 90 degrees

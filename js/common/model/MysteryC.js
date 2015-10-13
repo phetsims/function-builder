@@ -41,7 +41,7 @@ define( function( require ) {
     apply: function( card ) {
 
       // Create the output canvas
-      var canvas = this.createCanvas( card.canvas.width, card.canvas.height );
+      var canvas = Card.createCanvas( card.canvas.width, card.canvas.height );
       var context = canvas.getContext( '2d' );
 
       // Divide into 4 quadrants and shifted clockwise
