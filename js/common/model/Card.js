@@ -18,7 +18,7 @@ define( function( require ) {
    */
   function Card( name, canvas ) {
     this.name = name; // @public (read-only)
-    this.canvas = canvas; // @public (read-only) this canvas' pixels and context should not be modified by clients
+    this.canvas = canvas; // @public (read-only) do not modify this canvas' pixels or context
   }
 
   return inherit( Object, Card, {
