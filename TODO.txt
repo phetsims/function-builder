@@ -13,6 +13,8 @@ ARTWORK
 ======================================================================================================================================================
 IMPLEMENTATION
 
+Implement invert for invertible functions
+Card (and CardNode) should be mutable
 Remove prototype namespace, tasks#378
 Fix pickable issue related to scene selection (see TODO item).
 Size icons to fit for cards and functions, requires uniform size for .png files.
