@@ -29,7 +29,7 @@ define( function( require ) {
 
     this.name = options.name; // @public (read-only)
 
-    // @public (read-only) visual representation, in the model for convenience
+    // @public (read-only) properties related to visual representation, in the model for convenience
     this.image = options.image;
     this.fill = options.fill;
     this.stroke = options.stroke;
