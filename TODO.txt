@@ -5,7 +5,6 @@ DESIGN
 
 See https://docs.google.com/document/d/1BTqqn8K5rotePgMhmR4DzGtBgl87eV_D0dKbMt6re94/edit
 Eraser button is dangerously close to output carousel's next button.
-White cards on white carousels, could use a bit of color difference.
 Gray next/previous buttons on carousel give the impression of being disabled.
 
 ======================================================================================================================================================
