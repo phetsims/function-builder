@@ -26,6 +26,7 @@ define( function( require ) {
     /**
      * Get the image data associated with the card.
      * @returns {ImageData}
+     * @public
      */
     getImageData: function() {
       var imageData = this.canvas.getContext( '2d' ).getImageData( 0, 0, this.canvas.width, this.canvas.height );
@@ -40,6 +41,7 @@ define( function( require ) {
      * @param {HTMLImageElement} image
      * @returns {Card}
      * @static
+     * @public
      */
     withImage: function( name, image ) {
 
@@ -59,6 +61,7 @@ define( function( require ) {
      * @param {ImageData} imageData
      * @returns {Card}
      * @static
+     * @public
      */
     withImageData: function( name, imageData ) {
 
@@ -77,6 +80,7 @@ define( function( require ) {
      * @param {number} width
      * @param {number} height
      * @returns {HTMLCanvasElement}
+     * @public
      */
     createCanvas: function( width, height ) {
       var canvas = document.createElement( 'canvas' );

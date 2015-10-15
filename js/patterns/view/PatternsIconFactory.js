@@ -24,6 +24,7 @@ define( function( require ) {
      * Creates the icon for the 'single' scene.
      * @param {number} [width]
      * @returns {Node}
+     * @public
      */
     createSingleSceneIcon: function( width ) {
 
@@ -40,6 +41,7 @@ define( function( require ) {
      * Creates the icon for the 'dual' scene.
      * @param {number} [width]
      * @returns {Node}
+     * @public
      */
     createDualSceneIcon: function( width ) {
 
@@ -67,6 +69,7 @@ define( function( require ) {
      * Creates the icon for the 'composed' scene.
      * @param {number} [width]
      * @returns {Node}
+     * @public
      */
     createComposedSceneIcon: function( width ) {
 

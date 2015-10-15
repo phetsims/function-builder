@@ -37,6 +37,8 @@ define( function( require ) {
      * Applies the function.
      * @param {Card} card
      * @returns {Card}
+     * @public
+     * @override
      */
     apply: function( card ) {
 

@@ -80,6 +80,8 @@ define( function( require ) {
      * Applies this function to a card.
      * @param {Card} card
      * @returns {Card}
+     * @public
+     * @override
      */
     apply: function( card ) {
 

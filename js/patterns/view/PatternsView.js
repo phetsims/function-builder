@@ -144,6 +144,7 @@ define( function( require ) {
 
   return inherit( ScreenView, PatternsView, {
 
+    // @public
     step: function( dt ) {
       //TODO
     }

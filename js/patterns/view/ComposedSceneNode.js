@@ -22,6 +22,7 @@ define( function( require ) {
 
   return inherit( Node, ComposedSceneNode, {
 
+    // @public
     reset: function() {
       //TODO
     }

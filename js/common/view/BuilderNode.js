@@ -159,6 +159,7 @@ define( function( require ) {
 
   return inherit( Node, BuilderNode, {
 
+    // @public
     dispose: function() { this.disposeBuilderNode(); }
   } );
 } );

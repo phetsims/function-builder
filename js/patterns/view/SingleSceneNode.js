@@ -145,6 +145,7 @@ define( function( require ) {
 
   return inherit( Node, SingleSceneNode, {
 
+    // @public
     reset: function() {
       this.resetSingleSceneNode();
     }

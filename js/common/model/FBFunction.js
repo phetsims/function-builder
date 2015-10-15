@@ -43,6 +43,7 @@ define( function( require ) {
      * Applies the function to the input, produces the output.
      * @param {*} input
      * @returns {*} output, of the same type as input
+     * @public
      */
     apply: function( input ) {
       throw new Error( 'must be implemented by subtype' );

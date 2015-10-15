@@ -24,6 +24,7 @@ define( function( require ) {
 
   return inherit( PropertySet, EquationsModel, {
 
+    // @public
     step: function( dt ) {
       //TODO
     }

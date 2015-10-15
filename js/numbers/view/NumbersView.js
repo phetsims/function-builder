@@ -41,6 +41,7 @@ define( function( require ) {
 
   return inherit( ScreenView, NumbersView, {
 
+    // @public
     step: function( dt ) {
       //TODO
     }

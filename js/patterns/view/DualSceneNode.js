@@ -22,6 +22,7 @@ define( function( require ) {
 
   return inherit( Node, DualSceneNode, {
 
+    // @public
     reset: function() {
       //TODO
     }

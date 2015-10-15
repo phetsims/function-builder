@@ -94,10 +94,12 @@ define( function( require ) {
 
   return inherit( Object, PatternsModel, {
 
+    // @public
     reset: function() {
       this.builder.reset();
     },
 
+    // @public
     step: function( dt ) {
       //TODO
     }

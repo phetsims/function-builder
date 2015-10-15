@@ -24,6 +24,7 @@ define( function( require ) {
 
   return inherit( PropertySet, NumbersModel, {
 
+    // @public
     step: function( dt ) {
       //TODO
     }

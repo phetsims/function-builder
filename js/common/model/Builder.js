@@ -33,6 +33,7 @@ define( function( require ) {
 
   return inherit( Object, Builder, {
 
+    // @public
     reset: function() {
       this.functionProperties.forEach( function( functionProperty ) {
         functionProperty.reset();
