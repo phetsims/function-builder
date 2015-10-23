@@ -53,7 +53,8 @@ define( function( require ) {
     };
 
     // For stopping animations that are in progress.
-    var newFadeIn, oldFadeOut;
+    var newFadeIn;
+    var oldFadeOut;
 
     // Make the selected scene visible, create it if necessary
     viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
