@@ -2,13 +2,13 @@
   "function-builder.title": {
     "value": "Function Builder"
   },
-  "patterns": {
+  "screen.patterns": {
     "value": "Patterns"
   },
-  "numbers": {
+  "screen.numbers": {
     "value": "Numbers"
   },
-  "equations": {
+  "screen.equations": {
     "value": "Equations"
   }
 }

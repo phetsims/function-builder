@@ -17,7 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!FUNCTION_BUILDER/patterns' );
+  var screenTitle = require( 'string!FUNCTION_BUILDER/screen.patterns' );
 
   // creates the icon for this screen
   var createIcon = function() {
