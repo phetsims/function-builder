@@ -80,6 +80,7 @@ define( function( require ) {
      * @param {number} width
      * @param {number} height
      * @returns {HTMLCanvasElement}
+     * @static
      * @public
      */
     createCanvas: function( width, height ) {
