@@ -153,10 +153,10 @@ define( function( require ) {
           assert && assert( event.currentTarget instanceof FunctionNode );
           scene.builder.functionProperties[ functionIndexProperty.get() ].set( event.currentTarget.functionInstance );
           if ( functionIndexProperty.get() >= scene.builder.functionProperties.length - 1 ) {
-            functionIndexProperty.set( 0 )
+            functionIndexProperty.set( 0 );
           }
           else {
-            functionIndexProperty.set( functionIndexProperty.get() + 1 )
+            functionIndexProperty.set( functionIndexProperty.get() + 1 );
           }
         }
       } );

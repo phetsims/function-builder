@@ -57,7 +57,7 @@ define( function( require ) {
     //TODO this is temporary
     setCard: function( card ) {
       this.imageNode.setImage( card.canvas.toDataURL() );
-      this.imageNode.center = this.backgroundNode.center
+      this.imageNode.center = this.backgroundNode.center;
     }
   } );
 } );
