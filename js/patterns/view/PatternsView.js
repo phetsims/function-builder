@@ -84,7 +84,7 @@ define( function( require ) {
         }
         sceneNode = singleSceneNode;
       }
-      if ( scene === model.dualScene ) {
+      else if ( scene === model.dualScene ) {
         if ( !dualSceneNode ) {
           // Create scene on demand
           dualSceneNode = new DualSceneNode( model.dualScene, thisView.layoutBounds, sceneOptions );
@@ -92,7 +92,7 @@ define( function( require ) {
         }
         sceneNode = dualSceneNode;
       }
-      if ( scene === model.composedScene ) {
+      else if ( scene === model.composedScene ) {
         if ( !composedSceneNode ) {
           // Create scene on demand
           composedSceneNode = new ComposedSceneNode( model.composedScene, thisView.layoutBounds, sceneOptions );
