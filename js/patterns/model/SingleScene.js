@@ -77,7 +77,7 @@ define( function( require ) {
 
     // @public
     this.builder = new Builder( {
-      numberOfFunctions: 1
+      numberOfFunctions: 3
     } );
 
     var functionPropertyObserver = function( functionInstance, oldFunctionInstance ) {

@@ -69,11 +69,17 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
+    //TODO this currently cycles through the function slots in the builder, replace with drag-and-drop
     // Clicking on a function selects it
+    var functionPropertiesIndex = 0;
     var functionInputListener = new DownUpListener( {
       down: function( event ) {
         assert && assert( event.currentTarget instanceof FunctionNode );
-        scene.builder.functionProperties[ 0 ].set( event.currentTarget.functionInstance );
+        scene.builder.functionProperties[ functionPropertiesIndex ].set( event.currentTarget.functionInstance );
+        functionPropertiesIndex++;
+        if ( functionPropertiesIndex > scene.builder.functionProperties.length - 1 ) {
+          functionPropertiesIndex = 0;
+        }
       }
     } );
 
