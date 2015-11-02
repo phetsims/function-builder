@@ -18,6 +18,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
+  var Property = require( 'AXON/Property' );
+  var SpyGlassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyGlassCheckBox' );
 
   // constants
   var FUNCTION_PER_PAGE = 3;
@@ -101,6 +103,14 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 25
     } );
 
+    // Spy Glass check box, to the right of functions carousel
+    var spyGlassVisibleProperty = new Property( false ); //TODO view property
+    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+      maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
+      left: inputsCarousel.left,
+      top: functionsCarousel.top
+    } );
+
     // Function builder, in the center of the screen
     var builderNode = new BuilderNode( scene.builder, {
       centerX: layoutBounds.centerX,
@@ -144,7 +154,7 @@ define( function( require ) {
       builderNode,
       inputsCarousel, outputsCarousel, functionsCarousel,
       inputsPageControl, outputsPageControl, functionsPageControl,
-      eraserButton
+      eraserButton, spyGlassCheckBox
     ];
     Node.call( this, options );
   }

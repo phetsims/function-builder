@@ -10,5 +10,8 @@
   },
   "screen.equations": {
     "value": "Equations"
+  },
+  "spyGlass": {
+    "value": "Spy Glass"
   }
 }
