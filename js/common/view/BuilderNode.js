@@ -29,7 +29,7 @@ define( function( require ) {
     options = _.extend( {
 
       // body
-      bodySize: new Dimension2( 400, 125 ),
+      bodySize: new Dimension2( 430, 125 ),
       bodyToColor: 'rgb( 200, 182, 188 )',
       bodyMiddleColor: 'rgb( 130, 62, 85 )',
       bodyBottomColor: 'black',
@@ -137,6 +137,7 @@ define( function( require ) {
           left: previousNode ? ( previousNode.right - previousNode.xInset - options.functionLineWidth / 2 ) : 0
         } );
         functionsParent.addChild( functionNode );
+        functionNode.moveToBack();
         previousNode = functionNode;
       } );
 
