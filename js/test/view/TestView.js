@@ -114,8 +114,6 @@ define( function( require ) {
 
     var carousel = new Carousel( items, {
       orientation: 'vertical',
-      pageControlVisible: true,
-      pageControlLocation: 'right',
       separatorsVisible: true,
       itemsPerPage: 4
     } );

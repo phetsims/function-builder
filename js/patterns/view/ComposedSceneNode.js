@@ -41,8 +41,6 @@ define( function( require ) {
     } );
     var inputsCarousel = new Carousel( inputNodes, {
       orientation: 'vertical',
-      pageControlVisible: true,
-      pageControlLocation: 'left',
       separatorsVisible: true,
       itemsPerPage: INPUTS_PER_PAGE,
       left: layoutBounds.left + 50,
@@ -56,8 +54,6 @@ define( function( require ) {
     } );
     var outputsCarousel = new Carousel( outputNodes, {
       orientation: 'vertical',
-      pageControlVisible: true,
-      pageControlLocation: 'right',
       separatorsVisible: true,
       itemsPerPage: INPUTS_PER_PAGE,
       right: layoutBounds.right - ( inputsCarousel.left - layoutBounds.left ),
@@ -96,8 +92,6 @@ define( function( require ) {
     } );
     var functionsCarousel = new Carousel( functionNodes, {
       orientation: 'horizontal',
-      pageControlVisible: true,
-      pageControlLocation: 'bottom',
       itemsPerPage: FUNCTION_PER_PAGE,
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - 25
