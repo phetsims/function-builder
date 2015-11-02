@@ -109,6 +109,12 @@ define( function( require ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
     } );
 
+    // Function builder, in the center of the screen
+    var builderNode = new BuilderNode( scene.builder, {
+      centerX: layoutBounds.centerX,
+      centerY: inputsCarousel.centerY
+    } );
+
     // Spy Glass check box, to the right of functions carousel
     var spyGlassVisibleProperty = new Property( false ); //TODO view property
     var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
@@ -116,11 +122,8 @@ define( function( require ) {
       left: inputsCarousel.left,
       top: functionsCarousel.top
     } );
-
-    // Function builder, in the center of the screen
-    var builderNode = new BuilderNode( scene.builder, {
-      centerX: layoutBounds.centerX,
-      centerY: inputsCarousel.centerY
+    spyGlassVisibleProperty.link( function( visible ) {
+      //TODO make spy glasses visible in the builder
     } );
 
     // @private Resets this node
