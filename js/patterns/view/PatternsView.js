@@ -136,10 +136,9 @@ define( function( require ) {
     // Resets this screen
     var resetAll = function() {
 
-      // Reset model and view
       model.reset();
 
-      // Reset any scenes that have been instantiated
+      // Reset any scenes views that have been instantiated
       singleSceneNode && singleSceneNode.reset();
       dualSceneNode && dualSceneNode.reset();
       composedSceneNode && composedSceneNode.reset();
