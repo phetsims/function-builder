@@ -73,6 +73,7 @@ define( function( require ) {
     var functionInputListener = new DownUpListener( {
       down: function( event ) {
         assert && assert( event.currentTarget instanceof FunctionNode );
+        console.log( 'functionPropertiesIndex = ' + functionPropertiesIndex );//XXX
         scene.builder.functionProperties[ functionPropertiesIndex ].set( event.currentTarget.functionInstance );
         functionPropertiesIndex++;
         if ( functionPropertiesIndex > scene.builder.functionProperties.length - 1 ) {
@@ -135,6 +136,21 @@ define( function( require ) {
     } );
     outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
+    } );
+
+    //TODO temporary, when any function changes, update all output cards
+    var functionPropertyObserver = function() {
+      for ( var i = 0; i < scene.inputCards.length; i++ ) {
+        var card = scene.inputCards[ i ];
+        for ( var j = 0; j < scene.builder.functionProperties.length; j++ ) {
+          var functionInstance = scene.builder.functionProperties[ j ].get();
+          card = functionInstance.apply( card );
+        }
+        outputNodes[ i ].setCard( card );
+      }
+    };
+    scene.builder.functionProperties.forEach( function( functionProperty ) {
+      functionProperty.link( functionPropertyObserver );
     } );
 
     // @private Resets this node

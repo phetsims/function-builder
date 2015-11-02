@@ -79,14 +79,6 @@ define( function( require ) {
     this.builder = new Builder( {
       numberOfFunctions: 3
     } );
-
-    var functionPropertyObserver = function( functionInstance, oldFunctionInstance ) {
-      //TODO update all output cards
-      console.log( 'function = ' + functionInstance.name ); //XXX
-    };
-    this.builder.functionProperties.forEach( function( functionProperty ) {
-      functionProperty.link( functionPropertyObserver );
-    } );
   }
 
   return inherit( Object, ComposedScene, {

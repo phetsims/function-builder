@@ -33,22 +33,31 @@ define( function( require ) {
       imageScale: 0.3
     }, options );
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
+    // @private
+    this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
-    var imageNode = new Image( card.canvas.toDataURL(), {
+    // @private
+    this.imageNode = new Image( card.canvas.toDataURL(), {
       initialWidth: card.canvas.width,
       initialHeight: card.canvas.height,
       scale: options.imageScale,
-      center: backgroundNode.center
+      center: this.backgroundNode.center
     } );
 
-    options.children = [ backgroundNode, imageNode ];
+    options.children = [ this.backgroundNode, this.imageNode ];
     Node.call( this, options );
   }
 
-  return inherit( Node, CardNode );
+  return inherit( Node, CardNode, {
+
+    //TODO this is temporary
+    setCard: function( card ) {
+      this.imageNode.setImage( card.canvas.toDataURL() );
+      this.imageNode.center = this.backgroundNode.center
+    }
+  } );
 } );
