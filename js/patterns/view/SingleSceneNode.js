@@ -25,16 +25,16 @@ define( function( require ) {
   var PAGE_CONTROL_SPACING = 8;
 
   /**
-   * @param model
+   * @param {SingleScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
    */
-  function SingleSceneNode( model, layoutBounds, options ) {
+  function SingleSceneNode( scene, layoutBounds, options ) {
 
     // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
-    model.inputCards.forEach( function( card ) {
+    scene.inputCards.forEach( function( card ) {
       inputNodes.push( new CardNode( card ) );
     } );
     var inputsCarousel = new Carousel( inputNodes, {
@@ -49,7 +49,7 @@ define( function( require ) {
 
     // Output cards, in a vertical carousel at right-center
     var outputNodes = [];
-    model.inputCards.forEach( function( card ) {
+    scene.inputCards.forEach( function( card ) {
       outputNodes.push( new CardNode( card ) );
     } );
     var outputsCarousel = new Carousel( outputNodes, {
@@ -73,13 +73,13 @@ define( function( require ) {
     var functionInputListener = new DownUpListener( {
       down: function( event ) {
         assert && assert( event.currentTarget instanceof FunctionNode );
-        model.builder.functionProperties[ 0 ].set( event.currentTarget.functionInstance );
+        scene.builder.functionProperties[ 0 ].set( event.currentTarget.functionInstance );
       }
     } );
 
     // Functions, in a horizontal carousel at bottom-center
     var functionNodes = [];
-    model.functions.forEach( function( functionInstance ) {
+    scene.functions.forEach( function( functionInstance ) {
       var functionNode = new FunctionNode( functionInstance, {
         cursor: 'pointer'
       } );
@@ -96,7 +96,7 @@ define( function( require ) {
     } );
 
     // Function builder, in the center of the screen
-    var builderNode = new BuilderNode( model.builder, {
+    var builderNode = new BuilderNode( scene.builder, {
       centerX: layoutBounds.centerX,
       centerY: inputsCarousel.centerY
     } );

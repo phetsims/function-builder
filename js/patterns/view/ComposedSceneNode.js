@@ -13,7 +13,13 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
 
-  function ComposedSceneNode( model, layoutBounds, options ) {
+  /**
+   * @param {ComposedScene} scene - model for this scene
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {Object} [options]
+   * @constructor
+   */
+  function ComposedSceneNode( scene, layoutBounds, options ) {
     var icon = new PatternsIconFactory.createComposedSceneIcon( 200 );
     icon.center = layoutBounds.center;
     options.children = [ icon ];
