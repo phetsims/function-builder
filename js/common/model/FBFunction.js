@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * A function with one input and one output.
+ * Abstract base type for functions with one input and one output.
  * Named FBFunction so that it doesn't conflict with JavaScript's built-in Function type.
  *
  * @author Chris Malley (PixelZoom, Inc.)
