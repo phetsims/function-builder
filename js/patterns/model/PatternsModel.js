@@ -26,8 +26,9 @@ define( function( require ) {
     this.dualScene = new DualScene();
     this.composedScene = new ComposedScene();
 
+    //TODO initial selection should be singleScene
     // @public
-    this.selectedSceneProperty = new Property( this.singleScene );
+    this.selectedSceneProperty = new Property( this.composedScene );
   }
 
   return inherit( Object, PatternsModel, {
