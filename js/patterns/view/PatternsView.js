@@ -17,7 +17,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
-  var PatternsViewProperties = require( 'FUNCTION_BUILDER/patterns/view/PatternsViewProperties' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SingleSceneNode = require( 'FUNCTION_BUILDER/patterns/view/SingleSceneNode' );
@@ -31,64 +30,80 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
-    // Properties that are specific to the view
-    var viewProperties = new PatternsViewProperties();
-
     // Control for switching between scenes
-    var sceneControl = new PatternsSceneControl( viewProperties.sceneNameProperty, {
-      centerX: this.layoutBounds.centerX,
-      top: this.layoutBounds.top + 20
-    } );
+    var sceneControl = new PatternsSceneControl( model.selectedSceneProperty,
+      model.singleScene, model.dualScene, model.composedScene, {
+        centerX: this.layoutBounds.centerX,
+        top: this.layoutBounds.top + 20
+      } );
     this.addChild( sceneControl );
 
     // Parent for all scenes, to maintain rendering order, since scenes are created on demand.
     var scenesParent = new Node();
     this.addChild( scenesParent );
 
-    // Scenes are created on demand, stored here as they are created, field names match values of viewProperties.sceneNameProperty
-    var sceneNodes = {
-      single: null,
-      dual: null,
-      composed: null
-    };
+    // Scenes are created on demand
+    var singleSceneNode = null;
+    var dualSceneNode = null;
+    var composedSceneNode = null;
 
     // For stopping animations that are in progress.
     var newFadeIn;
     var oldFadeOut;
 
     // Make the selected scene visible, create it if necessary
-    viewProperties.sceneNameProperty.link( function( sceneName, oldSceneName ) {
+    model.selectedSceneProperty.link( function( scene, oldScene ) {
 
       // Stop any animation that is in progress
       oldFadeOut && oldFadeOut.stop();
       newFadeIn && newFadeIn.stop();
 
-      // Create scenes on demand
-      var sceneNode = sceneNodes[ sceneName ];
-      if ( !sceneNode ) {
-
-        var sceneOptions = { visible: false };
-
-        if ( sceneName === 'single' ) {
-          sceneNode = new SingleSceneNode( model.singleScene, thisView.layoutBounds, sceneOptions );
+      // Get the node that corresponds to the old scene
+      var oldSceneNode = null;
+      if ( oldScene ) {
+        if ( oldScene === model.singleScene ) {
+          oldSceneNode = singleSceneNode;
         }
-        else if ( sceneName === 'dual' ) {
-          sceneNode = new DualSceneNode( model.dualScene, thisView.layoutBounds, sceneOptions );
+        else if ( oldScene === model.dualScene ) {
+          oldSceneNode = dualSceneNode;
         }
-        else if ( sceneName === 'composed' ) {
-          sceneNode = new ComposedSceneNode( model.composedScene, thisView.layoutBounds, sceneOptions );
+        else if ( oldScene === model.composedScene ) {
+          oldSceneNode = composedSceneNode;
         }
-        else {
-          throw new Error( 'unsupported sceneName: ' + sceneName );
-        }
-        sceneNodes[ sceneName ] = sceneNode;
-        scenesParent.addChild( sceneNode );
+        assert && assert( oldScene );
       }
 
-      // Fade scenes in/out as selection changes
-      if ( oldSceneName ) {
+      // Get the node that corresponds to the scene
+      var sceneNode = null;
+      var sceneOptions = { visible: false };
+      if ( scene === model.singleScene ) {
+        if ( !singleSceneNode ) {
+          // Create scene on demand
+          singleSceneNode = new SingleSceneNode( model.singleScene, thisView.layoutBounds, sceneOptions );
+          scenesParent.addChild( singleSceneNode );
+        }
+        sceneNode = singleSceneNode;
+      }
+      if ( scene === model.dualScene ) {
+        if ( !dualSceneNode ) {
+          // Create scene on demand
+          dualSceneNode = new DualSceneNode( model.dualScene, thisView.layoutBounds, sceneOptions );
+          scenesParent.addChild( dualSceneNode );
+        }
+        sceneNode = dualSceneNode;
+      }
+      if ( scene === model.composedScene ) {
+        if ( !composedSceneNode ) {
+          // Create scene on demand
+          composedSceneNode = new ComposedSceneNode( model.composedScene, thisView.layoutBounds, sceneOptions );
+          scenesParent.addChild( composedSceneNode );
+        }
+        sceneNode = composedSceneNode;
+      }
+      assert && assert( sceneNode );
 
-        var oldSceneNode = sceneNodes[ oldSceneName ];
+      // Fade scenes in/out as selection changes
+      if ( oldScene ) {
 
         // prevent interaction with the scenes while animation is taking place
         //TODO fix this
@@ -126,12 +141,11 @@ define( function( require ) {
 
       // Reset model and view
       model.reset();
-      viewProperties.reset();
 
       // Reset any scenes that have been instantiated
-      for ( var property in sceneNodes ) {
-        sceneNodes[ property ] && sceneNodes[ property ].reset();
-      }
+      singleSceneNode && singleSceneNode.reset();
+      dualSceneNode && dualSceneNode.reset();
+      composedSceneNode && composedSceneNode.reset();
     };
 
     // Reset All button at bottom-right
