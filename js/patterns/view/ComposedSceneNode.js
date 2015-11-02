@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
@@ -67,21 +68,6 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
-    //TODO this currently cycles through the function slots in the builder, replace with drag-and-drop
-    // Clicking on a function selects it
-    var functionPropertiesIndex = 0;
-    var functionInputListener = new DownUpListener( {
-      down: function( event ) {
-        assert && assert( event.currentTarget instanceof FunctionNode );
-        console.log( 'functionPropertiesIndex = ' + functionPropertiesIndex );//XXX
-        scene.builder.functionProperties[ functionPropertiesIndex ].set( event.currentTarget.functionInstance );
-        functionPropertiesIndex++;
-        if ( functionPropertiesIndex > scene.builder.functionProperties.length - 1 ) {
-          functionPropertiesIndex = 0;
-        }
-      }
-    } );
-
     // Functions, in a horizontal carousel at bottom-center
     var functionNodes = [];
     scene.functions.forEach( function( functionInstance ) {
@@ -89,7 +75,6 @@ define( function( require ) {
         cursor: 'pointer'
       } );
       functionNodes.push( functionNode );
-      functionNode.addInputListener( functionInputListener );
     } );
     var functionsCarousel = new Carousel( functionNodes, {
       orientation: 'horizontal',
@@ -138,21 +123,6 @@ define( function( require ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    //TODO temporary, when any function changes, update all output cards
-    var functionPropertyObserver = function() {
-      for ( var i = 0; i < scene.inputCards.length; i++ ) {
-        var card = scene.inputCards[ i ];
-        for ( var j = 0; j < scene.builder.functionProperties.length; j++ ) {
-          var functionInstance = scene.builder.functionProperties[ j ].get();
-          card = functionInstance.apply( card );
-        }
-        outputNodes[ i ].setCard( card );
-      }
-    };
-    scene.builder.functionProperties.forEach( function( functionProperty ) {
-      functionProperty.link( functionPropertyObserver );
-    } );
-
     // @private Resets this node
     this.resetComposedSceneNode = function() {
       inputsCarousel.reset();
@@ -167,6 +137,55 @@ define( function( require ) {
       eraserButton, spyGlassCheckBox
     ];
     Node.call( this, options );
+
+    //TODO temporary, to demonstrate function changes
+    {
+      // The slot that will be populated next in the builder
+      var functionIndexProperty = new Property( 0 );
+      this.functionIndexProperty = functionIndexProperty;
+
+      // Clicking on a function populates one of the slots in the builder
+      var functionInputListener = new DownUpListener( {
+        down: function( event ) {
+          assert && assert( event.currentTarget instanceof FunctionNode );
+          scene.builder.functionProperties[ functionIndexProperty.get() ].set( event.currentTarget.functionInstance );
+          if ( functionIndexProperty.get() >= scene.builder.functionProperties.length - 1 ) {
+            functionIndexProperty.set( 0 )
+          }
+          else {
+            functionIndexProperty.set( functionIndexProperty.get() + 1 )
+          }
+        }
+      } );
+      functionNodes.forEach( function( functionNode ) {
+        functionNode.addInputListener( functionInputListener );
+      } );
+
+      // This arrow points to the function that will be changed next in the builder.
+      var arrowNode = new ArrowNode( 0, 40, 0, 0, {
+        headWidth: 20,
+        top: builderNode.bottom
+      } );
+      this.addChild( arrowNode );
+      functionIndexProperty.link( function( functionIndex ) {
+        arrowNode.left = builderNode.left + 115 + ( functionIndex * 100 );
+      } );
+
+      // When any function changes, update all output cards.
+      var functionPropertyObserver = function() {
+        for ( var i = 0; i < scene.inputCards.length; i++ ) {
+          var card = scene.inputCards[ i ];
+          for ( var j = 0; j < scene.builder.functionProperties.length; j++ ) {
+            var functionInstance = scene.builder.functionProperties[ j ].get();
+            card = functionInstance.apply( card );
+          }
+          outputNodes[ i ].setCard( card );
+        }
+      };
+      scene.builder.functionProperties.forEach( function( functionProperty ) {
+        functionProperty.link( functionPropertyObserver );
+      } );
+    }
   }
 
   return inherit( Node, ComposedSceneNode, {
@@ -174,6 +193,7 @@ define( function( require ) {
     // @public
     reset: function() {
       this.resetComposedSceneNode();
+      this.functionIndexProperty.reset();
     }
   } );
 } );
