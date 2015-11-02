@@ -73,12 +73,11 @@ define( function( require ) {
         assert && assert( oldScene );
       }
 
-      // Get the node that corresponds to the scene
+      // Get the node that corresponds to the scene, create on demand
       var sceneNode = null;
       var sceneOptions = { visible: false };
       if ( scene === model.singleScene ) {
         if ( !singleSceneNode ) {
-          // Create scene on demand
           singleSceneNode = new SingleSceneNode( model.singleScene, thisView.layoutBounds, sceneOptions );
           scenesParent.addChild( singleSceneNode );
         }
@@ -86,7 +85,6 @@ define( function( require ) {
       }
       else if ( scene === model.dualScene ) {
         if ( !dualSceneNode ) {
-          // Create scene on demand
           dualSceneNode = new DualSceneNode( model.dualScene, thisView.layoutBounds, sceneOptions );
           scenesParent.addChild( dualSceneNode );
         }
@@ -94,7 +92,6 @@ define( function( require ) {
       }
       else if ( scene === model.composedScene ) {
         if ( !composedSceneNode ) {
-          // Create scene on demand
           composedSceneNode = new ComposedSceneNode( model.composedScene, thisView.layoutBounds, sceneOptions );
           scenesParent.addChild( composedSceneNode );
         }
