@@ -83,20 +83,6 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 25
     } );
 
-    // Spy Glass check box, to the right of functions carousel
-    var spyGlassVisibleProperty = new Property( false ); //TODO view property
-    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
-      maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
-      left: inputsCarousel.left,
-      top: functionsCarousel.top
-    } );
-
-    // Function builder, in the center of the screen
-    var builderNode = new BuilderNode( scene.builder, {
-      centerX: layoutBounds.centerX,
-      centerY: inputsCarousel.centerY
-    } );
-
     // Page controls for each carousel
     var inputsPageControl = new PageControl( inputsCarousel.numberOfPages, inputsCarousel.pageNumberProperty, {
       orientation: 'vertical',
@@ -121,6 +107,20 @@ define( function( require ) {
     } );
     outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
+    } );
+
+    // Spy Glass check box, to the right of functions carousel
+    var spyGlassVisibleProperty = new Property( false ); //TODO view property
+    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+      maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
+      left: inputsCarousel.left,
+      top: functionsCarousel.top
+    } );
+
+    // Function builder, in the center of the screen
+    var builderNode = new BuilderNode( scene.builder, {
+      centerX: layoutBounds.centerX,
+      centerY: inputsCarousel.centerY
     } );
 
     // @private Resets this node
