@@ -54,6 +54,10 @@ define( function( require ) {
   return inherit( Node, CardNode, {
 
     //TODO this is temporary
+    /**
+     * Sets the model element displayed by this card.
+     * @param {Card} card
+     */
     setCard: function( card ) {
 
       this.imageNode && this.removeChild( this.imageNode );
