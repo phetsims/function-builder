@@ -54,7 +54,7 @@ define( function( require ) {
      * @returns {ImageData}
      */
     getImageData: function( canvas ) {
-      return canvas.getContext( '2d' ).getImageData( 0, 0, canvas.width, canvas.height )
+      return canvas.getContext( '2d' ).getImageData( 0, 0, canvas.width, canvas.height );
     },
 
     /**
