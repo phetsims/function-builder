@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * A card with a picture on it.
+ * A card with an image on it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
