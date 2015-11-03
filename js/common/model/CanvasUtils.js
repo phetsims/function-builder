@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Canvas utilities.
+ * Canvas utilities that are (somewhat) specific to the needs of this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
