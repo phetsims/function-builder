@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
@@ -54,18 +55,20 @@ define( function( require ) {
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
     var cards = [
-      Card.withImage( 'feet', feetImage ),
-      Card.withImage( 'snowflake', snowflakeImage ),
-      Card.withImage( 'butterfly', butterflyImage ),
-      Card.withImage( 'stick-figure', stickFigureImage ),
-      Card.withImage( 'planet', planetImage ),
-      Card.withImage( 'sun', sunImage ),
-      Card.withImage( 'beaker', beakerImage ),
-      Card.withImage( 'cherries', cherriesImage ),
-      Card.withImage( 'rectangle', rectangleImage ),
-      Card.withImage( 'circle', circleImage ),
-      Card.withImage( 'triangle', triangleImage ),
-      Card.withImage( 'star', starImage )
+
+      // No i18n of names is necessary, they are used internally for debugging
+      new Card( 'feet', CanvasUtils.createCanvasWithImage( feetImage ) ),
+      new Card( 'snowflake', CanvasUtils.createCanvasWithImage( snowflakeImage ) ),
+      new Card( 'butterfly', CanvasUtils.createCanvasWithImage( butterflyImage ) ),
+      new Card( 'stick-figure', CanvasUtils.createCanvasWithImage( stickFigureImage ) ),
+      new Card( 'planet', CanvasUtils.createCanvasWithImage( planetImage ) ),
+      new Card( 'sun', CanvasUtils.createCanvasWithImage( sunImage ) ),
+      new Card( 'beaker', CanvasUtils.createCanvasWithImage( beakerImage ) ),
+      new Card( 'cherries', CanvasUtils.createCanvasWithImage( cherriesImage ) ),
+      new Card( 'rectangle', CanvasUtils.createCanvasWithImage( rectangleImage ) ),
+      new Card( 'circle', CanvasUtils.createCanvasWithImage( circleImage ) ),
+      new Card( 'triangle', CanvasUtils.createCanvasWithImage( triangleImage ) ),
+      new Card( 'star', CanvasUtils.createCanvasWithImage( starImage ) )
     ];
 
     var functions = [

@@ -22,18 +22,5 @@ define( function( require ) {
     this.canvas = canvas; // @public (read-only) do not modify this canvas' pixels or context
   }
 
-  return inherit( Object, Card, {}, {
-
-    /**
-     * Creates a card using an image.
-     * @param {string} name - name of the card, not visible to the user, used internally for debugging
-     * @param {HTMLImageElement} image
-     * @returns {Card}
-     * @static
-     * @public
-     */
-    withImage: function( name, image ) {
-      return new Card( name, CanvasUtils.createCanvasWithImage( image ) );
-    }
-  } );
+  return inherit( Object, Card );
 } );
