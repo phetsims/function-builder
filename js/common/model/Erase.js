@@ -23,7 +23,7 @@ define( function( require ) {
   function Erase( options ) {
 
     options = _.extend( {
-      name: 'disappear',
+      name: 'erase',
       image: eraseImage,
       fill: 'rgb( 0, 222, 224 )'
     }, options );
