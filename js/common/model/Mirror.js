@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -34,26 +34,26 @@ define( function( require ) {
   return inherit( FBFunction, Mirror, {
 
     /**
-     * Applies this function to a card.
-     * @param {Card} card
-     * @returns {Card}
+     * Applies this function.
+     * @param {HTMLCanvasElement} inputCanvas
+     * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
-    apply: function( card ) {
+    apply: function( inputCanvas ) {
 
       // Create the output canvas
-      var canvas = Card.createCanvas( card.canvas.width, card.canvas.height );
-      var context = canvas.getContext( '2d' );
+      var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+      var context = outputCanvas.getContext( '2d' );
 
       // Reflect about the y axis
-      context.translate( canvas.width, 0 );
+      context.translate( outputCanvas.width, 0 );
       context.scale( -1, 1 );
 
-      // Draw the card's canvas to the output canvas
-      context.drawImage( card.canvas, 0, 0 );
+      // Draw the input canvas to the output canvas
+      context.drawImage( inputCanvas, 0, 0 );
 
-      return new Card( card.name + '.' + this.name, canvas );
+      return outputCanvas;
     }
   } );
 } );

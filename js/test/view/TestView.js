@@ -102,7 +102,9 @@ define( function( require ) {
       var hBoxChildren = [];
 
       functions.forEach( function( functionInstance ) {
-        var outputCard = functionInstance.apply( card );
+        var outputName = card.name + '.' + functionInstance.name;
+        var outputCanvas = functionInstance.apply( card.canvas );
+        var outputCard = new Card( outputName, outputCanvas );
         hBoxChildren.push( new CardNode( outputCard ) );
       } );
 

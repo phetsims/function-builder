@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -34,14 +34,15 @@ define( function( require ) {
   return inherit( FBFunction, Identity, {
 
     /**
-     * Applies this function to a card.
-     * @param {Card} card
-     * @returns {Card}
+     * Applies this function.
+     * @param {HTMLCanvasElement} inputCanvas
+     * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
-    apply: function( card ) {
-      return Card.withImageData( card.name + '.' + this.name, card.getImageData() );
+    apply: function( inputCanvas ) {
+      var imageData = CanvasUtils.getImageData( inputCanvas );
+      return CanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

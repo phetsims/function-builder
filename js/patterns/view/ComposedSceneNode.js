@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
@@ -180,7 +181,9 @@ define( function( require ) {
           var card = scene.inputCards[ i ];
           for ( var j = 0; j < scene.builder.functionProperties.length; j++ ) {
             var functionInstance = scene.builder.functionProperties[ j ].get();
-            card = functionInstance.apply( card );
+            var outputName = card.name + '.' + functionInstance.name;
+            var outputCanvas = functionInstance.apply( card.canvas );
+            card = new Card( outputName, outputCanvas );
           }
           outputNodes[ i ].setCard( card );
         }

@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -34,17 +34,16 @@ define( function( require ) {
   return inherit( FBFunction, Grayscale, {
 
     /**
-     * Applies the function.
-     * @param {Card} card
-     * @returns {Card}
+     * Applies this function.
+     * @param {HTMLCanvasElement} inputCanvas
+     * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
-    apply: function( card ) {
+    apply: function( inputCanvas ) {
 
-      var imageData = card.getImageData();
+      var imageData = CanvasUtils.getImageData( inputCanvas );
 
-      //TODO see Canvas.globalCompositeOperation for (more efficient?) image filtering, test for browser compatibility
       // Average the red, green and blue values of each pixel. This drains the color from the image.
       var data = imageData.data;
       for ( var i = 0; i < data.length - 4; i += 4 ) {
@@ -54,7 +53,7 @@ define( function( require ) {
         data[ i + 2 ] = average;
       }
 
-      return Card.withImageData( card.name + '.' + this.name, imageData );
+      return CanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

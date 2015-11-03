@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -34,26 +34,49 @@ define( function( require ) {
   return inherit( FBFunction, MysteryC, {
 
     /**
-     * Applies this function to a card.
-     * @param {Card} card
-     * @returns {Card}
+     * Applies this function.
+     * @param {HTMLCanvasElement} inputCanvas
+     * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
-    apply: function( card ) {
+    apply: function( inputCanvas ) {
 
       // Create the output canvas
-      var canvas = Card.createCanvas( card.canvas.width, card.canvas.height );
-      var context = canvas.getContext( '2d' );
+      var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+      var context = outputCanvas.getContext( '2d' );
 
-      // Divide into 4 quadrants and shifted clockwise
-      var inputCanvas = card.canvas;
-      context.drawImage( inputCanvas, 0, 0, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, 0, inputCanvas.width / 2, inputCanvas.height / 2 );
-      context.drawImage( inputCanvas, inputCanvas.width / 2, 0, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2 );
-      context.drawImage( inputCanvas, inputCanvas.width / 2, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, 0, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2 );
-      context.drawImage( inputCanvas, 0, inputCanvas.height / 2, inputCanvas.width / 2, inputCanvas.height / 2, 0, 0, inputCanvas.width / 2, inputCanvas.height / 2 );
+      // Divide into 4 quadrants and shift clockwise
 
-      return new Card( card.name + '.' + this.name, canvas );
+      // upper-left to upper-right
+      context.drawImage( inputCanvas,
+        0, 0,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        inputCanvas.width / 2, 0,
+        inputCanvas.width / 2, inputCanvas.height / 2 );
+
+      // upper-right to lower-right
+      context.drawImage( inputCanvas,
+        inputCanvas.width / 2, 0,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        inputCanvas.width / 2, inputCanvas.height / 2 );
+
+      // lower-right to lower-left
+      context.drawImage( inputCanvas,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        0, inputCanvas.height / 2,
+        inputCanvas.width / 2, inputCanvas.height / 2 );
+
+      // lower-right to upper-left
+      context.drawImage( inputCanvas,
+        0, inputCanvas.height / 2,
+        inputCanvas.width / 2, inputCanvas.height / 2,
+        0, 0,
+        inputCanvas.width / 2, inputCanvas.height / 2 );
+
+      return outputCanvas;
     }
   } );
 } );

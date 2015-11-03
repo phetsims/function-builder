@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -77,44 +77,44 @@ define( function( require ) {
   return inherit( FBFunction, Warhol, {
 
     /**
-     * Applies this function to a card.
-     * @param {Card} card
-     * @returns {Card}
+     * Applies this function.
+     * @param {HTMLCanvasElement} inputCanvas
+     * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
-    apply: function( card ) {
+    apply: function( inputCanvas ) {
 
-      // Draw the card into a half-size canvas, effectively scaling by 50%
-      var halfCanvas = Card.createCanvas( card.canvas.width / 2, card.canvas.height / 2 );
+      // Draw the input into a half-size canvas, effectively scaling by 50%
+      var halfCanvas = CanvasUtils.createCanvas( inputCanvas.width / 2, inputCanvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
-      halfContext.drawImage( card.canvas, 0, 0, halfCanvas.width, halfCanvas.height );
+      halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
 
       // Input and output image data
       var imageData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
       var outputData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Create the output canvas
-      var canvas = Card.createCanvas( card.canvas.width, card.canvas.height );
-      var context = canvas.getContext( '2d' );
+      var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+      var context = outputCanvas.getContext( '2d' );
 
       // Left-top quadrant
       context.putImageData( getQuadrantImageData( imageData, outputData, RIGHT_BOTTOM_COLOR, LEFT_TOP_COLOR ),
-        0, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
+        0, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
 
       // Right-top quadrant
       context.putImageData( getQuadrantImageData( imageData, outputData, LEFT_BOTTOM_COLOR, RIGHT_TOP_COLOR ),
-        canvas.width / 2, 0, 0, 0, canvas.width / 2, canvas.height / 2 );
+        outputCanvas.width / 2, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
 
       // Left-bottom quadrant
       context.putImageData( getQuadrantImageData( imageData, outputData, RIGHT_TOP_COLOR, LEFT_BOTTOM_COLOR ),
-        0, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
+        0, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
 
       // Right-bottom quadrant
       context.putImageData( getQuadrantImageData( imageData, outputData, LEFT_TOP_COLOR, RIGHT_BOTTOM_COLOR ),
-        canvas.width / 2, canvas.height / 2, 0, 0, canvas.width / 2, canvas.height / 2 );
+        outputCanvas.width / 2, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
 
-      return new Card( card.name + '.' + this.name, canvas );
+      return outputCanvas;
     }
   } );
 } );
