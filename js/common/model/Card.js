@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
