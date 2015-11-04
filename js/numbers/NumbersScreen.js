@@ -17,7 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!FUNCTION_BUILDER/screen.numbers' );
+  var screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
 
   // creates the icon for this screen
   var createIcon = function() {
@@ -31,7 +31,7 @@ define( function( require ) {
   function NumbersScreen() {
 
     Screen.call( this,
-      screenTitle,
+      screenNumbersString,
       createIcon(),
       function() { return new NumbersModel(); },
       function( model ) { return new NumbersView( model ); },

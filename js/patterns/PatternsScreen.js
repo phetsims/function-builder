@@ -17,7 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!FUNCTION_BUILDER/screen.patterns' );
+  var screenPatternsString = require( 'string!FUNCTION_BUILDER/screen.patterns' );
 
   // creates the icon for this screen
   var createIcon = function() {
@@ -31,7 +31,7 @@ define( function( require ) {
   function PatternsScreen() {
 
     Screen.call( this,
-      screenTitle,
+      screenPatternsString,
       createIcon(),
       function() { return new PatternsModel(); },
       function( model ) { return new PatternsView( model ); },

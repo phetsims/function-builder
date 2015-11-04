@@ -17,7 +17,7 @@ define( function( require ) {
   var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
 
   // strings
-  var simTitle = require( 'string!FUNCTION_BUILDER/function-builder.title' );
+  var functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
   var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
 
@@ -30,7 +30,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, screens, options );
+    var sim = new Sim( functionBuilderTitleString, screens, options );
     sim.start();
   } );
 } );

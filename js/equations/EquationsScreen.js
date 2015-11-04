@@ -17,7 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenTitle = require( 'string!FUNCTION_BUILDER/screen.equations' );
+  var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
 
   // creates the icon for this screen
   var createIcon = function() {
@@ -31,7 +31,7 @@ define( function( require ) {
   function EquationsScreen() {
 
     Screen.call( this,
-      screenTitle,
+      screenEquationsString,
       createIcon(),
       function() { return new EquationsModel(); },
       function( model ) { return new EquationsView( model ); },
