@@ -16,6 +16,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -193,6 +194,8 @@ define( function( require ) {
       } );
     }
   }
+
+  functionBuilder.register( 'ComposedSceneNode', ComposedSceneNode );
 
   return inherit( Node, ComposedSceneNode, {
 

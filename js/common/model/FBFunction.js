@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -36,6 +37,8 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
   }
+
+  functionBuilder.register( 'FBFunction', FBFunction );
 
   return inherit( Object, FBFunction, {
 

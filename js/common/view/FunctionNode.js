@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -89,6 +90,8 @@ define( function( require ) {
     this.functionInstance = functionInstance; // @public (read-only)
     this.xInset = xInset; // @public (read-only), for layout
   }
+
+  functionBuilder.register( 'FunctionNode', FunctionNode );
 
   return inherit( Node, FunctionNode );
 } );

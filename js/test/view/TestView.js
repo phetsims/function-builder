@@ -15,6 +15,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var Erase = require( 'FUNCTION_BUILDER/common/model/Erase' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -129,6 +130,8 @@ define( function( require ) {
       center: this.layoutBounds.center
     } ) );
   }
+
+  functionBuilder.register( 'TestView', TestView );
 
   return inherit( ScreenView, TestView );
 } );

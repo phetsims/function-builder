@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
@@ -18,7 +19,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function PatternsScreen() {
+  function TestScreen() {
 
     Screen.call( this,
       'Test',
@@ -29,5 +30,7 @@ define( function( require ) {
     );
   }
 
-  return inherit( Screen, PatternsScreen );
+  functionBuilder.register( 'TestScreen', TestScreen );
+
+  return inherit( Screen, TestScreen );
 } );

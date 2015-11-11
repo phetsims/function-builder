@@ -13,6 +13,7 @@ define( function( require ) {
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
@@ -38,6 +39,8 @@ define( function( require ) {
 
     FBFunction.call( this, options );
   }
+
+  functionBuilder.register( 'Warhol', Warhol );
 
   /**
    * Gets image data for 1 quadrant of the Warhol image.

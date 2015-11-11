@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -23,6 +24,8 @@ define( function( require ) {
 
     FBFunction.call( this, options );
   }
+
+  functionBuilder.register( 'NoFunction', NoFunction );
 
   return inherit( FBFunction, NoFunction );
 } );

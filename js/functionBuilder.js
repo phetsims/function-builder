@@ -1,6 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
 
-//TODO either delete this, or register namespace for all .js files
 /**
  * Creates the namespace for this simulation.
  *

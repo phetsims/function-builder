@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -26,6 +27,8 @@ define( function( require ) {
 
     Identity.call( this, options );
   }
+
+  functionBuilder.register( 'PlaceholderFunction', PlaceholderFunction );
 
   return inherit( Identity, PlaceholderFunction );
 } );

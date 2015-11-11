@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsModel = require( 'FUNCTION_BUILDER/patterns/model/PatternsModel' );
   var PatternsView = require( 'FUNCTION_BUILDER/patterns/view/PatternsView' );
@@ -38,6 +39,8 @@ define( function( require ) {
       { backgroundColor: FBColors.SCREEN_BACKGROUND }
     );
   }
+
+  functionBuilder.register( 'PatternsScreen', PatternsScreen );
 
   return inherit( Screen, PatternsScreen );
 } );

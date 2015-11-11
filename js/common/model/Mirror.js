@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
@@ -30,6 +31,8 @@ define( function( require ) {
 
     FBFunction.call( this, options );
   }
+
+  functionBuilder.register( 'Mirror', Mirror );
 
   return inherit( FBFunction, Mirror, {
 

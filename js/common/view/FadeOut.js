@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -46,6 +47,8 @@ define( function( require ) {
         options.onComplete();
       } );
   }
+
+  functionBuilder.register( 'FadeOut', FadeOut );
 
   return inherit( Object, FadeOut, {
 

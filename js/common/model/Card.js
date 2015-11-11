@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -20,6 +21,8 @@ define( function( require ) {
     this.name = name; // @public (read-only)
     this.canvas = canvas; // @public (read-only) do not modify this canvas' pixels or context
   }
+
+  functionBuilder.register( 'Card', Card );
 
   return inherit( Object, Card );
 } );

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NoFunction = require( 'FUNCTION_BUILDER/common/model/NoFunction' );
@@ -18,7 +19,7 @@ define( function( require ) {
   // constants
   var DEFAULT_SCENE_ICON_WIDTH = 25;
 
-  return {
+  var PatternIconFactory = {
 
     /**
      * Creates the icon for the 'single' scene.
@@ -91,4 +92,8 @@ define( function( require ) {
       return new Node( { children: [ leftNode, rightNode ] } );
     }
   };
+
+  functionBuilder.register( 'PatternIconFactory', PatternIconFactory );
+
+  return PatternIconFactory;
 } );

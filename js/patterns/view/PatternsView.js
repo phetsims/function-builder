@@ -14,6 +14,7 @@ define( function( require ) {
   var FadeIn = require( 'FUNCTION_BUILDER/common/view/FadeIn' );
   var FadeOut = require( 'FUNCTION_BUILDER/common/view/FadeOut' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
@@ -152,6 +153,8 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
   }
+
+  functionBuilder.register( 'PatternsView', PatternsView );
 
   return inherit( ScreenView, PatternsView, {
 

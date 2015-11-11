@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
   var Property = require( 'AXON/Property' );
@@ -30,6 +31,8 @@ define( function( require ) {
       this.functionProperties.push( new Property( new PlaceholderFunction() ) );
     }
   }
+
+  functionBuilder.register( 'Builder', Builder );
 
   return inherit( Object, Builder, {
 

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
@@ -31,6 +32,8 @@ define( function( require ) {
 
     PhetFont.call( this, options );
   }
+
+  functionBuilder.register( 'FBFont', FBFont );
 
   return inherit( PhetFont, FBFont );
 } );

@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -157,6 +158,8 @@ define( function( require ) {
     options.children = [ bodyNode, functionsParent, leftEnd, rightEnd, leftSlotNode, rightSlotNode ];
     Node.call( this, options );
   }
+
+  functionBuilder.register( 'BuilderNode', BuilderNode );
 
   return inherit( Node, BuilderNode, {
 

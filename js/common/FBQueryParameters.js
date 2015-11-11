@@ -8,10 +8,17 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+
   var getQueryParameter = phet.chipper.getQueryParameter;
 
-  return {
+  var FBQueryParameters = {
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false
   };
+
+  functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
+
+  return FBQueryParameters;
 } );

@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+
   var CanvasUtils = {
 
     /**
@@ -66,6 +69,8 @@ define( function( require ) {
       return canvas.getContext( '2d' ).createImageData( canvas.width, canvas.height );
     }
   };
+
+  functionBuilder.register( 'CanvasUtils', CanvasUtils );
 
   return CanvasUtils;
 } );

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
   var NumbersView = require( 'FUNCTION_BUILDER/numbers/view/NumbersView' );
@@ -38,6 +39,8 @@ define( function( require ) {
       { backgroundColor: FBColors.SCREEN_BACKGROUND }
     );
   }
+
+  functionBuilder.register( 'NumbersScreen', NumbersScreen );
 
   return inherit( Screen, NumbersScreen );
 } );

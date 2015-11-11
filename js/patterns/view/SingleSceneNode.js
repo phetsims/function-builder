@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
@@ -25,6 +26,8 @@ define( function( require ) {
     options.children = [ icon ];
     Node.call( this, options );
   }
+
+  functionBuilder.register( 'SingleSceneNode', SingleSceneNode );
 
   return inherit( Node, SingleSceneNode, {
 

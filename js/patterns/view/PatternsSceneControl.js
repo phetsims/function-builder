@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -39,6 +40,8 @@ define( function( require ) {
       { value: composedScene, node: PatternsIconFactory.createComposedSceneIcon( FUNCTION_WIDTH ) }
     ], options );
   }
+
+  functionBuilder.register( 'PatternsSceneControl', PatternsSceneControl );
 
   return inherit( RadioButtonGroup, PatternsSceneControl );
 } );

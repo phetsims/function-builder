@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ComposedScene = require( 'FUNCTION_BUILDER/patterns/model/ComposedScene' );
   var DualScene = require( 'FUNCTION_BUILDER/patterns/model/DualScene' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var SingleScene = require( 'FUNCTION_BUILDER/patterns/model/SingleScene' );
@@ -30,6 +31,8 @@ define( function( require ) {
     // @public
     this.selectedSceneProperty = new Property( this.composedScene );
   }
+
+  functionBuilder.register( 'PatternsModel', PatternsModel );
 
   return inherit( Object, PatternsModel, {
 

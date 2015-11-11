@@ -12,6 +12,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -38,6 +39,8 @@ define( function( require ) {
 
     CheckBox.call( this, content, spyGlassVisibleProperty, options );
   }
+
+  functionBuilder.register( 'SpyGlassCheckBox', SpyGlassCheckBox );
 
   // Creates the spy glass icon
   function createSpyGlassIcon() {

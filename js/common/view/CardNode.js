@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -50,6 +51,8 @@ define( function( require ) {
 
     this.setCard( card );
   }
+
+  functionBuilder.register( 'CardNode', CardNode );
 
   return inherit( Node, CardNode, {
 

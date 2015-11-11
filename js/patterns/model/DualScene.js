@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function DualScene() {
@@ -22,6 +23,8 @@ define( function( require ) {
       numberOfFunctions: 1
     } );
   }
+
+  functionBuilder.register( 'DualScene', DualScene );
 
   return inherit( Object, DualScene, {
 

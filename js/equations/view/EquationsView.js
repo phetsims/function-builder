@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -38,6 +39,8 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
   }
+
+  functionBuilder.register( 'EquationsView', EquationsView );
 
   return inherit( ScreenView, EquationsView, {
 

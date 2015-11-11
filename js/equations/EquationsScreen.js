@@ -12,6 +12,7 @@ define( function( require ) {
   var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
   var EquationsView = require( 'FUNCTION_BUILDER/equations/view/EquationsView' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
@@ -38,6 +39,8 @@ define( function( require ) {
       { backgroundColor: FBColors.SCREEN_BACKGROUND }
     );
   }
+
+  functionBuilder.register( 'EquationsScreen', EquationsScreen );
 
   return inherit( Screen, EquationsScreen );
 } );
