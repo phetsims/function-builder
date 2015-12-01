@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 

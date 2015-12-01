@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
