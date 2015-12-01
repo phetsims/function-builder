@@ -118,13 +118,13 @@ define( function( require ) {
     } );
 
     // Spy Glass check box, to the right of functions carousel
-    var spyGlassVisibleProperty = new Property( false ); //TODO view property
-    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+    this.spyGlassVisibleProperty = new Property( false ); // @private
+    var spyGlassCheckBox = new SpyGlassCheckBox( this.spyGlassVisibleProperty, {
       maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
       left: inputsCarousel.left,
       top: functionsCarousel.top
     } );
-    spyGlassVisibleProperty.link( function( visible ) {
+    this.spyGlassVisibleProperty.link( function( visible ) {
       //TODO make spy glasses visible in the builder
     } );
 
@@ -202,6 +202,7 @@ define( function( require ) {
     // @public
     reset: function() {
       this.resetComposedSceneNode();
+      this.spyGlassVisibleProperty.reset();
       this.functionIndexProperty.reset();
     }
   } );
