@@ -13,25 +13,25 @@ define( function( require ) {
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var Erase = require( 'FUNCTION_BUILDER/common/model/Erase' );
+  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
-  var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
+  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
-  var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
-  var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
-  var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
-  var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
-  var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
-  var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
-  var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
+  var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
+  var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
+  var Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
+  var MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
+  var MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
+  var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
+  var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
+  var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
+  var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
+  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // images
   // input card images

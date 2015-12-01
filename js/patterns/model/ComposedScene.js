@@ -12,20 +12,20 @@ define( function( require ) {
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var Erase = require( 'FUNCTION_BUILDER/common/model/Erase' );
+  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Grayscale = require( 'FUNCTION_BUILDER/common/model/Grayscale' );
-  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
+  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
+  var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var InvertRGB = require( 'FUNCTION_BUILDER/common/model/InvertRGB' );
-  var Mirror = require( 'FUNCTION_BUILDER/common/model/Mirror' );
-  var MysteryA = require( 'FUNCTION_BUILDER/common/model/MysteryA' );
-  var MysteryB = require( 'FUNCTION_BUILDER/common/model/MysteryB' );
-  var MysteryC = require( 'FUNCTION_BUILDER/common/model/MysteryC' );
-  var Rotate90 = require( 'FUNCTION_BUILDER/common/model/Rotate90' );
-  var Rotate180 = require( 'FUNCTION_BUILDER/common/model/Rotate180' );
-  var Shrink75 = require( 'FUNCTION_BUILDER/common/model/Shrink75' );
-  var Warhol = require( 'FUNCTION_BUILDER/common/model/Warhol' );
+  var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
+  var Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
+  var MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
+  var MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
+  var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
+  var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
+  var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
+  var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
+  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // input card images
   var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );

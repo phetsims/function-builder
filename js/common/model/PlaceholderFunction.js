@@ -2,14 +2,14 @@
 
 /**
  * Placeholder for a function.
- * The absence of a function behaves like the identity function, will a different visual representation.
+ * The absence of a function behaves like an identity function.
  */
 define( function( require ) {
   'use strict';
 
   // modules
+  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Identity = require( 'FUNCTION_BUILDER/common/model/Identity' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -25,10 +25,19 @@ define( function( require ) {
       lineDash: [ 3, 3 ]
     }, options );
 
-    Identity.call( this, options );
+    FBFunction.call( this, options );
   }
 
   functionBuilder.register( 'PlaceholderFunction', PlaceholderFunction );
 
-  return inherit( Identity, PlaceholderFunction );
+  return inherit( FBFunction, PlaceholderFunction, {
+
+    /**
+     * @param {*} input
+     * @returns {*}
+     */
+    apply: function( input ) {
+      return input; //TODO should this clone the input?
+    }
+  } );
 } );
