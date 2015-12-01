@@ -2,7 +2,7 @@
 
 /**
  * Placeholder for a function.
- * The absence of a function behaves like an identity function.
+ * It behaves like the identity function.
  */
 define( function( require ) {
   'use strict';
@@ -34,10 +34,10 @@ define( function( require ) {
 
     /**
      * @param {*} input
-     * @returns {*}
+     * @returns {*} the input
      */
     apply: function( input ) {
-      return input; //TODO should this clone the input?
+      return input;
     }
   } );
 } );

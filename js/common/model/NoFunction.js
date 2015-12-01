@@ -2,6 +2,7 @@
 
 /**
  * Used to represent the absence of a function, as an alternative to null or undefined.
+ * It has no associated image, and behaves like the identity function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,5 +28,14 @@ define( function( require ) {
 
   functionBuilder.register( 'NoFunction', NoFunction );
 
-  return inherit( AbstractFunction, NoFunction );
+  return inherit( AbstractFunction, NoFunction, {
+
+    /**
+     * @param {*} input
+     * @returns {*} the input
+     */
+    apply: function( input ) {
+      return input;
+    }
+  } );
 } );
