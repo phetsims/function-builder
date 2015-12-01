@@ -24,13 +24,13 @@ define( function( require ) {
 
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function
       name: null, // {string} optional name of the function, not visible to the user, used internally for debugging
-      image: null, // {HTMLImageElement|MipMapArray} optional image used to represent the function
 
-      // default look
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 1,
-      lineDash: null
+      // default look used to style the function's associated Node
+      image: null, // {HTMLImageElement|MipMapArray} optional image used to represent the function
+      fill: 'white', // {Color|string}
+      stroke: 'black', // {Color|string}
+      lineWidth: 1, // {number}
+      lineDash: null // {number[]}
 
     }, options );
 
