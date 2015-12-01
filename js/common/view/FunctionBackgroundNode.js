@@ -34,6 +34,11 @@ define( function( require ) {
       xInsetFactor: 0.15 // {number} x-inset of arrow-like ends of the background
     }, options );
 
+    // validate options
+    assert && assert( options.backgroundWidth > 0 );
+    assert && assert( options.aspectRatio > 0 );
+    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
+
     // To improve readability of shape code
     var WIDTH = options.backgroundWidth;
     var HEIGHT = WIDTH / options.aspectRatio;
