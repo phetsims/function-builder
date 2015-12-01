@@ -44,14 +44,12 @@ define( function( require ) {
       xInsetFactor: options.xInsetFactor
     } );
 
-    //TODO why do we need a wrapper?
-    var wrapperNode = new Node( {
-      children: [ new Image( functionInstance.image ) ],
-      scale: options.iconScale
+    var iconNode = new Image( functionInstance.image, {
+      scale: options.iconScale,
+      center: backgroundNode.center
     } );
-    wrapperNode.center = backgroundNode.center; //TODO why can't this be done in options?
 
-    options.children = [ backgroundNode, wrapperNode ];
+    options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
 
     this.functionInstance = functionInstance; // @public (read-only)

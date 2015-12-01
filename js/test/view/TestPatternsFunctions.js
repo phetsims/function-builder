@@ -201,13 +201,12 @@ define( function( require ) {
       lineDash: functionInstance.lineDash
     } );
 
-    var wrapperNode = new Node( {
-      children: [ new Image( functionInstance.image ) ],
-      scale: 0.3
+    var iconNode = new Image( functionInstance.image, {
+      scale: 0.3,
+      center: backgroundNode.center
     } );
-    wrapperNode.center = backgroundNode.center;
 
-    options.children = [ backgroundNode, wrapperNode ];
+    options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
   }
 
