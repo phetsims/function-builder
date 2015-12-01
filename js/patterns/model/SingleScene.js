@@ -13,6 +13,9 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  /**
+   * @constructor
+   */
   function SingleScene() {
 
     // @public

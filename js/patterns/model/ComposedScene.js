@@ -41,6 +41,9 @@ define( function( require ) {
   var sunImage = require( 'image!FUNCTION_BUILDER/inputs/sun.png' );
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
+  /**
+   * @constructor
+   */
   function ComposedScene() {
 
     // @public (read-only)
