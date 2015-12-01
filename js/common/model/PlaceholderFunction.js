@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
   function PlaceholderFunction( options ) {
