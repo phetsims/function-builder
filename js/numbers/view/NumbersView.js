@@ -34,7 +34,7 @@ define( function( require ) {
     // Reset All button
     var resetAllButton = new ResetAllButton( {
       listener: function() { model.reset(); },
-      right:  this.layoutBounds.maxX - 20,
+      right: this.layoutBounds.maxX - 20,
       bottom: this.layoutBounds.maxY - 20
     } );
     this.addChild( resetAllButton );

@@ -58,6 +58,5 @@ define( function( require ) {
 
       return outputCanvas;
     }
-
   } );
 } );
