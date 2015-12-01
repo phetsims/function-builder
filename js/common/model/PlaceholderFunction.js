@@ -2,7 +2,7 @@
 
 /**
  * Placeholder for a function.
- * It behaves like the identity function.
+ * It has a different look (dashed outline), and behaves like the identity function.
  */
 define( function( require ) {
   'use strict';
