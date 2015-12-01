@@ -8,23 +8,11 @@
 define( function( require ) {
   'use strict';
 
-  // modules
+  // function-builder modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
-  var Carousel = require( 'SUN/Carousel' );
+  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Shape = require( 'KITE/Shape' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-
-  // functions
-  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
@@ -37,7 +25,19 @@ define( function( require ) {
   var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
-  // input card images
+  // common modules
+  var Carousel = require( 'SUN/Carousel' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var Shape = require( 'KITE/Shape' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+
+  // images (input cards)
   var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );
   var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
   var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
