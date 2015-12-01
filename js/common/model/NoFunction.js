@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -22,10 +22,10 @@ define( function( require ) {
       name: 'noFunction'
     }, options );
 
-    FBFunction.call( this, options );
+    AbstractFunction.call( this, options );
   }
 
   functionBuilder.register( 'NoFunction', NoFunction );
 
-  return inherit( FBFunction, NoFunction );
+  return inherit( AbstractFunction, NoFunction );
 } );

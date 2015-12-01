@@ -2,7 +2,6 @@
 
 /**
  * Abstract base type for functions with one input and one output.
- * Named FBFunction so that it doesn't conflict with JavaScript's built-in Function type.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +16,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function FBFunction( options ) {
+  function AbstractFunction( options ) {
 
     options = _.extend( {
       name: null, // {string} name of the function, not visible to the user, used internally for debugging
@@ -38,9 +37,9 @@ define( function( require ) {
     this.lineDash = options.lineDash;
   }
 
-  functionBuilder.register( 'FBFunction', FBFunction );
+  functionBuilder.register( 'AbstractFunction', AbstractFunction );
 
-  return inherit( Object, FBFunction, {
+  return inherit( Object, AbstractFunction, {
 
     /**
      * Applies the function to the input, produces the output.

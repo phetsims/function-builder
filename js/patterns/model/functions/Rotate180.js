@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
-  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -29,12 +29,12 @@ define( function( require ) {
       fill: 'rgb( 147, 231, 128 )'
     }, options );
 
-    FBFunction.call( this, options );
+    AbstractFunction.call( this, options );
   }
 
   functionBuilder.register( 'Rotate180', Rotate180 );
 
-  return inherit( FBFunction, Rotate180, {
+  return inherit( AbstractFunction, Rotate180, {
 
     /**
      * Applies this function.

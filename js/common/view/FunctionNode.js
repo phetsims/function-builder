@@ -17,7 +17,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   * @param {FBFunction} functionInstance
+   * @param {AbstractFunction} functionInstance
    * @param {Object} [options]
    * @constructor
    */

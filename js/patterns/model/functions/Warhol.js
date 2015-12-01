@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
-  var FBFunction = require( 'FUNCTION_BUILDER/common/model/FBFunction' );
+  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -37,7 +37,7 @@ define( function( require ) {
       fill: 'rgb( 250, 186, 75 )'
     }, options );
 
-    FBFunction.call( this, options );
+    AbstractFunction.call( this, options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );
@@ -77,7 +77,7 @@ define( function( require ) {
     return outputData;
   }
 
-  return inherit( FBFunction, Warhol, {
+  return inherit( AbstractFunction, Warhol, {
 
     /**
      * Applies this function.

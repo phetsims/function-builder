@@ -25,7 +25,7 @@ define( function( require ) {
       numberOfFunctions: 1 // {number} number of functions in the pipeline
     }, options );
 
-    // @public {Property.<FBFunction>[]} - order of this array determines the order that functions are applied
+    // @public {Property.<AbstractFunction>[]} - order of this array determines the order that functions are applied
     this.functionProperties = [];
     for ( var i = 0; i < options.numberOfFunctions; i++ ) {
       this.functionProperties.push( new Property( new PlaceholderFunction() ) );
