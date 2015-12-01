@@ -10,10 +10,9 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NoFunction = require( 'FUNCTION_BUILDER/common/model/NoFunction' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
@@ -31,9 +30,8 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      return new FunctionNode( new NoFunction( {
-        fill: FBColors.LIGHT_GREEN
-      } ), {
+      return new FunctionBackgroundNode( {
+        fill: FBColors.LIGHT_GREEN,
         backgroundWidth: width
       } );
     },
@@ -48,15 +46,13 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      var topNode = new FunctionNode( new NoFunction( {
-        fill: FBColors.LIGHT_GREEN
-      } ), {
+      var topNode = new FunctionBackgroundNode(  {
+        fill: FBColors.LIGHT_GREEN,
         backgroundWidth: width
       } );
 
-      var bottomNode = new FunctionNode( new NoFunction( {
-        fill: FBColors.LIGHT_PURPLE
-      } ), {
+      var bottomNode = new FunctionBackgroundNode( {
+        fill: FBColors.LIGHT_PURPLE,
         backgroundWidth: width
       } );
 
@@ -76,15 +72,13 @@ define( function( require ) {
 
       width = width || DEFAULT_SCENE_ICON_WIDTH;
 
-      var leftNode = new FunctionNode( new NoFunction( {
-        fill: FBColors.LIGHT_GREEN
-      } ), {
+      var leftNode = new FunctionBackgroundNode( {
+        fill: FBColors.LIGHT_GREEN,
         backgroundWidth: width
       } );
 
-      var rightNode = new FunctionNode( new NoFunction( {
-        fill: FBColors.LIGHT_PURPLE
-      } ), {
+      var rightNode = new FunctionBackgroundNode( {
+        fill: FBColors.LIGHT_PURPLE,
         backgroundWidth: width,
         left: leftNode.right - leftNode.xInset - 1
       } );
