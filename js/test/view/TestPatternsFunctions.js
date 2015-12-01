@@ -183,15 +183,16 @@ define( function( require ) {
 
     var WIDTH = 120;
     var HEIGHT = 0.6 * WIDTH;
-    var X_INSERT = 0.15 * WIDTH;
+    var X_INSET = 0.15 * WIDTH;
 
+    // Described from top-left, moving clockwise.
     var backgroundShape = new Shape()
-      .moveTo( X_INSERT, HEIGHT / 2 )
-      .lineTo( 0, 0 )
-      .lineTo( WIDTH - X_INSERT, 0 )
+      .moveTo( 0, 0 )
+      .lineTo( WIDTH - X_INSET, 0 )
       .lineTo( WIDTH, HEIGHT / 2 )
-      .lineTo( WIDTH - X_INSERT, HEIGHT )
+      .lineTo( WIDTH - X_INSET, HEIGHT )
       .lineTo( 0, HEIGHT )
+      .lineTo( X_INSET, HEIGHT / 2 )
       .close();
 
     var backgroundNode = new Path( backgroundShape, {

@@ -44,14 +44,14 @@ define( function( require ) {
     var HEIGHT = WIDTH / options.aspectRatio;
     var X_INSET = options.xInsetFactor * WIDTH;
 
-    // Shape is described starting at left center, moving clockwise.
+    // Described from top-left, moving clockwise.
     var backgroundShape = new Shape()
-      .moveTo( X_INSET, HEIGHT / 2 )
-      .lineTo( 0, 0 )
+      .moveTo( 0, 0 )
       .lineTo( WIDTH - X_INSET, 0 )
       .lineTo( WIDTH, HEIGHT / 2 )
       .lineTo( WIDTH - X_INSET, HEIGHT )
       .lineTo( 0, HEIGHT )
+      .lineTo( X_INSET, HEIGHT / 2 )
       .close();
 
     Path.call( this, backgroundShape, options );
