@@ -10,16 +10,22 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
-  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var Shape = require( 'KITE/Shape' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+
+  // functions
+  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
+  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
   var Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
@@ -28,12 +34,9 @@ define( function( require ) {
   var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
   var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
   var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
-  // images
   // input card images
   var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );
   var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
@@ -55,23 +58,23 @@ define( function( require ) {
 
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
-    var cards = [
-
-      // No i18n of names is necessary, they are used internally for debugging
-      new Card( 'feet', CanvasUtils.createCanvasWithImage( feetImage ) ),
-      new Card( 'snowflake', CanvasUtils.createCanvasWithImage( snowflakeImage ) ),
-      new Card( 'butterfly', CanvasUtils.createCanvasWithImage( butterflyImage ) ),
-      new Card( 'stick-figure', CanvasUtils.createCanvasWithImage( stickFigureImage ) ),
-      new Card( 'planet', CanvasUtils.createCanvasWithImage( planetImage ) ),
-      new Card( 'sun', CanvasUtils.createCanvasWithImage( sunImage ) ),
-      new Card( 'beaker', CanvasUtils.createCanvasWithImage( beakerImage ) ),
-      new Card( 'cherries', CanvasUtils.createCanvasWithImage( cherriesImage ) ),
-      new Card( 'rectangle', CanvasUtils.createCanvasWithImage( rectangleImage ) ),
-      new Card( 'circle', CanvasUtils.createCanvasWithImage( circleImage ) ),
-      new Card( 'triangle', CanvasUtils.createCanvasWithImage( triangleImage ) ),
-      new Card( 'star', CanvasUtils.createCanvasWithImage( starImage ) )
+    // a canvas for each input image
+    var canvases = [
+      CanvasUtils.createCanvasWithImage( feetImage ),
+      CanvasUtils.createCanvasWithImage( snowflakeImage ),
+      CanvasUtils.createCanvasWithImage( butterflyImage ),
+      CanvasUtils.createCanvasWithImage( stickFigureImage ),
+      CanvasUtils.createCanvasWithImage( planetImage ),
+      CanvasUtils.createCanvasWithImage( sunImage ),
+      CanvasUtils.createCanvasWithImage( beakerImage ),
+      CanvasUtils.createCanvasWithImage( cherriesImage ),
+      CanvasUtils.createCanvasWithImage( rectangleImage ),
+      CanvasUtils.createCanvasWithImage( circleImage ),
+      CanvasUtils.createCanvasWithImage( triangleImage ),
+      CanvasUtils.createCanvasWithImage( starImage )
     ];
 
+    // functions to be applied to the images
     var functions = [
       new Identity(),
       new Mirror(),
@@ -90,26 +93,26 @@ define( function( require ) {
     // a row of function icons
     var functionNodes = [];
     functions.forEach( function( functionInstance ) {
-      functionNodes.push( new FunctionNode( functionInstance, { scale: 0.45 } ) );
+      functionNodes.push( new TestFunctionNode( functionInstance, {
+        scale: 0.45 // determined empirically, to make functions line up with images in carousel
+      } ) );
     } );
     var functionsBox = new HBox( {
-     children: functionNodes,
-     spacing: 21
+      children: functionNodes,
+      spacing: 21
     } );
 
     // carousel items
     var items = [];
 
     // A row for each card
-    cards.forEach( function( card ) {
+    canvases.forEach( function( canvas ) {
 
       var hBoxChildren = [];
 
       functions.forEach( function( functionInstance ) {
-        var outputName = card.name + '.' + functionInstance.name;
-        var outputCanvas = functionInstance.apply( card.canvas );
-        var outputCard = new Card( outputName, outputCanvas );
-        hBoxChildren.push( new CardNode( outputCard ) );
+        var outputCanvas = functionInstance.apply( canvas );
+        hBoxChildren.push( new TestCardNode( outputCanvas ) );
       } );
 
       items.push( new HBox( {
@@ -118,6 +121,7 @@ define( function( require ) {
       } ) );
     } );
 
+    // vertical carousel to show the output images
     var carousel = new Carousel( items, {
       orientation: 'vertical',
       separatorsVisible: true,
@@ -133,5 +137,79 @@ define( function( require ) {
 
   functionBuilder.register( 'TestView', TestView );
 
-  return inherit( ScreenView, TestView );
+  inherit( ScreenView, TestView );
+
+  /**
+   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
+   * @param {Object} [options]
+   * @constructor
+   */
+  function TestCardNode( canvas, options ) {
+
+    options = options || {};
+
+    var backgroundNode = new Rectangle( 0, 0, 60, 60, {
+      cornerRadius: 5,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1
+    } );
+
+    var imageNode = new Image( canvas.toDataURL(), {
+      initialWidth: canvas.width,
+      initialHeight: canvas.height,
+      scale: 0.3,  // determined empirically
+      center: backgroundNode.center
+    } );
+
+    options.children = [ backgroundNode, imageNode ];
+    Node.call( this, options );
+  }
+
+  functionBuilder.register( 'TestCardNode', TestCardNode );
+
+  inherit( Node, TestCardNode );
+
+  /**
+   * @param {AbstractFunction} functionInstance
+   * @param {Object} [options]
+   * @constructor
+   */
+  function TestFunctionNode( functionInstance, options ) {
+
+    var WIDTH = 120;
+    var HEIGHT = 0.6 * WIDTH;
+    var X_INSERT = 0.15 * WIDTH;
+
+    var backgroundShape = new Shape()
+      .moveTo( X_INSERT, HEIGHT / 2 )
+      .lineTo( 0, 0 )
+      .lineTo( WIDTH - X_INSERT, 0 )
+      .lineTo( WIDTH, HEIGHT / 2 )
+      .lineTo( WIDTH - X_INSERT, HEIGHT )
+      .lineTo( 0, HEIGHT )
+      .close();
+
+    var backgroundNode = new Path( backgroundShape, {
+      fill: functionInstance.fill,
+      stroke: functionInstance.stroke,
+      lineWidth: functionInstance.lineWidth,
+      lineDash: functionInstance.lineDash
+    } );
+
+    var wrapperNode = new Node( {
+      children: [ new Image( functionInstance.image ) ],
+      scale: 0.3
+    } );
+    wrapperNode.center = backgroundNode.center;
+
+    options.children = [ backgroundNode, wrapperNode ];
+    Node.call( this, options );
+  }
+
+  functionBuilder.register( 'TestFunctionNode', TestFunctionNode );
+
+  inherit( Node, TestFunctionNode );
+
+  return TestView;
 } );
