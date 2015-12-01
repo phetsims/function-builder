@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -58,6 +59,8 @@ define( function( require ) {
 
     this.xInset = X_INSET; // @public (read-only) needed for layout
   }
+
+  functionBuilder.register( 'FunctionBackgroundNode', FunctionBackgroundNode );
 
   return inherit( Path, FunctionBackgroundNode );
 } );
