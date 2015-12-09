@@ -18,7 +18,7 @@ define( function( require ) {
   // constants
   var DEFAULT_SCENE_ICON_WIDTH = 25;
 
-  var PatternIconFactory = {
+  var PatternsIconFactory = {
 
     /**
      * Creates the icon for the 'single' scene.
@@ -87,7 +87,7 @@ define( function( require ) {
     }
   };
 
-  functionBuilder.register( 'PatternIconFactory', PatternIconFactory );
+  functionBuilder.register( 'PatternsIconFactory', PatternsIconFactory );
 
-  return PatternIconFactory;
+  return PatternsIconFactory;
 } );
