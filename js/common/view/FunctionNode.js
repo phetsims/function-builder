@@ -34,6 +34,8 @@ define( function( require ) {
     assert && assert( options.aspectRatio > 0 );
     assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
 
+    options.children = [];
+
     var backgroundNode = new FunctionBackgroundNode( {
       fill: functionInstance.fill,
       stroke: functionInstance.stroke,
@@ -43,13 +45,16 @@ define( function( require ) {
       aspectRatio: options.aspectRatio,
       xInsetFactor: options.xInsetFactor
     } );
+    options.children.push( backgroundNode );
 
-    var iconNode = new Image( functionInstance.image, {
-      scale: options.iconScale,
-      center: backgroundNode.center
-    } );
+    if ( functionInstance.image ) {
+      var iconNode = new Image( functionInstance.image, {
+        scale: options.iconScale,
+        center: backgroundNode.center
+      } );
+      options.children.push( iconNode );
+    }
 
-    options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
 
     this.functionInstance = functionInstance; // @public (read-only)
