@@ -43,6 +43,8 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
 
+    this.dragging = false; // @public {boolean} is the user controlling the location?
+
     PropertySet.call( this, {
       location: options.location // @public {Vector2} location of the function
     } );
