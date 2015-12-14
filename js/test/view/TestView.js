@@ -14,7 +14,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var myTest = require( 'FUNCTION_BUILDER/test/view/myTest' );
+  var testPatternsFunctions = require( 'FUNCTION_BUILDER/test/view/testPatternsFunctions' );
 
   /**
    * @constructor
@@ -25,7 +25,7 @@ define( function( require ) {
       // To add a test, create an entry here.
       // label is a {string} that will appear in the combo box.
       // getNode is a {function} that takes a {Bounds2} layoutBounds and returns a {Node}.
-      { label: 'Patterns functions', getNode: myTest }
+      { label: 'Patterns functions', getNode: testPatternsFunctions }
     ] );
   }
 
