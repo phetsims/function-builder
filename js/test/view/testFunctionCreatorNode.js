@@ -8,7 +8,6 @@ define( function( require ) {
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Bounds2} layoutBounds
