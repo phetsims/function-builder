@@ -9,22 +9,24 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DemosView = require( 'SUN/demo/DemosView' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var TestPatternsFunctions = require( 'FUNCTION_BUILDER/test/view/TestPatternsFunctions' );
+  var myTest = require( 'FUNCTION_BUILDER/test/view/myTest' );
 
   /**
    * @constructor
    */
   function TestView() {
+    DemosView.call( this, 'test', [
 
-    ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
-
-    this.addChild( new TestPatternsFunctions( {
-      center: this.layoutBounds.center
-    } ) );
+      // To add a test, create an entry here.
+      // label is a {string} that will appear in the combo box.
+      // getNode is a {function} that takes a {Bounds2} layoutBounds and returns a {Node}.
+      { label: 'Patterns functions', getNode: myTest }
+    ] );
   }
 
   functionBuilder.register( 'TestView', TestView );

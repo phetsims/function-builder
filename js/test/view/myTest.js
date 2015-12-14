@@ -51,14 +51,10 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {Object} [options]
+   * @param {Bounds2} layoutBounds
    * @constructor
    */
-  function TestPatternsFunctions( options ) {
-
-    options = _.extend( {
-      spacing: 15
-    }, options );
+  function testPatternsFunctions( layoutBounds ) {
 
     // a canvas for each input image
     var canvases = [
@@ -130,14 +126,14 @@ define( function( require ) {
       itemsPerPage: 4
     } );
 
-    options.children = [ functionsBox, carousel ];
-
-    VBox.call( this, options );
+    return new VBox( {
+      children: [ functionsBox, carousel ],
+      spacing: 15,
+      center: layoutBounds.center
+    } );
   }
 
-  functionBuilder.register( 'TestPatternsFunctions', TestPatternsFunctions );
-
-  inherit( VBox, TestPatternsFunctions );
+  functionBuilder.register( 'testPatternsFunctions', testPatternsFunctions );
 
   /**
    * Use this simplified representation so that this test is not dependent on other sim code.
@@ -168,7 +164,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'TestPatternsFunctions.TestCardNode', TestCardNode );
+  functionBuilder.register( 'testPatternsFunctions.TestCardNode', TestCardNode );
 
   inherit( Node, TestCardNode );
 
@@ -180,6 +176,8 @@ define( function( require ) {
    * @constructor
    */
   function TestFunctionNode( functionInstance, options ) {
+
+    options = options || {};
 
     var WIDTH = 120;
     var HEIGHT = 0.6 * WIDTH;
@@ -211,9 +209,9 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'TestPatternsFunctions.TestFunctionNode', TestFunctionNode );
+  functionBuilder.register( 'testPatternsFunctions.TestFunctionNode', TestFunctionNode );
 
   inherit( Node, TestFunctionNode );
 
-  return TestPatternsFunctions;
+  return testPatternsFunctions;
 } );
