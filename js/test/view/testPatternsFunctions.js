@@ -52,7 +52,6 @@ define( function( require ) {
 
   /**
    * @param {Bounds2} layoutBounds
-   * @constructor
    */
   function testPatternsFunctions( layoutBounds ) {
 
