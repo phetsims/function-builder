@@ -20,7 +20,7 @@ define( function( require ) {
   /**
    * @param {Bounds2} layoutBounds
    */
-  function testFunctionCreatorNode( layoutBounds ) {
+  function testFunctionInteraction( layoutBounds ) {
 
     var testParent = new Node();  // parent of all nodes in this test
 
@@ -70,7 +70,7 @@ define( function( require ) {
     return testParent;
   }
 
-  functionBuilder.register( 'testFunctionCreatorNode', testFunctionCreatorNode );
+  functionBuilder.register( 'testFunctionInteraction', testFunctionInteraction );
 
-  return testFunctionCreatorNode;
+  return testFunctionInteraction;
 } );
