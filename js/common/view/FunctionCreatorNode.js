@@ -79,39 +79,24 @@ define( function( require ) {
         }
         assert && assert( this.parentScreenView );
 
-        // Determine the initial position in the ScreenView's coordinate frame
-        var centerGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var initialLocationOffset = centerGlobal.minus( event.pointer.point );
-        var initialLocation = this.parentScreenView.globalToLocalPoint( event.pointer.point.plus( initialLocationOffset ) );
+        // Determine the initial location in the ScreenView's coordinate frame
+        var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
+        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
         // Create the new function instance
-        this.functionInstance = createFunctionInstance( initialLocation );
-        this.functionInstance.dragging = true;
+        this.functionInstance = createFunctionInstance( initialLocationScreenView );
 
         // If the number of instances is limited, monitor when the function instance is returned
         var thisDragHandler = this;
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
 
-          // Use an IIFE for closure vars.
-          (function() {
+          // increment
+          numberOfInstancesProperty.value++;
 
-            numberOfInstancesProperty.value++;
-
-            // closure vars
-            var functionInstanceClosure = thisDragHandler.functionInstance;
-            var initialLocationClosure = initialLocation;
-
-            // observe the function instance's location
-            functionInstanceClosure.locationProperty.link( function locationListener( location ) {
-              console.log( 'FunctionCreatorNode location=' + location.toString() );//XXX
-              if ( !functionInstanceClosure.dragging && location.equals( initialLocationClosure ) ) {
-
-                // The function has returned to its initial location.
-                numberOfInstancesProperty.value--;
-                functionInstanceClosure.locationProperty.unlink( locationListener );
-              }
-            } );
-          })();
+          // decrement when the function instance is disposed of
+          this.functionInstance.disposeEmitter.addListener( function() {
+            numberOfInstancesProperty.value--;
+          } );
         }
       },
 

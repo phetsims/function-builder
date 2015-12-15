@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Emitter = require( 'AXON/Emitter' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -43,16 +44,28 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
 
-    this.dragging = false; // @public {boolean} is the user controlling the location?
+    this.disposeEmitter = new Emitter(); // @public (read-only) emitted when this instance is disposed of
 
     PropertySet.call( this, {
       location: options.location // @public {Vector2} location of the function
     } );
+
+    // @private
+    this.disposeAbstractFunction = function() {
+      this.disposeEmitter.emit();
+      this.disposeEmitter.removeAllListeners();
+      this.disposeEmitter = null;
+    }
   }
 
   functionBuilder.register( 'AbstractFunction', AbstractFunction );
 
   return inherit( PropertySet, AbstractFunction, {
+
+    // @public
+    dispose: function() {
+      this.disposeAbstractFunction();
+    },
 
     /**
      * Applies the function to the input, produces the output.
