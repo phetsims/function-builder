@@ -38,6 +38,7 @@ define( function( require ) {
 
       // create an associated node
       var functionNode = new MovableFunctionNode( functionInstance );
+      functionNode.cursor = 'pointer';
       testParent.addChild( functionNode );
 
       // drag functionNode back to the functionCreatorNode to dispose of functionInstance

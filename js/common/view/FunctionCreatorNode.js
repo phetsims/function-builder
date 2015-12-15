@@ -48,6 +48,7 @@ define( function( require ) {
     } );
 
     iconNode.center = backgroundNode.center;
+    iconNode.cursor = 'pointer';
 
     // number of function instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
