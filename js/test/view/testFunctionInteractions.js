@@ -68,7 +68,7 @@ define( function( require ) {
     };
 
     var functionCreatorNode = new FunctionCreatorNode( iconNode, createFunctionInstance, {
-      maxInstances: 2,
+      maxInstances: 3,
       center: layoutBounds.center
     } );
     testParent.addChild( functionCreatorNode );
