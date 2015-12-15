@@ -55,7 +55,7 @@ define( function( require ) {
       this.disposeEmitter.emit();
       this.disposeEmitter.removeAllListeners();
       this.disposeEmitter = null;
-    }
+    };
   }
 
   functionBuilder.register( 'AbstractFunction', AbstractFunction );

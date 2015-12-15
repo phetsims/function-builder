@@ -33,7 +33,7 @@ define( function( require ) {
     // @private
     this.disposeMovableFunctionNode = function() {
       functionInstance.locationProperty.unlink( locationObserver );
-    }
+    };
   }
 
   functionBuilder.register( 'MovableFunctionNode', MovableFunctionNode );

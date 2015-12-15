@@ -87,7 +87,6 @@ define( function( require ) {
         this.functionInstance = createFunctionInstance( initialLocationScreenView );
 
         // If the number of instances is limited, monitor when the function instance is returned
-        var thisDragHandler = this;
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
 
           // increment
