@@ -44,7 +44,7 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
 
-    this.disposeEmitter = new Emitter(); // @public (read-only) emitted when this instance is disposed of
+    this.disposed = new Emitter(); // @public (read-only) emitted when this instance has been disposed of
 
     PropertySet.call( this, {
       location: options.location // @public {Vector2} location of the function
@@ -52,9 +52,9 @@ define( function( require ) {
 
     // @private
     this.disposeAbstractFunction = function() {
-      this.disposeEmitter.emit();
-      this.disposeEmitter.removeAllListeners();
-      this.disposeEmitter = null;
+      this.disposed.emit();
+      this.disposed.removeAllListeners();
+      this.disposed = null;
     };
   }
 

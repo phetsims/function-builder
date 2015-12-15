@@ -94,7 +94,7 @@ define( function( require ) {
           numberOfInstancesProperty.value++;
 
           // decrement when the function instance is disposed of
-          this.functionInstance.disposeEmitter.addListener( function() {
+          this.functionInstance.disposed.addListener( function() {
             numberOfInstancesProperty.value--;
           } );
         }

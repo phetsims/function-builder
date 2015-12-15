@@ -59,7 +59,7 @@ define( function( require ) {
       } ) );
 
       // when the function instance is disposed of, remove the associated node
-      functionInstance.disposeEmitter.addListener( function() {
+      functionInstance.disposed.addListener( function() {
         functionNode.dispose();
         testParent.removeChild( functionNode );
       } );
