@@ -26,6 +26,11 @@ define( function( require ) {
 
     var iconNode = new FunctionNode( new Identity() );
 
+    /**
+     * Creates a function instance and wires it into the sim.
+     * @param {Vector2} initialLocation
+     * @returns {AbstractFunction}
+     */
     var createFunctionInstance = function( initialLocation ) {
 
       // create the function instance
