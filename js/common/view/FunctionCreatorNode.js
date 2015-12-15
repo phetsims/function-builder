@@ -65,7 +65,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
 
-        assert && assert( !this.functionInstance );
+        assert && assert( !this.functionInstance, 'implementation is not reentrant' );
 
         // Find the parent ScreenView by moving up the scene graph.
         // This happens the first time a drag is initiated, then we keep a reference to the ScreenView.
@@ -107,7 +107,6 @@ define( function( require ) {
       },
 
       end: function( event, trail ) {
-        this.functionInstance.dragging = false;
         this.functionInstance = null;
       }
     } ) );
