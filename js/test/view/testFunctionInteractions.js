@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Test for FunctionCreatorNode.
+ * Test for user interactions with functions, dragging between carousel and builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
