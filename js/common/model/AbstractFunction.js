@@ -44,6 +44,8 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
 
+    this.dragging = false; // @public {boolean} is the user dragging the function?
+
     this.disposed = new Emitter(); // @public (read-only) emitted when this instance has been disposed of
 
     PropertySet.call( this, {
