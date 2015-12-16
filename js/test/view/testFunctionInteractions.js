@@ -15,7 +15,6 @@ define( function( require ) {
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
    * @param {Bounds2} layoutBounds
