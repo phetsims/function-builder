@@ -182,6 +182,8 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
+  //TODO when function instance intersects builder, next available slot in builder becomes visible
+
   /**
    * Simplified builder for this test.
    * @constructor

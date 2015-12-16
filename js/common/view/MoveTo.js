@@ -23,6 +23,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      //TODO duration is the same regardless of distance, should it be normalized?
       duration: 500, // {number} duration of the animation, in ms
       easing: TWEEN.Easing.Cubic.InOut, // {function} see Tween.Easing
 
