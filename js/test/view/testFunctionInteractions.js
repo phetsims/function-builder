@@ -25,7 +25,8 @@ define( function( require ) {
 
     var iconNode = new FunctionNode( new Identity() );
 
-    var returnToCreatorNode = function( functionInstance, event, trail ) {
+    //TODO determine whether function goes into the builder or is returned to carousel
+    var adjustFunctionLocation = function( functionInstance, event, trail ) {
       functionInstance.locationProperty.reset();
     };
 
@@ -44,7 +45,7 @@ define( function( require ) {
 
       // create an associated node
       var functionNode = new MovableFunctionNode( functionInstance, {
-        endDrag: returnToCreatorNode
+        endDrag: adjustFunctionLocation
       } );
       testParent.addChild( functionNode );
 
@@ -59,7 +60,7 @@ define( function( require ) {
 
     var functionCreatorNode = new FunctionCreatorNode( iconNode, createFunctionInstance, {
       maxInstances: 3,
-      endDrag: returnToCreatorNode,
+      //endDrag: adjustFunctionLocation,
       center: layoutBounds.center
     } );
     testParent.addChild( functionCreatorNode );
