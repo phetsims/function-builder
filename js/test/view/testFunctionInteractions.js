@@ -15,10 +15,12 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
+  var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -187,7 +189,7 @@ define( function( require ) {
   //--------------------------------------------------------------------------------------------------------------------
 
   //TODO when function is released and doesn't intersect with builder, it returns to carousel
-  //TODO when function instance intersects with builder, next available slot in builder becomes visible
+  //TODO when function instance is created, next available slot in builder becomes visible
   //TODO when function overlaps a filled slot, that slot shifts right if possible
   //TODO when function is released over builder, it goes into the closest slot
   //TODO when all slots are filled and function is dropped on occupied slot, the function in the slot returns to the carousel
@@ -235,19 +237,40 @@ define( function( require ) {
   function BuilderNode( builder, options ) {
 
     options = _.extend( {
-      fill: 'rgb( 130, 62, 85 )',
-      stroke: 'black'
-    }, options );
+      functionLineWidth: 1
+    }, options );;
 
     options.left = builder.location.x;
     options.centerY = builder.location.y;
 
-    Rectangle.call( this, 0, 0, builder.width, builder.height, options );
+    var backgroundNode = new Rectangle( 0, 0, builder.width, builder.height, {
+      fill: 'rgb( 130, 62, 85 )',
+      stroke: 'black'
+    } );
+
+    // a placeholder for each slot
+    var placeholderNodes = [];
+    var previousNode = null;
+    for ( var i = 0; i < builder.numberOfFunctions; i++ ) {
+      var placeholderNode = new FunctionNode( new PlaceholderFunction(), {
+        left: previousNode ? ( previousNode.right - previousNode.xInset - options.functionLineWidth / 2 ) : 0
+      } );
+      placeholderNodes.push( placeholderNode );
+      previousNode = placeholderNode;
+    }
+
+    var placeholdersParent = new Node( {
+      children: placeholderNodes,
+      center: backgroundNode.center
+    } );
+
+    options.children = [ backgroundNode, placeholdersParent ];
+    Node.call( this, options );
   }
 
   functionBuilder.register( 'testFunctionInteractions.BuilderNode', BuilderNode );
 
-  inherit( Rectangle, BuilderNode );
+  inherit( Node, BuilderNode );
 
   //--------------------------------------------------------------------------------------------------------------------
 
