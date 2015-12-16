@@ -31,7 +31,7 @@ define( function( require ) {
 
       // body
       bodySize: new Dimension2( 430, 125 ),
-      bodyToColor: 'rgb( 200, 182, 188 )',
+      bodyTopColor: 'rgb( 200, 182, 188 )',
       bodyMiddleColor: 'rgb( 130, 62, 85 )',
       bodyBottomColor: 'black',
       bodyStroke: 'black',
@@ -73,7 +73,7 @@ define( function( require ) {
       .lineTo( 0, height )
       .close(), {
       fill: new LinearGradient( 0, 0, 1, height )
-        .addColorStop( 0, options.bodyToColor )
+        .addColorStop( 0, options.bodyTopColor )
         .addColorStop( 0.5, options.bodyMiddleColor )
         .addColorStop( 1, options.bodyBottomColor ),
       stroke: options.bodyStroke,
