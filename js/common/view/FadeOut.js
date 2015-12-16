@@ -14,8 +14,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param node
-   * @param options
+   * @param {Node} node
+   * @param {Object} options
    * @constructor
    */
   function FadeOut( node, options ) {
