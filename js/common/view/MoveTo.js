@@ -23,7 +23,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      duration: 500, // {number} duration in ms to move to destination
+      duration: 500, // {number} duration of the animation, in ms
       easing: TWEEN.Easing.Cubic.InOut, // {function} see Tween.Easing
 
       onStart: function() {}, // {function} called when the animation starts

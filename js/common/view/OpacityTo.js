@@ -22,9 +22,9 @@ define( function( require ) {
 
     options = _.extend( {
 
+      duration: 500, // {number} duration of the animation, in ms
       startOpacity: node.opacity, // {number} 0-1, initial opacity at start of animation
       endOpacity: 1, // {number} 0-1, opacity at completion of animation
-      duration: 500, // {number} duration in ms to go from 0 to 1 opacity
 
       onStart: function() {}, // {function} called when the animation starts
       onUpdate: function() {}, // {function} called on each animation update
