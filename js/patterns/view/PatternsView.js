@@ -11,12 +11,11 @@ define( function( require ) {
   // modules
   var ComposedSceneNode = require( 'FUNCTION_BUILDER/patterns/view/ComposedSceneNode' );
   var DualSceneNode = require( 'FUNCTION_BUILDER/patterns/view/DualSceneNode' );
-  var FadeIn = require( 'FUNCTION_BUILDER/common/view/FadeIn' );
-  var FadeOut = require( 'FUNCTION_BUILDER/common/view/FadeOut' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var OpacityTo = require( 'FUNCTION_BUILDER/common/view/OpacityTo' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -108,7 +107,8 @@ define( function( require ) {
         //oldSceneNode.pickable = sceneNode.pickable = false;
 
         // fades in the new scene
-        newFadeIn = new FadeIn( sceneNode, {
+        newFadeIn = new OpacityTo( sceneNode, {
+          endOpacity: 1,
           onComplete: function() {
             //TODO fix this
             //sceneNode.pickable = true; // allow interaction with the scene when the animation has completed
@@ -116,7 +116,8 @@ define( function( require ) {
         } );
 
         // fades out the old scene
-        oldFadeOut = new FadeOut( oldSceneNode, {
+        oldFadeOut = new OpacityTo( oldSceneNode, {
+          endOpacity: 0,
           onComplete: function() {
             oldSceneNode.visible = false;
             newFadeIn.start();

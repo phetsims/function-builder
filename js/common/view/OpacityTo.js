@@ -2,7 +2,7 @@
 
 //TODO migrate to common code?
 /**
- * Fades in a node over time by modulating its opacity.
+ * Animates a node's opacity.
  *
  * @author Chris Malley (PixelZoom, Inc)
  */
@@ -18,23 +18,29 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function FadeIn( node, options ) {
+  function OpacityTo( node, options ) {
 
     options = _.extend( {
+      startOpacity: node.opacity, // {number} 0-1, initial opacity at start of animation
+      endOpacity: 1, // {number} 0-1, opacity at completion of animation
       duration: 500, // {number} duration in ms to go from 0 to 1 opacity
       onStart: function() {}, // {function} called when the animation starts
       onComplete: function() {}, // {function} called when the animation completes
       onStop: function() {} // {function} called if the animation is stopped
     }, options );
 
+    assert && assert( options.startOpacity >= 0 && options.startOpacity <= 1 );
+    assert && assert( options.endOpacity >= 0 && options.endOpacity <= 1 );
+    assert && assert( options.duration >= 0 );
+
     this.node = node; // @private
     this.onStop = options.onStop; // @private
 
-    var parameters = { opacity: 0 }; // initial state, modified as the animation proceeds
+    var parameters = { opacity: options.startOpacity }; // initial state, modified as the animation proceeds
 
     // @private
     this.tween = new TWEEN.Tween( parameters )
-      .to( { opacity: 1 }, options.duration )
+      .to( { opacity: options.endOpacity }, options.duration )
       .onStart( function() {
         node.opacity = parameters.opacity;
         node.visible = true;
@@ -48,9 +54,9 @@ define( function( require ) {
       } );
   }
 
-  functionBuilder.register( 'FadeIn', FadeIn );
+  functionBuilder.register( 'OpacityTo', OpacityTo );
 
-  return inherit( Object, FadeIn, {
+  return inherit( Object, OpacityTo, {
 
     // @public starts the animation
     start: function() {
