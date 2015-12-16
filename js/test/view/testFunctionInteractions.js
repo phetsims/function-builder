@@ -141,8 +141,10 @@ define( function( require ) {
       } );
       functionsParentNode.addChild( functionNode );
 
-      // when the function instance is disposed of, remove the associated node
-      functionInstance.disposed.addListener( function() {
+      //TODO observe functionNode bounds, scroll carousel if bounds overlap with carousel
+
+      // when dispose is called for the function instance, remove the associated node
+      functionInstance.disposeCalled.addListener( function() {
         functionNode.dispose();
         functionsParentNode.removeChild( functionNode );
       } );
