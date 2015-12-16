@@ -16,6 +16,8 @@ define( function( require ) {
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
@@ -69,8 +71,12 @@ define( function( require ) {
       top: functionsCarousel.bottom + 8
     } );
 
+    var builder = new Builder();
+
+    var builderNode = new BuilderNode( builder );
+
     return new Node( {
-      children: [ functionsCarousel, functionsPageControl, functionsParentNode ]
+      children: [ functionsCarousel, functionsPageControl, builderNode, functionsParentNode ]
     } );
   }
 
@@ -177,9 +183,10 @@ define( function( require ) {
   //--------------------------------------------------------------------------------------------------------------------
 
   function Builder() {
+    this.location = new Vector2( 312, 240 ); // left center (input slot)
     this.numberOfFunctions = 3;
-    this.width = 430;
-    this.height = 125;
+    this.width = 400;
+    this.height = 88;
   }
 
   functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
@@ -190,12 +197,20 @@ define( function( require ) {
 
   function BuilderNode( builder, options ) {
 
-    Node.call( this, options );
+    options = _.extend( {
+      fill: 'rgb( 130, 62, 85 )',
+      stroke: 'black'
+    }, options );
+
+    options.left = builder.location.x;
+    options.centerY = builder.location.y;
+
+    Rectangle.call( this, 0, 0, builder.width, builder.height, options );
   }
 
   functionBuilder.register( 'testFunctionInteractions.BuilderNode', BuilderNode );
 
-  inherit( Node, BuilderNode );
+  inherit( Rectangle, BuilderNode );
 
   //--------------------------------------------------------------------------------------------------------------------
 
