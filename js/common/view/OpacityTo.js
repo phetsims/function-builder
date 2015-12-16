@@ -21,12 +21,16 @@ define( function( require ) {
   function OpacityTo( node, options ) {
 
     options = _.extend( {
+
       startOpacity: node.opacity, // {number} 0-1, initial opacity at start of animation
       endOpacity: 1, // {number} 0-1, opacity at completion of animation
       duration: 500, // {number} duration in ms to go from 0 to 1 opacity
+
       onStart: function() {}, // {function} called when the animation starts
+      onUpdate: function() {}, // {function} called on each animation update
       onComplete: function() {}, // {function} called when the animation completes
       onStop: function() {} // {function} called if the animation is stopped
+
     }, options );
 
     assert && assert( options.startOpacity >= 0 && options.startOpacity <= 1 );

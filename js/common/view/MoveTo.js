@@ -22,8 +22,10 @@ define( function( require ) {
   function MoveTo( node, destination, options ) {
 
     options = _.extend( {
+
       duration: 500, // {number} duration in ms to move to destination
       easing: TWEEN.Easing.Cubic.InOut, // {function} see Tween.Easing
+
       onStart: function() {}, // {function} called when the animation starts
       onUpdate: function() {}, // {function} called on each animation update
       onComplete: function() {}, // {function} called when the animation completes
