@@ -1,6 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
-//TODO migrate to common code?
+//TODO migrate to common code? see https://github.com/phetsims/tasks/issues/360
 /**
  * Animates a node's opacity.
  *
