@@ -170,11 +170,11 @@ define( function( require ) {
             carousel.scrollToItem( functionCreatorNode );
           }
         };
-        functionNode.addEventListener( 'bounds', boundsListener );
+        functionNode.on( 'bounds', boundsListener );
 
         // when dispose is called for the function instance, remove the associated node
         functionInstance.disposeCalled.addListener( function() {
-          functionNode.removeEventListener( 'bounds', boundsListener );
+          functionNode.off( 'bounds', boundsListener );
           functionNode.dispose();
           functionsParentNode.removeChild( functionNode );
         } );
