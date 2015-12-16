@@ -96,9 +96,10 @@ define( function( require ) {
     Carousel.call( this,  functionCarouselItems, options );
   }
 
+  functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
+
   inherit( Carousel, FunctionsCarousel );
 
-  functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
 
   //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
   /**
