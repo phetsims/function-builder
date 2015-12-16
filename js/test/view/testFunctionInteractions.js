@@ -12,7 +12,6 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -100,24 +99,23 @@ define( function( require ) {
 
   inherit( Carousel, FunctionsCarousel );
 
-
   //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
   /**
    * Creates an item for the function carousel.
    *
-   * @param {function} FunctionConstructor - constructor of an {AbstractFunction}
+   * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
    * @param {Carousel} carousel
    * @param {Node} functionsParentNode - parent for all function nodes that are created
    * @param {Object} [options]
    * @returns {FunctionCreatorNode}
    */
-  var createFunctionCarouselItem = function( FunctionConstructor, carousel, functionsParentNode, options ) {
+  var createFunctionCarouselItem = function( AbstractFunctionConstructor, carousel, functionsParentNode, options ) {
 
     options = _.extend( {
       maxInstances: 3
     }, options );
 
-    var iconNode = new FunctionNode( new FunctionConstructor() );
+    var functionCreatorNode = new FunctionCreatorNode( AbstractFunctionConstructor, options );
 
     //TODO determine whether function goes into the builder or is returned to carousel
     var adjustFunctionLocation = function( functionInstance, event, trail ) {
@@ -126,17 +124,13 @@ define( function( require ) {
     };
 
     /**
-     * Creates a function instance and wires it into the sim.
-     * @param {Vector2} initialLocation
-     * @returns {AbstractFunction}
+     * Called when a function instance is created.
+     * Creates an associated node and wires it into the sim.
+     * @param {AbstractFunction} functionInstance
      */
-    var createFunctionInstance = function( initialLocation ) {
+    var functionInstanceCreated = function( functionInstance ) {
 
-      // create the function instance
-      var functionInstance = new FunctionConstructor( {
-        location: initialLocation,
-        dragging: true
-      } );
+      assert && assert( functionInstance, 'does the associated Emitter has the same number of args?' );
 
       // create an associated node
       var functionNode = new MovableFunctionNode( functionInstance, {
@@ -163,11 +157,9 @@ define( function( require ) {
         functionNode.dispose();
         functionsParentNode.removeChild( functionNode );
       } );
-
-      return functionInstance;
     };
 
-    var functionCreatorNode = new FunctionCreatorNode( iconNode, createFunctionInstance, options );
+    functionCreatorNode.functionInstanceCreated.addListener( functionInstanceCreated );
 
     return functionCreatorNode;
   };

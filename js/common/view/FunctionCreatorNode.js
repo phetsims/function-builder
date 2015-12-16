@@ -16,8 +16,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Emitter = require( 'AXON/Emitter' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
@@ -29,12 +31,11 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {Node} iconNode - the function's icon
-   * @param {function} createFunctionInstance - @param {Vector2} initialLocation, @returns {AbstractFunction}
+   * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionCreatorNode( iconNode, createFunctionInstance, options ) {
+  function FunctionCreatorNode( AbstractFunctionConstructor, options ) {
 
     options = _.extend( {
       maxInstances: Number.POSITIVE_INFINITY,  // {number} max number of function instances that can be created
@@ -43,13 +44,17 @@ define( function( require ) {
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
 
+    // The icon that represents the function
+    var iconNode = new FunctionNode( new AbstractFunctionConstructor(), {
+      cursor: 'pointer'
+    } );
+
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
     var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
       stroke: SHOW_BOUNDS ? 'red' : null
     } );
 
     iconNode.center = backgroundNode.center;
-    iconNode.cursor = 'pointer';
 
     // number of function instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
@@ -57,6 +62,9 @@ define( function( require ) {
       iconNode.visible = ( numberOfInstances < options.maxInstances );
     } );
 
+    this.functionInstanceCreated = new Emitter(); // @public
+
+    var thisNode = this;
     iconNode.addInputListener( new SimpleDragHandler( {
 
       parentScreenView: null, // @private {ScreenView} set on first start drag
@@ -85,8 +93,12 @@ define( function( require ) {
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
-        // Create the new function instance
-        this.functionInstance = createFunctionInstance( initialLocationScreenView );
+        // Create the new function instance and notify listeners
+        this.functionInstance = new AbstractFunctionConstructor( {
+          location: initialLocationScreenView,
+          dragging: true
+        } );
+        thisNode.functionInstanceCreated.emit1( this.functionInstance );
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
@@ -116,9 +128,21 @@ define( function( require ) {
 
     options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
+
+    // @private
+    this.disposeFunctionCreatorNode = function() {
+      thisNode.functionInstanceCreated.removeAllListeners();
+      thisNode.functionInstanceCreated = null;
+    };
   }
 
   functionBuilder.register( 'FunctionCreatorNode', FunctionCreatorNode );
 
-  return inherit( Node, FunctionCreatorNode );
+  return inherit( Node, FunctionCreatorNode, {
+
+    // @public
+    dispose: function() {
+      this.disposeFunctionCreatorNode();
+    }
+  } );
 } );
