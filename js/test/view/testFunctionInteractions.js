@@ -31,7 +31,10 @@ define( function( require ) {
   var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
+  //--------------------------------------------------------------------------------------------------------------------
+
   /**
+   * Public interface for this test.
    * @param {Bounds2} layoutBounds
    */
   function testFunctionInteractions( layoutBounds ) {
@@ -73,8 +76,12 @@ define( function( require ) {
 
   functionBuilder.register( 'testFunctionInteractions', testFunctionInteractions );
 
+  //--------------------------------------------------------------------------------------------------------------------
+
   //TODO Carousel subtype needed because items require a reference to the carousel for scrolling. Is this feature desirable? Can this reference be eliminated?
   /**
+   * Carousel for functions.
+   *
    * @param {function} functionConstructors - constructors of type {AbstractFunction}
    * @param {Node} functionsParentNode
    * @param {Object} [options]
@@ -89,80 +96,108 @@ define( function( require ) {
 
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
     for ( var i = 0; i < functionConstructors.length; i++ ) {
-      functionCarouselItems.push( createFunctionCarouselItem( functionConstructors[ i ], this, functionsParentNode ) );
+      functionCarouselItems.push( FunctionsCarousel.createItem( functionConstructors[ i ], this, functionsParentNode ) );
     }
 
-    Carousel.call( this,  functionCarouselItems, options );
+    Carousel.call( this, functionCarouselItems, options );
   }
 
   functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
 
-  inherit( Carousel, FunctionsCarousel );
+  inherit( Carousel, FunctionsCarousel, {}, {
 
-  //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
-  /**
-   * Creates an item for the function carousel.
-   *
-   * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
-   * @param {Carousel} carousel
-   * @param {Node} functionsParentNode - parent for all function nodes that are created
-   * @param {Object} [options]
-   * @returns {FunctionCreatorNode}
-   */
-  var createFunctionCarouselItem = function( AbstractFunctionConstructor, carousel, functionsParentNode, options ) {
-
-    options = _.extend( {
-      maxInstances: 3
-    }, options );
-
-    var functionCreatorNode = new FunctionCreatorNode( AbstractFunctionConstructor, options );
-
-    //TODO determine whether function goes into the builder or is returned to carousel
-    var adjustFunctionLocation = function( functionInstance, event, trail ) {
-      carousel.scrollToItem( functionCreatorNode );
-      functionInstance.locationProperty.reset();
-    };
-
+    //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
     /**
-     * Called when a function instance is created.
-     * Creates an associated node and wires it into the sim.
-     * @param {AbstractFunction} functionInstance
+     * Creates an item for the function carousel.
+     *
+     * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
+     * @param {Carousel} carousel
+     * @param {Node} functionsParentNode - parent for all function nodes that are created
+     * @param {Object} [options]
+     * @returns {FunctionCreatorNode}
+     * @private
+     * @static
      */
-    var functionInstanceCreated = function( functionInstance ) {
+    createItem: function( AbstractFunctionConstructor, carousel, functionsParentNode, options ) {
 
-      assert && assert( functionInstance, 'does the associated Emitter has the same number of args?' );
+      options = _.extend( {
+        maxInstances: 3
+      }, options );
 
-      // create an associated node
-      var functionNode = new MovableFunctionNode( functionInstance, {
-        endDrag: adjustFunctionLocation
-      } );
-      functionsParentNode.addChild( functionNode );
+      var functionCreatorNode = new FunctionCreatorNode( AbstractFunctionConstructor, options );
 
-      // If the function node overlaps the carousel, scroll the carousel so that the function is visible.
-      var boundsListener = function() {
-
-        var globalFunctionNodeBounds = functionNode.parentToGlobalBounds( functionNode.bounds );
-        var globalCarouselBounds = carousel.parentToGlobalBounds( carousel.bounds );
-        var overlap = globalFunctionNodeBounds.intersectsBounds( globalCarouselBounds );
-
-        if ( overlap ) {
-          carousel.scrollToItem( functionCreatorNode );
-        }
+      //TODO determine whether function goes into the builder or is returned to carousel
+      var adjustFunctionLocation = function( functionInstance, event, trail ) {
+        carousel.scrollToItem( functionCreatorNode );
+        functionInstance.locationProperty.reset();
       };
-      functionNode.addEventListener( 'bounds', boundsListener );
 
-      // when dispose is called for the function instance, remove the associated node
-      functionInstance.disposeCalled.addListener( function() {
-        functionNode.removeEventListener( 'bounds', boundsListener );
-        functionNode.dispose();
-        functionsParentNode.removeChild( functionNode );
-      } );
-    };
+      /**
+       * Called when a function instance is created.
+       * Creates an associated node and wires it into the sim.
+       * @param {AbstractFunction} functionInstance
+       */
+      var functionInstanceCreatedListener = function( functionInstance ) {
 
-    functionCreatorNode.functionInstanceCreated.addListener( functionInstanceCreated );
+        assert && assert( functionInstance, 'does the associated Emitter has the same number of args?' );
 
-    return functionCreatorNode;
-  };
+        // create an associated node
+        var functionNode = new MovableFunctionNode( functionInstance, {
+          endDrag: adjustFunctionLocation
+        } );
+        functionsParentNode.addChild( functionNode );
+
+        // If the function node overlaps the carousel, scroll the carousel so that the function is visible.
+        var boundsListener = function() {
+
+          var globalFunctionNodeBounds = functionNode.parentToGlobalBounds( functionNode.bounds );
+          var globalCarouselBounds = carousel.parentToGlobalBounds( carousel.bounds );
+          var overlap = globalFunctionNodeBounds.intersectsBounds( globalCarouselBounds );
+
+          if ( overlap ) {
+            carousel.scrollToItem( functionCreatorNode );
+          }
+        };
+        functionNode.addEventListener( 'bounds', boundsListener );
+
+        // when dispose is called for the function instance, remove the associated node
+        functionInstance.disposeCalled.addListener( function() {
+          functionNode.removeEventListener( 'bounds', boundsListener );
+          functionNode.dispose();
+          functionsParentNode.removeChild( functionNode );
+        } );
+      };
+
+      functionCreatorNode.functionInstanceCreated.addListener( functionInstanceCreatedListener );
+
+      return functionCreatorNode;
+    }
+  } );
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  function Builder() {
+    this.numberOfFunctions = 3;
+    this.width = 430;
+    this.height = 125;
+  }
+
+  functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
+
+  inherit( Object, Builder );
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  function BuilderNode( builder, options ) {
+
+    Node.call( this, options );
+  }
+
+  functionBuilder.register( 'testFunctionInteractions.BuilderNode', BuilderNode );
+
+  inherit( Node, BuilderNode );
+
+  //--------------------------------------------------------------------------------------------------------------------
 
   return testFunctionInteractions;
 } );
