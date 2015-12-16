@@ -74,7 +74,7 @@ define( function( require ) {
 
   functionBuilder.register( 'testFunctionInteractions', testFunctionInteractions );
 
-  //TODO Carousel subtype needed because items require a reference to the carousel. Can this reference be eliminated?
+  //TODO Carousel subtype needed because items require a reference to the carousel for scrolling. Is this feature desirable? Can this reference be eliminated?
   /**
    * @param {function} functionConstructors - constructors of type {AbstractFunction}
    * @param {Node} functionsParentNode
