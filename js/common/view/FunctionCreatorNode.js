@@ -86,7 +86,6 @@ define( function( require ) {
 
         // Create the new function instance
         this.functionInstance = createFunctionInstance( initialLocationScreenView );
-        this.functionInstance.dragging = true;
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {

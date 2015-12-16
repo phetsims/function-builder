@@ -24,6 +24,7 @@ define( function( require ) {
     options = _.extend( {
 
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function
+      dragging: false, // {boolean} is the function being dragged by the user when it's instantiated?
       name: null, // {string} optional name of the function, not visible to the user, used internally for debugging
 
       // default look used to style the function's associated Node
@@ -44,7 +45,7 @@ define( function( require ) {
     this.lineWidth = options.lineWidth;
     this.lineDash = options.lineDash;
 
-    this.dragging = false; // @public {boolean} is the user dragging the function?
+    this.dragging = options.dragging; // @public {boolean} is the user dragging the function?
 
     this.disposed = new Emitter(); // @public (read-only) emitted when this instance has been disposed of
 
@@ -64,8 +65,9 @@ define( function( require ) {
 
   return inherit( PropertySet, AbstractFunction, {
 
-    // @public
+    // @public @override
     dispose: function() {
+      PropertySet.prototype.dispose.call( this );
       this.disposeAbstractFunction();
     },
 

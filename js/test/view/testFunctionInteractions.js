@@ -34,29 +34,15 @@ define( function( require ) {
     var createFunctionInstance = function( initialLocation ) {
 
       // create the function instance
-      var functionInstance = new Identity( { location: initialLocation } );
+      var functionInstance = new Identity( {
+        location: initialLocation,
+        dragging: true
+      } );
 
       // create an associated node
       var functionNode = new MovableFunctionNode( functionInstance );
       functionNode.cursor = 'pointer';
       testParent.addChild( functionNode );
-
-      // drag functionNode back to the functionCreatorNode to dispose of functionInstance
-      functionNode.addInputListener( new SimpleDragHandler( {
-
-        translate: function( translationParams ) {
-          var location = functionInstance.locationProperty.get().plus( translationParams.delta );
-          functionInstance.locationProperty.set( location );
-        },
-
-        end: function( event, trail ) {
-          var globalTargetBounds = event.currentTarget.parentToGlobalBounds( event.currentTarget.bounds );
-          var globalCreatorBounds = functionCreatorNode.parentToGlobalBounds( functionCreatorNode.bounds );
-          if ( globalTargetBounds.intersectsBounds( globalCreatorBounds ) ) {
-            functionInstance.dispose();
-          }
-        }
-      } ) );
 
       // when the function instance is disposed of, remove the associated node
       functionInstance.disposed.addListener( function() {

@@ -2,7 +2,7 @@
 
 //TODO migrate to common code?
 /**
- * Fades out a node over time by modulating its opacity.
+ * Animates a node's location.
  *
  * @author Chris Malley (PixelZoom, Inc)
  */
@@ -15,42 +15,44 @@ define( function( require ) {
 
   /**
    * @param {Node} node
+   * @param {Vector2} destination
    * @param {Object} options
    * @constructor
    */
-  function FadeOut( node, options ) {
+  function MoveTo( node, destination, options ) {
 
     options = _.extend( {
-      duration: 500, // {number} duration in ms to go from 1 to 0 opacity
+      duration: 500, // {number} duration in ms to move to destination
+      easing: TWEEN.Easing.Cubic.InOut, // {function|null} one of the Tween easing functions
       onStart: function() {}, // {function} called when the animation starts
+      onUpdate: function() {}, // {function} called on each animation update
       onComplete: function() {}, // {function} called when the animation completes
       onStop: function() {} // {function} called if the animation is stopped
     }, options );
 
+    assert && assert( options.duration >= 0 );
+
     this.node = node; // @private
     this.onStop = options.onStop; // @private
 
-    var parameters = { opacity: 1 }; // initial state, modified as the animation proceeds
-
     // @private
-    this.tween = new TWEEN.Tween( parameters )
-      .to( { opacity: 0 }, options.duration )
+    this.tween = new TWEEN.Tween( node )
+      .to( { centerX: destination.x, centerY: destination.y }, options.duration )
+      .easing( options.easing )
       .onStart( function() {
-        node.opacity = parameters.opacity;
-        node.visible = true;
         options.onStart();
       } )
       .onUpdate( function() {
-        node.opacity = parameters.opacity;
+        options.onUpdate();
       } )
       .onComplete( function() {
         options.onComplete();
       } );
   }
 
-  functionBuilder.register( 'FadeOut', FadeOut );
+  functionBuilder.register( 'MoveTo', MoveTo );
 
-  return inherit( Object, FadeOut, {
+  return inherit( Object, MoveTo, {
 
     // @public starts the animation
     start: function() {

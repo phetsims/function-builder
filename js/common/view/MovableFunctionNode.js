@@ -13,6 +13,8 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MoveTo = require( 'FUNCTION_BUILDER/common/view/MoveTo' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
    * @param {AbstractFunction} functionInstance
@@ -24,11 +26,70 @@ define( function( require ) {
     FunctionNode.call( this, functionInstance, options );
 
     var thisNode = this;
+    var moveTo = null;
+
     function locationObserver( location ) {
-      thisNode.center = location;
+
+      if ( functionInstance.dragging ) {
+
+        // if under user control, move directly to the new location
+        thisNode.center = location;
+      }
+      else {
+
+        //TODO should this animation be handled in the model?
+
+        // stop any animation that is in progress
+        if ( moveTo ) {
+          moveTo.stop();
+        }
+
+        // create the animation
+        moveTo = new MoveTo( thisNode, location, {
+
+          onStart: function() {
+            thisNode.pickable = false;
+          },
+
+          onComplete: function() {
+            thisNode.pickable = true;
+            if ( location.equals( functionInstance.locationProperty.initialValue ) ) {
+              // function has been returned to the Carousel
+              functionInstance.locationProperty.unlink( locationObserver );
+              functionInstance.dispose();
+            }
+          },
+
+          onStop: function() {
+            thisNode.pickable = true;
+          }
+        } );
+
+        // start the animation
+        moveTo.start();
+      }
     }
 
     functionInstance.locationProperty.link( locationObserver );
+
+    this.addInputListener( new SimpleDragHandler( {
+
+      allowTouchSnag: true,
+
+      start: function( event, trail ) {
+        functionInstance.dragging = true;
+      },
+
+      translate: function( translationParams ) {
+        var location = functionInstance.locationProperty.get().plus( translationParams.delta );
+        functionInstance.locationProperty.set( location );
+      },
+
+      end: function( event, trail ) {
+        functionInstance.dragging = false;
+        functionInstance.locationProperty.reset(); //XXX
+      }
+    } ) );
 
     // @private
     this.disposeMovableFunctionNode = function() {
