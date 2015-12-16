@@ -1,5 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
+//TODO model-view transform? currently implicit and 1:1
+
 /**
  * Test for user interactions with functions, dragging between carousel and builder.
  *
@@ -10,12 +12,14 @@ define( function( require ) {
 
   // modules
   var Carousel = require( 'SUN/Carousel' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -127,7 +131,7 @@ define( function( require ) {
     createItem: function( AbstractFunctionConstructor, carousel, functionsParentNode, options ) {
 
       options = _.extend( {
-        maxInstances: 3
+        maxInstances: 2
       }, options );
 
       var functionCreatorNode = new FunctionCreatorNode( AbstractFunctionConstructor, options );
@@ -186,13 +190,29 @@ define( function( require ) {
 
   /**
    * Simplified builder for this test.
+   * @param {Object} [options]
    * @constructor
    */
-  function Builder() {
-    this.location = new Vector2( 312, 240 ); // left center (input slot)
-    this.numberOfFunctions = 3;
-    this.width = 400;
-    this.height = 88;
+  function Builder( options ) {
+
+    options = _.extend( {
+      numberOfFunctions: 3, // {number} maximum number of functions in the pipeline
+      width: 400, // {number} distance between input and output slot
+      height: 88, // {number} height of tallest part of the builder
+      location: new Vector2( 312, 240 ) // {Vector2} left center (input slot)
+    }, options );
+
+    // @public (read-only)
+    this.numberOfFunctions = options.numberOfFunctions;
+    this.width = options.width;
+    this.height = options.height;
+    this.location = options.location;
+
+    // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
+    this.functionProperties = [];
+    for ( var i = 0; i < this.numberOfFunctions; i++ ) {
+      this.functionProperties.push( new Property( null ) );
+    }
   }
 
   functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
