@@ -25,6 +25,10 @@ define( function( require ) {
 
     var iconNode = new FunctionNode( new Identity() );
 
+    var returnToCreatorNode = function( functionInstance, event, trail ) {
+      functionInstance.locationProperty.reset();
+    };
+
     /**
      * Creates a function instance and wires it into the sim.
      * @param {Vector2} initialLocation
@@ -39,8 +43,9 @@ define( function( require ) {
       } );
 
       // create an associated node
-      var functionNode = new MovableFunctionNode( functionInstance );
-      functionNode.cursor = 'pointer';
+      var functionNode = new MovableFunctionNode( functionInstance, {
+        endDrag: returnToCreatorNode
+      } );
       testParent.addChild( functionNode );
 
       // when the function instance is disposed of, remove the associated node
@@ -54,6 +59,7 @@ define( function( require ) {
 
     var functionCreatorNode = new FunctionCreatorNode( iconNode, createFunctionInstance, {
       maxInstances: 3,
+      endDrag: returnToCreatorNode,
       center: layoutBounds.center
     } );
     testParent.addChild( functionCreatorNode );

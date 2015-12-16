@@ -23,6 +23,11 @@ define( function( require ) {
    */
   function MovableFunctionNode( functionInstance, options ) {
 
+    options = _.extend( {
+      cursor: 'pointer',
+      endDrag: function( event, trail ) {} // {function} called at the end of each drag cycle
+    }, options );
+
     FunctionNode.call( this, functionInstance, options );
 
     var thisNode = this;
@@ -87,7 +92,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         functionInstance.dragging = false;
-        functionInstance.locationProperty.reset(); //XXX
+        options.endDrag( functionInstance, event, trail );
       }
     } ) );
 

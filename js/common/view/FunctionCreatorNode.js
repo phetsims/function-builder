@@ -37,7 +37,8 @@ define( function( require ) {
   function FunctionCreatorNode( iconNode, createFunctionInstance, options ) {
 
     options = _.extend( {
-      maxInstances: Number.POSITIVE_INFINITY  // {number} max number of function instances that can be created
+      maxInstances: Number.POSITIVE_INFINITY,  // {number} max number of function instances that can be created
+      endDrag: function( functionInstance, event, trail ) {} // {function} called at the end of each drag cycle
     }, options );
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
@@ -108,6 +109,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         this.functionInstance.dragging = false;
+        options.endDrag( this.functionInstance, event, trail );
         this.functionInstance = null;
       }
     } ) );
