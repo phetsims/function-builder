@@ -141,10 +141,22 @@ define( function( require ) {
       } );
       functionsParentNode.addChild( functionNode );
 
-      //TODO observe functionNode bounds, scroll carousel if bounds overlap with carousel
+      // If the function node overlaps the carousel, scroll the carousel so that the function is visible.
+      var boundsListener = function() {
+
+        var globalFunctionNodeBounds = functionNode.parentToGlobalBounds( functionNode.bounds );
+        var globalCarouselBounds = carousel.parentToGlobalBounds( carousel.bounds );
+        var overlap = globalFunctionNodeBounds.intersectsBounds( globalCarouselBounds );
+
+        if ( overlap ) {
+          carousel.scrollToItem( functionCreatorNode );
+        }
+      };
+      functionNode.addEventListener( 'bounds', boundsListener );
 
       // when dispose is called for the function instance, remove the associated node
       functionInstance.disposeCalled.addListener( function() {
+        functionNode.removeEventListener( 'bounds', boundsListener );
         functionNode.dispose();
         functionsParentNode.removeChild( functionNode );
       } );
