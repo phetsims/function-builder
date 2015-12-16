@@ -93,7 +93,7 @@ define( function( require ) {
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
-        // Create the new function instance and notify listeners
+        // Create a function instance and notify listeners
         this.functionInstance = new AbstractFunctionConstructor( {
           location: initialLocationScreenView,
           dragging: true
