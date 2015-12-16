@@ -182,6 +182,10 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
+  /**
+   * Simplified builder for this test.
+   * @constructor
+   */
   function Builder() {
     this.location = new Vector2( 312, 240 ); // left center (input slot)
     this.numberOfFunctions = 3;
@@ -195,6 +199,12 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
+  /**
+   * Simplified builder node for this test
+   * @param {Builder} builder
+   * @param {Object} options
+   * @constructor
+   */
   function BuilderNode( builder, options ) {
 
     options = _.extend( {
