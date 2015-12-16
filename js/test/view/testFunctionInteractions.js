@@ -13,6 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -55,14 +56,7 @@ define( function( require ) {
     // parent node for all functions
     var functionsParentNode = new Node();
 
-    var functionCarouselItems = []; // {FunctionCreatorNode[]}
-    for ( var i = 0; i < functionConstructors.length; i++ ) {
-      functionCarouselItems.push( createFunctionCarouselItem( functionConstructors[ i ], functionsParentNode ) );
-    }
-
-    var functionsCarousel = new Carousel( functionCarouselItems, {
-      orientation: 'horizontal',
-      itemsPerPage: 3,
+    var functionsCarousel = new FunctionsCarousel( functionConstructors, functionsParentNode, {
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - 25
     } );
@@ -80,26 +74,53 @@ define( function( require ) {
 
   functionBuilder.register( 'testFunctionInteractions', testFunctionInteractions );
 
-  //TODO determine whether function goes into the builder or is returned to carousel
-  var adjustFunctionLocation = function( functionInstance, event, trail ) {
-    functionInstance.locationProperty.reset();
-  };
+  /**
+   * @param {function} functionConstructors - constructors of type {AbstractFunction}
+   * @param {Node} functionsParentNode
+   * @param {Object} [options]
+   * @constructor
+   */
+  function FunctionsCarousel( functionConstructors, functionsParentNode, options ) {
+
+    options = _.extend( {
+      orientation: 'horizontal',
+      itemsPerPage: 3
+    }, options );
+
+    var functionCarouselItems = []; // {FunctionCreatorNode[]}
+    for ( var i = 0; i < functionConstructors.length; i++ ) {
+      functionCarouselItems.push( createFunctionCarouselItem( functionConstructors[ i ], this, functionsParentNode ) );
+    }
+
+    Carousel.call( this,  functionCarouselItems, options );
+  }
+
+  inherit( Carousel, FunctionsCarousel );
+
+  functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
 
   /**
    * Creates an item for the function carousel.
    *
    * @param {function} FunctionConstructor - constructor of an {AbstractFunction}
+   * @param {Carousel} carousel
    * @param {Node} functionsParentNode - parent for all function nodes that are created
    * @param {Object} [options]
    * @returns {FunctionCreatorNode}
    */
-  var createFunctionCarouselItem = function( FunctionConstructor, functionsParentNode, options ) {
+  var createFunctionCarouselItem = function( FunctionConstructor, carousel, functionsParentNode, options ) {
 
     options = _.extend( {
       maxInstances: 3
     }, options );
 
     var iconNode = new FunctionNode( new FunctionConstructor() );
+
+    //TODO determine whether function goes into the builder or is returned to carousel
+    var adjustFunctionLocation = function( functionInstance, event, trail ) {
+      carousel.scrollToItem( functionCreatorNode );
+      functionInstance.locationProperty.reset();
+    };
 
     /**
      * Creates a function instance and wires it into the sim.
@@ -129,7 +150,9 @@ define( function( require ) {
       return functionInstance;
     };
 
-    return new FunctionCreatorNode( iconNode, createFunctionInstance, options );
+    var functionCreatorNode = new FunctionCreatorNode( iconNode, createFunctionInstance, options );
+
+    return functionCreatorNode;
   };
 
   return testFunctionInteractions;
