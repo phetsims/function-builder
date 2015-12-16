@@ -99,6 +99,7 @@ define( function( require ) {
 
   functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
 
+  //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
   /**
    * Creates an item for the function carousel.
    *
