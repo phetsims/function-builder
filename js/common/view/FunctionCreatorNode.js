@@ -5,7 +5,7 @@
  * It has the following responsibilities:
  *
  * - displays a function's icon
- * - creates {AbstractFunction} function instances and manages their initial drag cycle
+ * - creates {AbstractFunction} function instances and manages their initial drag sequence
  * - limits the number of instances created to some (optional) maximum
  * - hides the function's icon and ceases creation when the maximum number of instances is reached
  * - monitors function instance to determine when they have been returned to the Carousel
@@ -38,7 +38,7 @@ define( function( require ) {
 
     options = _.extend( {
       maxInstances: Number.POSITIVE_INFINITY,  // {number} max number of function instances that can be created
-      endDrag: function( functionInstance, event, trail ) {} // {function} called at the end of each drag cycle
+      endDrag: function( functionInstance, event, trail ) {} // {function} called at the end of each drag sequence
     }, options );
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
@@ -60,7 +60,7 @@ define( function( require ) {
     iconNode.addInputListener( new SimpleDragHandler( {
 
       parentScreenView: null, // @private {ScreenView} set on first start drag
-      functionInstance: null, // @private {AbstractFunction} set during a drag cycle
+      functionInstance: null, // @private {AbstractFunction} set during a drag sequence
 
       allowTouchSnag: true,
 

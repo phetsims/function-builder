@@ -25,7 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
       cursor: 'pointer',
-      endDrag: function( event, trail ) {} // {function} called at the end of each drag cycle
+      endDrag: function( event, trail ) {} // {function} called at the end of each drag sequence
     }, options );
 
     FunctionNode.call( this, functionInstance, options );
