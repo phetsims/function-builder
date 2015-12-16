@@ -186,7 +186,12 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  //TODO when function instance intersects builder, next available slot in builder becomes visible
+  //TODO when function is released and doesn't intersect with builder, it returns to carousel
+  //TODO when function instance intersects with builder, next available slot in builder becomes visible
+  //TODO when function overlaps a filled slot, that slot shifts right if possible
+  //TODO when function is released over builder, it goes into the closest slot
+  //TODO when all slots are filled and function is dropped on occupied slot, the function in the slot returns to the carousel
+  //TODO when interaction is completed, functions shift left to fill unoccupied slots
 
   /**
    * Simplified builder for this test.
