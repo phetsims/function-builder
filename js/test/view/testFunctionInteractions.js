@@ -238,7 +238,7 @@ define( function( require ) {
 
     options = _.extend( {
       functionLineWidth: 1
-    }, options );;
+    }, options );
 
     options.left = builder.location.x;
     options.centerY = builder.location.y;
