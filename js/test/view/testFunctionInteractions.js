@@ -173,7 +173,7 @@ define( function( require ) {
         functionNode.on( 'bounds', boundsListener );
 
         // when dispose is called for the function instance, remove the associated node
-        functionInstance.disposeCalled.addListener( function() {
+        functionInstance.disposeCalledEmitter.addListener( function() {
           functionNode.off( 'bounds', boundsListener );
           functionNode.dispose();
           functionsParentNode.removeChild( functionNode );

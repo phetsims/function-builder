@@ -48,7 +48,7 @@ define( function( require ) {
     this.dragging = options.dragging; // @public {boolean} is the user dragging the function?
 
     // @public (read-only) emitted when dispose has been called, but before it has executed
-    this.disposeCalled = new Emitter();
+    this.disposeCalledEmitter = new Emitter();
 
     PropertySet.call( this, {
       location: options.location // @public {Vector2} location of the function
@@ -56,8 +56,8 @@ define( function( require ) {
 
     // @private
     this.disposeAbstractFunction = function() {
-      this.disposeCalled.removeAllListeners();
-      this.disposeCalled = null;
+      this.disposeCalledEmitter.removeAllListeners();
+      this.disposeCalledEmitter = null;
     };
   }
 
@@ -67,7 +67,7 @@ define( function( require ) {
 
     // @public @override
     dispose: function() {
-      this.disposeCalled.emit();
+      this.disposeCalledEmitter.emit();
       PropertySet.prototype.dispose.call( this );
       this.disposeAbstractFunction();
     },
