@@ -32,19 +32,13 @@ define( function( require ) {
 
     options.children = [];
 
-    var backgroundNode = new FunctionBackgroundNode( {
-      fill: functionInstance.fill,
-      stroke: functionInstance.stroke,
-      lineWidth: functionInstance.lineWidth,
-      lineDash: functionInstance.lineDash,
-      backgroundWidth: functionInstance.width,
-      aspectRatio: functionInstance.aspectRatio,
+    var backgroundNode = new FunctionBackgroundNode( _.extend( {
       xInsetFactor: options.xInsetFactor
-    } );
+    }, functionInstance.viewInfo ) );
     options.children.push( backgroundNode );
 
-    if ( functionInstance.image ) {
-      var iconNode = new Image( functionInstance.image, {
+    if ( functionInstance.viewInfo.image ) {
+      var iconNode = new Image( functionInstance.viewInfo.image, {
         scale: options.iconScale,
         center: backgroundNode.center
       } );
