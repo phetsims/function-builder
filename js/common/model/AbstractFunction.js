@@ -47,7 +47,7 @@ define( function( require ) {
     this.disposeCalledEmitter = new Emitter();
 
     PropertySet.call( this, {
-      location: options.location // @public {Vector2} location of the function
+      location: options.location // @public {Vector2} center of the function in the view
     } );
 
     // @private
