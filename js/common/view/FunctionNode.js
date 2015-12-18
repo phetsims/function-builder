@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -23,18 +24,12 @@ define( function( require ) {
   function FunctionNode( functionInstance, options ) {
 
     options = _.extend( {
-      xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
-    // validate options
-    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
-
     options.children = [];
 
-    var backgroundNode = new FunctionBackgroundNode( _.extend( {
-      xInsetFactor: options.xInsetFactor
-    }, functionInstance.viewInfo ) );
+    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
     options.children.push( backgroundNode );
 
     if ( functionInstance.viewInfo.image ) {

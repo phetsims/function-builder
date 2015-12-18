@@ -28,8 +28,6 @@ define( function( require ) {
       name: null, // {string} optional name of the function, not visible to the user, used internally for debugging
 
       // default look of the view associated with a function
-      backgroundWidth: 120, // {number} width of a function piece, height is computed so that aspect ratio remains the same at all sizes
-      aspectRatio: 1.8, // {number} aspect ratio, width/height
       image: null, // {HTMLImageElement|MipMapArray} optional image used to represent the function
       fill: 'white', // {Color|string}
       stroke: 'black', // {Color|string}
@@ -41,8 +39,7 @@ define( function( require ) {
     this.name = options.name; // @public (read-only)
 
     // @public (read-only) properties related to visual representation, in the model for convenience
-    this.viewInfo = _.pick( options,
-      'backgroundWidth', 'aspectRatio', 'image', 'fill', 'stroke', 'lineWidth', 'lineDash');
+    this.viewInfo = _.pick( options, 'image', 'fill', 'stroke', 'lineWidth', 'lineDash');
 
     this.dragging = options.dragging; // @public {boolean} is the user dragging the function?
 

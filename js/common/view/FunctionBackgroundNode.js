@@ -14,6 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -26,13 +27,18 @@ define( function( require ) {
   function FunctionBackgroundNode( options ) {
 
     options = _.extend( {
+
+      // Shape
+      backgroundWidth: FBConstants.FUNCTION_WIDTH, // {number} width, height is computed so that aspect ratio remains the same at all sizes
+      aspectRatio: 1.8, // {number} aspect ratio, width/height
+      xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the shape
+
+      // Path
       fill: 'white', // {Color|string}
       stroke: 'black', // {Color|string}
       lineWidth: 1, // {number}
-      lineDash: null, // {number[]}
-      backgroundWidth: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
-      aspectRatio: 1.8, // {number} aspect ratio, width/height
-      xInsetFactor: 0.15 // {number} x-inset of arrow-like ends of the shape
+      lineDash: null // {number[]}
+
     }, options );
 
     // validate options
