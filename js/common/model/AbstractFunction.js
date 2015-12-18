@@ -27,7 +27,9 @@ define( function( require ) {
       dragging: false, // {boolean} is the function being dragged by the user when it's instantiated?
       name: null, // {string} optional name of the function, not visible to the user, used internally for debugging
 
-      // default look used to style the function's associated Node
+      // default look of the view associated with a function
+      width: 120, // {number} width of a function piece, height is computed so that aspect ratio remains the same at all sizes
+      aspectRatio: 1.8, // {number} aspect ratio, width/height
       image: null, // {HTMLImageElement|MipMapArray} optional image used to represent the function
       fill: 'white', // {Color|string}
       stroke: 'black', // {Color|string}
@@ -39,6 +41,9 @@ define( function( require ) {
     this.name = options.name; // @public (read-only)
 
     // @public (read-only) properties related to visual representation, in the model for convenience
+    //TODO encapsulate these in a 'view' object literal
+    this.width = options.width;
+    this.aspectRatio = options.aspectRatio;
     this.image = options.image;
     this.fill = options.fill;
     this.stroke = options.stroke;

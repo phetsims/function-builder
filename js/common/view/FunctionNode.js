@@ -23,15 +23,11 @@ define( function( require ) {
   function FunctionNode( functionInstance, options ) {
 
     options = _.extend( {
-      backgroundWidth: 120, // {number} width, height is computed so that aspect ratio remains the same at all sizes
-      aspectRatio: 1.8, // {number} aspect ratio, width/height
       xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the background
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
     // validate options
-    assert && assert( options.backgroundWidth > 0 );
-    assert && assert( options.aspectRatio > 0 );
     assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
 
     options.children = [];
@@ -41,8 +37,8 @@ define( function( require ) {
       stroke: functionInstance.stroke,
       lineWidth: functionInstance.lineWidth,
       lineDash: functionInstance.lineDash,
-      backgroundWidth: options.backgroundWidth,
-      aspectRatio: options.aspectRatio,
+      backgroundWidth: functionInstance.width,
+      aspectRatio: functionInstance.aspectRatio,
       xInsetFactor: options.xInsetFactor
     } );
     options.children.push( backgroundNode );
