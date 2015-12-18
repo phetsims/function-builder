@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var Carousel = require( 'SUN/Carousel' );
-  var Dimension2 = require( 'DOT/Dimension2' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -210,9 +210,25 @@ define( function( require ) {
     this.height = options.height;
     this.location = options.location;
 
+    // @public (read-only) center of each slot in the builder
+    this.slotLocations = [];
+
     // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
     this.functionProperties = [];
+
+    // width occupied by slots
+    var totalWidthOfSlots = this.numberOfFunctions * FBConstants.FUNCTION_WIDTH;
+    assert && assert( totalWidthOfSlots > 0 );
+
+    // create and populate slots
+    var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
     for ( var i = 0; i < this.numberOfFunctions; i++ ) {
+
+      //TODO does not account for overlap of slot shapes
+      // slot
+      this.slotLocations.push( leftSlotLocation.plusXY( i * FBConstants.FUNCTION_WIDTH, 0 ) );
+
+      // function in the slot
       this.functionProperties.push( new Property( null ) );
     }
   }
@@ -238,28 +254,25 @@ define( function( require ) {
     options.left = builder.location.x;
     options.centerY = builder.location.y;
 
-    var backgroundNode = new Rectangle( 0, 0, builder.width, builder.height, {
+    var backgroundNode = new Rectangle( 0, -builder.height/2, builder.width, builder.height, {
       fill: 'rgb( 130, 62, 85 )',
       stroke: 'black'
     } );
 
-    // a placeholder for each slot
-    var placeholderNodes = [];
-    var previousNode = null;
-    for ( var i = 0; i < builder.numberOfFunctions; i++ ) {
-      var placeholderNode = new FunctionNode( new PlaceholderFunction(), {
-        left: previousNode ? ( previousNode.right - previousNode.xInset - options.functionLineWidth / 2 ) : 0
-      } );
-      placeholderNodes.push( placeholderNode );
-      previousNode = placeholderNode;
+    // slots
+    var slotNodes = [];
+    for ( var i = 0; i < builder.slotLocations.length; i++ ) {
+      slotNodes.push( new FunctionNode( new PlaceholderFunction(), {
+        centerX: builder.slotLocations[ i ].x - builder.location.x,
+        centerY: 0
+      } ) );
     }
 
-    var placeholdersParent = new Node( {
-      children: placeholderNodes,
-      center: backgroundNode.center
+    var slotsParent = new Node( {
+      children: slotNodes
     } );
 
-    options.children = [ backgroundNode, placeholdersParent ];
+    options.children = [ backgroundNode, slotsParent ];
     Node.call( this, options );
   }
 
