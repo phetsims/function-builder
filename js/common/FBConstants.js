@@ -5,7 +5,6 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
   var FBConstants = {
