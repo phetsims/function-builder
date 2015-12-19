@@ -74,11 +74,22 @@ define( function( require ) {
     // parent node for all function nodes
     var functionsParentNode = new Node();
 
-    //TODO FunctionCreatorNode needs same options.endDrag listener as MovableFunctionNode
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
     for ( var i = 0; i < functionConstructors.length; i++ ) {
       functionCarouselItems.push( new FunctionCreatorNode( functionConstructors[ i ], {
-        maxInstances: 2
+
+        // max number of instances of each function type
+        maxInstances: 2,
+
+        //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
+        // If the function isn't added to the builder, then return it to the carousel.
+        endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
+          var slotNumber = builder.addFunction( functionInstance );
+          if ( slotNumber === -1 ) {
+            functionsCarousel.scrollToItem( functionCreatorNode );
+            functionInstance.locationProperty.reset();
+          }
+        }
       } ) );
     }
 
@@ -115,10 +126,10 @@ define( function( require ) {
      * Called when a function instance is created.
      * Creates an associated node and wires it into the sim.
      *
-     * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
      * @param {AbstractFunction} functionInstance - the instance that was created
+     * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
      */
-    var functionCreatedListener = function( functionCreatorNode, functionInstance ) {
+    var functionCreatedListener = function( functionInstance, functionCreatorNode ) {
 
       assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
 
@@ -126,8 +137,8 @@ define( function( require ) {
       (function() {
 
         // closure vars
-        var localFunctionCreatorNode = functionCreatorNode;
         var localFunctionInstance = functionInstance;
+        var localFunctionCreatorNode = functionCreatorNode;
         var localBuilder = builder;
         var localFunctionsParentNode = functionsParentNode;
         var localFunctionNode = null; // instantiated below

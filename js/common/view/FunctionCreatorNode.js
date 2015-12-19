@@ -98,7 +98,7 @@ define( function( require ) {
           location: initialLocationScreenView,
           dragging: true
         } );
-        thisNode.functionCreatedEmitter.emit2( thisNode, this.functionInstance );
+        thisNode.functionCreatedEmitter.emit2( this.functionInstance, thisNode );
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
@@ -121,7 +121,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         this.functionInstance.dragging = false;
-        options.endDrag( this.functionInstance, event, trail );
+        options.endDrag( this.functionInstance, thisNode, event, trail );
         this.functionInstance = null;
       }
     } ) );
