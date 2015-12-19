@@ -167,8 +167,6 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  //TODO function can be dropped only into an available slot in builder, otherwise returns to carousel
-
   /**
    * Simplified builder for this test.
    * @param {Object} [options]
