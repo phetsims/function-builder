@@ -136,6 +136,7 @@ define( function( require ) {
       // IIFE
       (function() {
 
+        //TODO are all of these needed? better way to do this?
         // closure vars
         var localFunctionInstance = functionInstance;
         var localFunctionCreatorNode = functionCreatorNode;
@@ -253,7 +254,7 @@ define( function( require ) {
      * @public
      */
     addFunction: function( functionInstance ) {
-      var DISTANCE_THRESHOLD = 100; //TODO this should be computed, or moved elsewhere
+      var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
       var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
         this.functionProperties[ slotNumber ].set( functionInstance );
