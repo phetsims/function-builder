@@ -274,7 +274,7 @@ define( function( require ) {
      *
      * @param {Vector2} location - the location of the function instance
      * @param {number} distanceThreshold - must be at least this close
-     * @param {number} slot number, -1 if no slot
+     * @returns {number} slot number, -1 if no slot
      * @private
      */
     getClosestEmptySlot: function( location, distanceThreshold ) {
