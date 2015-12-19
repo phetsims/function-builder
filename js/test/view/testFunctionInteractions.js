@@ -67,6 +67,8 @@ define( function( require ) {
 
     var builder = new Builder();
 
+    //TODO how to 'Reset All'?
+
     // view ----------------------------------------------------------------------
 
     // parent node for all function nodes
