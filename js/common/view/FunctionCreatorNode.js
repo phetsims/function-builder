@@ -38,8 +38,8 @@ define( function( require ) {
   function FunctionCreatorNode( AbstractFunctionConstructor, options ) {
 
     options = _.extend( {
-      maxInstances: Number.POSITIVE_INFINITY,  // {number} max number of function instances that can be created
-      endDrag: function( functionInstance, event, trail ) {} // {function} called at the end of each drag sequence
+      maxInstances: Number.POSITIVE_INFINITY, // {number} max number of function instances that can be created
+      endDrag: function( functionInstance, event, trail ) {} // called at the end of drag sequence
     }, options );
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
@@ -62,7 +62,7 @@ define( function( require ) {
       iconNode.visible = ( numberOfInstances < options.maxInstances );
     } );
 
-    this.functionInstanceCreated = new Emitter(); // @public
+    this.functionCreatedEmitter = new Emitter(); // @public
 
     var thisNode = this;
     iconNode.addInputListener( new SimpleDragHandler( {
@@ -98,7 +98,7 @@ define( function( require ) {
           location: initialLocationScreenView,
           dragging: true
         } );
-        thisNode.functionInstanceCreated.emit1( this.functionInstance );
+        thisNode.functionCreatedEmitter.emit2( thisNode, this.functionInstance );
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
@@ -131,8 +131,8 @@ define( function( require ) {
 
     // @private
     this.disposeFunctionCreatorNode = function() {
-      thisNode.functionInstanceCreated.removeAllListeners();
-      thisNode.functionInstanceCreated = null;
+      thisNode.functionCreatedEmitter.removeAllListeners();
+      thisNode.functionCreatedEmitter = null;
     };
   }
 

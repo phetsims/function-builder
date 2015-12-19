@@ -25,6 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
       cursor: 'pointer',
+      startDrag: function( event, trail ) {}, // {function} called at the start of each drag sequence
       endDrag: function( event, trail ) {} // {function} called at the end of each drag sequence
     }, options );
 
@@ -83,6 +84,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
         functionInstance.dragging = true;
+        options.startDrag( functionInstance, event, trail );
       },
 
       translate: function( translationParams ) {

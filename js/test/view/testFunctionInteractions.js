@@ -69,10 +69,20 @@ define( function( require ) {
 
     // view ----------------------------------------------------------------------
 
-    // parent node for all functions
+    // parent node for all function nodes
     var functionsParentNode = new Node();
 
-    var functionsCarousel = new FunctionsCarousel( functionConstructors, functionsParentNode, {
+    //TODO FunctionCreatorNode needs same options.endDrag listener as MovableFunctionNode
+    var functionCarouselItems = []; // {FunctionCreatorNode[]}
+    for ( var i = 0; i < functionConstructors.length; i++ ) {
+      functionCarouselItems.push( new FunctionCreatorNode( functionConstructors[ i ], {
+        maxInstances: 2
+      } ) );
+    }
+
+    var functionsCarousel = new Carousel( functionCarouselItems, {
+      orientation: 'horizontal',
+      itemsPerPage: 3,
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - 25
     } );
@@ -85,6 +95,8 @@ define( function( require ) {
 
     var builderNode = new BuilderNode( builder );
 
+    wireUpCarouselAndBuilder( functionsCarousel, functionCarouselItems, functionsParentNode, builder );
+
     return new Node( {
       children: [ functionsCarousel, functionsPageControl, builderNode, functionsParentNode ]
     } );
@@ -94,89 +106,64 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  /**
-   * Carousel for functions.
-   *
-   * @param {function} functionConstructors - constructors of type {AbstractFunction}
-   * @param {Node} functionsParentNode
-   * @param {Object} [options]
-   * @constructor
-   */
-  function FunctionsCarousel( functionConstructors, functionsParentNode, options ) {
+  function wireUpCarouselAndBuilder( carousel, functionCreatorNodes, functionsParentNode, builder ) {
 
-    options = _.extend( {
-      orientation: 'horizontal',
-      itemsPerPage: 3
-    }, options );
-
-    var functionCarouselItems = []; // {FunctionCreatorNode[]}
-    for ( var i = 0; i < functionConstructors.length; i++ ) {
-      functionCarouselItems.push( FunctionsCarousel.createItem( functionConstructors[ i ], this, functionsParentNode ) );
-    }
-
-    Carousel.call( this, functionCarouselItems, options );
-  }
-
-  functionBuilder.register( 'testFunctionInteractions.FunctionsCarousel', FunctionsCarousel );
-
-  inherit( Carousel, FunctionsCarousel, {}, {
-
-    //TODO too much reliance on closure vars in this function, difficult to grok, difficult to modify
     /**
-     * Creates an item for the function carousel.
+     * Called when a function instance is created.
+     * Creates an associated node and wires it into the sim.
      *
-     * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
-     * @param {Carousel} carousel
-     * @param {Node} functionsParentNode - parent for all function nodes that are created
-     * @param {Object} [options]
-     * @returns {FunctionCreatorNode}
-     * @private
-     * @static
+     * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
+     * @param {AbstractFunction} functionInstance - the instance that was created
      */
-    createItem: function( AbstractFunctionConstructor, carousel, functionsParentNode, options ) {
+    var functionCreatedListener = function( functionCreatorNode, functionInstance ) {
 
-      options = _.extend( {
-        maxInstances: 2
-      }, options );
+      assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
 
-      var functionCreatorNode = new FunctionCreatorNode( AbstractFunctionConstructor, options );
+      // IIFE
+      (function() {
 
-      //TODO determine whether function goes into the builder or is returned to carousel
-      var adjustFunctionLocation = function( functionInstance, event, trail ) {
-        carousel.scrollToItem( functionCreatorNode );
-        functionInstance.locationProperty.reset();
-      };
+        // closure vars
+        var localFunctionCreatorNode = functionCreatorNode;
+        var localFunctionInstance = functionInstance;
+        var localBuilder = builder;
+        var localFunctionsParentNode = functionsParentNode;
+        var localFunctionNode = null; // instantiated below
 
-      /**
-       * Called when a function instance is created.
-       * Creates an associated node and wires it into the sim.
-       * @param {AbstractFunction} functionInstance
-       */
-      var functionInstanceCreatedListener = function( functionInstance ) {
+        // If the function is in the builder, remove it.
+        var startDrag = function( functionInstance, event, trail ) {
+          if ( localBuilder.containsFunction( functionInstance ) ) {
+            localBuilder.removeFunction( functionInstance );
+          }
+        };
 
-        assert && assert( functionInstance, 'does the associated Emitter has the same number of args?' );
+        // If the function isn't added to the builder, then return it to the carousel.
+        var endDrag = function( functionInstance, event, trail ) {
+          var slotNumber = localBuilder.addFunction( functionInstance );
+          if ( slotNumber === -1 ) {
+            carousel.scrollToItem( localFunctionCreatorNode );
+            functionInstance.locationProperty.reset();
+          }
+        };
 
-        (function() {
+        // create a node of the function instance
+        localFunctionNode = new MovableFunctionNode( localFunctionInstance, {
+          startDrag: startDrag,
+          endDrag: endDrag
+        } );
+        localFunctionsParentNode.addChild( localFunctionNode );
 
-          // node, keep it in a closure var so we can remove it when it's associated function is disposed of
-          var functionNode = new MovableFunctionNode( functionInstance, {
-            endDrag: adjustFunctionLocation
-          } );
-          functionsParentNode.addChild( functionNode );
+        // when dispose is called for the function instance, remove the associated node
+        localFunctionInstance.disposeCalledEmitter.addListener( function() {
+          localFunctionNode.dispose();
+          localFunctionsParentNode.removeChild( localFunctionNode );
+        } );
+      })();
+    };
 
-          // when dispose is called for the function instance, remove the associated node
-          functionInstance.disposeCalledEmitter.addListener( function() {
-            functionNode.dispose();
-            functionsParentNode.removeChild( functionNode );
-          } );
-        })();
-      };
-
-      functionCreatorNode.functionInstanceCreated.addListener( functionInstanceCreatedListener );
-
-      return functionCreatorNode;
-    }
-  } );
+    functionCreatorNodes.forEach( function( functionCreatorNode ) {
+      functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
+    } );
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -230,7 +217,58 @@ define( function( require ) {
 
   functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
 
-  inherit( Object, Builder );
+  inherit( Object, Builder, {
+
+    /**
+     * Does the builder container the specified function instance?
+     *
+     * @param {AbstractFunction} functionInstance
+     * @returns {boolean}
+     */
+    containsFunction: function( functionInstance ) {
+      var found = false;
+      for ( var i = 0; i < this.functionProperties.length && !found; i++ ) {
+        found = ( this.functionProperties[ i ].get() === functionInstance );
+      }
+      return found;
+    },
+
+    /**
+     * Adds a function to a slot in the builder, if it's close enough to an empty slot.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @returns {number} slot number it was added to, -1 if not added
+     */
+    addFunction: function( functionInstance ) {
+      var slotNumber = -1;
+      for ( var i = 0; i < this.functionProperties.length && slotNumber === -1; i++ ) {
+        //TODO and close enough
+        if ( this.functionProperties[ i ].get() === null ) {
+          this.functionProperties[ i ].set( functionInstance );
+          functionInstance.locationProperty.set( this.slotLocations[ i ] );
+          slotNumber = i;
+        }
+      }
+      return slotNumber;
+    },
+
+    /**
+     * Removes a specified function instance from the builder.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @returns {boolean} true if removed, false if not removed
+     */
+    removeFunction: function( functionInstance ) {
+      var removed = false;
+      for ( var i = 0; i < this.functionProperties.length && !removed; i++ ) {
+        if ( this.functionProperties[ i ].get() === functionInstance ) {
+          this.functionProperties[ i ].set( null );
+          removed = true;
+        }
+      }
+      return removed;
+    }
+  } );
 
   //--------------------------------------------------------------------------------------------------------------------
 
