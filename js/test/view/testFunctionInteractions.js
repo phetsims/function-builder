@@ -130,26 +130,24 @@ define( function( require ) {
         var localFunctionsParentNode = functionsParentNode;
         var localFunctionNode = null; // instantiated below
 
-        // If the function is in the builder, remove it.
-        var startDrag = function( functionInstance, event, trail ) {
-          if ( localBuilder.containsFunction( functionInstance ) ) {
-            localBuilder.removeFunction( functionInstance );
-          }
-        };
-
-        // If the function isn't added to the builder, then return it to the carousel.
-        var endDrag = function( functionInstance, event, trail ) {
-          var slotNumber = localBuilder.addFunction( functionInstance );
-          if ( slotNumber === -1 ) {
-            carousel.scrollToItem( localFunctionCreatorNode );
-            functionInstance.locationProperty.reset();
-          }
-        };
-
         // create a node of the function instance
         localFunctionNode = new MovableFunctionNode( localFunctionInstance, {
-          startDrag: startDrag,
-          endDrag: endDrag
+
+          // If the function is in the builder, remove it.
+          startDrag: function( functionInstance, event, trail ) {
+            if ( localBuilder.containsFunction( functionInstance ) ) {
+              localBuilder.removeFunction( functionInstance );
+            }
+          },
+
+          // If the function isn't added to the builder, then return it to the carousel.
+          endDrag: function( functionInstance, event, trail ) {
+            var slotNumber = localBuilder.addFunction( functionInstance );
+            if ( slotNumber === -1 ) {
+              carousel.scrollToItem( localFunctionCreatorNode );
+              functionInstance.locationProperty.reset();
+            }
+          }
         } );
         localFunctionsParentNode.addChild( localFunctionNode );
 
