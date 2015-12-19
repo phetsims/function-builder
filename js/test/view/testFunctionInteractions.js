@@ -94,7 +94,6 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
-  //TODO Carousel subtype needed because items require a reference to the carousel for scrolling. Is this feature desirable? Can this reference be eliminated?
   /**
    * Carousel for functions.
    *
@@ -157,31 +156,20 @@ define( function( require ) {
 
         assert && assert( functionInstance, 'does the associated Emitter has the same number of args?' );
 
-        // create an associated node
-        var functionNode = new MovableFunctionNode( functionInstance, {
-          endDrag: adjustFunctionLocation
-        } );
-        functionsParentNode.addChild( functionNode );
+        (function() {
 
-        // If the function node overlaps the carousel, scroll the carousel so that the function is visible.
-        var boundsListener = function() {
+          // node, keep it in a closure var so we can remove it when it's associated function is disposed of
+          var functionNode = new MovableFunctionNode( functionInstance, {
+            endDrag: adjustFunctionLocation
+          } );
+          functionsParentNode.addChild( functionNode );
 
-          var globalFunctionNodeBounds = functionNode.parentToGlobalBounds( functionNode.bounds );
-          var globalCarouselBounds = carousel.parentToGlobalBounds( carousel.bounds );
-          var overlap = globalFunctionNodeBounds.intersectsBounds( globalCarouselBounds );
-
-          if ( overlap ) {
-            carousel.scrollToItem( functionCreatorNode );
-          }
-        };
-        functionNode.on( 'bounds', boundsListener );
-
-        // when dispose is called for the function instance, remove the associated node
-        functionInstance.disposeCalledEmitter.addListener( function() {
-          functionNode.off( 'bounds', boundsListener );
-          functionNode.dispose();
-          functionsParentNode.removeChild( functionNode );
-        } );
+          // when dispose is called for the function instance, remove the associated node
+          functionInstance.disposeCalledEmitter.addListener( function() {
+            functionNode.dispose();
+            functionsParentNode.removeChild( functionNode );
+          } );
+        })();
       };
 
       functionCreatorNode.functionInstanceCreated.addListener( functionInstanceCreatedListener );
