@@ -47,6 +47,8 @@ define( function( require ) {
    */
   function testFunctionInteractions( layoutBounds ) {
 
+    // model ----------------------------------------------------------------------
+
     // constructors for the types of functions that will appear in the carousel
     var functionConstructors = [
       Mirror,
@@ -63,6 +65,10 @@ define( function( require ) {
       MysteryC
     ];
 
+    var builder = new Builder();
+
+    // view ----------------------------------------------------------------------
+
     // parent node for all functions
     var functionsParentNode = new Node();
 
@@ -76,8 +82,6 @@ define( function( require ) {
       centerX: functionsCarousel.centerX,
       top: functionsCarousel.bottom + 8
     } );
-
-    var builder = new Builder();
 
     var builderNode = new BuilderNode( builder );
 
