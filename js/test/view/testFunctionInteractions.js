@@ -106,6 +106,7 @@ define( function( require ) {
 
   //--------------------------------------------------------------------------------------------------------------------
 
+  //TODO what's the proper abstraction to wrap this in?
   function wireUpCarouselAndBuilder( carousel, functionCreatorNodes, functionsParentNode, builder ) {
 
     /**
@@ -211,6 +212,7 @@ define( function( require ) {
       // function in the slot
       this.functionProperties.push( new Property( null ) );
     }
+    assert && assert( this.slotLocations.length === this.functionProperties.length );
   }
 
   functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
@@ -222,6 +224,7 @@ define( function( require ) {
      *
      * @param {AbstractFunction} functionInstance
      * @returns {boolean}
+     * @public
      */
     containsFunction: function( functionInstance ) {
       var found = false;
@@ -236,16 +239,14 @@ define( function( require ) {
      *
      * @param {AbstractFunction} functionInstance
      * @returns {number} slot number it was added to, -1 if not added
+     * @public
      */
     addFunction: function( functionInstance ) {
-      var slotNumber = -1;
-      for ( var i = 0; i < this.functionProperties.length && slotNumber === -1; i++ ) {
-        //TODO and close enough
-        if ( this.functionProperties[ i ].get() === null ) {
-          this.functionProperties[ i ].set( functionInstance );
-          functionInstance.locationProperty.set( this.slotLocations[ i ] );
-          slotNumber = i;
-        }
+      var DISTANCE_THRESHOLD = 100; //TODO this should be computed, or moved elsewhere
+      var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
+      if ( slotNumber !== -1 ) {
+        this.functionProperties[ slotNumber ].set( functionInstance );
+        functionInstance.locationProperty.set( this.slotLocations[ slotNumber ] );
       }
       return slotNumber;
     },
@@ -255,6 +256,7 @@ define( function( require ) {
      *
      * @param {AbstractFunction} functionInstance
      * @returns {boolean} true if removed, false if not removed
+     * @public
      */
     removeFunction: function( functionInstance ) {
       var removed = false;
@@ -265,6 +267,31 @@ define( function( require ) {
         }
       }
       return removed;
+    },
+
+    /**
+     * Gets the empty slot that is closest to the specified location.
+     *
+     * @param {Vector2} location - the location of the function instance
+     * @param {number} distanceThreshold - must be at least this close
+     * @param {number} slot number, -1 if no slot
+     * @private
+     */
+    getClosestEmptySlot: function( location, distanceThreshold ) {
+      var slotNumber = -1;
+      for ( var i = 0; i < this.slotLocations.length; i++ ) {
+        if ( this.functionProperties[ i ].get() === null ) {
+          if ( slotNumber === -1 ) {
+            if ( this.slotLocations[ i ].distance( location ) < distanceThreshold ) {
+              slotNumber = i;
+            }
+          }
+          else if ( this.slotLocations[ i ].distance( location ) < this.slotLocations[ slotNumber ].distance( location ) ) {
+            slotNumber = i;
+          }
+        }
+      }
+      return slotNumber;
     }
   } );
 

@@ -83,6 +83,7 @@ define( function( require ) {
       allowTouchSnag: true,
 
       start: function( event, trail ) {
+        event.currentTarget.moveToFront(); // dragging a function moves it to the front
         functionInstance.dragging = true;
         options.startDrag( functionInstance, event, trail );
       },
