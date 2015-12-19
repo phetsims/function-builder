@@ -218,15 +218,18 @@ define( function( require ) {
 
     // width occupied by slots
     var totalWidthOfSlots = this.numberOfFunctions * FBConstants.FUNCTION_WIDTH;
+    if ( this.numberOfFunctions > 1 ) {
+      totalWidthOfSlots -= ( ( this.numberOfFunctions - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH );
+    }
     assert && assert( totalWidthOfSlots > 0 );
 
     // create and populate slots
     var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
     for ( var i = 0; i < this.numberOfFunctions; i++ ) {
 
-      //TODO does not account for overlap of slot shapes
-      // slot
-      this.slotLocations.push( leftSlotLocation.plusXY( i * FBConstants.FUNCTION_WIDTH, 0 ) );
+      // slot, location is at its center
+      this.slotLocations.push( leftSlotLocation.plusXY(
+        i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 ) );
 
       // function in the slot
       this.functionProperties.push( new Property( null ) );
@@ -254,7 +257,7 @@ define( function( require ) {
     options.left = builder.location.x;
     options.centerY = builder.location.y;
 
-    var backgroundNode = new Rectangle( 0, -builder.height/2, builder.width, builder.height, {
+    var backgroundNode = new Rectangle( 0, -builder.height / 2, builder.width, builder.height, {
       fill: 'rgb( 130, 62, 85 )',
       stroke: 'black'
     } );

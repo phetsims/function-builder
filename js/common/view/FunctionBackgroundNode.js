@@ -31,7 +31,6 @@ define( function( require ) {
       // Shape
       backgroundWidth: FBConstants.FUNCTION_WIDTH, // {number} width, height is computed so that aspect ratio remains the same at all sizes
       aspectRatio: 1.8, // {number} aspect ratio, width/height
-      xInsetFactor: 0.15, // {number} x-inset of arrow-like ends of the shape
 
       // Path
       fill: 'white', // {Color|string}
@@ -44,12 +43,11 @@ define( function( require ) {
     // validate options
     assert && assert( options.backgroundWidth > 0 );
     assert && assert( options.aspectRatio > 0 );
-    assert && assert( options.xInsetFactor >= 0 && options.xInsetFactor < 0.5 );
 
     // To improve readability of shape code
     var WIDTH = options.backgroundWidth;
     var HEIGHT = WIDTH / options.aspectRatio;
-    var X_INSET = options.xInsetFactor * WIDTH;
+    var X_INSET = FBConstants.FUNCTION_X_INSET_FACTOR * WIDTH;
 
     // Described from top-left, moving clockwise.
     var backgroundShape = new Shape()
