@@ -23,6 +23,7 @@ define( function( require ) {
   var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
@@ -62,7 +63,7 @@ define( function( require ) {
         //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
         // If the function isn't added to the builder, then return it to the carousel.
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
-          var slotNumber = model.builder.addFunction( functionInstance );
+          var slotNumber = model.builder.addFunctionInstance( functionInstance );
           if ( slotNumber === -1 ) {
             functionsCarousel.scrollToItem( functionCreatorNode ); //TODO forward reference to closure var
             functionInstance.locationProperty.reset();
@@ -86,12 +87,20 @@ define( function( require ) {
 
     var builderNode = new BuilderNode( model.builder );
 
-    wireUpCarouselAndBuilder( functionsCarousel, functionCarouselItems, functionsParentNode, model.builder );
+    wireUpCarouselAndBuilder( functionsCarousel, functionCarouselItems, functionsParentNode, model );
 
-    //TODO how to 'Reset All'?
+    // Reset All button at bottom-right
+    var resetAllButton = new ResetAllButton( {
+      right: layoutBounds.maxX - 20,
+      bottom: layoutBounds.maxY - 20,
+      listener: function() {
+        model.reset();
+        functionsCarousel.reset();
+      }
+    } );
 
     return new Node( {
-      children: [ functionsCarousel, functionsPageControl, builderNode, functionsParentNode ]
+      children: [ functionsCarousel, functionsPageControl, builderNode, resetAllButton, functionsParentNode ]
     } );
   }
 
@@ -100,7 +109,7 @@ define( function( require ) {
   //--------------------------------------------------------------------------------------------------------------------
 
   //TODO what's the proper abstraction to wrap this in?
-  function wireUpCarouselAndBuilder( carousel, functionCreatorNodes, functionsParentNode, builder ) {
+  function wireUpCarouselAndBuilder( carousel, functionCreatorNodes, functionsParentNode, model ) {
 
     /**
      * Called when a function instance is created.
@@ -118,25 +127,28 @@ define( function( require ) {
 
         //TODO are all of these needed? better way to do this?
         // closure vars
+        var localModel = model;
         var localFunctionInstance = functionInstance;
         var localFunctionCreatorNode = functionCreatorNode;
-        var localBuilder = builder;
         var localFunctionsParentNode = functionsParentNode;
         var localFunctionNode = null; // instantiated below
+
+        // add functionInstance to model
+        localModel.addFunctionInstance( localFunctionInstance );
 
         // create a Node for the function instance
         localFunctionNode = new MovableFunctionNode( localFunctionInstance, {
 
           // If the function is in the builder, remove it.
           startDrag: function( functionInstance, event, trail ) {
-            if ( localBuilder.containsFunction( functionInstance ) ) {
-              localBuilder.removeFunction( functionInstance );
+            if ( localModel.builder.containsFunction( functionInstance ) ) {
+              localModel.builder.removeFunctionInstance( functionInstance );
             }
           },
 
           // If the function isn't added to the builder, then return it to the carousel.
           endDrag: function( functionInstance, event, trail ) {
-            var slotNumber = localBuilder.addFunction( functionInstance );
+            var slotNumber = localModel.builder.addFunctionInstance( functionInstance );
             if ( slotNumber === -1 ) {
               carousel.scrollToItem( localFunctionCreatorNode );
               functionInstance.locationProperty.reset();
@@ -147,6 +159,7 @@ define( function( require ) {
 
         // when dispose is called for the function instance, remove the associated Node
         localFunctionInstance.disposeCalledEmitter.addListener( function() {
+          localModel.removeFunctionInstance( localFunctionInstance );
           localFunctionNode.dispose();
           localFunctionsParentNode.removeChild( localFunctionNode );
         } );
@@ -183,11 +196,40 @@ define( function( require ) {
 
     // @public (read-only)
     this.builder = new Builder();
+
+    // @private
+    this.functionInstances = [];
   }
 
   functionBuilder.register( 'testFunctionInteractions.TestModel', TestModel );
 
-  inherit( Object, TestModel );
+  inherit( Object, TestModel, {
+
+    // @public
+    reset: function() {
+      this.builder.reset();
+      //TODO dispose of function instances
+    },
+
+    /**
+     * Adds a function instance to the model.
+     * @param {AbstractFunction} functionInstance
+     */
+    addFunctionInstance: function( functionInstance ) {
+      assert && assert( this.functionInstances.indexOf( functionInstance ) === -1, 'attempted to add functionInstance twice' );
+      this.functionInstances.push( functionInstance );
+    },
+
+    /**
+     * Removes a function instance from the model.
+     * @param {AbstractFunction} functionInstance
+     */
+    removeFunctionInstance: function( functionInstance ) {
+      var index = this.functionInstances.indexOf( functionInstance );
+      assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
+      this.functionInstances.splice( index, 1 );
+    }
+  } );
 
   //--------------------------------------------------------------------------------------------------------------------
 
@@ -211,11 +253,11 @@ define( function( require ) {
     this.height = options.height;
     this.location = options.location;
 
-    // @public (read-only) center of each slot in the builder
-    this.slotLocations = [];
-
     // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
     this.functionProperties = [];
+
+    // @public (read-only) center of each slot in the builder. 1:1 index correspondence with functionProperties.
+    this.slotLocations = [];
 
     // width occupied by slots
     var totalWidthOfSlots = this.numberOfFunctions * FBConstants.FUNCTION_WIDTH;
@@ -242,6 +284,13 @@ define( function( require ) {
 
   inherit( Object, Builder, {
 
+    // @public
+    reset: function() {
+      this.functionProperties.forEach( function( functionInstance ) {
+        functionInstance.reset();
+      } );
+    },
+
     /**
      * Does the builder container the specified function instance?
      *
@@ -258,13 +307,13 @@ define( function( require ) {
     },
 
     /**
-     * Adds a function to a slot in the builder, if it's close enough to an empty slot.
+     * Adds a function instance, if it's close enough to an empty slot.
      *
      * @param {AbstractFunction} functionInstance
      * @returns {number} slot number it was added to, -1 if not added
      * @public
      */
-    addFunction: function( functionInstance ) {
+    addFunctionInstance: function( functionInstance ) {
       var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
       var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
@@ -275,13 +324,12 @@ define( function( require ) {
     },
 
     /**
-     * Removes a specified function instance from the builder.
+     * Removes a function instance.
      *
      * @param {AbstractFunction} functionInstance
-     * @returns {boolean} true if removed, false if not removed
      * @public
      */
-    removeFunction: function( functionInstance ) {
+    removeFunctionInstance: function( functionInstance ) {
       var removed = false;
       for ( var i = 0; i < this.functionProperties.length && !removed; i++ ) {
         if ( this.functionProperties[ i ].get() === functionInstance ) {
@@ -289,7 +337,7 @@ define( function( require ) {
           removed = true;
         }
       }
-      return removed;
+      assert && assert( removed );
     },
 
     /**
