@@ -141,7 +141,7 @@ define( function( require ) {
 
           // If the function is in the builder, remove it.
           startDrag: function( functionInstance, event, trail ) {
-            if ( localModel.builder.containsFunction( functionInstance ) ) {
+            if ( localModel.builder.containsFunctionInstance( functionInstance ) ) {
               localModel.builder.removeFunctionInstance( functionInstance );
             }
           },
@@ -254,9 +254,9 @@ define( function( require ) {
     this.location = options.location;
 
     // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
-    this.functionProperties = [];
+    this.functionInstancesProperties = [];
 
-    // @public (read-only) center of each slot in the builder. 1:1 index correspondence with functionProperties.
+    // @public (read-only) center of each slot in the builder. 1:1 index correspondence with functionInstancesProperties.
     this.slotLocations = [];
 
     // width occupied by slots
@@ -275,9 +275,9 @@ define( function( require ) {
         i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 ) );
 
       // function in the slot
-      this.functionProperties.push( new Property( null ) );
+      this.functionInstancesProperties.push( new Property( null ) );
     }
-    assert && assert( this.slotLocations.length === this.functionProperties.length );
+    assert && assert( this.slotLocations.length === this.functionInstancesProperties.length );
   }
 
   functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
@@ -286,7 +286,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.functionProperties.forEach( function( functionInstance ) {
+      this.functionInstancesProperties.forEach( function( functionInstance ) {
         functionInstance.reset();
       } );
     },
@@ -298,10 +298,10 @@ define( function( require ) {
      * @returns {boolean}
      * @public
      */
-    containsFunction: function( functionInstance ) {
+    containsFunctionInstance: function( functionInstance ) {
       var found = false;
-      for ( var i = 0; i < this.functionProperties.length && !found; i++ ) {
-        found = ( this.functionProperties[ i ].get() === functionInstance );
+      for ( var i = 0; i < this.functionInstancesProperties.length && !found; i++ ) {
+        found = ( this.functionInstancesProperties[ i ].get() === functionInstance );
       }
       return found;
     },
@@ -317,7 +317,7 @@ define( function( require ) {
       var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
       var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
-        this.functionProperties[ slotNumber ].set( functionInstance );
+        this.functionInstancesProperties[ slotNumber ].set( functionInstance );
         functionInstance.locationProperty.set( this.slotLocations[ slotNumber ] );
       }
       return slotNumber;
@@ -331,9 +331,9 @@ define( function( require ) {
      */
     removeFunctionInstance: function( functionInstance ) {
       var removed = false;
-      for ( var i = 0; i < this.functionProperties.length && !removed; i++ ) {
-        if ( this.functionProperties[ i ].get() === functionInstance ) {
-          this.functionProperties[ i ].set( null );
+      for ( var i = 0; i < this.functionInstancesProperties.length && !removed; i++ ) {
+        if ( this.functionInstancesProperties[ i ].get() === functionInstance ) {
+          this.functionInstancesProperties[ i ].set( null );
           removed = true;
         }
       }
@@ -351,7 +351,7 @@ define( function( require ) {
     getClosestEmptySlot: function( location, distanceThreshold ) {
       var slotNumber = -1;
       for ( var i = 0; i < this.slotLocations.length; i++ ) {
-        if ( this.functionProperties[ i ].get() === null ) {
+        if ( this.functionInstancesProperties[ i ].get() === null ) {
           if ( slotNumber === -1 ) {
             if ( this.slotLocations[ i ].distance( location ) < distanceThreshold ) {
               slotNumber = i;
