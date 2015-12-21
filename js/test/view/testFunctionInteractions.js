@@ -47,36 +47,14 @@ define( function( require ) {
    */
   function testFunctionInteractions( layoutBounds ) {
 
-    // model ----------------------------------------------------------------------
-
-    // constructors for the types of functions that will appear in the carousel
-    var functionConstructors = [
-      Mirror,
-      Rotate90,
-      Grayscale,
-      Rotate180,
-      Identity,
-      InvertRGB,
-      Erase,
-      Shrink75,
-      Warhol,
-      MysteryA,
-      MysteryB,
-      MysteryC
-    ];
-
-    var builder = new Builder();
-
-    //TODO how to 'Reset All'?
-
-    // view ----------------------------------------------------------------------
+    var model = new TestModel();
 
     // parent node for all function nodes
     var functionsParentNode = new Node();
 
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
-    for ( var i = 0; i < functionConstructors.length; i++ ) {
-      functionCarouselItems.push( new FunctionCreatorNode( functionConstructors[ i ], {
+    for ( var i = 0; i < model.functionConstructors.length; i++ ) {
+      functionCarouselItems.push( new FunctionCreatorNode( model.functionConstructors[ i ], {
 
         // max number of instances of each function type
         maxInstances: 2,
@@ -84,7 +62,7 @@ define( function( require ) {
         //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
         // If the function isn't added to the builder, then return it to the carousel.
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
-          var slotNumber = builder.addFunction( functionInstance );
+          var slotNumber = model.builder.addFunction( functionInstance );
           if ( slotNumber === -1 ) {
             functionsCarousel.scrollToItem( functionCreatorNode ); //TODO forward reference to closure var
             functionInstance.locationProperty.reset();
@@ -106,9 +84,11 @@ define( function( require ) {
       top: functionsCarousel.bottom + 8
     } );
 
-    var builderNode = new BuilderNode( builder );
+    var builderNode = new BuilderNode( model.builder );
 
-    wireUpCarouselAndBuilder( functionsCarousel, functionCarouselItems, functionsParentNode, builder );
+    wireUpCarouselAndBuilder( functionsCarousel, functionCarouselItems, functionsParentNode, model.builder );
+
+    //TODO how to 'Reset All'?
 
     return new Node( {
       children: [ functionsCarousel, functionsPageControl, builderNode, functionsParentNode ]
@@ -177,6 +157,37 @@ define( function( require ) {
       functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
     } );
   }
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * @constructor
+   */
+  function TestModel() {
+
+    // @public (read-only) constructors for the types of functions that will appear in the carousel
+    this.functionConstructors = [
+      Mirror,
+      Rotate90,
+      Grayscale,
+      Rotate180,
+      Identity,
+      InvertRGB,
+      Erase,
+      Shrink75,
+      Warhol,
+      MysteryA,
+      MysteryB,
+      MysteryC
+    ];
+
+    // @public (read-only)
+    this.builder = new Builder();
+  }
+
+  functionBuilder.register( 'testFunctionInteractions.TestModel', TestModel );
+
+  inherit( Object, TestModel );
 
   //--------------------------------------------------------------------------------------------------------------------
 
