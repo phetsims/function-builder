@@ -86,7 +86,7 @@ define( function( require ) {
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
           var slotNumber = builder.addFunction( functionInstance );
           if ( slotNumber === -1 ) {
-            functionsCarousel.scrollToItem( functionCreatorNode );
+            functionsCarousel.scrollToItem( functionCreatorNode ); //TODO forward reference to closure var
             functionInstance.locationProperty.reset();
           }
         }
