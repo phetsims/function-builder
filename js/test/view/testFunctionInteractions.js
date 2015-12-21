@@ -1,7 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
 
-//TODO model-view transform? currently implicit and 1:1
-
 /**
  * Test for user interactions with functions, dragging between carousel and builder.
  *
