@@ -1,1 +1,3 @@
 TODO
+
+No model-view transform. All locations are in the view coordinate frame.
