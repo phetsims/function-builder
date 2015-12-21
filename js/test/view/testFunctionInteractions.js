@@ -144,7 +144,7 @@ define( function( require ) {
         var localFunctionsParentNode = functionsParentNode;
         var localFunctionNode = null; // instantiated below
 
-        // create a node of the function instance
+        // create a Node for the function instance
         localFunctionNode = new MovableFunctionNode( localFunctionInstance, {
 
           // If the function is in the builder, remove it.
