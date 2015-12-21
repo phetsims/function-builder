@@ -67,6 +67,8 @@ define( function( require ) {
     var thisNode = this;
     iconNode.addInputListener( new SimpleDragHandler( {
 
+      //TODO cancel drag if functionInstance is disposed of during a drag cycle
+
       parentScreenView: null, // @private {ScreenView} set on first start drag
       functionInstance: null, // @private {AbstractFunction} set during a drag sequence
 

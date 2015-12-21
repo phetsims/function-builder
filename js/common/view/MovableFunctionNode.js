@@ -80,6 +80,8 @@ define( function( require ) {
 
     this.addInputListener( new SimpleDragHandler( {
 
+      //TODO cancel drag if functionInstance is disposed of during a drag cycle
+
       allowTouchSnag: true,
 
       start: function( event, trail ) {
