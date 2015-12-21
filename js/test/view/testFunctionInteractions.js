@@ -205,8 +205,14 @@ define( function( require ) {
 
     // @public
     reset: function() {
+
       this.builder.reset();
-      //TODO dispose of function instances
+
+      // dispose of all function instances, operate on a copy of the array
+      this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
+        functionInstance.dispose();
+      } );
+      this.functionInstances.length = 0;
     },
 
     /**
