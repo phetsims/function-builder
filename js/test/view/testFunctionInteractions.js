@@ -292,7 +292,7 @@ define( function( require ) {
     },
 
     /**
-     * Does the builder container the specified function instance?
+     * Does the builder contain the specified function instance?
      *
      * @param {AbstractFunction} functionInstance
      * @returns {boolean}
