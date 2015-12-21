@@ -165,7 +165,7 @@ define( function( require ) {
         } );
         localFunctionsParentNode.addChild( localFunctionNode );
 
-        // when dispose is called for the function instance, remove the associated node
+        // when dispose is called for the function instance, remove the associated Node
         localFunctionInstance.disposeCalledEmitter.addListener( function() {
           localFunctionNode.dispose();
           localFunctionsParentNode.removeChild( localFunctionNode );
