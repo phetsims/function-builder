@@ -23,7 +23,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      location: new Vector2( 0, 0 ), // {Vector2} initial location of the function
+      location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
       dragging: false, // {boolean} is the function being dragged by the user when it's instantiated?
       name: null, // {string} optional name of the function, not visible to the user, used internally for debugging
 
@@ -47,7 +47,7 @@ define( function( require ) {
     this.disposeCalledEmitter = new Emitter();
 
     PropertySet.call( this, {
-      location: options.location // @public {Vector2} center of the function in the view
+      location: options.location // @public {Vector2} center of the function's node in the view coordinate frame
     } );
 
     // @private
