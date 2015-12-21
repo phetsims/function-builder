@@ -61,9 +61,9 @@ define( function( require ) {
         //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
         // If the function isn't added to the builder, then return it to the carousel.
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
-          var slotNumber = model.builder.addFunctionInstance( functionInstance );
+          var slotNumber = model.builder.addFunctionInstance( functionInstance ); //TODO closure var: model
           if ( slotNumber === -1 ) {
-            functionsCarousel.scrollToItem( functionCreatorNode ); //TODO forward reference to closure var
+            functionsCarousel.scrollToItem( functionCreatorNode ); //TODO closure var: functionsCarousel
             functionInstance.locationProperty.reset();
           }
         }
