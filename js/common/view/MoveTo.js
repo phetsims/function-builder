@@ -23,9 +23,15 @@ define( function( require ) {
 
     options = _.extend( {
 
-      //TODO duration is the same regardless of distance, should it be normalized?
-      duration: 500, // {number} duration of the animation, in ms
-      easing: TWEEN.Easing.Cubic.InOut, // {function} see Tween.Easing
+      // {number} if constantSpeed:false, this is the total time of the animation, in ms.
+      //          if constantSpeed:true, this is the time in ms to move 1 unit of distance
+      duration: 1,
+
+      // {boolean} keeps speed constant, regardless of distance
+      constantSpeed: true,
+
+      // {function} see Tween.Easing
+      easing: TWEEN.Easing.Cubic.Out,
 
       onStart: function() {}, // {function} called when the animation starts
       onUpdate: function() {}, // {function} called on each animation update
@@ -38,9 +44,14 @@ define( function( require ) {
     this.node = node; // @private
     this.onStop = options.onStop; // @private
 
+    // normalize duration
+    var duration = options.constantSpeed
+      ? ( node.translation.distance( destination ) * options.duration )
+      : options.duration;
+
     // @private
     this.tween = new TWEEN.Tween( node )
-      .to( { centerX: destination.x, centerY: destination.y }, options.duration )
+      .to( { centerX: destination.x, centerY: destination.y }, duration )
       .easing( options.easing )
       .onStart( function() {
         options.onStart();
