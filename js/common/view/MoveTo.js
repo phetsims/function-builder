@@ -31,7 +31,7 @@ define( function( require ) {
       constantSpeed: true,
 
       // {function} see Tween.Easing
-      easing: TWEEN.Easing.Cubic.Out,
+      easing: TWEEN.Easing.Quadratic.InOut,
 
       onStart: function() {}, // {function} called when the animation starts
       onUpdate: function() {}, // {function} called on each animation update
