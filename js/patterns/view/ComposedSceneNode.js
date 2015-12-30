@@ -181,6 +181,8 @@ define( function( require ) {
 
     // Function builder
     var builderNode = new BuilderNode( scene.builder, {
+
+      // colors matched to design document
       bodyTopColor: 'rgb( 168, 198, 216 )',
       bodyMiddleColor: 'rgb( 6, 114, 180 )',
       bodyBottomColor: 'rgb( 2, 46, 71 )',
