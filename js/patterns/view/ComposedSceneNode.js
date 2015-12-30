@@ -72,8 +72,8 @@ define( function( require ) {
     var functionsParentNode = new Node();
 
     /**
-     * Called when a function instance is created.
-     * Creates an associated node and wires it into the sim.
+     * When a function instance is created, add it to the model and view.
+     * This function relies heavily on closure vars!
      *
      * @param {AbstractFunction} functionInstance - the instance that was created
      * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
@@ -126,7 +126,7 @@ define( function( require ) {
       })();
     };
 
-    // Items in the function carousel
+    // Items in the functions carousel
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
     for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
       var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
