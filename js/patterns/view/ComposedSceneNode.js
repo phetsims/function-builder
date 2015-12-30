@@ -9,23 +9,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
   var SpyGlassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyGlassCheckBox' );
 
   // constants
-  var FUNCTION_PER_PAGE = 3;
   var INPUTS_PER_PAGE = 4;
   var PAGE_CONTROL_SPACING = 8;
 
@@ -70,17 +68,94 @@ define( function( require ) {
       top: outputsCarousel.bottom + 30
     } );
 
-    // Functions, in a horizontal carousel at bottom-center
-    var functionNodes = [];
-    scene.functions.forEach( function( functionInstance ) {
-      var functionNode = new FunctionNode( functionInstance, {
-        cursor: 'pointer'
+    // parent node for all function nodes
+    var functionsParentNode = new Node();
+
+    /**
+     * Called when a function instance is created.
+     * Creates an associated node and wires it into the sim.
+     *
+     * @param {AbstractFunction} functionInstance - the instance that was created
+     * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
+     */
+    var functionCreatedListener = function( functionInstance, functionCreatorNode ) {
+
+      assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
+
+      // IIFE
+      (function() {
+
+        // save args in closure vars
+        var localFunctionInstance = functionInstance;
+        var localFunctionCreatorNode = functionCreatorNode;
+
+        // add functionInstance to model
+        scene.addFunctionInstance( localFunctionInstance );
+
+        // create a Node for the function instance
+        var functionNode = new MovableFunctionNode( localFunctionInstance, {
+
+          // If the function is in the builder, remove it.
+          startDrag: function( functionInstance, event, trail ) {
+            if ( scene.builder.containsFunctionInstance( functionInstance ) ) {
+              scene.builder.removeFunctionInstance( functionInstance );
+            }
+          },
+
+          // When done dragging the function ...
+          endDrag: function( functionInstance, event, trail ) {
+
+            // Try to add the function to the builder.
+            var slotNumber = scene.builder.addFunctionInstance( functionInstance );
+
+            // If the function isn't added to the builder, then return it to the carousel.
+            if ( slotNumber === -1 ) {
+              functionsCarousel.scrollToItem( localFunctionCreatorNode );
+              functionInstance.locationProperty.reset();
+            }
+          }
+        } );
+        functionsParentNode.addChild( functionNode );
+
+        // when dispose is called for the function instance, remove the associated Node
+        localFunctionInstance.disposeCalledEmitter.addListener( function() {
+          scene.removeFunctionInstance( localFunctionInstance );
+          functionNode.dispose();
+          functionsParentNode.removeChild( functionNode );
+        } );
+      })();
+    };
+
+    // Items in the function carousel
+    var functionCarouselItems = []; // {FunctionCreatorNode[]}
+    for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
+      var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
+
+        // max number of instances of each function type
+        maxInstances: 2,
+
+        //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
+        // When done dragging the newly-created function ...
+        endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
+
+          // try to add function to builder
+          var slotNumber = scene.builder.addFunctionInstance( functionInstance ); //TODO closure var: scene
+
+          // If the function isn't added to the builder, then return it to the carousel.
+          if ( slotNumber === -1 ) {
+            functionsCarousel.scrollToItem( functionCreatorNode ); //TODO closure var: functionsCarousel
+            functionInstance.locationProperty.reset();
+          }
+        }
       } );
-      functionNodes.push( functionNode );
-    } );
-    var functionsCarousel = new Carousel( functionNodes, {
+      functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
+      functionCarouselItems.push( functionCreatorNode );
+    }
+
+    // Functions, in a horizontal carousel at bottom-center
+    var functionsCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
-      itemsPerPage: FUNCTION_PER_PAGE,
+      itemsPerPage: 3,
       centerX: layoutBounds.centerX,
       bottom: layoutBounds.bottom - 25
     } );
@@ -115,13 +190,13 @@ define( function( require ) {
     var builderNode = new BuilderNode( scene.builder );
 
     // Spy Glass check box, to the right of functions carousel
-    this.spyGlassVisibleProperty = new Property( false ); // @private
-    var spyGlassCheckBox = new SpyGlassCheckBox( this.spyGlassVisibleProperty, {
+    var spyGlassVisibleProperty = new Property( false ); // @private
+    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
       maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
       left: inputsCarousel.left,
       top: functionsCarousel.top
     } );
-    this.spyGlassVisibleProperty.link( function( visible ) {
+    spyGlassVisibleProperty.link( function( visible ) {
       //TODO make spy glasses visible in the builder
     } );
 
@@ -130,49 +205,20 @@ define( function( require ) {
       inputsCarousel.reset();
       functionsCarousel.reset();
       outputsCarousel.reset();
+      spyGlassVisibleProperty.reset();
     };
 
     options.children = [
       builderNode,
       inputsCarousel, outputsCarousel, functionsCarousel,
       inputsPageControl, outputsPageControl, functionsPageControl,
-      eraserButton, spyGlassCheckBox
+      eraserButton, spyGlassCheckBox,
+      functionsParentNode
     ];
     Node.call( this, options );
 
     //TODO temporary, to demonstrate function changes
     {
-      // The slot that will be populated next in the builder
-      var functionIndexProperty = new Property( 0 );
-      this.functionIndexProperty = functionIndexProperty;
-
-      // Clicking on a function populates one of the slots in the builder
-      var functionInputListener = new DownUpListener( {
-        down: function( event ) {
-          assert && assert( event.currentTarget instanceof FunctionNode );
-          scene.builder.functionInstanceProperties[ functionIndexProperty.get() ].set( event.currentTarget.functionInstance );
-          if ( functionIndexProperty.get() >= scene.builder.functionInstanceProperties.length - 1 ) {
-            functionIndexProperty.set( 0 );
-          }
-          else {
-            functionIndexProperty.set( functionIndexProperty.get() + 1 );
-          }
-        }
-      } );
-      functionNodes.forEach( function( functionNode ) {
-        functionNode.addInputListener( functionInputListener );
-      } );
-
-      // This arrow points to the function that will be changed next in the builder.
-      var arrowNode = new ArrowNode( 0, 40, 0, 0, {
-        headWidth: 20,
-        top: builderNode.bottom
-      } );
-      this.addChild( arrowNode );
-      functionIndexProperty.link( function( functionIndex ) {
-        arrowNode.left = builderNode.left + 115 + ( functionIndex * 100 );
-      } );
-
       // When any function changes, update all output cards.
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
@@ -199,10 +245,6 @@ define( function( require ) {
   return inherit( Node, ComposedSceneNode, {
 
     // @public
-    reset: function() {
-      this.resetComposedSceneNode();
-      this.spyGlassVisibleProperty.reset();
-      this.functionIndexProperty.reset();
-    }
+    reset: function() { this.resetComposedSceneNode(); }
   } );
 } );

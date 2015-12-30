@@ -46,20 +46,20 @@ define( function( require ) {
    */
   function ComposedScene() {
 
-    // @public (read-only)
-    this.functions = [
-      new Mirror(),
-      new Rotate90(),
-      new Grayscale(),
-      new Rotate180(),
-      new Identity(),
-      new InvertRGB(),
-      new Erase(),
-      new Shrink75(),
-      new Warhol(),
-      new MysteryA(),
-      new MysteryB(),
-      new MysteryC()
+    // @public (read-only) constructors for the types of functions that will appear in the carousel
+    this.functionConstructors = [
+      Mirror,
+      Rotate90,
+      Grayscale,
+      Rotate180,
+      Identity,
+      InvertRGB,
+      Erase,
+      Shrink75,
+      Warhol,
+      MysteryA,
+      MysteryB,
+      MysteryC
     ];
 
     // @public (read-only)
@@ -84,6 +84,9 @@ define( function( require ) {
     this.builder = new Builder( {
       numberOfFunctions: 3
     } );
+
+    // @private
+    this.functionInstances = [];
   }
 
   functionBuilder.register( 'ComposedScene', ComposedScene );
@@ -92,7 +95,33 @@ define( function( require ) {
 
     // @public
     reset: function() {
+
       this.builder.reset();
+
+      // dispose of all function instances, operate on a copy of the array
+      this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
+        functionInstance.dispose();
+      } );
+      this.functionInstances.length = 0;
+    },
+
+    /**
+     * Adds a function instance to the model.
+     * @param {AbstractFunction} functionInstance
+     */
+    addFunctionInstance: function( functionInstance ) {
+      assert && assert( this.functionInstances.indexOf( functionInstance ) === -1, 'attempted to add functionInstance twice' );
+      this.functionInstances.push( functionInstance );
+    },
+
+    /**
+     * Removes a function instance from the model.
+     * @param {AbstractFunction} functionInstance
+     */
+    removeFunctionInstance: function( functionInstance ) {
+      var index = this.functionInstances.indexOf( functionInstance );
+      assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
+      this.functionInstances.splice( index, 1 );
     }
   } );
 } );
