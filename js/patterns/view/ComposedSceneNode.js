@@ -76,8 +76,8 @@ define( function( require ) {
      * or return it to the functions carousel.
      *
      * @param {AbstractFunction} functionInstance
-     * @param event
-     * @param trail
+     * @param {Event} event
+     * @param {Trail} trail
      */
     var functionEndDrag = function( functionInstance, event, trail ) {
 

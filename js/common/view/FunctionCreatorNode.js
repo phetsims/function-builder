@@ -38,8 +38,18 @@ define( function( require ) {
   function FunctionCreatorNode( AbstractFunctionConstructor, options ) {
 
     options = _.extend( {
-      maxInstances: Number.POSITIVE_INFINITY, // {number} max number of function instances that can be created
-      endDrag: function( functionInstance, event, trail ) {} // called at the end of drag sequence
+
+      // {number} max number of function instances that can be created
+      maxInstances: Number.POSITIVE_INFINITY,
+
+      /**
+       * {function} called at the end of each drag sequence
+       * @param {AbstractFunction} functionInstance
+       * @param {Event} event
+       * @param {Trail} trail
+       */
+      endDrag: function( functionInstance, event, trail ) {}
+
     }, options );
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
