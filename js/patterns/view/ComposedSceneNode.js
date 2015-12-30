@@ -180,7 +180,12 @@ define( function( require ) {
     } );
 
     // Function builder
-    var builderNode = new BuilderNode( scene.builder );
+    var builderNode = new BuilderNode( scene.builder, {
+      bodyTopColor: 'rgb( 168, 198, 216 )',
+      bodyMiddleColor: 'rgb( 6, 114, 180 )',
+      bodyBottomColor: 'rgb( 2, 46, 71 )',
+      endColor: 'rgb( 189, 206, 216 )'
+    } );
 
     // Spy Glass check box, to the right of functions carousel
     var spyGlassVisibleProperty = new Property( false ); // @private
