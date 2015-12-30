@@ -82,18 +82,14 @@ define( function( require ) {
 
       assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
 
-      // IIFE
-      (function() {
-
-        // save args in closure vars
-        var localFunctionInstance = functionInstance;
-        var localFunctionCreatorNode = functionCreatorNode;
+      // IIFE to keep reference to vars
+      (function( functionInstance, functionCreatorNode ) {
 
         // add functionInstance to model
-        scene.addFunctionInstance( localFunctionInstance );
+        scene.addFunctionInstance( functionInstance );
 
         // create a Node for the function instance
-        var functionNode = new MovableFunctionNode( localFunctionInstance, {
+        var functionNode = new MovableFunctionNode( functionInstance, {
 
           // If the function is in the builder, remove it.
           startDrag: function( functionInstance, event, trail ) {
@@ -110,7 +106,7 @@ define( function( require ) {
 
             // If the function isn't added to the builder, then return it to the carousel.
             if ( slotNumber === -1 ) {
-              functionsCarousel.scrollToItem( localFunctionCreatorNode );
+              functionsCarousel.scrollToItem( functionCreatorNode );
               functionInstance.locationProperty.reset();
             }
           }
@@ -118,12 +114,12 @@ define( function( require ) {
         functionsParentNode.addChild( functionNode );
 
         // when dispose is called for the function instance, remove the associated Node
-        localFunctionInstance.disposeCalledEmitter.addListener( function() {
-          scene.removeFunctionInstance( localFunctionInstance );
+        functionInstance.disposeCalledEmitter.addListener( function() {
+          scene.removeFunctionInstance( functionInstance );
           functionNode.dispose();
           functionsParentNode.removeChild( functionNode );
         } );
-      })();
+      })( functionInstance, functionCreatorNode );
     };
 
     // Items in the functions carousel
