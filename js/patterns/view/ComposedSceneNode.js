@@ -135,11 +135,11 @@ define( function( require ) {
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
 
           // try to add function to builder
-          var slotNumber = scene.builder.addFunctionInstance( functionInstance ); //TODO closure var: scene
+          var slotNumber = scene.builder.addFunctionInstance( functionInstance );
 
           // If the function isn't added to the builder, then return it to the carousel.
           if ( slotNumber === -1 ) {
-            functionsCarousel.scrollToItem( functionCreatorNode ); //TODO closure var: functionsCarousel
+            functionsCarousel.scrollToItem( functionCreatorNode );
             functionInstance.locationProperty.reset();
           }
         }
