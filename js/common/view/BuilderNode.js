@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -18,6 +17,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
   var Shape = require( 'KITE/Shape' );
 
   /**
@@ -30,7 +30,6 @@ define( function( require ) {
     options = _.extend( {
 
       // body
-      bodySize: new Dimension2( 430, 125 ),
       bodyTopColor: 'rgb( 200, 182, 188 )',
       bodyMiddleColor: 'rgb( 130, 62, 85 )',
       bodyBottomColor: 'black',
@@ -55,33 +54,41 @@ define( function( require ) {
 
     }, options );
 
-    // To improve readability of shape code
-    var width = options.bodySize.width;
-    var height = options.bodySize.height;
-    var xInset = 0.15 * width;
-    var yInset = 0.15 * height;
+    // location is determined by model
+    options.x = builder.location.x;
+    options.y = builder.location.y;
 
-    // Main body of the builder
+    // To improve readability of shape code
+    var WIDTH = builder.width;
+    var HEIGHT = builder.height;
+    var X_INSET = 0.15 * WIDTH;
+    var Y_INSET = 0.15 * HEIGHT;
+
+    // Main body of the builder, described starting at upper-left and moving clockwise
     var bodyNode = new Path( new Shape()
       .moveTo( 0, 0 )
-      .lineTo( xInset, yInset )
-      .lineTo( width - xInset, yInset )
-      .lineTo( width, 0 )
-      .lineTo( width, height )
-      .lineTo( width - xInset, height - yInset )
-      .lineTo( xInset, height - yInset )
-      .lineTo( 0, height )
+      .lineTo( X_INSET, Y_INSET )
+      .lineTo( WIDTH - X_INSET, Y_INSET )
+      .lineTo( WIDTH, 0 )
+      .lineTo( WIDTH, HEIGHT )
+      .lineTo( WIDTH - X_INSET, HEIGHT - Y_INSET )
+      .lineTo( X_INSET, HEIGHT - Y_INSET )
+      .lineTo( 0, HEIGHT )
       .close(), {
-      fill: new LinearGradient( 0, 0, 1, height )
+      fill: new LinearGradient( 0, 0, 1, HEIGHT )
         .addColorStop( 0, options.bodyTopColor )
         .addColorStop( 0.5, options.bodyMiddleColor )
         .addColorStop( 1, options.bodyBottomColor ),
       stroke: options.bodyStroke,
-      lineWidth: options.bodyLineWidth
+      lineWidth: options.bodyLineWidth,
+
+      // origin at center of input slot
+      x: 0,
+      centerY: 0
     } );
 
     // Left end
-    var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, options.bodySize.height / 2, 0 ), {
+    var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, HEIGHT / 2, 0 ), {
       fill: options.endColor,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
@@ -90,7 +97,7 @@ define( function( require ) {
     } );
 
     // Right end
-    var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, options.bodySize.height / 2, 0 ), {
+    var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, HEIGHT / 2, 0 ), {
       fill: options.endColor,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
@@ -99,14 +106,14 @@ define( function( require ) {
     } );
 
     // Left (input) slot
-    var slotWidth = 0.4 * options.endRadius;
-    var slotHeight = 0.75 * options.bodySize.height;
-    var slotYOffset = 0.025 * slotHeight;
+    var SLOT_WIDTH = 0.4 * options.endRadius;
+    var SLOT_HEIGHT = 0.75 * HEIGHT;
+    var SLOT_Y_OFFSET = 0.025 * SLOT_HEIGHT;
     var leftSlotShape = new Shape()
-      .moveTo( 0, slotYOffset )
-      .lineTo( slotWidth, 0 )
-      .lineTo( slotWidth, slotHeight )
-      .lineTo( 0, slotHeight - slotYOffset )
+      .moveTo( 0, SLOT_Y_OFFSET )
+      .lineTo( SLOT_WIDTH, 0 )
+      .lineTo( SLOT_WIDTH, SLOT_HEIGHT )
+      .lineTo( 0, SLOT_HEIGHT - SLOT_Y_OFFSET )
       .close();
     var leftSlotNode = new Path( leftSlotShape, {
       fill: options.slotFill,
@@ -124,39 +131,23 @@ define( function( require ) {
       center: rightEnd.center
     } );
 
-    // Parent for all functions
-    var functionsParent = new Node();
+    // slots
+    var slotNodes = [];
+    for ( var i = 0; i < builder.slotLocations.length; i++ ) {
+      slotNodes.push( new FunctionNode( new PlaceholderFunction(), {
+        // centered at slot locations
+        center: builder.slotLocations[ i ].minus( builder.location)
+      } ) );
+    }
+    var slotsParent = new Node( { children: slotNodes } );
 
-    // Synchronize with the pipeline
-    var functionPropertyObserver = function( functionInstance ) {
-
-      //TODO change only the slot that corresponds to functionInstance, not all slots in the pipeline
-      functionsParent.removeAllChildren();
-      var previousNode = null;
-      builder.functionProperties.forEach( function( functionProperty ) {
-        var functionNode = new FunctionNode( functionProperty.get(), {
-          left: previousNode ? ( previousNode.right - previousNode.xInset - options.functionLineWidth / 2 ) : 0
-        } );
-        functionsParent.addChild( functionNode );
-        functionNode.moveToBack();
-        previousNode = functionNode;
-      } );
-
-      functionsParent.center = bodyNode.center;
-    };
-    builder.functionProperties.forEach( function( functionProperty ) {
-      functionProperty.link( functionPropertyObserver );
-    } );
+    options.children = [ bodyNode, leftEnd, rightEnd, leftSlotNode, rightSlotNode, slotsParent ];
+    Node.call( this, options );
 
     // @private
     this.disposeBuilderNode = function() {
-      builder.functionProperties.forEach( function( functionProperty ) {
-        functionProperty.unlink( functionPropertyObserver );
-      } );
+      //TODO
     };
-
-    options.children = [ bodyNode, functionsParent, leftEnd, rightEnd, leftSlotNode, rightSlotNode ];
-    Node.call( this, options );
   }
 
   functionBuilder.register( 'BuilderNode', BuilderNode );

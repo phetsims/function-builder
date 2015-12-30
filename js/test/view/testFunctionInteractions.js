@@ -9,20 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
-  var PlaceholderFunction = require( 'FUNCTION_BUILDER/common/model/PlaceholderFunction' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
@@ -242,184 +238,6 @@ define( function( require ) {
       this.functionInstances.splice( index, 1 );
     }
   } );
-
-  //--------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Simplified builder for this test.
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Builder( options ) {
-
-    options = _.extend( {
-      numberOfFunctions: 3, // {number} maximum number of functions in the pipeline
-      width: 400, // {number} distance between input and output slot
-      height: 88, // {number} height of tallest part of the builder
-      location: new Vector2( 312, 240 ) // {Vector2} left center (input slot)
-    }, options );
-
-    // @public (read-only)
-    this.numberOfFunctions = options.numberOfFunctions;
-    this.width = options.width;
-    this.height = options.height;
-    this.location = options.location;
-
-    // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
-    this.functionInstancesProperties = [];
-
-    // @public (read-only) center of each slot in the builder. 1:1 index correspondence with functionInstancesProperties.
-    this.slotLocations = [];
-
-    // width occupied by slots
-    var totalWidthOfSlots = this.numberOfFunctions * FBConstants.FUNCTION_WIDTH;
-    if ( this.numberOfFunctions > 1 ) {
-      totalWidthOfSlots -= ( ( this.numberOfFunctions - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH );
-    }
-    assert && assert( totalWidthOfSlots > 0 );
-
-    // create and populate slots
-    var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
-    for ( var i = 0; i < this.numberOfFunctions; i++ ) {
-
-      // slot, location is at its center
-      this.slotLocations.push( leftSlotLocation.plusXY(
-        i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 ) );
-
-      // function in the slot
-      this.functionInstancesProperties.push( new Property( null ) );
-    }
-    assert && assert( this.slotLocations.length === this.functionInstancesProperties.length );
-  }
-
-  functionBuilder.register( 'testFunctionInteractions.Builder', Builder );
-
-  inherit( Object, Builder, {
-
-    // @public
-    reset: function() {
-      this.functionInstancesProperties.forEach( function( functionInstance ) {
-        functionInstance.reset();
-      } );
-    },
-
-    /**
-     * Does the builder contain the specified function instance?
-     *
-     * @param {AbstractFunction} functionInstance
-     * @returns {boolean}
-     * @public
-     */
-    containsFunctionInstance: function( functionInstance ) {
-      var found = false;
-      for ( var i = 0; i < this.functionInstancesProperties.length && !found; i++ ) {
-        found = ( this.functionInstancesProperties[ i ].get() === functionInstance );
-      }
-      return found;
-    },
-
-    /**
-     * Adds a function instance, if it's close enough to an empty slot.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @returns {number} slot number it was added to, -1 if not added
-     * @public
-     */
-    addFunctionInstance: function( functionInstance ) {
-      var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
-      var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
-      if ( slotNumber !== -1 ) {
-        this.functionInstancesProperties[ slotNumber ].set( functionInstance );
-        functionInstance.locationProperty.set( this.slotLocations[ slotNumber ] );
-      }
-      return slotNumber;
-    },
-
-    /**
-     * Removes a function instance.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @public
-     */
-    removeFunctionInstance: function( functionInstance ) {
-      var removed = false;
-      for ( var i = 0; i < this.functionInstancesProperties.length && !removed; i++ ) {
-        if ( this.functionInstancesProperties[ i ].get() === functionInstance ) {
-          this.functionInstancesProperties[ i ].set( null );
-          removed = true;
-        }
-      }
-      assert && assert( removed );
-    },
-
-    /**
-     * Gets the empty slot that is closest to the specified location.
-     *
-     * @param {Vector2} location - the location of the function instance
-     * @param {number} distanceThreshold - must be at least this close
-     * @returns {number} slot number, -1 if no slot
-     * @private
-     */
-    getClosestEmptySlot: function( location, distanceThreshold ) {
-      var slotNumber = -1;
-      for ( var i = 0; i < this.slotLocations.length; i++ ) {
-        if ( this.functionInstancesProperties[ i ].get() === null ) {
-          if ( slotNumber === -1 ) {
-            if ( this.slotLocations[ i ].distance( location ) < distanceThreshold ) {
-              slotNumber = i;
-            }
-          }
-          else if ( this.slotLocations[ i ].distance( location ) < this.slotLocations[ slotNumber ].distance( location ) ) {
-            slotNumber = i;
-          }
-        }
-      }
-      return slotNumber;
-    }
-  } );
-
-  //--------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Simplified builder node for this test
-   * @param {Builder} builder
-   * @param {Object} options
-   * @constructor
-   */
-  function BuilderNode( builder, options ) {
-
-    options = _.extend( {
-      functionLineWidth: 1
-    }, options );
-
-    options.left = builder.location.x;
-    options.centerY = builder.location.y;
-
-    var backgroundNode = new Rectangle( 0, -builder.height / 2, builder.width, builder.height, {
-      fill: 'rgb( 130, 62, 85 )',
-      stroke: 'black'
-    } );
-
-    // slots
-    var slotNodes = [];
-    for ( var i = 0; i < builder.slotLocations.length; i++ ) {
-      slotNodes.push( new FunctionNode( new PlaceholderFunction(), {
-        centerX: builder.slotLocations[ i ].x - builder.location.x,
-        centerY: 0
-      } ) );
-    }
-
-    var slotsParent = new Node( {
-      children: slotNodes
-    } );
-
-    options.children = [ backgroundNode, slotsParent ];
-    Node.call( this, options );
-  }
-
-  functionBuilder.register( 'testFunctionInteractions.BuilderNode', BuilderNode );
-
-  inherit( Node, BuilderNode );
 
   //--------------------------------------------------------------------------------------------------------------------
 

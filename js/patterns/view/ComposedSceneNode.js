@@ -111,11 +111,8 @@ define( function( require ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // Function builder, in the center of the screen
-    var builderNode = new BuilderNode( scene.builder, {
-      centerX: layoutBounds.centerX,
-      centerY: inputsCarousel.centerY
-    } );
+    // Function builder
+    var builderNode = new BuilderNode( scene.builder );
 
     // Spy Glass check box, to the right of functions carousel
     this.spyGlassVisibleProperty = new Property( false ); // @private
@@ -153,8 +150,8 @@ define( function( require ) {
       var functionInputListener = new DownUpListener( {
         down: function( event ) {
           assert && assert( event.currentTarget instanceof FunctionNode );
-          scene.builder.functionProperties[ functionIndexProperty.get() ].set( event.currentTarget.functionInstance );
-          if ( functionIndexProperty.get() >= scene.builder.functionProperties.length - 1 ) {
+          scene.builder.functionInstanceProperties[ functionIndexProperty.get() ].set( event.currentTarget.functionInstance );
+          if ( functionIndexProperty.get() >= scene.builder.functionInstanceProperties.length - 1 ) {
             functionIndexProperty.set( 0 );
           }
           else {
@@ -177,20 +174,22 @@ define( function( require ) {
       } );
 
       // When any function changes, update all output cards.
-      var functionPropertyObserver = function() {
+      var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
           var card = scene.inputCards[ i ];
-          for ( var j = 0; j < scene.builder.functionProperties.length; j++ ) {
-            var functionInstance = scene.builder.functionProperties[ j ].get();
-            var outputName = card.name + '.' + functionInstance.name;
-            var outputCanvas = functionInstance.apply( card.canvas );
-            card = new Card( outputName, outputCanvas );
+          for ( var j = 0; j < scene.builder.functionInstanceProperties.length; j++ ) {
+            var functionInstance = scene.builder.functionInstanceProperties[ j ].get();
+            if ( functionInstance ) {
+              var outputName = card.name + '.' + functionInstance.name;
+              var outputCanvas = functionInstance.apply( card.canvas );
+              card = new Card( outputName, outputCanvas );
+            }
           }
           outputNodes[ i ].setCard( card );
         }
       };
-      scene.builder.functionProperties.forEach( function( functionProperty ) {
-        functionProperty.link( functionPropertyObserver );
+      scene.builder.functionInstanceProperties.forEach( function( functionInstanceProperty ) {
+        functionInstanceProperty.link( functionInstancePropertyObserver );
       } );
     }
   }
