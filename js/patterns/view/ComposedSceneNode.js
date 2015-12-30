@@ -73,7 +73,6 @@ define( function( require ) {
 
     /**
      * When a function instance is created, add it to the model and view.
-     * This function relies heavily on closure vars!
      *
      * @param {AbstractFunction} functionInstance - the instance that was created
      * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
@@ -82,44 +81,40 @@ define( function( require ) {
 
       assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
 
-      // IIFE to keep reference to vars
-      (function( functionInstance, functionCreatorNode ) {
+      // add functionInstance to model
+      scene.addFunctionInstance( functionInstance );
 
-        // add functionInstance to model
-        scene.addFunctionInstance( functionInstance );
+      // create a Node for the function instance
+      var functionNode = new MovableFunctionNode( functionInstance, {
 
-        // create a Node for the function instance
-        var functionNode = new MovableFunctionNode( functionInstance, {
-
-          // If the function is in the builder, remove it.
-          startDrag: function( functionInstance, event, trail ) {
-            if ( scene.builder.containsFunctionInstance( functionInstance ) ) {
-              scene.builder.removeFunctionInstance( functionInstance );
-            }
-          },
-
-          // When done dragging the function ...
-          endDrag: function( functionInstance, event, trail ) {
-
-            // Try to add the function to the builder.
-            var slotNumber = scene.builder.addFunctionInstance( functionInstance );
-
-            // If the function isn't added to the builder, then return it to the carousel.
-            if ( slotNumber === -1 ) {
-              functionsCarousel.scrollToItem( functionCreatorNode );
-              functionInstance.locationProperty.reset();
-            }
+        // If the function is in the builder, remove it.
+        startDrag: function( functionInstance, event, trail ) {
+          if ( scene.builder.containsFunctionInstance( functionInstance ) ) {
+            scene.builder.removeFunctionInstance( functionInstance );
           }
-        } );
-        functionsParentNode.addChild( functionNode );
+        },
 
-        // when dispose is called for the function instance, remove the associated Node
-        functionInstance.disposeCalledEmitter.addListener( function() {
-          scene.removeFunctionInstance( functionInstance );
-          functionNode.dispose();
-          functionsParentNode.removeChild( functionNode );
-        } );
-      })( functionInstance, functionCreatorNode );
+        // When done dragging the function ...
+        endDrag: function( functionInstance, event, trail ) {
+
+          // Try to add the function to the builder.
+          var slotNumber = scene.builder.addFunctionInstance( functionInstance );
+
+          // If the function isn't added to the builder, then return it to the carousel.
+          if ( slotNumber === -1 ) {
+            functionsCarousel.scrollToItem( functionCreatorNode );
+            functionInstance.locationProperty.reset();
+          }
+        }
+      } );
+      functionsParentNode.addChild( functionNode );
+
+      // when dispose is called for the function instance, remove the associated Node
+      functionInstance.disposeCalledEmitter.addListener( function() {
+        scene.removeFunctionInstance( functionInstance );
+        functionNode.dispose();
+        functionsParentNode.removeChild( functionNode );
+      } );
     };
 
     // Items in the functions carousel
