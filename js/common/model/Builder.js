@@ -24,9 +24,9 @@ define( function( require ) {
 
     options = _.extend( {
       numberOfFunctions: 3, // {number} maximum number of functions in the pipeline
-      width: 410, // {number} distance between input and output slot
+      width: 450, // {number} distance between input and output slot
       height: 125, // {number} height of tallest part of the builder
-      location: new Vector2( 312, 240 ) // {Vector2} left center (input slot)
+      location: new Vector2( 285, 240 ) // {Vector2} left center (input slot)
     }, options );
 
     // @public (read-only)
