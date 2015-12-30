@@ -59,9 +59,13 @@ define( function( require ) {
         maxInstances: 2,
 
         //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
-        // If the function isn't added to the builder, then return it to the carousel.
+        // When done dragging the newly-created function ...
         endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
+
+          // try to add function to builder
           var slotNumber = model.builder.addFunctionInstance( functionInstance ); //TODO closure var: model
+
+          // If the function isn't added to the builder, then return it to the carousel.
           if ( slotNumber === -1 ) {
             functionsCarousel.scrollToItem( functionCreatorNode ); //TODO closure var: functionsCarousel
             functionInstance.locationProperty.reset();
@@ -144,9 +148,13 @@ define( function( require ) {
             }
           },
 
-          // If the function isn't added to the builder, then return it to the carousel.
+          // When done dragging the function ...
           endDrag: function( functionInstance, event, trail ) {
+
+            // Try to add the function to the builder.
             var slotNumber = localModel.builder.addFunctionInstance( functionInstance );
+
+            // If the function isn't added to the builder, then return it to the carousel.
             if ( slotNumber === -1 ) {
               carousel.scrollToItem( localFunctionCreatorNode );
               functionInstance.locationProperty.reset();
