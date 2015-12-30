@@ -97,10 +97,11 @@ define( function( require ) {
 
         // Create a function instance and notify listeners
         this.functionInstance = new AbstractFunctionConstructor( {
+          creator: thisNode,
           location: initialLocationScreenView,
           dragging: true
         } );
-        thisNode.functionCreatedEmitter.emit2( this.functionInstance, thisNode );
+        thisNode.functionCreatedEmitter.emit1( this.functionInstance );
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
@@ -123,7 +124,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         this.functionInstance.dragging = false;
-        options.endDrag( this.functionInstance, thisNode, event, trail );
+        options.endDrag( this.functionInstance, event, trail );
         this.functionInstance = null;
       }
     } ) );

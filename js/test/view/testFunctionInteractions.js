@@ -32,14 +32,35 @@ define( function( require ) {
     var functionsParentNode = new Node();
 
     /**
+     * When the user stops dragging a function, decide whether to put it in the builder
+     * or return it to the functions carousel.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @param event
+     * @param trail
+     */
+    var functionEndDrag = function( functionInstance, event, trail ) {
+
+      assert && assert( functionInstance.creator, 'missing functionInstance.creator' );
+
+      // try to add function to builder
+      var slotNumber = scene.builder.addFunctionInstance( functionInstance );
+
+      // If the function isn't added to the builder, then return it to the carousel.
+      if ( slotNumber === -1 ) {
+        functionsCarousel.scrollToItem( functionInstance.creator );
+        functionInstance.locationProperty.reset();
+      }
+    };
+
+    /**
      * When a function instance is created, add it to the model and view.
      *
      * @param {AbstractFunction} functionInstance - the instance that was created
-     * @param {FunctionCreatorNode} functionCreatorNode - the node that created the instance
      */
-    var functionCreatedListener = function( functionInstance, functionCreatorNode ) {
+    var functionCreatedListener = function( functionInstance ) {
 
-      assert && assert( functionCreatorNode && functionInstance, 'does the associated Emitter call emit2?' );
+      assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
 
       // add functionInstance to model
       scene.addFunctionInstance( functionInstance );
@@ -55,17 +76,7 @@ define( function( require ) {
         },
 
         // When done dragging the function ...
-        endDrag: function( functionInstance, event, trail ) {
-
-          // Try to add the function to the builder.
-          var slotNumber = scene.builder.addFunctionInstance( functionInstance );
-
-          // If the function isn't added to the builder, then return it to the carousel.
-          if ( slotNumber === -1 ) {
-            functionsCarousel.scrollToItem( functionCreatorNode );
-            functionInstance.locationProperty.reset();
-          }
-        }
+        endDrag: functionEndDrag
       } );
       functionsParentNode.addChild( functionNode );
 
@@ -85,19 +96,8 @@ define( function( require ) {
         // max number of instances of each function type
         maxInstances: 2,
 
-        //TODO this is almost identical to options.endDrag for MovableFunctionNode, factor out?
         // When done dragging the newly-created function ...
-        endDrag: function( functionInstance, functionCreatorNode, event, trail ) {
-
-          // try to add function to builder
-          var slotNumber = scene.builder.addFunctionInstance( functionInstance );
-
-          // If the function isn't added to the builder, then return it to the carousel.
-          if ( slotNumber === -1 ) {
-            functionsCarousel.scrollToItem( functionCreatorNode );
-            functionInstance.locationProperty.reset();
-          }
-        }
+        endDrag: functionEndDrag
       } );
       functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
       functionCarouselItems.push( functionCreatorNode );
