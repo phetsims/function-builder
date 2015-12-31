@@ -9,12 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ComposedScene = require( 'FUNCTION_BUILDER/patterns/model/ComposedScene' );
-  var DualScene = require( 'FUNCTION_BUILDER/patterns/model/DualScene' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
   var Property = require( 'AXON/Property' );
-  var SingleScene = require( 'FUNCTION_BUILDER/patterns/model/SingleScene' );
 
   /**
    * @constructor
@@ -23,9 +21,25 @@ define( function( require ) {
 
     //TODO create scenes on demand?
     // @public
-    this.singleScene = new SingleScene();
-    this.dualScene = new DualScene();
-    this.composedScene = new ComposedScene();
+    this.singleScene = new PatternsScene( {
+      numberOfBuilders: 1,
+      numberOfSlots: 1,
+      maxFunctionInstances: 2
+    } );
+
+    // @public
+    this.dualScene = new PatternsScene( {
+      numberOfBuilders: 2,
+      numberOfSlots: 1,
+      maxFunctionInstances: 2
+    } );
+
+    // @public
+    this.composedScene = new PatternsScene( {
+      numberOfBuilders: 1,
+      numberOfSlots: 3,
+      maxFunctionInstances: 2
+    } );
 
     //TODO initial selection should be singleScene
     // @public

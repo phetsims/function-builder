@@ -15,7 +15,7 @@ define( function( require ) {
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
 
   /**
-   * @param {DualScene} scene - model for this scene
+   * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor

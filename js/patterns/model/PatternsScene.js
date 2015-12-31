@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * The 'composed' scene in the 'Patterns' screen.
+ * A scene in the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -44,7 +44,17 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ComposedScene() {
+  function PatternsScene( options ) {
+
+    options = _.extend( {
+      numberOfBuilders: 1, // {number} number of builders in this scene
+      numberOfSlots: 1, // {number} number of function slots in each builder
+      maxFunctionInstances: 1 // {number} max number of instances of each function type
+    }, options );
+
+    assert && assert( options.numberOfBuilders > 0 );
+    assert && assert( options.numberOfSlots > 0 );
+    assert && assert( options.maxFunctionInstances > 0 );
 
     // @public (read-only) constructors for the types of functions that will appear in the carousel
     this.functionConstructors = [
@@ -80,23 +90,32 @@ define( function( require ) {
       new Card( 'star', CanvasUtils.createCanvasWithImage( starImage ) )
     ];
 
-    // @public
-    this.builder = new Builder( {
-      numberOfFunctions: 3
-    } );
+    // @public (read-only)
+    this.builders = [];
+    for ( var i = 0; i < options.numberOfBuilders; i++ ) {
+      this.builders.push( new Builder( {
+        numberOfSlots: options.numberOfSlots
+      } ) );
+    }
 
-    // @private
+    // @private All function instances that exist. They may or may not be in a builder.
     this.functionInstances = [];
+
+    // @public (read-only)
+    this.maxFunctionInstances = options.maxFunctionInstances;
   }
 
-  functionBuilder.register( 'ComposedScene', ComposedScene );
+  functionBuilder.register( 'PatternsScene', PatternsScene );
 
-  return inherit( Object, ComposedScene, {
+  return inherit( Object, PatternsScene, {
 
     // @public
     reset: function() {
 
-      this.builder.reset();
+      // reset all builders
+      this.builders.forEach( function( builder ) {
+        builder.reset();
+      } );
 
       // dispose of all function instances, operate on a copy of the array
       this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {

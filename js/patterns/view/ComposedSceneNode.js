@@ -28,12 +28,15 @@ define( function( require ) {
   var PAGE_CONTROL_SPACING = 8;
 
   /**
-   * @param {ComposedScene} scene - model for this scene
+   * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
    */
   function ComposedSceneNode( scene, layoutBounds, options ) {
+
+    //TODO generalize this for multiple builders
+    assert && assert( scene.builder.length === 1 );
 
     // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
@@ -48,6 +51,7 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
+    //TODO create an output carousel for each builder
     // Output cards, in a vertical carousel at right-center
     var outputNodes = [];
     scene.inputCards.forEach( function( card ) {
@@ -84,7 +88,7 @@ define( function( require ) {
       assert && assert( functionInstance.creator, 'missing functionInstance.creator' );
 
       // try to add function to builder
-      var slotNumber = scene.builder.addFunctionInstance( functionInstance );
+      var slotNumber = scene.builders[0].addFunctionInstance( functionInstance );
 
       // If the function isn't added to the builder, then return it to the carousel.
       if ( slotNumber === -1 ) {
@@ -110,8 +114,8 @@ define( function( require ) {
 
         // If the function is in the builder, remove it.
         startDrag: function( functionInstance, event, trail ) {
-          if ( scene.builder.containsFunctionInstance( functionInstance ) ) {
-            scene.builder.removeFunctionInstance( functionInstance );
+          if ( scene.builders[0].containsFunctionInstance( functionInstance ) ) {
+            scene.builders[0].removeFunctionInstance( functionInstance );
           }
         },
 
@@ -180,7 +184,7 @@ define( function( require ) {
     } );
 
     // Function builder
-    var builderNode = new BuilderNode( scene.builder, {
+    var builderNode = new BuilderNode( scene.builders[0], {
 
       // colors matched to design document
       bodyTopColor: 'rgb( 168, 198, 216 )',
@@ -223,8 +227,8 @@ define( function( require ) {
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
           var card = scene.inputCards[ i ];
-          for ( var j = 0; j < scene.builder.functionInstanceProperties.length; j++ ) {
-            var functionInstance = scene.builder.functionInstanceProperties[ j ].get();
+          for ( var j = 0; j < scene.builders[0].functionInstanceProperties.length; j++ ) {
+            var functionInstance = scene.builders[0].functionInstanceProperties[ j ].get();
             if ( functionInstance ) {
               var outputName = card.name + '.' + functionInstance.name;
               var outputCanvas = functionInstance.apply( card.canvas );
@@ -234,7 +238,7 @@ define( function( require ) {
           outputNodes[ i ].setCard( card );
         }
       };
-      scene.builder.functionInstanceProperties.forEach( function( functionInstanceProperty ) {
+      scene.builders[0].functionInstanceProperties.forEach( function( functionInstanceProperty ) {
         functionInstanceProperty.link( functionInstancePropertyObserver );
       } );
     }

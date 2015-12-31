@@ -2,7 +2,8 @@
 
 /**
  * The builder is a function 'pipeline'.
- * Each step in the pipeline is a function that takes 1 input and produces 1 output.
+ * It has a number of 'slots', each of which can be occupied by 1 function instance.
+ * A builder takes 1 input and produces 1 output.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,14 +24,13 @@ define( function( require ) {
   function Builder( options ) {
 
     options = _.extend( {
-      numberOfFunctions: 3, // {number} maximum number of functions in the pipeline
-      width: 450, // {number} distance between input and output slot
+      numberOfSlots: 3, // {number} number of function slots
+      width: 450, // {number} horizontal distance between input and output
       height: 125, // {number} height of tallest part of the builder
-      location: new Vector2( 285, 240 ) // {Vector2} left center (input slot)
+      location: new Vector2( 285, 240 ) // {Vector2} location of the center of the input
     }, options );
 
     // @public (read-only)
-    this.numberOfFunctions = options.numberOfFunctions;
     this.width = options.width;
     this.height = options.height;
     this.location = options.location;
@@ -42,21 +42,21 @@ define( function( require ) {
     this.slotLocations = [];
 
     // width occupied by slots
-    var totalWidthOfSlots = this.numberOfFunctions * FBConstants.FUNCTION_WIDTH;
-    if ( this.numberOfFunctions > 1 ) {
-      totalWidthOfSlots -= ( ( this.numberOfFunctions - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH );
+    var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_WIDTH;
+    if ( options.numberOfSlots > 1 ) {
+      totalWidthOfSlots -= ( ( options.numberOfSlots - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH );
     }
     assert && assert( totalWidthOfSlots > 0 );
 
     // create and populate slots
     var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
-    for ( var i = 0; i < this.numberOfFunctions; i++ ) {
+    for ( var i = 0; i < options.numberOfSlots; i++ ) {
 
       // slot, location is at its center
       this.slotLocations.push( leftSlotLocation.plusXY(
         i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 ) );
 
-      // function in the slot
+      // each slot is initially empty
       this.functionInstanceProperties.push( new Property( null ) );
     }
     assert && assert( this.slotLocations.length === this.functionInstanceProperties.length );
