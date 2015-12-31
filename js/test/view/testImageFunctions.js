@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Test for functions in the 'Patterns' screen.
+ * Test the image functions that are used in the 'Patterns' screen.
  * Shows what all images look like for all functions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -53,7 +53,7 @@ define( function( require ) {
   /**
    * @param {Bounds2} layoutBounds
    */
-  function testPatternsFunctions( layoutBounds ) {
+  function testImageFunctions( layoutBounds ) {
 
     // a canvas for each input image
     var canvases = [
@@ -132,7 +132,7 @@ define( function( require ) {
     } );
   }
 
-  functionBuilder.register( 'testPatternsFunctions', testPatternsFunctions );
+  functionBuilder.register( 'testImageFunctions', testImageFunctions );
 
   /**
    * Use this simplified representation so that this test is not dependent on other sim code.
@@ -163,7 +163,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'testPatternsFunctions.TestCardNode', TestCardNode );
+  functionBuilder.register( 'testImageFunctions.TestCardNode', TestCardNode );
 
   inherit( Node, TestCardNode );
 
@@ -203,9 +203,9 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'testPatternsFunctions.TestFunctionNode', TestFunctionNode );
+  functionBuilder.register( 'testImageFunctions.TestFunctionNode', TestFunctionNode );
 
   inherit( Node, TestFunctionNode );
 
-  return testPatternsFunctions;
+  return testImageFunctions;
 } );
