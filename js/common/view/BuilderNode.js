@@ -59,23 +59,23 @@ define( function( require ) {
     options.y = builder.location.y;
 
     // To improve readability of shape code
-    var WIDTH = builder.width;
-    var HEIGHT = builder.height;
-    var X_INSET = 0.15 * WIDTH;
-    var Y_INSET = 0.15 * HEIGHT;
+    var BODY_WIDTH = builder.width;
+    var BODY_HEIGHT = builder.height;
+    var X_INSET = 0.15 * BODY_WIDTH;
+    var Y_INSET = 0.15 * BODY_HEIGHT;
 
     // Main body of the builder, described starting at upper-left and moving clockwise
     var bodyNode = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( X_INSET, Y_INSET )
-      .lineTo( WIDTH - X_INSET, Y_INSET )
-      .lineTo( WIDTH, 0 )
-      .lineTo( WIDTH, HEIGHT )
-      .lineTo( WIDTH - X_INSET, HEIGHT - Y_INSET )
-      .lineTo( X_INSET, HEIGHT - Y_INSET )
-      .lineTo( 0, HEIGHT )
+      .lineTo( BODY_WIDTH - X_INSET, Y_INSET )
+      .lineTo( BODY_WIDTH, 0 )
+      .lineTo( BODY_WIDTH, BODY_HEIGHT )
+      .lineTo( BODY_WIDTH - X_INSET, BODY_HEIGHT - Y_INSET )
+      .lineTo( X_INSET, BODY_HEIGHT - Y_INSET )
+      .lineTo( 0, BODY_HEIGHT )
       .close(), {
-      fill: new LinearGradient( 0, 0, 1, HEIGHT )
+      fill: new LinearGradient( 0, 0, 1, BODY_HEIGHT )
         .addColorStop( 0, options.bodyTopColor )
         .addColorStop( 0.5, options.bodyMiddleColor )
         .addColorStop( 1, options.bodyBottomColor ),
@@ -88,7 +88,7 @@ define( function( require ) {
     } );
 
     // Left end
-    var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, HEIGHT / 2, 0 ), {
+    var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
       fill: options.endColor,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
@@ -97,7 +97,7 @@ define( function( require ) {
     } );
 
     // Right end
-    var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, HEIGHT / 2, 0 ), {
+    var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
       fill: options.endColor,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
@@ -105,26 +105,26 @@ define( function( require ) {
       centerY: bodyNode.centerY
     } );
 
-    // Left (input) slot
-    var SLOT_WIDTH = 0.4 * options.endRadius;
-    var SLOT_HEIGHT = 0.75 * HEIGHT;
-    var SLOT_Y_OFFSET = 0.025 * SLOT_HEIGHT;
-    var leftSlotShape = new Shape()
-      .moveTo( 0, SLOT_Y_OFFSET )
-      .lineTo( SLOT_WIDTH, 0 )
-      .lineTo( SLOT_WIDTH, SLOT_HEIGHT )
-      .lineTo( 0, SLOT_HEIGHT - SLOT_Y_OFFSET )
+    // Input, on left
+    var INPUT_WIDTH = 0.4 * options.endRadius;
+    var INPUT_HEIGHT = 0.75 * BODY_HEIGHT;
+    var INPUT_Y_OFFSET = 0.025 * INPUT_HEIGHT;
+    var inputShape = new Shape()
+      .moveTo( 0, INPUT_Y_OFFSET )
+      .lineTo( INPUT_WIDTH, 0 )
+      .lineTo( INPUT_WIDTH, INPUT_HEIGHT )
+      .lineTo( 0, INPUT_HEIGHT - INPUT_Y_OFFSET )
       .close();
-    var leftSlotNode = new Path( leftSlotShape, {
+    var inputNode = new Path( inputShape, {
       fill: options.slotFill,
       stroke: options.slotStroke,
       lineWidth: options.slotLineWidth,
       center: leftEnd.center
     } );
 
-    // Right (output) slot
-    var rightSlotShape = leftSlotShape.transformed( Matrix3.scaling( -1, 1 ) );
-    var rightSlotNode = new Path( rightSlotShape, {
+    // Output, on right
+    var outputShape = inputShape.transformed( Matrix3.scaling( -1, 1 ) );
+    var outputNode = new Path( outputShape, {
       fill: options.slotFill,
       stroke: options.slotStroke,
       lineWidth: options.slotLineWidth,
@@ -141,7 +141,7 @@ define( function( require ) {
     }
     var slotsParent = new Node( { children: slotNodes } );
 
-    options.children = [ bodyNode, leftEnd, rightEnd, leftSlotNode, rightSlotNode, slotsParent ];
+    options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
     Node.call( this, options );
 
     // @private
