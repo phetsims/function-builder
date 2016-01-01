@@ -35,9 +35,6 @@ define( function( require ) {
    */
   function ComposedSceneNode( scene, layoutBounds, options ) {
 
-    //TODO generalize this for multiple builders
-    assert && assert( scene.builder.length === 1 );
-
     // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
     scene.inputCards.forEach( function( card ) {
@@ -237,8 +234,11 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    //TODO temporary, to demonstrate function changes
+    //TODO temporary, to demonstrate what happens as slots in the builder are populated
     {
+      //TODO generalize for N builders
+      assert && assert( scene.builders.length === 1 );
+
       // When any function changes, update all output cards.
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
