@@ -1,9 +1,10 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * The builder is a function 'pipeline'.
- * It has a number of 'slots', each of which can be occupied by 1 function instance.
- * A builder takes 1 input and produces 1 output.
+ * A builder produces an output by running an input through a set of functions.
+ * The functions occupy a set of slots in what is conceptually a serial pipeline.
+ * Each slot contains 0 or 1 function instance.
+ * An empty slot is equivalent to the identity function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,6 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -35,12 +37,6 @@ define( function( require ) {
     this.height = options.height;
     this.location = options.location;
 
-    // @public A {Property.<AbstractFunction|null>} for each slot in the builder. Null indicates that the slot is unoccupied.
-    this.functionInstanceProperties = [];
-
-    // @public (read-only) center of each slot in the builder. 1:1 index correspondence with functionInstanceProperties.
-    this.slotLocations = [];
-
     // width occupied by slots
     var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_WIDTH;
     if ( options.numberOfSlots > 1 ) {
@@ -49,27 +45,26 @@ define( function( require ) {
     assert && assert( totalWidthOfSlots > 0 );
 
     // create and populate slots
+    this.slots = [];
     var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
     for ( var i = 0; i < options.numberOfSlots; i++ ) {
 
-      // slot, location is at its center
-      this.slotLocations.push( leftSlotLocation.plusXY(
-        i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 ) );
+      // location is at slot's center
+      var slotLocation = leftSlotLocation.plusXY( i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 );
 
       // each slot is initially empty
-      this.functionInstanceProperties.push( new Property( null ) );
+      this.slots.push( new Slot( slotLocation, null ) );
     }
-    assert && assert( this.slotLocations.length === this.functionInstanceProperties.length );
   }
 
   functionBuilder.register( 'Builder', Builder );
 
-  return inherit( Object, Builder, {
+  inherit( Object, Builder, {
 
     // @public
     reset: function() {
-      this.functionInstanceProperties.forEach( function( functionInstance ) {
-        functionInstance.reset();
+      this.slots.forEach( function( slot ) {
+        slot.reset();
       } );
     },
 
@@ -82,8 +77,8 @@ define( function( require ) {
      */
     containsFunctionInstance: function( functionInstance ) {
       var found = false;
-      for ( var i = 0; i < this.functionInstanceProperties.length && !found; i++ ) {
-        found = ( this.functionInstanceProperties[ i ].get() === functionInstance );
+      for ( var i = 0; i < this.slots.length && !found; i++ ) {
+        found = this.slots[ i ].contains( functionInstance );
       }
       return found;
     },
@@ -99,8 +94,9 @@ define( function( require ) {
       var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
       var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
-        this.functionInstanceProperties[ slotNumber ].set( functionInstance );
-        functionInstance.locationProperty.set( this.slotLocations[ slotNumber ] );
+        var slot = this.slots[ slotNumber ];
+        slot.functionInstanceProperty.set( functionInstance );
+        functionInstance.locationProperty.set( slot.location );
       }
       return slotNumber;
     },
@@ -113,9 +109,10 @@ define( function( require ) {
      */
     removeFunctionInstance: function( functionInstance ) {
       var removed = false;
-      for ( var i = 0; i < this.functionInstanceProperties.length && !removed; i++ ) {
-        if ( this.functionInstanceProperties[ i ].get() === functionInstance ) {
-          this.functionInstanceProperties[ i ].set( null );
+      for ( var i = 0; i < this.slots.length && !removed; i++ ) {
+        var slot = this.slots[ i ];
+        if ( slot.contains( functionInstance ) ) {
+          slot.functionInstanceProperty.set( null );
           removed = true;
         }
       }
@@ -132,14 +129,15 @@ define( function( require ) {
      */
     getClosestEmptySlot: function( location, distanceThreshold ) {
       var slotNumber = -1;
-      for ( var i = 0; i < this.slotLocations.length; i++ ) {
-        if ( this.functionInstanceProperties[ i ].get() === null ) {
+      for ( var i = 0; i < this.slots.length; i++ ) {
+        var slot = this.slots[i];
+        if ( slot.isEmpty() ) {
           if ( slotNumber === -1 ) {
-            if ( this.slotLocations[ i ].distance( location ) < distanceThreshold ) {
+            if ( slot.location.distance( location ) < distanceThreshold ) {
               slotNumber = i;
             }
           }
-          else if ( this.slotLocations[ i ].distance( location ) < this.slotLocations[ slotNumber ].distance( location ) ) {
+          else if ( slot.location.distance( location ) < this.slots[ slotNumber ].location.distance( location ) ) {
             slotNumber = i;
           }
         }
@@ -147,4 +145,32 @@ define( function( require ) {
       return slotNumber;
     }
   } );
+
+  /**
+   * A function slot in the builder.
+   * @param location - {Vector2} location of the slot in the global coordinate frame
+   * @param {AbstractFunction|null} functionInstance - the function instance that occupies the slot, null if the slot is empty
+   * @constructor
+   */
+  function Slot( location, functionInstance ) {
+    this.location = location; // @public (read-only)
+    PropertySet.call( this, {
+      functionInstance: functionInstance // @public
+    } );
+  }
+
+  functionBuilder.register( 'Builder.Slot', Slot );
+
+  inherit( PropertySet, Slot, {
+
+    // @public is the slot empty?
+    isEmpty: function() { return ( this.functionInstanceProperty.get() === null ); },
+
+    // @public does this slot contain a specified {AbstractFunction} function instance?
+    contains: function( functionInstance ) {
+      return this.functionInstanceProperty.get() === functionInstance;
+    }
+  } );
+
+  return Builder;
 } );

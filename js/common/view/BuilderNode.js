@@ -133,10 +133,10 @@ define( function( require ) {
 
     // slots
     var slotNodes = [];
-    for ( var i = 0; i < builder.slotLocations.length; i++ ) {
+    for ( var i = 0; i < builder.slots.length; i++ ) {
       slotNodes.push( new FunctionNode( new PlaceholderFunction(), {
         // centered at slot locations
-        center: builder.slotLocations[ i ].minus( builder.location)
+        center: builder.slots[ i ].location.minus( builder.location)
       } ) );
     }
     var slotsParent = new Node( { children: slotNodes } );

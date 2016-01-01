@@ -227,8 +227,8 @@ define( function( require ) {
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
           var card = scene.inputCards[ i ];
-          for ( var j = 0; j < scene.builders[0].functionInstanceProperties.length; j++ ) {
-            var functionInstance = scene.builders[0].functionInstanceProperties[ j ].get();
+          for ( var j = 0; j < scene.builders[0].slots.length; j++ ) {
+            var functionInstance = scene.builders[0].slots[ j ].functionInstanceProperty.get();
             if ( functionInstance ) {
               var outputName = card.name + '.' + functionInstance.name;
               var outputCanvas = functionInstance.apply( card.canvas );
@@ -238,8 +238,8 @@ define( function( require ) {
           outputNodes[ i ].setCard( card );
         }
       };
-      scene.builders[0].functionInstanceProperties.forEach( function( functionInstanceProperty ) {
-        functionInstanceProperty.link( functionInstancePropertyObserver );
+      scene.builders[0].slots.forEach( function( slot ) {
+        slot.functionInstanceProperty.link( functionInstancePropertyObserver );
       } );
     }
   }
