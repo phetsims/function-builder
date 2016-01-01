@@ -87,10 +87,13 @@ define( function( require ) {
 
       assert && assert( functionInstance.creator, 'missing functionInstance.creator' );
 
-      // try to add function to builder
-      var slotNumber = scene.builders[0].addFunctionInstance( functionInstance );
+      // try to add function to a builder
+      var slotNumber = -1;
+      for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
+        slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
+      }
 
-      // If the function isn't added to the builder, then return it to the carousel.
+      // If the function isn't added to a builder, then return it to the carousel.
       if ( slotNumber === -1 ) {
         functionsCarousel.scrollToItem( functionInstance.creator );
         functionInstance.locationProperty.reset();
@@ -112,11 +115,16 @@ define( function( require ) {
       // create a Node for the function instance
       var functionNode = new MovableFunctionNode( functionInstance, {
 
-        // If the function is in the builder, remove it.
+        // If the function is in a builder, remove it.
         startDrag: function( functionInstance, event, trail ) {
-          if ( scene.builders[0].containsFunctionInstance( functionInstance ) ) {
-            scene.builders[0].removeFunctionInstance( functionInstance );
+          var removed = false;
+          for ( var i = 0; i < scene.builders.length && !removed; i++ ) {
+            if ( scene.builders[ i ].containsFunctionInstance( functionInstance ) ) {
+              scene.builders[ i ].removeFunctionInstance( functionInstance );
+              removed = true;
+            }
           }
+          assert && assert( removed, 'functionInstance was not removed' );
         },
 
         // When done dragging the function ...
@@ -163,6 +171,7 @@ define( function( require ) {
       right: inputsCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputsCarousel.centerY
     } );
+    //TODO create a page control for each output carousel
     var outputsPageControl = new PageControl( outputsCarousel.numberOfPages, outputsCarousel.pageNumberProperty, {
       orientation: 'vertical',
       left: outputsCarousel.right + PAGE_CONTROL_SPACING,
@@ -179,18 +188,23 @@ define( function( require ) {
     inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputsCarousel.pageNumberProperty.set( pageNumber );
     } );
+    //TODO link all output carousels
     outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
     } );
 
     // Function builder
-    var builderNode = new BuilderNode( scene.builders[0], {
+    var builderNodes = [];
+    scene.builders.forEach( function( builder ) {
+      builderNodes.push( new BuilderNode( builder, {
 
-      // colors matched to design document
-      bodyTopColor: 'rgb( 168, 198, 216 )',
-      bodyMiddleColor: 'rgb( 6, 114, 180 )',
-      bodyBottomColor: 'rgb( 2, 46, 71 )',
-      endColor: 'rgb( 189, 206, 216 )'
+        //TODO different colors for each builder
+        // colors matched to design document
+        bodyTopColor: 'rgb( 168, 198, 216 )',
+        bodyMiddleColor: 'rgb( 6, 114, 180 )',
+        bodyBottomColor: 'rgb( 2, 46, 71 )',
+        endColor: 'rgb( 189, 206, 216 )'
+      } ) );
     } );
 
     // Spy Glass check box, to the right of functions carousel
@@ -212,13 +226,15 @@ define( function( require ) {
       spyGlassVisibleProperty.reset();
     };
 
-    options.children = [
-      builderNode,
+    options.children = [];
+    options.children = options.children.concat( builderNodes );
+    options.children = options.children.concat( [
       inputsCarousel, outputsCarousel, functionsCarousel,
       inputsPageControl, outputsPageControl, functionsPageControl,
       eraserButton, spyGlassCheckBox,
       functionsParentNode
-    ];
+    ] );
+
     Node.call( this, options );
 
     //TODO temporary, to demonstrate function changes
@@ -227,8 +243,8 @@ define( function( require ) {
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
           var card = scene.inputCards[ i ];
-          for ( var j = 0; j < scene.builders[0].slots.length; j++ ) {
-            var functionInstance = scene.builders[0].slots[ j ].functionInstanceProperty.get();
+          for ( var j = 0; j < scene.builders[ 0 ].slots.length; j++ ) {
+            var functionInstance = scene.builders[ 0 ].slots[ j ].functionInstanceProperty.get();
             if ( functionInstance ) {
               var outputName = card.name + '.' + functionInstance.name;
               var outputCanvas = functionInstance.apply( card.canvas );
@@ -238,7 +254,7 @@ define( function( require ) {
           outputNodes[ i ].setCard( card );
         }
       };
-      scene.builders[0].slots.forEach( function( slot ) {
+      scene.builders[ 0 ].slots.forEach( function( slot ) {
         slot.functionInstanceProperty.link( functionInstancePropertyObserver );
       } );
     }
