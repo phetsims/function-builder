@@ -14,8 +14,9 @@ define( function( require ) {
   var functionBuilder = new Namespace( 'functionBuilder' );
 
   if ( phet.chipper.getQueryParameter( 'debug' ) ) {
+    console.log( 'enabling debug' );
     functionBuilder.debug = function( message ) {
-      console.log( 'DEBUG: ' + message );
+      console.log( '%cdebug: ' + message, 'color: #009900' );
     }
   }
 
