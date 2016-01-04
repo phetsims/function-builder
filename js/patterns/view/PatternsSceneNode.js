@@ -221,7 +221,7 @@ define( function( require ) {
 
     // Spy Glass check box, to the right of functions carousel
     var spyGlassVisibleProperty = new Property( false ); // @private
-    if ( scene.numberOfSlots > 1 ) {
+    if ( scene.builders[ 0 ].slots.length > 1 ) { //TODO this is a little brittle
       var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
         maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
         left: inputsCarousel.left,
