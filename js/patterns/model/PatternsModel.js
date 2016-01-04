@@ -32,7 +32,7 @@ define( function( require ) {
           new Builder( {
             width: 350,
             numberOfSlots: 1,
-            location: new Vector2( 335, 240 ),
+            location: new Vector2( 335, 280 ),
             colorScheme: FBColors.BUILDER_MAROON
           } )
         ],
@@ -47,12 +47,12 @@ define( function( require ) {
           new Builder( {
             width: 300,
             numberOfSlots: 1,
-            location: new Vector2( 320, 180 ),
+            location: new Vector2( 320, 200 ),
             colorScheme: FBColors.BUILDER_MAROON
           } ),
           new Builder( {
             width: 300,
-            location: new Vector2( 320, 340 ),
+            location: new Vector2( 320, 360 ),
             colorScheme: FBColors.BUILDER_GREEN
           } )
         ],
@@ -67,7 +67,7 @@ define( function( require ) {
           new Builder( {
             width: 450,
             numberOfSlots: 3,
-            location: new Vector2( 285, 240 ),
+            location: new Vector2( 285, 280 ),
             colorScheme: FBColors.BUILDER_BLUE
           } )
         ],
