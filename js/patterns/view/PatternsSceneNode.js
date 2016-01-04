@@ -82,7 +82,7 @@ define( function( require ) {
     var outputCarouselsParent = new Node( {
       children: outputCarousels,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
-      top: inputCarousel.top
+      bottom: inputCarousel.bottom
     } );
 
     // Eraser button, centered below the output carousels
