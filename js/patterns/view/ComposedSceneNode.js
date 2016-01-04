@@ -121,7 +121,6 @@ define( function( require ) {
               removed = true;
             }
           }
-          assert && assert( removed, 'functionInstance was not removed' );
         },
 
         // When done dragging the function ...
