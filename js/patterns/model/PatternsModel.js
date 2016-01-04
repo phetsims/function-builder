@@ -19,7 +19,6 @@ define( function( require ) {
    */
   function PatternsModel() {
 
-    //TODO create scenes on demand?
     // @public
     this.singleScene = new PatternsScene( {
       numberOfBuilders: 1,
