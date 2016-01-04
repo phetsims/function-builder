@@ -168,13 +168,12 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 25
     } );
 
-    // Page controls for each carousel
+    // Page controls for carousels
     var inputsPageControl = new PageControl( inputsCarousel.numberOfPages, inputsCarousel.pageNumberProperty, {
       orientation: 'vertical',
       right: inputsCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputsCarousel.centerY
     } );
-    //TODO create a page control for each output carousel
     var outputsPageControl = new PageControl( outputsCarousel.numberOfPages, outputsCarousel.pageNumberProperty, {
       orientation: 'vertical',
       left: outputsCarousel.right + PAGE_CONTROL_SPACING,
