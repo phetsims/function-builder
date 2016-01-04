@@ -18,7 +18,7 @@ define( function( require ) {
     console.log( 'enabling log' );
     functionBuilder.log = function( message ) {
       console.log( '%clog: ' + message, 'color: #009900' ); // green
-    }
+    };
   }
 
   return functionBuilder;
