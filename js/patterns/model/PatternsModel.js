@@ -77,9 +77,8 @@ define( function( require ) {
         } )
     ];
 
-    //TODO initial selection should be scenes[0]
     // @public
-    this.selectedSceneProperty = new Property( this.scenes[ 2 ] );
+    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );
