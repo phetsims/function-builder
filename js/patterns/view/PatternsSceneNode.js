@@ -67,8 +67,7 @@ define( function( require ) {
 
         var outputCarousel = new Carousel( outputCarouselItems, {
           orientation: 'vertical',
-          fill: scene.builders[ i ].colorScheme.middle, //TODO is this better than builder icons?
-          buttonColor: 'rgb( 200, 200, 200 )',
+          buttonColor: scene.builders[ i ].colorScheme.middle, //TODO is this better than builder icons?
           separatorsVisible: true,
           itemsPerPage: INPUTS_PER_PAGE,
           left: ( i === 0 ) ? 0 : outputCarousels[ i - 1 ].right + OUTPUT_CAROUSELS_SPACING,
