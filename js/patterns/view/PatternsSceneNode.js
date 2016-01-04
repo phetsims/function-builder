@@ -55,6 +55,7 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
+    //TODO if > 1 builder, create a builder icon above each carousel
     // Create a vertical output carousel for each builder, at right-center
     var outputCarousels = [];
     (function() {
