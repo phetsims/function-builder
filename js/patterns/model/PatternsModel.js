@@ -30,7 +30,8 @@ define( function( require ) {
         numberOfBuilders: 1,
         numberOfSlots: 1,
         maxFunctionInstances: 2,
-        builderLocations: [ new Vector2(  285, 240  ) ],
+        builderWidth: 350,
+        builderLocations: [ new Vector2( 335, 240  ) ],
         builderColorSchemes: [ FBColors.BUILDER_MAROON ]
       } ),
 
@@ -39,6 +40,7 @@ define( function( require ) {
         numberOfBuilders: 2,
         numberOfSlots: 1,
         maxFunctionInstances: 2,
+        builderWidth: 300,
         builderLocations: [ new Vector2(  285, 180  ), new Vector2(  285, 340  ) ],
         builderColorSchemes: [ FBColors.BUILDER_MAROON, FBColors.BUILDER_GREEN ]
       } ),
@@ -48,6 +50,7 @@ define( function( require ) {
         numberOfBuilders: 1,
         numberOfSlots: 3,
         maxFunctionInstances: 2,
+        builderWidth: 450,
         builderLocations: [ new Vector2(  285, 240  ) ],
         builderColorSchemes: [ FBColors.BUILDER_BLUE ]
       } )

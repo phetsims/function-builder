@@ -56,6 +56,7 @@ define( function( require ) {
       numberOfBuilders: 1, // {number} number of builders in this scene
       numberOfSlots: 1, // {number} number of function slots in each builder
       maxFunctionInstances: 1, // {number} max number of instances of each function type
+      builderWidth: 450, // {number} horizontal distance between input and output for builders
       builderLocations: [ new Vector2( 0, 0 ) ], // {Vector2} locations of the builders
       builderColorSchemes: [ FBColors.BUILDER_MAROON ]
     }, options );
@@ -107,6 +108,7 @@ define( function( require ) {
     this.builders = [];
     for ( var i = 0; i < options.numberOfBuilders; i++ ) {
       this.builders.push( new Builder( {
+        width: options.builderWidth,
         numberOfSlots: options.numberOfSlots,
         location: options.builderLocations[ i ],
         colorScheme: options.builderColorSchemes[ i ]
