@@ -154,6 +154,7 @@ define( function( require ) {
       functionCarouselItems.push( functionCreatorNode );
     }
 
+    //TODO center below builders
     // Functions, in a horizontal carousel at bottom-center
     var functionsCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
