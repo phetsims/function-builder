@@ -65,7 +65,7 @@ define( function( require ) {
 
     // @public @override
     dispose: function() {
-      functionBuilder.debug && functionBuilder.debug( this.constructor.name + '.dispose' );
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
       this.disposeCalledEmitter.emit();
       PropertySet.prototype.dispose.call( this );
       this.disposeAbstractFunction();
