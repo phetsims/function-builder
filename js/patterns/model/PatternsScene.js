@@ -42,9 +42,11 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
+   * @param {function} createIcon - function used to create the icon that represents the scene
+   * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( options ) {
+  function PatternsScene( createIcon, options ) {
 
     options = _.extend( {
       numberOfBuilders: 1, // {number} number of builders in this scene
@@ -55,6 +57,9 @@ define( function( require ) {
     assert && assert( options.numberOfBuilders > 0 );
     assert && assert( options.numberOfSlots > 0 );
     assert && assert( options.maxFunctionInstances > 0 );
+
+    // @public (read-only) {function} used to create the icon that represents the scene
+    this.createIcon = createIcon;
 
     // @public (read-only) constructors for the types of functions that will appear in the carousel
     this.functionConstructors = [

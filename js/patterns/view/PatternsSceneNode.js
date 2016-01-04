@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * The 'composed' scene in the 'Patterns' screen.
+ * Composite node that contains all of the nodes that make up a 'scene' in the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ComposedSceneNode( scene, layoutBounds, options ) {
+  function PatternsSceneNode( scene, layoutBounds, options ) {
 
     // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
@@ -233,7 +233,7 @@ define( function( require ) {
     }
 
     // @private Resets this node
-    this.resetComposedSceneNode = function() {
+    this.resetPatternsSceneNode = function() {
       inputsCarousel.reset();
       functionsCarousel.reset();
       outputsCarousel.reset();
@@ -243,8 +243,6 @@ define( function( require ) {
     //TODO temporary, to demonstrate what happens as slots in the builder are populated
     {
       //TODO generalize for N builders
-      assert && assert( scene.builders.length === 1 );
-
       // When any function changes, update all output cards.
       var functionInstancePropertyObserver = function() {
         for ( var i = 0; i < scene.inputCards.length; i++ ) {
@@ -266,11 +264,13 @@ define( function( require ) {
     }
   }
 
-  functionBuilder.register( 'ComposedSceneNode', ComposedSceneNode );
+  functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
 
-  return inherit( Node, ComposedSceneNode, {
+  return inherit( Node, PatternsSceneNode, {
 
     // @public
-    reset: function() { this.resetComposedSceneNode(); }
+    reset: function() {
+      this.resetPatternsSceneNode();
+    }
   } );
 } );

@@ -11,20 +11,17 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   var FUNCTION_WIDTH = 30;
 
   /**
    * @param {Property} selectedSceneProperty
-   * @param {SingleScene} singleScene
-   * @param {DualScene} dualScene
-   * @param {ComposedScene} composedScene
+   * @param {PatternsScene[]} scenes
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsSceneControl( selectedSceneProperty, singleScene, dualScene, composedScene, options ) {
+  function PatternsSceneControl( selectedSceneProperty, scenes, options ) {
 
     options = options || {};
     options.orientation = 'horizontal';
@@ -34,11 +31,15 @@ define( function( require ) {
     options.buttonContentXMargin = 10;
     options.buttonContentYMargin = 5;
 
-    RadioButtonGroup.call( this, selectedSceneProperty, [
-      { value: singleScene, node: PatternsIconFactory.createSingleSceneIcon( FUNCTION_WIDTH ) },
-      { value: dualScene, node: PatternsIconFactory.createDualSceneIcon( FUNCTION_WIDTH ) },
-      { value: composedScene, node: PatternsIconFactory.createComposedSceneIcon( FUNCTION_WIDTH ) }
-    ], options );
+    var content = [];
+    for ( var i = 0; i < scenes.length; i++ ) {
+      content.push( {
+        value: scenes[ i ],
+        node: scenes[ i ].createIcon( FUNCTION_WIDTH )
+      } );
+    }
+
+    RadioButtonGroup.call( this, selectedSceneProperty, content, options );
   }
 
   functionBuilder.register( 'PatternsSceneControl', PatternsSceneControl );

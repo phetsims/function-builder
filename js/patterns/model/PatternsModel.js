@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
   var Property = require( 'AXON/Property' );
 
@@ -19,30 +20,34 @@ define( function( require ) {
    */
   function PatternsModel() {
 
-    // @public
-    this.singleScene = new PatternsScene( {
-      numberOfBuilders: 1,
-      numberOfSlots: 1,
-      maxFunctionInstances: 2
-    } );
+    // @public (read-only)
+    this.scenes = [
 
-    // @public
-    this.dualScene = new PatternsScene( {
-      numberOfBuilders: 2,
-      numberOfSlots: 1,
-      maxFunctionInstances: 2
-    } );
+      // single
+      new PatternsScene( PatternsIconFactory.createSingleSceneIcon, {
+        numberOfBuilders: 1,
+        numberOfSlots: 1,
+        maxFunctionInstances: 2
+      } ),
 
-    // @public
-    this.composedScene = new PatternsScene( {
-      numberOfBuilders: 1,
-      numberOfSlots: 3,
-      maxFunctionInstances: 2
-    } );
+      // dual
+      new PatternsScene( PatternsIconFactory.createDualSceneIcon, {
+        numberOfBuilders: 2,
+        numberOfSlots: 1,
+        maxFunctionInstances: 2
+      } ),
 
-    //TODO initial selection should be singleScene
+      // composed
+      new PatternsScene( PatternsIconFactory.createComposedSceneIcon, {
+        numberOfBuilders: 1,
+        numberOfSlots: 3,
+        maxFunctionInstances: 2
+      } )
+    ];
+
+    //TODO initial selection should be scenes[0]
     // @public
-    this.selectedSceneProperty = new Property( this.composedScene );
+    this.selectedSceneProperty = new Property( this.scenes[ 2 ] );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );
@@ -51,15 +56,10 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.singleScene.reset();
-      this.dualScene.reset();
-      this.composedScene.reset();
+      this.scenes.forEach( function( scene ) {
+        scene.reset();
+      } );
       this.selectedSceneProperty.reset();
-    },
-
-    // @public
-    step: function( dt ) {
-      //TODO
     }
   } );
 } );
