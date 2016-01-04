@@ -58,6 +58,7 @@ define( function( require ) {
     // Create a vertical output carousel for each builder, at right-center
     var outputCarousels = [];
     (function() {
+      // IIFE to limit scope of var i
       for ( var i = 0; i < scene.builders.length; i++ ) {
 
         var outputCarouselItems = [];
@@ -161,6 +162,7 @@ define( function( require ) {
     // Items in the functions carousel
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
     (function() {
+      // IIFE to limit scope of var i
       for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
 
         var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
