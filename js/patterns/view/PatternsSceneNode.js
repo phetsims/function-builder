@@ -43,11 +43,11 @@ define( function( require ) {
     } );
 
     // Input cards, in a vertical carousel at left-center
-    var inputNodes = [];
+    var inputCarouselItems = [];
     scene.inputCards.forEach( function( card ) {
-      inputNodes.push( new CardNode( card ) );
+      inputCarouselItems.push( new CardNode( card ) );
     } );
-    var inputCarousel = new Carousel( inputNodes, {
+    var inputCarousel = new Carousel( inputCarouselItems, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: INPUTS_PER_PAGE,
@@ -57,23 +57,25 @@ define( function( require ) {
 
     // Create a vertical output carousel for each builder, at right-center
     var outputCarousels = [];
-    for ( var j = 0; j < scene.builders.length; j++ ) {
+    (function() {
+      for ( var i = 0; i < scene.builders.length; i++ ) {
 
-      var outputNodes = [];
-      scene.inputCards.forEach( function( card ) {
-        outputNodes.push( new CardNode( card ) );
-      } );
+        var outputCarouselItems = [];
+        scene.inputCards.forEach( function( card ) {
+          outputCarouselItems.push( new CardNode( card ) );
+        } );
 
-      var outputCarousel = new Carousel( outputNodes, {
-        orientation: 'vertical',
-        separatorsVisible: true,
-        itemsPerPage: INPUTS_PER_PAGE,
-        left: ( j === 0 ) ? 0 : outputCarousels[ j - 1 ].right + OUTPUT_CAROUSELS_SPACING,
-        top: inputCarousel.top
-      } );
+        var outputCarousel = new Carousel( outputCarouselItems, {
+          orientation: 'vertical',
+          separatorsVisible: true,
+          itemsPerPage: INPUTS_PER_PAGE,
+          left: ( i === 0 ) ? 0 : outputCarousels[ i - 1 ].right + OUTPUT_CAROUSELS_SPACING,
+          top: inputCarousel.top
+        } );
 
-      outputCarousels.push( outputCarousel );
-    }
+        outputCarousels.push( outputCarousel );
+      }
+    })();
 
     var outputCarouselsParent = new Node( {
       children: outputCarousels,
@@ -157,20 +159,22 @@ define( function( require ) {
 
     // Items in the functions carousel
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
-    for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
+    (function() {
+      for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
 
-      var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
+        var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
 
-        // max number of instances of each function type
-        maxInstances: 2,
+          // max number of instances of each function type
+          maxInstances: 2,
 
-        // When done dragging the newly-created function ...
-        endDrag: functionEndDrag
-      } );
+          // When done dragging the newly-created function ...
+          endDrag: functionEndDrag
+        } );
 
-      functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
-      functionCarouselItems.push( functionCreatorNode );
-    }
+        functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
+        functionCarouselItems.push( functionCreatorNode );
+      }
+    })();
 
     // Functions, in a horizontal carousel, centered below bottom builder
     var functionsCarousel = new Carousel( functionCarouselItems, {
@@ -250,27 +254,34 @@ define( function( require ) {
       spyGlassVisibleProperty.reset();
     };
 
-    //TODO temporary, to demonstrate what happens as slots in the builder are populated
-    {
-      //TODO generalize for N builders
-      // When any function changes, update all output cards.
-      var functionInstancePropertyObserver = function() {
-        for ( var i = 0; i < scene.inputCards.length; i++ ) {
-          var card = scene.inputCards[ i ];
-          for ( var j = 0; j < scene.builders[ 0 ].slots.length; j++ ) {
-            var functionInstance = scene.builders[ 0 ].slots[ j ].functionInstanceProperty.get();
-            if ( functionInstance ) {
-              var outputName = card.name + '.' + functionInstance.name;
-              var outputCanvas = functionInstance.apply( card.canvas );
-              card = new Card( outputName, outputCanvas );
+    //TODO temporary, to demonstrate what happens as builder slots are populated
+    for ( var i = 0; i < scene.builders.length; i++ ) {
+
+      // IIFE to store builder in a closure var
+      (function( builderIndex ) {
+
+        var builder = scene.builders[ builderIndex ];
+
+        var updateOutputItems = function() {
+          for ( var i = 0; i < scene.inputCards.length; i++ ) {
+            var card = scene.inputCards[ i ];
+            for ( var j = 0; j < builder.slots.length; j++ ) {
+              var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
+              if ( functionInstance ) {
+                var outputName = card.name + '.' + functionInstance.name;
+                var outputCanvas = functionInstance.apply( card.canvas );
+                card = new Card( outputName, outputCanvas );
+              }
             }
+            outputCarousels[ builderIndex ].items[ i ].setCard( card );
           }
-          outputNodes[ i ].setCard( card );
-        }
-      };
-      scene.builders[ 0 ].slots.forEach( function( slot ) {
-        slot.functionInstanceProperty.link( functionInstancePropertyObserver );
-      } );
+        };
+
+        builder.slots.forEach( function( slot ) {
+          slot.functionInstanceProperty.link( updateOutputItems );
+        } );
+
+      })( i );
     }
   }
 
