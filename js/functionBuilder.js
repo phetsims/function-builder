@@ -13,10 +13,11 @@ define( function( require ) {
 
   var functionBuilder = new Namespace( 'functionBuilder' );
 
+  // enables debug output to the console
   if ( phet.chipper.getQueryParameter( 'debug' ) ) {
     console.log( 'enabling debug' );
     functionBuilder.debug = function( message ) {
-      console.log( '%cdebug: ' + message, 'color: #009900' );
+      console.log( '%cdebug: ' + message, 'color: #009900' ); // green
     }
   }
 
