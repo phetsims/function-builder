@@ -15,6 +15,7 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // modules (functions)
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
@@ -55,12 +56,14 @@ define( function( require ) {
       numberOfBuilders: 1, // {number} number of builders in this scene
       numberOfSlots: 1, // {number} number of function slots in each builder
       maxFunctionInstances: 1, // {number} max number of instances of each function type
+      builderLocations: [ new Vector2( 0, 0 ) ], // {Vector2} locations of the builders
       builderColorSchemes: [ FBColors.BUILDER_MAROON ]
     }, options );
 
     assert && assert( options.numberOfBuilders > 0 );
     assert && assert( options.numberOfSlots > 0 );
     assert && assert( options.maxFunctionInstances > 0 );
+    assert && assert( options.builderLocations.length === options.numberOfBuilders );
     assert && assert( options.builderColorSchemes.length === options.numberOfBuilders );
 
     // @public (read-only) {function} used to create the icon that represents the scene
@@ -105,6 +108,7 @@ define( function( require ) {
     for ( var i = 0; i < options.numberOfBuilders; i++ ) {
       this.builders.push( new Builder( {
         numberOfSlots: options.numberOfSlots,
+        location: options.builderLocations[ i ],
         colorScheme: options.builderColorSchemes[ i ]
       } ) );
     }

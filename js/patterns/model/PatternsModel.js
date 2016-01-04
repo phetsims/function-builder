@@ -15,6 +15,7 @@ define( function( require ) {
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
   var Property = require( 'AXON/Property' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @constructor
@@ -29,6 +30,7 @@ define( function( require ) {
         numberOfBuilders: 1,
         numberOfSlots: 1,
         maxFunctionInstances: 2,
+        builderLocations: [ new Vector2(  285, 240  ) ],
         builderColorSchemes: [ FBColors.BUILDER_MAROON ]
       } ),
 
@@ -37,6 +39,7 @@ define( function( require ) {
         numberOfBuilders: 2,
         numberOfSlots: 1,
         maxFunctionInstances: 2,
+        builderLocations: [ new Vector2(  285, 180  ), new Vector2(  285, 340  ) ],
         builderColorSchemes: [ FBColors.BUILDER_MAROON, FBColors.BUILDER_GREEN ]
       } ),
 
@@ -45,6 +48,7 @@ define( function( require ) {
         numberOfBuilders: 1,
         numberOfSlots: 3,
         maxFunctionInstances: 2,
+        builderLocations: [ new Vector2(  285, 240  ) ],
         builderColorSchemes: [ FBColors.BUILDER_BLUE ]
       } )
     ];
