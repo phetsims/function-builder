@@ -47,12 +47,12 @@ define( function( require ) {
           new Builder( {
             width: 300,
             numberOfSlots: 1,
-            location: new Vector2( 285, 180 ),
+            location: new Vector2( 320, 180 ),
             colorScheme: FBColors.BUILDER_MAROON
           } ),
           new Builder( {
             width: 300,
-            location: new Vector2( 285, 340 ),
+            location: new Vector2( 320, 340 ),
             colorScheme: FBColors.BUILDER_GREEN
           } )
         ],
