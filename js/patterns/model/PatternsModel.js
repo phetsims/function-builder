@@ -26,7 +26,7 @@ define( function( require ) {
     // @public (read-only)
     this.scenes = [
 
-      // single
+      // single: 1 builder with 1 slot
       new PatternsScene(
         [
           new Builder( {
@@ -41,7 +41,7 @@ define( function( require ) {
           maxFunctionInstances: 2
         } ),
 
-      // dual
+      // dual: 2 builders, each with 1 slot
       new PatternsScene(
         [
           new Builder( {
@@ -61,7 +61,7 @@ define( function( require ) {
           maxFunctionInstances: 2
         } ),
 
-      // composed
+      // composed: 1 builder with 3 slots, for demonstrating function composition
       new PatternsScene(
         [
           new Builder( {
