@@ -9,13 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // modules (functions)
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
@@ -46,27 +43,20 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
+   * @param {Builder[]} builders - builders for this scene
    * @param {function} createIcon - function used to create the icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( createIcon, options ) {
+  function PatternsScene( builders, createIcon, options ) {
 
-    //TODO instead of a bunch of builder options, pass in {Builder[]} ?
     options = _.extend( {
-      numberOfBuilders: 1, // {number} number of builders in this scene
       numberOfSlots: 1, // {number} number of function slots in each builder
-      maxFunctionInstances: 1, // {number} max number of instances of each function type
-      builderWidth: 450, // {number} horizontal distance between input and output for builders
-      builderLocations: [ new Vector2( 0, 0 ) ], // {Vector2} locations of the builders
-      builderColorSchemes: [ FBColors.BUILDER_MAROON ]
+      maxFunctionInstances: 1 // {number} max number of instances of each function type
     }, options );
 
-    assert && assert( options.numberOfBuilders > 0 );
     assert && assert( options.numberOfSlots > 0 );
     assert && assert( options.maxFunctionInstances > 0 );
-    assert && assert( options.builderLocations.length === options.numberOfBuilders );
-    assert && assert( options.builderColorSchemes.length === options.numberOfBuilders );
 
     // @public (read-only) {function} used to create the icon that represents the scene
     this.createIcon = createIcon;
@@ -106,15 +96,7 @@ define( function( require ) {
     ];
 
     // @public (read-only)
-    this.builders = [];
-    for ( var i = 0; i < options.numberOfBuilders; i++ ) {
-      this.builders.push( new Builder( {
-        width: options.builderWidth,
-        numberOfSlots: options.numberOfSlots,
-        location: options.builderLocations[ i ],
-        colorScheme: options.builderColorSchemes[ i ]
-      } ) );
-    }
+    this.builders = builders;
 
     // @private All function instances that exist. They may or may not be in a builder.
     this.functionInstances = [];
