@@ -52,6 +52,7 @@ define( function( require ) {
    */
   function PatternsScene( createIcon, options ) {
 
+    //TODO instead of a bunch of builder options, pass in {Builder[]} ?
     options = _.extend( {
       numberOfBuilders: 1, // {number} number of builders in this scene
       numberOfSlots: 1, // {number} number of function slots in each builder
