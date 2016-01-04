@@ -128,6 +128,7 @@ define( function( require ) {
 
     // @public
     dispose: function() {
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
       this.disposeMovableFunctionNode();
     }
   } );
