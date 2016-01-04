@@ -62,7 +62,7 @@ define( function( require ) {
       } );
     },
 
-    //TODO since the composed scene had 3 slots, shouldn't this icon also show 3 functions?
+    //TODO since the composed scene had 3 builder slots, shouldn't this icon also show 3 functions?
     /**
      * Creates the icon for the 'composed' scene.
      * @param {number} [width]
