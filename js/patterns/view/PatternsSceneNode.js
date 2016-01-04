@@ -26,6 +26,7 @@ define( function( require ) {
   // constants
   var INPUTS_PER_PAGE = 4;
   var PAGE_CONTROL_SPACING = 8;
+  var OUTPUT_CAROUSELS_SPACING = 15;
 
   /**
    * @param {PatternsScene} scene - model for this scene
@@ -46,7 +47,7 @@ define( function( require ) {
     scene.inputCards.forEach( function( card ) {
       inputNodes.push( new CardNode( card ) );
     } );
-    var inputsCarousel = new Carousel( inputNodes, {
+    var inputCarousel = new Carousel( inputNodes, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: INPUTS_PER_PAGE,
@@ -54,26 +55,37 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    //TODO create an output carousel for each builder
-    // Output cards, in a vertical carousel at right-center
-    var outputNodes = [];
-    scene.inputCards.forEach( function( card ) {
-      outputNodes.push( new CardNode( card ) );
-    } );
-    var outputsCarousel = new Carousel( outputNodes, {
-      orientation: 'vertical',
-      separatorsVisible: true,
-      itemsPerPage: INPUTS_PER_PAGE,
-      right: layoutBounds.right - ( inputsCarousel.left - layoutBounds.left ),
-      top: inputsCarousel.top
+    // Create a vertical output carousel for each builder, at right-center
+    var outputCarousels = [];
+    for ( var j = 0; j < scene.builders.length; j++ ) {
+
+      var outputNodes = [];
+      scene.inputCards.forEach( function( card ) {
+        outputNodes.push( new CardNode( card ) );
+      } );
+
+      var outputCarousel = new Carousel( outputNodes, {
+        orientation: 'vertical',
+        separatorsVisible: true,
+        itemsPerPage: INPUTS_PER_PAGE,
+        left: ( j === 0 ) ? 0 : outputCarousels[ j - 1 ].right + OUTPUT_CAROUSELS_SPACING,
+        top: inputCarousel.top
+      } );
+
+      outputCarousels.push( outputCarousel );
+    }
+
+    var outputCarouselsParent = new Node( {
+      children: outputCarousels,
+      right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
+      top: inputCarousel.top
     } );
 
-    //TODO center below the output carousels
     // Eraser button, centered below the output carousels
     var eraserButton = new EraserButton( {
       iconWidth: 28,
-      centerX: outputsCarousel.centerX,
-      top: outputsCarousel.bottom + 30
+      centerX: outputCarouselsParent.centerX,
+      top: outputCarouselsParent.bottom + 30
     } );
 
     // parent node for all nodes that are dynamically created
@@ -169,15 +181,15 @@ define( function( require ) {
     } );
 
     // Page controls for carousels
-    var inputsPageControl = new PageControl( inputsCarousel.numberOfPages, inputsCarousel.pageNumberProperty, {
+    var inputsPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, {
       orientation: 'vertical',
-      right: inputsCarousel.left - PAGE_CONTROL_SPACING,
-      centerY: inputsCarousel.centerY
+      right: inputCarousel.left - PAGE_CONTROL_SPACING,
+      centerY: inputCarousel.centerY
     } );
-    var outputsPageControl = new PageControl( outputsCarousel.numberOfPages, outputsCarousel.pageNumberProperty, {
+    var outputsPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, {
       orientation: 'vertical',
-      left: outputsCarousel.right + PAGE_CONTROL_SPACING,
-      centerY: outputsCarousel.centerY
+      left: outputCarouselsParent.right + PAGE_CONTROL_SPACING,
+      centerY: outputCarouselsParent.centerY
     } );
     var functionsPageControl = new PageControl( functionsCarousel.numberOfPages, functionsCarousel.pageNumberProperty, {
       orientation: 'horizontal',
@@ -185,21 +197,26 @@ define( function( require ) {
       top: functionsCarousel.bottom + PAGE_CONTROL_SPACING
     } );
 
-    // Link input and output carousels, so that they display the same page number
-    assert && assert( inputsCarousel.numberOfPages === outputsCarousel.numberOfPages );
-    inputsCarousel.pageNumberProperty.link( function( pageNumber ) {
-      outputsCarousel.pageNumberProperty.set( pageNumber );
+    // Link input carousel to all output carousels, so that they display the same page number
+    assert && assert( inputCarousel.numberOfPages === outputCarousels[ 0 ].numberOfPages );
+    inputCarousel.pageNumberProperty.link( function( pageNumber ) {
+      outputCarousels.forEach( function( outputCarousel ) {
+        outputCarousel.pageNumberProperty.set( pageNumber );
+      } );
     } );
-    //TODO link all output carousels
-    outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
-      inputsCarousel.pageNumberProperty.set( pageNumber );
+
+    // Link all output carousels to input carousel
+    outputCarousels.forEach( function( outputCarousel ) {
+      outputCarousel.pageNumberProperty.link( function( pageNumber ) {
+        inputCarousel.pageNumberProperty.set( pageNumber );
+      } );
     } );
 
     // parent for all static nodes (created once, rendering order remains the same)
     var staticChildren = [];
     staticChildren = staticChildren.concat( builderNodes );
     staticChildren = staticChildren.concat( [
-      inputsCarousel, outputsCarousel, functionsCarousel,
+      inputCarousel, outputCarouselsParent, functionsCarousel,
       inputsPageControl, outputsPageControl, functionsPageControl,
       eraserButton
     ] );
@@ -213,8 +230,8 @@ define( function( require ) {
     var spyGlassVisibleProperty = new Property( false ); // @private
     if ( scene.builders[ 0 ].slots.length > 1 ) { //TODO this is a little brittle
       var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
-        maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
-        left: inputsCarousel.left,
+        maxWidth: 0.85 * ( functionsCarousel.left - inputCarousel.left ),
+        left: inputCarousel.left,
         top: functionsCarousel.top
       } );
       spyGlassVisibleProperty.link( function( visible ) {
@@ -225,9 +242,11 @@ define( function( require ) {
 
     // @private Resets this node
     this.resetPatternsSceneNode = function() {
-      inputsCarousel.reset();
       functionsCarousel.reset();
-      outputsCarousel.reset();
+      inputCarousel.reset();
+      outputCarousels.forEach( function( outputCarousel ) {
+        outputCarousel.reset();
+      } );
       spyGlassVisibleProperty.reset();
     };
 
