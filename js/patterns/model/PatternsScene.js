@@ -102,6 +102,7 @@ define( function( require ) {
     this.functionInstances = [];
 
     // @public (read-only)
+    this.numberOfSlots = options.numberOfSlots;
     this.maxFunctionInstances = options.maxFunctionInstances;
   }
 

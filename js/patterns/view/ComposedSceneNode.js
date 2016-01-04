@@ -62,15 +62,16 @@ define( function( require ) {
       top: inputsCarousel.top
     } );
 
-    // Eraser button, centered below the output carousel
+    //TODO center below the output carousels
+    // Eraser button, centered below the output carousels
     var eraserButton = new EraserButton( {
       iconWidth: 28,
       centerX: outputsCarousel.centerX,
       top: outputsCarousel.bottom + 30
     } );
 
-    // parent node for all function nodes
-    var functionsParentNode = new Node();
+    // parent node for all nodes that are dynamically created
+    var dynamicParent = new Node();
 
     /**
      * When the user stops dragging a function, decide whether to put it in the builder
@@ -126,13 +127,13 @@ define( function( require ) {
         // When done dragging the function ...
         endDrag: functionEndDrag
       } );
-      functionsParentNode.addChild( functionNode );
+      dynamicParent.addChild( functionNode );
 
       // when dispose is called for the function instance, remove the associated Node
       functionInstance.disposeCalledEmitter.addListener( function() {
         scene.removeFunctionInstance( functionInstance );
         functionNode.dispose();
-        functionsParentNode.removeChild( functionNode );
+        dynamicParent.removeChild( functionNode );
       } );
     };
 
@@ -203,16 +204,33 @@ define( function( require ) {
       } ) );
     } );
 
+    // parent for all static nodes (created once, rendering order remains the same)
+    var staticChildren = [];
+    staticChildren = staticChildren.concat( builderNodes );
+    staticChildren = staticChildren.concat( [
+      inputsCarousel, outputsCarousel, functionsCarousel,
+      inputsPageControl, outputsPageControl, functionsPageControl,
+      eraserButton
+    ] );
+    var staticParent = new Node( { children: staticChildren } );
+
+    options.children = [ staticParent, dynamicParent ];
+
+    Node.call( this, options );
+
     // Spy Glass check box, to the right of functions carousel
     var spyGlassVisibleProperty = new Property( false ); // @private
-    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
-      maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
-      left: inputsCarousel.left,
-      top: functionsCarousel.top
-    } );
-    spyGlassVisibleProperty.link( function( visible ) {
-      //TODO make spy glasses visible in the builder
-    } );
+    if ( scene.numberOfSlots > 1 ) {
+      var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+        maxWidth: 0.85 * ( functionsCarousel.left - inputsCarousel.left ),
+        left: inputsCarousel.left,
+        top: functionsCarousel.top
+      } );
+      spyGlassVisibleProperty.link( function( visible ) {
+        //TODO make spy glasses visible in the builder
+      } );
+      staticParent.addChild( spyGlassCheckBox );
+    }
 
     // @private Resets this node
     this.resetComposedSceneNode = function() {
@@ -221,17 +239,6 @@ define( function( require ) {
       outputsCarousel.reset();
       spyGlassVisibleProperty.reset();
     };
-
-    options.children = [];
-    options.children = options.children.concat( builderNodes );
-    options.children = options.children.concat( [
-      inputsCarousel, outputsCarousel, functionsCarousel,
-      inputsPageControl, outputsPageControl, functionsPageControl,
-      eraserButton, spyGlassCheckBox,
-      functionsParentNode
-    ] );
-
-    Node.call( this, options );
 
     //TODO temporary, to demonstrate what happens as slots in the builder are populated
     {
