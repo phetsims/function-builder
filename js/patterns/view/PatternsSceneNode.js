@@ -194,15 +194,7 @@ define( function( require ) {
     // Function builder
     var builderNodes = [];
     scene.builders.forEach( function( builder ) {
-      builderNodes.push( new BuilderNode( builder, {
-
-        //TODO different colors for each builder
-        // colors matched to design document
-        bodyTopColor: 'rgb( 168, 198, 216 )',
-        bodyMiddleColor: 'rgb( 6, 114, 180 )',
-        bodyBottomColor: 'rgb( 2, 46, 71 )',
-        endColor: 'rgb( 189, 206, 216 )'
-      } ) );
+      builderNodes.push( new BuilderNode( builder ) );
     } );
 
     // parent for all static nodes (created once, rendering order remains the same)
