@@ -11,5 +11,13 @@ define( function( require ) {
   // modules
   var Namespace = require( 'PHET_CORE/Namespace' );
 
-  return new Namespace( 'functionBuilder' );
+  var functionBuilder = new Namespace( 'functionBuilder' );
+
+  if ( phet.chipper.getQueryParameter( 'debug' ) ) {
+    functionBuilder.debug = function( message ) {
+      console.log( 'DEBUG: ' + message );
+    }
+  }
+
+  return functionBuilder;
 } );
