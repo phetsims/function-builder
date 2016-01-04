@@ -35,6 +35,12 @@ define( function( require ) {
    */
   function PatternsSceneNode( scene, layoutBounds, options ) {
 
+    // Builders
+    var builderNodes = [];
+    scene.builders.forEach( function( builder ) {
+      builderNodes.push( new BuilderNode( builder ) );
+    } );
+
     // Input cards, in a vertical carousel at left-center
     var inputNodes = [];
     scene.inputCards.forEach( function( card ) {
@@ -154,12 +160,11 @@ define( function( require ) {
       functionCarouselItems.push( functionCreatorNode );
     }
 
-    //TODO center below builders
-    // Functions, in a horizontal carousel at bottom-center
+    // Functions, in a horizontal carousel, centered below bottom builder
     var functionsCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
       itemsPerPage: 3,
-      centerX: layoutBounds.centerX,
+      centerX: builderNodes[ builderNodes.length - 1 ].centerX,
       bottom: layoutBounds.bottom - 25
     } );
 
@@ -189,12 +194,6 @@ define( function( require ) {
     //TODO link all output carousels
     outputsCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputsCarousel.pageNumberProperty.set( pageNumber );
-    } );
-
-    // Function builder
-    var builderNodes = [];
-    scene.builders.forEach( function( builder ) {
-      builderNodes.push( new BuilderNode( builder ) );
     } );
 
     // parent for all static nodes (created once, rendering order remains the same)
