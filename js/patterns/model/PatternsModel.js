@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
@@ -27,21 +28,24 @@ define( function( require ) {
       new PatternsScene( PatternsIconFactory.createSingleSceneIcon, {
         numberOfBuilders: 1,
         numberOfSlots: 1,
-        maxFunctionInstances: 2
+        maxFunctionInstances: 2,
+        builderColorSchemes: [ FBColors.BUILDER_MAROON ]
       } ),
 
       // dual
       new PatternsScene( PatternsIconFactory.createDualSceneIcon, {
         numberOfBuilders: 2,
         numberOfSlots: 1,
-        maxFunctionInstances: 2
+        maxFunctionInstances: 2,
+        builderColorSchemes: [ FBColors.BUILDER_MAROON, FBColors.BUILDER_GREEN ]
       } ),
 
       // composed
       new PatternsScene( PatternsIconFactory.createComposedSceneIcon, {
         numberOfBuilders: 1,
         numberOfSlots: 3,
-        maxFunctionInstances: 2
+        maxFunctionInstances: 2,
+        builderColorSchemes: [ FBColors.BUILDER_BLUE ]
       } )
     ];
 

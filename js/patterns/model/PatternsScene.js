@@ -12,11 +12,14 @@ define( function( require ) {
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var inherit = require( 'PHET_CORE/inherit' );
+
+  // modules (functions)
+  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
   var Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
   var MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
@@ -51,12 +54,14 @@ define( function( require ) {
     options = _.extend( {
       numberOfBuilders: 1, // {number} number of builders in this scene
       numberOfSlots: 1, // {number} number of function slots in each builder
-      maxFunctionInstances: 1 // {number} max number of instances of each function type
+      maxFunctionInstances: 1, // {number} max number of instances of each function type
+      builderColorSchemes: [ FBColors.BUILDER_MAROON ]
     }, options );
 
     assert && assert( options.numberOfBuilders > 0 );
     assert && assert( options.numberOfSlots > 0 );
     assert && assert( options.maxFunctionInstances > 0 );
+    assert && assert( options.builderColorSchemes.length === options.numberOfBuilders );
 
     // @public (read-only) {function} used to create the icon that represents the scene
     this.createIcon = createIcon;
@@ -99,7 +104,8 @@ define( function( require ) {
     this.builders = [];
     for ( var i = 0; i < options.numberOfBuilders; i++ ) {
       this.builders.push( new Builder( {
-        numberOfSlots: options.numberOfSlots
+        numberOfSlots: options.numberOfSlots,
+        colorScheme: options.builderColorSchemes[ i ]
       } ) );
     }
 

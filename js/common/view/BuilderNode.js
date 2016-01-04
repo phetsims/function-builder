@@ -30,15 +30,11 @@ define( function( require ) {
     options = _.extend( {
 
       // body
-      bodyTopColor: 'rgb( 200, 182, 188 )',
-      bodyMiddleColor: 'rgb( 130, 62, 85 )',
-      bodyBottomColor: 'black',
       bodyStroke: 'black',
       bodyLineWidth: 1,
 
       // ends
       endRadius: 15,
-      endColor: 'rgb( 200, 186, 190 )',
       endStroke: 'black',
       endLineWidth: 1,
 
@@ -58,6 +54,8 @@ define( function( require ) {
     options.x = builder.location.x;
     options.y = builder.location.y;
 
+    var colorScheme = builder.colorScheme;
+
     // To improve readability of shape code
     var BODY_WIDTH = builder.width;
     var BODY_HEIGHT = builder.height;
@@ -76,9 +74,9 @@ define( function( require ) {
       .lineTo( 0, BODY_HEIGHT )
       .close(), {
       fill: new LinearGradient( 0, 0, 1, BODY_HEIGHT )
-        .addColorStop( 0, options.bodyTopColor )
-        .addColorStop( 0.5, options.bodyMiddleColor )
-        .addColorStop( 1, options.bodyBottomColor ),
+        .addColorStop( 0, colorScheme.top )
+        .addColorStop( 0.5, colorScheme.middle )
+        .addColorStop( 1, colorScheme.bottom ),
       stroke: options.bodyStroke,
       lineWidth: options.bodyLineWidth,
 
@@ -89,7 +87,7 @@ define( function( require ) {
 
     // Left end
     var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
-      fill: options.endColor,
+      fill: colorScheme.ends,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
       centerX: bodyNode.left,
@@ -98,7 +96,7 @@ define( function( require ) {
 
     // Right end
     var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
-      fill: options.endColor,
+      fill: colorScheme.ends,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
       centerX: bodyNode.right,

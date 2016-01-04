@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -28,13 +29,20 @@ define( function( require ) {
       numberOfSlots: 3, // {number} number of function slots
       width: 450, // {number} horizontal distance between input and output
       height: 125, // {number} height of tallest part of the builder
-      location: new Vector2( 285, 240 ) // {Vector2} location of the center of the input
+      location: new Vector2( 285, 240 ), // {Vector2} location of the center of the input
+      colorScheme: FBColors.BUILDER_MAROON
     }, options );
+
+    assert && assert( options.colorScheme.top );
+    assert && assert( options.colorScheme.middle );
+    assert && assert( options.colorScheme.bottom );
+    assert && assert( options.colorScheme.ends );
 
     // @public (read-only)
     this.width = options.width;
     this.height = options.height;
     this.location = options.location;
+    this.colorScheme = options.colorScheme;
 
     // width occupied by slots
     var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_WIDTH;
