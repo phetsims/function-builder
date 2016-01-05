@@ -99,7 +99,7 @@ define( function( require ) {
      * @public
      */
     addFunctionInstance: function( functionInstance ) {
-      var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
+      var DISTANCE_THRESHOLD = 0.6 * this.height; //TODO should this be computed? move elsewhere?
       var slotNumber = this.getClosestSlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
         var slot = this.slots[ slotNumber ];
