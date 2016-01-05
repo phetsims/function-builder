@@ -104,16 +104,16 @@ define( function( require ) {
 
         // Determine the initial location in the ScreenView's coordinate frame
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal ).plusXY( 10, -10 );
+        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
         // Create a function instance and notify listeners
         this.functionInstance = new AbstractFunctionConstructor( {
           creator: thisNode,
-          location: initialLocationScreenView,
+          location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
+        this.functionInstance.locationProperty.set( this.functionInstance.locationProperty.get().plusXY( 10, -10 ) ); // popped out of carousel
         thisNode.functionCreatedEmitter.emit1( this.functionInstance );
-        this.functionInstanceMoved = false;
 
         // If the number of instances is limited, monitor when the function instance is returned
         if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
@@ -130,7 +130,6 @@ define( function( require ) {
 
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
-        this.functionInstanceMoved = true;
         var location = this.functionInstance.locationProperty.get().plus( translationParams.delta );
         this.functionInstance.locationProperty.set( location );
       },
@@ -138,10 +137,6 @@ define( function( require ) {
       end: function( event, trail ) {
         this.functionInstance.dragging = false;
         options.endDrag( this.functionInstance, event, trail );
-        if (!this.functionInstanceMoved ) {
-          // handle the case where the user clicked on the FunctionCreatorNode, but didn't move the function
-          this.functionInstance.dispose();
-        }
         this.functionInstance = null;
       }
     } ) );
