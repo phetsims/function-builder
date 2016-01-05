@@ -104,7 +104,7 @@ define( function( require ) {
 
         // Determine the initial location in the ScreenView's coordinate frame
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
+        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal ).plusXY( 10, -10 );
 
         // Create a function instance and notify listeners
         this.functionInstance = new AbstractFunctionConstructor( {
