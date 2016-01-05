@@ -91,7 +91,8 @@ define( function( require ) {
     },
 
     /**
-     * Adds a function instance, if it's close enough to an empty slot.
+     * Adds a function instance, if it's close enough to a slot.
+     * If the slot is occupied, replace the function that occupies the slot.
      *
      * @param {AbstractFunction} functionInstance
      * @returns {number} slot number it was added to, -1 if not added
@@ -99,9 +100,13 @@ define( function( require ) {
      */
     addFunctionInstance: function( functionInstance ) {
       var DISTANCE_THRESHOLD = 100; //TODO should this be computed? move elsewhere?
-      var slotNumber = this.getClosestEmptySlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
+      var slotNumber = this.getClosestSlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
       if ( slotNumber !== -1 ) {
         var slot = this.slots[ slotNumber ];
+        if ( !slot.isEmpty() ) {
+          // function in the slot goes back to where it originated
+          slot.functionInstanceProperty.get().locationProperty.reset();
+        }
         slot.functionInstanceProperty.set( functionInstance );
         functionInstance.locationProperty.set( slot.location );
       }
@@ -127,26 +132,24 @@ define( function( require ) {
     },
 
     /**
-     * Gets the empty slot that is closest to the specified location.
+     * Gets the slot that is closest to the specified location.
      *
      * @param {Vector2} location - the location of the function instance
      * @param {number} distanceThreshold - must be at least this close
-     * @returns {number} slot number, -1 if no slot
+     * @returns {number} slot number, -1 if no slot is close enough
      * @private
      */
-    getClosestEmptySlot: function( location, distanceThreshold ) {
+    getClosestSlot: function( location, distanceThreshold ) {
       var slotNumber = -1;
       for ( var i = 0; i < this.slots.length; i++ ) {
-        var slot = this.slots[i];
-        if ( slot.isEmpty() ) {
-          if ( slotNumber === -1 ) {
-            if ( slot.location.distance( location ) < distanceThreshold ) {
-              slotNumber = i;
-            }
-          }
-          else if ( slot.location.distance( location ) < this.slots[ slotNumber ].location.distance( location ) ) {
+        var slot = this.slots[ i ];
+        if ( slotNumber === -1 ) {
+          if ( slot.location.distance( location ) < distanceThreshold ) {
             slotNumber = i;
           }
+        }
+        else if ( slot.location.distance( location ) < this.slots[ slotNumber ].location.distance( location ) ) {
+          slotNumber = i;
         }
       }
       return slotNumber;
