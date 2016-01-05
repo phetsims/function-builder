@@ -124,8 +124,12 @@ define( function( require ) {
       for ( var i = 0; i < this.slots.length && !removed; i++ ) {
         var slot = this.slots[ i ];
         if ( slot.contains( functionInstance ) ) {
+
           slot.functionInstanceProperty.set( null );
           removed = true;
+
+          // move the function, so that it's obvious that it's no longer in the slot
+          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plusXY( 10, 10 ) );
         }
       }
       assert && assert( removed );
