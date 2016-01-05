@@ -115,7 +115,7 @@ define( function( require ) {
 
       // If the function isn't added to a builder, then return it to the carousel.
       if ( slotNumber === -1 ) {
-        functionsCarousel.scrollToItem( functionInstance.creator );
+        //functionsCarousel.scrollToItem( functionInstance.creator ); //TODO get a decision on whether to delete this
         functionInstance.locationProperty.reset();
       }
     };
