@@ -129,7 +129,7 @@ define( function( require ) {
           removed = true;
 
           // move the function, so that it's obvious that it's no longer in the slot
-          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plusXY( 10, 10 ) );
+          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plusXY( 10, -10 ) );
         }
       }
       assert && assert( removed );
