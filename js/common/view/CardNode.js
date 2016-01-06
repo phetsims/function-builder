@@ -49,12 +49,23 @@ define( function( require ) {
     options.children = [ this.backgroundNode ];
     Node.call( this, options );
 
+    // @private
+    this.disposeCardNode = function() {
+      //TODO
+    };
+
     this.setCard( card );
   }
 
   functionBuilder.register( 'CardNode', CardNode );
 
   return inherit( Node, CardNode, {
+
+    // @public
+    dispose: function() {
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
+      this.disposeCardNode();
+    },
 
     //TODO this is temporary
     /**
