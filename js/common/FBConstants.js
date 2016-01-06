@@ -6,6 +6,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var FBConstants = {
 
@@ -15,7 +16,10 @@ define( function( require ) {
     FUNCTION_WIDTH: 120,
 
     // x-inset of arrow-like ends of the function shape
-    FUNCTION_X_INSET_FACTOR: 0.15
+    FUNCTION_X_INSET_FACTOR: 0.15,
+
+    // offset used when functions and cards are 'popped out' of their container (carousel or builder)
+    POP_OUT_OFFSET: new Vector2( 10, -10 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

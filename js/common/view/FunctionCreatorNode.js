@@ -17,6 +17,7 @@ define( function( require ) {
 
   // modules
   var Emitter = require( 'AXON/Emitter' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -112,7 +113,7 @@ define( function( require ) {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
-        this.functionInstance.locationProperty.set( this.functionInstance.locationProperty.get().plusXY( 10, -10 ) ); // popped out of carousel
+        this.functionInstance.locationProperty.set( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
         thisNode.functionCreatedEmitter.emit1( this.functionInstance );
 
         // If the number of instances is limited, monitor when the function instance is returned

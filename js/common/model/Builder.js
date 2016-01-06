@@ -128,8 +128,8 @@ define( function( require ) {
           slot.functionInstanceProperty.set( null );
           removed = true;
 
-          // move the function, so that it's obvious that it's no longer in the slot
-          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plusXY( 10, -10 ) );
+          // pop out of slot
+          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) );
         }
       }
       assert && assert( removed );
