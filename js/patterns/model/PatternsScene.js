@@ -51,11 +51,9 @@ define( function( require ) {
   function PatternsScene( builders, createIcon, options ) {
 
     options = _.extend( {
-      numberOfSlots: 1, // {number} number of function slots in each builder
       maxFunctionInstances: 1 // {number} max number of instances of each function type
     }, options );
 
-    assert && assert( options.numberOfSlots > 0 );
     assert && assert( options.maxFunctionInstances > 0 );
 
     // @public (read-only) {function} used to create the icon that represents the scene
@@ -98,11 +96,13 @@ define( function( require ) {
     // @public (read-only)
     this.builders = builders;
 
+    // @public (read-only) spy glass feature is enabled if any builder has > 1 slot
+    this.spyGlassEnabled = _.any( builders, function( builder ) { return builder.slots.length > 1; } );
+
     // @private All function instances that exist. They may or may not be in a builder.
     this.functionInstances = [];
 
     // @public (read-only)
-    this.numberOfSlots = options.numberOfSlots;
     this.maxFunctionInstances = options.maxFunctionInstances;
   }
 
