@@ -93,7 +93,7 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       iconWidth: 28,
       centerX: outputCarouselsParent.centerX,
-      top: outputCarouselsParent.bottom + 30
+      top: outputCarouselsParent.bottom + 40
     } );
 
     // parent node for all nodes that are dynamically created
