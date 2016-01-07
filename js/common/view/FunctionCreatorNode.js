@@ -109,7 +109,6 @@ define( function( require ) {
 
         // Create a function instance and notify listeners
         this.functionInstance = new AbstractFunctionConstructor( {
-          creator: thisNode,
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );

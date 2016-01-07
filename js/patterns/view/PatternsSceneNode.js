@@ -105,8 +105,6 @@ define( function( require ) {
      */
     var functionEndDrag = function( functionInstance, event, trail ) {
 
-      assert && assert( functionInstance.creator, 'missing functionInstance.creator' );
-
       // try to add function to a builder
       var slotNumber = -1;
       for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
@@ -115,7 +113,6 @@ define( function( require ) {
 
       // If the function isn't added to a builder, then return it to the carousel.
       if ( slotNumber === -1 ) {
-        //functionsCarousel.scrollToItem( functionInstance.creator ); //TODO get a decision on whether to delete this
         functionInstance.locationProperty.reset();
       }
     };
