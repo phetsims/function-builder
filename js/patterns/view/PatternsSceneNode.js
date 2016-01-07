@@ -51,6 +51,8 @@ define( function( require ) {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: INPUTS_PER_PAGE,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 15,
       left: layoutBounds.left + 50,
       top: layoutBounds.top + 50
     } );
@@ -71,6 +73,8 @@ define( function( require ) {
           buttonColor: scene.builders[ i ].colorScheme.middle, //TODO is this better than builder icons above the carousels?
           separatorsVisible: true,
           itemsPerPage: INPUTS_PER_PAGE,
+          buttonTouchAreaXDilation: 5,
+          buttonTouchAreaYDilation: 15,
           left: ( i === 0 ) ? 0 : outputCarousels[ i - 1 ].right + OUTPUT_CAROUSELS_SPACING,
           top: inputCarousel.top
         } );
@@ -180,6 +184,8 @@ define( function( require ) {
     var functionsCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
       itemsPerPage: 3,
+      buttonTouchAreaXDilation: 15,
+      buttonTouchAreaYDilation: 5,
       centerX: builderNodes[ builderNodes.length - 1 ].centerX,
       bottom: layoutBounds.bottom - 25
     } );
