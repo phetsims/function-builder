@@ -25,11 +25,5 @@ define( function( require ) {
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( PropertySet, NumbersModel, {
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( PropertySet, NumbersModel );
 } );

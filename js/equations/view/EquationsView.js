@@ -42,11 +42,5 @@ define( function( require ) {
 
   functionBuilder.register( 'EquationsView', EquationsView );
 
-  return inherit( ScreenView, EquationsView, {
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( ScreenView, EquationsView );
 } );

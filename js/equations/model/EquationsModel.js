@@ -25,11 +25,5 @@ define( function( require ) {
 
   functionBuilder.register( 'EquationsModel', EquationsModel );
 
-  return inherit( PropertySet, EquationsModel, {
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( PropertySet, EquationsModel );
 } );

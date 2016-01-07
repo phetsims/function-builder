@@ -42,11 +42,5 @@ define( function( require ) {
 
   functionBuilder.register( 'NumbersView', NumbersView );
 
-  return inherit( ScreenView, NumbersView, {
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( ScreenView, NumbersView );
 } );
