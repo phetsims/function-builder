@@ -70,7 +70,7 @@ define( function( require ) {
 
         var outputCarousel = new Carousel( outputCarouselItems, {
           orientation: 'vertical',
-          buttonColor: scene.builders[ i ].colorScheme.middle, //TODO is this better than builder icons above the carousels?
+          buttonColor: scene.builders[ i ].colorScheme.middle, // color code buttons with their associated builder
           separatorsVisible: true,
           itemsPerPage: INPUTS_PER_PAGE,
           buttonTouchAreaXDilation: 5,
@@ -245,7 +245,7 @@ define( function( require ) {
         top: functionsCarousel.top
       } );
       spyGlassVisibleProperty.link( function( visible ) {
-        //TODO make spy glasses visible in the builder
+        //TODO implement the spy glass feature
       } );
       staticParent.addChild( spyGlassCheckBox );
     }
