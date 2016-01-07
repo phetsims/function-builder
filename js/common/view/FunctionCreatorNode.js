@@ -8,7 +8,7 @@
  * - creates {AbstractFunction} function instances and manages their initial drag sequence
  * - limits the number of instances created to some (optional) maximum
  * - hides the function's icon and ceases creation when the maximum number of instances is reached
- * - monitors function instance to determine when they have been disposed of
+ * - monitors function instances to determine when they have been disposed of
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
