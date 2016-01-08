@@ -90,6 +90,7 @@ define( function( require ) {
 
         assert && assert( !this.functionInstance, 'drag handler is not re-entrant' );
 
+        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
         // Find the parent ScreenView by moving up the scene graph.
         // This happens the first time a drag is initiated, then we keep a reference to the ScreenView.
         var testNode = event.currentTarget.parents[ 0 ];
