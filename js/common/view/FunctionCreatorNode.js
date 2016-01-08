@@ -130,6 +130,7 @@ define( function( require ) {
         }
       },
 
+      //TODO constrain drag bounds
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = this.functionInstance.locationProperty.get().plus( translationParams.delta );

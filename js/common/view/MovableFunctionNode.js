@@ -105,6 +105,7 @@ define( function( require ) {
         options.startDrag( functionInstance, event, trail );
       },
 
+      //TODO constrain drag bounds
       translate: function( translationParams ) {
         var location = functionInstance.locationProperty.get().plus( translationParams.delta );
         functionInstance.locationProperty.set( location );
