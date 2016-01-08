@@ -1,5 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
+//TODO generalize this pattern, see https://github.com/phetsims/scenery-phet/issues/214
 /**
  * For each type of function, an instance of this node is placed in the function Carousel.
  * It has the following responsibilities:
