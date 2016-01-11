@@ -24,7 +24,6 @@ define( function( require ) {
   function MysteryA( options ) {
 
     options = _.extend( {
-      name: 'mysteryA',
       image: mysteryAImage,
       fill: 'rgb( 127, 225, 173 )'
     }, options );

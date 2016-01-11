@@ -32,7 +32,6 @@ define( function( require ) {
   function Warhol( options ) {
 
     options = _.extend( {
-      name: 'warhol',
       image: warholImage,
       fill: 'rgb( 250, 186, 75 )'
     }, options );

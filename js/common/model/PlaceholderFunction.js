@@ -19,7 +19,6 @@ define( function( require ) {
   function PlaceholderFunction( options ) {
 
     options = _.extend( {
-      name: 'placeholder',
       image: null,
       fill: null,
       stroke: 'white',

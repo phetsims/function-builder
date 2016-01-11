@@ -24,7 +24,6 @@ define( function( require ) {
   function Mirror( options ) {
 
     options = _.extend( {
-      name: 'mirror',
       image: mirrorImage,
       fill: 'rgb( 128, 197, 237 )'
     }, options );

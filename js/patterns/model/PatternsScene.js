@@ -79,18 +79,18 @@ define( function( require ) {
     this.inputCards = [
 
       // No i18n of names is necessary, they are used internally for debugging
-      new Card( 'feet', CanvasUtils.createCanvasWithImage( feetImage ) ),
-      new Card( 'snowflake', CanvasUtils.createCanvasWithImage( snowflakeImage ) ),
-      new Card( 'butterfly', CanvasUtils.createCanvasWithImage( butterflyImage ) ),
-      new Card( 'stick-figure', CanvasUtils.createCanvasWithImage( stickFigureImage ) ),
-      new Card( 'planet', CanvasUtils.createCanvasWithImage( planetImage ) ),
-      new Card( 'sun', CanvasUtils.createCanvasWithImage( sunImage ) ),
-      new Card( 'beaker', CanvasUtils.createCanvasWithImage( beakerImage ) ),
-      new Card( 'cherries', CanvasUtils.createCanvasWithImage( cherriesImage ) ),
-      new Card( 'rectangle', CanvasUtils.createCanvasWithImage( rectangleImage ) ),
-      new Card( 'circle', CanvasUtils.createCanvasWithImage( circleImage ) ),
-      new Card( 'triangle', CanvasUtils.createCanvasWithImage( triangleImage ) ),
-      new Card( 'star', CanvasUtils.createCanvasWithImage( starImage ) )
+      new Card( CanvasUtils.createCanvasWithImage( feetImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( snowflakeImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( butterflyImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( stickFigureImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( planetImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( sunImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( beakerImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( cherriesImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( rectangleImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( circleImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( triangleImage ) ),
+      new Card( CanvasUtils.createCanvasWithImage( starImage ) )
     ];
 
     // @public (read-only)

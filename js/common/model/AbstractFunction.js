@@ -25,7 +25,6 @@ define( function( require ) {
 
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
       dragging: false, // {boolean} is the function being dragged by the user when it's instantiated?
-      name: null, // {string|null} optional name of the function, not visible to the user, used internally for debugging
 
       // default look of the view associated with a function
       image: null, // {HTMLImageElement|MipMapArray|null} optional image used to represent the function
@@ -35,8 +34,6 @@ define( function( require ) {
       lineDash: null // {number[]|null}
 
     }, options );
-
-    this.name = options.name; // @public (read-only)
 
     // @public (read-only) properties related to visual representation, in the model for convenience
     this.viewInfo = _.pick( options, 'image', 'fill', 'stroke', 'lineWidth', 'lineDash');

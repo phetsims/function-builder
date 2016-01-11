@@ -274,9 +274,8 @@ define( function( require ) {
             for ( var j = 0; j < builder.slots.length; j++ ) {
               var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
               if ( functionInstance ) {
-                var outputName = card.name + '.' + functionInstance.name;
                 var outputCanvas = functionInstance.apply( card.canvas );
-                card = new Card( outputName, outputCanvas );
+                card = new Card( outputCanvas );
               }
             }
             outputCarousels[ builderIndex ].items[ i ].setCard( card );

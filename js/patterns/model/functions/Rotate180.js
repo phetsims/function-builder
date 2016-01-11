@@ -24,7 +24,6 @@ define( function( require ) {
   function Rotate180( options ) {
 
     options = _.extend( {
-      name: 'rotate180',
       image: rotate180Image,
       fill: 'rgb( 147, 231, 128 )'
     }, options );

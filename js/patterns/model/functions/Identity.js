@@ -24,7 +24,6 @@ define( function( require ) {
   function Identity( options ) {
 
     options = _.extend( {
-      name: 'identity',
       image: identityImage,
       fill: 'rgb( 255, 161, 43 )'
     }, options );

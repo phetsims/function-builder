@@ -24,7 +24,6 @@ define( function( require ) {
   function Grayscale( options ) {
 
     options = _.extend( {
-      name: 'grayscale',
       image: grayScaleImage,
       fill: 'rgb( 232, 232, 232 )'
     }, options );

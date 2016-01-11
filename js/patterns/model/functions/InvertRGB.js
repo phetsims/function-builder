@@ -24,7 +24,6 @@ define( function( require ) {
   function InvertRGB( options ) {
 
     options = _.extend( {
-      name: 'invertRGB',
       image: invertRGBImage,
       fill: 'black'
     }, options );
