@@ -7,7 +7,7 @@
  *
  * - displays a function's icon
  * - creates {AbstractFunction} function instances and manages their initial drag sequence
- * - limits the number of instances created to some (optional) maximum
+ * - limits the number of function instances created to some (optional) maximum
  * - hides the function's icon and ceases creation when the maximum number of instances is reached
  * - monitors function instances to determine when they have been disposed of
  *
