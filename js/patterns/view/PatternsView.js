@@ -68,20 +68,13 @@ define( function( require ) {
         sceneNodes[ sceneIndex ] = sceneNode;
       }
 
+      //TODO prevent interaction with the scenes while animation is taking place?
       // Fade scenes in/out as selection changes
       if ( oldScene ) {
 
-        // prevent interaction with the scenes while animation is taking place
-        //TODO fix this
-        //oldSceneNode.pickable = sceneNode.pickable = false;
-
         // fades in the new scene
         newFadeIn = new OpacityTo( sceneNode, {
-          endOpacity: 1,
-          onComplete: function() {
-            //TODO fix this
-            //sceneNode.pickable = true; // allow interaction with the scene when the animation has completed
-          }
+          endOpacity: 1
         } );
 
         // fades out the old scene
