@@ -52,7 +52,6 @@ define( function( require ) {
 
     // @private
     this.disposeAbstractFunction = function() {
-      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
       this.disposeCalledEmitter.removeAllListeners();
       this.disposeCalledEmitter = null;
     };
@@ -65,6 +64,7 @@ define( function( require ) {
     // @public @override
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
+      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
       this.disposeCalledEmitter.emit();
       PropertySet.prototype.dispose.call( this );
       this.disposeAbstractFunction();
