@@ -1,5 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
+//TODO this is specific to ImageCard, generalize
 /**
  * Cards that serve as the user interface for function inputs and outputs.
  *
