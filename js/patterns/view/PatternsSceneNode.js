@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
+  var CardCreatorNode = require( 'FUNCTION_BUILDER/common/view/CardCreatorNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -17,6 +18,7 @@ define( function( require ) {
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MovableCardNode = require( 'FUNCTION_BUILDER/common/view/MovableCardNode' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -36,17 +38,86 @@ define( function( require ) {
    */
   function PatternsSceneNode( scene, layoutBounds, options ) {
 
+    // parent node for all nodes that are dynamically created
+    var dynamicParent = new Node();
+
     // Builders
     var builderNodes = [];
     scene.builders.forEach( function( builder ) {
       builderNodes.push( new BuilderNode( builder ) );
     } );
 
-    // Input cards, in a vertical carousel at left-center
+    /**
+     * When the user stops dragging a card, decide what to do with it.
+     *
+     * @param {AbstractCard} card
+     * @param {Event} event
+     * @param {Trail} trail
+     */
+    var cardEndDrag = function( card, event, trail ) {
+      //TODO similar to functionEndDrag
+    };
+
+    /**
+     * When a card is created, add it to the model and view.
+     *
+     * @param {AbstractCard} card - the card that was created
+     */
+    var cardCreatedListener = function( card ) {
+
+      assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+
+      // add card to model
+      scene.addCard( card );
+
+      // create a Node for the card
+      var cardNode = new MovableCardNode( card, {
+
+        // If the function is in a builder, remove it.
+        startDrag: function( functionInstance, event, trail ) {
+          var removed = false;
+          for ( var i = 0; i < scene.builders.length && !removed; i++ ) {
+            if ( scene.builders[ i ].containsFunctionInstance( functionInstance ) ) {
+              scene.builders[ i ].removeFunctionInstance( functionInstance );
+              removed = true;
+            }
+          }
+        },
+
+        // When done dragging the card ...
+        endDrag: cardEndDrag
+      } );
+      dynamicParent.addChild( cardNode );
+
+      // when dispose is called for the card, remove the associated Node
+      card.disposeCalledEmitter.addListener( function() { //TODO param card?
+        scene.removeCard( card );
+        cardNode.dispose();
+        dynamicParent.removeChild( cardNode );
+      } );
+    };
+
+    // Items in the input carousel
     var inputCarouselItems = [];
-    scene.inputCards.forEach( function( card ) {
-      inputCarouselItems.push( new CardNode( card ) );
-    } );
+    (function() {
+      // IIFE to limit scope of var i
+      for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
+
+        var cardCreatorNode = new CardCreatorNode( scene.cardCreationFunctions[ i ], {
+
+          // max number of instances of each card type
+          maxInstances: 2,
+
+          // When done dragging the newly-created card ...
+          endDrag: cardEndDrag
+        } );
+
+        cardCreatorNode.cardCreatedEmitter.addListener( cardCreatedListener );
+        inputCarouselItems.push( cardCreatorNode );
+      }
+    })();
+
+    // Input cards, in a horizontal carousel, at left
     var inputCarousel = new Carousel( inputCarouselItems, {
       orientation: 'vertical',
       separatorsVisible: true,
@@ -96,12 +167,8 @@ define( function( require ) {
       top: outputCarouselsParent.bottom + 40
     } );
 
-    // parent node for all nodes that are dynamically created
-    var dynamicParent = new Node();
-
     /**
-     * When the user stops dragging a function, decide whether to put it in the builder
-     * or return it to the functions carousel.
+     * When the user stops dragging a function, decide what to do with it.
      *
      * @param {AbstractFunction} functionInstance
      * @param {Event} event
@@ -153,7 +220,7 @@ define( function( require ) {
       dynamicParent.addChild( functionNode );
 
       // when dispose is called for the function instance, remove the associated Node
-      functionInstance.disposeCalledEmitter.addListener( function() {
+      functionInstance.disposeCalledEmitter.addListener( function() {  //TODO param functionInstance?
         scene.removeFunctionInstance( functionInstance );
         functionNode.dispose();
         dynamicParent.removeChild( functionNode );

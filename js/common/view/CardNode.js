@@ -54,7 +54,6 @@ define( function( require ) {
       //TODO
     };
 
-
     this.card = card; // @public
 
     this.setCard( card );

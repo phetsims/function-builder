@@ -101,16 +101,19 @@ define( function( require ) {
       this.inputCards.push( this.cardCreationFunctions[ i ]() );
     }
 
-    // @public (read-only)
+    // @public (read-only) {Builder[]}
     this.builders = builders;
 
-    // @public (read-only) spy glass feature is enabled if any builder has > 1 slot
+    // @public (read-only) {boolean} spy glass feature is enabled if any builder has > 1 slot
     this.spyGlassEnabled = _.any( builders, function( builder ) { return builder.slots.length > 1; } );
 
-    // @private All function instances that exist. They may or may not be in a builder.
+    // @private {Card[]} All cards that exist. They may or may not be in the output carousel
+    this.cards = [];
+
+    // @private {AbstractFunction[]} All function instances that exist. They may or may not be in a builder.
     this.functionInstances = [];
 
-    // @public (read-only)
+    // @public (read-only) {number}
     this.maxFunctionInstances = options.maxFunctionInstances;
   }
 
@@ -125,6 +128,12 @@ define( function( require ) {
       this.builders.forEach( function( builder ) {
         builder.reset();
       } );
+
+      // dispose of all cards, operate on a copy of the array
+      this.cards.slice( 0 ).forEach( function( card ) {
+        card.dispose();
+      } );
+      this.cards.length = 0;
 
       // dispose of all function instances, operate on a copy of the array
       this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
@@ -150,6 +159,25 @@ define( function( require ) {
       var index = this.functionInstances.indexOf( functionInstance );
       assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
       this.functionInstances.splice( index, 1 );
+    },
+
+    /**
+     * Adds a card to the model.
+     * @param {AbstractCard} card
+     */
+    addCard: function( card ) {
+      assert && assert( this.cards.indexOf( card ) === -1, 'attempted to add card twice' );
+      this.cards.push( card );
+    },
+
+    /**
+     * Removes a card from the model.
+     * @param {AbstractCard} card
+     */
+    removeCard: function( card ) {
+      var index = this.cards.indexOf( card );
+      assert && assert( index !== -1, 'attempted to remove unknown card' );
+      this.cards.splice( index, 1 );
     }
   } );
 } );

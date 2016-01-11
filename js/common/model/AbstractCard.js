@@ -1,5 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
+//TODO much in common with AbstractFunction
 /**
  * Base type for cards.
  *
