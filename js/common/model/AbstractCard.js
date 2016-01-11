@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * A card with an image on it.
+ * Base type for cards.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,18 +16,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
    * @param {Object} [options]
    * @constructor
    */
-  function Card( canvas, options ) {
+  function Card( options ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
       dragging: false // {boolean} is the function being dragged by the user when it's instantiated?
     }, options );
-
-    this.canvas = canvas; // @public (read-only) do not modify this canvas' pixels or context
 
     this.dragging = options.dragging; // @public {boolean} is the user dragging the function?
 

@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  // modules (functions)
+  // function modules
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
@@ -28,7 +28,7 @@ define( function( require ) {
   var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
-  // input card images
+  // card images
   var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );
   var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
   var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
@@ -75,27 +75,30 @@ define( function( require ) {
       MysteryC
     ];
 
-    // @public (read-only) {HTMLImageElement[]} images that appear on the cards
-    this.cardImages = [
-      feetImage,
-      snowflakeImage,
-      butterflyImage,
-      stickFigureImage,
-      planetImage,
-      sunImage,
-      beakerImage,
-      cherriesImage,
-      rectangleImage,
-      circleImage,
-      triangleImage,
-      starImage
+    // @public (read-only)
+    // {function[]} functions to create cards, of the form:
+    // @param {Object} [cardOptions] options to the ImageCard constructor
+    // @returns {ImageCard}
+    this.cardCreationFunctions = [
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( feetImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( snowflakeImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( butterflyImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( stickFigureImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( planetImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( sunImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( beakerImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( cherriesImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( rectangleImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( circleImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( triangleImage ), cardOptions ); },
+      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( starImage ), cardOptions ); }
     ];
 
     //TODO get rid of this
-    // @public (read-only) {Card[]}
+    // @public (read-only) {ImageCard[]}
     this.inputCards = [];
-    for ( var i = 0; i < this.cardImages.length; i++ ) {
-      this.inputCards.push( new Card( CanvasUtils.createCanvasWithImage( this.cardImages[ i ] ) ) );
+    for ( var i = 0; i < this.cardCreationFunctions.length; i++ ) {
+      this.inputCards.push( this.cardCreationFunctions[ i ]() );
     }
 
     // @public (read-only)

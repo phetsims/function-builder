@@ -54,6 +54,9 @@ define( function( require ) {
       //TODO
     };
 
+
+    this.card = card; // @public
+
     this.setCard( card );
   }
 
@@ -73,6 +76,8 @@ define( function( require ) {
      * @param {Card} card
      */
     setCard: function( card ) {
+
+      this.card = card;
 
       this.imageNode && this.removeChild( this.imageNode );
 

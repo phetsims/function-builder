@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
+  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -275,7 +275,7 @@ define( function( require ) {
               var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
               if ( functionInstance ) {
                 var outputCanvas = functionInstance.apply( card.canvas );
-                card = new Card( outputCanvas );
+                card = new ImageCard( outputCanvas );
               }
             }
             outputCarousels[ builderIndex ].items[ i ].setCard( card );
