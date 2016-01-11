@@ -119,6 +119,7 @@ define( function( require ) {
 
     // @private
     this.disposeMovableFunctionNode = function() {
+      moveTo.stop();
       functionInstance.locationProperty.unlink( locationObserver );
     };
   }
