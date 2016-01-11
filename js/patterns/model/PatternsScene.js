@@ -59,7 +59,7 @@ define( function( require ) {
     // @public (read-only) {function} used to create the icon that represents the scene
     this.createIcon = createIcon;
 
-    // @public (read-only) constructors for the types of functions that will appear in the carousel
+    // @public (read-only) {function[]} constructors for the types of functions that will appear in the carousel
     this.functionConstructors = [
       Mirror,
       Rotate90,
@@ -75,23 +75,28 @@ define( function( require ) {
       MysteryC
     ];
 
-    // @public (read-only)
-    this.inputCards = [
-
-      // No i18n of names is necessary, they are used internally for debugging
-      new Card( CanvasUtils.createCanvasWithImage( feetImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( snowflakeImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( butterflyImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( stickFigureImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( planetImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( sunImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( beakerImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( cherriesImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( rectangleImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( circleImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( triangleImage ) ),
-      new Card( CanvasUtils.createCanvasWithImage( starImage ) )
+    // @public (read-only) {HTMLImageElement[]} images that appear on the cards
+    this.cardImages = [
+      feetImage,
+      snowflakeImage,
+      butterflyImage,
+      stickFigureImage,
+      planetImage,
+      sunImage,
+      beakerImage,
+      cherriesImage,
+      rectangleImage,
+      circleImage,
+      triangleImage,
+      starImage
     ];
+
+    //TODO get rid of this
+    // @public (read-only) {Card[]}
+    this.inputCards = [];
+    for ( var i = 0; i < this.cardImages.length; i++ ) {
+      this.inputCards.push( new Card( CanvasUtils.createCanvasWithImage( this.cardImages[ i ] ) ) );
+    }
 
     // @public (read-only)
     this.builders = builders;
