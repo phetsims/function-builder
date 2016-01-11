@@ -149,6 +149,7 @@ define( function( require ) {
 
     // @private
     this.disposeFunctionCreatorNode = function() {
+      assert && assert( thisNode.functionCreatedEmitter, 'called dispose twice?' );
       thisNode.functionCreatedEmitter.removeAllListeners();
       thisNode.functionCreatedEmitter = null;
     };
