@@ -52,17 +52,17 @@ define( function( require ) {
 
     function locationObserver( location ) {
 
+      // stop any animation that is in progress
+      if ( moveTo ) {
+        moveTo.stop();
+      }
+
       if ( card.dragging ) {
 
         // if under user control, move directly to the new location
         thisNode.center = location;
       }
       else {
-
-        // stop any animation that is in progress
-        if ( moveTo ) {
-          moveTo.stop();
-        }
 
         // create the animation
         moveTo = new MoveTo( thisNode, location, {
