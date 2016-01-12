@@ -80,7 +80,7 @@ define( function( require ) {
     var thisNode = this;
     iconNode.addInputListener( new SimpleDragHandler( {
 
-      //TODO cancel drag if card is disposed of during a drag cycle
+      //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
 
       parentScreenView: null, // @private {ScreenView} set on first start drag
       card: null, // @private {AbstractFunction} set during a drag sequence
@@ -131,7 +131,7 @@ define( function( require ) {
         }
       },
 
-      //TODO constrain drag bounds
+      // No need to constrain drag bounds because cards return to a carousel when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = this.card.locationProperty.get().plus( translationParams.delta );

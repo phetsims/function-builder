@@ -96,7 +96,7 @@ define( function( require ) {
 
     this.addInputListener( new SimpleDragHandler( {
 
-      //TODO cancel drag if card is disposed of during a drag cycle
+      //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
 
       allowTouchSnag: true,
 
@@ -106,7 +106,8 @@ define( function( require ) {
         options.startDrag( card, event, trail );
       },
 
-      //TODO constrain drag bounds
+      // No need to constrain drag bounds because cards return to a carousel when released.
+      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = card.locationProperty.get().plus( translationParams.delta );
         card.locationProperty.set( location );

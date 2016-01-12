@@ -95,7 +95,7 @@ define( function( require ) {
 
     this.addInputListener( new SimpleDragHandler( {
 
-      //TODO cancel drag if functionInstance is disposed of during a drag cycle
+      //TODO cancel drag if functionInstance is disposed of during a drag cycle, scenery#218
 
       allowTouchSnag: true,
 
@@ -105,7 +105,8 @@ define( function( require ) {
         options.startDrag( functionInstance, event, trail );
       },
 
-      //TODO constrain drag bounds
+      // No need to constrain drag bounds because functions return to carousel or builder when released.
+      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = functionInstance.locationProperty.get().plus( translationParams.delta );
         functionInstance.locationProperty.set( location );
