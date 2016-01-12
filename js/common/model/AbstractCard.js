@@ -42,7 +42,6 @@ define( function( require ) {
       this.disposeCalledEmitter.emit();
       this.disposeCalledEmitter.removeAllListeners();
       this.disposeCalledEmitter = null;
-      PropertySet.prototype.dispose.call( this );
     };
   }
 
@@ -53,7 +52,8 @@ define( function( require ) {
     // @public @override
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeCard();
+      this.disposeCard(); // first!
+      PropertySet.prototype.dispose.call( this );
     }
   } );
 } );
