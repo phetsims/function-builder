@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function Card( options ) {
+  function AbstractCard( options ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
@@ -37,7 +37,7 @@ define( function( require ) {
     } );
 
     // @private
-    this.disposeCard = function() {
+    this.disposeAbstractCard = function() {
       assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
       this.disposeCalledEmitter.emit();
       this.disposeCalledEmitter.removeAllListeners();
@@ -45,14 +45,14 @@ define( function( require ) {
     };
   }
 
-  functionBuilder.register( 'Card', Card );
+  functionBuilder.register( 'AbstractCard', AbstractCard );
 
-  return inherit( PropertySet, Card, {
+  return inherit( PropertySet, AbstractCard, {
 
     // @public @override
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeCard(); // first!
+      this.disposeAbstractCard(); // first!
       PropertySet.prototype.dispose.call( this );
     }
   } );
