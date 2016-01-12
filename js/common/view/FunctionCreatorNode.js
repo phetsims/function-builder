@@ -91,7 +91,6 @@ define( function( require ) {
 
         assert && assert( !this.functionInstance, 'drag handler is not re-entrant' );
 
-        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
         // Find the parent ScreenView by moving up the scene graph.
         // This happens the first time a drag is initiated, then we keep a reference to the ScreenView.
         var testNode = event.currentTarget.parents[ 0 ];
@@ -105,6 +104,7 @@ define( function( require ) {
         }
         assert && assert( this.parentScreenView );
 
+        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
         // Determine the initial location in the ScreenView's coordinate frame
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
@@ -117,17 +117,11 @@ define( function( require ) {
         this.functionInstance.locationProperty.set( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
         thisNode.functionCreatedEmitter.emit1( this.functionInstance );
 
-        // If the number of instances is limited, monitor when the function instance is returned
-        if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
-
-          // increment
-          numberOfInstancesProperty.value++;
-
-          // decrement when dispose is called for the function instance
-          this.functionInstance.disposeCalledEmitter.addListener( function() {
-            numberOfInstancesProperty.value--;
-          } );
-        }
+        // manage instance count
+        numberOfInstancesProperty.value++;
+        this.functionInstance.disposeCalledEmitter.addListener( function() {
+          numberOfInstancesProperty.value--;
+        } );
       },
 
       // No need to constrain drag bounds because functions return to carousel or builder when released.

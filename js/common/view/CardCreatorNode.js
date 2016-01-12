@@ -92,7 +92,6 @@ define( function( require ) {
 
         assert && assert( !this.card, 'drag handler is not re-entrant' );
 
-        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
         // Find the parent ScreenView by moving up the scene graph.
         // This happens the first time a drag is initiated, then we keep a reference to the ScreenView.
         var testNode = event.currentTarget.parents[ 0 ];
@@ -106,6 +105,7 @@ define( function( require ) {
         }
         assert && assert( this.parentScreenView );
 
+        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
         // Determine the initial location in the ScreenView's coordinate frame
         var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
@@ -118,17 +118,11 @@ define( function( require ) {
         this.card.locationProperty.set( this.card.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
         thisNode.cardCreatedEmitter.emit1( this.card );
 
-        // If the number of instances is limited, monitor when the card is returned
-        if ( options.maxInstances < Number.POSITIVE_INFINITY ) {
-
-          // increment
-          numberOfInstancesProperty.value++;
-
-          // decrement when dispose is called for the card
-          this.card.disposeCalledEmitter.addListener( function() {
-            numberOfInstancesProperty.value--;
-          } );
-        }
+        // manage instance count
+        numberOfInstancesProperty.value++;
+        this.card.disposeCalledEmitter.addListener( function() {
+          numberOfInstancesProperty.value--;
+        } );
       },
 
       // No need to constrain drag bounds because cards return to a carousel when released.
