@@ -73,9 +73,8 @@ define( function( require ) {
 
           onComplete: function() {
             thisNode.pickable = true;
-            if ( location.equals( card.locationProperty.initialValue ) ) {
+            if ( location.equals( card.locationProperty.initialValue ) && !card.dragging ) {
               // function has been returned to the Carousel
-              card.locationProperty.unlink( locationObserver );
               card.dispose();
             }
           },
