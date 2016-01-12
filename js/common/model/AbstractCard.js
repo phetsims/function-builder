@@ -38,8 +38,11 @@ define( function( require ) {
 
     // @private
     this.disposeCard = function() {
+      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
+      this.disposeCalledEmitter.emit();
       this.disposeCalledEmitter.removeAllListeners();
       this.disposeCalledEmitter = null;
+      PropertySet.prototype.dispose.call( this );
     };
   }
 
@@ -50,9 +53,6 @@ define( function( require ) {
     // @public @override
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
-      this.disposeCalledEmitter.emit();
-      PropertySet.prototype.dispose.call( this );
       this.disposeCard();
     }
   } );
