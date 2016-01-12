@@ -22,7 +22,6 @@ define( function( require ) {
 
     options = _.extend( {
 
-      //TODO duration is the same regardless of difference between startOpacity and endOpacity, should it be normalized?
       duration: 500, // {number} duration of the animation, in ms
       startOpacity: node.opacity, // {number} 0-1, initial opacity at start of animation
       endOpacity: 1, // {number} 0-1, opacity at completion of animation
