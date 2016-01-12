@@ -67,20 +67,11 @@ define( function( require ) {
         // create the animation
         moveTo = new MoveTo( thisNode, location, {
 
-          onStart: function() {
-            thisNode.pickable = false;
-          },
-
           onComplete: function() {
-            thisNode.pickable = true;
             if ( location.equals( card.locationProperty.initialValue ) && !card.dragging ) {
               // function has been returned to the Carousel
               card.dispose();
             }
-          },
-
-          onStop: function() {
-            thisNode.pickable = true;
           }
         } );
 
