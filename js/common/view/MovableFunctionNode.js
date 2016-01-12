@@ -58,8 +58,6 @@ define( function( require ) {
       }
       else {
 
-        //TODO should this animation be handled in the model?
-
         // stop any animation that is in progress
         if ( moveTo ) {
           moveTo.stop();
