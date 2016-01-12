@@ -64,7 +64,7 @@ define( function( require ) {
       }
       else {
 
-        // create the animation
+        // animate to the new location
         moveTo = new MoveTo( thisNode, location, {
 
           onComplete: function() {
@@ -74,8 +74,6 @@ define( function( require ) {
             }
           }
         } );
-
-        // start the animation
         moveTo.start();
       }
     }
