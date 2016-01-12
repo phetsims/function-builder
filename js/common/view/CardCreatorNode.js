@@ -57,7 +57,7 @@ define( function( require ) {
 
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
 
-    // The icon that represents the function
+    // The icon that represents the card
     var iconNode = new CardNode( createCard(), {
       cursor: 'pointer'
     } );
@@ -69,7 +69,7 @@ define( function( require ) {
 
     iconNode.center = backgroundNode.center;
 
-    // number of function instances that have been created
+    // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
     numberOfInstancesProperty.link( function( numberOfInstances ) {
       iconNode.visible = ( numberOfInstances < options.maxInstances );

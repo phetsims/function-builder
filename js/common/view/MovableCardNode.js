@@ -69,7 +69,7 @@ define( function( require ) {
 
           onComplete: function() {
             if ( location.equals( card.locationProperty.initialValue ) && !card.dragging ) {
-              // function has been returned to the Carousel
+              // card has been returned to the Carousel
               card.dispose();
             }
           }
@@ -87,7 +87,7 @@ define( function( require ) {
       allowTouchSnag: true,
 
       start: function( event, trail ) {
-        event.currentTarget.moveToFront(); // dragging a function moves it to the front
+        event.currentTarget.moveToFront(); // dragging a card moves it to the front
         card.dragging = true;
         options.startDrag( card, event, trail );
       },

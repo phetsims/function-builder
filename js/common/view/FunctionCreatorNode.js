@@ -68,7 +68,7 @@ define( function( require ) {
 
     iconNode.center = backgroundNode.center;
 
-    // number of function instances that have been created
+    // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
     numberOfInstancesProperty.link( function( numberOfInstances ) {
       iconNode.visible = ( numberOfInstances < options.maxInstances );
