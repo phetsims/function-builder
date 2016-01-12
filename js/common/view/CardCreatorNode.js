@@ -64,10 +64,9 @@ define( function( require ) {
 
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
     var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
-      stroke: SHOW_BOUNDS ? 'red' : null
+      stroke: SHOW_BOUNDS ? 'red' : null,
+      center: iconNode.center
     } );
-
-    iconNode.center = backgroundNode.center;
 
     // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
