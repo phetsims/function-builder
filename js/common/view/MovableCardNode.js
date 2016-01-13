@@ -66,7 +66,7 @@ define( function( require ) {
         moveTo = new MoveTo( thisNode, location, {
 
           onComplete: function() {
-            if ( location.equals( card.locationProperty.initialValue ) && !card.dragging ) {
+            if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
               // card has been returned to the Carousel
               card.dispose();
             }

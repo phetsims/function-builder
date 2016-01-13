@@ -1,5 +1,6 @@
 // Copyright 2015, University of Colorado Boulder
 
+//TODO move animation into step?
 /**
  * Abstract base type for functions with one input and one output.
  *

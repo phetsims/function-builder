@@ -49,6 +49,7 @@ define( function( require ) {
     var thisNode = this;
     var moveTo = null;
 
+    //TODO move animation into AbstractFunction model?
     function locationObserver( location ) {
 
       // stop any animation that is in progress
@@ -65,7 +66,8 @@ define( function( require ) {
         moveTo = new MoveTo( thisNode, location, {
 
           onComplete: function() {
-            if ( location.equals( functionInstance.locationProperty.initialValue ) && !functionInstance.dragging ) {
+            //TODO move this responsibility to something that's observing the AbstractFunction location
+            if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
               // function has been returned to the Carousel
               functionInstance.dispose();
             }
