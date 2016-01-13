@@ -50,7 +50,7 @@ define( function( require ) {
     // @private
     this.disposeAbstractFunction = function() {
       assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
-      this.disposeCalledEmitter.emit();
+      this.disposeCalledEmitter.emit1( this );
       this.disposeCalledEmitter.removeAllListeners();
       this.disposeCalledEmitter = null;
     };

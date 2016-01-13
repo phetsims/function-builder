@@ -90,7 +90,8 @@ define( function( require ) {
       dynamicParent.addChild( cardNode );
 
       // when dispose is called for the card, remove the associated Node
-      card.disposeCalledEmitter.addListener( function() { //TODO param card?
+      card.disposeCalledEmitter.addListener( function( card ) {
+        assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
         scene.removeCard( card );
         cardNode.dispose();
         dynamicParent.removeChild( cardNode );
@@ -220,7 +221,8 @@ define( function( require ) {
       dynamicParent.addChild( functionNode );
 
       // when dispose is called for the function instance, remove the associated Node
-      functionInstance.disposeCalledEmitter.addListener( function() {  //TODO param functionInstance?
+      functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
+        assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
         scene.removeFunctionInstance( functionInstance );
         functionNode.dispose();
         dynamicParent.removeChild( functionNode );
