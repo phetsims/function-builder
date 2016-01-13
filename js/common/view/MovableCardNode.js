@@ -53,9 +53,7 @@ define( function( require ) {
     function locationObserver( location ) {
 
       // stop any animation that is in progress
-      if ( moveTo ) {
-        moveTo.stop();
-      }
+      moveTo && moveTo.stop();
 
       if ( card.dragging ) {
 
@@ -107,7 +105,7 @@ define( function( require ) {
 
     // @private
     this.disposeMovableCardNode = function() {
-      moveTo.stop();
+      moveTo && moveTo.stop();
       card.locationProperty.unlink( locationObserver );
     };
   }

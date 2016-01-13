@@ -52,9 +52,7 @@ define( function( require ) {
     function locationObserver( location ) {
 
       // stop any animation that is in progress
-      if ( moveTo ) {
-        moveTo.stop();
-      }
+      moveTo && moveTo.stop();
 
       if ( functionInstance.dragging ) {
 
@@ -106,7 +104,7 @@ define( function( require ) {
 
     // @private
     this.disposeMovableFunctionNode = function() {
-      moveTo.stop();
+      moveTo && moveTo.stop();
       functionInstance.locationProperty.unlink( locationObserver );
     };
   }
