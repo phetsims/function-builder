@@ -59,6 +59,7 @@ define( function( require ) {
       card.destination = card.locationProperty.initialValue;
     };
 
+    //TODO lots in common with createFunctionListener, factor out CreationListener?
     /**
      * When a card is created, add it to the model and view.
      *
