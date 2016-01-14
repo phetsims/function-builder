@@ -33,10 +33,8 @@ define( function( require ) {
       colorScheme: FBColors.BUILDER_MAROON
     }, options );
 
-    assert && assert( options.colorScheme.top );
-    assert && assert( options.colorScheme.middle );
-    assert && assert( options.colorScheme.bottom );
-    assert && assert( options.colorScheme.ends );
+    // verify duck typing of colorScheme
+    assert && assert( _.difference( [ 'top', 'middle', 'bottom', 'ends' ], _.keys( options.colorScheme  ) ).length === 0 );
 
     // @public (read-only)
     this.width = options.width;
