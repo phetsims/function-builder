@@ -22,7 +22,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     hasOwnProperties: function( object, properties ) {
-      return _.difference( properties, _.keys( object ) ).length === 0;
+      return ( _.difference( properties, _.keys( object ) ).length === 0 );
     },
 
     /**
