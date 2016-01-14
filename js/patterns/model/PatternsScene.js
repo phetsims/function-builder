@@ -60,19 +60,23 @@ define( function( require ) {
     this.createIcon = createIcon;
 
     // @public (read-only) {function[]} constructors for the types of functions that will appear in the carousel
-    this.functionConstructors = [
-      Mirror,
-      Rotate90,
-      Grayscale,
-      Rotate180,
-      Identity,
-      InvertRGB,
-      Erase,
-      Shrink75,
-      Warhol,
-      MysteryA,
-      MysteryB,
-      MysteryC
+    // @public (read-only)
+    // {function[]} functions to create function instances, of the form:
+    // @param {Object} [functionOptions] options to the AbstractFunction constructor
+    // @returns {ImageCard}
+    this.functionCreationFunctions = [
+      function( functionOptions ) { return new Mirror( functionOptions ); },
+      function( functionOptions ) { return new Rotate90( functionOptions ); },
+      function( functionOptions ) { return new Grayscale( functionOptions ); },
+      function( functionOptions ) { return new Rotate180( functionOptions ); },
+      function( functionOptions ) { return new Identity( functionOptions ); },
+      function( functionOptions ) { return new InvertRGB( functionOptions ); },
+      function( functionOptions ) { return new Erase( functionOptions ); },
+      function( functionOptions ) { return new Shrink75( functionOptions ); },
+      function( functionOptions ) { return new Warhol( functionOptions ); },
+      function( functionOptions ) { return new MysteryA( functionOptions ); },
+      function( functionOptions ) { return new MysteryB( functionOptions ); },
+      function( functionOptions ) { return new MysteryC( functionOptions ); }
     ];
 
     // @public (read-only)

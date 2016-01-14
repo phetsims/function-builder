@@ -268,9 +268,9 @@ define( function( require ) {
     var functionCarouselItems = []; // {FunctionCreatorNode[]}
     (function() {
       // IIFE to limit scope of var i
-      for ( var i = 0; i < scene.functionConstructors.length; i++ ) {
+      for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
 
-        var functionCreatorNode = new FunctionCreatorNode( scene.functionConstructors[ i ], {
+        var functionCreatorNode = new FunctionCreatorNode( scene.functionCreationFunctions[ i ], {
 
           // max number of instances of each function type
           maxInstances: 2,

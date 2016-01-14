@@ -34,7 +34,7 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {function} createCard - function called to create a Card
+   * @param {function} createCard - function called to create a {Card}
    * @param {Object} [options]
    * @constructor
    */

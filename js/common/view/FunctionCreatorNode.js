@@ -33,11 +33,11 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {function} AbstractFunctionConstructor - constructor for an {AbstractFunction}
+   * @param {function} createFunction - function called to create an {AbstractFunction}
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionCreatorNode( AbstractFunctionConstructor, options ) {
+  function FunctionCreatorNode( createFunction, options ) {
 
     options = _.extend( {
 
@@ -57,7 +57,7 @@ define( function( require ) {
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
 
     // The icon that represents the function
-    var iconNode = new FunctionNode( new AbstractFunctionConstructor(), {
+    var iconNode = new FunctionNode( createFunction(), {
       cursor: 'pointer'
     } );
 
@@ -109,7 +109,7 @@ define( function( require ) {
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
         // Create a function instance and notify listeners
-        this.functionInstance = new AbstractFunctionConstructor( {
+        this.functionInstance = createFunction( {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
