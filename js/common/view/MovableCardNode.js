@@ -69,8 +69,7 @@ define( function( require ) {
       // No need to constrain drag bounds because cards return to a carousel when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
-        var location = card.locationProperty.get().plus( translationParams.delta );
-        card.setLocation( location );
+        card.setLocationDelta( translationParams.delta );
       },
 
       end: function( event, trail ) {

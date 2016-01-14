@@ -68,8 +68,7 @@ define( function( require ) {
       // No need to constrain drag bounds because functions return to carousel or builder when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
-        var location = functionInstance.locationProperty.get().plus( translationParams.delta );
-        functionInstance.setLocation( location );
+        functionInstance.setLocationDelta( translationParams.delta );
       },
 
       end: function( event, trail ) {
