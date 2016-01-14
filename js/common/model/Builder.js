@@ -105,10 +105,11 @@ define( function( require ) {
         var slot = this.slots[ slotNumber ];
         if ( !slot.isEmpty() ) {
           // function in the slot goes back to where it originated
-          slot.functionInstanceProperty.get().locationProperty.reset();
+          var oldFunctionInstance = slot.functionInstanceProperty.get();
+          oldFunctionInstance.setDestination( oldFunctionInstance.locationProperty.initialValue );
         }
         slot.functionInstanceProperty.set( functionInstance );
-        functionInstance.locationProperty.set( slot.location );
+        functionInstance.setDestination( slot.location );
       }
       return slotNumber;
     },
@@ -129,7 +130,7 @@ define( function( require ) {
           removed = true;
 
           // pop out of slot
-          functionInstance.locationProperty.set( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) );
+          functionInstance.setDestination( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) );
         }
       }
       assert && assert( removed );

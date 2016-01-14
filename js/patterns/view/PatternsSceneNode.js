@@ -185,7 +185,7 @@ define( function( require ) {
 
       // If the function isn't added to a builder, then return it to the carousel.
       if ( slotNumber === -1 ) {
-        functionInstance.locationProperty.reset();
+        functionInstance.setDestination( functionInstance.locationProperty.initialValue );
       }
     };
 

@@ -178,6 +178,19 @@ define( function( require ) {
       var index = this.cards.indexOf( card );
       assert && assert( index !== -1, 'attempted to remove unknown card' );
       this.cards.splice( index, 1 );
+    },
+
+    //TODO make this a no-op if scene is not active?
+    // @public
+    step: function( dt ) {
+
+      this.functionInstances.forEach( function( functionInstance ) {
+        functionInstance.step( dt );
+      } );
+
+      this.cards.forEach( function( card ) {
+        card.step( dt );
+      } );
     }
   } );
 } );

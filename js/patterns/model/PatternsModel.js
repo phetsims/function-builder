@@ -91,6 +91,13 @@ define( function( require ) {
         scene.reset();
       } );
       this.selectedSceneProperty.reset();
+    },
+
+    // @public
+    step: function( dt ) {
+      this.scenes.forEach( function( scene ) {
+        scene.step( dt );
+      } );
     }
   } );
 } );

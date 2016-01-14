@@ -127,7 +127,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = this.functionInstance.locationProperty.get().plus( translationParams.delta );
-        this.functionInstance.locationProperty.set( location );
+        this.functionInstance.setDestination( location );
       },
 
       end: function( event, trail ) {

@@ -54,6 +54,11 @@ define( function( require ) {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
       this.disposeAbstractCard(); // first!
       PropertySet.prototype.dispose.call( this );
+    },
+
+    // @public
+    step: function( dt ) {
+      //TODO
     }
   } );
 } );

@@ -13,7 +13,6 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MoveTo = require( 'FUNCTION_BUILDER/common/view/MoveTo' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
@@ -46,37 +45,11 @@ define( function( require ) {
 
     FunctionNode.call( this, functionInstance, options );
 
+    // move to the model location
     var thisNode = this;
-    var moveTo = null;
-
-    //TODO move animation into AbstractFunction model?
     function locationObserver( location ) {
-
-      // stop any animation that is in progress
-      moveTo && moveTo.stop();
-
-      if ( functionInstance.dragging ) {
-
-        // if under user control, move directly to the new location
-        thisNode.center = location;
-      }
-      else {
-
-        // animate to the new location
-        moveTo = new MoveTo( thisNode, location, {
-
-          onComplete: function() {
-            //TODO move this responsibility to something that's observing the AbstractFunction location
-            if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
-              // function has been returned to the Carousel
-              functionInstance.dispose();
-            }
-          }
-        } );
-        moveTo.start();
-      }
+      thisNode.center = location;
     }
-
     functionInstance.locationProperty.link( locationObserver );
 
     this.addInputListener( new SimpleDragHandler( {
@@ -95,7 +68,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = functionInstance.locationProperty.get().plus( translationParams.delta );
-        functionInstance.locationProperty.set( location );
+        functionInstance.setDestination( location );
       },
 
       end: function( event, trail ) {
@@ -106,7 +79,6 @@ define( function( require ) {
 
     // @private
     this.disposeMovableFunctionNode = function() {
-      moveTo && moveTo.stop();
       functionInstance.locationProperty.unlink( locationObserver );
     };
   }
