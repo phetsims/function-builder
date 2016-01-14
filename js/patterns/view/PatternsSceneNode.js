@@ -55,7 +55,8 @@ define( function( require ) {
      * @param {Trail} trail
      */
     var cardEndDrag = function( card, event, trail ) {
-      //TODO similar to functionEndDrag
+      //TODO temporary
+      card.destination = card.locationProperty.initialValue;
     };
 
     /**
@@ -73,15 +74,9 @@ define( function( require ) {
       // create a Node for the card
       var cardNode = new MovableCardNode( card, {
 
-        // If the function is in a builder, remove it.
+        // If the card is in an output Carousel, remove it.
         startDrag: function( functionInstance, event, trail ) {
-          var removed = false;
-          for ( var i = 0; i < scene.builders.length && !removed; i++ ) {
-            if ( scene.builders[ i ].containsFunctionInstance( functionInstance ) ) {
-              scene.builders[ i ].removeFunctionInstance( functionInstance );
-              removed = true;
-            }
-          }
+          //TODO
         },
 
         // When done dragging the card ...
@@ -89,12 +84,25 @@ define( function( require ) {
       } );
       dynamicParent.addChild( cardNode );
 
+      // card has animated back to the input Carousel
+      var locationListener = function( location ) {
+        if ( !card.isDragging && location.equals( card.locationProperty.initialValue ) ) {
+          card.dispose();
+        }
+      };
+      card.locationProperty.link( locationListener );
+
       // when dispose is called for the card, remove the associated Node
       card.disposeCalledEmitter.addListener( function( card ) {
         assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+
+        // clean up the instance
+        card.locationProperty.unlink( locationListener );
         scene.removeCard( card );
-        cardNode.dispose();
+
+        // clean up the node
         dynamicParent.removeChild( cardNode );
+        cardNode.dispose();
       } );
     };
 
