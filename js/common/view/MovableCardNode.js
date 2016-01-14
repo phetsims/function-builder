@@ -14,7 +14,6 @@ define( function( require ) {
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MoveTo = require( 'FUNCTION_BUILDER/common/view/MoveTo' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
@@ -47,37 +46,14 @@ define( function( require ) {
 
     CardNode.call( this, card, options );
 
+    // move to the model location
     var thisNode = this;
-    var moveTo = null;
-
     function locationObserver( location ) {
-
-      // stop any animation that is in progress
-      moveTo && moveTo.stop();
-
-      if ( card.dragging ) {
-
-        // if under user control, move directly to the new location
-        thisNode.center = location;
-      }
-      else {
-
-        // animate to the new location
-        moveTo = new MoveTo( thisNode, location, {
-
-          onComplete: function() {
-            if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
-              // card has been returned to the Carousel
-              card.dispose();
-            }
-          }
-        } );
-        moveTo.start();
-      }
+      thisNode.center = location;
     }
-
     card.locationProperty.link( locationObserver );
 
+    // drag the card
     this.addInputListener( new SimpleDragHandler( {
 
       //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
@@ -94,7 +70,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = card.locationProperty.get().plus( translationParams.delta );
-        card.locationProperty.set( location );
+        card.setDestination( location );
       },
 
       end: function( event, trail ) {
@@ -105,7 +81,6 @@ define( function( require ) {
 
     // @private
     this.disposeMovableCardNode = function() {
-      moveTo && moveTo.stop();
       card.locationProperty.unlink( locationObserver );
     };
   }

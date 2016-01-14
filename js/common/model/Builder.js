@@ -130,7 +130,7 @@ define( function( require ) {
           removed = true;
 
           // pop out of slot
-          functionInstance.setDestination( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) );
+          functionInstance.setDestination( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ), { animate: false } );
         }
       }
       assert && assert( removed );

@@ -113,7 +113,7 @@ define( function( require ) {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
-        this.functionInstance.locationProperty.set( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
+        this.functionInstance.setDestination( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ), { animate: false } ); // pop out
         thisNode.functionCreatedEmitter.emit1( this.functionInstance );
 
         // manage instance count

@@ -33,11 +33,13 @@ define( function( require ) {
     }, options );
 
     PropertySet.call( this, {
+
       // @public (read-only) {Vector2} center of the function's node in the view coordinate frame
+      // DO NOT set this directly! Use setDestination.
       location: options.location
     } );
 
-    // @private set this using setDestination, instead of setting locationProperty
+    // @private set this using setDestination
     this.destination = options.location.copy();
 
     // @public {boolean} is the user dragging the function?
@@ -75,10 +77,17 @@ define( function( require ) {
      * Sets the destination of this instance. Use this instead of setting locationProperty.
      *
      * @param {Vector2} destination
+     * @param {Object} [options]
      */
-    setDestination: function( destination ) {
+    setDestination: function( destination, options ) {
+
+      options = _.extend( {
+        animate: true
+      }, options );
+
       this.destination = destination;
-      if ( this.dragging ) {
+
+      if ( this.dragging || !options.animate ) {
         this.locationProperty.set( destination );
       }
     },

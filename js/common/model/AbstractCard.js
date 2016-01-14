@@ -1,6 +1,5 @@
 // Copyright 2015, University of Colorado Boulder
 
-//TODO much in common with AbstractFunction
 /**
  * Base type for cards.
  *
@@ -10,11 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Emitter = require( 'AXON/Emitter' );
+  var AbstractMovable = require( 'FUNCTION_BUILDER/common/model/AbstractMovable' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Object} [options]
@@ -23,42 +20,13 @@ define( function( require ) {
   function AbstractCard( options ) {
 
     options = _.extend( {
-      location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
-      dragging: false // {boolean} is the function being dragged by the user when it's instantiated?
+      //TODO
     }, options );
 
-    this.dragging = options.dragging; // @public {boolean} is the user dragging the function?
-
-    // @public (read-only) emitted when dispose has been called, but before it has executed
-    this.disposeCalledEmitter = new Emitter();
-
-    PropertySet.call( this, {
-      location: options.location // @public {Vector2} center of the function's node in the view coordinate frame
-    } );
-
-    // @private
-    this.disposeAbstractCard = function() {
-      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
-      this.disposeCalledEmitter.emit1( this );
-      this.disposeCalledEmitter.removeAllListeners();
-      this.disposeCalledEmitter = null;
-    };
+    AbstractMovable.call( this, options );
   }
 
   functionBuilder.register( 'AbstractCard', AbstractCard );
 
-  return inherit( PropertySet, AbstractCard, {
-
-    // @public @override
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeAbstractCard(); // first!
-      PropertySet.prototype.dispose.call( this );
-    },
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( AbstractMovable, AbstractCard );
 } );

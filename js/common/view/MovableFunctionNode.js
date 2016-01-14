@@ -52,6 +52,7 @@ define( function( require ) {
     }
     functionInstance.locationProperty.link( locationObserver );
 
+    // drag the function instance
     this.addInputListener( new SimpleDragHandler( {
 
       //TODO cancel drag if functionInstance is disposed of during a drag cycle, scenery#218
