@@ -350,6 +350,7 @@ define( function( require ) {
       } );
       spyGlassVisibleProperty.link( function( visible ) {
         //TODO implement the spy glass feature
+        functionBuilder.log && functionBuilder.log( 'spyGlassVisibleProperty ' + visible );
       } );
       staticParent.addChild( spyGlassCheckBox );
     }
