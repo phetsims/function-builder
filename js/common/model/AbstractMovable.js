@@ -99,6 +99,8 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
+
+      //NOTE: Checking this.dragging isn't logically necessary here, but is a performance enhancement.
       if ( !this.dragging && !this.locationProperty.get().equals( this.destination ) ) {
 
         // animate to the destination
