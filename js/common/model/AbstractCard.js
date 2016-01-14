@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractMovable = require( 'FUNCTION_BUILDER/common/model/AbstractMovable' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
 
   /**
    * @param {Object} [options]
@@ -24,10 +24,10 @@ define( function( require ) {
       animationSpeed: FBConstants.CARD_ANIMATION_SPEED
     }, options );
 
-    AbstractMovable.call( this, options );
+    Movable.call( this, options );
   }
 
   functionBuilder.register( 'AbstractCard', AbstractCard );
 
-  return inherit( AbstractMovable, AbstractCard );
+  return inherit( Movable, AbstractCard );
 } );

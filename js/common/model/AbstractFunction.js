@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractMovable = require( 'FUNCTION_BUILDER/common/model/AbstractMovable' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
 
   /**
    * @param {Object} [options]
@@ -36,12 +36,12 @@ define( function( require ) {
     // @public (read-only) properties related to visual representation, in the model for convenience
     this.viewInfo = _.pick( options, 'image', 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
-    AbstractMovable.call( this, options );
+    Movable.call( this, options );
   }
 
   functionBuilder.register( 'AbstractFunction', AbstractFunction );
 
-  return inherit( AbstractMovable, AbstractFunction, {
+  return inherit( Movable, AbstractFunction, {
 
     /**
      * Applies the function to the input, produces the output.

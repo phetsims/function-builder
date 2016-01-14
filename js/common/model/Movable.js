@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Abstract base type for any model element that is movable.
+ * Base type for any model element that is movable.
  * When the user drags this model element, it moves immediately to the desired destination.
  * When the destination is set programmatically, it animates to the desired destination.
  *
@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function AbstractMovable( options ) {
+  function Movable( options ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
@@ -52,7 +52,7 @@ define( function( require ) {
     this.disposeCalledEmitter = new Emitter();
 
     // @private
-    this.disposeAbstractMovable = function() {
+    this.disposeMovable = function() {
       assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
       this.disposeCalledEmitter.emit1( this );
       this.disposeCalledEmitter.removeAllListeners();
@@ -60,9 +60,9 @@ define( function( require ) {
     };
   }
 
-  functionBuilder.register( 'AbstractMovable', AbstractMovable );
+  functionBuilder.register( 'Movable', Movable );
 
-  return inherit( PropertySet, AbstractMovable, {
+  return inherit( PropertySet, Movable, {
 
     /**
      * Ensures that this instance is eligible for GC.
@@ -72,7 +72,7 @@ define( function( require ) {
      */
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeAbstractMovable(); // first!
+      this.disposeMovable(); // first!
       PropertySet.prototype.dispose.call( this );
     },
 
