@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var AbstractMovable = require( 'FUNCTION_BUILDER/common/model/AbstractMovable' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -20,6 +21,8 @@ define( function( require ) {
   function AbstractFunction( options ) {
 
     options = _.extend( {
+
+      animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
       // default look of the view associated with a function
       image: null, // {HTMLImageElement|MipMapArray|null} optional image used to represent the function

@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var Emitter = require( 'AXON/Emitter' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -29,7 +28,8 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
-      dragging: false // {boolean} is the function being dragged by the user when it's instantiated?
+      dragging: false, // {boolean} is the function being dragged by the user when it's instantiated?
+      animationSpeed: 100 // {number} distance moved per second
     }, options );
 
     PropertySet.call( this, {
@@ -38,6 +38,9 @@ define( function( require ) {
       // DO NOT set this directly! Use setLocation or destination.
       location: options.location
     } );
+
+    // @private
+    this.animationSpeed = options.animationSpeed;
 
     // @public {Vector2} set this to animate to a location
     this.destination = options.location.copy();
@@ -105,7 +108,7 @@ define( function( require ) {
 
         // animate to the destination
         var totalDistance = this.locationProperty.get().distance( this.destination );
-        var stepDistance = FBConstants.FUNCTION_ANIMATION_SPEED * dt; //TODO options.animationSpeed
+        var stepDistance = this.animationSpeed * dt;
 
         if ( Math.abs( totalDistance - stepDistance ) < ANIMATION_DISTANCE_THRESHOLD ) {
 
