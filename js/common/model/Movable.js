@@ -1,8 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for any model element that is movable.
- * When the user drags this model element, it moves immediately to the desired destination.
+ * A model element that is movable.
+ * It has a current location and a desired destination.
+ * When the user drags the model element, it moves immediately to the desired destination.
  * When the destination is set programmatically, it animates to the desired destination.
  *
  * @author Chris Malley (PixelZoom, Inc.)
