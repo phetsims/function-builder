@@ -106,10 +106,10 @@ define( function( require ) {
         if ( !slot.isEmpty() ) {
           // function in the slot goes back to where it originated
           var oldFunctionInstance = slot.functionInstanceProperty.get();
-          oldFunctionInstance.setDestination( oldFunctionInstance.locationProperty.initialValue );
+          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
         }
         slot.functionInstanceProperty.set( functionInstance );
-        functionInstance.setDestination( slot.location );
+        functionInstance.destination = slot.location;
       }
       return slotNumber;
     },

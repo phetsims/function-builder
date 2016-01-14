@@ -35,11 +35,11 @@ define( function( require ) {
     PropertySet.call( this, {
 
       // @public (read-only) {Vector2} center of the function's node in the view coordinate frame
-      // DO NOT set this directly! Use setDestination.
+      // DO NOT set this directly! Use setLocation or destination.
       location: options.location
     } );
 
-    // @private set this using setDestination
+    // @public {Vector2} set this to animate to a location
     this.destination = options.location.copy();
 
     // @public {boolean} is the user dragging the function?
@@ -71,15 +71,6 @@ define( function( require ) {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
       this.disposeAbstractMovable(); // first!
       PropertySet.prototype.dispose.call( this );
-    },
-
-    /**
-     * Sets the destination of this instance. Use this instead of setting locationProperty.
-     *
-     * @param {Vector2} destination
-     */
-    setDestination: function( destination ) {
-      this.destination = destination;
     },
 
     /**
