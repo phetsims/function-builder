@@ -114,12 +114,6 @@ define( function( require ) {
 
           // close enough, move directly to the destination
           this.locationProperty.set( this.destination );
-
-          //TODO this responsibility belongs elsewhere
-          if ( this.locationProperty.get().equals( this.locationProperty.initialValue ) ) {
-            // function has been returned to the Carousel
-            this.dispose();
-          }
         }
         else {
 

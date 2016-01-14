@@ -177,15 +177,23 @@ define( function( require ) {
      */
     var functionEndDrag = function( functionInstance, event, trail ) {
 
-      // try to add function to a builder
-      var slotNumber = -1;
-      for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
-        slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
-      }
+      if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
 
-      // If the function isn't added to a builder, then return it to the carousel.
-      if ( slotNumber === -1 ) {
-        functionInstance.destination = functionInstance.locationProperty.initialValue;
+        // function has been dragged back to exactly its original location in the carousel
+        functionInstance.dispose();
+      }
+      else {
+
+        // try to add function to a builder
+        var slotNumber = -1;
+        for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
+          slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
+        }
+
+        // If the function isn't added to a builder, then return it to the carousel.
+        if ( slotNumber === -1 ) {
+          functionInstance.destination = functionInstance.locationProperty.initialValue;
+        }
       }
     };
 
@@ -220,12 +228,25 @@ define( function( require ) {
       } );
       dynamicParent.addChild( functionNode );
 
-      // when dispose is called for the function instance, remove the associated Node
+      // function has animated back to the Carousel
+      var locationListener = function( location ) {
+        if ( !functionInstance.isDragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
+          functionInstance.dispose();
+        }
+      };
+      functionInstance.locationProperty.link( locationListener );
+
+      // when dispose is called for the function instance ...
       functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
         assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+
+        // clean up the instance
+        functionInstance.locationProperty.unlink( locationListener );
         scene.removeFunctionInstance( functionInstance );
-        functionNode.dispose();
+
+        // clean up the associated Node
         dynamicParent.removeChild( functionNode );
+        functionNode.dispose();
       } );
     };
 
