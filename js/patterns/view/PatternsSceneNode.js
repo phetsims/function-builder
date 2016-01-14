@@ -171,7 +171,12 @@ define( function( require ) {
     } );
 
     // Eraser button, centered below the output carousels
+    var eraserButtonListener = function() {
+      //TODO return all card to the input carousel
+      functionBuilder.log && functionBuilder.log( 'eraserButtonListener' );
+    };
     var eraserButton = new EraserButton( {
+      listener: eraserButtonListener,
       iconWidth: 28,
       centerX: outputCarouselsParent.centerX,
       top: outputCarouselsParent.bottom + 40
