@@ -3,7 +3,7 @@
 //TODO generalize this pattern, see https://github.com/phetsims/scenery-phet/issues/214
 //TODO lots in common with FunctionCreatorNode
 /**
- * For each card image, an instance of this node is placed in input cards Carousel.
+ * For each card image, an instance of this node is placed in input cards carousel.
  * It has the following responsibilities:
  *
  * - displays a card's icon

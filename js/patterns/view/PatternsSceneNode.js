@@ -75,7 +75,7 @@ define( function( require ) {
       // create a Node for the card
       var cardNode = new MovableCardNode( card, {
 
-        // If the card is in an output Carousel, remove it.
+        // If the card is in an output carousel, remove it.
         startDrag: function( functionInstance, event, trail ) {
           //TODO
         },
@@ -85,7 +85,7 @@ define( function( require ) {
       } );
       dynamicParent.addChild( cardNode );
 
-      // card has animated back to the input Carousel
+      // card has animated back to the input carousel
       var locationListener = function( location ) {
         if ( !card.isDragging && location.equals( card.locationProperty.initialValue ) ) {
           card.dispose();
@@ -242,7 +242,7 @@ define( function( require ) {
       } );
       dynamicParent.addChild( functionNode );
 
-      // function has animated back to the Carousel
+      // function has animated back to the functions carousel
       var locationListener = function( location ) {
         if ( !functionInstance.isDragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
           functionInstance.dispose();
