@@ -77,19 +77,19 @@ define( function( require ) {
      * Sets the destination of this instance. Use this instead of setting locationProperty.
      *
      * @param {Vector2} destination
-     * @param {Object} [options]
      */
-    setDestination: function( destination, options ) {
-
-      options = _.extend( {
-        animate: true
-      }, options );
-
+    setDestination: function( destination ) {
       this.destination = destination;
+    },
 
-      if ( this.dragging || !options.animate ) {
-        this.locationProperty.set( destination );
-      }
+    /**
+     * Sets the location immediately, without animation.
+     *
+     * @param {Vector2} location
+     */
+    setLocation: function( location ) {
+      this.destination = location;
+      this.locationProperty.set( location );
     },
 
     /**

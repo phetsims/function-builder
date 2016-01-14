@@ -70,7 +70,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = card.locationProperty.get().plus( translationParams.delta );
-        card.setDestination( location );
+        card.setLocation( location );
       },
 
       end: function( event, trail ) {

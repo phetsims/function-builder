@@ -113,7 +113,7 @@ define( function( require ) {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
-        this.functionInstance.setDestination( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ), { animate: false } ); // pop out
+        this.functionInstance.setLocation( this.functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
         thisNode.functionCreatedEmitter.emit1( this.functionInstance );
 
         // manage instance count
@@ -127,7 +127,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = this.functionInstance.locationProperty.get().plus( translationParams.delta );
-        this.functionInstance.setDestination( location );
+        this.functionInstance.setLocation( location );
       },
 
       end: function( event, trail ) {

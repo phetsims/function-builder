@@ -114,7 +114,7 @@ define( function( require ) {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );
-        this.card.setDestination( this.card.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ), { animate: false } ); // pop out
+        this.card.setLocation( this.card.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
         thisNode.cardCreatedEmitter.emit1( this.card );
 
         // manage instance count
@@ -128,7 +128,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         var location = this.card.locationProperty.get().plus( translationParams.delta );
-        this.card.setDestination( location );
+        this.card.setLocation( location );
       },
 
       end: function( event, trail ) {
