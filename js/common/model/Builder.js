@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBUtil = require( 'FUNCTION_BUILDER/common/FBUtil' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -34,7 +35,7 @@ define( function( require ) {
     }, options );
 
     // verify duck typing of colorScheme
-    assert && assert( _.difference( [ 'top', 'middle', 'bottom', 'ends' ], _.keys( options.colorScheme  ) ).length === 0 );
+    assert && assert( FBUtil.isaBuilderColorScheme( options.colorScheme  ) );
 
     // @public (read-only)
     this.width = options.width;

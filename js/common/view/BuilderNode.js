@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBUtil = require( 'FUNCTION_BUILDER/common/FBUtil' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -55,6 +56,7 @@ define( function( require ) {
     options.y = builder.location.y;
 
     var colorScheme = builder.colorScheme;
+    assert && assert( FBUtil.isaBuilderColorScheme( colorScheme ) );
 
     // To improve readability of shape code
     var BODY_WIDTH = builder.width;
