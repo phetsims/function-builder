@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2016, University of Colorado Boulder
 
 //TODO generalize this pattern, see https://github.com/phetsims/scenery-phet/issues/214
 /**

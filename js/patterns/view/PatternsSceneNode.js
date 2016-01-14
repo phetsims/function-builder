@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2016, University of Colorado Boulder
 
 /**
  * Composite node that contains all of the nodes that make up a 'scene' in the 'Patterns' screen.

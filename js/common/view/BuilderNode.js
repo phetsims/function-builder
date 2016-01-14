@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2016, University of Colorado Boulder
 
 //TODO divide ends into background and foreground halves, to support dragging cards through the builder
 /**
