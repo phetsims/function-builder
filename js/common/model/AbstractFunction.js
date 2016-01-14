@@ -12,7 +12,6 @@ define( function( require ) {
   var AbstractMovable = require( 'FUNCTION_BUILDER/common/model/AbstractMovable' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * @param {Object} [options]
