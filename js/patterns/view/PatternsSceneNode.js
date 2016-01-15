@@ -336,6 +336,7 @@ define( function( require ) {
     ] );
     var staticParent = new Node( { children: staticChildren } );
 
+    assert && assert( !options.children );
     options.children = [ staticParent, dynamicParent ];
 
     Node.call( this, options );

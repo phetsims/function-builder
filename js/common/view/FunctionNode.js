@@ -26,6 +26,7 @@ define( function( require ) {
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
+    assert && assert( !options.children );
     options.children = [];
 
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );

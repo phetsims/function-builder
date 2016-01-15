@@ -47,6 +47,7 @@ define( function( require ) {
     // @private set by setCard
     this.imageNode = null;
 
+    assert && assert( !options.children );
     options.children = [ this.backgroundNode ];
     Node.call( this, options );
 

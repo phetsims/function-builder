@@ -29,7 +29,8 @@ define( function( require ) {
       }
     }, options );
 
-    options.children = [ new FunctionNode( functionInstance ) ].concat( options.children || [] );
+    assert && assert( !options.children );
+    options.children = [ new FunctionNode( functionInstance ) ];
 
     MovableNode.call( this, functionInstance, options );
   }

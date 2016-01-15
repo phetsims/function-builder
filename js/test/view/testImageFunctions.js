@@ -159,6 +159,7 @@ define( function( require ) {
       center: backgroundNode.center
     } );
 
+    assert && assert( !options.children );
     options.children = [ backgroundNode, imageNode ];
     Node.call( this, options );
   }
@@ -199,6 +200,7 @@ define( function( require ) {
       center: backgroundNode.center
     } );
 
+    assert && assert( !options.children );
     options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
   }

@@ -29,7 +29,8 @@ define( function( require ) {
       }
     }, options );
 
-    options.children = [ new CardNode( card ) ].concat( options.children || [] );
+    assert && assert( !options.children );
+    options.children = [ new CardNode( card ) ];
 
     MovableNode.call( this, card, options );
   }

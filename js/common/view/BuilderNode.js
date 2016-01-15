@@ -141,6 +141,7 @@ define( function( require ) {
     }
     var slotsParent = new Node( { children: slotNodes } );
 
+    assert && assert( !options.children );
     options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
     Node.call( this, options );
 
