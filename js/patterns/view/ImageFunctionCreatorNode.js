@@ -27,7 +27,7 @@ define( function( require ) {
     }, options );
 
     var iconNode = new ImageFunctionNode( createInstance() );
-    var disabledIconNode = new Rectangle( 0, 0, 1, 1 ); // any non-visible not will do here
+    var disabledIconNode = new Rectangle( 0, 0, 1, 1 ); // any non-visible Node will do here
 
     MovableCreatorNode.call( this, iconNode, disabledIconNode, createInstance, options );
   }
