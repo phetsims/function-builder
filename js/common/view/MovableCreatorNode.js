@@ -33,11 +33,12 @@ define( function( require ) {
 
   /**
    * @param {Node} iconNode -  icon that represents the Movable
+   * @param {Node} disabledIconNode -  icon that represents the Movable when instance creation is disabled
    * @param {function} createInstance - function called to create an instance of {Movable}
    * @param {Object} [options]
    * @constructor
    */
-  function MovableCreatorNode( iconNode, createInstance, options ) {
+  function MovableCreatorNode( iconNode, disabledIconNode, createInstance, options ) {
 
     options = _.extend( {
 
@@ -46,9 +47,6 @@ define( function( require ) {
 
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
-
-      // {number} [0,1], opacity of the icon when instance creation is disabled
-      disabledIconOpacity: 0.2,
 
       /**
        * {function} called at the end of each drag sequence
@@ -62,9 +60,10 @@ define( function( require ) {
 
     // validate options
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
-    assert && assert( options.disabledIconOpacity >= 0 && options.disabledIconOpacity <= 1 );
 
     iconNode.cursor = 'pointer';
+
+    disabledIconNode.center = iconNode.center;
 
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
     var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
@@ -76,8 +75,8 @@ define( function( require ) {
     var numberOfInstancesProperty = new Property( 0 );
     numberOfInstancesProperty.link( function( numberOfInstances ) {
       var enabled = ( numberOfInstances < options.maxInstances );
-      iconNode.pickable = enabled;
-      iconNode.opacity = enabled ? 1 : options.disabledIconOpacity;
+      iconNode.visible = enabled;
+      disabledIconNode.visible = !enabled;
     } );
 
     // @public emit1( {Movable}instance ) when an instance is created
@@ -146,7 +145,7 @@ define( function( require ) {
     iconNode.addInputListener( dragHandler );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, iconNode ];
+    options.children = [ backgroundNode, disabledIconNode, iconNode ];
 
     Node.call( this, options );
 

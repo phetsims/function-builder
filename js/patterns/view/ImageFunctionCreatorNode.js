@@ -13,6 +13,7 @@ define( function( require ) {
   var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    * @param {function} createInstance - function called to create an {ImageFunction}
@@ -22,13 +23,13 @@ define( function( require ) {
   function ImageFunctionCreatorNode( createInstance, options ) {
 
     options = _.extend( {
-      maxInstances: 2,
-      disabledIconOpacity: 0 // icon invisible when disabled
+      maxInstances: 2
     }, options );
 
     var iconNode = new ImageFunctionNode( createInstance() );
+    var disabledIconNode = new Rectangle( 0, 0, 1, 1 ); // any non-visible not will do here
 
-    MovableCreatorNode.call( this, iconNode, createInstance, options );
+    MovableCreatorNode.call( this, iconNode, disabledIconNode, createInstance, options );
   }
 
   functionBuilder.register( 'ImageFunctionCreatorNode', ImageFunctionCreatorNode );

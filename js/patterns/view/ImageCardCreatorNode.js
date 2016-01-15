@@ -23,13 +23,16 @@ define( function( require ) {
   function ImageCardCreatorNode( createInstance, options ) {
 
     options = _.extend( {
-      maxInstances: 2,
-      disabledIconOpacity: 0.2
+      maxInstances: 2
     }, options );
 
     var iconNode = new ImageCardNode( createInstance() );
+    var disabledIconNode = new ImageCardNode( createInstance(), {
+      opacity: 0.2,
+      lineDash: [ 3, 3 ]
+    } );
 
-    MovableCreatorNode.call( this, iconNode, createInstance, options );
+    MovableCreatorNode.call( this, iconNode, disabledIconNode, createInstance, options );
   }
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );

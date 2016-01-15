@@ -57,7 +57,7 @@ define( function( require ) {
      */
     var cardEndDrag = function( card, event, trail ) {
       //TODO temporary, return card to carousel
-      card.destination = card.locationProperty.initialValue;
+      //card.destination = card.locationProperty.initialValue;
     };
 
     //TODO lots in common with createFunctionListener, factor out CreationListener?

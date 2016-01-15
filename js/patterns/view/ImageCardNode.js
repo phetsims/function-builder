@@ -32,6 +32,7 @@ define( function( require ) {
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,
+      lineDash: null,
       xMargin: 5,
       yMargin: 5,
       imageScale: 0.3
@@ -39,11 +40,13 @@ define( function( require ) {
 
     this.imageScale = options.imageScale; // @private
 
+    //TODO _.pick these options
     // @private
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, options.cornerRadius, options.cornerRadius, {
       fill: options.fill,
       stroke: options.stroke,
-      lineWidth: options.lineWidth
+      lineWidth: options.lineWidth,
+      lineDash: options.lineDash
     } );
 
     // @private set by setCard
