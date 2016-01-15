@@ -82,6 +82,8 @@ define( function( require ) {
     var thisNode = this;
     var dragHandler = new SimpleDragHandler( {
 
+      //TODO cancel drag if functionInstance is disposed of during a drag cycle, scenery#218
+
       parentScreenView: null, // @private {ScreenView} set on first start drag
       functionInstance: null, // @private {AbstractFunction} set during a drag sequence
       functionInstanceMoved: false, // @private {boolean} was the function instance moved after it was created?
