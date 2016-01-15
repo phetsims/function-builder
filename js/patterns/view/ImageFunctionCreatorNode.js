@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * For each type of {ImageFunction}, an instance of this node is placed in the functions carousel.
+ * Node that creates {ImageFunction} instances.
+ * For each type of {ImageFunction}, an instance of this Node is placed in the functions carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
