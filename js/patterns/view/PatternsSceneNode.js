@@ -18,8 +18,8 @@ define( function( require ) {
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageCardCreatorNode' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableCardNode = require( 'FUNCTION_BUILDER/common/view/MovableCardNode' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
+  var MovableImageCardNode = require( 'FUNCTION_BUILDER/common/view/MovableImageCardNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
@@ -73,7 +73,7 @@ define( function( require ) {
       scene.addCard( card );
 
       // create a Node for the card
-      var cardNode = new MovableCardNode( card, {
+      var cardNode = new MovableImageCardNode( card, {
 
         // If the card is in an output carousel, remove it.
         startDrag: function( functionInstance, event, trail ) {

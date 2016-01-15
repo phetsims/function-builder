@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node associated with a card, stays synchronized with the card's location and handles dragging.
+ * Node associated with an {ImageCard}, stays synchronized with the card's location and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,11 +15,11 @@ define( function( require ) {
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
-   * @param {AbstractCard} card
+   * @param {ImageCard} card
    * @param {Object} [options]
    * @constructor
    */
-  function MovableCardNode( card, options ) {
+  function MovableImageCardNode( card, options ) {
 
     options = _.extend( {
 
@@ -35,7 +35,7 @@ define( function( require ) {
     MovableNode.call( this, card, options );
   }
 
-  functionBuilder.register( 'MovableCardNode', MovableCardNode );
+  functionBuilder.register( 'MovableImageCardNode', MovableImageCardNode );
 
-  return inherit( MovableNode, MovableCardNode );
+  return inherit( MovableNode, MovableImageCardNode );
 } );
