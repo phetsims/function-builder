@@ -39,8 +39,11 @@ define( function( require ) {
    */
   function PatternsSceneNode( scene, layoutBounds, options ) {
 
-    // parent node for all nodes that are dynamically created
-    var dynamicParent = new Node();
+    // parent node for all cards, while the user is dragging them
+    var cardsParent = new Node();
+
+    // parent node for all function instances, while the user is dragging them
+    var functionsParent = new Node();
 
     // Builders
     var builderNodes = [];
@@ -85,7 +88,7 @@ define( function( require ) {
         // When done dragging the card ...
         endDrag: cardEndDrag
       } );
-      dynamicParent.addChild( cardNode );
+      cardsParent.addChild( cardNode );
 
       // card has animated back to the input carousel
       var locationListener = function( location ) {
@@ -106,7 +109,7 @@ define( function( require ) {
         scene.removeCard( card );
 
         // clean up the node
-        dynamicParent.removeChild( cardNode );
+        cardsParent.removeChild( cardNode );
         cardNode.dispose();
       } );
     };
@@ -240,7 +243,7 @@ define( function( require ) {
         // When done dragging the function ...
         endDrag: functionEndDrag
       } );
-      dynamicParent.addChild( functionNode );
+      functionsParent.addChild( functionNode );
 
       // function has animated back to the functions carousel
       var locationListener = function( location ) {
@@ -261,7 +264,7 @@ define( function( require ) {
         scene.removeFunctionInstance( functionInstance );
 
         // clean up the associated Node
-        dynamicParent.removeChild( functionNode );
+        functionsParent.removeChild( functionNode );
         functionNode.dispose();
       } );
     };
@@ -323,35 +326,29 @@ define( function( require ) {
       } );
     } );
 
-    // parent for all static nodes (created once, rendering order remains the same)
-    var staticChildren = [];
-    staticChildren = staticChildren.concat( builderNodes );
-    staticChildren = staticChildren.concat( [
-      inputCarousel, outputCarouselsParent, functionsCarousel,
-      inputsPageControl, outputsPageControl, functionsPageControl,
-      eraserButton
-    ] );
-    var staticParent = new Node( { children: staticChildren } );
+    // Spy Glass check box, to the right of functions carousel
+    var spyGlassVisibleProperty = new Property( false );
+    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+      maxWidth: 0.85 * ( functionsCarousel.left - inputCarousel.left ),
+      left: inputCarousel.left,
+      top: functionsCarousel.top
+    } );
+    spyGlassVisibleProperty.link( function( visible ) {
+      //TODO implement the spy glass feature
+      functionBuilder.log && functionBuilder.log( 'spyGlassVisibleProperty ' + visible );
+    } );
+    spyGlassCheckBox.visible = scene.spyGlassEnabled;
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ staticParent, dynamicParent ];
+    options.children = [
+      inputCarousel, outputCarouselsParent, functionsCarousel,
+      inputsPageControl, outputsPageControl, functionsPageControl,
+      spyGlassCheckBox, eraserButton
+    ];
+    options.children = options.children.concat( builderNodes );
+    options.children = options.children.concat( [ functionsParent, cardsParent ] );
 
     Node.call( this, options );
-
-    // Spy Glass check box, to the right of functions carousel
-    var spyGlassVisibleProperty = new Property( false ); // @private
-    if ( scene.spyGlassEnabled ) {
-      var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
-        maxWidth: 0.85 * ( functionsCarousel.left - inputCarousel.left ),
-        left: inputCarousel.left,
-        top: functionsCarousel.top
-      } );
-      spyGlassVisibleProperty.link( function( visible ) {
-        //TODO implement the spy glass feature
-        functionBuilder.log && functionBuilder.log( 'spyGlassVisibleProperty ' + visible );
-      } );
-      staticParent.addChild( spyGlassCheckBox );
-    }
 
     // @private Resets this node
     this.resetPatternsSceneNode = function() {
