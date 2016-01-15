@@ -13,6 +13,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardCreatedListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatedListener' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
@@ -77,12 +78,13 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    // Output carousels, one for each builder, at right-center
+    // Output carousels, one for each builder
     var outputCarousels = [];
     (function() {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.builders.length; i++ ) {
 
+        //TODO temporary, some other type of Node is needed in the output carousels
         var outputCarouselItems = [];
         scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
           outputCarouselItems.push( new ImageCardNode( cardCreationFunction() ) );
@@ -94,18 +96,17 @@ define( function( require ) {
           separatorsVisible: true,
           itemsPerPage: INPUTS_PER_PAGE,
           buttonTouchAreaXDilation: 5,
-          buttonTouchAreaYDilation: 15,
-          left: ( i === 0 ) ? 0 : outputCarousels[ i - 1 ].right + OUTPUT_CAROUSELS_SPACING,
-          top: inputCarousel.top
+          buttonTouchAreaYDilation: 15
         } );
 
         outputCarousels.push( outputCarousel );
       }
     })();
 
-    // Horizontal layout of output carousels
-    var outputCarouselsParent = new Node( {
+    // Horizontal layout of output carousels, at right-center
+    var outputCarouselsParent = new HBox( {
       children: outputCarousels,
+      spacing: OUTPUT_CAROUSELS_SPACING,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
     } );
@@ -193,6 +194,7 @@ define( function( require ) {
     } );
     spyGlassCheckBox.visible = scene.spyGlassEnabled;
 
+    // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       inputCarousel, outputCarouselsParent, functionsCarousel,
