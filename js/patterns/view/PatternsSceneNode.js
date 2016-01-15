@@ -122,7 +122,7 @@ define( function( require ) {
           endDrag: cardEndDrag
         } );
 
-        cardCreatorNode.cardCreatedEmitter.addListener( cardCreatedListener );
+        cardCreatorNode.createdEmitter.addListener( cardCreatedListener );
         inputCarouselItems.push( cardCreatorNode );
       }
     })();
@@ -279,7 +279,7 @@ define( function( require ) {
           endDrag: functionEndDrag
         } );
 
-        functionCreatorNode.functionCreatedEmitter.addListener( functionCreatedListener );
+        functionCreatorNode.createdEmitter.addListener( functionCreatedListener );
         functionCarouselItems.push( functionCreatorNode );
       }
     })();
