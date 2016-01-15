@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
@@ -30,7 +30,7 @@ define( function( require ) {
     }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ new CardNode( card ) ];
+    options.children = [ new ImageCardNode( card ) ];
 
     MovableNode.call( this, card, options );
   }

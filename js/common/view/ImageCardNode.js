@@ -1,8 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
-//TODO this is specific to ImageCard, generalize
 /**
- * Cards that serve as the user interface for function inputs and outputs.
+ * A card with a dynamic image on it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,11 +17,11 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {Card} card
+   * @param {ImageCard} card
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, options ) {
+  function ImageCardNode( card, options ) {
 
     options = _.extend( {
       size: new Dimension2( 60, 60 ),
@@ -52,21 +51,21 @@ define( function( require ) {
     Node.call( this, options );
 
     // @private
-    this.disposeCardNode = function() {
+    this.disposeImageCardNode = function() {
       //TODO
     };
 
     this.setCard( card );
   }
 
-  functionBuilder.register( 'CardNode', CardNode );
+  functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
-  return inherit( Node, CardNode, {
+  return inherit( Node, ImageCardNode, {
 
     // @public
     dispose: function() {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeCardNode();
+      this.disposeImageCardNode();
     },
 
     //TODO this is temporary

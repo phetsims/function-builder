@@ -10,13 +10,13 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
-  var CardCreatorNode = require( 'FUNCTION_BUILDER/common/view/CardCreatorNode' );
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
+  var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageCardCreatorNode' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableCardNode = require( 'FUNCTION_BUILDER/common/view/MovableCardNode' );
   var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
@@ -113,7 +113,7 @@ define( function( require ) {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
 
-        var cardCreatorNode = new CardCreatorNode( scene.cardCreationFunctions[ i ], {
+        var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], {
 
           // max number of instances of each card type
           maxInstances: 2,
@@ -146,7 +146,7 @@ define( function( require ) {
 
         var outputCarouselItems = [];
         scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
-          outputCarouselItems.push( new CardNode( cardCreationFunction() ) );
+          outputCarouselItems.push( new ImageCardNode( cardCreationFunction() ) );
         } );
 
         var outputCarousel = new Carousel( outputCarouselItems, {
