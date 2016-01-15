@@ -61,15 +61,13 @@ define( function( require ) {
     // validate options
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
 
-    iconNode.cursor = 'pointer';
-
-    disabledIconNode.center = iconNode.center;
-
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
     var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
-      stroke: SHOW_BOUNDS ? 'red' : null,
-      center: iconNode.center
+      stroke: SHOW_BOUNDS ? 'red' : null
     } );
+
+    // center icon on background
+    iconNode.center = disabledIconNode.center = backgroundNode.center;
 
     // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
@@ -143,6 +141,7 @@ define( function( require ) {
       }
     } );
     iconNode.addInputListener( dragHandler );
+    iconNode.cursor = 'pointer';
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, disabledIconNode, iconNode ];
