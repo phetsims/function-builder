@@ -17,10 +17,7 @@ define( function( require ) {
    * @constructor
    */
   function NumbersModel() {
-
-    PropertySet.call( this, {
-      //TODO
-    } );
+    PropertySet.call( this, {} );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );

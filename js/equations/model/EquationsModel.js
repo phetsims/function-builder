@@ -17,10 +17,7 @@ define( function( require ) {
    * @constructor
    */
   function EquationsModel() {
-
-    PropertySet.call( this, {
-      //TODO
-    } );
+    PropertySet.call( this, {} );
   }
 
   functionBuilder.register( 'EquationsModel', EquationsModel );

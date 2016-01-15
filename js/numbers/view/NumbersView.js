@@ -25,7 +25,6 @@ define( function( require ) {
 
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
-    //TODO
     this.addChild( new Text( 'Numbers: Under Construction', {
       font: new FBFont( 36 ),
       center: this.layoutBounds.center
