@@ -13,13 +13,13 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/FunctionCreatorNode' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageCardCreatorNode' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/ImageCardNode' );
+  var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableFunctionNode' );
   var MovableImageCardNode = require( 'FUNCTION_BUILDER/common/view/MovableImageCardNode' );
+  var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableImageFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
@@ -224,7 +224,7 @@ define( function( require ) {
       scene.addFunctionInstance( functionInstance );
 
       // create a Node for the function instance
-      var functionNode = new MovableFunctionNode( functionInstance, {
+      var functionNode = new MovableImageFunctionNode( functionInstance, {
 
         // If the function is in a builder, remove it.
         startDrag: function( functionInstance, event, trail ) {
@@ -265,12 +265,12 @@ define( function( require ) {
     };
 
     // Items in the functions carousel
-    var functionCarouselItems = []; // {FunctionCreatorNode[]}
+    var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
     (function() {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
 
-        var functionCreatorNode = new FunctionCreatorNode( scene.functionCreationFunctions[ i ], {
+        var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], {
 
           // max number of instances of each function type
           maxInstances: 2,

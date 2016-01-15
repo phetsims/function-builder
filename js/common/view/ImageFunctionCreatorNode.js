@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
@@ -19,12 +19,12 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionCreatorNode( createInstance, options ) {
-    var iconNode = new FunctionNode( createInstance() );
+  function ImageFunctionCreatorNode( createInstance, options ) {
+    var iconNode = new ImageFunctionNode( createInstance() );
     MovableCreatorNode.call( this, iconNode, createInstance, options );
   }
 
-  functionBuilder.register( 'FunctionCreatorNode', FunctionCreatorNode );
+  functionBuilder.register( 'ImageFunctionCreatorNode', ImageFunctionCreatorNode );
 
-  return inherit( MovableCreatorNode, FunctionCreatorNode );
+  return inherit( MovableCreatorNode, ImageFunctionCreatorNode );
 } );

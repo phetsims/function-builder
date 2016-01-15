@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionNode( functionInstance, options ) {
+  function ImageFunctionNode( functionInstance, options ) {
 
     options = _.extend( {
       iconScale: 0.3 // {number} scale for icon
@@ -44,7 +44,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'FunctionNode', FunctionNode );
+  functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( Node, FunctionNode );
+  return inherit( Node, ImageFunctionNode );
 } );

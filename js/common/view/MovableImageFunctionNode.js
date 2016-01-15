@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MovableFunctionNode( functionInstance, options ) {
+  function MovableImageFunctionNode( functionInstance, options ) {
 
     options = _.extend( {
 
@@ -30,12 +30,12 @@ define( function( require ) {
     }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ new FunctionNode( functionInstance ) ];
+    options.children = [ new ImageFunctionNode( functionInstance ) ];
 
     MovableNode.call( this, functionInstance, options );
   }
 
-  functionBuilder.register( 'MovableFunctionNode', MovableFunctionNode );
+  functionBuilder.register( 'MovableImageFunctionNode', MovableImageFunctionNode );
 
-  return inherit( MovableNode, MovableFunctionNode );
+  return inherit( MovableNode, MovableImageFunctionNode );
 } );
