@@ -118,11 +118,6 @@ define( function( require ) {
       for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
 
         var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], {
-
-          // max number of instances of each card type
-          maxInstances: 2,
-
-          // When done dragging the newly-created card ...
           endDrag: cardEndDrag
         } );
 
@@ -278,11 +273,6 @@ define( function( require ) {
       for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
 
         var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], {
-
-          // max number of instances of each function type
-          maxInstances: 2,
-
-          // When done dragging the newly-created function ...
           endDrag: functionEndDrag
         } );
 

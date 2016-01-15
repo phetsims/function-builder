@@ -47,6 +47,9 @@ define( function( require ) {
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
 
+      // {number} [0,1], opacity of the icon when instance creation is disabled
+      disabledIconOpacity: 0.2,
+
       /**
        * {function} called at the end of each drag sequence
        * @param {Movable} movable
@@ -57,7 +60,9 @@ define( function( require ) {
 
     }, options );
 
+    // validate options
     assert && assert( options.maxInstances >= 0 && options.maxInstances <= Number.POSITIVE_INFINITY );
+    assert && assert( options.disabledIconOpacity >= 0 && options.disabledIconOpacity <= 1 );
 
     iconNode.cursor = 'pointer';
 
@@ -70,7 +75,9 @@ define( function( require ) {
     // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
     numberOfInstancesProperty.link( function( numberOfInstances ) {
-      iconNode.visible = ( numberOfInstances < options.maxInstances );
+      var enabled = ( numberOfInstances < options.maxInstances );
+      iconNode.pickable = enabled;
+      iconNode.opacity = enabled ? 1 : options.disabledIconOpacity;
     } );
 
     // @public emit1( {Movable}instance ) when an instance is created

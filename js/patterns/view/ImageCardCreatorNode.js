@@ -21,7 +21,14 @@ define( function( require ) {
    * @constructor
    */
   function ImageCardCreatorNode( createInstance, options ) {
+
+    options = _.extend( {
+      maxInstances: 2,
+      disabledIconOpacity: 0.2
+    }, options );
+
     var iconNode = new ImageCardNode( createInstance() );
+
     MovableCreatorNode.call( this, iconNode, createInstance, options );
   }
 
