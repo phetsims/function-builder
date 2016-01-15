@@ -142,7 +142,7 @@ define( function( require ) {
     } );
     iconNode.addInputListener( dragHandler );
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
 
     Node.call( this, options );

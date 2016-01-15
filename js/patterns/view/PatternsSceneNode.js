@@ -336,7 +336,7 @@ define( function( require ) {
     ] );
     var staticParent = new Node( { children: staticChildren } );
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ staticParent, dynamicParent ];
 
     Node.call( this, options );

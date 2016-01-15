@@ -47,7 +47,7 @@ define( function( require ) {
     // @private set by setCard
     this.imageNode = null;
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
     Node.call( this, options );
 

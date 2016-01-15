@@ -29,7 +29,7 @@ define( function( require ) {
       }
     }, options );
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ new FunctionNode( functionInstance ) ];
 
     MovableNode.call( this, functionInstance, options );

@@ -159,7 +159,7 @@ define( function( require ) {
       center: backgroundNode.center
     } );
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, imageNode ];
     Node.call( this, options );
   }
@@ -200,7 +200,7 @@ define( function( require ) {
       center: backgroundNode.center
     } );
 
-    assert && assert( !options.children );
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
     Node.call( this, options );
   }
