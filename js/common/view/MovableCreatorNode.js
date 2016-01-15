@@ -32,7 +32,7 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {Node} iconNode -  icon that represents the Movable
+   * @param {Node} iconNode -  icon that represents the Movable when instance creation is enabled
    * @param {Node} disabledIconNode -  icon that represents the Movable when instance creation is disabled
    * @param {function} createInstance - function called to create an instance of {Movable}
    * @param {Object} [options]
