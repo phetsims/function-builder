@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // function modules
@@ -60,8 +61,8 @@ define( function( require ) {
 
     /**
      * Functions to create functions instances, of the form:
-     * @param {Object} [options] - options to the AbstractFunction constructor
-     * @returns {AbstractFunction}
+     * @param {Object} [options] - options to the ImageFunction constructor
+     * @returns {ImageFunction}
      * 
      * @public
      * @type {function[]}
@@ -110,10 +111,10 @@ define( function( require ) {
     // @public (read-only) {boolean} spy glass feature is enabled if any builder has > 1 slot
     this.spyGlassEnabled = _.any( builders, function( builder ) { return builder.slots.length > 1; } );
 
-    // @private {Card[]} All cards that exist. They may or may not be in the output carousel.
+    // @private {ImageCard[]} All cards that exist. They may or may not be in the output carousel.
     this.cards = [];
 
-    // @private {AbstractFunction[]} All function instances that exist. They may or may not be in a builder.
+    // @private {ImageFunction[]} All function instances that exist. They may or may not be in a builder.
     this.functionInstances = [];
 
     // @public (read-only) {number}
@@ -147,18 +148,20 @@ define( function( require ) {
 
     /**
      * Adds a function instance to the model.
-     * @param {AbstractFunction} functionInstance
+     * @param {ImageFunction} functionInstance
      */
     addFunctionInstance: function( functionInstance ) {
+      assert && assert( functionInstance instanceof ImageFunction, 'attempted to add a ' + functionInstance.constructor.name );
       assert && assert( this.functionInstances.indexOf( functionInstance ) === -1, 'attempted to add functionInstance twice' );
       this.functionInstances.push( functionInstance );
     },
 
     /**
      * Removes a function instance from the model.
-     * @param {AbstractFunction} functionInstance
+     * @param {ImageFunction} functionInstance
      */
     removeFunctionInstance: function( functionInstance ) {
+      assert && assert( functionInstance instanceof ImageFunction, 'attempted to remove a ' + functionInstance.constructor.name );
       var index = this.functionInstances.indexOf( functionInstance );
       assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
       this.functionInstances.splice( index, 1 );
@@ -166,18 +169,20 @@ define( function( require ) {
 
     /**
      * Adds a card to the model.
-     * @param {AbstractCard} card
+     * @param {ImageCard} card
      */
     addCard: function( card ) {
+      assert && assert( card instanceof ImageCard, 'attempted to add a ' + card.constructor.name );
       assert && assert( this.cards.indexOf( card ) === -1, 'attempted to add card twice' );
       this.cards.push( card );
     },
 
     /**
      * Removes a card from the model.
-     * @param {AbstractCard} card
+     * @param {ImageCard} card
      */
     removeCard: function( card ) {
+      assert && assert( card instanceof ImageCard, 'attempted to remove a ' + card.constructor.name );
       var index = this.cards.indexOf( card );
       assert && assert( index !== -1, 'attempted to remove unknown card' );
       this.cards.splice( index, 1 );

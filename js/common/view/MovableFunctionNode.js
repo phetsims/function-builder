@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Node that displays an {AbstractFunction}, stays synchronized with its location, and handles dragging.
+ * Node that displays an {ImageFunction}, stays synchronized with its location, and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ define( function( require ) {
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
-   * @param {AbstractFunction} functionInstance
+   * @param {ImageFunction} functionInstance
    * @param {Object} [options]
    * @constructor
    */

@@ -185,7 +185,7 @@ define( function( require ) {
     /**
      * When the user stops dragging a function, decide what to do with it.
      *
-     * @param {AbstractFunction} functionInstance
+     * @param {ImageFunction} functionInstance
      * @param {Event} event
      * @param {Trail} trail
      */
@@ -214,7 +214,7 @@ define( function( require ) {
     /**
      * When a function instance is created, add it to the model and view.
      *
-     * @param {AbstractFunction} functionInstance - the instance that was created
+     * @param {ImageFunction} functionInstance - the instance that was created
      */
     var functionCreatedListener = function( functionInstance ) {
 

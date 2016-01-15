@@ -171,7 +171,7 @@ define( function( require ) {
   /**
    * Use this simplified representation so that this test is not dependent on other sim code.
    *
-   * @param {AbstractFunction} functionInstance
+   * @param {ImageFunction} functionInstance
    * @param {Object} [options]
    * @constructor
    */

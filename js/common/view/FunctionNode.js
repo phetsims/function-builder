@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Node that displays an {AbstractFunction}.
+ * Node that displays an {ImageFunction}.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {AbstractFunction} functionInstance
+   * @param {ImageFunction} functionInstance
    * @param {Object} [options]
    * @constructor
    */
@@ -32,8 +32,9 @@ define( function( require ) {
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
     options.children.push( backgroundNode );
 
-    if ( functionInstance.viewInfo.image ) {
-      var iconNode = new Image( functionInstance.viewInfo.image, {
+    //TODO remove if
+    if ( functionInstance.image ) {
+      var iconNode = new Image( functionInstance.image, {
         scale: options.iconScale,
         center: backgroundNode.center
       } );

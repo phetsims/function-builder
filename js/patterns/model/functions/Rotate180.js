@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
@@ -24,16 +24,15 @@ define( function( require ) {
   function Rotate180( options ) {
 
     options = _.extend( {
-      image: rotate180Image,
       fill: 'rgb( 147, 231, 128 )'
     }, options );
 
-    AbstractFunction.call( this, options );
+    ImageFunction.call( this, rotate180Image, options );
   }
 
   functionBuilder.register( 'Rotate180', Rotate180 );
 
-  return inherit( AbstractFunction, Rotate180, {
+  return inherit( ImageFunction, Rotate180, {
 
     /**
      * Applies this function.

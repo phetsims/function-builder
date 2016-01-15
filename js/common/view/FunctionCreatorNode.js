@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * For each type of function, an instance of this node is placed in the functions carousel.
+ * For each type of {ImageFunction}, an instance of this node is placed in the functions carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,7 +15,7 @@ define( function( require ) {
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
   /**
-   * @param {function} createInstance - function called to create an {AbstractFunction}
+   * @param {function} createInstance - function called to create an {ImageFunction}
    * @param {Object} [options]
    * @constructor
    */

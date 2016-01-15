@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var AbstractCard = require( 'FUNCTION_BUILDER/common/model/AbstractCard' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -25,6 +26,8 @@ define( function( require ) {
 
     AbstractCard.call( this, options );
   }
+
+  functionBuilder.register( 'ImageCard', ImageCard );
 
   return inherit( AbstractCard, ImageCard, {}, {
 

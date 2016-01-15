@@ -19,7 +19,6 @@ define( function( require ) {
   function PlaceholderFunction( options ) {
 
     options = _.extend( {
-      image: null,
       fill: null,
       stroke: 'white',
       lineDash: [ 3, 3 ]

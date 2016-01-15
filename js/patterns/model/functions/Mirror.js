@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
@@ -24,16 +24,15 @@ define( function( require ) {
   function Mirror( options ) {
 
     options = _.extend( {
-      image: mirrorImage,
       fill: 'rgb( 128, 197, 237 )'
     }, options );
 
-    AbstractFunction.call( this, options );
+    ImageFunction.call( this, mirrorImage, options );
   }
 
   functionBuilder.register( 'Mirror', Mirror );
 
-  return inherit( AbstractFunction, Mirror, {
+  return inherit( ImageFunction, Mirror, {
 
     /**
      * Applies this function.

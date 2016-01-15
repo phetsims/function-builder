@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
@@ -32,11 +32,10 @@ define( function( require ) {
   function Warhol( options ) {
 
     options = _.extend( {
-      image: warholImage,
       fill: 'rgb( 250, 186, 75 )'
     }, options );
 
-    AbstractFunction.call( this, options );
+    ImageFunction.call( this, warholImage, options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );
@@ -76,7 +75,7 @@ define( function( require ) {
     return outputData;
   }
 
-  return inherit( AbstractFunction, Warhol, {
+  return inherit( ImageFunction, Warhol, {
 
     /**
      * Applies this function.
