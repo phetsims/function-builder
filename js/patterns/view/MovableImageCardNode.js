@@ -1,7 +1,7 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays an {ImageFunction}, stays synchronized with its location, and handles dragging.
+ * Node that displays an {ImageCard}, stays synchronized with its location, and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,16 +10,16 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionNode' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
-   * @param {ImageFunction} functionInstance
+   * @param {ImageCard} card
    * @param {Object} [options]
    * @constructor
    */
-  function MovableImageFunctionNode( functionInstance, options ) {
+  function MovableImageCardNode( card, options ) {
 
     options = _.extend( {
 
@@ -30,12 +30,12 @@ define( function( require ) {
     }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ new ImageFunctionNode( functionInstance ) ];
+    options.children = [ new ImageCardNode( card ) ];
 
-    MovableNode.call( this, functionInstance, options );
+    MovableNode.call( this, card, options );
   }
 
-  functionBuilder.register( 'MovableImageFunctionNode', MovableImageFunctionNode );
+  functionBuilder.register( 'MovableImageCardNode', MovableImageCardNode );
 
-  return inherit( MovableNode, MovableImageFunctionNode );
+  return inherit( MovableNode, MovableImageCardNode );
 } );

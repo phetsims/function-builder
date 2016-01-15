@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
  * For each type of {ImageFunction}, an instance of this node is placed in the functions carousel.
@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionNode' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 

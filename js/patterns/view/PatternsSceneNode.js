@@ -14,12 +14,12 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
-  var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageCardCreatorNode' );
-  var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/ImageCardNode' );
-  var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/common/view/ImageFunctionCreatorNode' );
+  var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
+  var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableImageCardNode = require( 'FUNCTION_BUILDER/common/view/MovableImageCardNode' );
-  var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/MovableImageFunctionNode' );
+  var MovableImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageCardNode' );
+  var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
