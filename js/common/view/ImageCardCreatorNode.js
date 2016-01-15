@@ -20,7 +20,8 @@ define( function( require ) {
    * @constructor
    */
   function ImageCardCreatorNode( createInstance, options ) {
-    MovableCreatorNode.call( this, new ImageCardNode( createInstance() ), createInstance, options );
+    var iconNode = new ImageCardNode( createInstance() );
+    MovableCreatorNode.call( this, iconNode, createInstance, options );
   }
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );

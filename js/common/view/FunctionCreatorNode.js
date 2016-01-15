@@ -20,7 +20,8 @@ define( function( require ) {
    * @constructor
    */
   function FunctionCreatorNode( createInstance, options ) {
-    MovableCreatorNode.call( this, new FunctionNode( createInstance() ), createInstance, options );
+    var iconNode = new FunctionNode( createInstance() );
+    MovableCreatorNode.call( this, iconNode, createInstance, options );
   }
 
   functionBuilder.register( 'FunctionCreatorNode', FunctionCreatorNode );
