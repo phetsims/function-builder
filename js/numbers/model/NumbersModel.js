@@ -17,6 +17,21 @@ define( function( require ) {
    * @constructor
    */
   function NumbersModel() {
+
+    // Inputs are:
+    // (-4,7) inclusive
+    // show (0,3) initially
+
+    // Functions are:
+    // + 3, - 3
+    // x ? (x 1)
+    // - ? (- 0)
+    // x 2 + 1 : DOUBLE
+    // ?? (x 2),
+    // + ? x ? (+ 3 x 2) : DOUBLE
+    // ? ? (+ 7)
+    // ? ? ? ? (x 2 - 3) : DOUBLE
+
     PropertySet.call( this, {} );
   }
 
