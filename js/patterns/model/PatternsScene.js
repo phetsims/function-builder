@@ -59,9 +59,8 @@ define( function( require ) {
     // @public (read-only) {function} used to create the icon that represents the scene
     this.createIcon = createIcon;
 
-    // @public (read-only) {function[]} constructors for the types of functions that will appear in the carousel
-    // @public (read-only)
-    // {function[]} functions to create function instances, of the form:
+    // @public (read-only) {functions[]}
+    // functions to create function instances, of the form:
     // @param {Object} [functionOptions] options to the AbstractFunction constructor
     // @returns {ImageCard}
     this.functionCreationFunctions = [
@@ -79,8 +78,8 @@ define( function( require ) {
       function( functionOptions ) { return new MysteryC( functionOptions ); }
     ];
 
-    // @public (read-only)
-    // {function[]} functions to create cards, of the form:
+    // @public (read-only) {function[]}
+    // functions to create cards, of the form:
     // @param {Object} [cardOptions] options to the ImageCard constructor
     // @returns {ImageCard}
     this.cardCreationFunctions = [
