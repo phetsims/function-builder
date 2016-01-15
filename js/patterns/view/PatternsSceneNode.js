@@ -56,7 +56,7 @@ define( function( require ) {
      * @param {Trail} trail
      */
     var cardEndDrag = function( card, event, trail ) {
-      //TODO temporary
+      //TODO temporary, return card to carousel
       card.destination = card.locationProperty.initialValue;
     };
 
@@ -176,7 +176,7 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousels
     var eraserButtonListener = function() {
-      //TODO return all card to the input carousel
+      //TODO return all cards to the input carousel
       functionBuilder.log && functionBuilder.log( 'eraserButtonListener' );
     };
     var eraserButton = new EraserButton( {
@@ -373,7 +373,7 @@ define( function( require ) {
       spyGlassVisibleProperty.reset();
     };
 
-    //TODO temporary, to demonstrate what happens as builder slots are populated
+    //TODO temporary, to demonstrate update of cards in output carousels
     for ( var i = 0; i < scene.builders.length; i++ ) {
 
       // IIFE to store builder in a closure var

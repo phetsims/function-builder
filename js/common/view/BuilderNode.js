@@ -146,7 +146,7 @@ define( function( require ) {
 
     // @private
     this.disposeBuilderNode = function() {
-      //TODO
+      //TODO implement dispose
     };
   }
 

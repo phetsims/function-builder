@@ -121,11 +121,5 @@ define( function( require ) {
 
   functionBuilder.register( 'PatternsView', PatternsView );
 
-  return inherit( ScreenView, PatternsView, {
-
-    // @public
-    step: function( dt ) {
-      //TODO
-    }
-  } );
+  return inherit( ScreenView, PatternsView );
 } );

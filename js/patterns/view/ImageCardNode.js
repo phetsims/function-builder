@@ -55,7 +55,7 @@ define( function( require ) {
 
     // @private
     this.disposeImageCardNode = function() {
-      //TODO
+      //TODO implement dispose
     };
 
     this.setCard( card );
@@ -71,7 +71,7 @@ define( function( require ) {
       this.disposeImageCardNode();
     },
 
-    //TODO this is temporary
+    //TODO temporary, to demonstrate update of cards in output carousels
     /**
      * Sets the model element displayed by this card.
      * @param {Card} card
