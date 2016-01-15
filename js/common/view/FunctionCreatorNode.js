@@ -67,7 +67,7 @@ define( function( require ) {
 
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
     var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
-      stroke: SHOW_BOUNDS ? 'red' : null ,
+      stroke: SHOW_BOUNDS ? 'red' : null,
       center: iconNode.center
     } );
 
@@ -80,9 +80,7 @@ define( function( require ) {
     this.functionCreatedEmitter = new Emitter(); // @public
 
     var thisNode = this;
-    iconNode.addInputListener( new SimpleDragHandler( {
-
-      //TODO cancel drag if functionInstance is disposed of during a drag cycle, scenery#218
+    var dragHandler = new SimpleDragHandler( {
 
       parentScreenView: null, // @private {ScreenView} set on first start drag
       functionInstance: null, // @private {AbstractFunction} set during a drag sequence
@@ -138,16 +136,27 @@ define( function( require ) {
         options.endDrag( this.functionInstance, event, trail );
         this.functionInstance = null;
       }
-    } ) );
+    } );
+    iconNode.addInputListener( dragHandler );
 
+    assert && assert( !options.children );
     options.children = [ backgroundNode, iconNode ];
+
     Node.call( this, options );
 
     // @private
     this.disposeFunctionCreatorNode = function() {
       assert && assert( thisNode.functionCreatedEmitter, 'called dispose twice?' );
+
+      // clean up emitter
       thisNode.functionCreatedEmitter.removeAllListeners();
       thisNode.functionCreatedEmitter = null;
+
+      // cancel drag
+      if ( dragHandler.dragging ) {
+        functionBuilder.log && functionBuilder.log( thisNode.constructor.name + ': drag canceled' );
+        dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
+      }
     };
   }
 

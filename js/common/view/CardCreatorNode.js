@@ -81,9 +81,7 @@ define( function( require ) {
     this.cardCreatedEmitter = new Emitter(); // @public
 
     var thisNode = this;
-    iconNode.addInputListener( new SimpleDragHandler( {
-
-      //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
+    var dragHandler = new SimpleDragHandler( {
 
       parentScreenView: null, // @private {ScreenView} set on first start drag
       card: null, // @private {AbstractFunction} set during a drag sequence
@@ -139,16 +137,27 @@ define( function( require ) {
         options.endDrag( this.card, event, trail );
         this.card = null;
       }
-    } ) );
+    } );
+    iconNode.addInputListener( dragHandler );
 
+    assert && assert( !options.children );
     options.children = [ backgroundNode, iconNode ];
+
     Node.call( this, options );
 
     // @private
     this.disposeCardCreatorNode = function() {
       assert && assert( thisNode.cardCreatedEmitter, 'called dispose twice?' );
+
+      // clean up emitter
       thisNode.cardCreatedEmitter.removeAllListeners();
       thisNode.cardCreatedEmitter = null;
+
+      // cancel drag
+      if ( dragHandler.dragging ) {
+        functionBuilder.log && functionBuilder.log( thisNode.constructor.name + ': drag canceled' );
+        dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
+      }
     };
   }
 

@@ -100,7 +100,7 @@ define( function( require ) {
     this.disposeMovableNode = function() {
       movable.locationProperty.unlink( locationObserver );
       if ( dragHandler.dragging ) {
-        functionBuilder.log && functionBuilder.log( 'drag canceled' );
+        functionBuilder.log && functionBuilder.log( thisNode.constructor.name + ': drag canceled' );
         dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
       }
     };
