@@ -59,42 +59,50 @@ define( function( require ) {
     // @public (read-only) {function} used to create the icon that represents the scene
     this.createIcon = createIcon;
 
-    // @public (read-only) {functions[]}
-    // functions to create function instances, of the form:
-    // @param {Object} [functionOptions] options to the AbstractFunction constructor
-    // @returns {ImageCard}
+    /**
+     * Functions to create functions instances, of the form:
+     * @param {Object} [options] - options to the AbstractFunction constructor
+     * @returns {AbstractFunction}
+     * 
+     * @public
+     * @type {function[]}
+     */
     this.functionCreationFunctions = [
-      function( functionOptions ) { return new Mirror( functionOptions ); },
-      function( functionOptions ) { return new Rotate90( functionOptions ); },
-      function( functionOptions ) { return new Grayscale( functionOptions ); },
-      function( functionOptions ) { return new Rotate180( functionOptions ); },
-      function( functionOptions ) { return new Identity( functionOptions ); },
-      function( functionOptions ) { return new InvertRGB( functionOptions ); },
-      function( functionOptions ) { return new Erase( functionOptions ); },
-      function( functionOptions ) { return new Shrink75( functionOptions ); },
-      function( functionOptions ) { return new Warhol( functionOptions ); },
-      function( functionOptions ) { return new MysteryA( functionOptions ); },
-      function( functionOptions ) { return new MysteryB( functionOptions ); },
-      function( functionOptions ) { return new MysteryC( functionOptions ); }
+      function( options ) { return new Mirror( options ); },
+      function( options ) { return new Rotate90( options ); },
+      function( options ) { return new Grayscale( options ); },
+      function( options ) { return new Rotate180( options ); },
+      function( options ) { return new Identity( options ); },
+      function( options ) { return new InvertRGB( options ); },
+      function( options ) { return new Erase( options ); },
+      function( options ) { return new Shrink75( options ); },
+      function( options ) { return new Warhol( options ); },
+      function( options ) { return new MysteryA( options ); },
+      function( options ) { return new MysteryB( options ); },
+      function( options ) { return new MysteryC( options ); }
     ];
 
-    // @public (read-only) {function[]}
-    // functions to create cards, of the form:
-    // @param {Object} [cardOptions] options to the ImageCard constructor
-    // @returns {ImageCard}
+    /**
+     * Functions to create cards, of the form:
+     * @param {Object} [options] - options to the ImageCard constructor
+     * @returns {ImageCard}
+     *
+     * @public
+     * @type {function[]}
+     */
     this.cardCreationFunctions = [
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( feetImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( snowflakeImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( butterflyImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( stickFigureImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( planetImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( sunImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( beakerImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( cherriesImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( rectangleImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( circleImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( triangleImage ), cardOptions ); },
-      function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( starImage ), cardOptions ); }
+      function( options ) { return ImageCard.withImage( feetImage, options ); },
+      function( options ) { return ImageCard.withImage( snowflakeImage, options ); },
+      function( options ) { return ImageCard.withImage( butterflyImage, options ); },
+      function( options ) { return ImageCard.withImage( stickFigureImage, options ); },
+      function( options ) { return ImageCard.withImage( planetImage, options ); },
+      function( options ) { return ImageCard.withImage( sunImage, options ); },
+      function( options ) { return ImageCard.withImage( beakerImage, options ); },
+      function( options ) { return ImageCard.withImage( cherriesImage, options ); },
+      function( options ) { return ImageCard.withImage( rectangleImage, options ); },
+      function( options ) { return ImageCard.withImage( circleImage, options ); },
+      function( options ) { return ImageCard.withImage( triangleImage, options ); },
+      function( options ) { return ImageCard.withImage( starImage, options ); }
     ];
 
     // @public (read-only) {Builder[]}
