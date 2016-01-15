@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO This creator should show a 'ghost' card when maxInstances have been created.
 /**
- * For each type of ImageCard, an instance of this node is placed in the input carousel.
+ * For each type of {ImageCard}, an instance of this node is placed in the input carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
