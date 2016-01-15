@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Node for functions.
+ * Node that displays an {AbstractFunction}.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Node associated with an {AbstractFunction}, stays synchronized with the card's location and handles dragging.
+ * Node that displays an {AbstractFunction}, stays synchronized with its location, and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

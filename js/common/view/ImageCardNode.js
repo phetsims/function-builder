@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * A card with a dynamic image on it.
+ * Node that displays an {ImageCard}.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

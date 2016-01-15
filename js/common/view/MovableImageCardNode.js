@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node associated with an {ImageCard}, stays synchronized with the card's location and handles dragging.
+ * Node that displays an {ImageCard}, stays synchronized with its location, and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
