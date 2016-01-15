@@ -15,18 +15,12 @@ define( function( require ) {
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
   /**
-   * @param {function} createCard - function called to create an {ImageCard}
+   * @param {function} createInstance - function called to create an {ImageCard}
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardCreatorNode( createCard, options ) {
-
-    // The icon that represents the card
-    var iconNode = new ImageCardNode( createCard(), {
-      cursor: 'pointer'
-    } );
-
-    MovableCreatorNode.call( this, iconNode, createCard, options );
+  function ImageCardCreatorNode( createInstance, options ) {
+    MovableCreatorNode.call( this, new ImageCardNode( createInstance() ), createInstance, options );
   }
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );

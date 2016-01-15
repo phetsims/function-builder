@@ -33,11 +33,11 @@ define( function( require ) {
 
   /**
    * @param {Node} iconNode -  icon that represents the Movable
-   * @param {function} createMovable - function called to create a {Movable}
+   * @param {function} createInstance - function called to create an instance of {Movable}
    * @param {Object} [options]
    * @constructor
    */
-  function MovableCreatorNode( iconNode, createMovable, options ) {
+  function MovableCreatorNode( iconNode, createInstance, options ) {
 
     options = _.extend( {
 
@@ -110,7 +110,7 @@ define( function( require ) {
         var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
 
         // Create an instance and notify listeners
-        this.movable = createMovable( {
+        this.movable = createInstance( {
           location: initialLocationScreenView,  // creator's location
           dragging: true
         } );

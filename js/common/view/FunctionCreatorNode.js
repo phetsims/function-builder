@@ -15,18 +15,12 @@ define( function( require ) {
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
   /**
-   * @param {function} createFunction - function called to create an {AbstractFunction}
+   * @param {function} createInstance - function called to create an {AbstractFunction}
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionCreatorNode( createFunction, options ) {
-
-    // The icon that represents the function type
-    var iconNode = new FunctionNode( createFunction(), {
-      cursor: 'pointer'
-    } );
-
-    MovableCreatorNode.call( this, iconNode, createFunction, options );
+  function FunctionCreatorNode( createInstance, options ) {
+    MovableCreatorNode.call( this, new FunctionNode( createInstance() ), createInstance, options );
   }
 
   functionBuilder.register( 'FunctionCreatorNode', FunctionCreatorNode );
