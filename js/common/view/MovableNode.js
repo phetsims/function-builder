@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -52,7 +53,10 @@ define( function( require ) {
        */
       translateNode: function( node, location ) {
         node.center = location;
-      }
+      },
+
+      // {Bounds2} constrain dragging to these bounds
+      dragBounds: Bounds2.EVERYTHING.copy()
 
     }, options );
 
@@ -67,11 +71,10 @@ define( function( require ) {
     }
     movable.locationProperty.link( locationObserver );
 
-    // drag the function instance
-    this.addInputListener( new SimpleDragHandler( {
+    // @private drag the function instance
+    var dragHandler = new SimpleDragHandler( {
 
-      //TODO cancel drag if movable is disposed of during a drag cycle, scenery#218
-
+      // allow touch swipes across this Node to pick it up
       allowTouchSnag: true,
 
       start: function( event, trail ) {
@@ -80,20 +83,26 @@ define( function( require ) {
       },
 
       // No need to constrain drag bounds because functions return to carousel or builder when released.
-      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
+      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
       translate: function( translationParams ) {
-        movable.setLocationDelta( translationParams.delta );
+        var location = movable.locationProperty.get().plus( translationParams.delta );
+        movable.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {
         movable.dragging = false;
         options.endDrag( movable, event, trail );
       }
-    } ) );
+    } );
+    this.addInputListener( dragHandler );
 
     // @private
     this.disposeMovableNode = function() {
       movable.locationProperty.unlink( locationObserver );
+      if ( dragHandler.dragging ) {
+        functionBuilder.log && functionBuilder.log( 'drag canceled' );
+        dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
+      }
     };
   }
 

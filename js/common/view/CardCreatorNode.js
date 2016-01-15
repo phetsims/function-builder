@@ -18,6 +18,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Emitter = require( 'AXON/Emitter' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
@@ -44,6 +45,9 @@ define( function( require ) {
 
       // {number} max number of function instances that can be created
       maxInstances: Number.POSITIVE_INFINITY,
+
+      // {Bounds2} constrain dragging to these bounds
+      dragBounds: Bounds2.EVERYTHING.copy(),
 
       /**
        * {function} called at the end of each drag sequence
@@ -124,10 +128,10 @@ define( function( require ) {
         } );
       },
 
-      // No need to constrain drag bounds because cards return to a carousel when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
-        this.card.setLocationDelta( translationParams.delta );
+        var location = this.card.locationProperty.get().plus( translationParams.delta );
+        this.card.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {

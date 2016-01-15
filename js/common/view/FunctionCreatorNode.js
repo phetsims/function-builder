@@ -17,6 +17,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Emitter = require( 'AXON/Emitter' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
@@ -43,6 +44,9 @@ define( function( require ) {
 
       // {number} max number of function instances that can be created
       maxInstances: Number.POSITIVE_INFINITY,
+
+      // {Bounds2} constrain dragging to these bounds
+      dragBounds: Bounds2.EVERYTHING.copy(),
 
       /**
        * {function} called at the end of each drag sequence
@@ -123,10 +127,10 @@ define( function( require ) {
         } );
       },
 
-      // No need to constrain drag bounds because functions return to carousel or builder when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
-        this.functionInstance.setLocationDelta( translationParams.delta );
+        var location = this.functionInstance.locationProperty.get().plus( translationParams.delta );
+        this.functionInstance.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {

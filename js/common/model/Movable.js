@@ -88,15 +88,6 @@ define( function( require ) {
     },
 
     /**
-     * Sets the location based on some delta from the current location.
-     *
-     * @param {Vector2} delta
-     */
-    setLocationDelta: function( delta ) {
-      this.setLocation( this.locationProperty.get().plus( delta ) );
-    },
-
-    /**
      * Animates translation of the function instance, when it's not being dragged by the user.
      *
      * @param {number} dt - time since the previous step, in seconds
