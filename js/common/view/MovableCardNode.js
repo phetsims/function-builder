@@ -1,9 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with MovableFunctionNode
 /**
- * Card node that stays synchronized with the position of a card, and can be dragged by the user
- * to set the position of a card.
+ * Node associated with a card, stays synchronized with the card's location and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +12,7 @@ define( function( require ) {
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
    * @param {AbstractCard} card
@@ -24,74 +22,19 @@ define( function( require ) {
   function MovableCardNode( card, options ) {
 
     options = _.extend( {
-      cursor: 'pointer',
 
-      /**
-       * {function} called at the start of each drag sequence
-       * @param {AbstractCard} card
-       * @param {Event} event
-       * @param {Trail} trail
-       */
-      startDrag: function( card, event, trail ) {},
-
-      /**
-       * {function} called at the end of each drag sequence
-       * @param {AbstractCard} card
-       * @param {Event} event
-       * @param {Trail} trail
-       */
-      endDrag: function( card, event, trail ) {}
-
+      // dragging the Node moves it to the front
+      startDrag: function( movable, event, trail ) {
+        event.currentTarget.moveToFront();
+      }
     }, options );
 
-    CardNode.call( this, card, options );
+    options.children = [ new CardNode( card ) ].concat( options.children || [] );
 
-    // move to the model location
-    var thisNode = this;
-    function locationObserver( location ) {
-      thisNode.center = location;
-    }
-    card.locationProperty.link( locationObserver );
-
-    // drag the card
-    this.addInputListener( new SimpleDragHandler( {
-
-      //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
-
-      allowTouchSnag: true,
-
-      start: function( event, trail ) {
-        event.currentTarget.moveToFront(); // dragging a card moves it to the front
-        card.dragging = true;
-        options.startDrag( card, event, trail );
-      },
-
-      // No need to constrain drag bounds because cards return to a carousel when released.
-      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
-      translate: function( translationParams ) {
-        card.setLocationDelta( translationParams.delta );
-      },
-
-      end: function( event, trail ) {
-        card.dragging = false;
-        options.endDrag( card, event, trail );
-      }
-    } ) );
-
-    // @private
-    this.disposeMovableCardNode = function() {
-      card.locationProperty.unlink( locationObserver );
-    };
+    MovableNode.call( this, card, options );
   }
 
   functionBuilder.register( 'MovableCardNode', MovableCardNode );
 
-  return inherit( CardNode, MovableCardNode, {
-
-    // @public
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeMovableCardNode();
-    }
-  } );
+  return inherit( MovableNode, MovableCardNode );
 } );

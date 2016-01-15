@@ -41,7 +41,6 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.functionInstance = functionInstance; // @public (read-only)
     this.xInset = backgroundNode.xInset; // @public (read-only), needed for layout
   }
 
