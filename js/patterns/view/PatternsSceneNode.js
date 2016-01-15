@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Composite node that contains all of the nodes that make up a 'scene' in the 'Patterns' screen.
+ * Composite Node that contains all of the Nodes that make up a 'scene' in the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,13 +14,12 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
+  var ImageCardCreatedListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatedListener' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
+  var ImageFunctionCreatedListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatedListener' );
   var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageCardNode' );
-  var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
@@ -51,85 +50,23 @@ define( function( require ) {
       builderNodes.push( new BuilderNode( builder ) );
     } );
 
-    /**
-     * When the user stops dragging a card, decide what to do with it.
-     *
-     * @param {AbstractCard} card
-     * @param {Event} event
-     * @param {Trail} trail
-     */
-    var cardEndDrag = function( card, event, trail ) {
-      //TODO temporary, return card to carousel
-      //card.destination = card.locationProperty.initialValue;
-    };
-
-    //TODO lots in common with createFunctionListener, factor out CreationListener?
-    /**
-     * When a card is created, add it to the model and view.
-     *
-     * @param {AbstractCard} card - the card that was created
-     */
-    var cardCreatedListener = function( card ) {
-
-      assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-      assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
-
-      // add card to model
-      scene.addCard( card );
-
-      // create a Node for the card
-      var cardNode = new MovableImageCardNode( card, {
-
-        // If the card is in an output carousel, remove it.
-        startDrag: function( functionInstance, event, trail ) {
-          //TODO
-        },
-
-        // When done dragging the card ...
-        endDrag: cardEndDrag
-      } );
-      cardsParent.addChild( cardNode );
-
-      // card has animated back to the input carousel
-      var locationListener = function( location ) {
-        if ( !card.isDragging && location.equals( card.locationProperty.initialValue ) ) {
-          card.dispose();
-        }
-      };
-      card.locationProperty.link( locationListener );
-
-      // when dispose is called for the card, remove the associated Node
-      card.disposeCalledEmitter.addListener( function( card ) {
-
-        assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-        assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
-
-        // clean up the instance
-        card.locationProperty.unlink( locationListener );
-        scene.removeCard( card );
-
-        // clean up the node
-        cardsParent.removeChild( cardNode );
-        cardNode.dispose();
-      } );
-    };
-
     // Items in the input carousel
     var inputCarouselItems = [];
+    var cardCreatedListener = new ImageCardCreatedListener( scene, cardsParent );
     (function() {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
 
         var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], {
-          endDrag: cardEndDrag
+          createdEmitterListener: cardCreatedListener.createdEmitterListener.bind( cardCreatedListener ),
+          endDrag: cardCreatedListener.endDrag.bind( cardCreatedListener )
         } );
 
-        cardCreatorNode.createdEmitter.addListener( cardCreatedListener );
         inputCarouselItems.push( cardCreatorNode );
       }
     })();
 
-    // Input cards, in a horizontal carousel, at left
+    // Input carousel, at left
     var inputCarousel = new Carousel( inputCarouselItems, {
       orientation: 'vertical',
       separatorsVisible: true,
@@ -140,7 +77,7 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    // Create a vertical output carousel for each builder, at right-center
+    // Output carousels, one for each builder, at right-center
     var outputCarousels = [];
     (function() {
       // IIFE to limit scope of var i
@@ -166,6 +103,7 @@ define( function( require ) {
       }
     })();
 
+    // Horizontal layout of output carousels
     var outputCarouselsParent = new Node( {
       children: outputCarousels,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
@@ -184,107 +122,23 @@ define( function( require ) {
       top: outputCarouselsParent.bottom + 40
     } );
 
-    /**
-     * When the user stops dragging a function, decide what to do with it.
-     *
-     * @param {ImageFunction} functionInstance
-     * @param {Event} event
-     * @param {Trail} trail
-     */
-    var functionEndDrag = function( functionInstance, event, trail ) {
-
-      if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
-
-        // function has been dragged back to exactly its original location in the carousel
-        functionInstance.dispose();
-      }
-      else {
-
-        // try to add function to a builder
-        var slotNumber = -1;
-        for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
-          slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
-        }
-
-        // If the function isn't added to a builder, then return it to the carousel.
-        if ( slotNumber === -1 ) {
-          functionInstance.destination = functionInstance.locationProperty.initialValue;
-        }
-      }
-    };
-
-    /**
-     * When a function instance is created, add it to the model and view.
-     *
-     * @param {ImageFunction} functionInstance - the instance that was created
-     */
-    var functionCreatedListener = function( functionInstance ) {
-
-      assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-      assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
-
-      // add functionInstance to model
-      scene.addFunctionInstance( functionInstance );
-
-      // create a Node for the function instance
-      var functionNode = new MovableImageFunctionNode( functionInstance, {
-
-        // If the function is in a builder, remove it.
-        startDrag: function( functionInstance, event, trail ) {
-          var removed = false;
-          for ( var i = 0; i < scene.builders.length && !removed; i++ ) {
-            if ( scene.builders[ i ].containsFunctionInstance( functionInstance ) ) {
-              scene.builders[ i ].removeFunctionInstance( functionInstance );
-              removed = true;
-            }
-          }
-        },
-
-        // When done dragging the function ...
-        endDrag: functionEndDrag
-      } );
-      functionsParent.addChild( functionNode );
-
-      // function has animated back to the functions carousel
-      var locationListener = function( location ) {
-        if ( !functionInstance.isDragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
-          functionInstance.dispose();
-        }
-      };
-      functionInstance.locationProperty.link( locationListener );
-
-      // when dispose is called for the function instance ...
-      functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
-
-        assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-        assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
-
-        // clean up the instance
-        functionInstance.locationProperty.unlink( locationListener );
-        scene.removeFunctionInstance( functionInstance );
-
-        // clean up the associated Node
-        functionsParent.removeChild( functionNode );
-        functionNode.dispose();
-      } );
-    };
-
     // Items in the functions carousel
     var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
+    var functionCreatedListener = new ImageFunctionCreatedListener( scene, functionsParent );
     (function() {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
 
         var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], {
-          endDrag: functionEndDrag
+          createdEmitterListener: functionCreatedListener.createdEmitterListener.bind( functionCreatedListener ),
+          endDrag: functionCreatedListener.endDrag.bind( functionCreatedListener )
         } );
 
-        functionCreatorNode.createdEmitter.addListener( functionCreatedListener );
         functionCarouselItems.push( functionCreatorNode );
       }
     })();
 
-    // Functions, in a horizontal carousel, centered below bottom builder
+    // Functions carousel, centered below bottom builder
     var functionsCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
       itemsPerPage: 3,

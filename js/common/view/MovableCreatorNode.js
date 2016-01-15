@@ -54,7 +54,10 @@ define( function( require ) {
        * @param {Event} event
        * @param {Trail} trail
        */
-      endDrag: function( movable, event, trail ) {}
+      endDrag: function( movable, event, trail ) {},
+
+      // {function|null} optional listener to attach to createdEmitter
+      createdEmitterListener: null
 
     }, options );
 
@@ -79,6 +82,9 @@ define( function( require ) {
 
     // @public emit1( {Movable}instance ) when an instance is created
     this.createdEmitter = new Emitter();
+    if ( options.createdEmitterListener ) {
+      this.createdEmitter.addListener( options.createdEmitterListener );
+    }
 
     var thisNode = this;
     var dragHandler = new SimpleDragHandler( {
