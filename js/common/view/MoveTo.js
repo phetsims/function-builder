@@ -1,6 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 //TODO migrate to common code? see https://github.com/phetsims/tasks/issues/360
+//TODO no longer used in function-builder, animation moved to model, delete?
 /**
  * Animates a node's location.
  *
