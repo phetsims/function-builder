@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
  * Node that displays an {ImageCard}.
@@ -12,6 +12,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -22,6 +23,8 @@ define( function( require ) {
    * @constructor
    */
   function ImageCardNode( card, options ) {
+
+    assert && assert( card instanceof ImageCard, 'card has wrong type: ' + card.constructor.name );
 
     options = _.extend( {
       size: new Dimension2( 60, 60 ),

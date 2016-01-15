@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
  * Node that displays an {ImageFunction}.
@@ -12,6 +12,7 @@ define( function( require ) {
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
 
@@ -21,6 +22,8 @@ define( function( require ) {
    * @constructor
    */
   function ImageFunctionNode( functionInstance, options ) {
+
+    assert && assert( functionInstance instanceof ImageFunction, 'functionInstance has wrong type: ' + functionInstance.constructor.name );
 
     options = _.extend( {
       iconScale: 0.3 // {number} scale for icon

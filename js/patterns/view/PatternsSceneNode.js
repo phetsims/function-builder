@@ -16,6 +16,7 @@ define( function( require ) {
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageCardNode' );
@@ -68,6 +69,7 @@ define( function( require ) {
     var cardCreatedListener = function( card ) {
 
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+      assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
 
       // add card to model
       scene.addCard( card );
@@ -95,7 +97,9 @@ define( function( require ) {
 
       // when dispose is called for the card, remove the associated Node
       card.disposeCalledEmitter.addListener( function( card ) {
+
         assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+        assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
 
         // clean up the instance
         card.locationProperty.unlink( locationListener );
@@ -219,6 +223,7 @@ define( function( require ) {
     var functionCreatedListener = function( functionInstance ) {
 
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+      assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
       // add functionInstance to model
       scene.addFunctionInstance( functionInstance );
@@ -252,7 +257,9 @@ define( function( require ) {
 
       // when dispose is called for the function instance ...
       functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
+
         assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
+        assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
         // clean up the instance
         functionInstance.locationProperty.unlink( locationListener );
