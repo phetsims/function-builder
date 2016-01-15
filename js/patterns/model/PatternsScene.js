@@ -103,7 +103,7 @@ define( function( require ) {
     // @public (read-only) {boolean} spy glass feature is enabled if any builder has > 1 slot
     this.spyGlassEnabled = _.any( builders, function( builder ) { return builder.slots.length > 1; } );
 
-    // @private {Card[]} All cards that exist. They may or may not be in the output carousel
+    // @private {Card[]} All cards that exist. They may or may not be in the output carousel.
     this.cards = [];
 
     // @private {AbstractFunction[]} All function instances that exist. They may or may not be in a builder.
