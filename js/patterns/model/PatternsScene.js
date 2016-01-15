@@ -97,13 +97,6 @@ define( function( require ) {
       function( cardOptions ) { return new ImageCard( CanvasUtils.createCanvasWithImage( starImage ), cardOptions ); }
     ];
 
-    //TODO get rid of this
-    // @public (read-only) {ImageCard[]}
-    this.inputCards = [];
-    for ( var i = 0; i < this.cardCreationFunctions.length; i++ ) {
-      this.inputCards.push( this.cardCreationFunctions[ i ]() );
-    }
-
     // @public (read-only) {Builder[]}
     this.builders = builders;
 

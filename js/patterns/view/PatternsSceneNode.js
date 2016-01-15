@@ -145,8 +145,8 @@ define( function( require ) {
       for ( var i = 0; i < scene.builders.length; i++ ) {
 
         var outputCarouselItems = [];
-        scene.inputCards.forEach( function( card ) {
-          outputCarouselItems.push( new CardNode( card ) );
+        scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
+          outputCarouselItems.push( new CardNode( cardCreationFunction() ) );
         } );
 
         var outputCarousel = new Carousel( outputCarouselItems, {
@@ -375,8 +375,8 @@ define( function( require ) {
         var builder = scene.builders[ builderIndex ];
 
         var updateOutputItems = function() {
-          for ( var i = 0; i < scene.inputCards.length; i++ ) {
-            var card = scene.inputCards[ i ];
+          for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
+            var card = scene.cardCreationFunctions[ i ]();
             for ( var j = 0; j < builder.slots.length; j++ ) {
               var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
               if ( functionInstance ) {
