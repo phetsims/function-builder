@@ -20,7 +20,6 @@ define( function( require ) {
    * @constructor
    */
   function TestScreen() {
-
     Screen.call( this,
       'Test',
       new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } ),

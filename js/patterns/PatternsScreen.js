@@ -20,7 +20,7 @@ define( function( require ) {
   // strings
   var screenPatternsString = require( 'string!FUNCTION_BUILDER/screen.patterns' );
 
-  // creates the icon for this screen
+  //TODO creates the icon for this screen
   var createIcon = function() {
     //TODO
     return new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } );
