@@ -24,8 +24,8 @@ define( function( require ) {
     /**
      * To add a test, add an object literal here. Each object has these properties:
      *
-     * {string} label - item in the combo box
-     * {function(Bounds2): Node} getNode - creates the scene graph for the demo
+     * {string} label - label in the combo box
+     * {function(Bounds2): Node} getNode - creates the scene graph for the test
      */
       { label: 'Image functions', getNode: testImageFunctions }
     ] );
