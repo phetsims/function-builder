@@ -21,9 +21,11 @@ define( function( require ) {
     // offset used when functions and cards are 'popped out' of their container (carousel or builder)
     POP_OUT_OFFSET: new Vector2( 10, -10 ),
 
-    FUNCTION_ANIMATION_SPEED: 400, // in view units per second
+    // distance/second that functions move when animating
+    FUNCTION_ANIMATION_SPEED: 400,
 
-    CARD_ANIMATION_SPEED: 400 // in view units per second
+    // distance/second that cards move when animating
+    CARD_ANIMATION_SPEED: 400
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

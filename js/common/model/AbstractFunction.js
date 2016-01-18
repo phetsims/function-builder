@@ -22,6 +22,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      // {number} distance moved per second when animating
       animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
       // default look of the view associated with a function

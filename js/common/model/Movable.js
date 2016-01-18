@@ -30,7 +30,7 @@ define( function( require ) {
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
       dragging: false, // {boolean} is the function being dragged by the user?
-      animationSpeed: 100 // {number} distance moved per second
+      animationSpeed: 100 // {number} distance moved per second when animating
     }, options );
 
     PropertySet.call( this, {
