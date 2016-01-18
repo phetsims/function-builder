@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for "creator" nodes that appear as items in the carousels.
- * It has the following responsibilities:
+ * Base type for 'creator' nodes that appear as items in the carousels.
+ * This type has the following responsibilities:
  *
  * - displays the icon that represents the Movable type
  * - creates instances of the Movable type and manages their initial drag sequence
