@@ -47,6 +47,7 @@ define( function( require ) {
 
       /**
        * Moves the node to the Movable's location.
+       * By default, the location corresponds to the Node's center.
        *
        * @param {Node} node
        * @param {Vector2} location
