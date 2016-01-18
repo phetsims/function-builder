@@ -42,7 +42,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // {number} max number of instances that can be created
+      // {number} maximum number of instances that can be created
       maxInstances: Number.POSITIVE_INFINITY,
 
       /**
