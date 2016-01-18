@@ -152,7 +152,7 @@ define( function( require ) {
      * @public
      */
     addFunctionInstance: function( functionInstance ) {
-      assert && assert( functionInstance instanceof ImageFunction, 'attempted to add a ' + functionInstance.constructor.name );
+      assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
       assert && assert( this.functionInstances.indexOf( functionInstance ) === -1, 'attempted to add functionInstance twice' );
       this.functionInstances.push( functionInstance );
     },
@@ -163,7 +163,7 @@ define( function( require ) {
      * @public
      */
     removeFunctionInstance: function( functionInstance ) {
-      assert && assert( functionInstance instanceof ImageFunction, 'attempted to remove a ' + functionInstance.constructor.name );
+      assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
       var index = this.functionInstances.indexOf( functionInstance );
       assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
       this.functionInstances.splice( index, 1 );
@@ -175,7 +175,7 @@ define( function( require ) {
      * @public
      */
     addCard: function( card ) {
-      assert && assert( card instanceof ImageCard, 'attempted to add a ' + card.constructor.name );
+      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
       assert && assert( this.cards.indexOf( card ) === -1, 'attempted to add card twice' );
       this.cards.push( card );
     },
@@ -186,7 +186,7 @@ define( function( require ) {
      * @public
      */
     removeCard: function( card ) {
-      assert && assert( card instanceof ImageCard, 'attempted to remove a ' + card.constructor.name );
+      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
       var index = this.cards.indexOf( card );
       assert && assert( index !== -1, 'attempted to remove unknown card' );
       this.cards.splice( index, 1 );

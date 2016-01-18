@@ -79,7 +79,7 @@ define( function( require ) {
         card.disposeCalledEmitter.addListener( function( card ) {
 
           assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-          assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
+          assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
           // clean up the instance
           card.locationProperty.unlink( locationListener );
@@ -103,7 +103,7 @@ define( function( require ) {
     endDrag: function( card, event, trail ) {
 
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.endDrag' );
-      assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
+      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
       //TODO temporary, return card to carousel
       card.destination = card.locationProperty.initialValue;

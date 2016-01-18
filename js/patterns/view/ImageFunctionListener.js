@@ -42,7 +42,7 @@ define( function( require ) {
 
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.createdListener' );
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-      assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
+      assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
       var thisListener = this;
 
@@ -88,7 +88,7 @@ define( function( require ) {
         functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
 
           assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
-          assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
+          assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
           // clean up the instance
           functionInstance.locationProperty.unlink( locationListener );
