@@ -18,7 +18,6 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var Emitter = require( 'AXON/Emitter' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
