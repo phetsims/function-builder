@@ -34,7 +34,7 @@ define( function( require ) {
   /**
    * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
-   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
+   * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */

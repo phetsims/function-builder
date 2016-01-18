@@ -31,8 +31,8 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {function} createInstance - function called to create an instance of {Movable}
-   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
+   * @param {function([Object]): Movable} createInstance - creates an instance
+   * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Node} iconNode - icon that represents the Movable when instance creation is enabled
    * @param {Node} disabledIconNode - icon that represents the Movable when instance creation is disabled
    * @param {Object} [options]
@@ -50,19 +50,19 @@ define( function( require ) {
 
       /**
        * Called at the start of each drag sequence, after a Movable is created.
-       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
+       * {function(Movable, Event, Trail)|null}
        */
       startDrag: null,
 
       /**
        * Called at the end of each drag sequence.
-       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
+       * {function(Movable, Event, Trail)|null}
        */
       endDrag: null,
 
       /**
        * Optional listener to attach to createdEmitter, for notification of instance creation.
-       * {function|null} ( {Movable} movable)
+       * {function(Movable)|null}
        */
       createdEmitterListener: null
 

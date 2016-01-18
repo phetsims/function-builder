@@ -21,9 +21,12 @@ define( function( require ) {
   function TestView() {
     DemosView.call( this, 'test', [
 
-      // To add a test, create an entry here.
-      // label is a {string} that will appear in the combo box.
-      // getNode is a {function} that takes a {Bounds2} layoutBounds and returns a {Node}.
+    /**
+     * To add a test, add an object literal here. Each object has these properties:
+     *
+     * {string} label - item in the combo box
+     * {function(Bounds2): Node} getNode - creates the scene graph for the demo
+     */
       { label: 'Image functions', getNode: testImageFunctions }
     ] );
   }

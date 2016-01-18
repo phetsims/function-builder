@@ -16,8 +16,8 @@ define( function( require ) {
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
   /**
-   * @param {function} createInstance - function called to create an {ImageCard}
-   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
+   * @param {function([Object]): ImageCard} createInstance - creates an instance
+   * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */

@@ -17,8 +17,8 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {function} createInstance - function called to create an {ImageFunction}
-   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
+   * @param {function(Object): ImageFunction} createInstance - creates an instance
+   * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */

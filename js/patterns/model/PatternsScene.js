@@ -44,7 +44,7 @@ define( function( require ) {
 
   /**
    * @param {Builder[]} builders - builders for this scene
-   * @param {function} createIcon - function used to create the icon that represents the scene
+   * @param {function(number): Node} createIcon - function used to create the icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
@@ -56,7 +56,7 @@ define( function( require ) {
 
     assert && assert( options.maxFunctionInstances > 0 );
 
-    // @public (read-only) {function} used to create the icon that represents the scene
+    // @public (read-only)
     this.createIcon = createIcon;
 
     /**

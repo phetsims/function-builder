@@ -29,13 +29,13 @@ define( function( require ) {
 
       /**
        * Called at the start of each drag sequence.
-       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
+       * {function(Movable, Event, Trail)|null}
        */
       startDrag: null,
 
       /**
        * Called at the end of each drag sequence.
-       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
+       * {function(Movable, Event, Trail)|null}
        */
       endDrag: null,
 
