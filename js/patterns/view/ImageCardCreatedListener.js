@@ -37,12 +37,12 @@ define( function( require ) {
 
     /**
      * When a card instance is created, add it to the model and view.
-     * Pass this function to ImageCardCreatorNode via options.createdEmitterListener
+     * Pass this function to ImageCardCreatorNode via options.createdListener
      *
      * @param {ImageCard} card - the instance that was created
      * @public
      */
-    createdEmitterListener: function( card ) {
+    createdListener: function( card ) {
 
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );

@@ -68,7 +68,7 @@ define( function( require ) {
        * Optional listener to attach to createdEmitter, for notification of instance creation.
        * {function(Movable)|null}
        */
-      createdEmitterListener: null
+      createdListener: null
 
     }, options );
 
@@ -94,8 +94,8 @@ define( function( require ) {
 
     // @public emit1( {Movable}instance ) when an instance is created
     this.createdEmitter = new Emitter();
-    if ( options.createdEmitterListener ) {
-      this.createdEmitter.addListener( options.createdEmitterListener );
+    if ( options.createdListener ) {
+      this.createdEmitter.addListener( options.createdListener );
     }
 
     var thisNode = this;

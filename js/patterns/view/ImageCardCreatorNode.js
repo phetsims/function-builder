@@ -28,7 +28,7 @@ define( function( require ) {
     options = _.extend( {
       maxInstances: 2,
       popOutOffset: FBConstants.CARD_POP_OUT_OFFSET,
-      createdEmitterListener: cardCreatedListener.createdEmitterListener.bind( cardCreatedListener ),
+      createdListener: cardCreatedListener.createdListener.bind( cardCreatedListener ),
       endDrag: cardCreatedListener.endDrag.bind( cardCreatedListener )
     }, options );
 

@@ -29,7 +29,7 @@ define( function( require ) {
     options = _.extend( {
       maxInstances: 2,
       popOutOffset: FBConstants.FUNCTION_POP_OUT_OFFSET,
-      createdEmitterListener: functionCreatedListener.createdEmitterListener.bind( functionCreatedListener ),
+      createdListener: functionCreatedListener.createdListener.bind( functionCreatedListener ),
       endDrag: functionCreatedListener.endDrag.bind( functionCreatedListener )
     }, options );
 

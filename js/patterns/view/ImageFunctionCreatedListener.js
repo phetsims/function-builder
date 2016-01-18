@@ -37,12 +37,12 @@ define( function( require ) {
 
     /**
      * When a function instance is created, add it to the model and view.
-     * Pass this function to ImageFunctionCreatorNode via options.createdEmitterListener
+     * Pass this function to ImageFunctionCreatorNode via options.createdListener
      *
      * @param {ImageFunction} functionInstance - the instance that was created
      * @public
      */
-    createdEmitterListener: function( functionInstance ) {
+    createdListener: function( functionInstance ) {
 
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.createdListener' );
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
