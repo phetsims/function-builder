@@ -18,9 +18,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
-  var ANIMATION_DISTANCE_THRESHOLD = 10; // anything closer than this moves immediately to the destination
-
   /**
    * @param {Object} [options]
    * @constructor
@@ -102,9 +99,9 @@ define( function( require ) {
         var totalDistance = this.locationProperty.get().distance( this.destination );
         var stepDistance = this.animationSpeed * dt;
 
-        if ( Math.abs( totalDistance - stepDistance ) < ANIMATION_DISTANCE_THRESHOLD ) {
+        if ( totalDistance < stepDistance ) {
 
-          // close enough, move directly to the destination
+          // move directly to the destination
           this.locationProperty.set( this.destination );
         }
         else {
