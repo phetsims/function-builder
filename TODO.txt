@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Split MovableCreatorNode into separate types for model and view?
-
 Rename (eg) ImageCardCreatedListener to ImageCardManager, and handle all aspects of lifecycle?
 
 Move cards[] and functionInstances[] from PatternsScene to their respective manager types?
