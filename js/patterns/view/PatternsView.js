@@ -77,7 +77,7 @@ define( function( require ) {
         sceneNodes[ sceneIndex ] = sceneNode;
       }
 
-      //TODO prevent interaction with the scenes while animation is taking place?
+      //TODO prevent interaction with sceneNode and oldSceneNode while animation is taking place?
       // Fade scenes in/out as selection changes
       if ( oldScene ) {
 
