@@ -33,7 +33,6 @@ define( function( require ) {
       centerX: this.layoutBounds.centerX,
       top: this.layoutBounds.top + 20
     } );
-    this.addChild( sceneControl );
 
     // Scene nodes will be created on demand
     var sceneNodes = [];
@@ -43,7 +42,6 @@ define( function( require ) {
 
     // Parent for all scenes, to maintain rendering order, since scenes are created on demand.
     var scenesParent = new Node();
-    this.addChild( scenesParent );
 
     // Converts a view {Event} to a model {Vector2}.
     // The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
@@ -125,7 +123,11 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 20,
       listener: resetAll
     } );
+
+    // rendering order
     this.addChild( resetAllButton );
+    this.addChild( sceneControl );
+    this.addChild( scenesParent );
   }
 
   functionBuilder.register( 'PatternsView', PatternsView );

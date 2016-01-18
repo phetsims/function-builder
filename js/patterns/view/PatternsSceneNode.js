@@ -180,9 +180,9 @@ define( function( require ) {
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
+      spyGlassCheckBox, eraserButton,
       inputCarousel, outputCarouselsParent, functionsCarousel,
-      inputsPageControl, outputsPageControl, functionsPageControl,
-      spyGlassCheckBox, eraserButton
+      inputsPageControl, outputsPageControl, functionsPageControl
     ];
     options.children = options.children.concat( builderNodes );
     options.children = options.children.concat( [ functionsParent, cardsParent ] );
