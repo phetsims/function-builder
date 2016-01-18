@@ -200,6 +200,7 @@ define( function( require ) {
     for ( var i = 0; i < scene.builders.length; i++ ) {
 
       // IIFE to store builder in a closure var
+      // When a builder's functions change, update it's corresponding output carousel.
       (function( builderIndex ) {
 
         var builder = scene.builders[ builderIndex ];
