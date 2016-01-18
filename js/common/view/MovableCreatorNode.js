@@ -92,7 +92,7 @@ define( function( require ) {
       disabledIconNode.visible = !enabled;
     } );
 
-    // @public emit1( {Movable} instance ) when an instance is created
+    // @public emit1( {Movable} instance ) is called when an instance is created
     this.createdEmitter = new Emitter();
     if ( options.createdListener ) {
       this.createdEmitter.addListener( options.createdListener );
