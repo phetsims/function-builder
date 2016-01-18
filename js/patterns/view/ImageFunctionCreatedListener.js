@@ -48,30 +48,31 @@ define( function( require ) {
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
-      // Use IIFE to create a closure
-      (function( functionInstance, scene, parentNode, endDrag ) {
+      // add functionInstance to model
+      this.scene.addFunctionInstance( functionInstance );
 
-        // add functionInstance to model
-        scene.addFunctionInstance( functionInstance );
+      // create a Node for the function instance
+      var builders = this.scene.builders;
+      var functionNode = new MovableImageFunctionNode( functionInstance, {
 
-        // create a Node for the function instance
-        var functionNode = new MovableImageFunctionNode( functionInstance, {
-
-          // If the function is in a builder, remove it.
-          startDrag: function( functionInstance, event, trail ) {
-            var removed = false;
-            for ( var i = 0; i < scene.builders.length && !removed; i++ ) {
-              if ( scene.builders[ i ].containsFunctionInstance( functionInstance ) ) {
-                scene.builders[ i ].removeFunctionInstance( functionInstance );
-                removed = true;
-              }
+        // If the function is in a builder, remove it.
+        startDrag: function( functionInstance, event, trail ) {
+          var removed = false;
+          for ( var i = 0; i < builders.length && !removed; i++ ) {
+            if ( builders[ i ].containsFunctionInstance( functionInstance ) ) {
+              builders[ i ].removeFunctionInstance( functionInstance );
+              removed = true;
             }
-          },
+          }
+        },
 
-          // When done dragging the function ...
-          endDrag: endDrag
-        } );
-        parentNode.addChild( functionNode );
+        // When done dragging the function ...
+        endDrag: this.endDrag.bind( this )
+      } );
+      this.parentNode.addChild( functionNode );
+
+      // Create a closure for future management of this functionInstance.
+      (function( functionInstance, scene, parentNode ) {
 
         // function has animated back to the functions carousel
         var locationListener = function( location ) {
@@ -81,7 +82,7 @@ define( function( require ) {
         };
         functionInstance.locationProperty.link( locationListener );
 
-        // when dispose is called for the function instance ...
+        // function has been disposed of
         functionInstance.disposeCalledEmitter.addListener( function( functionInstance ) {
 
           assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
@@ -96,7 +97,7 @@ define( function( require ) {
           functionNode.dispose();
         } );
 
-      })( functionInstance, this.scene, this.parentNode, this.endDrag.bind( this ) );
+      })( functionInstance, this.scene, this.parentNode );
     },
 
     /**
@@ -112,29 +113,24 @@ define( function( require ) {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.endDrag' );
       assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
-      // Use IIFE to create a closure
-      (function( functionInstance, scene ) {
+      if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
 
-        if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
+        // function has been dragged back to exactly its original location in the carousel
+        functionInstance.dispose();
+      }
+      else {
 
-          // function has been dragged back to exactly its original location in the carousel
-          functionInstance.dispose();
-        }
-        else {
-
-          // try to add function to a builder
-          var slotNumber = -1;
-          for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
-            slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
-          }
-
-          // If the function isn't added to a builder, then return it to the carousel.
-          if ( slotNumber === -1 ) {
-            functionInstance.destination = functionInstance.locationProperty.initialValue;
-          }
+        // try to add function to a builder
+        var slotNumber = -1;
+        for ( var i = 0; i < this.scene.builders.length && slotNumber === -1; i++ ) {
+          slotNumber = this.scene.builders[ i ].addFunctionInstance( functionInstance );
         }
 
-      } )( functionInstance, this.scene );
+        // If the function isn't added to a builder, then return it to the carousel.
+        if ( slotNumber === -1 ) {
+          functionInstance.destination = functionInstance.locationProperty.initialValue;
+        }
+      }
     }
   } );
 } );

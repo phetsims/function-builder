@@ -47,24 +47,24 @@ define( function( require ) {
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
 
-      // Use IIFE to create a closure
-      (function( functionInstance, scene, parentNode, endDrag ) {
+      // add card to model
+      this.scene.addCard( card );
 
-        // add card to model
-        scene.addCard( card );
+      // create a Node for the card
+      var cardNode = new MovableImageCardNode( card, {
 
-        // create a Node for the card
-        var cardNode = new MovableImageCardNode( card, {
+        // If the card is in an output carousel, remove it.
+        startDrag: function( functionInstance, event, trail ) {
+          //TODO
+        },
 
-          // If the card is in an output carousel, remove it.
-          startDrag: function( functionInstance, event, trail ) {
-            //TODO
-          },
+        // When done dragging the card ...
+        endDrag: this.endDrag.bind( this )
+      } );
+      this.parentNode.addChild( cardNode );
 
-          // When done dragging the card ...
-          endDrag: endDrag
-        } );
-        parentNode.addChild( cardNode );
+      // Create a closure for future management of this functionInstance.
+      (function( functionInstance, scene, parentNode ) {
 
         // card has animated back to the input carousel
         var locationListener = function( location ) {
@@ -74,7 +74,7 @@ define( function( require ) {
         };
         card.locationProperty.link( locationListener );
 
-        // when dispose is called for the card, remove the associated Node
+        // card has been disposed of
         card.disposeCalledEmitter.addListener( function( card ) {
 
           assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
@@ -88,7 +88,7 @@ define( function( require ) {
           parentNode.removeChild( cardNode );
           cardNode.dispose();
         } );
-      })( card, this.scene, this.parentNode, this.endDrag.bind( this ) );
+      })( card, this.scene, this.parentNode );
     },
 
     /**
@@ -103,13 +103,8 @@ define( function( require ) {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.endDrag' );
       assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
 
-      // Use IIFE to create a closure
-      (function( card, scene ) {
-
-        //TODO temporary, return card to carousel
-        card.destination = card.locationProperty.initialValue;
-
-      })( card, this.scene );
+      //TODO temporary, return card to carousel
+      card.destination = card.locationProperty.initialValue;
     }
   } );
 } );
