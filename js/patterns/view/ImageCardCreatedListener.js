@@ -37,7 +37,7 @@ define( function( require ) {
 
     /**
      * When a card instance is created, add it to the model and view.
-     * Pass this function to ImageCardCreatorNode via options.createdListener
+     * Pass this function to ImageCardCreatorNode via options.createdListener.
      *
      * @param {ImageCard} card - the instance that was created
      * @public

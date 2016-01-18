@@ -37,7 +37,7 @@ define( function( require ) {
 
     /**
      * When a function instance is created, add it to the model and view.
-     * Pass this function to ImageFunctionCreatorNode via options.createdListener
+     * Pass this function to ImageFunctionCreatorNode via options.createdListener.
      *
      * @param {ImageFunction} functionInstance - the instance that was created
      * @public
