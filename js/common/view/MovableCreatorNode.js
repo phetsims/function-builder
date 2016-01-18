@@ -32,13 +32,14 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {Node} iconNode -  icon that represents the Movable when instance creation is enabled
-   * @param {Node} disabledIconNode -  icon that represents the Movable when instance creation is disabled
    * @param {function} createInstance - function called to create an instance of {Movable}
+   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
+   * @param {Node} iconNode - icon that represents the Movable when instance creation is enabled
+   * @param {Node} disabledIconNode - icon that represents the Movable when instance creation is disabled
    * @param {Object} [options]
    * @constructor
    */
-  function MovableCreatorNode( iconNode, disabledIconNode, createInstance, options ) {
+  function MovableCreatorNode( createInstance, globalNode, iconNode, disabledIconNode, options ) {
 
     options = _.extend( {
 
@@ -99,7 +100,6 @@ define( function( require ) {
 
       //TODO cancel drag if movable is disposed of during a drag cycle, scenery#218
 
-      parentScreenView: null, // @private {ScreenView} set on first start drag
       movable: null, // @private {Movable} instance created, set during a drag sequence
       moved: false, // @private {boolean} was the instance moved after it was created?
 
@@ -109,27 +109,13 @@ define( function( require ) {
 
         assert && assert( !this.movable, 'drag handler is not re-entrant' );
 
-        // Find the parent ScreenView by moving up the scene graph.
-        // This happens the first time a drag is initiated, then we keep a reference to the ScreenView.
-        var testNode = event.currentTarget.parents[ 0 ];
-        while ( !this.parentScreenView && testNode !== null ) {
-          if ( testNode instanceof ScreenView ) {
-            this.parentScreenView = testNode;
-          }
-          else {
-            testNode = testNode.parents[ 0 ];
-          }
-        }
-        assert && assert( this.parentScreenView );
-
-        //TODO This assumes that the parent ScreenView's local coordinate frame is equivalent to the model coordinate frame
-        // Determine the initial location in the ScreenView's coordinate frame
-        var initialLocationGlobal = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var initialLocationScreenView = this.parentScreenView.globalToLocalPoint( initialLocationGlobal );
+        // Determine the initial location in the global (model) coordinate frame
+        var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
+        var modelLocation = globalNode.globalToLocalPoint( viewLocation );
 
         // Create an instance and notify listeners
         this.movable = createInstance( {
-          location: initialLocationScreenView,  // creator's location
+          location: modelLocation,  // creator's location
           dragging: true
         } );
         this.movable.setLocation( this.movable.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out

@@ -63,7 +63,7 @@ define( function( require ) {
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
       if ( !sceneNode ) {
-        sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, { visible: false } );
+        sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, thisView, { visible: false } );
         scenesParent.addChild( sceneNode );
         sceneNodes[ sceneIndex ] = sceneNode;
       }

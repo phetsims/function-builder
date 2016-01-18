@@ -18,10 +18,11 @@ define( function( require ) {
 
   /**
    * @param {function} createInstance - function called to create an {ImageFunction}
+   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionCreatorNode( createInstance, options ) {
+  function ImageFunctionCreatorNode( createInstance, globalNode, options ) {
 
     options = _.extend( {
       maxInstances: 2
@@ -30,7 +31,7 @@ define( function( require ) {
     var iconNode = new ImageFunctionNode( createInstance() );
     var disabledIconNode = new Rectangle( 0, 0, 1, 1 ); // any non-visible Node with well-defined bounds will do here
 
-    MovableCreatorNode.call( this, iconNode, disabledIconNode, createInstance, options );
+    MovableCreatorNode.call( this, createInstance, globalNode, iconNode, disabledIconNode, options );
   }
 
   functionBuilder.register( 'ImageFunctionCreatorNode', ImageFunctionCreatorNode );

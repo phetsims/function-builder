@@ -17,10 +17,11 @@ define( function( require ) {
 
   /**
    * @param {function} createInstance - function called to create an {ImageCard}
+   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardCreatorNode( createInstance, options ) {
+  function ImageCardCreatorNode( createInstance, globalNode, options ) {
 
     options = _.extend( {
       maxInstances: 2
@@ -32,7 +33,7 @@ define( function( require ) {
       lineDash: [ 3, 3 ]
     } );
 
-    MovableCreatorNode.call( this, iconNode, disabledIconNode, createInstance, options );
+    MovableCreatorNode.call( this, createInstance, globalNode, iconNode, disabledIconNode, options );
   }
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );
