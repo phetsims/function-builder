@@ -45,30 +45,32 @@ define( function( require ) {
       // {number} max number of instances that can be created
       maxInstances: Number.POSITIVE_INFINITY,
 
-      // {Bounds2} constrain dragging to these bounds
-      dragBounds: Bounds2.EVERYTHING.copy(),
+      /**
+       * {function(Movable)|null}
+       * Optional listener to attach to createdEmitter, for notification of instance creation.
+       */
+      createdListener: null,
 
-      // {Vector2} how much to move the instance immediately after it's created,
-      // makes the instance appear to 'pop out' of its container
+      /**
+       * {Vector2} How much to move the instance immediately after it's created,
+       * makes the instance appear to 'pop out' of its container.
+       */
       popOutOffset: new Vector2( 0, 0 ),
 
       /**
-       * Called at the start of each drag sequence, after a Movable is created.
        * {function(Movable, Event, Trail)|null}
+       * Called at the start of each drag sequence, after a Movable is created.
        */
       startDrag: null,
 
       /**
-       * Called at the end of each drag sequence.
        * {function(Movable, Event, Trail)|null}
+       * Called at the end of each drag sequence.
        */
       endDrag: null,
 
-      /**
-       * Optional listener to attach to createdEmitter, for notification of instance creation.
-       * {function(Movable)|null}
-       */
-      createdListener: null
+      // {Bounds2} constrain dragging to these bounds
+      dragBounds: Bounds2.EVERYTHING.copy()
 
     }, options );
 
@@ -112,22 +114,24 @@ define( function( require ) {
 
         assert && assert( !this.movable, 'drag handler is not re-entrant' );
 
-        // Create an instance and notify listeners
+        // Create an instance.
         this.movable = createInstance( {
           location: viewToModelVector2( event ),
           dragging: true
         } );
 
+        // Increment instance count.
+        numberOfInstancesProperty.value++;
+
         // Notify that an instance has been created.
         thisNode.createdEmitter.emit1( this.movable );
 
-        // Make the instance 'pop out' of its container
+        // Make the instance 'pop out' of its container.
         if ( options.popOutOffset.x !== 0 ||  options.popOutOffset.y !== 0 ) {
           this.movable.setLocation( this.movable.locationProperty.get().plus( options.popOutOffset ) ); // pop out
         }
 
-        // manage instance count
-        numberOfInstancesProperty.value++;
+        // On disposal, decrement the instance count.
         this.movable.disposeCalledEmitter.addListener( function() {
           numberOfInstancesProperty.value--;
         } );
