@@ -45,6 +45,13 @@ define( function( require ) {
     var scenesParent = new Node();
     this.addChild( scenesParent );
 
+    // Converts a view {Event} to a model {Vector2}.
+    // The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
+    var viewToModelVector2 = function( event ) {
+      var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
+      return thisView.globalToLocalPoint( viewLocation );
+    };
+
     // For stopping animations that are in progress.
     var newFadeIn;
     var oldFadeOut;
@@ -63,7 +70,9 @@ define( function( require ) {
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
       if ( !sceneNode ) {
-        sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, thisView, { visible: false } );
+        sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, viewToModelVector2, {
+          visible: false
+        } );
         scenesParent.addChild( sceneNode );
         sceneNodes[ sceneIndex ] = sceneNode;
       }

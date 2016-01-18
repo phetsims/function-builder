@@ -17,11 +17,11 @@ define( function( require ) {
 
   /**
    * @param {function} createInstance - function called to create an {ImageCard}
-   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
+   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardCreatorNode( createInstance, globalNode, options ) {
+  function ImageCardCreatorNode( createInstance, viewToModelVector2, options ) {
 
     options = _.extend( {
       maxInstances: 2
@@ -33,7 +33,7 @@ define( function( require ) {
       lineDash: [ 3, 3 ]
     } );
 
-    MovableCreatorNode.call( this, createInstance, globalNode, iconNode, disabledIconNode, options );
+    MovableCreatorNode.call( this, createInstance, viewToModelVector2, iconNode, disabledIconNode, options );
   }
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );

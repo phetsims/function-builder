@@ -34,11 +34,11 @@ define( function( require ) {
   /**
    * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
-   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
+   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsSceneNode( scene, layoutBounds, globalNode, options ) {
+  function PatternsSceneNode( scene, layoutBounds, viewToModelVector2, options ) {
 
     // parent node for all cards, while the user is dragging them
     var cardsParent = new Node();
@@ -59,7 +59,7 @@ define( function( require ) {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
 
-        var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], globalNode, {
+        var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], viewToModelVector2, {
           createdEmitterListener: cardCreatedListener.createdEmitterListener.bind( cardCreatedListener ),
           endDrag: cardCreatedListener.endDrag.bind( cardCreatedListener )
         } );
@@ -131,7 +131,7 @@ define( function( require ) {
       // IIFE to limit scope of var i
       for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
 
-        var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], globalNode, {
+        var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], viewToModelVector2, {
           createdEmitterListener: functionCreatedListener.createdEmitterListener.bind( functionCreatedListener ),
           endDrag: functionCreatedListener.endDrag.bind( functionCreatedListener )
         } );

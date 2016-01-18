@@ -33,13 +33,13 @@ define( function( require ) {
 
   /**
    * @param {function} createInstance - function called to create an instance of {Movable}
-   * @param {Node} globalNode - a Node whose coordinate frame is equivalent to the model coordinate frame
+   * @param {function} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Node} iconNode - icon that represents the Movable when instance creation is enabled
    * @param {Node} disabledIconNode - icon that represents the Movable when instance creation is disabled
    * @param {Object} [options]
    * @constructor
    */
-  function MovableCreatorNode( createInstance, globalNode, iconNode, disabledIconNode, options ) {
+  function MovableCreatorNode( createInstance, viewToModelVector2, iconNode, disabledIconNode, options ) {
 
     options = _.extend( {
 
@@ -109,13 +109,9 @@ define( function( require ) {
 
         assert && assert( !this.movable, 'drag handler is not re-entrant' );
 
-        // Determine the initial location in the global (model) coordinate frame
-        var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var modelLocation = globalNode.globalToLocalPoint( viewLocation );
-
         // Create an instance and notify listeners
         this.movable = createInstance( {
-          location: modelLocation,  // creator's location
+          location: viewToModelVector2( event ),
           dragging: true
         } );
         this.movable.setLocation( this.movable.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
