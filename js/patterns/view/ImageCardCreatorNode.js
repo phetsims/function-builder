@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,7 +25,8 @@ define( function( require ) {
   function ImageCardCreatorNode( createInstance, viewToModelVector2, options ) {
 
     options = _.extend( {
-      maxInstances: 2
+      maxInstances: 2,
+      popOutOffset: FBConstants.CARD_POP_OUT_OFFSET
     }, options );
 
     var iconNode = new ImageCardNode( createInstance() );

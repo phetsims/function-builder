@@ -26,6 +26,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
@@ -47,6 +48,9 @@ define( function( require ) {
 
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
+
+      // {Vector2} how much to move the instance immediately after it's created, make the instance "pop out"
+      popOutOffset: new Vector2( 0, 0 ),
 
       /**
        * Called at the start of each drag sequence, after a Movable is created.
@@ -113,7 +117,13 @@ define( function( require ) {
           location: viewToModelVector2( event ),
           dragging: true
         } );
-        this.movable.setLocation( this.movable.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) ); // pop out
+
+        // Make the instance 'pop out' of its container
+        if ( options.popOutOffset.x !== 0 ||  options.popOutOffset.y !== 0 ) {
+          this.movable.setLocation( this.movable.locationProperty.get().plus( options.popOutOffset ) ); // pop out
+        }
+
+        // Notify that an instance has been created.
         thisNode.createdEmitter.emit1( this.movable );
 
         // manage instance count

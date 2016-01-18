@@ -129,7 +129,7 @@ define( function( require ) {
           removed = true;
 
           // pop out of slot
-          functionInstance.setLocation( functionInstance.locationProperty.get().plus( FBConstants.POP_OUT_OFFSET ) );
+          functionInstance.setLocation( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
         }
       }
       assert && assert( removed );
