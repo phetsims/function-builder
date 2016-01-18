@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
@@ -27,7 +28,7 @@ define( function( require ) {
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
     options = _.extend( {
-      size: new Dimension2( 60, 60 ),
+      size: FBConstants.CARD_SIZE,
       cornerRadius: 5,
       fill: 'white',
       stroke: 'black',

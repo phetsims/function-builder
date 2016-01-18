@@ -5,12 +5,15 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var FBConstants = {
 
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) },
+
+    CARD_SIZE: new Dimension2( 60, 60 ),
 
     // width of a function's shape (height is computed so that aspect ratio remains the same at all sizes)
     FUNCTION_WIDTH: 120,
