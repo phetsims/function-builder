@@ -72,28 +72,25 @@ define( function( require ) {
 
     // Output carousels, one for each builder
     var outputCarousels = [];
-    (function() {
-      // IIFE to limit scope of var i
-      for ( var i = 0; i < scene.builders.length; i++ ) {
+    scene.builders.forEach( function( builder ) {
 
-        //TODO temporary, some other type of Node is needed in the output carousels
-        var outputCarouselItems = [];
-        scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
-          outputCarouselItems.push( new ImageCardNode( cardCreationFunction() ) );
-        } );
+      //TODO temporary, some other type of Node is needed in the output carousels
+      var outputCarouselItems = [];
+      scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
+        outputCarouselItems.push( new ImageCardNode( cardCreationFunction() ) );
+      } );
 
-        var outputCarousel = new Carousel( outputCarouselItems, {
-          orientation: 'vertical',
-          buttonColor: scene.builders[ i ].colorScheme.middle, // color code buttons with their associated builder
-          separatorsVisible: true,
-          itemsPerPage: INPUTS_PER_PAGE,
-          buttonTouchAreaXDilation: 5,
-          buttonTouchAreaYDilation: 15
-        } );
+      var outputCarousel = new Carousel( outputCarouselItems, {
+        orientation: 'vertical',
+        buttonColor: builder.colorScheme.middle, // color code buttons with their associated builder
+        separatorsVisible: true,
+        itemsPerPage: INPUTS_PER_PAGE,
+        buttonTouchAreaXDilation: 5,
+        buttonTouchAreaYDilation: 15
+      } );
 
-        outputCarousels.push( outputCarousel );
-      }
-    })();
+      outputCarousels.push( outputCarousel );
+    } );
 
     // Horizontal layout of output carousels, at right-center
     var outputCarouselsParent = new HBox( {
