@@ -1,28 +1,5 @@
 TODO list for function-builder
 
-======================================================================================================================================================
-DESIGN
-
-See https://docs.google.com/document/d/1BTqqn8K5rotePgMhmR4DzGtBgl87eV_D0dKbMt6re94/edit
-Eraser button is dangerously close to output carousel's next button.
-Gray next/previous buttons on carousel give the impression of being disabled.
-
-======================================================================================================================================================
-ARTWORK
-
-======================================================================================================================================================
-IMPLEMENTATION
-
-Implement invert for invertible functions
-Card (and CardNode) should be mutable
-Fix pickable issue related to scene selection (see TODO item).
-Size icons to fit for cards and functions, requires uniform size for .png files.
-Items in carousels should be containers that manage what's in them and handle interactivity.
-
-======================================================================================================================================================
-COMMON CODE
-
-FadeIn
-FadeOut
-
-======================================================================================================================================================
+Split MovableCreatorNode into separate types for model and view?
+Rename (eg) ImageCardCreatedListener to ImageCardManager, and handle all aspects of lifecycle?
+Move cards[] and functionInstances[] from PatternsScene to their respective manager types?
