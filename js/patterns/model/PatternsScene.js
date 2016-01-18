@@ -188,7 +188,6 @@ define( function( require ) {
       this.cards.splice( index, 1 );
     },
 
-    //TODO make this a no-op if scene is not active?
     // @public
     step: function( dt ) {
 
