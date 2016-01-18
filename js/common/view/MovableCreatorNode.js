@@ -136,11 +136,13 @@ define( function( require ) {
 
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
+        //TODO these 2 lines are duplicated in MovableNode
         var location = this.movable.locationProperty.get().plus( translationParams.delta );
         this.movable.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {
+        //TODO these 2 lines are duplicated in MovableNode
         this.movable.dragging = false;
         options.endDrag( this.movable, event, trail );
         this.movable = null;
