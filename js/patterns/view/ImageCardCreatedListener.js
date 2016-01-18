@@ -68,7 +68,7 @@ define( function( require ) {
 
         // card has animated back to the input carousel
         var locationListener = function( location ) {
-          if ( !card.isDragging && location.equals( card.locationProperty.initialValue ) ) {
+          if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
             card.dispose();
           }
         };

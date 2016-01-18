@@ -76,7 +76,7 @@ define( function( require ) {
 
         // function has animated back to the functions carousel
         var locationListener = function( location ) {
-          if ( !functionInstance.isDragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
+          if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
             functionInstance.dispose();
           }
         };
