@@ -49,6 +49,14 @@ define( function( require ) {
       dragBounds: Bounds2.EVERYTHING.copy(),
 
       /**
+       * {function} called at the start of each drag sequence, after a Movable is created
+       * @param {Movable} movable
+       * @param {Event} event
+       * @param {Trail} trail
+       */
+      startDrag: function( movable, event, trail ) {},
+
+      /**
        * {function} called at the end of each drag sequence
        * @param {Movable} movable
        * @param {Event} event
@@ -75,6 +83,7 @@ define( function( require ) {
     // number of instances that have been created
     var numberOfInstancesProperty = new Property( 0 );
     numberOfInstancesProperty.link( function( numberOfInstances ) {
+      assert && assert( numberOfInstances <= options.maxInstances, 'maxInstances exceeded' );
       var enabled = ( numberOfInstances < options.maxInstances );
       iconNode.visible = enabled;
       disabledIconNode.visible = !enabled;
@@ -132,6 +141,8 @@ define( function( require ) {
         this.movable.disposeCalledEmitter.addListener( function() {
           numberOfInstancesProperty.value--;
         } );
+
+        options.startDrag( this.movable, event, trail );
       },
 
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
