@@ -54,7 +54,7 @@ define( function( require ) {
       var cardNode = new MovableImageCardNode( card, {
 
         // If the card is in an output carousel, remove it.
-        startDrag: function( functionInstance, event, trail ) {
+        startDrag: function( card, event, trail ) {
           //TODO
         },
 
@@ -63,8 +63,8 @@ define( function( require ) {
       } );
       this.parentNode.addChild( cardNode );
 
-      // Create a closure for future management of this functionInstance.
-      (function( functionInstance, scene, parentNode ) {
+      // Create a closure for future management of this card.
+      (function( card, scene, parentNode ) {
 
         // card has animated back to the input carousel
         var locationListener = function( location ) {
