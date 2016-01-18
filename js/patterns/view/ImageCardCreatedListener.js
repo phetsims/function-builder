@@ -37,6 +37,9 @@ define( function( require ) {
 
     /**
      * When a card instance is created, add it to the model and view.
+     * When the card is returned to the input carousel, dispose of it.
+     * When the card is disposed of, clean up the model and view.
+     *
      * Pass this function to ImageCardCreatorNode via options.createdListener.
      *
      * @param {ImageCard} card - the instance that was created

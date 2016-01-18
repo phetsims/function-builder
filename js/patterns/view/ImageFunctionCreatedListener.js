@@ -37,6 +37,9 @@ define( function( require ) {
 
     /**
      * When a function instance is created, add it to the model and view.
+     * When the function instance is returned to the functions carousel, dispose of it.
+     * When the function instance is disposed of, clean up the model and view.
+     *
      * Pass this function to ImageFunctionCreatorNode via options.createdListener.
      *
      * @param {ImageFunction} functionInstance - the instance that was created
@@ -107,7 +110,7 @@ define( function( require ) {
     },
 
     /**
-     * When the user stops dragging a function, decide what to do with it.
+     * When the user stops dragging a function instance, decide what to do with it.
      *
      * @param {ImageFunction} functionInstance
      * @param {Event} event
