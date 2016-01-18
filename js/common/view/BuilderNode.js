@@ -2,7 +2,7 @@
 
 //TODO divide ends into background and foreground halves, to support dragging cards through the builder
 /**
- * The "builder" is the devices that transforms inputs to outputs by applying functions.
+ * The 'builder' is the device that transforms inputs to outputs by applying functions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

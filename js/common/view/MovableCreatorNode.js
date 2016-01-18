@@ -48,7 +48,8 @@ define( function( require ) {
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
 
-      // {Vector2} how much to move the instance immediately after it's created, make the instance "pop out"
+      // {Vector2} how much to move the instance immediately after it's created,
+      // makes the instance appear to 'pop out' of its container
       popOutOffset: new Vector2( 0, 0 ),
 
       /**
