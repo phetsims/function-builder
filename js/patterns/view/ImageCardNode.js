@@ -47,6 +47,7 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
+
     Node.call( this, options );
 
     // @private

@@ -142,6 +142,7 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
+
     Node.call( this, options );
 
     // @private
