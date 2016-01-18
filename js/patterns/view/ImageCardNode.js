@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function ImageCardNode( card, options ) {
 
-    assert && assert( card instanceof ImageCard, 'card has wrong type: ' + card.constructor.name );
+    assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
     options = _.extend( {
       size: new Dimension2( 60, 60 ),
@@ -76,7 +76,7 @@ define( function( require ) {
      */
     setCard: function( card ) {
 
-      assert && assert( card instanceof ImageCard, 'card has wrong type: ' + card.constructor.name );
+      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
       this.card = card;
 

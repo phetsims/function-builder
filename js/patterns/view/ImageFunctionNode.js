@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function ImageFunctionNode( functionInstance, options ) {
 
-    assert && assert( functionInstance instanceof ImageFunction, 'functionInstance has wrong type: ' + functionInstance.constructor.name );
+    assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     options = _.extend( {
       iconScale: 0.3 // {number} scale for icon
