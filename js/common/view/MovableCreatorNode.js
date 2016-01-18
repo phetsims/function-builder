@@ -49,22 +49,21 @@ define( function( require ) {
       dragBounds: Bounds2.EVERYTHING.copy(),
 
       /**
-       * {function} called at the start of each drag sequence, after a Movable is created
-       * @param {Movable} movable
-       * @param {Event} event
-       * @param {Trail} trail
+       * Called at the start of each drag sequence, after a Movable is created.
+       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
        */
-      startDrag: function( movable, event, trail ) {},
+      startDrag: null,
 
       /**
-       * {function} called at the end of each drag sequence
-       * @param {Movable} movable
-       * @param {Event} event
-       * @param {Trail} trail
+       * Called at the end of each drag sequence.
+       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
        */
-      endDrag: function( movable, event, trail ) {},
+      endDrag: null,
 
-      // {function|null} optional listener to attach to createdEmitter
+      /**
+       * Optional listener to attach to createdEmitter, for notification of instance creation.
+       * {function|null} ( {Movable} movable)
+       */
       createdEmitterListener: null
 
     }, options );
@@ -142,7 +141,7 @@ define( function( require ) {
           numberOfInstancesProperty.value--;
         } );
 
-        options.startDrag( this.movable, event, trail );
+        options.startDrag && options.startDrag( this.movable, event, trail );
       },
 
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
@@ -155,7 +154,7 @@ define( function( require ) {
       end: function( event, trail ) {
         //TODO these 2 lines are duplicated in MovableNode
         this.movable.dragging = false;
-        options.endDrag( this.movable, event, trail );
+        options.endDrag && options.endDrag( this.movable, event, trail );
         this.movable = null;
       }
     } );

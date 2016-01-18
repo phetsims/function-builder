@@ -28,22 +28,16 @@ define( function( require ) {
       cursor: 'pointer',
 
       /**
-       * {function} called at the start of each drag sequence
-       *
-       * @param {Movable} movable
-       * @param {Event} event
-       * @param {Trail} trail
+       * Called at the start of each drag sequence.
+       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
        */
-      startDrag: function( movable, event, trail ) {},
+      startDrag: null,
 
       /**
-       * {function} called at the end of each drag sequence
-       *
-       * @param {Movable} movable
-       * @param {Event} event
-       * @param {Trail} trail
+       * Called at the end of each drag sequence.
+       * {function|null} ( {Movable} movable, {Event} event, {Trail} trail )
        */
-      endDrag: function( movable, event, trail ) {},
+      endDrag: null,
 
       /**
        * Moves the node to the Movable's location.
@@ -80,7 +74,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
         movable.dragging = true;
-        options.startDrag( movable, event, trail );
+        options.startDrag && options.startDrag( movable, event, trail );
       },
 
       // No need to constrain drag bounds because functions return to carousel or builder when released.
@@ -92,7 +86,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         movable.dragging = false;
-        options.endDrag( movable, event, trail );
+        options.endDrag && options.endDrag( movable, event, trail );
       }
     } );
     this.addInputListener( dragHandler );
