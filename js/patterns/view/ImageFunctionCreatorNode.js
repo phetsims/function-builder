@@ -20,17 +20,17 @@ define( function( require ) {
   /**
    * @param {function(Object): ImageFunction} createInstance - creates an instance
    * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
-   * @param {ImageFunctionCreatedListener} functionCreatedListener
+   * @param {ImageFunctionListener} functionListener
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionCreatorNode( createInstance, viewToModelVector2, functionCreatedListener, options ) {
+  function ImageFunctionCreatorNode( createInstance, viewToModelVector2, functionListener, options ) {
 
     options = _.extend( {
       maxInstances: 2,
       popOutOffset: FBConstants.FUNCTION_POP_OUT_OFFSET,
-      createdListener: functionCreatedListener.createdListener.bind( functionCreatedListener ),
-      endDrag: functionCreatedListener.endDrag.bind( functionCreatedListener )
+      createdListener: functionListener.createdListener.bind( functionListener ),
+      endDrag: functionListener.endDrag.bind( functionListener )
     }, options );
 
     var iconNode = new ImageFunctionNode( createInstance() );

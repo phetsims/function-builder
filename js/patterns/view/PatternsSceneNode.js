@@ -15,11 +15,11 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
-  var ImageCardCreatedListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatedListener' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
+  var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
-  var ImageFunctionCreatedListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatedListener' );
   var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
+  var ImageFunctionListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionListener' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -57,9 +57,9 @@ define( function( require ) {
 
     // Items in the input carousel
     var inputCarouselItems = [];
-    var cardCreatedListener = new ImageCardCreatedListener( scene, cardsParent );
+    var cardListener = new ImageCardListener( scene, cardsParent );
     scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
-      inputCarouselItems.push( new ImageCardCreatorNode( cardCreationFunction, viewToModelVector2, cardCreatedListener ) );
+      inputCarouselItems.push( new ImageCardCreatorNode( cardCreationFunction, viewToModelVector2, cardListener ) );
     } );
 
     // Input carousel, at left
@@ -117,9 +117,9 @@ define( function( require ) {
 
     // Items in the functions carousel
     var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
-    var functionCreatedListener = new ImageFunctionCreatedListener( scene, functionsParent );
+    var functionListener = new ImageFunctionListener( scene, functionsParent );
     scene.functionCreationFunctions.forEach( function( functionCreationFunction ) {
-      functionCarouselItems.push( new ImageFunctionCreatorNode( functionCreationFunction, viewToModelVector2, functionCreatedListener ) );
+      functionCarouselItems.push( new ImageFunctionCreatorNode( functionCreationFunction, viewToModelVector2, functionListener ) );
     } );
 
     // Functions carousel, centered below bottom builder

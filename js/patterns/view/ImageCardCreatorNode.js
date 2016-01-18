@@ -19,17 +19,17 @@ define( function( require ) {
   /**
    * @param {function([Object]): ImageCard} createInstance - creates an instance
    * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
-   * @param {ImageCardCreatedListener} cardCreatedListener
+   * @param {ImageCardListener} cardListener
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardCreatorNode( createInstance, viewToModelVector2, cardCreatedListener, options ) {
+  function ImageCardCreatorNode( createInstance, viewToModelVector2, cardListener, options ) {
 
     options = _.extend( {
       maxInstances: 2,
       popOutOffset: FBConstants.CARD_POP_OUT_OFFSET,
-      createdListener: cardCreatedListener.createdListener.bind( cardCreatedListener ),
-      endDrag: cardCreatedListener.endDrag.bind( cardCreatedListener )
+      createdListener: cardListener.createdListener.bind( cardListener ),
+      endDrag: cardListener.endDrag.bind( cardListener )
     }, options );
 
     var iconNode = new ImageCardNode( createInstance() );

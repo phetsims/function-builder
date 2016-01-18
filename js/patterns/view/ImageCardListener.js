@@ -1,16 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- *  Listens for creation of {ImageCard} instances.
+ * Manages the lifecycle of {ImageCard} instances.
  *
- *  Responsibilities:
- *
- *  - add the instance to the model
- *  - create a Node for the instance
- *  - remove the Node when the instance is disposed of
- *  - decide what to do with the instance when the user stops dragging it
- *
- *  @author Chris Malley (PixelZoom, Inc.)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -26,14 +19,14 @@ define( function( require ) {
    * @param {Node} parentNode
    * @constructor
    */
-  function ImageCardCreatedListener( scene, parentNode ) {
+  function ImageCardListener( scene, parentNode ) {
     this.scene = scene; // @private
     this.parentNode = parentNode; // @private
   }
 
-  functionBuilder.register( 'ImageCardCreatedListener', ImageCardCreatedListener );
+  functionBuilder.register( 'ImageCardListener', ImageCardListener );
 
-  return inherit( Object, ImageCardCreatedListener, {
+  return inherit( Object, ImageCardListener, {
 
     /**
      * When a card instance is created, add it to the model and view.
