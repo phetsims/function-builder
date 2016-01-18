@@ -2,7 +2,7 @@
 
 /**
  * Node for a Movable model element.
- * Stays synchronized with the Movable and handles dragging.
+ * Stays synchronized with the Movable's location and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
