@@ -55,18 +55,9 @@ define( function( require ) {
     // Items in the input carousel
     var inputCarouselItems = [];
     var cardCreatedListener = new ImageCardCreatedListener( scene, cardsParent );
-    (function() {
-      // IIFE to limit scope of var i
-      for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
-
-        var cardCreatorNode = new ImageCardCreatorNode( scene.cardCreationFunctions[ i ], viewToModelVector2, {
-          createdEmitterListener: cardCreatedListener.createdEmitterListener.bind( cardCreatedListener ),
-          endDrag: cardCreatedListener.endDrag.bind( cardCreatedListener )
-        } );
-
-        inputCarouselItems.push( cardCreatorNode );
-      }
-    })();
+    scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
+      inputCarouselItems.push( new ImageCardCreatorNode( cardCreationFunction, viewToModelVector2, cardCreatedListener ) );
+    } );
 
     // Input carousel, at left
     var inputCarousel = new Carousel( inputCarouselItems, {
@@ -127,18 +118,9 @@ define( function( require ) {
     // Items in the functions carousel
     var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
     var functionCreatedListener = new ImageFunctionCreatedListener( scene, functionsParent );
-    (function() {
-      // IIFE to limit scope of var i
-      for ( var i = 0; i < scene.functionCreationFunctions.length; i++ ) {
-
-        var functionCreatorNode = new ImageFunctionCreatorNode( scene.functionCreationFunctions[ i ], viewToModelVector2, {
-          createdEmitterListener: functionCreatedListener.createdEmitterListener.bind( functionCreatedListener ),
-          endDrag: functionCreatedListener.endDrag.bind( functionCreatedListener )
-        } );
-
-        functionCarouselItems.push( functionCreatorNode );
-      }
-    })();
+    scene.functionCreationFunctions.forEach( function( functionCreationFunction ) {
+      functionCarouselItems.push( new ImageFunctionCreatorNode( functionCreationFunction, viewToModelVector2, functionCreatedListener ) );
+    } );
 
     // Functions carousel, centered below bottom builder
     var functionsCarousel = new Carousel( functionCarouselItems, {
