@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * A scene in the 'Patterns' screen.
+ * A scene in the 'Patterns' screen. A scene is a particular configuration of functions, inputs, and builders.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -147,7 +147,7 @@ define( function( require ) {
     },
 
     /**
-     * Adds a function instance to the model.
+     * Adds a function instance to the scene.
      * @param {ImageFunction} functionInstance
      * @public
      */
@@ -158,7 +158,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes a function instance from the model.
+     * Removes a function instance from the scene.
      * @param {ImageFunction} functionInstance
      * @public
      */
@@ -170,7 +170,7 @@ define( function( require ) {
     },
 
     /**
-     * Adds a card to the model.
+     * Adds a card to the scene.
      * @param {ImageCard} card
      * @public
      */
@@ -181,7 +181,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes a card from the model.
+     * Removes a card from the scene.
      * @param {ImageCard} card
      * @public
      */
