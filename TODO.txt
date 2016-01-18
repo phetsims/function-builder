@@ -1,8 +1,4 @@
 TODO list for function-builder
 
-Rename (eg) ImageCardCreatedListener to ImageCardManager, and handle all aspects of lifecycle?
-
-Move cards[] and functionInstances[] from PatternsScene to their respective manager types?
-
 Is it better to have 'MovableImageFunctionNode extends MovableNode' and decorate with ImageFunctionNode,
 or should it be 'MovableImageFunctionNode extends ImageFunctionNode' with mixin MovableHandler?
