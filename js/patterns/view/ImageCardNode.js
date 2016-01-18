@@ -70,9 +70,11 @@ define( function( require ) {
     //TODO temporary, to demonstrate update of cards in output carousels
     /**
      * Sets the model element displayed by this card.
-     * @param {Card} card
+     * @param {ImageCard} card
      */
     setCard: function( card ) {
+
+      assert && assert( card instanceof ImageCard, 'card has wrong type: ' + card.constructor.name );
 
       this.card = card;
 
