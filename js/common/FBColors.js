@@ -14,9 +14,12 @@ define( function( require ) {
   var FBColors = {
 
     SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',
+
+    // common colors
     LIGHT_GREEN: 'rgb( 147, 231, 129 )',
     LIGHT_PURPLE: 'rgb( 205, 175, 230 )',
 
+    // a builder color scheme, see FBUtil.isaBuilderColorScheme
     BUILDER_MAROON: {
       top: 'rgb( 200, 182, 188 )',
       middle: 'rgb( 130, 62, 85 )',
@@ -24,6 +27,7 @@ define( function( require ) {
       ends: 'rgb( 200, 186, 190 )'
     },
 
+    // a builder color scheme, see FBUtil.isaBuilderColorScheme
     BUILDER_GREEN: {
       top: 'rgb( 200, 222, 190 )',
       middle: 'rgb( 120, 201, 90 )',
@@ -31,6 +35,7 @@ define( function( require ) {
       ends: 'rgb( 175, 223, 154 )'
     },
 
+    // a builder color scheme, see FBUtil.isaBuilderColorScheme
     BUILDER_BLUE: {
       top: 'rgb( 168, 198, 216 )',
       middle: 'rgb( 6, 114, 180 )',
