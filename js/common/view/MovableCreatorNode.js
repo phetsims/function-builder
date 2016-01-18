@@ -118,13 +118,13 @@ define( function( require ) {
           dragging: true
         } );
 
+        // Notify that an instance has been created.
+        thisNode.createdEmitter.emit1( this.movable );
+
         // Make the instance 'pop out' of its container
         if ( options.popOutOffset.x !== 0 ||  options.popOutOffset.y !== 0 ) {
           this.movable.setLocation( this.movable.locationProperty.get().plus( options.popOutOffset ) ); // pop out
         }
-
-        // Notify that an instance has been created.
-        thisNode.createdEmitter.emit1( this.movable );
 
         // manage instance count
         numberOfInstancesProperty.value++;
