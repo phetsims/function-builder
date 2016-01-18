@@ -163,9 +163,9 @@ define( function( require ) {
 
     // @private
     this.disposeMovableCreatorNode = function() {
-      assert && assert( thisNode.createdEmitter, 'called dispose twice?' );
 
       // clean up emitter
+      assert && assert( thisNode.createdEmitter, 'called dispose twice?' );
       thisNode.createdEmitter.removeAllListeners();
       thisNode.createdEmitter = null;
 
