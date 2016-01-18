@@ -37,7 +37,7 @@ define( function( require ) {
       location: options.location
     } );
 
-    // @private
+    // @private {number} distance/second when animating
     this.animationSpeed = options.animationSpeed;
 
     // @public {Vector2} set this to animate to a location

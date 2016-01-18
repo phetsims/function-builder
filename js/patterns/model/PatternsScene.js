@@ -149,6 +149,7 @@ define( function( require ) {
     /**
      * Adds a function instance to the model.
      * @param {ImageFunction} functionInstance
+     * @public
      */
     addFunctionInstance: function( functionInstance ) {
       assert && assert( functionInstance instanceof ImageFunction, 'attempted to add a ' + functionInstance.constructor.name );
@@ -159,6 +160,7 @@ define( function( require ) {
     /**
      * Removes a function instance from the model.
      * @param {ImageFunction} functionInstance
+     * @public
      */
     removeFunctionInstance: function( functionInstance ) {
       assert && assert( functionInstance instanceof ImageFunction, 'attempted to remove a ' + functionInstance.constructor.name );
@@ -170,6 +172,7 @@ define( function( require ) {
     /**
      * Adds a card to the model.
      * @param {ImageCard} card
+     * @public
      */
     addCard: function( card ) {
       assert && assert( card instanceof ImageCard, 'attempted to add a ' + card.constructor.name );
@@ -180,6 +183,7 @@ define( function( require ) {
     /**
      * Removes a card from the model.
      * @param {ImageCard} card
+     * @public
      */
     removeCard: function( card ) {
       assert && assert( card instanceof ImageCard, 'attempted to remove a ' + card.constructor.name );

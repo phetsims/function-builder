@@ -31,7 +31,7 @@ define( function( require ) {
       width: 450, // {number} horizontal distance between input and output
       height: 125, // {number} height of tallest part of the builder
       location: new Vector2( 0, 0 ), // {Vector2} location of the center of the input
-      colorScheme: FBColors.BUILDER_MAROON
+      colorScheme: FBColors.BUILDER_MAROON // {Object} color scheme, see FBUtil.isaBuilderColorScheme
     }, options );
 
     // verify duck typing of colorScheme

@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {HTMLCanvasElement} canvas
+   * @param {HTMLCanvasElement} canvas - image data, stored as a canvas so that it can be easily transformed
    * @param {Object} [options]
    * @constructor
    */

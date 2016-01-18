@@ -40,6 +40,9 @@ define( function( require ) {
    */
   function PatternsSceneNode( scene, layoutBounds, viewToModelVector2, options ) {
 
+    // no options specific to this type
+    options = options || {};
+
     // parent node for all cards, while the user is dragging them
     var cardsParent = new Node();
 

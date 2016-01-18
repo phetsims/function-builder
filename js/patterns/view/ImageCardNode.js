@@ -72,6 +72,7 @@ define( function( require ) {
     /**
      * Sets the model element displayed by this card.
      * @param {ImageCard} card
+     * @public
      */
     setCard: function( card ) {
 

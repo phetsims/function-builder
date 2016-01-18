@@ -97,6 +97,7 @@ define( function( require ) {
      * @param {ImageCard} card
      * @param {Event} event
      * @param {Trail} trail
+     * @public
      */
     endDrag: function( card, event, trail ) {
 

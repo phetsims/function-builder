@@ -14,6 +14,7 @@ define( function( require ) {
   var getQueryParameter = phet.chipper.getQueryParameter;
 
   var FBQueryParameters = {
+
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false
   };

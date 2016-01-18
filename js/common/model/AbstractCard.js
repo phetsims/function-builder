@@ -22,7 +22,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // {number} distance moved per second when animating
+      // {number} distance/second when animating
       animationSpeed: FBConstants.CARD_ANIMATION_SPEED
 
     }, options );
