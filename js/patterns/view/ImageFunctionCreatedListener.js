@@ -48,8 +48,10 @@ define( function( require ) {
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
+      var thisListener = this;
+
       // add functionInstance to model
-      this.scene.addFunctionInstance( functionInstance );
+      thisListener.scene.addFunctionInstance( functionInstance );
 
       // create a Node for the function instance
       var builders = this.scene.builders;
@@ -67,12 +69,16 @@ define( function( require ) {
         },
 
         // When done dragging the function ...
-        endDrag: this.endDrag.bind( this )
+        endDrag: thisListener.endDrag.bind( thisListener )
       } );
-      this.parentNode.addChild( functionNode );
+      thisListener.parentNode.addChild( functionNode );
 
-      // Create a closure for future management of this functionInstance.
-      (function( functionInstance, scene, parentNode ) {
+      /**
+       * Use an IIFE to create a closure for future management of this functionInstance and its Node.
+       * @param {ImageFunction} functionInstance
+       * @param {Node} functionNode
+       */
+      (function( functionInstance, functionNode ) {
 
         // function has animated back to the functions carousel
         var locationListener = function( location ) {
@@ -90,14 +96,14 @@ define( function( require ) {
 
           // clean up the instance
           functionInstance.locationProperty.unlink( locationListener );
-          scene.removeFunctionInstance( functionInstance );
+          thisListener.scene.removeFunctionInstance( functionInstance );
 
           // clean up the associated Node
-          parentNode.removeChild( functionNode );
+          thisListener.parentNode.removeChild( functionNode );
           functionNode.dispose();
         } );
 
-      })( functionInstance, this.scene, this.parentNode );
+      })( functionInstance, functionNode );
     },
 
     /**

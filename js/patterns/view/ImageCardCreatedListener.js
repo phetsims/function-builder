@@ -47,24 +47,29 @@ define( function( require ) {
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( card instanceof ImageCard, 'unexpected card type: ' + card.constructor.name );
 
+      var thisListener = this;
+
       // add card to model
-      this.scene.addCard( card );
+      thisListener.scene.addCard( card );
 
       // create a Node for the card
       var cardNode = new MovableImageCardNode( card, {
 
-        // If the card is in an output carousel, remove it.
         startDrag: function( card, event, trail ) {
-          //TODO
+          //TODO If the card is in an output carousel, remove it.
         },
 
         // When done dragging the card ...
-        endDrag: this.endDrag.bind( this )
+        endDrag: thisListener.endDrag.bind( thisListener )
       } );
-      this.parentNode.addChild( cardNode );
+      thisListener.parentNode.addChild( cardNode );
 
-      // Create a closure for future management of this card.
-      (function( card, scene, parentNode ) {
+      /**
+       * Use an IIFE to create a closure for future management of this card and its Node.
+       * @param {ImageCard} card
+       * @param {Node} cardNode
+       */
+      (function( card, cardNode ) {
 
         // card has animated back to the input carousel
         var locationListener = function( location ) {
@@ -82,13 +87,13 @@ define( function( require ) {
 
           // clean up the instance
           card.locationProperty.unlink( locationListener );
-          scene.removeCard( card );
+          thisListener.scene.removeCard( card );
 
           // clean up the node
-          parentNode.removeChild( cardNode );
+          thisListener.parentNode.removeChild( cardNode );
           cardNode.dispose();
         } );
-      })( card, this.scene, this.parentNode );
+      })( card, cardNode );
     },
 
     /**
