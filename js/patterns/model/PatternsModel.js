@@ -93,7 +93,12 @@ define( function( require ) {
       this.selectedSceneProperty.reset();
     },
 
-    // @public
+    /**
+     * Animates the model.
+     *
+     * @param {number} dt - time since the previous step, in seconds
+     * @public
+     */
     step: function( dt ) {
       this.scenes.forEach( function( scene ) {
         scene.step( dt );

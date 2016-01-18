@@ -188,7 +188,12 @@ define( function( require ) {
       this.cards.splice( index, 1 );
     },
 
-    // @public
+    /**
+     * Animates the scene.
+     *
+     * @param {number} dt - time since the previous step, in seconds
+     * @public
+     */
     step: function( dt ) {
 
       this.functionInstances.forEach( function( functionInstance ) {
