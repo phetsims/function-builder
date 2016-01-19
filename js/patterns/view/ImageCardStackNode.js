@@ -14,6 +14,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,12 +25,11 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {function([Object]): Movable} createInstance - creates a card instance, used for the icon and type checking
-   * @param {Node} iconNode - con that represents cardType
+   * @param {HTMLImageElement} image - image that appears on the card when it's created
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardStackNode( createInstance, iconNode, options ) {
+  function ImageCardStackNode( image, options ) {
 
     var self = this;
 
@@ -50,16 +50,14 @@ define( function( require ) {
     // @private
     this.cards = [];
 
+    // @private
+    this.iconNode = new ImageCardNode( ImageCard.withImage( image ) );
+
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
-    var backgroundNode = new Rectangle( 0, 0, iconNode.width, iconNode.height, {
+    var backgroundNode = new Rectangle( 0, 0, this.iconNode.width, this.iconNode.height, {
       stroke: SHOW_BOUNDS ? 'red' : null
     } );
 
-    // @private
-    this.cardInstance = createInstance();
-
-    // @private
-    this.iconNode = new ImageCardNode( this.cardInstance );
     this.iconNode.center = backgroundNode.center;
     this.iconNode.visible = false;
 
@@ -70,7 +68,7 @@ define( function( require ) {
     }
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, iconNode ];
+    options.children = [ backgroundNode, this.iconNode ];
 
     var dragHandler = new SimpleDragHandler( {
 
@@ -116,8 +114,7 @@ define( function( require ) {
 
       // cancel drag
       if ( dragHandler.dragging ) {
-        functionBuilder.log && functionBuilder.log( self.constructor.name + ': drag canceled' );
-        dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
+        dragHandler.endDrag( null, null );
       }
     };
   }
