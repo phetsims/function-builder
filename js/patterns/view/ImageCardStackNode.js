@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO this approach seems problematic, perhaps better to make this a container for ImageCardNodes
 /**
  * A stack of {ImageCard} in the output carousel.
  * Displays a single card whose image is synchronized with the functions in the builder.
