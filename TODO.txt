@@ -5,4 +5,4 @@ or should it be 'MovableImageFunctionNode extends ImageFunctionNode' with mixin 
 
 Consider making 'double functions' occupy 1 slot.
 
-Need a way to pre-populate output carousel with 1 card of each type for dev.
+Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
