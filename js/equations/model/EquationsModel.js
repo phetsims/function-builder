@@ -23,14 +23,13 @@ define( function( require ) {
     // show [0,3] initially
 
     // Functions are:
-    // + M : rgb(246,203,144)
-    // - M : rgb(152,231,156)
+    // + N : rgb(246,203,144)
+    // - N : rgb(152,231,156)
     // x N : rgb(237,165,222)
     // ÷ N : rgb(183,200,249)
     // A : TODO : rgb(28,191,167)
     // B : TODO : rgb(252,241,157)
     //
-    // M = TODO
     // N = [-3,3]
 
     PropertySet.call( this, {} );
