@@ -105,7 +105,7 @@ define( function( require ) {
       assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
       //TODO temporary, return card to carousel
-      card.destination = card.locationProperty.initialValue;
+      //card.destination = card.locationProperty.initialValue;
     }
   } );
 } );

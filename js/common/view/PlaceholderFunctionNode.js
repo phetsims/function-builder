@@ -23,7 +23,7 @@ define( function( require ) {
     options = _.extend( {
       fill: null,
       stroke: 'white',
-      lineDash: [ 3, 3 ]
+      lineDash: [ 4, 4 ]
     }, options );
 
     FunctionBackgroundNode.call( this, options );
