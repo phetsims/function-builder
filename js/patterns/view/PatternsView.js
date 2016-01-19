@@ -53,7 +53,7 @@ define( function( require ) {
     // Animations for fading between scenes
     var newFadeIn, oldFadeOut; // {OpacityTo}
 
-    // Make the selected scene visible, create it if necessary
+    // Make the selected scene visible
     model.selectedSceneProperty.link( function( scene, oldScene ) {
 
       // Stop any animation that is in progress
@@ -63,7 +63,7 @@ define( function( require ) {
       // Get the node that corresponds to the old scene
       var oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
 
-      // Get the node that corresponds to the scene, create on demand
+      // Get the node that corresponds to the scene, create it on demand
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
       if ( !sceneNode ) {
