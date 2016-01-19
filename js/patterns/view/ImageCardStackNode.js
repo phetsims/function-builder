@@ -66,7 +66,7 @@ define( function( require ) {
     } );
 
     this.cardNode.center = backgroundNode.center;
-    //TODO this.cardNode.visible = false;
+    this.cardNode.visible = false;
 
     // @public emit1( {ImageCard} instance ) is called when a card is removed from the stack
     this.removedEmitter = new Emitter();
