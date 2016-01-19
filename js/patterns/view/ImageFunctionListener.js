@@ -40,7 +40,6 @@ define( function( require ) {
      */
     createdListener: function( functionInstance ) {
 
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.createdListener' );
       assert && assert( arguments.length === 1, 'does the associated Emitter call emit1?' );
       assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -112,7 +111,6 @@ define( function( require ) {
      */
     endDrag: function( functionInstance, event, trail ) {
 
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.endDrag' );
       assert && assert( functionInstance instanceof ImageFunction, 'unexpected functionInstance type: ' + functionInstance.constructor.name );
 
       if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {

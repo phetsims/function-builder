@@ -102,7 +102,6 @@ define( function( require ) {
      */
     endDrag: function( card, event, trail ) {
 
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.endDrag' );
       assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
       //TODO temporary, return card to carousel
