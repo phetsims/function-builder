@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var FBUtil = {
+  var FBUtils = {
 
     //TODO generally useful?
     /**
@@ -32,11 +32,11 @@ define( function( require ) {
      * @returns {boolean}
      */
     isaBuilderColorScheme: function( object ) {
-      return FBUtil.hasOwnProperties( object, [ 'top', 'middle', 'bottom', 'ends' ] );
+      return FBUtils.hasOwnProperties( object, [ 'top', 'middle', 'bottom', 'ends' ] );
     }
   };
 
-  functionBuilder.register( 'FBUtil', FBUtil );
+  functionBuilder.register( 'FBUtils', FBUtils );
 
-  return FBUtil;
+  return FBUtils;
 } );

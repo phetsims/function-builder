@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBUtil = require( 'FUNCTION_BUILDER/common/FBUtil' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -55,7 +55,7 @@ define( function( require ) {
     options.y = builder.location.y;
 
     var colorScheme = builder.colorScheme;
-    assert && assert( FBUtil.isaBuilderColorScheme( colorScheme ) );
+    assert && assert( FBUtils.isaBuilderColorScheme( colorScheme ) );
 
     // To improve readability of shape code
     var BODY_WIDTH = builder.width;

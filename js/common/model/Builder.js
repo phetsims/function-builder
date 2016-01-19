@@ -14,7 +14,7 @@ define( function( require ) {
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBUtil = require( 'FUNCTION_BUILDER/common/FBUtil' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -31,11 +31,11 @@ define( function( require ) {
       width: 450, // {number} horizontal distance between input and output
       height: 125, // {number} height of tallest part of the builder
       location: new Vector2( 0, 0 ), // {Vector2} location of the center of the input
-      colorScheme: FBColors.BUILDER_MAROON // {Object} color scheme, see FBUtil.isaBuilderColorScheme
+      colorScheme: FBColors.BUILDER_MAROON // {Object} color scheme, see FBUtils.isaBuilderColorScheme
     }, options );
 
     // verify duck typing of colorScheme
-    assert && assert( FBUtil.isaBuilderColorScheme( options.colorScheme  ) );
+    assert && assert( FBUtils.isaBuilderColorScheme( options.colorScheme  ) );
 
     // @public (read-only)
     this.width = options.width;
