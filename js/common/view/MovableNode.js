@@ -96,7 +96,7 @@ define( function( require ) {
       movable.locationProperty.unlink( locationObserver );
       if ( dragHandler.dragging ) {
         functionBuilder.log && functionBuilder.log( thisNode.constructor.name + ': drag canceled' );
-        dragHandler.endDrag( null, null ); //TODO test by pressing 'Reset All' while dragging
+        dragHandler.endDrag( null, null ); //TODO this works, but will fail if options.endDrag depends on event or trail
       }
     };
   }
