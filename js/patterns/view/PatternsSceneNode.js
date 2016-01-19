@@ -58,8 +58,8 @@ define( function( require ) {
     // Items in the input carousel
     var inputCarouselItems = [];
     var cardListener = new ImageCardListener( scene, cardsParent );
-    scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
-      inputCarouselItems.push( new ImageCardCreatorNode( cardCreationFunction, viewToModelVector2, cardListener ) );
+    scene.cardImages.forEach( function( cardImage ) {
+      inputCarouselItems.push( new ImageCardCreatorNode( cardImage, viewToModelVector2, cardListener ) );
     } );
 
     // Input carousel, at left
@@ -79,8 +79,9 @@ define( function( require ) {
 
       //TODO temporary, some other type of Node is needed in the output carousels
       var outputCarouselItems = [];
-      scene.cardCreationFunctions.forEach( function( cardCreationFunction ) {
-        outputCarouselItems.push( new ImageCardNode( cardCreationFunction() ) );
+      scene.cardImages.forEach( function( cardImage ) {
+        var card = ImageCard.withImage( cardImage );
+        outputCarouselItems.push( new ImageCardNode( card ) );
       } );
 
       var outputCarousel = new Carousel( outputCarouselItems, {
@@ -117,8 +118,8 @@ define( function( require ) {
     // Items in the functions carousel
     var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
     var functionListener = new ImageFunctionListener( scene, functionsParent );
-    scene.functionCreationFunctions.forEach( function( functionCreationFunction ) {
-      functionCarouselItems.push( new ImageFunctionCreatorNode( functionCreationFunction, viewToModelVector2, functionListener ) );
+    scene.functionConstructors.forEach( function( FunctionConstructor ) {
+      functionCarouselItems.push( new ImageFunctionCreatorNode( FunctionConstructor, viewToModelVector2, functionListener ) );
     } );
 
     // Functions carousel, centered below bottom builder
@@ -212,8 +213,8 @@ define( function( require ) {
         var builder = scene.builders[ builderIndex ];
 
         var updateOutputItems = function() {
-          for ( var i = 0; i < scene.cardCreationFunctions.length; i++ ) {
-            var card = scene.cardCreationFunctions[ i ]();
+          for ( var i = 0; i < scene.cardImages.length; i++ ) {
+            var card = ImageCard.withImage( scene.cardImages[ i ] );
             for ( var j = 0; j < builder.slots.length; j++ ) {
               var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
               if ( functionInstance ) {

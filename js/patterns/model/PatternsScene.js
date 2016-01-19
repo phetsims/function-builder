@@ -60,49 +60,43 @@ define( function( require ) {
     this.createIcon = createIcon;
 
     /**
-     * Functions to create functions instances, of the form:
-     * @param {Object} [options] - options to the ImageFunction constructor
-     * @returns {ImageFunction}
-     * 
-     * @public
-     * @type {function[]}
+     * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.
+     * @type {constructor[]}
+     * @public (read-only)
      */
-    this.functionCreationFunctions = [
-      function( options ) { return new Mirror( options ); },
-      function( options ) { return new Rotate90( options ); },
-      function( options ) { return new Grayscale( options ); },
-      function( options ) { return new Rotate180( options ); },
-      function( options ) { return new Identity( options ); },
-      function( options ) { return new InvertRGB( options ); },
-      function( options ) { return new Erase( options ); },
-      function( options ) { return new Shrink75( options ); },
-      function( options ) { return new Warhol( options ); },
-      function( options ) { return new MysteryA( options ); },
-      function( options ) { return new MysteryB( options ); },
-      function( options ) { return new MysteryC( options ); }
+    this.functionConstructors = [
+      Mirror,
+      Rotate90,
+      Grayscale,
+      Rotate180,
+      Identity,
+      InvertRGB,
+      Erase,
+      Shrink75,
+      Warhol,
+      MysteryA,
+      MysteryB,
+      MysteryC
     ];
 
     /**
-     * Functions to create cards, of the form:
-     * @param {Object} [options] - options to the ImageCard constructor
-     * @returns {ImageCard}
-     *
-     * @public
-     * @type {function[]}
+     * Images for the input cards, in the order that they appear in the input carousel.
+     * @type {HTMLImageElement[]}
+     * @public (read-only)
      */
-    this.cardCreationFunctions = [
-      function( options ) { return ImageCard.withImage( feetImage, options ); },
-      function( options ) { return ImageCard.withImage( snowflakeImage, options ); },
-      function( options ) { return ImageCard.withImage( butterflyImage, options ); },
-      function( options ) { return ImageCard.withImage( stickFigureImage, options ); },
-      function( options ) { return ImageCard.withImage( planetImage, options ); },
-      function( options ) { return ImageCard.withImage( sunImage, options ); },
-      function( options ) { return ImageCard.withImage( beakerImage, options ); },
-      function( options ) { return ImageCard.withImage( cherriesImage, options ); },
-      function( options ) { return ImageCard.withImage( rectangleImage, options ); },
-      function( options ) { return ImageCard.withImage( circleImage, options ); },
-      function( options ) { return ImageCard.withImage( triangleImage, options ); },
-      function( options ) { return ImageCard.withImage( starImage, options ); }
+    this.cardImages = [
+      feetImage,
+      snowflakeImage,
+      butterflyImage,
+      stickFigureImage,
+      planetImage,
+      sunImage,
+      beakerImage,
+      cherriesImage,
+      rectangleImage,
+      circleImage,
+      triangleImage,
+      starImage
     ];
 
     // @public (read-only) {Builder[]}

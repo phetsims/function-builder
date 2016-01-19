@@ -18,13 +18,13 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {function(Object): ImageFunction} createInstance - creates an instance
+   * @param {constructor} FunctionConstructor - constructor for an {ImageFunction} type
    * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {ImageFunctionListener} functionListener
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionCreatorNode( createInstance, viewToModelVector2, functionListener, options ) {
+  function ImageFunctionCreatorNode( FunctionConstructor, viewToModelVector2, functionListener, options ) {
 
     options = _.extend( {
       maxInstances: 2,
@@ -32,6 +32,10 @@ define( function( require ) {
       createdListener: functionListener.createdListener.bind( functionListener ),
       endDrag: functionListener.endDrag.bind( functionListener )
     }, options );
+
+    var createInstance = function( options ) {
+      return new FunctionConstructor( options );
+    };
 
     var iconNode = new ImageFunctionNode( createInstance() );
     var disabledIconNode = new Rectangle( 0, 0, 1, 1 ); // any non-visible Node with well-defined bounds will do here

@@ -12,18 +12,19 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableCreatorNode = require( 'FUNCTION_BUILDER/common/view/MovableCreatorNode' );
 
   /**
-   * @param {function([Object]): ImageCard} createInstance - creates an instance
+   * @param {HTMLImageElement} image - image that appears on the card when it's created
    * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {ImageCardListener} cardListener
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardCreatorNode( createInstance, viewToModelVector2, cardListener, options ) {
+  function ImageCardCreatorNode( image, viewToModelVector2, cardListener, options ) {
 
     options = _.extend( {
       maxInstances: 2,
@@ -31,6 +32,10 @@ define( function( require ) {
       createdListener: cardListener.createdListener.bind( cardListener ),
       endDrag: cardListener.endDrag.bind( cardListener )
     }, options );
+
+    var createInstance = function( options ) {
+      return ImageCard.withImage( image, options );
+    };
 
     var iconNode = new ImageCardNode( createInstance() );
     var disabledIconNode = new ImageCardNode( createInstance(), {
