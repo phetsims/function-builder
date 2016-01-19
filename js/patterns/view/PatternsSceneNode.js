@@ -31,6 +31,11 @@ define( function( require ) {
   var INPUTS_PER_PAGE = 4;
   var PAGE_CONTROL_SPACING = 8;
   var OUTPUT_CAROUSELS_SPACING = 15;
+  var PAGE_CONTROL_OPTIONS = {
+    interactive: true,
+    dotTouchAreaDilation: 4,
+    dotMouseAreaDilation: 4
+  };
 
   /**
    * @param {PatternsScene} scene - model for this scene
@@ -56,6 +61,8 @@ define( function( require ) {
       builderNodes.push( new BuilderNode( builder ) );
     } );
 
+    // Input carousel --------------------------------------------------------------------------------------------------
+
     // Items in the input carousel
     var inputCarouselItems = [];
     var cardListener = new ImageCardListener( scene, cardsParent );
@@ -73,6 +80,15 @@ define( function( require ) {
       left: layoutBounds.left + 50,
       top: layoutBounds.top + 50
     } );
+
+    // Page control for input carousel
+    var inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
+      orientation: 'vertical',
+      right: inputCarousel.left - PAGE_CONTROL_SPACING,
+      centerY: inputCarousel.centerY
+    }, PAGE_CONTROL_OPTIONS ) );
+
+    // Output carousels ------------------------------------------------------------------------------------------------
 
     // Output carousels, one for each builder
     var outputCarousels = [];
@@ -104,6 +120,13 @@ define( function( require ) {
       bottom: inputCarousel.bottom
     } );
 
+    // Page control for output carousel
+    var outputPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, _.extend( {
+      orientation: 'vertical',
+      left: outputCarouselsParent.right + PAGE_CONTROL_SPACING,
+      centerY: outputCarouselsParent.centerY
+    }, PAGE_CONTROL_OPTIONS ) );
+
     // Eraser button, centered below the output carousels
     var eraserButtonListener = function() {
       //TODO return all cards to the input carousel
@@ -115,15 +138,17 @@ define( function( require ) {
       top: outputCarouselsParent.bottom + 40
     } );
 
-    // Items in the functions carousel
+    // Function carousel ----------------------------------------------------------------------------------------------
+
+    // Items in the function carousel
     var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
     var functionListener = new ImageFunctionListener( scene, functionsParent );
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
       functionCarouselItems.push( new ImageFunctionCreatorNode( FunctionConstructor, viewToModelVector2, functionListener ) );
     } );
 
-    // Functions carousel, centered below bottom builder
-    var functionsCarousel = new Carousel( functionCarouselItems, {
+    // Function carousel, centered below bottom builder
+    var functionCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
       itemsPerPage: 3,
       buttonTouchAreaXDilation: 15,
@@ -132,27 +157,14 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 25
     } );
 
-    // Page controls for carousels
-    var PAGE_CONTROL_OPTIONS = {
-      interactive: true,
-      dotTouchAreaDilation: 4,
-      dotMouseAreaDilation: 4
-    };
-    var inputsPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
-      orientation: 'vertical',
-      right: inputCarousel.left - PAGE_CONTROL_SPACING,
-      centerY: inputCarousel.centerY
-    }, PAGE_CONTROL_OPTIONS ) );
-    var outputsPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, _.extend( {
-      orientation: 'vertical',
-      left: outputCarouselsParent.right + PAGE_CONTROL_SPACING,
-      centerY: outputCarouselsParent.centerY
-    }, PAGE_CONTROL_OPTIONS ) );
-    var functionsPageControl = new PageControl( functionsCarousel.numberOfPages, functionsCarousel.pageNumberProperty, _.extend( {
+    // Page control for functions carousels
+    var functionsPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
       orientation: 'horizontal',
-      centerX: functionsCarousel.centerX,
-      top: functionsCarousel.bottom + PAGE_CONTROL_SPACING
+      centerX: functionCarousel.centerX,
+      top: functionCarousel.bottom + PAGE_CONTROL_SPACING
     }, PAGE_CONTROL_OPTIONS ) );
+
+    //------------------------------------------------------------------------------------------------------------------
 
     // Link input carousel to all output carousels, so that they display the same page number
     assert && assert( inputCarousel.numberOfPages === outputCarousels[ 0 ].numberOfPages );
@@ -172,9 +184,9 @@ define( function( require ) {
     // Spy Glass check box, to the right of functions carousel
     var spyGlassVisibleProperty = new Property( false );
     var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
-      maxWidth: 0.85 * ( functionsCarousel.left - inputCarousel.left ),
+      maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
       left: inputCarousel.left,
-      top: functionsCarousel.top
+      top: functionCarousel.top
     } );
     spyGlassVisibleProperty.link( function( visible ) {
       //TODO implement the spy glass feature
@@ -185,8 +197,8 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       spyGlassCheckBox, eraserButton,
-      inputCarousel, outputCarouselsParent, functionsCarousel,
-      inputsPageControl, outputsPageControl, functionsPageControl
+      inputCarousel, outputCarouselsParent, functionCarousel,
+      inputPageControl, outputPageControl, functionsPageControl
     ];
     options.children = options.children.concat( builderNodes );
     options.children = options.children.concat( [ functionsParent, cardsParent ] );
@@ -195,7 +207,7 @@ define( function( require ) {
 
     // @private Resets this node
     this.resetPatternsSceneNode = function() {
-      functionsCarousel.reset();
+      functionCarousel.reset();
       inputCarousel.reset();
       outputCarousels.forEach( function( outputCarousel ) {
         outputCarousel.reset();
