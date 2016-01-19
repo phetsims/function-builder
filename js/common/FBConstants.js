@@ -22,10 +22,10 @@ define( function( require ) {
     FUNCTION_X_INSET_FACTOR: 0.15,
 
     // how much to a function should be 'popped out' of its container when clicked
-    FUNCTION_POP_OUT_OFFSET: new Vector2( 10, -10 ),
+    FUNCTION_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // how much to a card should be 'popped out' of its container when clicked
-    CARD_POP_OUT_OFFSET: new Vector2( 10, -10 ),
+    CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // distance/second that functions move when animating
     FUNCTION_ANIMATION_SPEED: 400,
