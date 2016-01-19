@@ -132,21 +132,26 @@ define( function( require ) {
     } );
 
     // Page controls for carousels
-    var inputsPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, {
+    var PAGE_CONTROL_OPTIONS = {
+      interactive: true,
+      dotTouchAreaDilation: 4,
+      dotMouseAreaDilation: 4
+    };
+    var inputsPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
       right: inputCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputCarousel.centerY
-    } );
-    var outputsPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, {
+    }, PAGE_CONTROL_OPTIONS ) );
+    var outputsPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, _.extend( {
       orientation: 'vertical',
       left: outputCarouselsParent.right + PAGE_CONTROL_SPACING,
       centerY: outputCarouselsParent.centerY
-    } );
-    var functionsPageControl = new PageControl( functionsCarousel.numberOfPages, functionsCarousel.pageNumberProperty, {
+    }, PAGE_CONTROL_OPTIONS ) );
+    var functionsPageControl = new PageControl( functionsCarousel.numberOfPages, functionsCarousel.pageNumberProperty, _.extend( {
       orientation: 'horizontal',
       centerX: functionsCarousel.centerX,
       top: functionsCarousel.bottom + PAGE_CONTROL_SPACING
-    } );
+    }, PAGE_CONTROL_OPTIONS ) );
 
     // Link input carousel to all output carousels, so that they display the same page number
     assert && assert( inputCarousel.numberOfPages === outputCarousels[ 0 ].numberOfPages );
