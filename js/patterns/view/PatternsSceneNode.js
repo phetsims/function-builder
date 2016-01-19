@@ -26,9 +26,9 @@ define( function( require ) {
   var SpyGlassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyGlassCheckBox' );
 
   // constants
-  var INPUTS_PER_PAGE = 4;
-  var PAGE_CONTROL_SPACING = 8;
-  var OUTPUT_CAROUSELS_SPACING = 15;
+  var CARDS_PER_PAGE = 4; // number of cards per page in the input and output carousels
+  var OUTPUT_CAROUSELS_SPACING = 15; // space between output carousels
+  var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
   var PAGE_CONTROL_OPTIONS = {
     interactive: true,
     dotTouchAreaDilation: 4,
@@ -72,7 +72,7 @@ define( function( require ) {
     var inputCarousel = new Carousel( inputCarouselItems, {
       orientation: 'vertical',
       separatorsVisible: true,
-      itemsPerPage: INPUTS_PER_PAGE,
+      itemsPerPage: CARDS_PER_PAGE,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
       left: layoutBounds.left + 50,
@@ -102,7 +102,7 @@ define( function( require ) {
         orientation: 'vertical',
         buttonColor: builder.colorScheme.middle, // color code buttons with their associated builder
         separatorsVisible: true,
-        itemsPerPage: INPUTS_PER_PAGE,
+        itemsPerPage: CARDS_PER_PAGE,
         buttonTouchAreaXDilation: 5,
         buttonTouchAreaYDilation: 15
       } );
