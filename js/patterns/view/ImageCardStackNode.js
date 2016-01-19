@@ -81,27 +81,29 @@ define( function( require ) {
 
       //TODO cancel drag if card is disposed of during a drag cycle, scenery#218
 
+      card: null, // @private {ImageCard|null} card being dragged
+
       allowTouchSnag: true,
 
       start: function( event, trail ) {
         assert && assert( self.cards.length > 0, 'stack is empty' );
-        var card = self.cards[ self.cards.length - 1 ];
-        self.removeCard( card );
-        self.removedEmitter.emit1( card );
+        this.card = self.cards[ self.cards.length - 1 ];
+        self.removeCard( this.card );
+        self.removedEmitter.emit1( this.card );
       },
 
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } } translationParams
       translate: function( translationParams ) {
         //TODO these 2 lines are duplicated in MovableNode
-        var location = this.movable.locationProperty.get().plus( translationParams.delta );
-        this.movable.setLocation( options.dragBounds.closestPointTo( location ) );
+        var location = this.card.locationProperty.get().plus( translationParams.delta );
+        this.card.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {
         //TODO these 2 lines are duplicated in MovableNode
-        this.movable.dragging = false;
-        options.endDrag && options.endDrag( this.movable, event, trail );
-        this.movable = null;
+        this.card.dragging = false;
+        options.endDrag && options.endDrag( this.card, event, trail );
+        this.card = null;
       }
     } );
     this.cardNode.addInputListener( dragHandler );
