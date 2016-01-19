@@ -32,9 +32,9 @@ define( function( require ) {
   function Warhol( options ) {
 
     options = _.extend( {
-      fill: 'rgb( 250, 186, 75 )',
-      invertible: false
+      fill: 'rgb( 250, 186, 75 )'
     }, options );
+    options.invertible = false;
 
     ImageFunction.call( this, warholImage, options );
   }

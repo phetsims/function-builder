@@ -24,9 +24,9 @@ define( function( require ) {
   function Grayscale( options ) {
 
     options = _.extend( {
-      fill: 'rgb( 232, 232, 232 )',
-      invertible: false
+      fill: 'rgb( 232, 232, 232 )'
     }, options );
+    options.invertible = false;
 
     ImageFunction.call( this, grayScaleImage, options );
   }
