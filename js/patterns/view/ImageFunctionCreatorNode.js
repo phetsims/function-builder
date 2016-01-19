@@ -45,5 +45,8 @@ define( function( require ) {
 
   functionBuilder.register( 'ImageFunctionCreatorNode', ImageFunctionCreatorNode );
 
-  return inherit( MovableCreatorNode, ImageFunctionCreatorNode );
+  return inherit( MovableCreatorNode, ImageFunctionCreatorNode, {
+
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+  } );
 } );

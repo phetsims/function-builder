@@ -48,5 +48,8 @@ define( function( require ) {
 
   functionBuilder.register( 'ImageCardCreatorNode', ImageCardCreatorNode );
 
-  return inherit( MovableCreatorNode, ImageCardCreatorNode );
+  return inherit( MovableCreatorNode, ImageCardCreatorNode, {
+
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+  } );
 } );

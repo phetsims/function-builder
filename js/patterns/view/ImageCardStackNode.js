@@ -122,39 +122,13 @@ define( function( require ) {
       self.cardNode.setCard( card );
     };
     builder.functionChangedEmitter.addListener( updateCardNode );
-
-    this.disposeImageCardStackNode = function() {
-
-      // clean up emitter
-      assert && assert( self.removedEmitter, 'called dispose twice?' );
-      self.removedEmitter.removeAllListeners();
-      self.removedEmitter = null;
-
-      // clean up builder
-      builder.functionChangedEmitter.removeListener( updateCardNode );
-
-      // empty stack
-      self.cards.length = 0;
-      self.cardNode.visible = false;
-
-      // cancel drag
-      if ( dragHandler.dragging ) {
-        dragHandler.endDrag( null, null );
-      }
-    };
   }
 
   functionBuilder.register( 'ImageCardStackNode', ImageCardStackNode );
 
   return inherit( Node, ImageCardStackNode, {
 
-    /**
-     * Ensures that this object is eligible for GC.
-     * @public
-     */
-    dispose: function() {
-      this.disposeImageCardStackNode();
-    },
+    // dispose not needed, instances of this type exist for the lifetime of the sim
 
     /**
      * Adds a card to the stack.

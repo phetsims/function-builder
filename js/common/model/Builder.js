@@ -70,6 +70,8 @@ define( function( require ) {
 
   inherit( Object, Builder, {
 
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+
     // @public
     reset: function() {
       this.slots.forEach( function( slot ) {

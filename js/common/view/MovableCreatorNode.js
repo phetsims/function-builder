@@ -160,30 +160,12 @@ define( function( require ) {
     options.children = [ backgroundNode, disabledIconNode, iconNode ];
 
     Node.call( this, options );
-
-    // @private
-    this.disposeMovableCreatorNode = function() {
-
-      // clean up emitter
-      assert && assert( thisNode.createdEmitter, 'called dispose twice?' );
-      thisNode.createdEmitter.removeAllListeners();
-      thisNode.createdEmitter = null;
-
-      // cancel drag
-      if ( dragHandler.dragging ) {
-        dragHandler.endDrag( null, null ); //TODO this works, but will fail if options.endDrag depends on event or trail
-      }
-    };
   }
 
   functionBuilder.register( 'MovableCreatorNode', MovableCreatorNode );
 
   return inherit( Node, MovableCreatorNode, {
 
-    // @public
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeMovableCreatorNode();
-    }
+    // dispose not needed, instances of this type exist for the lifetime of the sim
   } );
 } );

@@ -85,6 +85,8 @@ define( function( require ) {
 
   return inherit( Object, PatternsModel, {
 
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+
     // @public
     reset: function() {
       this.scenes.forEach( function( scene ) {

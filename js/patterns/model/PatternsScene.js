@@ -119,6 +119,8 @@ define( function( require ) {
 
   return inherit( Object, PatternsScene, {
 
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+
     // @public
     reset: function() {
 

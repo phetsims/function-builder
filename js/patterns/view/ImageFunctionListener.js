@@ -28,6 +28,8 @@ define( function( require ) {
 
   return inherit( Object, ImageFunctionListener, {
 
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+
     /**
      * When a function instance is created, add it to the model and view.
      * When the function instance is returned to the functions carousel, dispose of it.

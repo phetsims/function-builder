@@ -144,21 +144,9 @@ define( function( require ) {
     options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
 
     Node.call( this, options );
-
-    // @private
-    this.disposeBuilderNode = function() {
-      //TODO implement dispose
-    };
   }
 
   functionBuilder.register( 'BuilderNode', BuilderNode );
 
-  return inherit( Node, BuilderNode, {
-
-    // @public
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeBuilderNode();
-    }
-  } );
+  return inherit( Node, BuilderNode );
 } );

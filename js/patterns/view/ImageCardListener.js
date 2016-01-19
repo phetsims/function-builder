@@ -28,6 +28,8 @@ define( function( require ) {
 
   return inherit( Object, ImageCardListener, {
 
+    // dispose not needed, instances of this type exist for the lifetime of the sim
+
     /**
      * When a card instance is created, add it to the model and view.
      * When the card is returned to the input carousel, dispose of it.
