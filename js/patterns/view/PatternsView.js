@@ -50,9 +50,8 @@ define( function( require ) {
       return thisView.globalToLocalPoint( viewLocation );
     };
 
-    // For stopping animations that are in progress.
-    var newFadeIn;
-    var oldFadeOut;
+    // Animations for fading between scenes
+    var newFadeIn, oldFadeOut; // {OpacityTo}
 
     // Make the selected scene visible, create it if necessary
     model.selectedSceneProperty.link( function( scene, oldScene ) {
