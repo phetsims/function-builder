@@ -21,10 +21,10 @@ define( function( require ) {
     // x-inset of arrow-like ends of a function's shape
     FUNCTION_X_INSET_FACTOR: 0.15,
 
-    // how much to a function should be 'popped out' of its container when clicked
+    // how much a function should 'pop out' of its container when clicked
     FUNCTION_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
-    // how much to a card should be 'popped out' of its container when clicked
+    // how much a card should 'pop out' of its container when clicked
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // distance/second that functions move when animating
