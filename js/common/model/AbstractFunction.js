@@ -22,6 +22,9 @@ define( function( require ) {
 
     options = _.extend( {
 
+      // {boolean} is this function invertible?
+      invertible: true,
+
       // {number} distance/second when animating
       animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
@@ -33,6 +36,9 @@ define( function( require ) {
       lineDash: null // {number[]|null}
 
     }, options );
+
+    // @public (read-only)
+    this.invertible = options.invertible;
 
     // @public (read-only) properties related to visual representation, in the model for convenience
     this.viewInfo = _.pick( options, 'image', 'fill', 'stroke', 'lineWidth', 'lineDash' );

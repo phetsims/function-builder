@@ -24,7 +24,8 @@ define( function( require ) {
   function Erase( options ) {
 
     options = _.extend( {
-      fill: 'rgb( 0, 222, 224 )'
+      fill: 'rgb( 0, 222, 224 )',
+      invertible: false
     }, options );
 
     ImageFunction.call( this, eraseImage, options );
