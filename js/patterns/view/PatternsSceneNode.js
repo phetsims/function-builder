@@ -106,7 +106,6 @@ define( function( require ) {
     // Eraser button, centered below the output carousels
     var eraserButtonListener = function() {
       //TODO return all cards to the input carousel
-      functionBuilder.log && functionBuilder.log( 'eraserButtonListener' );
     };
     var eraserButton = new EraserButton( {
       listener: eraserButtonListener,
@@ -173,7 +172,6 @@ define( function( require ) {
     } );
     spyGlassVisibleProperty.link( function( visible ) {
       //TODO implement the spy glass feature
-      functionBuilder.log && functionBuilder.log( 'spyGlassVisibleProperty ' + visible );
     } );
     spyGlassCheckBox.visible = scene.spyGlassEnabled;
 
