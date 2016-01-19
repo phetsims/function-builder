@@ -17,7 +17,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlaceholderFunctionNode = require( 'FUNCTION_BUILDER/common/view/PlaceholderFunctionNode' );
+  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/FunctionSlotNode' );
   var Shape = require( 'KITE/Shape' );
 
   /**
@@ -133,7 +133,7 @@ define( function( require ) {
     // slots
     var slotNodes = [];
     for ( var i = 0; i < builder.slots.length; i++ ) {
-      slotNodes.push( new PlaceholderFunctionNode( {
+      slotNodes.push( new FunctionSlotNode( {
         // centered at slot locations
         center: builder.slots[ i ].location.minus( builder.location)
       } ) );

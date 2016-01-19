@@ -1,8 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Placeholder for a function, has a dashed outline and no fill.
- * Appears in the builder to indicate where 'slots' are.
+ * A 'slot' for a function in a builder, has a dashed outline and no fill.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +17,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PlaceholderFunctionNode( options ) {
+  function FunctionSlotNode( options ) {
 
     options = _.extend( {
       fill: null,
@@ -29,8 +28,8 @@ define( function( require ) {
     FunctionBackgroundNode.call( this, options );
   }
 
-  functionBuilder.register( 'PlaceholderFunctionNode', PlaceholderFunctionNode );
+  functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
 
 
-  return inherit( FunctionBackgroundNode, PlaceholderFunctionNode );
+  return inherit( FunctionBackgroundNode, FunctionSlotNode );
 } );
