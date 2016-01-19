@@ -35,7 +35,7 @@ define( function( require ) {
     } );
 
     // Scene nodes will be created on demand
-    var sceneNodes = [];
+    var sceneNodes = []; // {Node[]} in same order as model.scene
     model.scenes.forEach( function( scene ) {
       sceneNodes.push( null );
     } );
