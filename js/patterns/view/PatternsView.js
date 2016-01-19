@@ -51,7 +51,8 @@ define( function( require ) {
     };
 
     // Animations for fading between scenes
-    var newFadeIn, oldFadeOut; // {OpacityTo}
+    var newFadeIn; // {OpacityTo}
+    var oldFadeOut; // {OpacityTo}
 
     // Make the selected scene visible
     model.selectedSceneProperty.link( function( scene, oldScene ) {

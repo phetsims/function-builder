@@ -14,10 +14,8 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
-  var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
   var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
   var ImageFunctionListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionListener' );
