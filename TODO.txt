@@ -2,3 +2,5 @@ TODO list for function-builder
 
 Is it better to have 'MovableImageFunctionNode extends MovableNode' and decorate with ImageFunctionNode,
 or should it be 'MovableImageFunctionNode extends ImageFunctionNode' with mixin MovableHandler?
+
+Consider making 'double functions' occupy 1 slot.
