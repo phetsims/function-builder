@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO not sure about this approach, it may be better to put ImageCardNodes into some container in output carousel
 /**
- * A stack of {ImageCard}, which appears in the output carousel.
+ * A stack of {ImageCard} in the output carousel.
+ * Displays a single card whose image is synchronized with the functions in the builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,11 +25,12 @@ define( function( require ) {
   var SHOW_BOUNDS = FBQueryParameters.DEV; // {boolean} stroke the bounds with 'red'
 
   /**
-   * @param {HTMLImageElement} image - image that appears on the card when it's created
+   * @param {HTMLImageElement} inputImage - image that appears on the corresponding card in the input carousel
+   * @param {Builder} builder - builder that is applied to this card stack
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardStackNode( image, options ) {
+  function ImageCardStackNode( inputImage, builder, options ) {
 
     var self = this;
 
@@ -48,18 +49,24 @@ define( function( require ) {
     }, options );
 
     // @private
+    this.builder = builder;
+
+    // @private
     this.cards = [];
 
     // @private
-    this.iconNode = new ImageCardNode( ImageCard.withImage( image ) );
+    this.inputImage = inputImage;
+
+    // @private
+    this.cardNode = new ImageCardNode( ImageCard.withImage( inputImage ) );
 
     // Add a background rectangle with no fill or stroke, so that this Node's visible bounds remain constant
-    var backgroundNode = new Rectangle( 0, 0, this.iconNode.width, this.iconNode.height, {
+    var backgroundNode = new Rectangle( 0, 0, this.cardNode.width, this.cardNode.height, {
       stroke: SHOW_BOUNDS ? 'red' : null
     } );
 
-    this.iconNode.center = backgroundNode.center;
-    this.iconNode.visible = false;
+    this.cardNode.center = backgroundNode.center;
+    //TODO this.cardNode.visible = false;
 
     // @public emit1( {ImageCard} instance ) is called when a card is removed from the stack
     this.removedEmitter = new Emitter();
@@ -68,7 +75,7 @@ define( function( require ) {
     }
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, this.iconNode ];
+    options.children = [ backgroundNode, this.cardNode ];
 
     var dragHandler = new SimpleDragHandler( {
 
@@ -97,9 +104,26 @@ define( function( require ) {
         this.movable = null;
       }
     } );
-    this.iconNode.addInputListener( dragHandler );
+    this.cardNode.addInputListener( dragHandler );
 
     Node.call( this, options );
+
+    //TODO update this only when this.cardNode.visible
+    // When any builder function changes, apply the functions to the card
+    var updateCardNode = function() {
+      var card =  ImageCard.withImage( self.inputImage ) ;
+      for ( var i = 0; i < builder.slots.length; i++ ) {
+        var functionInstance = builder.slots[ i ].functionInstanceProperty.get();
+        if ( functionInstance ) {
+          var outputCanvas = functionInstance.apply( card.canvas );
+          card = new ImageCard( outputCanvas );
+        }
+      }
+      self.cardNode.setCard( card );
+    };
+    builder.slots.forEach( function( slot ) {
+      slot.functionInstanceProperty.link( updateCardNode );
+    } );
 
     this.disposeImageCardStackNode = function() {
 
@@ -108,9 +132,14 @@ define( function( require ) {
       self.removedEmitter.removeAllListeners();
       self.removedEmitter = null;
 
+      // clean up builder
+      builder.slots.forEach( function( slot ) {
+        slot.functionInstanceProperty.unlink( updateCardNode );
+      } );
+
       // empty stack
       self.cards.length = 0;
-      self.iconNode.visible = false;
+      self.cardNode.visible = false;
 
       // cancel drag
       if ( dragHandler.dragging ) {
@@ -139,7 +168,7 @@ define( function( require ) {
       //TODO assert && assert( card instanceof this.cardType, 'unexpected type: ' + card.constructor.name );
       assert && assert( this.cards.indexOf( card ) === -1, 'attempted to add card twice' );
       this.cards.push( card );
-      this.iconNode.visible = true;
+      this.cardNode.visible = true;
     },
 
     /**
@@ -156,7 +185,7 @@ define( function( require ) {
       this.cards.splice( index, 1 );
 
       // hide icon when no cards
-      this.iconNode.visible = ( this.cards.length > 0 );
+      this.cardNode.visible = ( this.cards.length > 0 );
     }
   } );
 } );

@@ -18,6 +18,7 @@ define( function( require ) {
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
+  var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
   var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
   var ImageFunctionListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionListener' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -77,11 +78,10 @@ define( function( require ) {
     var outputCarousels = [];
     scene.builders.forEach( function( builder ) {
 
-      //TODO temporary, some other type of Node is needed in the output carousels
-      var outputCarouselItems = [];
+      var outputCarouselItems = []; // {ImageCardStackNode[]}
       scene.cardImages.forEach( function( cardImage ) {
-        var card = ImageCard.withImage( cardImage );
-        outputCarouselItems.push( new ImageCardNode( card ) );
+        var stack = new ImageCardStackNode( cardImage, builder );
+        outputCarouselItems.push( stack );
       } );
 
       var outputCarousel = new Carousel( outputCarouselItems, {
@@ -202,36 +202,6 @@ define( function( require ) {
       } );
       spyGlassVisibleProperty.reset();
     };
-
-    //TODO temporary, to demonstrate update of cards in output carousels
-    for ( var i = 0; i < scene.builders.length; i++ ) {
-
-      // IIFE to store builder in a closure var
-      // When a builder's functions change, update it's corresponding output carousel.
-      (function( builderIndex ) {
-
-        var builder = scene.builders[ builderIndex ];
-
-        var updateOutputItems = function() {
-          for ( var i = 0; i < scene.cardImages.length; i++ ) {
-            var card = ImageCard.withImage( scene.cardImages[ i ] );
-            for ( var j = 0; j < builder.slots.length; j++ ) {
-              var functionInstance = builder.slots[ j ].functionInstanceProperty.get();
-              if ( functionInstance ) {
-                var outputCanvas = functionInstance.apply( card.canvas );
-                card = new ImageCard( outputCanvas );
-              }
-            }
-            outputCarousels[ builderIndex ].items[ i ].setCard( card );
-          }
-        };
-
-        builder.slots.forEach( function( slot ) {
-          slot.functionInstanceProperty.link( updateOutputItems );
-        } );
-
-      })( i );
-    }
   }
 
   functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
