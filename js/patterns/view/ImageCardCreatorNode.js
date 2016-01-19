@@ -34,8 +34,8 @@ define( function( require ) {
 
     var iconNode = new ImageCardNode( createInstance() );
     var disabledIconNode = new ImageCardNode( createInstance(), {
-      opacity: 0.2,
-      lineDash: [ 3, 3 ]
+      opacity: 0.4,
+      lineDash: [ 4, 4 ]
     } );
 
     MovableCreatorNode.call( this, createInstance, viewToModelVector2, iconNode, disabledIconNode, options );
