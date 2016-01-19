@@ -12,12 +12,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Emitter = require( 'AXON/Emitter' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -61,6 +61,9 @@ define( function( require ) {
       // each slot is initially empty
       this.slots.push( new Slot( slotLocation, null ) );
     }
+
+    // @public emit1({Builder}) when any function changes
+    this.functionChangedEmitter = new Emitter();
   }
 
   functionBuilder.register( 'Builder', Builder );
@@ -70,7 +73,7 @@ define( function( require ) {
     // @public
     reset: function() {
       this.slots.forEach( function( slot ) {
-        slot.reset();
+        slot.functionInstance = null;
       } );
     },
 
@@ -98,18 +101,30 @@ define( function( require ) {
      * @public
      */
     addFunctionInstance: function( functionInstance ) {
+
+      // find the closest slot
       var DISTANCE_THRESHOLD = 0.6 * this.height;
       var slotNumber = this.getClosestSlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
+
+      // if we found a slot...
       if ( slotNumber !== -1 ) {
+
         var slot = this.slots[ slotNumber ];
+
+        // if the slot was occupied, return the occupier to whence it originated
         if ( !slot.isEmpty() ) {
-          // function in the slot goes back to where it originated
-          var oldFunctionInstance = slot.functionInstanceProperty.get();
+          var oldFunctionInstance = slot.functionInstance;
           oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
         }
-        slot.functionInstanceProperty.set( functionInstance );
+
+        // put the function instance in the slot
+        slot.functionInstance = functionInstance;
         functionInstance.destination = slot.location;
+
+        // notify that's there's been a change
+        this.functionChangedEmitter.emit1( this );
       }
+
       return slotNumber;
     },
 
@@ -120,16 +135,23 @@ define( function( require ) {
      * @public
      */
     removeFunctionInstance: function( functionInstance ) {
+
       var removed = false;
+
+      // iterate over the slots until we find the function instance or run out of slots
       for ( var i = 0; i < this.slots.length && !removed; i++ ) {
         var slot = this.slots[ i ];
         if ( slot.contains( functionInstance ) ) {
 
-          slot.functionInstanceProperty.set( null );
+          // empty the slot
+          slot.functionInstance = null;
           removed = true;
 
-          // pop out of slot
+          // pop function out of slot
           functionInstance.setLocation( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+
+          // notify that there's been a change
+          this.functionChangedEmitter.emit1( this );
         }
       }
       assert && assert( removed );
@@ -168,21 +190,19 @@ define( function( require ) {
    */
   function Slot( location, functionInstance ) {
     this.location = location; // @public (read-only)
-    PropertySet.call( this, {
-      functionInstance: functionInstance // @public
-    } );
+    this.functionInstance = functionInstance; // @public
   }
 
   functionBuilder.register( 'Builder.Slot', Slot );
 
-  inherit( PropertySet, Slot, {
+  inherit( Object, Slot, {
 
     // @public is the slot empty?
-    isEmpty: function() { return ( this.functionInstanceProperty.get() === null ); },
+    isEmpty: function() { return ( this.functionInstance === null ); },
 
     // @public does this slot contain a specified {AbstractFunction} function instance?
     contains: function( functionInstance ) {
-      return this.functionInstanceProperty.get() === functionInstance;
+      return this.functionInstance === functionInstance;
     }
   } );
 

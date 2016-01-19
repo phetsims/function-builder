@@ -110,10 +110,10 @@ define( function( require ) {
 
     //TODO update this only when this.cardNode.visible
     // When any builder function changes, apply the functions to the card
-    var updateCardNode = function() {
+    var updateCardNode = function( builder ) {
       var card =  ImageCard.withImage( self.inputImage ) ;
       for ( var i = 0; i < builder.slots.length; i++ ) {
-        var functionInstance = builder.slots[ i ].functionInstanceProperty.get();
+        var functionInstance = builder.slots[ i ].functionInstance;
         if ( functionInstance ) {
           var outputCanvas = functionInstance.apply( card.canvas );
           card = new ImageCard( outputCanvas );
@@ -121,9 +121,7 @@ define( function( require ) {
       }
       self.cardNode.setCard( card );
     };
-    builder.slots.forEach( function( slot ) {
-      slot.functionInstanceProperty.link( updateCardNode );
-    } );
+    builder.functionChangedEmitter.addListener( updateCardNode );
 
     this.disposeImageCardStackNode = function() {
 
@@ -133,9 +131,7 @@ define( function( require ) {
       self.removedEmitter = null;
 
       // clean up builder
-      builder.slots.forEach( function( slot ) {
-        slot.functionInstanceProperty.unlink( updateCardNode );
-      } );
+      builder.functionChangedEmitter.removeListener( updateCardNode );
 
       // empty stack
       self.cards.length = 0;
