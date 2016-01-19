@@ -157,8 +157,8 @@ define( function( require ) {
       bottom: layoutBounds.bottom - 25
     } );
 
-    // Page control for functions carousels
-    var functionsPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
+    // Page control for function carousel
+    var functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
       orientation: 'horizontal',
       centerX: functionCarousel.centerX,
       top: functionCarousel.bottom + PAGE_CONTROL_SPACING
@@ -197,8 +197,9 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       spyGlassCheckBox, eraserButton,
-      inputCarousel, outputCarouselsParent, functionCarousel,
-      inputPageControl, outputPageControl, functionsPageControl
+      inputCarousel, inputPageControl,
+      outputCarouselsParent, outputPageControl,
+      functionCarousel, functionPageControl
     ];
     options.children = options.children.concat( builderNodes );
     options.children = options.children.concat( [ functionsParent, cardsParent ] );
