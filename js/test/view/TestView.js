@@ -13,6 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var testContainerNode = require( 'FUNCTION_BUILDER/test/view/testContainerNode' );
   var testImageFunctions = require( 'FUNCTION_BUILDER/test/view/testImageFunctions' );
 
   /**
@@ -27,6 +28,7 @@ define( function( require ) {
      * {string} label - label in the combo box
      * {function(Bounds2): Node} getNode - creates the scene graph for the test
      */
+      { label: 'Container test', getNode: testContainerNode },
       { label: 'Image functions', getNode: testImageFunctions }
     ] );
   }

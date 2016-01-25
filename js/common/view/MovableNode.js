@@ -57,6 +57,8 @@ define( function( require ) {
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
+    this.movable = movable; // @public
+
     Node.call( this, options );
 
     // move to the model location
