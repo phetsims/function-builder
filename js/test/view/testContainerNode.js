@@ -38,10 +38,9 @@ define( function( require ) {
     var functionsParentNode = new Node();
 
     var functionEndDrag = function( functionInstance, containerNode ) {
-      console.log( 'functionEndDrag containerNode.location=' + containerNode.location.toString() );//XXX
       if ( functionInstance.locationProperty.get().distance( containerNode.location ) < 25 ) {
         //  functionInstance.destination = containerNode.location;
-        functionInstance.locationProperty.set( containerNode.location ); //TODO animate
+        functionInstance.locationProperty.set( containerNode.location ); //TODO animate, see line above
       }
     };
 
