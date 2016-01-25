@@ -75,10 +75,22 @@ define( function( require ) {
       allowTouchSnag: true,
 
       start: function( event, trail ) {
+
+        // remove the node from the container
         var node = thisNode.pop();
+
+        // get the model element
         this.movable = node.movable;
         this.movable.dragging = true;
-        this.movable.setLocation( thisNode.location.plus( thisNode.popOutOffset ) ); // pop out of container
+
+        // compute the model location
+        var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
+        //TODO assumes that parentNode.getParent() coordinate frame is equivalent to the model coordinate frame
+        var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
+
+        // pop out of the container
+        this.movable.setLocation( modelLocation.plus( thisNode.popOutOffset ) );
+
         options.startDrag && options.startDrag( this.movable, event, trail );
       },
 
