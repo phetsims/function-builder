@@ -83,9 +83,9 @@ define( function( require ) {
         this.movable = node.movable;
         this.movable.dragging = true;
 
+        //TODO replace this with: var modelLocation = thisNode.location;
         // compute the model location
         var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        //TODO assumes that parentNode.getParent() coordinate frame is equivalent to the model coordinate frame
         var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
 
         // pop out of the container

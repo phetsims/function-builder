@@ -39,7 +39,7 @@ define( function( require ) {
 
     var functionEndDrag = function( functionInstance, containerNode ) {
       console.log( 'functionEndDrag containerNode.location=' + containerNode.location.toString() );//XXX
-      if ( functionInstance.locationProperty.get().distance( containerNode.location ) < 200 ) {
+      if ( functionInstance.locationProperty.get().distance( containerNode.location ) < 25 ) {
         //  functionInstance.destination = containerNode.location;
         functionInstance.locationProperty.set( containerNode.location ); //TODO animate
       }
@@ -94,13 +94,13 @@ define( function( require ) {
     var node = new Node( options );
 
     //TODO this is wrong, probably because it's not connected to the scenegraph yet
-    functionCarouselItems.forEach( function( item ) {
-      functionCarousel.scrollToItem( item );
-      var viewLocation = item.localToGlobalPoint( item.center );
-      console.log( 'viewLocation=' + viewLocation.toString() ); //XXX
-      item.location = functionsParentNode.getParent().globalToLocalPoint( viewLocation );
-    } );
-    functionCarousel.scrollToItemIndex( 0 );
+    //functionCarouselItems.forEach( function( item ) {
+    //  functionCarousel.scrollToItem( item );
+    //  var viewLocation = item.localToGlobalPoint( item.center );
+    //  console.log( 'viewLocation=' + viewLocation.toString() ); //XXX
+    //  item.location = functionsParentNode.getParent().globalToLocalPoint( viewLocation );
+    //} );
+    //functionCarousel.scrollToItemIndex( 0 );
 
     return node;
   }
