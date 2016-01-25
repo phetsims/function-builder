@@ -44,6 +44,9 @@ define( function( require ) {
       }
     };
 
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //TODO BELOW HERE NEEDS ENCAPSULATION
+
     // Add one container for each function type
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
@@ -76,6 +79,8 @@ define( function( require ) {
         })( containerNode );
       }
     } );
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     var functionCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
