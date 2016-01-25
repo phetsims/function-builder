@@ -97,14 +97,14 @@ define( function( require ) {
 
     var node = new Node( options );
 
-    //TODO this is wrong, probably because it's not connected to the scenegraph yet
-    //functionCarouselItems.forEach( function( item ) {
-    //  functionCarousel.scrollToItem( item );
-    //  var viewLocation = item.localToGlobalPoint( item.center );
-    //  console.log( 'viewLocation=' + viewLocation.toString() ); //XXX
-    //  item.location = functionsParentNode.getParent().globalToLocalPoint( viewLocation );
-    //} );
-    //functionCarousel.scrollToItemIndex( 0 );
+    //TODO this is wrong, probably because it's not connected to the scenegraph yet in TestView
+    functionCarouselItems.forEach( function( item ) {
+      functionCarousel.scrollToItem( item );
+      var viewLocation = item.localToGlobalPoint( item.center );
+      console.log( 'viewLocation=' + viewLocation.toString() ); //XXX
+      item.location = functionsParentNode.getParent().globalToLocalPoint( viewLocation );
+    } );
+    functionCarousel.scrollToItemIndex( 0 );
 
     return node;
   }
