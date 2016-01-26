@@ -65,6 +65,11 @@ define( function( require ) {
 
     // @private
     this.disposeMovable = function() {
+
+      // clean up Properties
+      this.unlinkAll();
+
+      // clean up Emitter
       assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
       this.disposeCalledEmitter.emit1( this );
       this.disposeCalledEmitter.removeAllListeners();
