@@ -35,12 +35,12 @@ define( function( require ) {
       } );
 
     // When a function is removed from the carousel, add it to this parent
-    var functionsParentNode = new Node();
+    var functionsParent = new Node();
 
     // Add one container for each function type
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.maxFunctionInstances, functionsParentNode, scene ) );
+      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.maxFunctionInstances, functionsParent, scene ) );
     } );
 
     var functionCarousel = new Carousel( functionCarouselItems, {
@@ -53,7 +53,7 @@ define( function( require ) {
     } );
 
     var options = {
-      children: [ functionCarousel, functionsParentNode ]
+      children: [ functionCarousel, functionsParent ]
     };
 
     return new Node( options );
