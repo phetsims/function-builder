@@ -139,6 +139,8 @@ define( function( require ) {
       this.nodes.push( node );
       this.addChild( node );
       node.center = this.backgroundNode.center;
+
+      // container is interactive when not empty
       this.pickable = true;
     },
 
@@ -156,6 +158,8 @@ define( function( require ) {
       this.removeChild( node );
       node.movable.locationLocked = false;
       node.pickable = true;
+
+      // container is interactive when not empty
       this.pickable = ( this.nodes.length > 0 );
 
       // add to parent
