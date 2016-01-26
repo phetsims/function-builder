@@ -87,7 +87,7 @@ define( function( require ) {
         var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
 
-        // Save this so that we know where to put the Movable back in the container
+        // save location so that we know where to put the Movable back in the container
         thisNode.location = modelLocation;
 
         // pop out of the container
