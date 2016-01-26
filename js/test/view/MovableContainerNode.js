@@ -25,7 +25,7 @@ define( function( require ) {
   var STROKE_BACKGROUND = FBQueryParameters.DEV; // {boolean} stroke the background, so we can see an empty container
 
   /**
-   * @param {Node} parentNode
+   * @param {Node} parentNode - Nodes are attached to this parent when they are outside the container
    * @param {Object} [options]
    * @constructor
    */
