@@ -2,6 +2,7 @@
 
 /**
  * Container for Nodes of type MovableNode.
+ * Behaves like a stack (last in, first out).
  * When a Node is in the container, it's location is locked, so that the container has full control of placement.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -56,7 +57,7 @@ define( function( require ) {
     this.location = options.location; // @public
     this.popOutOffset = options.popOutOffset.copy(); // @private
 
-    this.nodes = []; // @public (read-only) {MovableNode[]} contents of the container
+    this.nodes = []; // @public (read-only) {MovableNode[]} contents of the container, in stacking order
 
     // @private
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -133,7 +134,7 @@ define( function( require ) {
         this.parentNode.removeChild( node );
       }
 
-      // add to container
+      // add to top of container
       node.pickable = false;
       node.movable.locationLocked = true;
       this.nodes.push( node );
@@ -153,7 +154,7 @@ define( function( require ) {
 
       assert && assert( this.nodes.length > 0, 'container is empty' );
 
-      // remove from container
+      // remove top node from container
       var node = this.nodes.pop();
       this.removeChild( node );
       node.movable.locationLocked = false;
