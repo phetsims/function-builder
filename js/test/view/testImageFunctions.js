@@ -52,6 +52,7 @@ define( function( require ) {
 
   /**
    * @param {Bounds2} layoutBounds
+   * @returns {Node}
    */
   function testImageFunctions( layoutBounds ) {
 
