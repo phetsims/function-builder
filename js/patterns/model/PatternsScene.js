@@ -154,6 +154,7 @@ define( function( require ) {
       this.functionInstances.push( functionInstance );
     },
 
+    //TODO this can be deleted, function instances persist for the lifetime of the sim
     /**
      * Removes a function instance from the scene.
      * @param {ImageFunction} functionInstance
