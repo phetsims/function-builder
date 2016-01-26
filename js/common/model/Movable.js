@@ -48,7 +48,7 @@ define( function( require ) {
     // Attempting to change location while locked is a programming error.
     var thisMovable = this;
     this.locationProperty.link( function( location) {
-      assert && assert( !thisMovable.locationLocked, 'attempted to change location while locked' );
+      assert && assert( !thisMovable.locationLocked, 'attempted to change location while locked: ' + thisMovable.constructor.name );
     } );
 
     // @private {number} distance/second when animating
@@ -104,16 +104,13 @@ define( function( require ) {
     },
 
     /**
-     * Animates translation of the function instance, when it's not being dragged by the user, or in a container.
+     * Animates translation of the function instance, when it's not being dragged by the user.
      *
      * @param {number} dt - time since the previous step, in seconds
      * @public
      */
     step: function( dt ) {
-
-      //TODO investigate why !this.locationLocked is needed here
-      //NOTE: Checking this.dragging isn't logically necessary here, but is a performance enhancement.
-      if ( !this.dragging && !this.locationLocked && !this.locationProperty.get().equals( this.destination ) ) {
+      if ( !this.dragging && !this.locationProperty.get().equals( this.destination ) ) {
 
         // animate to the destination
         var totalDistance = this.locationProperty.get().distance( this.destination );
