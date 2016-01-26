@@ -116,6 +116,7 @@ define( function( require ) {
         // if the slot was occupied, return the occupier to whence it came
         if ( !slot.isEmpty() ) {
           var oldFunctionInstance = slot.functionInstance;
+          //TODO initialize function location correctly, then this should be: oldFunctionInstance.destination = oldFunctionInstance.initialValue;
           oldFunctionInstance.destination = oldFunctionInstance.containerNode.location;
         }
 
