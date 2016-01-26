@@ -37,50 +37,11 @@ define( function( require ) {
     // When a function is removed from the carousel, add it to this parent
     var functionsParentNode = new Node();
 
-    var functionEndDrag = function( functionInstance, containerNode ) {
-      if ( functionInstance.locationProperty.get().distance( containerNode.location ) < 25 ) {
-        //  functionInstance.destination = containerNode.location;
-        functionInstance.locationProperty.set( containerNode.location ); //TODO animate, see line above
-      }
-    };
-
-    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    //TODO BELOW HERE NEEDS ENCAPSULATION
-
     // Add one container for each function type
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-
-      var containerNode = new ImageFunctionContainerNode( functionsParentNode, {
-        endDrag: function( functionInstance, event, trail ) {
-          functionEndDrag( functionInstance, containerNode ); //TODO is this a proper closure?
-        }
-      } );
-      functionCarouselItems.push( containerNode );
-
-      for ( var i = 0; i < scene.maxFunctionInstances; i++ ) {
-
-        // IIFE to create a closure for each function instance
-        (function( containerNode ) {
-
-          var functionInstance = new FunctionConstructor();
-          var functionNode = new MovableImageFunctionNode( functionInstance, {
-            endDrag: function( functionInstance, event, trail ) {
-              functionEndDrag( functionInstance, containerNode );
-            }
-          } );
-          containerNode.push( functionNode );
-
-          functionInstance.locationProperty.lazyLink( function( location ) {
-            if ( !functionInstance.dragging && location.equals( containerNode.location ) ) {
-              containerNode.push( functionNode ); // return to carousel
-            }
-          } );
-        })( containerNode );
-      }
+      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.maxFunctionInstances, functionsParentNode, scene ) );
     } );
-
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     var functionCarousel = new Carousel( functionCarouselItems, {
       orientation: 'horizontal',
