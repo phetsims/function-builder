@@ -113,10 +113,10 @@ define( function( require ) {
 
         var slot = this.slots[ slotNumber ];
 
-        // if the slot was occupied, return the occupier to whence it originated
+        // if the slot was occupied, return the occupier to whence it came
         if ( !slot.isEmpty() ) {
           var oldFunctionInstance = slot.functionInstance;
-          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
+          oldFunctionInstance.destination = oldFunctionInstance.containerNode.location;
         }
 
         // put the function instance in the slot

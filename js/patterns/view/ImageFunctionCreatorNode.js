@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO delete this file, replaced by MovableContainerNode and ImageFunctionContainerNode
 /**
  * Node that creates {ImageFunction} instances.
  * For each type of {ImageFunction}, an instance of this Node is placed in the functions carousel.

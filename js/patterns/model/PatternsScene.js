@@ -135,6 +135,7 @@ define( function( require ) {
       } );
       this.cards.length = 0;
 
+      //TODO this is broken with the new 'container' pattern, do not dispose, return to container (how to do that?)
       // dispose of all function instances, operate on a copy of the array
       this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
         functionInstance.dispose();

@@ -13,6 +13,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -71,16 +72,17 @@ define( function( require ) {
     this.addInputListener( new SimpleDragHandler( {
 
       movable: null,
+      movableNode: null,
 
       allowTouchSnag: true,
 
       start: function( event, trail ) {
 
         // remove the node from the container
-        var node = thisNode.pop();
+        this.movableNode = thisNode.pop();
 
         // get the model element
-        this.movable = node.movable;
+        this.movable = this.movableNode.movable;
         this.movable.dragging = true;
 
         // compute the model location
@@ -103,17 +105,20 @@ define( function( require ) {
 
       end: function( event, trail ) {
         this.movable.dragging = false;
-        options.endDrag && options.endDrag( this.movable, event, trail );
+        options.endDrag && options.endDrag( this.movable, this.movableNode, event, trail );
         this.movable = null;
+        this.movableNode = null;
       }
     } ) );
     this.cursor = 'pointer';
   }
 
+  functionBuilder.register( 'MovableContainerNode', MovableContainerNode );
+
   return inherit( Node, MovableContainerNode, {
 
     /**
-     * Adds a Node to the container and notifies observers.
+     * Adds a Node to the container.
      * @param {MovableNode} node
      * @public
      */
@@ -135,8 +140,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes the Node that was most recently added to
-     * the container (last in, first out), and notifies observers.
+     * Removes the Node that was most recently added to the container (last in, first out).
      * @returns {MovableNode}
      * @private
      */

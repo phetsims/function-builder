@@ -1,6 +1,10 @@
 TODO list for function-builder
 
-Change pattern used for items in carousels.
+Change pattern used for items in carousels:
+- set correct container locations on startup
+- fix PatternsScene.reset
+- delete unused types in patterns.view
+- implement similar pattern for input cards carousel
 
 Is it better to have 'MovableImageFunctionNode extends MovableNode' and decorate with ImageFunctionNode,
 or should it be 'MovableImageFunctionNode extends ImageFunctionNode' with mixin MovableHandler?

@@ -17,8 +17,7 @@ define( function( require ) {
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
-  var ImageFunctionCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionCreatorNode' );
-  var ImageFunctionListener = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionListener' );
+  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/test/view/ImageFunctionContainerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -139,10 +138,9 @@ define( function( require ) {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Items in the function carousel
-    var functionCarouselItems = []; // {ImageFunctionCreatorNode[]}
-    var functionListener = new ImageFunctionListener( scene, functionsParent );
+    var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionCarouselItems.push( new ImageFunctionCreatorNode( FunctionConstructor, viewToModelVector2, functionListener ) );
+      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.maxFunctionInstances, functionsParent, scene ) );
     } );
 
     // Function carousel, centered below bottom builder

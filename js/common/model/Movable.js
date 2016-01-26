@@ -26,6 +26,7 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
+      containerNode: null, // {MovableContainerNode} the container responsible for managing this instance
       dragging: false, // {boolean} is the function being dragged by the user?
       animationSpeed: 100 // {number} distance moved per second when animating
     }, options );
@@ -40,12 +41,13 @@ define( function( require ) {
     // @public {boolean} locks the location, for example while a Movable is in a carousel
     this.locationLocked = false;
 
+    // @public (read-only)
+    this.containerNode = options.containerNode;
+
     // Attempting to change location while locked is a programming error.
     var thisMovable = this;
     this.locationProperty.link( function( location) {
-      if ( thisMovable.locationLocked ) {
-        throw new Error( 'attempted to change location while locked' );
-      }
+      assert && assert( !thisMovable.locationLocked, 'attempted to change location while locked' );
     } );
 
     // @private {number} distance/second when animating
@@ -96,7 +98,7 @@ define( function( require ) {
     },
 
     /**
-     * Animates translation of the function instance, when it's not being dragged by the user.
+     * Animates translation of the function instance, when it's not being dragged by the user, or in a container.
      *
      * @param {number} dt - time since the previous step, in seconds
      * @public
@@ -104,7 +106,7 @@ define( function( require ) {
     step: function( dt ) {
 
       //NOTE: Checking this.dragging isn't logically necessary here, but is a performance enhancement.
-      if ( !this.dragging && !this.locationProperty.get().equals( this.destination ) ) {
+      if ( !this.dragging && !this.locationLocked && !this.locationProperty.get().equals( this.destination ) ) {
 
         // animate to the destination
         var totalDistance = this.locationProperty.get().distance( this.destination );

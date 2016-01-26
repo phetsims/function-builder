@@ -88,7 +88,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         movable.dragging = false;
-        options.endDrag && options.endDrag( movable, event, trail );
+        options.endDrag && options.endDrag( movable, thisNode, event, trail );
       }
     } );
     this.addInputListener( dragHandler );

@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO delete this file, replaced by MovableContainerNode and ImageFunctionContainerNode
 /**
  * Manages the lifecycle of {ImageFunction} instances.
  *
