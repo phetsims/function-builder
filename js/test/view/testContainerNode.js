@@ -1,5 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
+/**
+ * Test for a new 'container' pattern used in carousels.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
@@ -7,6 +12,7 @@ define( function( require ) {
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var Carousel = require( 'SUN/Carousel' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/test/view/ImageFunctionContainerNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
@@ -15,7 +21,7 @@ define( function( require ) {
 
   /**
    * @param layoutBounds
-   * @returns {*}
+   * @returns {Node}
    */
   function testContainerNode( layoutBounds ) {
 
@@ -57,6 +63,8 @@ define( function( require ) {
 
     return new Node( options );
   }
+
+  functionBuilder.register( 'testContainerNode', testContainerNode );
 
   return testContainerNode;
 } );
