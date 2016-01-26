@@ -41,6 +41,7 @@ define( function( require ) {
     // @public {boolean} locks the location, for example while a Movable is in a carousel
     this.locationLocked = false;
 
+    //TODO bad smell, shouldn't have any knowledge of container
     // @public (read-only)
     this.containerNode = options.containerNode;
 
@@ -105,6 +106,7 @@ define( function( require ) {
      */
     step: function( dt ) {
 
+      //TODO investigate why !this.locationLocked is needed here
       //NOTE: Checking this.dragging isn't logically necessary here, but is a performance enhancement.
       if ( !this.dragging && !this.locationLocked && !this.locationProperty.get().equals( this.destination ) ) {
 
