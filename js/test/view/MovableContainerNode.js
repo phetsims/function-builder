@@ -139,6 +139,7 @@ define( function( require ) {
       this.nodes.push( node );
       this.addChild( node );
       node.center = this.backgroundNode.center;
+      this.pickable = true;
     },
 
     /**
@@ -155,6 +156,7 @@ define( function( require ) {
       this.removeChild( node );
       node.movable.locationLocked = false;
       node.pickable = true;
+      this.pickable = ( this.nodes.length > 0 );
 
       // add to parent
       this.parentNode.addChild( node );
