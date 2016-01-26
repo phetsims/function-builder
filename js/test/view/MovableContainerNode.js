@@ -85,10 +85,12 @@ define( function( require ) {
         this.movable = this.movableNode.movable;
         this.movable.dragging = true;
 
+        //TODO replace with: var modelLocation = thisNode.location
         // compute the model location
         var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
 
+        //TODO this should be initialized correctly in the first place
         // save location so that we know where to put the Movable back in the container
         thisNode.location = modelLocation;
 
