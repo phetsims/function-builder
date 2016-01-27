@@ -54,6 +54,7 @@ define( function( require ) {
     }, options );
 
     this.parentNode = parentNode; // @private
+    //TODO container shouldn't need this, figure out how to get rid of it
     this.location = options.location; // @public
     this.popOutOffset = options.popOutOffset.copy(); // @private
 
