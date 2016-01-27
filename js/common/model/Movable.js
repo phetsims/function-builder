@@ -26,7 +26,6 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
-      containerNode: null, // {MovableContainerNode} the container responsible for managing this instance
       dragging: false, // {boolean} is the function being dragged by the user?
       animationSpeed: 100 // {number} distance moved per second when animating
     }, options );
@@ -40,10 +39,6 @@ define( function( require ) {
 
     // @public {boolean} locks the location, for example while a Movable is in a carousel
     this.locationLocked = false;
-
-    //TODO bad smell, shouldn't have any knowledge of container
-    // @public (read-only)
-    this.containerNode = options.containerNode;
 
     // Attempting to change location while locked is a programming error.
     var thisMovable = this;
@@ -62,6 +57,9 @@ define( function( require ) {
 
     // @public (read-only) emitted when dispose has been called, but before it has executed
     this.disposeCalledEmitter = new Emitter();
+
+    // @public {Vector2} location of the container that this Movable will eventually be put into
+    this.containerLocation = null;
 
     // @private
     this.disposeMovable = function() {

@@ -36,9 +36,6 @@ define( function( require ) {
       // {Dimension2} size of Nodes in the container
       size: new Dimension2( 100, 100 ),
 
-      // {Vector2} location where Nodes should enter/exit this container
-      location: new Vector2( 0, 0 ),
-
       /**
        * {Vector2} How much to translate a Node when it's remove from the container,
        * makes the instance appear to 'pop out' of the container.
@@ -54,8 +51,6 @@ define( function( require ) {
     }, options );
 
     this.parentNode = parentNode; // @private
-    //TODO container shouldn't need this, figure out how to get rid of it
-    this.location = options.location; // @public
     this.popOutOffset = options.popOutOffset.copy(); // @private
 
     this.nodes = []; // @public (read-only) {MovableNode[]} contents of the container, in stacking order
@@ -87,14 +82,12 @@ define( function( require ) {
         this.movable = this.movableNode.movable;
         this.movable.dragging = true;
 
-        //TODO replace with: var modelLocation = thisNode.location
         // compute the model location
         var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
         var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
 
-        //TODO this should be initialized correctly in the first place
         // save location so that we know where to put the Movable back in the container
-        thisNode.location = modelLocation;
+        this.movable.containerLocation = modelLocation;
 
         // pop out of the container
         this.movable.setLocation( modelLocation.plus( thisNode.popOutOffset ) );

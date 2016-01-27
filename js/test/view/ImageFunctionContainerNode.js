@@ -48,7 +48,9 @@ define( function( require ) {
     // When the user stops dragging a function, decide what to do with it.
     options.endDrag = function( functionInstance, functionNode, event, trail ) {
 
-      if ( functionInstance.locationProperty.get().equals( thisNode.location ) ) {
+      assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
+
+      if ( functionInstance.locationProperty.get().equals( functionInstance.containerLocation ) ) {
 
         // function has been dragged back to exactly the location of the container
         thisNode.push( functionNode );
@@ -63,7 +65,7 @@ define( function( require ) {
 
         // If the function isn't added to a builder, then return it to the container.
         if ( slotNumber === -1 ) {
-          functionInstance.destination = thisNode.location;
+          functionInstance.destination = functionInstance.containerLocation;
         }
       }
     };
@@ -77,9 +79,7 @@ define( function( require ) {
       (function() {
 
         // model element
-        var functionInstance = new FunctionConstructor( {
-          containerNode: thisNode
-        } );
+        var functionInstance = new FunctionConstructor();
         scene.addFunctionInstance( functionInstance );
 
         // associated node
@@ -92,7 +92,8 @@ define( function( require ) {
 
         // return the node to the container
         functionInstance.locationProperty.lazyLink( function( location ) {
-          if ( !functionInstance.dragging && location.equals( thisNode.location ) ) {
+          assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
+          if ( !functionInstance.dragging && location.equals( functionInstance.containerLocation ) ) {
             thisNode.push( functionNode );
           }
         } );
