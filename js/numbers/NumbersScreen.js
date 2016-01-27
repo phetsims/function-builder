@@ -10,19 +10,36 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
   var NumbersView = require( 'FUNCTION_BUILDER/numbers/view/NumbersView' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
+  var ScreenIcon = require( 'JOIST/ScreenIcon' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
 
-  //TODO creates the icon for this screen
+  /**
+   * Creates the icon for this screen, a function piece with '+ 3' on it.
+   * @returns {Node}
+   */
   var createIcon = function() {
-    return new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } );
+    var functionNode = new FunctionBackgroundNode( {
+      fill: 'rgb( 255, 246, 187 )'
+    });
+    var textNode = new Text( '+ 3', {
+      font: new FBFont( 36 ),
+      center: functionNode.center
+    } );
+    var iconNode = new Node( { children: [ functionNode, textNode ] } );
+    return new ScreenIcon( iconNode, {
+      fill: 'rgb( 239, 255, 249 )'
+    } );
   };
 
   /**
