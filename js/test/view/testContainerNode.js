@@ -13,7 +13,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/test/view/ImageFunctionContainerNode' );
+  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainerNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );

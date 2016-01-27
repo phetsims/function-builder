@@ -17,7 +17,7 @@ define( function( require ) {
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
-  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/test/view/ImageFunctionContainerNode' );
+  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );

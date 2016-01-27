@@ -22,7 +22,7 @@ define( function( require ) {
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainerNode = require( 'FUNCTION_BUILDER/test/view/MovableContainerNode' );
+  var MovableContainerNode = require( 'FUNCTION_BUILDER/common/view/MovableContainerNode' );
   var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageFunctionNode' );
 
   /**
