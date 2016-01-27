@@ -22,7 +22,10 @@ define( function( require ) {
   // strings
   var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
 
-  // creates the {Node} icon for this screen
+  /**
+   * Creates the icon for this screen, an equation.
+   * @returns {Node}
+   */
   var createIcon = function() {
     return new ScreenIcon( new Text( 'y = 2x + 1', { font: new FBFont( 80 ) } ), {
       fill: 'rgb( 255, 255, 235 )'
