@@ -12,17 +12,21 @@ define( function( require ) {
   var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
   var EquationsView = require( 'FUNCTION_BUILDER/equations/view/EquationsView' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
+  var ScreenIcon = require( 'JOIST/ScreenIcon' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
 
-  //TODO creates the icon for this screen
+  // creates the {Node} icon for this screen
   var createIcon = function() {
-    return new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } );
+    return new ScreenIcon( new Text( 'y = 2x + 1', { font: new FBFont( 80 ) } ), {
+      fill: 'rgb( 255, 255, 235 )'
+    } );
   };
 
   /**
