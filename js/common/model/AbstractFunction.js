@@ -29,7 +29,6 @@ define( function( require ) {
       animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
       // default look of the view associated with a function
-      image: null, // {HTMLImageElement|MipMapArray|null} optional image used to represent the function
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
@@ -41,7 +40,7 @@ define( function( require ) {
     this.invertible = options.invertible;
 
     // @public (read-only) properties related to visual representation, in the model for convenience
-    this.viewInfo = _.pick( options, 'image', 'fill', 'stroke', 'lineWidth', 'lineDash' );
+    this.viewInfo = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
     Movable.call( this, options );
   }
