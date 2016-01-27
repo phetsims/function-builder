@@ -1,9 +1,7 @@
 TODO list for function-builder
 
 Change pattern used for items in carousels:
-- set correct container locations on startup
 - set correct function locations on startup
-- delete Movable.containerNode
 - fix PatternsScene.reset
 - delete unused types in patterns.view
 - implement similar pattern for input cards carousel
