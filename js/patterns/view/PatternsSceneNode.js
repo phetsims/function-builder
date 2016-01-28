@@ -22,6 +22,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var SpyGlassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyGlassCheckBox' );
 
   // constants
@@ -211,9 +212,43 @@ define( function( require ) {
       } );
       spyGlassVisibleProperty.reset();
     };
+
+    // @private
+    this._adjustInitialLocations = function() {
+
+      // Adjust location of items in the function carousel by scrolling the carousel with animation disabled.
+      var restoreFunctionCarouselPageNumber = functionCarousel.pageNumberProperty.get();
+      var restoreFunctionCarouselAnimationEnabled = functionCarousel.animationEnabled;
+      functionCarousel.animationEnabled = false;
+      functionCarouselItems.forEach( function( item ) {
+        functionCarousel.scrollToItem( item );
+        item.adjustInitialLocations();
+      } );
+      functionCarousel.animationEnabled = restoreFunctionCarouselAnimationEnabled;
+      functionCarousel.scrollToItemIndex( restoreFunctionCarouselPageNumber );
+
+      //TODO something similar for cards
+    };
   }
 
   functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
+
+  /**
+   * Has this Node been attached beneath a ScreenView?
+   * This is a pre-requisite to calling adjustInitialLocations.
+   * @param {Node} node
+   * @returns {boolean}
+   * @private
+   */
+  var hasScreenViewAncestor = function( node ) {
+    var found = false;
+    while ( !found && node !== null ) {
+      var parent = node.getParent();
+      found = ( parent instanceof ScreenView );
+      node = parent; // move up the scene graph by one level
+    }
+    return found;
+  };
 
   return inherit( Node, PatternsSceneNode, {
 
@@ -222,6 +257,16 @@ define( function( require ) {
     // @public
     reset: function() {
       this.resetPatternsSceneNode();
+    },
+
+    /**
+     * Adjusts the initial location of cards and functions, which cannot be known
+     * until the carousels (view components) are instantiated and attached to a ScreenView.
+     * @public
+     */
+    adjustInitialLocations: function() {
+      assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
+      this._adjustInitialLocations();
     }
   } );
 } );

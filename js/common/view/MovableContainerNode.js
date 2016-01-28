@@ -45,15 +45,15 @@ define( function( require ) {
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
 
-      startDrag: null,
+      //TODO reexamine this interface, don't need both Movable and MovableNode
+      // {function({Movable},{MovableNode},{Event},{Trail}} called at the end of a drag sequence
       endDrag: null
 
     }, options );
 
-    this.parentNode = parentNode; // @private
+    this.parentNode = parentNode; // @protected
     this.popOutOffset = options.popOutOffset.copy(); // @private
-
-    this.nodes = []; // @public (read-only) {MovableNode[]} contents of the container, in stacking order
+    this.nodes = []; // @protected {MovableNode[]} contents of the container, in stacking order
 
     // @private
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -68,42 +68,34 @@ define( function( require ) {
     var thisNode = this;
     this.addInputListener( new SimpleDragHandler( {
 
-      movable: null,
       movableNode: null,
 
       allowTouchSnag: true,
 
       start: function( event, trail ) {
 
+        assert && assert( thisNode === event.currentTarget );
+
         // remove the node from the container
         this.movableNode = thisNode.pop();
 
-        // get the model element
-        this.movable = this.movableNode.movable;
-        this.movable.dragging = true;
-
-        // compute the model location
-        var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-        var modelLocation = thisNode.parentNode.getParent().globalToLocalPoint( viewLocation );
-
-        // save location so that we know where to put the Movable back in the container
-        this.movable.containerLocation = modelLocation;
-
         // pop out of the container
-        this.movable.setLocation( modelLocation.plus( thisNode.popOutOffset ) );
-
-        options.startDrag && options.startDrag( this.movable, event, trail );
+        var movable = this.movableNode.movable;
+        movable.dragging = true;
+        assert && assert( movable.containerLocation, 'movable has no container location' );
+        movable.setLocation( movable.containerLocation.plus( thisNode.popOutOffset ) );
       },
 
       translate: function( translationParams ) {
-        var location = this.movable.locationProperty.get().plus( translationParams.delta );
-        this.movable.setLocation( options.dragBounds.closestPointTo( location ) );
+        var movable = this.movableNode.movable;
+        var location = movable.locationProperty.get().plus( translationParams.delta );
+        movable.setLocation( options.dragBounds.closestPointTo( location ) );
       },
 
       end: function( event, trail ) {
-        this.movable.dragging = false;
-        options.endDrag && options.endDrag( this.movable, this.movableNode, event, trail );
-        this.movable = null;
+        var movable = this.movableNode.movable;
+        movable.dragging = false;
+        options.endDrag && options.endDrag( movable, this.movableNode, event, trail );
         this.movableNode = null;
       }
     } ) );

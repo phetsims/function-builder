@@ -103,5 +103,22 @@ define( function( require ) {
 
   functionBuilder.register( 'ImageFunctionContainerNode', ImageFunctionContainerNode );
 
-  return inherit( MovableContainerNode, ImageFunctionContainerNode );
+  return inherit( MovableContainerNode, ImageFunctionContainerNode, {
+
+    /**
+     * Adjusts initial locations of all function instances in the container.
+     * @public
+     */
+    adjustInitialLocations: function() {
+
+      // compute the location of this Node in the model coordinate frame
+      var viewLocation = this.parentToGlobalPoint( this.center );
+      var modelLocation = this.parentNode.getParent().globalToLocalPoint( viewLocation );
+
+      this.nodes.forEach( function( node ) {
+        //TODO replace this with: node.movable.locationProperty.initialValue = modelLocation.copy();
+        node.movable.containerLocation = modelLocation.copy();
+      } );
+    }
+  } );
 } );

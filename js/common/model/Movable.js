@@ -58,6 +58,7 @@ define( function( require ) {
     // @public (read-only) emitted when dispose has been called, but before it has executed
     this.disposeCalledEmitter = new Emitter();
 
+    //TODO replace this with the ability to change locationProperty.initialValue
     // @public {Vector2} location of the container that this Movable will eventually be put into
     this.containerLocation = null;
 

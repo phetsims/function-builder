@@ -54,6 +54,31 @@ define( function( require ) {
     var newFadeIn; // {OpacityTo}
     var oldFadeOut; // {OpacityTo}
 
+    // Resets this screen
+    var resetAll = function() {
+
+      model.reset();
+
+      // Reset any scene nodes that have been instantiated
+      sceneNodes.forEach( function( sceneNode ) {
+        if ( sceneNode ) {
+          sceneNode.reset();
+        }
+      } );
+    };
+
+    // Reset All button at bottom-right
+    var resetAllButton = new ResetAllButton( {
+      right: this.layoutBounds.maxX - 20,
+      bottom: this.layoutBounds.maxY - 20,
+      listener: resetAll
+    } );
+
+    // rendering order
+    this.addChild( resetAllButton );
+    this.addChild( sceneControl );
+    this.addChild( scenesParent );
+
     // Make the selected scene visible
     model.selectedSceneProperty.link( function( scene, oldScene ) {
 
@@ -61,18 +86,23 @@ define( function( require ) {
       oldFadeOut && oldFadeOut.stop();
       newFadeIn && newFadeIn.stop();
 
-      // Get the node that corresponds to the old scene
+      // Get the Node that corresponds to the old scene
       var oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
 
-      // Get the node that corresponds to the scene, create it on demand
+      // Get the Node that corresponds to the scene, create it on demand
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
       if ( !sceneNode ) {
+
+        // create the scene Node
         sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, viewToModelVector2, {
           visible: false
         } );
         scenesParent.addChild( sceneNode );
         sceneNodes[ sceneIndex ] = sceneNode;
+
+        // adjust model locations that can't be computed until the scene Node has been added to the ScreenView
+        sceneNode.adjustInitialLocations();
       }
 
       //TODO prevent interaction with sceneNode and oldSceneNode while animation is taking place?
@@ -103,31 +133,6 @@ define( function( require ) {
         sceneNode.visible = true;
       }
     } );
-
-    // Resets this screen
-    var resetAll = function() {
-
-      model.reset();
-
-      // Reset any scene nodes that have been instantiated
-      sceneNodes.forEach( function( sceneNode ) {
-         if ( sceneNode ) {
-           sceneNode.reset();
-         }
-      } );
-    };
-
-    // Reset All button at bottom-right
-    var resetAllButton = new ResetAllButton( {
-      right: this.layoutBounds.maxX - 20,
-      bottom: this.layoutBounds.maxY - 20,
-      listener: resetAll
-    } );
-
-    // rendering order
-    this.addChild( resetAllButton );
-    this.addChild( sceneControl );
-    this.addChild( scenesParent );
   }
 
   functionBuilder.register( 'PatternsView', PatternsView );
