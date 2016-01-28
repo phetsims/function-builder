@@ -5,7 +5,7 @@
  *
  * Responsibilities:
  *
- * - create a specified number of {ImageFunction} function instance, all of the same type
+ * - create a specified number of {ImageFunction} function instances, all of the same type
  * - create an associated Node for each instance
  * - handle dragging instances out of the container
  * - decide what to do with an instance when the user stops dragging it
