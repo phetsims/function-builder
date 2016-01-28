@@ -13,7 +13,6 @@ define( function( require ) {
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var DEFAULT_SCENE_ICON_WIDTH = 25;
