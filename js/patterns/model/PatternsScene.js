@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * A scene in the 'Patterns' screen. A scene is a particular configuration of functions, inputs, and builders.
+ * A scene in the 'Patterns' screen. A scene is a particular configuration of functions, inputs, with 1 builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -43,12 +43,12 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {Builder[]} builders - builders for this scene
+   * @param {Builder} builder - builder for this scene
    * @param {function(number): Node} createIcon - function used to create the icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( builders, createIcon, options ) {
+  function PatternsScene( builder, createIcon, options ) {
 
     options = _.extend( {
       maxFunctionInstances: 1 // {number} max number of instances of each function type
@@ -99,16 +99,16 @@ define( function( require ) {
       starImage
     ];
 
-    // @public (read-only) {Builder[]}
-    this.builders = builders;
+    // @public (read-only) {Builder}
+    this.builder = builder;
 
-    // @public (read-only) {boolean} spy glass feature is enabled if any builder has > 1 slot
-    this.spyGlassEnabled = _.any( builders, function( builder ) { return builder.slots.length > 1; } );
+    // @public (read-only) {boolean} spy glass feature is enabled if the builder has > 1 slot
+    this.spyGlassEnabled = ( builder.slots.length > 1 );
 
-    // @private {ImageCard[]} All cards that exist. They may or may not be in the output carousel.
+    // @private {ImageCard[]} all cards that exist
     this.cards = [];
 
-    // @private {ImageFunction[]} All function instances that exist. They may or may not be in a builder.
+    // @private {ImageFunction[]} all function instances that exist
     this.functionInstances = [];
 
     // @public (read-only) {number}
@@ -124,10 +124,8 @@ define( function( require ) {
     // @public
     reset: function() {
 
-      // reset all builders
-      this.builders.forEach( function( builder ) {
-        builder.reset();
-      } );
+      // reset the builder
+      this.builder.reset();
 
       // dispose of all cards, operate on a copy of the array
       this.cards.slice( 0 ).forEach( function( card ) {

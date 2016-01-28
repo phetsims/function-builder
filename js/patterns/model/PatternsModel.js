@@ -28,14 +28,12 @@ define( function( require ) {
 
       // single: 1 builder with 1 slot
       new PatternsScene(
-        [
-          new Builder( {
-            width: 350,
-            numberOfSlots: 1,
-            location: new Vector2( 335, 280 ),
-            colorScheme: FBColors.BUILDER_MAROON
-          } )
-        ],
+        new Builder( {
+          width: 350,
+          numberOfSlots: 1,
+          location: new Vector2( 335, 280 ),
+          colorScheme: FBColors.BUILDER_MAROON
+        } ),
         PatternsIconFactory.createSingleSceneIcon,
         {
           maxFunctionInstances: 2
@@ -43,14 +41,12 @@ define( function( require ) {
 
       // composed: 1 builder with 3 slots, for demonstrating function composition
       new PatternsScene(
-        [
-          new Builder( {
-            width: 450,
-            numberOfSlots: 3,
-            location: new Vector2( 285, 280 ),
-            colorScheme: FBColors.BUILDER_BLUE
-          } )
-        ],
+        new Builder( {
+          width: 450,
+          numberOfSlots: 3,
+          location: new Vector2( 285, 280 ),
+          colorScheme: FBColors.BUILDER_BLUE
+        } ),
         PatternsIconFactory.createComposedSceneIcon,
         {
           maxFunctionInstances: 2

@@ -53,11 +53,8 @@ define( function( require ) {
     // parent node for all function instances, while the user is dragging them
     var functionsParent = new Node();
 
-    // Builders
-    var builderNodes = [];
-    scene.builders.forEach( function( builder ) {
-      builderNodes.push( new BuilderNode( builder ) );
-    } );
+    // Builder
+    var builderNode = new BuilderNode( scene.builder );
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
@@ -86,43 +83,29 @@ define( function( require ) {
       centerY: inputCarousel.centerY
     }, PAGE_CONTROL_OPTIONS ) );
 
-    // Output carousels ------------------------------------------------------------------------------------------------
+    // Output carousel ------------------------------------------------------------------------------------------------
 
-    // Output carousels, one for each builder
-    var outputCarousels = [];
-    scene.builders.forEach( function( builder ) {
-
-      var outputCarouselItems = []; // {ImageCardStackNode[]}
-      scene.cardImages.forEach( function( cardImage ) {
-        var stack = new ImageCardStackNode( cardImage, builder );
-        outputCarouselItems.push( stack );
-      } );
-
-      var outputCarousel = new Carousel( outputCarouselItems, {
-        orientation: 'vertical',
-        buttonColor: builder.colorScheme.middle, // color code buttons with their associated builder
-        separatorsVisible: true,
-        itemsPerPage: CARDS_PER_PAGE,
-        buttonTouchAreaXDilation: 5,
-        buttonTouchAreaYDilation: 15
-      } );
-
-      outputCarousels.push( outputCarousel );
+    var outputCarouselItems = []; // {ImageCardStackNode[]}
+    scene.cardImages.forEach( function( cardImage ) {
+      var stack = new ImageCardStackNode( cardImage, scene.builder );
+      outputCarouselItems.push( stack );
     } );
 
-    // Horizontal layout of output carousels, at right-center
-    var outputCarouselsParent = new HBox( {
-      children: outputCarousels,
-      spacing: OUTPUT_CAROUSELS_SPACING,
+    var outputCarousel = new Carousel( outputCarouselItems, {
+      orientation: 'vertical',
+      separatorsVisible: true,
+      itemsPerPage: CARDS_PER_PAGE,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 15,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
     } );
 
     // Page control for output carousel
-    var outputPageControl = new PageControl( outputCarousels[ 0 ].numberOfPages, outputCarousels[ 0 ].pageNumberProperty, _.extend( {
+    var outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
-      left: outputCarouselsParent.right + PAGE_CONTROL_SPACING,
-      centerY: outputCarouselsParent.centerY
+      left: outputCarousel.right + PAGE_CONTROL_SPACING,
+      centerY: outputCarousel.centerY
     }, PAGE_CONTROL_OPTIONS ) );
 
     // Eraser button, centered below the output carousels
@@ -132,8 +115,8 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       listener: eraserButtonListener,
       iconWidth: 28,
-      centerX: outputCarouselsParent.centerX,
-      top: outputCarouselsParent.bottom + 40
+      centerX: outputCarousel.centerX,
+      top: outputCarousel.bottom + 40
     } );
 
     // Function carousel ----------------------------------------------------------------------------------------------
@@ -150,7 +133,7 @@ define( function( require ) {
       itemsPerPage: 3,
       buttonTouchAreaXDilation: 15,
       buttonTouchAreaYDilation: 5,
-      centerX: builderNodes[ builderNodes.length - 1 ].centerX,
+      centerX: builderNode.centerX,
       bottom: layoutBounds.bottom - 25
     } );
 
@@ -164,18 +147,14 @@ define( function( require ) {
     //------------------------------------------------------------------------------------------------------------------
 
     // Link input carousel to all output carousels, so that they display the same page number
-    assert && assert( inputCarousel.numberOfPages === outputCarousels[ 0 ].numberOfPages );
+    assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
     inputCarousel.pageNumberProperty.link( function( pageNumber ) {
-      outputCarousels.forEach( function( outputCarousel ) {
-        outputCarousel.pageNumberProperty.set( pageNumber );
-      } );
+      outputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // Link all output carousels to input carousel
-    outputCarousels.forEach( function( outputCarousel ) {
-      outputCarousel.pageNumberProperty.link( function( pageNumber ) {
-        inputCarousel.pageNumberProperty.set( pageNumber );
-      } );
+    // Link output carousel to input carousel
+    outputCarousel.pageNumberProperty.link( function( pageNumber ) {
+      inputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
     // Spy Glass check box, to the right of functions carousel
@@ -195,10 +174,10 @@ define( function( require ) {
     options.children = [
       spyGlassCheckBox, eraserButton,
       inputCarousel, inputPageControl,
-      outputCarouselsParent, outputPageControl,
-      functionCarousel, functionPageControl
+      outputCarousel, outputPageControl,
+      functionCarousel, functionPageControl,
+      builderNode
     ];
-    options.children = options.children.concat( builderNodes );
     options.children = options.children.concat( [ functionsParent, cardsParent ] );
 
     Node.call( this, options );
@@ -207,9 +186,7 @@ define( function( require ) {
     this.resetPatternsSceneNode = function() {
       functionCarousel.reset();
       inputCarousel.reset();
-      outputCarousels.forEach( function( outputCarousel ) {
-        outputCarousel.reset();
-      } );
+      outputCarousel.reset();
       spyGlassVisibleProperty.reset();
     };
 

@@ -57,13 +57,10 @@ define( function( require ) {
       }
       else {
 
-        // try to add function to a builder
-        var slotNumber = -1;
-        for ( var i = 0; i < scene.builders.length && slotNumber === -1; i++ ) {
-          slotNumber = scene.builders[ i ].addFunctionInstance( functionInstance );
-        }
+        // try to add function to the builder
+        var slotNumber = scene.builder.addFunctionInstance( functionInstance );
 
-        // If the function isn't added to a builder, then return it to the container.
+        // If the function isn't added to the builder, then return it to the container.
         if ( slotNumber === -1 ) {
           functionInstance.destination = functionInstance.containerLocation;
         }
