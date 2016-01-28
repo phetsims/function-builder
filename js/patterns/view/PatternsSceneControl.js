@@ -29,7 +29,7 @@ define( function( require ) {
     options.baseColor = 'white';
     options.selectedLineWidth = 2;
     options.buttonContentXMargin = 10;
-    options.buttonContentYMargin = 5;
+    options.buttonContentYMargin = 16;
 
     var content = [];
     for ( var i = 0; i < scenes.length; i++ ) {

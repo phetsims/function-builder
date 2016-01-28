@@ -36,33 +36,7 @@ define( function( require ) {
       } );
     },
 
-    /**
-     * Creates the icon for the 'dual' scene.
-     * @param {number} [width]
-     * @returns {Node}
-     * @public
-     */
-    createDualSceneIcon: function( width ) {
-
-      width = width || DEFAULT_SCENE_ICON_WIDTH;
-
-      var topNode = new FunctionBackgroundNode(  {
-        fill: FBColors.LIGHT_GREEN,
-        backgroundWidth: width
-      } );
-
-      var bottomNode = new FunctionBackgroundNode( {
-        fill: FBColors.LIGHT_PURPLE,
-        backgroundWidth: width
-      } );
-
-      return new VBox( {
-        spacing: 0.2 * topNode.height,
-        children: [ topNode, bottomNode ]
-      } );
-    },
-
-    //TODO since the composed scene had 3 builder slots, shouldn't this icon also show 3 functions?
+    //TODO since the composed scene had 3 builder slots, should this icon show 3 functions?
     /**
      * Creates the icon for the 'composed' scene.
      * @param {number} [width]

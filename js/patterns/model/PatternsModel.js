@@ -41,26 +41,6 @@ define( function( require ) {
           maxFunctionInstances: 2
         } ),
 
-      // dual: 2 builders, each with 1 slot
-      new PatternsScene(
-        [
-          new Builder( {
-            width: 300,
-            numberOfSlots: 1,
-            location: new Vector2( 320, 200 ),
-            colorScheme: FBColors.BUILDER_MAROON
-          } ),
-          new Builder( {
-            width: 300,
-            location: new Vector2( 320, 360 ),
-            colorScheme: FBColors.BUILDER_GREEN
-          } )
-        ],
-        PatternsIconFactory.createDualSceneIcon,
-        {
-          maxFunctionInstances: 2
-        } ),
-
       // composed: 1 builder with 3 slots, for demonstrating function composition
       new PatternsScene(
         [
