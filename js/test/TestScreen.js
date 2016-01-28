@@ -22,7 +22,7 @@ define( function( require ) {
   function TestScreen() {
     Screen.call( this,
       'Test',
-      new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'white' } ),
+      new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'red' } ),
       function() { return {}; },
       function( model ) { return new TestView( model ); },
       { backgroundColor: FBColors.SCREEN_BACKGROUND }
