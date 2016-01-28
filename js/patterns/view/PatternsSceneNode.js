@@ -13,9 +13,9 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageCardContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainerNode' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
-  var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
   var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -86,8 +86,7 @@ define( function( require ) {
 
     var outputCarouselItems = []; // {ImageCardStackNode[]}
     scene.cardImages.forEach( function( cardImage ) {
-      var stack = new ImageCardStackNode( cardImage, scene.builder );
-      outputCarouselItems.push( stack );
+      outputCarouselItems.push( new ImageCardContainerNode( cardImage, 0, cardsParent, scene ) );
     } );
 
     var outputCarousel = new Carousel( outputCarouselItems, {

@@ -100,6 +100,7 @@ define( function( require ) {
       }
     } ) );
     this.cursor = 'pointer';
+    this.pickable = ( this.nodes.length > 0 ); // container is not interactive when empty
   }
 
   functionBuilder.register( 'MovableContainerNode', MovableContainerNode );
