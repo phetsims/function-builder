@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
@@ -43,15 +44,15 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {Builder} builder - builder for this scene
    * @param {function(number): Node} createIcon - function used to create the icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( builder, createIcon, options ) {
+  function PatternsScene( createIcon, options ) {
 
     options = _.extend( {
-      maxFunctionInstances: 1 // {number} max number of instances of each function type
+      maxFunctionInstances: 1, // {number} max number of instances of each function type
+      builder: new Builder()
     }, options );
 
     assert && assert( options.maxFunctionInstances > 0 );
@@ -100,10 +101,10 @@ define( function( require ) {
     ];
 
     // @public (read-only) {Builder}
-    this.builder = builder;
+    this.builder = options.builder;
 
     // @public (read-only) {boolean} spy glass feature is enabled if the builder has > 1 slot
-    this.spyGlassEnabled = ( builder.slots.length > 1 );
+    this.spyGlassEnabled = ( this.builder.slots.length > 1 );
 
     // @private {ImageCard[]} all cards that exist
     this.cards = [];

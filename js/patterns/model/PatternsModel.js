@@ -27,30 +27,26 @@ define( function( require ) {
     this.scenes = [
 
       // single: 1 builder with 1 slot
-      new PatternsScene(
-        new Builder( {
+      new PatternsScene( PatternsIconFactory.createSingleSceneIcon, {
+        maxFunctionInstances: 2,
+        builder: new Builder( {
           width: 350,
           numberOfSlots: 1,
           location: new Vector2( 335, 280 ),
           colorScheme: FBColors.BUILDER_MAROON
-        } ),
-        PatternsIconFactory.createSingleSceneIcon,
-        {
-          maxFunctionInstances: 2
-        } ),
+        } )
+      } ),
 
       // composed: 1 builder with 3 slots, for demonstrating function composition
-      new PatternsScene(
-        new Builder( {
+      new PatternsScene( PatternsIconFactory.createComposedSceneIcon, {
+        maxFunctionInstances: 2,
+        builder: new Builder( {
           width: 450,
           numberOfSlots: 3,
           location: new Vector2( 285, 280 ),
           colorScheme: FBColors.BUILDER_BLUE
-        } ),
-        PatternsIconFactory.createComposedSceneIcon,
-        {
-          maxFunctionInstances: 2
         } )
+      } )
     ];
 
     // @public
