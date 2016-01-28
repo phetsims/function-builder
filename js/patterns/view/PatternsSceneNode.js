@@ -33,6 +33,7 @@ define( function( require ) {
     dotMouseAreaDilation: 4
   };
 
+  //TODO viewToModelVector2 can be deleted when CreatorNode pattern is gone
   /**
    * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView

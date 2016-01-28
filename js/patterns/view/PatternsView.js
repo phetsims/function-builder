@@ -28,6 +28,7 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
+    //TODO viewToModelVector2 can be deleted when CreatorNode pattern is gone
     /**
      * Take a scenery Event and convert it to a model location.
      * The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
