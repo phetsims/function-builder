@@ -79,15 +79,15 @@ define( function( require ) {
         var functionInstance = new FunctionConstructor();
         scene.addFunctionInstance( functionInstance );
 
-        // associated node
+        // associated Node
         var functionNode = new MovableImageFunctionNode( functionInstance, {
           endDrag: options.endDrag
         } );
 
-        // put the node in the container
+        // put the Node in the container
         thisNode.push( functionNode );
 
-        // return the node to the container
+        // return the Node to the container
         functionInstance.locationProperty.lazyLink( function( location ) {
           assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
           if ( !functionInstance.dragging && location.equals( functionInstance.containerLocation ) ) {
