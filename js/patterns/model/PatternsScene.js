@@ -51,14 +51,17 @@ define( function( require ) {
   function PatternsScene( createIcon, options ) {
 
     options = _.extend( {
-      maxFunctionInstances: 1, // {number} max number of instances of each function type
+      numberOfEachCard: 2, // {number} number of instances of each card type
+      numberOfEachFunction: 2, // {number} number of instances of each function type
       builder: new Builder()
     }, options );
 
-    assert && assert( options.maxFunctionInstances > 0 );
+    assert && assert( options.numberOfEachFunction > 0 );
 
     // @public (read-only)
     this.createIcon = createIcon;
+    this.numberOfEachFunction = options.numberOfEachFunction;
+    this.numberOfEachCard = options.numberOfEachCard;
 
     /**
      * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.
@@ -111,9 +114,6 @@ define( function( require ) {
 
     // @private {ImageFunction[]} all function instances that exist
     this.functionInstances = [];
-
-    // @public (read-only) {number}
-    this.maxFunctionInstances = options.maxFunctionInstances;
   }
 
   functionBuilder.register( 'PatternsScene', PatternsScene );
@@ -128,11 +128,12 @@ define( function( require ) {
       // reset the builder
       this.builder.reset();
 
-      // dispose of all cards, operate on a copy of the array
-      this.cards.slice( 0 ).forEach( function( card ) {
-        card.dispose();
-      } );
-      this.cards.length = 0;
+      //TODO this is broken with the new 'container' pattern, do not dispose, return to container (how to do that?)
+      //// dispose of all cards, operate on a copy of the array
+      //this.cards.slice( 0 ).forEach( function( card ) {
+      //  card.dispose();
+      //} );
+      //this.cards.length = 0;
 
       //TODO this is broken with the new 'container' pattern, do not dispose, return to container (how to do that?)
       // dispose of all function instances, operate on a copy of the array
@@ -177,6 +178,7 @@ define( function( require ) {
       this.cards.push( card );
     },
 
+    //TODO this can be deleted, cards persist for the lifetime of the sim
     /**
      * Removes a card from the scene.
      * @param {ImageCard} card

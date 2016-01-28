@@ -123,7 +123,7 @@ define( function( require ) {
     // Items in the function carousel
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.maxFunctionInstances, functionsParent, scene ) );
+      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.numberOfEachFunction, functionsParent, scene ) );
     } );
 
     // Function carousel, centered below bottom builder

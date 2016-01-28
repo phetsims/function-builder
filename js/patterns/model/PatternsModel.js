@@ -28,7 +28,6 @@ define( function( require ) {
 
       // single: 1 builder with 1 slot
       new PatternsScene( PatternsIconFactory.createSingleSceneIcon, {
-        maxFunctionInstances: 2,
         builder: new Builder( {
           width: 350,
           numberOfSlots: 1,
@@ -39,7 +38,6 @@ define( function( require ) {
 
       // composed: 1 builder with 3 slots, for demonstrating function composition
       new PatternsScene( PatternsIconFactory.createComposedSceneIcon, {
-        maxFunctionInstances: 2,
         builder: new Builder( {
           width: 450,
           numberOfSlots: 3,
