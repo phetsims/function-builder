@@ -85,7 +85,7 @@ define( function( require ) {
 
           // clean up the instance
           card.locationProperty.unlink( locationListener );
-          thisListener.scene.removeCard( card );
+          thisListener.scene.cards.splice( thisListener.scene.cards.indexOf( card ), 1 );
 
           // clean up the node
           thisListener.parentNode.removeChild( cardNode );

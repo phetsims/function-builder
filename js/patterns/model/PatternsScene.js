@@ -11,8 +11,6 @@ define( function( require ) {
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // function modules
