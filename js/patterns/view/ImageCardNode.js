@@ -68,7 +68,7 @@ define( function( require ) {
       this.disposeImageCardNode();
     },
 
-    //TODO temporary, to demonstrate update of cards in output carousels
+    //TODO temporary, to demonstrate update of cards in output carousel
     /**
      * Sets the model element displayed by this card.
      * @param {ImageCard} card
