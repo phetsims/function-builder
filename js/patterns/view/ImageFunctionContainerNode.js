@@ -77,7 +77,7 @@ define( function( require ) {
 
         // model element
         var functionInstance = new FunctionConstructor();
-        scene.addFunctionInstance( functionInstance );
+        scene.functionInstances.push( functionInstance );
 
         // associated Node
         var functionNode = new MovableImageFunctionNode( functionInstance, {

@@ -144,54 +144,6 @@ define( function( require ) {
     },
 
     /**
-     * Adds a function instance to the scene.
-     * @param {ImageFunction} functionInstance
-     * @public
-     */
-    addFunctionInstance: function( functionInstance ) {
-      assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
-      assert && assert( this.functionInstances.indexOf( functionInstance ) === -1, 'attempted to add functionInstance twice' );
-      this.functionInstances.push( functionInstance );
-    },
-
-    //TODO this can be deleted, function instances persist for the lifetime of the sim
-    /**
-     * Removes a function instance from the scene.
-     * @param {ImageFunction} functionInstance
-     * @public
-     */
-    removeFunctionInstance: function( functionInstance ) {
-      assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
-      var index = this.functionInstances.indexOf( functionInstance );
-      assert && assert( index !== -1, 'attempted to remove unknown functionInstance' );
-      this.functionInstances.splice( index, 1 );
-    },
-
-    /**
-     * Adds a card to the scene.
-     * @param {ImageCard} card
-     * @public
-     */
-    addCard: function( card ) {
-      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
-      assert && assert( this.cards.indexOf( card ) === -1, 'attempted to add card twice' );
-      this.cards.push( card );
-    },
-
-    //TODO this can be deleted, cards persist for the lifetime of the sim
-    /**
-     * Removes a card from the scene.
-     * @param {ImageCard} card
-     * @public
-     */
-    removeCard: function( card ) {
-      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
-      var index = this.cards.indexOf( card );
-      assert && assert( index !== -1, 'attempted to remove unknown card' );
-      this.cards.splice( index, 1 );
-    },
-
-    /**
      * Animates the scene.
      *
      * @param {number} dt - time since the previous step, in seconds

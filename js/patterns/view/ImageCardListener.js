@@ -48,7 +48,7 @@ define( function( require ) {
       var thisListener = this;
 
       // add card to model
-      thisListener.scene.addCard( card );
+      thisListener.scene.cards.push( card );
 
       // create a Node for the card
       var cardNode = new MovableImageCardNode( card, {
