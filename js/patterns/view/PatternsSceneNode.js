@@ -13,7 +13,6 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
   var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageCardStackNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardStackNode' );
@@ -27,7 +26,6 @@ define( function( require ) {
 
   // constants
   var CARDS_PER_PAGE = 4; // number of cards per page in the input and output carousels
-  var OUTPUT_CAROUSELS_SPACING = 15; // space between output carousels
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
   var PAGE_CONTROL_OPTIONS = {
     interactive: true,
@@ -108,7 +106,7 @@ define( function( require ) {
       centerY: outputCarousel.centerY
     }, PAGE_CONTROL_OPTIONS ) );
 
-    // Eraser button, centered below the output carousels
+    // Eraser button, centered below the output carousel
     var eraserButtonListener = function() {
       //TODO return all cards to the input carousel
     };
@@ -146,7 +144,7 @@ define( function( require ) {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    // Link input carousel to all output carousels, so that they display the same page number
+    // Link input carousel to output carousel, so that they display the same page number
     assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
     inputCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputCarousel.pageNumberProperty.set( pageNumber );
