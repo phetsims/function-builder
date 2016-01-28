@@ -28,42 +28,43 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
+    /**
+     * Take a scenery Event and convert it to a model location.
+     * The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
+     * @param {Event} event
+     * @returns {Vector2}
+     */
+    var viewToModelVector2 = function( event ) {
+      var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
+      return thisView.globalToLocalPoint( viewLocation );
+    };
+
+    // Parent for scenes
+    var scenesParent = new Node();
+
+    // Scene Nodes
+    var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
+    model.scenes.forEach( function( scene ) {// create the scene Node
+      var sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, viewToModelVector2 );
+      sceneNodes.push( sceneNode );
+      scenesParent.addChild( sceneNode );
+    } );
+
     // Control for switching between scenes
     var sceneControl = new PatternsSceneControl( model.selectedSceneProperty, model.scenes, {
       centerX: this.layoutBounds.centerX,
       top: this.layoutBounds.top + 20
     } );
 
-    // Scene nodes will be created on demand
-    var sceneNodes = []; // {Node[]} in same order as model.scene
-    model.scenes.forEach( function( scene ) {
-      sceneNodes.push( null );
-    } );
-
-    // Parent for all scenes, to maintain rendering order, since scenes are created on demand.
-    var scenesParent = new Node();
-
-    // Converts a view {Event} to a model {Vector2}.
-    // The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
-    var viewToModelVector2 = function( event ) {
-      var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-      return thisView.globalToLocalPoint( viewLocation );
-    };
-
-    // Animations for fading between scenes
-    var newFadeIn; // {OpacityTo}
-    var oldFadeOut; // {OpacityTo}
-
     // Resets this screen
     var resetAll = function() {
 
+      // model
       model.reset();
 
-      // Reset any scene nodes that have been instantiated
+      // view
       sceneNodes.forEach( function( sceneNode ) {
-        if ( sceneNode ) {
-          sceneNode.reset();
-        }
+        sceneNode.reset();
       } );
     };
 
@@ -75,11 +76,22 @@ define( function( require ) {
     } );
 
     // rendering order
-    this.addChild( resetAllButton );
     this.addChild( sceneControl );
+    this.addChild( resetAllButton );
     this.addChild( scenesParent );
 
-    // Make the selected scene visible
+    /**
+     * After the scene graph is fully constructed, adjust parts of the model that
+     * depend on the location of things in the view.
+     */
+    sceneNodes.forEach( function( sceneNode ) {
+      sceneNode.adjustInitialLocations();
+      sceneNode.visible = false;
+    } );
+
+    // Fade between scenes
+    var newFadeIn; // {OpacityTo}
+    var oldFadeOut; // {OpacityTo}
     model.selectedSceneProperty.link( function( scene, oldScene ) {
 
       // Stop any animation that is in progress
@@ -92,18 +104,6 @@ define( function( require ) {
       // Get the Node that corresponds to the scene, create it on demand
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
-      if ( !sceneNode ) {
-
-        // create the scene Node
-        sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, viewToModelVector2, {
-          visible: false
-        } );
-        scenesParent.addChild( sceneNode );
-        sceneNodes[ sceneIndex ] = sceneNode;
-
-        // adjust model locations that can't be computed until the scene Node has been added to the ScreenView
-        sceneNode.adjustInitialLocations();
-      }
 
       //TODO prevent interaction with sceneNode and oldSceneNode while animation is taking place?
       // Fade scenes in/out as selection changes
