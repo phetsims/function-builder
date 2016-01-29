@@ -14,8 +14,6 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainerNode' );
-  var ImageCardCreatorNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardCreatorNode' );
-  var ImageCardListener = require( 'FUNCTION_BUILDER/patterns/view/ImageCardListener' );
   var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -33,15 +31,13 @@ define( function( require ) {
     dotMouseAreaDilation: 4
   };
 
-  //TODO viewToModelVector2 can be deleted when CreatorNode pattern is gone
   /**
    * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
-   * @param {function(Event): Vector2} viewToModelVector2 - converts a view {Event} to a model {Vector2}
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsSceneNode( scene, layoutBounds, viewToModelVector2, options ) {
+  function PatternsSceneNode( scene, layoutBounds, options ) {
 
     // no options specific to this type
     options = options || {};
@@ -59,9 +55,8 @@ define( function( require ) {
 
     // Items in the input carousel
     var inputCarouselItems = [];
-    var cardListener = new ImageCardListener( scene, cardsParent );
     scene.cardImages.forEach( function( cardImage ) {
-      inputCarouselItems.push( new ImageCardCreatorNode( cardImage, viewToModelVector2, cardListener ) );
+      inputCarouselItems.push( new ImageCardContainerNode( cardImage, scene.numberOfEachCard, cardsParent, scene ) );
     } );
 
     // Input carousel, at left
@@ -188,21 +183,27 @@ define( function( require ) {
       spyGlassVisibleProperty.reset();
     };
 
+    // Adjust location of functions and cards by scrolling the carousels with animation disabled.
     // @private
     this._adjustInitialLocations = function() {
 
-      // Adjust location of items in the function carousel by scrolling the carousel with animation disabled.
-      var restoreFunctionCarouselPageNumber = functionCarousel.pageNumberProperty.get();
-      var restoreFunctionCarouselAnimationEnabled = functionCarousel.animationEnabled;
+      // functions
       functionCarousel.animationEnabled = false;
       functionCarouselItems.forEach( function( item ) {
         functionCarousel.scrollToItem( item );
         item.adjustInitialLocations();
       } );
-      functionCarousel.animationEnabled = restoreFunctionCarouselAnimationEnabled;
-      functionCarousel.scrollToItemIndex( restoreFunctionCarouselPageNumber );
+      functionCarousel.pageNumberProperty.reset();
+      functionCarousel.animationEnabled = true;
 
-      //TODO something similar for cards
+      // cards
+      inputCarousel.animationEnabled = false;
+      inputCarouselItems.forEach( function( item ) {
+        inputCarousel.scrollToItem( item );
+        item.adjustInitialLocations();
+      } );
+      inputCarousel.pageNumberProperty.reset();
+      inputCarousel.animationEnabled = true;
     };
   }
 

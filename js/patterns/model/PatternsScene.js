@@ -126,19 +126,19 @@ define( function( require ) {
       // reset the builder
       this.builder.reset();
 
-      //TODO this is broken with the new 'container' pattern, do not dispose, return to container (how to do that?)
-      //// dispose of all cards, operate on a copy of the array
-      //this.cards.slice( 0 ).forEach( function( card ) {
-      //  card.dispose();
-      //} );
-      //this.cards.length = 0;
+      // move all cards back to the input carousel
+      this.cards.slice( 0 ).forEach( function( card ) {
+        if ( !card.locationLocked ) {
+          card.setLocation( card.containerLocation );
+        }
+      } );
 
-      //TODO this is broken with the new 'container' pattern, do not dispose, return to container (how to do that?)
-      // dispose of all function instances, operate on a copy of the array
-      //this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
-      //  functionInstance.dispose();
-      //} );
-      //this.functionInstances.length = 0;
+      // move all functions back to the function carousel
+      this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
+        if ( !functionInstance.locationLocked ) {
+          functionInstance.setLocation( functionInstance.containerLocation );
+        }
+      } );
     },
 
     /**

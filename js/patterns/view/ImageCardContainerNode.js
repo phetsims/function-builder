@@ -95,7 +95,7 @@ define( function( require ) {
       var viewLocation = this.parentToGlobalPoint( this.center );
       var modelLocation = this.parentNode.getParent().globalToLocalPoint( viewLocation );
 
-      console.log( 'ImageCardContainerNode modelLocation=' + modelLocation.toString() );
+      console.log( 'ImageCardContainerNode modelLocation=' + modelLocation.toString() );//XXX
 
       this.nodes.forEach( function( node ) {
         //TODO replace this with: node.movable.locationProperty.initialValue = modelLocation.copy();

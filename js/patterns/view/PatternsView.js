@@ -28,25 +28,13 @@ define( function( require ) {
     var thisView = this;
     ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
 
-    //TODO viewToModelVector2 can be deleted when CreatorNode pattern is gone
-    /**
-     * Take a scenery Event and convert it to a model location.
-     * The ScreenView's local coordinate frame is equivalent to the model coordinate frame.
-     * @param {Event} event
-     * @returns {Vector2}
-     */
-    var viewToModelVector2 = function( event ) {
-      var viewLocation = event.currentTarget.parentToGlobalPoint( event.currentTarget.center );
-      return thisView.globalToLocalPoint( viewLocation );
-    };
-
     // Parent for scenes
     var scenesParent = new Node();
 
     // Scene Nodes
     var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
     model.scenes.forEach( function( scene ) {// create the scene Node
-      var sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds, viewToModelVector2 );
+      var sceneNode = new PatternsSceneNode( scene, thisView.layoutBounds );
       sceneNodes.push( sceneNode );
       scenesParent.addChild( sceneNode );
     } );
