@@ -1,17 +1,11 @@
 TODO list for function-builder
 
-Change pattern used for items in carousels:
-- set correct function locations on startup
-- fix PatternsScene.reset
-- delete unused types in patterns.view
-- implement similar pattern for input cards carousel
+ImageCard.containerLocation is incorrect, see console.log in ImageCardContainerNode.adjustInitialLocations
+
+Replace Movable.containerLocation with adjustment of Movable.locationProperty.initialValue
 
 Is it better to have 'MovableImageFunctionNode extends MovableNode' and decorate with ImageFunctionNode,
 or should it be 'MovableImageFunctionNode extends ImageFunctionNode' with mixin MovableHandler?
-
-Ditch "dual" scene?
-
-Consider making 'double functions' occupy 1 slot.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
 
