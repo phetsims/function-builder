@@ -1,7 +1,7 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
- * Functions that create icons for the 'Patterns' screen.
+ * Functions that create icons for this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,10 +17,10 @@ define( function( require ) {
   // constants
   var DEFAULT_SCENE_ICON_WIDTH = 25;
 
-  var PatternsIconFactory = {
+  var FBIconFactory = {
 
     /**
-     * Creates the icon for the 'single' scene.
+     * Creates the icon for the 'single' scene in the 'Patterns' screen.
      * @param {number} [width]
      * @returns {Node}
      * @public
@@ -37,7 +37,7 @@ define( function( require ) {
 
     //TODO since the composed scene had 3 builder slots, should this icon show 3 functions?
     /**
-     * Creates the icon for the 'composed' scene.
+     * Creates the icon for the 'composed' scene in the 'Patterns' screen.
      * @param {number} [width]
      * @returns {Node}
      * @public
@@ -61,7 +61,7 @@ define( function( require ) {
     }
   };
 
-  functionBuilder.register( 'PatternsIconFactory', PatternsIconFactory );
+  functionBuilder.register( 'FBIconFactory', FBIconFactory );
 
-  return PatternsIconFactory;
+  return FBIconFactory;
 } );

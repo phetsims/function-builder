@@ -11,9 +11,9 @@ define( function( require ) {
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PatternsIconFactory = require( 'FUNCTION_BUILDER/patterns/view/PatternsIconFactory' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -27,7 +27,7 @@ define( function( require ) {
     this.scenes = [
 
       // single: 1 builder with 1 slot
-      new PatternsScene( PatternsIconFactory.createSingleSceneIcon, {
+      new PatternsScene( FBIconFactory.createSingleSceneIcon, {
         builder: new Builder( {
           width: 350,
           numberOfSlots: 1,
@@ -37,7 +37,7 @@ define( function( require ) {
       } ),
 
       // composed: 1 builder with 3 slots, for demonstrating function composition
-      new PatternsScene( PatternsIconFactory.createComposedSceneIcon, {
+      new PatternsScene( FBIconFactory.createComposedSceneIcon, {
         builder: new Builder( {
           width: 450,
           numberOfSlots: 3,
