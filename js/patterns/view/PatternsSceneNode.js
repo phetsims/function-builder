@@ -79,11 +79,13 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
+    // Items in the output carousel
     var outputCarouselItems = []; // {ImageCardStackNode[]}
     scene.cardImages.forEach( function( cardImage ) {
       outputCarouselItems.push( new ImageCardContainerNode( cardImage, 0, cardsParent, scene ) );
     } );
 
+    // Output carousel, at right
     var outputCarousel = new Carousel( outputCarouselItems, {
       orientation: 'vertical',
       separatorsVisible: true,
