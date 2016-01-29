@@ -171,9 +171,8 @@ define( function( require ) {
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
-      builderNode
+      builderNode, functionsParent, cardsParent
     ];
-    options.children = options.children.concat( [ functionsParent, cardsParent ] );
 
     Node.call( this, options );
 
