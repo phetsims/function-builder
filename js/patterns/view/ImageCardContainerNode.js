@@ -93,7 +93,7 @@ define( function( require ) {
 
       // compute the location of this Node in the model coordinate frame
       var viewLocation = this.parentToGlobalPoint( this.center );
-      var modelLocation = this.parentNode.getParent().globalToLocalPoint( viewLocation );
+      var modelLocation = this.parentNode.globalToLocalPoint( viewLocation );
 
       console.log( 'ImageCardContainerNode modelLocation=' + modelLocation.toString() );//XXX
 
