@@ -44,8 +44,6 @@ define( function( require ) {
     var HEIGHT = options.size.height;
     var X_INSET = FBConstants.FUNCTION_X_INSET_FACTOR * WIDTH;
 
-    console.log( 'width=' + WIDTH + ', height=' + HEIGHT );//XXX
-
     // Described from top-left, moving clockwise.
     var backgroundShape = new Shape()
       .moveTo( 0, 0 )
