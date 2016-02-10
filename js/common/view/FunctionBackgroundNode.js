@@ -29,8 +29,7 @@ define( function( require ) {
     options = _.extend( {
 
       // Shape
-      backgroundWidth: FBConstants.FUNCTION_WIDTH, // {number} width, height is computed so that aspect ratio remains the same at all sizes
-      aspectRatio: 1.8, // {number} aspect ratio, width/height
+      size: FBConstants.FUNCTION_SIZE, // {Dimensions2}
 
       // Path
       fill: 'white', // {Color|string}
@@ -40,14 +39,12 @@ define( function( require ) {
 
     }, options );
 
-    // validate options
-    assert && assert( options.backgroundWidth > 0 );
-    assert && assert( options.aspectRatio > 0 );
-
     // To improve readability of shape code
-    var WIDTH = options.backgroundWidth;
-    var HEIGHT = WIDTH / options.aspectRatio;
+    var WIDTH = options.size.width;
+    var HEIGHT = options.size.height;
     var X_INSET = FBConstants.FUNCTION_X_INSET_FACTOR * WIDTH;
+
+    console.log( 'width=' + WIDTH + ', height=' + HEIGHT );//XXX
 
     // Described from top-left, moving clockwise.
     var backgroundShape = new Shape()

@@ -44,19 +44,20 @@ define( function( require ) {
     this.colorScheme = options.colorScheme;
 
     // width occupied by slots
-    var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_WIDTH;
+    var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_SIZE.width;
     if ( options.numberOfSlots > 1 ) {
-      totalWidthOfSlots -= ( ( options.numberOfSlots - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH );
+      totalWidthOfSlots -= ( ( options.numberOfSlots - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width );
     }
     assert && assert( totalWidthOfSlots > 0 );
 
     // create and populate slots
     this.slots = [];
-    var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_WIDTH ) / 2, this.location.y );
+    var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
     for ( var i = 0; i < options.numberOfSlots; i++ ) {
 
       // location is at slot's center
-      var slotLocation = leftSlotLocation.plusXY( i * FBConstants.FUNCTION_WIDTH - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_WIDTH, 0 );
+      var dx = i * FBConstants.FUNCTION_SIZE.width - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width;
+      var slotLocation = leftSlotLocation.plusXY( dx, 0 );
 
       // each slot is initially empty
       this.slots.push( new Slot( slotLocation, null ) );

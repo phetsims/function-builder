@@ -13,8 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
-  var FUNCTION_WIDTH = 30;
-
   /**
    * @param {Property} selectedSceneProperty
    * @param {PatternsScene[]} scenes
@@ -35,7 +33,7 @@ define( function( require ) {
     for ( var i = 0; i < scenes.length; i++ ) {
       content.push( {
         value: scenes[ i ],
-        node: scenes[ i ].createIcon( FUNCTION_WIDTH )
+        node: scenes[ i ].createIcon()
       } );
     }
 

@@ -23,9 +23,6 @@ define( function( require ) {
   // images
   var starImage = require( 'image!FUNCTION_BUILDER/inputs/star.png' );
 
-  // constants
-  var DEFAULT_SCENE_ICON_WIDTH = 25;
-
   var FBIconFactory = {
 
     /**
@@ -69,43 +66,39 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'single' scene in the 'Patterns' screen.
-     * @param {number} [width]
      * @returns {Node}
      * @public
      */
-    createSingleSceneIcon: function( width ) {
-
-      width = width || DEFAULT_SCENE_ICON_WIDTH;
-
+    createSingleSceneIcon: function() {
       return new FunctionBackgroundNode( {
         fill: FBColors.LIGHT_GREEN,
-        backgroundWidth: width
+        lineWidth: 3,
+        scale: 0.25
       } );
     },
 
-    //TODO since the composed scene had 3 builder slots, should this icon show 3 functions?
     /**
      * Creates the icon for the 'composed' scene in the 'Patterns' screen.
-     * @param {number} [width]
      * @returns {Node}
      * @public
      */
-    createComposedSceneIcon: function( width ) {
-
-      width = width || DEFAULT_SCENE_ICON_WIDTH;
+    createComposedSceneIcon: function() {
 
       var leftNode = new FunctionBackgroundNode( {
         fill: FBColors.LIGHT_GREEN,
-        backgroundWidth: width
+        lineWidth: 3
       } );
 
       var rightNode = new FunctionBackgroundNode( {
         fill: FBColors.LIGHT_PURPLE,
-        backgroundWidth: width,
+        lineWidth: 3,
         left: leftNode.right - leftNode.xInset - 1
       } );
 
-      return new Node( { children: [ leftNode, rightNode ] } );
+      return new Node( {
+        children: [ leftNode, rightNode ],
+        scale: 0.25
+      } );
     }
   };
 
