@@ -17,9 +17,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableContainerNode = require( 'FUNCTION_BUILDER/common/view/MovableContainerNode' );
@@ -36,14 +34,11 @@ define( function( require ) {
   function ImageFunctionContainerNode( FunctionConstructor, numberOfInstances, parentNode, scene, options ) {
 
     options = _.extend( {
-      popOutOffset: FBConstants.FUNCTION_POP_OUT_OFFSET
+      popOutOffset: FBConstants.FUNCTION_POP_OUT_OFFSET,
+      size: FBConstants.FUNCTION_SIZE
     }, options );
 
     var thisNode = this;
-
-    // Compute the size of the container, assumes all function are the same size
-    var functionBackgroundNode = new FunctionBackgroundNode();
-    options.size = new Dimension2( functionBackgroundNode.width, functionBackgroundNode.height );
 
     // When the user stops dragging a function, decide what to do with it.
     options.endDrag = function( functionInstance, functionNode, event, trail ) {
@@ -110,7 +105,7 @@ define( function( require ) {
 
       // compute the location of this Node in the model coordinate frame
       var viewLocation = this.parentToGlobalPoint( this.center );
-      var modelLocation = this.parentNode.getParent().globalToLocalPoint( viewLocation );
+      var modelLocation = this.parentNode.globalToLocalPoint( viewLocation );
 
       this.nodes.forEach( function( node ) {
         //TODO replace this with: node.movable.locationProperty.initialValue = modelLocation.copy();

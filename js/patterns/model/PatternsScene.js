@@ -42,7 +42,7 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {function(number): Node} createIcon - function used to create the icon that represents the scene
+   * @param {function: Node} createIcon - function used to create the icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */

@@ -15,8 +15,7 @@ define( function( require ) {
 
     CARD_SIZE: new Dimension2( 60, 60 ),
 
-    // width of a function's shape (height is computed so that aspect ratio remains the same at all sizes)
-    FUNCTION_WIDTH: 120,
+    FUNCTION_SIZE: new Dimension2( 120, 68 ),
 
     // x-inset of arrow-like ends of a function's shape
     FUNCTION_X_INSET_FACTOR: 0.15,
