@@ -102,13 +102,22 @@ define( function( require ) {
   return inherit( Node, MovableContainerNode, {
 
     /**
+     * Is the specified Node in the container?
+     * @param {MovableNode} node
+     * @returns {boolean}
+     */
+    containsNode: function( node ) {
+      return ( this.nodes.indexOf( node ) !== -1 );
+    },
+
+    /**
      * Adds a Node to the container.
      * @param {MovableNode} node
      * @public
      */
     pushNode: function( node ) {
 
-      assert && assert( this.nodes.indexOf( node ) === -1, 'attempted to add twice, ' + node.constructor.name );
+      assert && assert( !this.containsNode( node ), 'attempted to push Node twice, ' + node.constructor.name );
 
       // remove from parent
       if ( this.parentNode.hasChild( node ) ) {

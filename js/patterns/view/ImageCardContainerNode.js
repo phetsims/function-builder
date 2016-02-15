@@ -74,7 +74,7 @@ define( function( require ) {
 
           // return the Node to the container
           card.locationProperty.lazyLink( function( location ) {
-            if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
+            if ( !card.dragging && !thisNode.containsNode( cardNode) && location.equals( card.locationProperty.initialValue ) ) {
               thisNode.pushNode( cardNode );
             }
           } );

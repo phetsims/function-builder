@@ -78,7 +78,7 @@ define( function( require ) {
 
           // return the Node to the container
           functionInstance.locationProperty.lazyLink( function( location ) {
-            if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
+            if ( !functionInstance.dragging && !thisNode.containsNode( functionNode) && location.equals( functionInstance.locationProperty.initialValue ) ) {
               thisNode.pushNode( functionNode );
             }
           } );
