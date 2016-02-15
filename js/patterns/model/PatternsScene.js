@@ -128,16 +128,12 @@ define( function( require ) {
 
       // move all cards back to the input carousel
       this.cards.slice( 0 ).forEach( function( card ) {
-        if ( !card.locationLocked ) {
-          card.setLocation( card.containerLocation );
-        }
+        card.reset();
       } );
 
       // move all functions back to the function carousel
       this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
-        if ( !functionInstance.locationLocked ) {
-          functionInstance.setLocation( functionInstance.containerLocation );
-        }
+        functionInstance.reset();
       } );
     },
 

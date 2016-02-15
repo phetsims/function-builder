@@ -44,9 +44,7 @@ define( function( require ) {
 
       var functionInstance = functionNode.movable;
 
-      assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
-
-      if ( functionInstance.locationProperty.get().equals( functionInstance.containerLocation ) ) {
+      if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
 
         // function has been dragged back to exactly the location of the container
         thisNode.push( functionNode );
@@ -58,7 +56,7 @@ define( function( require ) {
 
         // If the function isn't added to the builder, then return it to the container.
         if ( slotNumber === -1 ) {
-          functionInstance.destination = functionInstance.containerLocation;
+          functionInstance.destination = functionInstance.locationProperty.initialValue;
         }
       }
     };
@@ -66,15 +64,16 @@ define( function( require ) {
     MovableContainerNode.call( this, parentNode, options );
 
     // Populates the container
-    this._populateContainer = function( numberOfInstances, containerLocation ) {
+    this._populateContainer = function( numberOfInstances, location ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // IIFE to create a closure for each function instance
         (function() {
 
           // model element
-          var functionInstance = new FunctionConstructor();
-          functionInstance.containerLocation = containerLocation; //TODO
+          var functionInstance = new FunctionConstructor( {
+            location: location
+          });
           scene.functionInstances.push( functionInstance );
 
           // associated Node
@@ -87,8 +86,7 @@ define( function( require ) {
 
           // return the Node to the container
           functionInstance.locationProperty.lazyLink( function( location ) {
-            assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
-            if ( !functionInstance.dragging && location.equals( functionInstance.containerLocation ) ) {
+            if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
               thisNode.push( functionNode );
             }
           } );
@@ -101,8 +99,8 @@ define( function( require ) {
 
   return inherit( MovableContainerNode, ImageFunctionContainerNode, {
 
-    populateContainer: function( numberOfInstances, containerLocation ) {
-      this._populateContainer( numberOfInstances, containerLocation );
+    populateContainer: function( numberOfInstances, location ) {
+      this._populateContainer( numberOfInstances, location );
     }
   } );
 } );

@@ -46,24 +46,23 @@ define( function( require ) {
 
       var card = cardNode.movable;
 
-      assert && assert( card.containerLocation, 'card has no containerLocation' );
-
       //TODO temporary, move back to input carousel
-      card.destination = card.containerLocation;
+      card.destination = card.locationProperty.initialValue;
     };
 
     MovableContainerNode.call( this, parentNode, options );
 
     // Populates the container
-    this._populateContainer = function( numberOfInstances, containerLocation ) {
+    this._populateContainer = function( numberOfInstances, location ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // IIFE to create a closure for each card
         (function() {
 
           // model element
-          var card = ImageCard.withImage( image );
-          card.containerLocation = containerLocation;
+          var card = ImageCard.withImage( image, {
+            location: location
+          } );
           scene.cards.push( card );
 
           // associated Node
@@ -76,8 +75,7 @@ define( function( require ) {
 
           // return the Node to the container
           card.locationProperty.lazyLink( function( location ) {
-            assert && assert( card.containerLocation, 'card has no containerLocation' );
-            if ( !card.dragging && location.equals( card.containerLocation ) ) {
+            if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
               thisNode.push( cardNode );
             }
           } );
@@ -90,8 +88,8 @@ define( function( require ) {
 
   return inherit( MovableContainerNode, ImageCardContainerNode, {
 
-    populateContainer: function( numberOfInstances, containerLocation ) {
-      this._populateContainer( numberOfInstances, containerLocation );
+    populateContainer: function( numberOfInstances, location ) {
+      this._populateContainer( numberOfInstances, location );
     }
   } );
 } );

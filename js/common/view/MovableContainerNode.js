@@ -81,8 +81,7 @@ define( function( require ) {
         // pop out of the container
         var movable = this.movableNode.movable;
         movable.dragging = true;
-        assert && assert( movable.containerLocation, 'movable has no container location' );
-        movable.setLocation( movable.containerLocation.plus( thisNode.popOutOffset ) );
+        movable.setLocation( movable.locationProperty.initialValue.plus( thisNode.popOutOffset ) );
 
         //TODO cancel drag if movable is disposed of
       },

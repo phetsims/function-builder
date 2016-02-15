@@ -117,8 +117,7 @@ define( function( require ) {
         // if the slot was occupied, return the occupier to whence it came
         if ( !slot.isEmpty() ) {
           var oldFunctionInstance = slot.functionInstance;
-          assert && assert( oldFunctionInstance.containerLocation, 'function instance has no containerLocation' );
-          oldFunctionInstance.destination = oldFunctionInstance.containerLocation;
+          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
         }
 
         // put the function instance in the slot
