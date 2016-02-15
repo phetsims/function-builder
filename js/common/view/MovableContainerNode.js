@@ -84,6 +84,8 @@ define( function( require ) {
         movable.dragging = true;
         assert && assert( movable.containerLocation, 'movable has no container location' );
         movable.setLocation( movable.containerLocation.plus( thisNode.popOutOffset ) );
+
+        //TODO cancel drag if movable is disposed of
       },
 
       translate: function( translationParams ) {

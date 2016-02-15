@@ -96,9 +96,7 @@ define( function( require ) {
     // @private
     this.disposeMovableNode = function() {
       movable.locationProperty.unlink( locationObserver );
-      if ( dragHandler.dragging ) {
-        dragHandler.endDrag( null, null ); //TODO this works, but will fail if options.endDrag depends on event or trail
-      }
+      //TODO cancel drag
     };
   }
 
