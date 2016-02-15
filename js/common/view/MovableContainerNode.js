@@ -76,7 +76,7 @@ define( function( require ) {
         assert && assert( thisNode === event.currentTarget );
 
         // remove the node from the container
-        this.movableNode = thisNode.pop();
+``        this.movableNode = thisNode.popNode();
 
         // pop out of the container
         var movable = this.movableNode.movable;
@@ -110,9 +110,9 @@ define( function( require ) {
      * @param {MovableNode} node
      * @public
      */
-    push: function( node ) {
+    pushNode: function( node ) {
 
-      assert && assert( this.nodes.indexOf( node ) === -1, 'attempted to add twice' );
+      assert && assert( this.nodes.indexOf( node ) === -1, 'attempted to add twice ' + node.movable.constructor.name );
 
       // remove from parent
       if ( this.parentNode.hasChild( node ) ) {
@@ -134,7 +134,7 @@ define( function( require ) {
      * @returns {MovableNode}
      * @private
      */
-    pop: function() {
+    popNode: function() {
 
       assert && assert( this.nodes.length > 0, 'container is empty' );
 

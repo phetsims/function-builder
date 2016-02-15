@@ -44,20 +44,12 @@ define( function( require ) {
 
       var functionInstance = functionNode.movable;
 
-      if ( functionInstance.locationProperty.get().equals( functionInstance.locationProperty.initialValue ) ) {
+      // try to add function to the builder
+      var slotNumber = scene.builder.addFunctionInstance( functionInstance );
 
-        // function has been dragged back to exactly the location of the container
-        thisNode.push( functionNode );
-      }
-      else {
-
-        // try to add function to the builder
-        var slotNumber = scene.builder.addFunctionInstance( functionInstance );
-
-        // If the function isn't added to the builder, then return it to the container.
-        if ( slotNumber === -1 ) {
-          functionInstance.destination = functionInstance.locationProperty.initialValue;
-        }
+      // If the function isn't added to the builder, then return it to the container.
+      if ( slotNumber === -1 ) {
+        functionInstance.destination = functionInstance.locationProperty.initialValue;
       }
     };
 
@@ -82,12 +74,12 @@ define( function( require ) {
           } );
 
           // put the Node in the container
-          thisNode.push( functionNode );
+          thisNode.pushNode( functionNode );
 
           // return the Node to the container
           functionInstance.locationProperty.lazyLink( function( location ) {
             if ( !functionInstance.dragging && location.equals( functionInstance.locationProperty.initialValue ) ) {
-              thisNode.push( functionNode );
+              thisNode.pushNode( functionNode );
             }
           } );
         })();

@@ -70,12 +70,12 @@ define( function( require ) {
           } );
 
           // put the Node in the container
-          thisNode.push( cardNode );
+          thisNode.pushNode( cardNode );
 
           // return the Node to the container
           card.locationProperty.lazyLink( function( location ) {
             if ( !card.dragging && location.equals( card.locationProperty.initialValue ) ) {
-              thisNode.push( cardNode );
+              thisNode.pushNode( cardNode );
             }
           } );
         })();
