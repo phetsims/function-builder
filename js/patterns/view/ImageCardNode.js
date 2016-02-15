@@ -50,23 +50,12 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // @private
-    this.disposeImageCardNode = function() {
-      //TODO implement dispose
-    };
-
     this.setCard( card );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
   return inherit( Node, ImageCardNode, {
-
-    // @public
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeImageCardNode();
-    },
 
     //TODO temporary, to demonstrate update of cards in output carousel
     /**
