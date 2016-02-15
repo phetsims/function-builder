@@ -24,15 +24,14 @@ define( function( require ) {
   function Movable( options ) {
 
     options = _.extend( {
-      location: new Vector2( 0, 0 ), // {Vector2} initial location of the function in view coordinate frame
+      location: new Vector2( 0, 0 ), // {Vector2} initial location
       dragging: false, // {boolean} is the function being dragged by the user?
       animationSpeed: 100 // {number} distance moved per second when animating
     }, options );
 
     PropertySet.call( this, {
 
-      // @public (read-only) {Vector2} center of the function's node in the view coordinate frame
-      // DO NOT set this directly! Use setLocation or destination.
+      // @public (read-only) {Vector2} DO NOT set this directly! Use setLocation or destination.
       location: options.location
     } );
 
