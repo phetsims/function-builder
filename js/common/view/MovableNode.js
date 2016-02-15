@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -48,11 +47,7 @@ define( function( require ) {
        */
       translateNode: function( node, location ) {
         node.center = location;
-      },
-
-      // {Bounds2} constrain dragging to these bounds
-      dragBounds: Bounds2.EVERYTHING.copy()
-
+      }
     }, options );
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
@@ -83,7 +78,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
       translate: function( translationParams ) {
         var location = movable.locationProperty.get().plus( translationParams.delta );
-        movable.setLocation( options.dragBounds.closestPointTo( location ) );
+        movable.setLocation( location );
       },
 
       end: function( event, trail ) {

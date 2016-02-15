@@ -11,7 +11,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -41,9 +40,6 @@ define( function( require ) {
        * makes the instance appear to 'pop out' of the container.
        */
       popOutOffset: new Vector2( 0, 0 ),
-
-      // {Bounds2} constrain dragging to these bounds
-      dragBounds: Bounds2.EVERYTHING.copy(),
 
       // {function(MovableNode, Event, Trail)|null} called at the end of a drag sequence
       endDrag: null
@@ -87,7 +83,7 @@ define( function( require ) {
       translate: function( translationParams ) {
         var movable = this.movableNode.movable;
         var location = movable.locationProperty.get().plus( translationParams.delta );
-        movable.setLocation( options.dragBounds.closestPointTo( location ) );
+        movable.setLocation( location );
       },
 
       end: function( event, trail ) {
