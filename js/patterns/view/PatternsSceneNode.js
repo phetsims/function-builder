@@ -42,6 +42,8 @@ define( function( require ) {
     // no options specific to this type
     options = options || {};
 
+    var thisNode = this;
+
     // parent node for all cards, while the user is dragging them
     var cardsParent = new Node();
 
@@ -177,7 +179,7 @@ define( function( require ) {
     Node.call( this, options );
 
     // @private Resets this node
-    this.resetPatternsSceneNode = function() {
+    this._reset = function() {
       functionCarousel.reset();
       inputCarousel.reset();
       outputCarousel.reset();
@@ -186,6 +188,10 @@ define( function( require ) {
 
     // @private Populates the carousels, while we scroll them with animation disabled.
     this._populateCarousels = function() {
+
+      // This cannot be done until the carousels (view components) are instantiated and attached to a ScreenView,
+      // because functions and cards need to know the location of their respective containers in the carousels.
+      assert && assert( hasScreenViewAncestor( thisNode ), 'call this function after attaching to ScreenView' );
 
       // functions
       functionCarousel.animationEnabled = false;
@@ -230,7 +236,6 @@ define( function( require ) {
    * This is a pre-requisite to calling populateCarousels.
    * @param {Node} node
    * @returns {boolean}
-   * @private
    */
   var hasScreenViewAncestor = function( node ) {
     var found = false;
@@ -246,17 +251,11 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.resetPatternsSceneNode();
+      this._reset();
     },
 
-    /**
-     * Populates the carousels with functions and card. This cannot be done until the carousels (view components)
-     * are instantiated and attached to a ScreenView, because functions and cards need to know the location of
-     * their respective containers in the carousels.
-     * @public
-     */
+    // @public Populates the carousels with functions and card.
     populateCarousels: function() {
-      assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
       this._populateCarousels();
     }
   } );
