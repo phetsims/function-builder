@@ -70,11 +70,11 @@ define( function( require ) {
     this.addChild( scenesParent );
 
     /**
-     * After the scene graph is fully constructed, adjust parts of the model that
+     * After the scene graph is fully constructed, populate parts of the model that
      * depend on the location of things in the view.
      */
     sceneNodes.forEach( function( sceneNode ) {
-      sceneNode.adjustInitialLocations();
+      sceneNode.populateCarousels();
       sceneNode.visible = false;
     } );
 

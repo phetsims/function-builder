@@ -25,13 +25,12 @@ define( function( require ) {
 
   /**
    * @param {constructor} FunctionConstructor - constructor for a subtype of {ImageFunction}
-   * @param {number} numberOfInstances - number of instances to create
    * @param {Node} parentNode - parent for function Nodes when they are outside the container
    * @param {PatternsScene} scene
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionContainerNode( FunctionConstructor, numberOfInstances, parentNode, scene, options ) {
+  function ImageFunctionContainerNode( FunctionConstructor, parentNode, scene, options ) {
 
     options = _.extend( {
       popOutOffset: FBConstants.FUNCTION_POP_OUT_OFFSET,
@@ -66,53 +65,44 @@ define( function( require ) {
 
     MovableContainerNode.call( this, parentNode, options );
 
-    // Populate the container
-    for ( var i = 0; i < numberOfInstances; i++ ) {
+    // Populates the container
+    this._populateContainer = function( numberOfInstances, containerLocation ) {
+      for ( var i = 0; i < numberOfInstances; i++ ) {
 
-      // IIFE to create a closure for each function instance
-      (function() {
+        // IIFE to create a closure for each function instance
+        (function() {
 
-        // model element
-        var functionInstance = new FunctionConstructor();
-        scene.functionInstances.push( functionInstance );
+          // model element
+          var functionInstance = new FunctionConstructor();
+          functionInstance.containerLocation = containerLocation; //TODO
+          scene.functionInstances.push( functionInstance );
 
-        // associated Node
-        var functionNode = new MovableImageFunctionNode( functionInstance, {
-          endDrag: options.endDrag
-        } );
+          // associated Node
+          var functionNode = new MovableImageFunctionNode( functionInstance, {
+            endDrag: options.endDrag
+          } );
 
-        // put the Node in the container
-        thisNode.push( functionNode );
+          // put the Node in the container
+          thisNode.push( functionNode );
 
-        // return the Node to the container
-        functionInstance.locationProperty.lazyLink( function( location ) {
-          assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
-          if ( !functionInstance.dragging && location.equals( functionInstance.containerLocation ) ) {
-            thisNode.push( functionNode );
-          }
-        } );
-      })();
-    }
+          // return the Node to the container
+          functionInstance.locationProperty.lazyLink( function( location ) {
+            assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
+            if ( !functionInstance.dragging && location.equals( functionInstance.containerLocation ) ) {
+              thisNode.push( functionNode );
+            }
+          } );
+        })();
+      }
+    };
   }
 
   functionBuilder.register( 'ImageFunctionContainerNode', ImageFunctionContainerNode );
 
   return inherit( MovableContainerNode, ImageFunctionContainerNode, {
 
-    /**
-     * Adjusts initial locations of all function instances in the container.
-     * @public
-     */
-    adjustInitialLocations: function() {
-
-      // compute the location of this Node in the model coordinate frame
-      var viewLocation = this.parentToGlobalPoint( this.center );
-      var modelLocation = this.parentNode.globalToLocalPoint( viewLocation );
-
-      this.nodes.forEach( function( node ) {
-        //TODO replace this with: node.movable.locationProperty.initialValue = modelLocation.copy();
-        node.movable.containerLocation = modelLocation.copy();
-      } );
+    populateContainer: function( numberOfInstances, containerLocation ) {
+      this._populateContainer( numberOfInstances, containerLocation );
     }
   } );
 } );

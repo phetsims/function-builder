@@ -119,7 +119,7 @@ define( function( require ) {
     // Items in the function carousel
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, scene.numberOfEachFunction, functionsParent, scene ) );
+      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, functionsParent, scene ) );
     } );
 
     // Function carousel, centered below bottom builder
@@ -184,15 +184,22 @@ define( function( require ) {
       spyGlassVisibleProperty.reset();
     };
 
-    // Adjust location of functions and cards by scrolling the carousels with animation disabled.
-    // @private
-    this._adjustInitialLocations = function() {
+    // @private Populates the carousels, while we scroll them with animation disabled.
+    this._populateCarousels = function() {
 
       // functions
       functionCarousel.animationEnabled = false;
       functionCarouselItems.forEach( function( item ) {
+
+        // make sure the item is visible in the carousel
         functionCarousel.scrollToItem( item );
-        item.adjustInitialLocations();
+
+        // compute the item's location in the model coordinate frame
+        var viewLocation = item.parentToGlobalPoint( item.center );
+        var modelLocation = item.parentNode.globalToLocalPoint( viewLocation );
+
+        // create functions at the item's location
+        item.populateContainer( scene.numberOfEachFunction, modelLocation );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
@@ -200,8 +207,16 @@ define( function( require ) {
       // cards
       inputCarousel.animationEnabled = false;
       inputCarouselItems.forEach( function( item ) {
+
+        // make sure the item is visible in the carousel
         inputCarousel.scrollToItem( item );
-        item.adjustInitialLocations();
+
+        // compute the item's location in the model coordinate frame
+        var viewLocation = item.parentToGlobalPoint( item.center );
+        var modelLocation = item.parentNode.globalToLocalPoint( viewLocation );
+
+        // create functions at the item's location
+        item.populateContainer( scene.numberOfEachCard, modelLocation );
       } );
       inputCarousel.pageNumberProperty.reset();
       inputCarousel.animationEnabled = true;
@@ -212,7 +227,7 @@ define( function( require ) {
 
   /**
    * Has this Node been attached beneath a ScreenView?
-   * This is a pre-requisite to calling adjustInitialLocations.
+   * This is a pre-requisite to calling populateCarousels.
    * @param {Node} node
    * @returns {boolean}
    * @private
@@ -237,13 +252,14 @@ define( function( require ) {
     },
 
     /**
-     * Adjusts the initial location of cards and functions, which cannot be known
-     * until the carousels (view components) are instantiated and attached to a ScreenView.
+     * Populates the carousels with functions and card. This cannot be done until the carousels (view components)
+     * are instantiated and attached to a ScreenView, because functions and cards need to know the location of
+     * their respective carousels.
      * @public
      */
-    adjustInitialLocations: function() {
+    populateCarousels: function() {
       assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
-      this._adjustInitialLocations();
+      this._populateCarousels();
     }
   } );
 } );

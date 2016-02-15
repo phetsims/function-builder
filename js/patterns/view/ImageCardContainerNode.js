@@ -54,53 +54,44 @@ define( function( require ) {
 
     MovableContainerNode.call( this, parentNode, options );
 
-    // Populate the container
-    for ( var i = 0; i < numberOfInstances; i++ ) {
+    // Populates the container
+    this._populateContainer = function( numberOfInstances, containerLocation ) {
+      for ( var i = 0; i < numberOfInstances; i++ ) {
 
-      // IIFE to create a closure for each function instance
-      (function() {
+        // IIFE to create a closure for each card
+        (function() {
 
-        // model element
-        var card = ImageCard.withImage( image );
-        scene.cards.push( card );
+          // model element
+          var card = ImageCard.withImage( image );
+          card.containerLocation = containerLocation;
+          scene.cards.push( card );
 
-        // associated Node
-        var cardNode = new MovableImageCardNode( card, {
-          endDrag: options.endDrag
-        } );
+          // associated Node
+          var cardNode = new MovableImageCardNode( card, {
+            endDrag: options.endDrag
+          } );
 
-        // put the Node in the container
-        thisNode.push( cardNode );
+          // put the Node in the container
+          thisNode.push( cardNode );
 
-        // return the Node to the container
-        card.locationProperty.lazyLink( function( location ) {
-          assert && assert( card.containerLocation, 'card has no containerLocation' );
-          if ( !card.dragging && location.equals( card.containerLocation ) ) {
-            thisNode.push( cardNode );
-          }
-        } );
-      })();
-    }
+          // return the Node to the container
+          card.locationProperty.lazyLink( function( location ) {
+            assert && assert( card.containerLocation, 'card has no containerLocation' );
+            if ( !card.dragging && location.equals( card.containerLocation ) ) {
+              thisNode.push( cardNode );
+            }
+          } );
+        })();
+      }
+    };
   }
 
   functionBuilder.register( 'ImageCardContainerNode', ImageCardContainerNode );
 
   return inherit( MovableContainerNode, ImageCardContainerNode, {
 
-    /**
-     * Adjusts initial locations of all cards in the container.
-     * @public
-     */
-    adjustInitialLocations: function() {
-
-      // compute the location of this Node in the model coordinate frame
-      var viewLocation = this.parentToGlobalPoint( this.center );
-      var modelLocation = this.parentNode.globalToLocalPoint( viewLocation );
-
-      this.nodes.forEach( function( node ) {
-        //TODO replace this with: node.movable.locationProperty.initialValue = modelLocation.copy();
-        node.movable.containerLocation = modelLocation.copy();
-      } );
+    populateContainer: function( numberOfInstances, containerLocation ) {
+      this._populateContainer( numberOfInstances, containerLocation );
     }
   } );
 } );
