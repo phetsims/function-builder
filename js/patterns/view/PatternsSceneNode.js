@@ -252,7 +252,7 @@ define( function( require ) {
     /**
      * Populates the carousels with functions and card. This cannot be done until the carousels (view components)
      * are instantiated and attached to a ScreenView, because functions and cards need to know the location of
-     * their respective carousels.
+     * their respective containers in the carousels.
      * @public
      */
     populateCarousels: function() {
