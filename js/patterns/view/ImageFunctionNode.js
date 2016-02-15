@@ -14,7 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
    * @param {ImageFunction} functionInstance
@@ -26,7 +26,13 @@ define( function( require ) {
     assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     options = _.extend( {
-      iconScale: 0.3 // {number} scale for icon
+
+      iconScale: 0.3, // {number} scale for icon
+
+      // dragging the Node moves it to the front
+      startDrag: function( movableNode, event, trail ) {
+        movableNode.moveToFront();
+      }
     }, options );
 
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
@@ -39,10 +45,10 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
 
-    Node.call( this, options );
+    MovableNode.call( this, functionInstance, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( Node, ImageFunctionNode );
+  return inherit( MovableNode, ImageFunctionNode );
 } );

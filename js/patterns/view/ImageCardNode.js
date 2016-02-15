@@ -14,7 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -33,7 +33,12 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 1,
       lineDash: null,
-      imageScale: 0.3
+      imageScale: 0.3,
+
+      // dragging the Node moves it to the front
+      startDrag: function( movableNode, event, trail ) {
+        movableNode.moveToFront();
+      }
     }, options );
 
     this.imageScale = options.imageScale; // @private
@@ -48,14 +53,14 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
 
-    Node.call( this, options );
+    MovableNode.call( this, card, options );
 
     this.setCard( card );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
-  return inherit( Node, ImageCardNode, {
+  return inherit( MovableNode, ImageCardNode, {
 
     //TODO temporary, to demonstrate update of cards in output carousel
     /**

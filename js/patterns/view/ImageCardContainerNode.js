@@ -20,9 +20,9 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableContainerNode = require( 'FUNCTION_BUILDER/common/view/MovableContainerNode' );
-  var MovableImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageCardNode' );
 
   /**
    * @param {HTMLImageElement} image - images that appears on the card
@@ -65,7 +65,7 @@ define( function( require ) {
           scene.cards.push( card );
 
           // associated Node
-          var cardNode = new MovableImageCardNode( card, {
+          var cardNode = new ImageCardNode( card, {
             endDrag: options.endDrag
           } );
 

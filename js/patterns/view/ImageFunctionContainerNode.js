@@ -19,9 +19,9 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableContainerNode = require( 'FUNCTION_BUILDER/common/view/MovableContainerNode' );
-  var MovableImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/MovableImageFunctionNode' );
 
   /**
    * @param {constructor} FunctionConstructor - constructor for a subtype of {ImageFunction}
@@ -69,7 +69,7 @@ define( function( require ) {
           scene.functionInstances.push( functionInstance );
 
           // associated Node
-          var functionNode = new MovableImageFunctionNode( functionInstance, {
+          var functionNode = new ImageFunctionNode( functionInstance, {
             endDrag: options.endDrag
           } );
 
