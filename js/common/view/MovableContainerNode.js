@@ -121,7 +121,6 @@ define( function( require ) {
 
       // add to top of container
       node.pickable = false;
-      node.movable.locationLocked = true;
       this.nodes.push( node );
       this.addChild( node );
       node.center = this.backgroundNode.center;
@@ -142,7 +141,6 @@ define( function( require ) {
       // remove top node from container
       var node = this.nodes.pop();
       this.removeChild( node );
-      node.movable.locationLocked = false;
       node.pickable = true;
 
       // container is interactive when not empty

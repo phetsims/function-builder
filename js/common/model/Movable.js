@@ -36,15 +36,6 @@ define( function( require ) {
       location: options.location
     } );
 
-    // @public {boolean} locks the location, for example while a Movable is in a carousel
-    this.locationLocked = false;
-
-    // Attempting to change location while locked is a programming error.
-    var thisMovable = this;
-    this.locationProperty.link( function( location) {
-      assert && assert( !thisMovable.locationLocked, 'attempted to change location while locked: ' + thisMovable.constructor.name );
-    } );
-
     // @private {number} distance/second when animating
     this.animationSpeed = options.animationSpeed;
 
