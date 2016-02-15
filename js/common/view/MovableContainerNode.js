@@ -82,8 +82,6 @@ define( function( require ) {
         var movable = this.movableNode.movable;
         movable.dragging = true;
         movable.setLocation( movable.locationProperty.initialValue.plus( thisNode.popOutOffset ) );
-
-        //TODO cancel drag if movable is disposed of
       },
 
       translate: function( translationParams ) {

@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Emitter = require( 'AXON/Emitter' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -54,39 +53,11 @@ define( function( require ) {
 
     // @public {boolean} is the user dragging the function?
     this.dragging = options.dragging;
-
-    // @public (read-only) emitted when dispose has been called, but before it has executed
-    this.disposeCalledEmitter = new Emitter();
-
-    // @private
-    this.disposeMovable = function() {
-
-      // clean up Properties
-      this.unlinkAll();
-
-      // clean up Emitter
-      assert && assert( this.disposeCalledEmitter, 'called dispose twice?' );
-      this.disposeCalledEmitter.emit1( this );
-      this.disposeCalledEmitter.removeAllListeners();
-      this.disposeCalledEmitter = null;
-    };
   }
 
   functionBuilder.register( 'Movable', Movable );
 
   return inherit( PropertySet, Movable, {
-
-    /**
-     * Ensures that this instance is eligible for GC.
-     *
-     * @public
-     * @override
-     */
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeMovable(); // first!
-      PropertySet.prototype.dispose.call( this );
-    },
 
     /**
      * Sets the location immediately, without animation.

@@ -92,22 +92,9 @@ define( function( require ) {
       }
     } );
     this.addInputListener( dragHandler );
-
-    // @private
-    this.disposeMovableNode = function() {
-      movable.locationProperty.unlink( locationObserver );
-      //TODO cancel drag
-    };
   }
 
   functionBuilder.register( 'MovableNode', MovableNode );
 
-  return inherit( Node, MovableNode, {
-
-    // @public
-    dispose: function() {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.dispose' );
-      this.disposeMovableNode();
-    }
-  } );
+  return inherit( Node, MovableNode );
 } );
