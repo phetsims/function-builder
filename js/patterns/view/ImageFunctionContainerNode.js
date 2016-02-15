@@ -41,7 +41,9 @@ define( function( require ) {
     var thisNode = this;
 
     // When the user stops dragging a function, decide what to do with it.
-    options.endDrag = function( functionInstance, functionNode, event, trail ) {
+    options.endDrag = function( functionNode, event, trail ) {
+
+      var functionInstance = functionNode.movable;
 
       assert && assert( functionInstance.containerLocation, 'function instance has no containerLocation' );
 

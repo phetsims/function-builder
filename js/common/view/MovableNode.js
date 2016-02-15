@@ -35,7 +35,7 @@ define( function( require ) {
 
       /**
        * Called at the end of each drag sequence.
-       * {function(Movable, Event, Trail)|null}
+       * {function(MovableNode, Event, Trail)|null}
        */
       endDrag: null,
 
@@ -88,7 +88,7 @@ define( function( require ) {
 
       end: function( event, trail ) {
         movable.dragging = false;
-        options.endDrag && options.endDrag( movable, thisNode, event, trail );
+        options.endDrag && options.endDrag( thisNode, event, trail );
       }
     } );
     this.addInputListener( dragHandler );

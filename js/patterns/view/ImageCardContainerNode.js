@@ -42,7 +42,9 @@ define( function( require ) {
     var thisNode = this;
 
     // When the user stops dragging a function, decide what to do with it.
-    options.endDrag = function( card, cardNode, event, trail ) {
+    options.endDrag = function( cardNode, event, trail ) {
+
+      var card = cardNode.movable;
 
       assert && assert( card.containerLocation, 'card has no containerLocation' );
 

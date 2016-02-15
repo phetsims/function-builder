@@ -45,8 +45,7 @@ define( function( require ) {
       // {Bounds2} constrain dragging to these bounds
       dragBounds: Bounds2.EVERYTHING.copy(),
 
-      //TODO reexamine this interface, don't need both Movable and MovableNode
-      // {function({Movable},{MovableNode},{Event},{Trail}} called at the end of a drag sequence
+      // {function(MovableNode, Event, Trail)|null} called at the end of a drag sequence
       endDrag: null
 
     }, options );
@@ -97,7 +96,7 @@ define( function( require ) {
       end: function( event, trail ) {
         var movable = this.movableNode.movable;
         movable.dragging = false;
-        options.endDrag && options.endDrag( movable, this.movableNode, event, trail );
+        options.endDrag && options.endDrag( this.movableNode, event, trail );
         this.movableNode = null;
       }
     } ) );
