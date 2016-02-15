@@ -26,13 +26,12 @@ define( function( require ) {
 
   /**
    * @param {HTMLImageElement} image - images that appears on the card
-   * @param {number} numberOfInstances - number of instances to create
    * @param {Node} parentNode - parent for Nodes when they are outside the container
    * @param {PatternsScene} scene
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardContainerNode( image, numberOfInstances, parentNode, scene, options ) {
+  function ImageCardContainerNode( image, parentNode, scene, options ) {
 
     options = _.extend( {
       popOutOffset: FBConstants.CARD_POP_OUT_OFFSET,

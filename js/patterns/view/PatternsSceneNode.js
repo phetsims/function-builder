@@ -53,10 +53,10 @@ define( function( require ) {
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
-    // Items in the input carousel
+    // Items in the input carousel, empty containers for cards
     var inputCarouselItems = [];
     scene.cardImages.forEach( function( cardImage ) {
-      inputCarouselItems.push( new ImageCardContainerNode( cardImage, scene.numberOfEachCard, cardsParent, scene ) );
+      inputCarouselItems.push( new ImageCardContainerNode( cardImage, cardsParent, scene ) );
     } );
 
     // Input carousel, at left
@@ -79,10 +79,10 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
-    // Items in the output carousel
+    // Items in the output carousel, empty containers for cards
     var outputCarouselItems = []; // {ImageCardStackNode[]}
     scene.cardImages.forEach( function( cardImage ) {
-      outputCarouselItems.push( new ImageCardContainerNode( cardImage, 0, cardsParent, scene ) );
+      outputCarouselItems.push( new ImageCardContainerNode( cardImage, cardsParent, scene ) );
     } );
 
     // Output carousel, at right
@@ -116,7 +116,7 @@ define( function( require ) {
 
     // Function carousel ----------------------------------------------------------------------------------------------
 
-    // Items in the function carousel
+    // Items in the function carousel, empty containers for functions
     var functionCarouselItems = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
       functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, functionsParent, scene ) );
