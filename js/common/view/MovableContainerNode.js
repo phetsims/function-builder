@@ -76,7 +76,7 @@ define( function( require ) {
         assert && assert( thisNode === event.currentTarget );
 
         // remove the node from the container
-``        this.movableNode = thisNode.popNode();
+        this.movableNode = thisNode.popNode();
 
         // pop out of the container
         var movable = this.movableNode.movable;
