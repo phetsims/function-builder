@@ -24,8 +24,8 @@ define( function( require ) {
     options = _.extend( {
 
       // dragging the Node moves it to the front
-      startDrag: function( movable, event, trail ) {
-        event.currentTarget.moveToFront();
+      startDrag: function( movableNode, event, trail ) {
+        movableNode.moveToFront();
       }
     }, options );
 

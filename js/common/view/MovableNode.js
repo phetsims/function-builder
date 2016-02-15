@@ -28,7 +28,7 @@ define( function( require ) {
 
       /**
        * Called at the start of each drag sequence.
-       * {function(Movable, Event, Trail)|null}
+       * {function(MovableNode, Event, Trail)|null}
        */
       startDrag: null,
 
@@ -71,7 +71,7 @@ define( function( require ) {
 
       start: function( event, trail ) {
         movable.dragging = true;
-        options.startDrag && options.startDrag( movable, event, trail );
+        options.startDrag && options.startDrag( thisNode, event, trail );
       },
 
       // No need to constrain drag bounds because functions return to carousel or builder when released.
