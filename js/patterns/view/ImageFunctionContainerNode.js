@@ -65,7 +65,7 @@ define( function( require ) {
           // model element
           var functionInstance = new FunctionConstructor( {
             location: location
-          });
+          } );
           scene.functionInstances.push( functionInstance );
 
           // associated Node
@@ -78,7 +78,7 @@ define( function( require ) {
 
           // return the Node to the container
           functionInstance.locationProperty.lazyLink( function( location ) {
-            if ( !functionInstance.dragging && !thisNode.containsNode( functionNode) && location.equals( functionInstance.locationProperty.initialValue ) ) {
+            if ( !functionInstance.dragging && !thisNode.containsNode( functionNode ) && location.equals( functionInstance.locationProperty.initialValue ) ) {
               thisNode.pushNode( functionNode );
             }
           } );
