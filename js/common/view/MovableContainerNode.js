@@ -108,7 +108,7 @@ define( function( require ) {
      */
     pushNode: function( node ) {
 
-      assert && assert( this.nodes.indexOf( node ) === -1, 'attempted to add twice ' + node.movable.constructor.name );
+      assert && assert( this.nodes.indexOf( node ) === -1, 'attempted to add twice, ' + node.movable.constructor.name );
 
       // remove from parent
       if ( this.parentNode.hasChild( node ) ) {
