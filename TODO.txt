@@ -1,5 +1,16 @@
 TODO list for function-builder
 
+Move locationProperty to view?
+
+Move responsibility for re-parenting into ImageCardNode and ImageFunctionNode, instead of using closures in
+  ImageCardContainerNode and ImageFunctionContainerNode.
+
+Do all drag handling in MovableNode subtypes, instead of having to duplicate or forward in containers.
+
+Consider these constructors, which identify the possible parent nodes for a card/function:
+ImageCardNode( card, inputCarousel, outputCarousel, worldParent )
+ImageFunctionNode( card, carousel, builderNode, worldParent )
+
 Re-parent functions to builder?
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
