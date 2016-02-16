@@ -118,6 +118,7 @@ define( function( require ) {
           oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
         }
 
+        //TODO this is problematic, the function is put in the slot, but it's location won't match the slot until animation completes
         // put the function instance in the slot
         slot.functionInstance = functionInstance;
         functionInstance.destination = slot.location;
