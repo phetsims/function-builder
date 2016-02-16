@@ -11,6 +11,8 @@ Consider these constructors, which identify the possible parent nodes for a card
 ImageCardNode( card, inputCarousel, outputCarousel, worldParent )
 ImageFunctionNode( card, carousel, builderNode, worldParent )
 
+Builder: function is put in slot in model before animation to slot completes
+
 Re-parent functions to builder?
 
 Bare bones slider apparatus on builder.
