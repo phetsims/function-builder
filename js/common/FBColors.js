@@ -27,15 +27,6 @@ define( function( require ) {
       ends: 'rgb( 200, 186, 190 )'
     },
 
-    //TODO delete if this color scheme is unused
-    // a builder color scheme, see FBUtils.isaBuilderColorScheme
-    BUILDER_GREEN: {
-      top: 'rgb( 200, 222, 190 )',
-      middle: 'rgb( 120, 201, 90 )',
-      bottom: 'rgb( 35, 59, 25 )',
-      ends: 'rgb( 175, 223, 154 )'
-    },
-
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_BLUE: {
       top: 'rgb( 168, 198, 216 )',
