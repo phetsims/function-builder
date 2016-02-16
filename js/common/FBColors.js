@@ -27,6 +27,7 @@ define( function( require ) {
       ends: 'rgb( 200, 186, 190 )'
     },
 
+    //TODO delete if this color scheme is unused
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_GREEN: {
       top: 'rgb( 200, 222, 190 )',
