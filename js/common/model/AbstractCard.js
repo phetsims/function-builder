@@ -21,10 +21,7 @@ define( function( require ) {
   function AbstractCard( options ) {
 
     options = _.extend( {
-
-      // {number} distance/second when animating
-      animationSpeed: FBConstants.CARD_ANIMATION_SPEED
-
+      animationSpeed: FBConstants.CARD_ANIMATION_SPEED  // {number} distance/second when animating
     }, options );
 
     Movable.call( this, options );
