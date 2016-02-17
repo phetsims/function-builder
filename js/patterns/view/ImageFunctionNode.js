@@ -49,14 +49,17 @@ define( function( require ) {
 
       var functionInstance = functionNode.movable;
 
-      // if function is in the container, pop it out
       if ( container.containsNode( functionNode ) ) {
+
+        // if function is in the carousel, pop it out
         container.removeNode( functionNode );
         worldNode.addChild( functionNode );
         functionInstance = functionNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
+
+        // function is in the builder, pop it out
         //TODO temporary, functionNode should be parented to builderNode
         functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
         builderNode.builder.removeFunctionInstance( functionInstance );
