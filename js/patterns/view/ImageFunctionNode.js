@@ -33,6 +33,8 @@ define( function( require ) {
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
+    var thisNode = this;
+
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
 
     var iconNode = new Image( functionInstance.image, {
@@ -43,31 +45,31 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
 
-    options.startDrag = function( functionNode, event, trail ) {
+    options.startDrag = function( event, trail ) {
 
-      var functionInstance = functionNode.movable;
+      var functionInstance = thisNode.movable;
 
-      if ( container.containsNode( functionNode ) ) {
+      if ( container.containsNode( thisNode ) ) {
 
         // if function is in the carousel, pop it out
-        container.removeNode( functionNode );
-        worldNode.addChild( functionNode );
-        functionInstance = functionNode.movable;
+        container.removeNode( thisNode );
+        worldNode.addChild( thisNode );
+        functionInstance = thisNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
 
         // function is in the builder, pop it out
-        //TODO temporary, functionNode should be parented to builderNode
-        functionNode.moveToFront();
+        //TODO temporary, thisNode should be parented to builderNode
+        thisNode.moveToFront();
         functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
         builderNode.builder.removeFunctionInstance( functionInstance );
       }
     };
 
-    options.endDrag = function( functionNode, event, trail ) {
+    options.endDrag = function( event, trail ) {
 
-      var functionInstance = functionNode.movable;
+      var functionInstance = thisNode.movable;
 
       //TODO handle differently, animate to slot, worldNode.removeChild, re-parent to builderNode
       // try to add function to the builder
@@ -77,8 +79,8 @@ define( function( require ) {
       if ( slotNumber === -1 ) {
         functionInstance.animateTo( container.carouselLocation,
           function() {
-            worldNode.removeChild( functionNode );
-            container.addNode( functionNode );
+            worldNode.removeChild( thisNode );
+            container.addNode( thisNode );
           } );
       }
     };

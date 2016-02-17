@@ -40,6 +40,8 @@ define( function( require ) {
       imageScale: 0.3
     }, options );
 
+    var thisNode = this;
+
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
@@ -53,31 +55,31 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, imageNode ];
 
-    options.startDrag = function( cardNode, event, trail ) {
+    options.startDrag = function( event, trail ) {
 
-      var card = cardNode.movable;
+      var card = thisNode.movable;
 
-      if ( inputContainer.containsNode( cardNode ) ) {
+      if ( inputContainer.containsNode( thisNode ) ) {
 
         // card is in the input carousel, pop it out
-        inputContainer.removeNode( cardNode );
+        inputContainer.removeNode( thisNode );
 
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
-      else if ( outputContainer.containsNode( cardNode ) ) {
+      else if ( outputContainer.containsNode( thisNode ) ) {
 
         // card is in the output carousel, pop it out
-        outputContainer.removeNode( cardNode );
+        outputContainer.removeNode( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
 
-      worldNode.addChild( cardNode );
+      worldNode.addChild( thisNode );
     };
 
     // When the user stops dragging a function, decide what to do with it.
-    options.endDrag = function( cardNode, event, trail ) {
+    options.endDrag = function( event, trail ) {
 
-      var card = cardNode.movable;
+      var card = thisNode.movable;
 
       //TODO temporary, send the card to the closest carousel
       var xMiddle = inputContainer.carouselLocation.x + ( outputContainer.carouselLocation.x - inputContainer.carouselLocation.x ) / 2;
@@ -86,8 +88,8 @@ define( function( require ) {
         // return to input carousel
         card.animateTo( inputContainer.carouselLocation,
           function() {
-            worldNode.removeChild( cardNode );
-            inputContainer.addNode( cardNode );
+            worldNode.removeChild( thisNode );
+            inputContainer.addNode( thisNode );
           } );
       }
       else {
@@ -95,8 +97,8 @@ define( function( require ) {
         // return to output carousel
         card.animateTo( outputContainer.carouselLocation,
           function() {
-            worldNode.removeChild( cardNode );
-            outputContainer.addNode( cardNode );
+            worldNode.removeChild( thisNode );
+            outputContainer.addNode( thisNode );
           } );
       }
     };
