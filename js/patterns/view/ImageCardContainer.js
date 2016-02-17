@@ -55,7 +55,7 @@ define( function( require ) {
      */
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, worldNode ) {
 
-      assert && assert( this === inputContainer );
+      assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
       assert && assert( inputContainer.carouselLocation );
       assert && assert( outputContainer.carouselLocation );
 
