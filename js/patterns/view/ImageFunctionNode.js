@@ -47,15 +47,19 @@ define( function( require ) {
 
       functionNode.moveToFront();
 
+      var functionInstance = functionNode.movable;
+
       // if function is in the container, pop it out
       if ( container.containsNode( functionNode ) ) {
         container.removeNode( functionNode );
         worldNode.addChild( functionNode );
-        var functionInstance = functionNode.movable;
+        functionInstance = functionNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
-        //TODO if function is in builder, pop it out
+        //TODO temporary, functionNode should be parented to builderNode
+        functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+        builderNode.builder.removeFunctionInstance( functionInstance );
       }
     };
 

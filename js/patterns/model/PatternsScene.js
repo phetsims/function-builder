@@ -101,17 +101,21 @@ define( function( require ) {
       starImage
     ];
 
+    // @private {ImageCard[]} all cards that exist
+    this.cards = [];
+
+    // @private {ImageFunction[]} all function instances that exist
+    this.functionInstances = [];
+
     // @public (read-only) {Builder}
     this.builder = options.builder;
 
     // @public (read-only) {boolean} spy glass feature is enabled if the builder has > 1 slot
     this.spyGlassEnabled = ( this.builder.slots.length > 1 );
 
-    // @private {ImageCard[]} all cards that exist
-    this.cards = [];
-
-    // @private {ImageFunction[]} all function instances that exist
-    this.functionInstances = [];
+    this.builder.functionChangedEmitter.addListener( function( builder ) {
+      console.log( 'function changed' ); //TODO update cards
+    } );
   }
 
   functionBuilder.register( 'PatternsScene', PatternsScene );
