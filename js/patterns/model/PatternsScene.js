@@ -126,12 +126,12 @@ define( function( require ) {
 
       // move all cards back to the input carousel
       this.cards.slice( 0 ).forEach( function( card ) {
-        card.reset();
+        //TODO
       } );
 
       // move all functions back to the function carousel
       this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
-        functionInstance.reset();
+        //TODO
       } );
     },
 
