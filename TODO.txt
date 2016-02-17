@@ -1,16 +1,15 @@
 TODO list for function-builder
 
-BUG: Function that is replaced by another function in the builder is not pushed to the function carousel.
+Reset All
+- broken for functions and cards
+- implement erase button at same time, it's similar
 
-BUG: Reset All is broken for functions and cards
 
-Implement erase button for output carousel, similar to Reset All for now.
-
-Movable.destination is private, but still used in Builder, replace with animateTo.
-
-Builder: function is put in slot in model before animation to slot completes
-
-Re-parent functions to builder?
+Builder:
+- function that is replaced by another function in the builder is not added to the function carousel
+- Movable.destination is private, but still used in Builder, replace with animateTo.
+- function is put in slot in model before animation to slot completes
+- re-parent functions to BuilderNode
 
 Bare bones slider apparatus on builder.
 
