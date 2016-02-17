@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for Nodes of type MovableNode. Behaves like a stack (last in, first out).
+ * Container for Nodes of type MovableNode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,8 +29,6 @@ define( function( require ) {
       size: new Dimension2( 100, 100 ) // {Dimension2} size of the container
     }, options );
 
-    this.nodes = []; // @protected {MovableNode[]} contents of the container, in stacking order
-
     // @public location of container when it's visible in the carousel. Set after carousel is attached to scene.
     this.carouselLocation = null;
 
@@ -55,7 +53,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     containsNode: function( node ) {
-      return ( this.nodes.indexOf( node ) !== -1 );
+      return ( this.hasChild( node ) );
     },
 
     /**
@@ -63,40 +61,20 @@ define( function( require ) {
      * @param {MovableNode} node
      * @public
      */
-    pushNode: function( node ) {
-
-      assert && assert( !this.containsNode( node ), 'attempted to push Node twice, ' + node.constructor.name );
-
-      // previous top node is no longer interactive
-      if ( this.nodes.length > 0 ) {
-        this.nodes[ this.nodes.length - 1 ].pickable = false;
-      }
-
-      // add to top of container
-      this.nodes.push( node );
+    addNode: function( node ) {
+      assert && assert( !this.containsNode( node ), 'node is already in container, ' + node.constructor.name );
       this.addChild( node );
       node.center = this.backgroundNode.center;
     },
 
     /**
-     * Removes the Node that was most recently added to the container (last in, first out).
-     * @returns {MovableNode}
+     * Removes a Node from the container.
+     * @param {MovableNode} node
      * @private
      */
-    popNode: function() {
-
-      assert && assert( this.nodes.length > 0, 'container is empty' );
-
-      // remove top node from container
-      var node = this.nodes.pop();
+    removeNode: function( node ) {
+      assert && assert( this.containsNode( node ), 'node is not in container, ' + node.constructor.name );
       this.removeChild( node );
-
-      // new top node is interactive
-      if ( this.nodes.length > 0 ) {
-        this.nodes[ this.nodes.length - 1 ].pickable = true;
-      }
-
-      return node;
     }
   } );
 } );

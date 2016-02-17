@@ -71,7 +71,7 @@ define( function( require ) {
         var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, worldNode );
 
         // put the Node in this container
-        this.pushNode( cardNode );
+        this.addNode( cardNode );
       }
     }
   } );

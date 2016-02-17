@@ -49,15 +49,10 @@ define( function( require ) {
 
       // if function is in the container, pop it out
       if ( container.containsNode( functionNode ) ) {
-
-        //TODO make this ugliness go away, only top function is interactive
-        var node = container.popNode();
-        assert && assert( node === functionNode );
-
+        container.removeNode( functionNode );
+        worldNode.addChild( functionNode );
         var functionInstance = functionNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
-
-        worldNode.addChild( functionNode );
       }
       else {
         //TODO if function is in builder, pop it out
@@ -77,7 +72,7 @@ define( function( require ) {
         functionInstance.animateTo( container.carouselLocation,
           function() {
             worldNode.removeChild( functionNode );
-            container.pushNode( functionNode );
+            container.addNode( functionNode );
           } );
       }
     };

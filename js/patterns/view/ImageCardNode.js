@@ -55,37 +55,28 @@ define( function( require ) {
 
     options.startDrag = function( cardNode, event, trail ) {
 
+      assert && assert( !worldNode.hasChild( cardNode ) );
+
       cardNode.moveToFront();
 
-      var node;
-      var card;
+      var card = cardNode.movable;
 
       if ( inputContainer.containsNode( cardNode ) ) {
-
-        //TODO make this ugliness go away, only top card is interactive
-        node = inputContainer.popNode();
-        assert && assert( node === cardNode );
-
-        card = cardNode.movable;
-        card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-
+        inputContainer.removeNode( cardNode );
         worldNode.addChild( cardNode );
+        card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else if ( outputContainer.containsNode( cardNode ) ) {
-
-        //TODO make this ugliness go away, only top card is interactive
-        node = outputContainer.popNode();
-        assert && assert( node === cardNode );
-
-        card = cardNode.movable;
-        card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-
+        outputContainer.removeNode( cardNode );
         worldNode.addChild( cardNode );
+        card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
     };
 
     // When the user stops dragging a function, decide what to do with it.
     options.endDrag = function( cardNode, event, trail ) {
+
+      assert && assert( worldNode.hasChild( cardNode ) );
 
       var card = cardNode.movable;
 
@@ -95,7 +86,7 @@ define( function( require ) {
         card.animateTo( inputContainer.carouselLocation,
           function() {
             worldNode.removeChild( cardNode );
-            inputContainer.pushNode( cardNode );
+            inputContainer.addNode( cardNode );
           } );
       }
       else {
@@ -104,7 +95,7 @@ define( function( require ) {
         card.animateTo( outputContainer.carouselLocation,
           function() {
             worldNode.removeChild( cardNode );
-            outputContainer.pushNode( cardNode );
+            outputContainer.addNode( cardNode );
           } );
       }
     };

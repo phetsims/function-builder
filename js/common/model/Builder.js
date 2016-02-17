@@ -115,7 +115,7 @@ define( function( require ) {
         // if the slot was occupied, return the occupier to whence it came
         if ( !slot.isEmpty() ) {
           var oldFunctionInstance = slot.functionInstance;
-          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue; //TODO replace with animateTo + functionCarousel.pushNode
+          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue; //TODO replace with animateTo + functionCarousel.addNode
         }
 
         //TODO this is problematic, the function is put in the slot, but it's location won't match the slot until animation completes

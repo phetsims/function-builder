@@ -66,7 +66,7 @@ define( function( require ) {
         var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, worldNode );
 
         // put the Node in this container
-        this.pushNode( functionNode );
+        this.addNode( functionNode );
       }
     }
   } );
