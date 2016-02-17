@@ -19,10 +19,14 @@ define( function( require ) {
 
   /**
    * @param {ImageCard} card
+   * @param {ImageCardContainer} inputContainer
+   * @param {ImageCardContainer} outputContainer
+   * @param {BuilderNode} builderNode
+   * @param {Node} worldNode
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardNode( card, options ) {
+  function ImageCardNode( card, inputContainer, outputContainer, builderNode, worldNode, options ) {
 
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
@@ -33,12 +37,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 1,
       lineDash: null,
-      imageScale: 0.3,
-
-      // dragging the Node moves it to the front
-      startDrag: function( movableNode, event, trail ) {
-        movableNode.moveToFront();
-      }
+      imageScale: 0.3
     }, options );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
@@ -53,6 +52,43 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, imageNode ];
+
+    options.startDrag = function( cardNode, event, trail ) {
+
+      cardNode.moveToFront();
+
+      if ( inputContainer.containsNode( cardNode ) ) {
+
+        //TODO make this ugliness go away, only top card is interactive
+        var node = inputContainer.popNode();
+        assert && assert( node === cardNode );
+
+        var card = cardNode.movable;
+        card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
+
+        worldNode.addChild( cardNode );
+      }
+      else if ( outputContainer.containsNode( cardNode ) ) {
+        //TODO remove card from output container
+      }
+    };
+
+    // When the user stops dragging a function, decide what to do with it.
+    options.endDrag = function( cardNode, event, trail ) {
+
+      var card = cardNode.movable;
+
+      //TODO temporary, move back to input carousel
+      card.animateTo( inputContainer.carouselLocation,
+        function() {
+          worldNode.removeChild( cardNode );
+          inputContainer.pushNode( cardNode );
+        } );
+    };
+
+    card.locationProperty.link( function( location ) {
+      //TODO change card image based on location relative to builder slots
+    } );
 
     MovableNode.call( this, card, options );
   }

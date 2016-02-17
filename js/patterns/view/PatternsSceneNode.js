@@ -13,8 +13,8 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCardContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainerNode' );
-  var ImageFunctionContainerNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainerNode' );
+  var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
+  var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PageControl = require( 'SUN/PageControl' );
@@ -55,14 +55,14 @@ define( function( require ) {
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
-    // Items in the input carousel, empty containers for cards
-    var inputCarouselItems = [];
+    // Containers in the input carousel
+    var inputContainers = [];
     scene.cardImages.forEach( function( cardImage ) {
-      inputCarouselItems.push( new ImageCardContainerNode( cardImage, cardsParent, scene ) );
+      inputContainers.push( new ImageCardContainer( cardImage ) );
     } );
 
     // Input carousel, at left
-    var inputCarousel = new Carousel( inputCarouselItems, {
+    var inputCarousel = new Carousel( inputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: CARDS_PER_PAGE,
@@ -81,14 +81,14 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
-    // Items in the output carousel, empty containers for cards
-    var outputCarouselItems = []; // {ImageCardStackNode[]}
+    // Containers in the output carousel
+    var outputContainers = []; // {ImageCardStackNode[]}
     scene.cardImages.forEach( function( cardImage ) {
-      outputCarouselItems.push( new ImageCardContainerNode( cardImage, cardsParent, scene ) );
+      outputContainers.push( new ImageCardContainer( cardImage ) );
     } );
 
     // Output carousel, at right
-    var outputCarousel = new Carousel( outputCarouselItems, {
+    var outputCarousel = new Carousel( outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: CARDS_PER_PAGE,
@@ -118,14 +118,14 @@ define( function( require ) {
 
     // Function carousel ----------------------------------------------------------------------------------------------
 
-    // Items in the function carousel, empty containers for functions
-    var functionCarouselItems = [];
+    // Containers in the function carousel
+    var functionContainers = [];
     scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionCarouselItems.push( new ImageFunctionContainerNode( FunctionConstructor, functionsParent, scene ) );
+      functionContainers.push( new ImageFunctionContainer( FunctionConstructor, scene ) );
     } );
 
     // Function carousel, centered below bottom builder
-    var functionCarousel = new Carousel( functionCarouselItems, {
+    var functionCarousel = new Carousel( functionContainers, {
       orientation: 'horizontal',
       itemsPerPage: 3,
       buttonTouchAreaXDilation: 15,
@@ -195,37 +195,41 @@ define( function( require ) {
 
       // functions
       functionCarousel.animationEnabled = false;
-      functionCarouselItems.forEach( function( item ) {
+      functionContainers.forEach( function( container ) {
 
-        // make sure the item is visible in the carousel
-        functionCarousel.scrollToItem( item );
+        // compute the container's location in the model coordinate frame
+        functionCarousel.scrollToItem( container );
+        container.carouselLocation = functionsParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
 
-        // compute the item's location in the model coordinate frame
-        var viewLocation = item.parentToGlobalPoint( item.center );
-        var modelLocation = item.parentNode.globalToLocalPoint( viewLocation );
-
-        // create functions at the item's location
-        item.populateContainer( scene.numberOfEachFunction, modelLocation );
+        // populate the container with functions
+        container.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsParent );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
 
       // cards
       inputCarousel.animationEnabled = false;
-      inputCarouselItems.forEach( function( item ) {
+      outputCarousel.animationEnabled = false;
+      assert && assert( inputContainers.length === outputContainers.length );
+      for ( var i = 0; i < inputContainers.length; i++ ) {
 
-        // make sure the item is visible in the carousel
-        inputCarousel.scrollToItem( item );
+        // compute the input container's location in the model coordinate frame
+        var inputContainer = inputContainers[ i ];
+        inputCarousel.scrollToItem( inputContainer );
+        inputContainer.carouselLocation = cardsParent.globalToLocalPoint( inputContainer.parentToGlobalPoint( inputContainer.center ) );
 
-        // compute the item's location in the model coordinate frame
-        var viewLocation = item.parentToGlobalPoint( item.center );
-        var modelLocation = item.parentNode.globalToLocalPoint( viewLocation );
+        // compute the output container's location in the model coordinate frame
+        var outputContainer = outputContainers[ i ];
+        outputCarousel.scrollToItem( outputContainer );
+        outputContainer.carouselLocation = cardsParent.globalToLocalPoint( outputContainer.parentToGlobalPoint( outputContainer.center ) );
 
-        // create functions at the item's location
-        item.populateContainer( scene.numberOfEachCard, modelLocation );
-      } );
+        // populate the input container with cards
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsParent );
+      }
       inputCarousel.pageNumberProperty.reset();
+      outputCarousel.pageNumberProperty.reset();
       inputCarousel.animationEnabled = true;
+      outputCarousel.animationEnabled = true;
     };
   }
 

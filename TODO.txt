@@ -1,15 +1,8 @@
 TODO list for function-builder
 
-Move locationProperty to view?
+BUG: Function that is replaced by another function in the builder is not pushed to the function carousel.
 
-Move responsibility for re-parenting into ImageCardNode and ImageFunctionNode, instead of using closures in
-  ImageCardContainerNode and ImageFunctionContainerNode.
-
-Do all drag handling in MovableNode subtypes, instead of having to duplicate or forward in containers.
-
-Consider these constructors, which identify the possible parent nodes for a card/function:
-ImageCardNode( card, inputCarousel, outputCarousel, worldParent )
-ImageFunctionNode( card, carousel, builderNode, worldParent )
+Movable.destination is private, but still used in Builder, replace with animateTo.
 
 Builder: function is put in slot in model before animation to slot completes
 

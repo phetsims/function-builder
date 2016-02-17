@@ -78,7 +78,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
       translate: function( translationParams ) {
         var location = movable.locationProperty.get().plus( translationParams.delta );
-        movable.setLocation( location );
+        movable.moveTo( location );
       },
 
       end: function( event, trail ) {

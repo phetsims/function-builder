@@ -30,16 +30,17 @@ define( function( require ) {
     }, options );
 
     PropertySet.call( this, {
-
-      // @public (read-only) {Vector2} DO NOT set this directly! Use setLocation or destination.
-      location: options.location
+      location: options.location // @public (read-only) {Vector2} DO NOT set this directly! Use moveTo or animateTo.
     } );
 
     // @private {number} distance/second when animating
     this.animationSpeed = options.animationSpeed;
 
-    // @public {Vector2} set this to animate to a location
+    // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
+
+    // @private {function} called when animation to destination completes
+    this.animationCompleteCallback = null;
 
     // @public {boolean} is the user dragging the function?
     this.dragging = options.dragging;
@@ -50,13 +51,24 @@ define( function( require ) {
   return inherit( PropertySet, Movable, {
 
     /**
-     * Sets the location immediately, without animation.
+     * Moves immediately to the specified location, without animation.
      *
      * @param {Vector2} location
      */
-    setLocation: function( location ) {
+    moveTo: function( location ) {
       this.destination = location;
       this.locationProperty.set( location );
+    },
+
+    /**
+     * Animates to the specified location. When animation is completed, call optional callback.
+     *
+     * @param {Vector2} destination
+     * @param {function} [animationCompletedCallback]
+     */
+    animateTo: function( destination, animationCompletedCallback ) {
+      this.destination = destination;
+      this.animationCompletedCallback = animationCompletedCallback;
     },
 
     /**
@@ -76,6 +88,10 @@ define( function( require ) {
 
           // move directly to the destination
           this.locationProperty.set( this.destination );
+
+          // callback
+          this.animationCompletedCallback && this.animationCompletedCallback();
+          this.animationCompletedCallback = null;
         }
         else {
 

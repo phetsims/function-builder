@@ -115,13 +115,13 @@ define( function( require ) {
         // if the slot was occupied, return the occupier to whence it came
         if ( !slot.isEmpty() ) {
           var oldFunctionInstance = slot.functionInstance;
-          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue;
+          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue; //TODO replace with animateTo + functionCarousel.pushNode
         }
 
         //TODO this is problematic, the function is put in the slot, but it's location won't match the slot until animation completes
         // put the function instance in the slot
         slot.functionInstance = functionInstance;
-        functionInstance.destination = slot.location;
+        functionInstance.destination = slot.location; //TODO replace with animateTo
 
         // notify that's there's been a change
         this.functionChangedEmitter.emit1( this );
@@ -150,7 +150,7 @@ define( function( require ) {
           removed = true;
 
           // pop function out of slot
-          functionInstance.setLocation( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+          functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
 
           // notify that there's been a change
           this.functionChangedEmitter.emit1( this );

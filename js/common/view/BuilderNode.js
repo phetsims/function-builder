@@ -53,6 +53,9 @@ define( function( require ) {
     options.x = builder.location.x;
     options.y = builder.location.y;
 
+    // @public (read-only)
+    this.builder = builder;
+
     var colorScheme = builder.colorScheme;
     assert && assert( FBUtils.isaBuilderColorScheme( colorScheme ) );
 
