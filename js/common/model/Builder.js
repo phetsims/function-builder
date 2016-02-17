@@ -79,21 +79,6 @@ define( function( require ) {
     },
 
     /**
-     * Does the builder contain the specified function instance?
-     *
-     * @param {AbstractFunction} functionInstance
-     * @returns {boolean}
-     * @public
-     */
-    containsFunctionInstance: function( functionInstance ) {
-      var found = false;
-      for ( var i = 0; i < this.slots.length && !found; i++ ) {
-        found = this.slots[ i ].contains( functionInstance );
-      }
-      return found;
-    },
-
-    /**
      * Adds a function instance, if it's close enough to a slot.
      * If the slot is occupied, replace the function that occupies the slot.
      *
