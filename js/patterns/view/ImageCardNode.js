@@ -79,7 +79,9 @@ define( function( require ) {
 
       var card = cardNode.movable;
 
-      if ( card.locationProperty.get().x < 512 ) {
+      //TODO temporary, send the card to the closest carousel
+      var xMiddle = inputContainer.carouselLocation.x + ( outputContainer.carouselLocation.x - inputContainer.carouselLocation.x ) / 2;
+      if ( card.locationProperty.get().x < xMiddle ) {
 
         // return to input carousel
         card.animateTo( inputContainer.carouselLocation,
