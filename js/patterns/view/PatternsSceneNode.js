@@ -189,8 +189,7 @@ define( function( require ) {
     // @private Populates the carousels, while we scroll them with animation disabled.
     this._populateCarousels = function() {
 
-      // This cannot be done until the carousels (view components) are instantiated and attached to a ScreenView,
-      // because functions and cards need to know the location of their respective containers in the carousels.
+      // This cannot be done until this scene is attached to a ScreenView.
       assert && assert( hasScreenViewAncestor( thisNode ), 'call this function after attaching to ScreenView' );
 
       // functions
