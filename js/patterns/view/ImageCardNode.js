@@ -72,6 +72,9 @@ define( function( require ) {
         outputContainer.removeNode( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
+      else {
+        //TODO remove card from builder apparatus
+      }
 
       worldNode.addChild( thisNode );
     };
