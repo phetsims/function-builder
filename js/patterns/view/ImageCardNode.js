@@ -41,49 +41,25 @@ define( function( require ) {
       }
     }, options );
 
-    this.imageScale = options.imageScale; // @private
-
     // @private
-    this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     // @private set by setCard
-    this.imageNode = null;
+    var imageNode = new Image( card.canvas.toDataURL(), {
+      initialWidth: card.canvas.width,
+      initialHeight: card.canvas.height,
+      scale: options.imageScale,
+      center: backgroundNode.center
+    } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode ];
+    options.children = [ backgroundNode, imageNode ];
 
     MovableNode.call( this, card, options );
-
-    this.setCard( card );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
-  return inherit( MovableNode, ImageCardNode, {
-
-    //TODO temporary, to demonstrate update of cards in output carousel
-    /**
-     * Sets the model element displayed by this card.
-     * @param {ImageCard} card
-     * @public
-     */
-    setCard: function( card ) {
-
-      assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
-
-      this.card = card;
-
-      this.imageNode && this.removeChild( this.imageNode );
-
-      // Because this.imageNode.setImage doesn't work reliably with a data URL
-      this.imageNode = new Image( card.canvas.toDataURL(), {
-        initialWidth: card.canvas.width,
-        initialHeight: card.canvas.height,
-        scale: this.imageScale,
-        center: this.backgroundNode.center
-      } );
-      this.addChild( this.imageNode );
-    }
-  } );
+  return inherit( MovableNode, ImageCardNode );
 } );
