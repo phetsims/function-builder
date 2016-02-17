@@ -41,11 +41,9 @@ define( function( require ) {
       }
     }, options );
 
-    // @private
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
-    // @private set by setCard
     var imageNode = new Image( card.canvas.toDataURL(), {
       initialWidth: card.canvas.width,
       initialHeight: card.canvas.height,
