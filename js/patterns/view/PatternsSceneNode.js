@@ -240,7 +240,7 @@ define( function( require ) {
   var getCarouselLocation = function( carousel, container, worldParent ) {
     assert && assert( !carousel.animationEnabled );
     carousel.scrollToItem( container );
-    return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) )
+    return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
   };
 
   /**
