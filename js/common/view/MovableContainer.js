@@ -62,7 +62,6 @@ define( function( require ) {
      * @public
      */
     addNode: function( node ) {
-      assert && assert( !this.containsNode( node ), 'node is already in container, ' + node.constructor.name );
       this.addChild( node );
       node.center = this.backgroundNode.center;
     },
@@ -73,7 +72,6 @@ define( function( require ) {
      * @private
      */
     removeNode: function( node ) {
-      assert && assert( this.containsNode( node ), 'node is not in container, ' + node.constructor.name );
       this.removeChild( node );
     }
   } );

@@ -55,32 +55,27 @@ define( function( require ) {
 
     options.startDrag = function( cardNode, event, trail ) {
 
-      assert && assert( !worldNode.hasChild( cardNode ) );
-
-      cardNode.moveToFront();
-
       var card = cardNode.movable;
 
       if ( inputContainer.containsNode( cardNode ) ) {
 
         // card is in the input carousel, pop it out
         inputContainer.removeNode( cardNode );
-        worldNode.addChild( cardNode );
+
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else if ( outputContainer.containsNode( cardNode ) ) {
 
         // card is in the output carousel, pop it out
         outputContainer.removeNode( cardNode );
-        worldNode.addChild( cardNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
+
+      worldNode.addChild( cardNode );
     };
 
     // When the user stops dragging a function, decide what to do with it.
     options.endDrag = function( cardNode, event, trail ) {
-
-      assert && assert( worldNode.hasChild( cardNode ) );
 
       var card = cardNode.movable;
 

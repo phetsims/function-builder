@@ -45,8 +45,6 @@ define( function( require ) {
 
     options.startDrag = function( functionNode, event, trail ) {
 
-      functionNode.moveToFront();
-
       var functionInstance = functionNode.movable;
 
       if ( container.containsNode( functionNode ) ) {
@@ -61,6 +59,7 @@ define( function( require ) {
 
         // function is in the builder, pop it out
         //TODO temporary, functionNode should be parented to builderNode
+        functionNode.moveToFront();
         functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
         builderNode.builder.removeFunctionInstance( functionInstance );
       }
@@ -70,7 +69,7 @@ define( function( require ) {
 
       var functionInstance = functionNode.movable;
 
-      //TODO handle differently, re-parent to builderNode
+      //TODO handle differently, animate to slot, worldNode.removeChild, re-parent to builderNode
       // try to add function to the builder
       var slotNumber = builderNode.builder.addFunctionInstance( functionInstance );
 
