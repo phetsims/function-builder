@@ -194,45 +194,54 @@ define( function( require ) {
 
       // functions
       functionCarousel.animationEnabled = false;
-      functionContainers.forEach( function( container ) {
+      functionContainers.forEach( function( functionContainer ) {
 
-        // compute the container's location in the model coordinate frame
-        functionCarousel.scrollToItem( container );
-        container.carouselLocation = functionsParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
+        // function container's location
+        functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsParent );
 
         // populate the container with functions
-        container.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsParent );
+        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsParent );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
 
       // cards
-      inputCarousel.animationEnabled = false;
-      outputCarousel.animationEnabled = false;
+      inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
       assert && assert( inputContainers.length === outputContainers.length );
       for ( var i = 0; i < inputContainers.length; i++ ) {
 
-        // compute the input container's location in the model coordinate frame
+        // input container's location
         var inputContainer = inputContainers[ i ];
-        inputCarousel.scrollToItem( inputContainer );
-        inputContainer.carouselLocation = cardsParent.globalToLocalPoint( inputContainer.parentToGlobalPoint( inputContainer.center ) );
+        inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsParent );
 
-        // compute the output container's location in the model coordinate frame
+        // output container's location
         var outputContainer = outputContainers[ i ];
-        outputCarousel.scrollToItem( outputContainer );
-        outputContainer.carouselLocation = cardsParent.globalToLocalPoint( outputContainer.parentToGlobalPoint( outputContainer.center ) );
+        outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsParent );
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsParent );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
-      inputCarousel.animationEnabled = true;
-      outputCarousel.animationEnabled = true;
+      inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
     };
   }
 
   functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
+
+  /**
+   * For a container that is visible in some carousel, gets the location of the container in the model coordinate frame.
+   *
+   * @param {Carousel} carousel
+   * @param {MovableContainer} container
+   * @param {Node} worldParent
+   * @returns {Vector2}
+   */
+  var getCarouselLocation = function( carousel, container, worldParent ) {
+    assert && assert( !carousel.animationEnabled );
+    carousel.scrollToItem( container );
+    return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) )
+  };
 
   /**
    * Has this Node been attached beneath a ScreenView?
