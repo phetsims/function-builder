@@ -266,7 +266,7 @@ define( function( require ) {
       this._reset();
     },
 
-    // @public Populates the carousels with functions and card.
+    // @public
     populateCarousels: function() {
       this._populateCarousels();
     }
