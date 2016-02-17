@@ -57,19 +57,30 @@ define( function( require ) {
 
       cardNode.moveToFront();
 
+      var node;
+      var card;
+
       if ( inputContainer.containsNode( cardNode ) ) {
 
         //TODO make this ugliness go away, only top card is interactive
-        var node = inputContainer.popNode();
+        node = inputContainer.popNode();
         assert && assert( node === cardNode );
 
-        var card = cardNode.movable;
+        card = cardNode.movable;
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
 
         worldNode.addChild( cardNode );
       }
       else if ( outputContainer.containsNode( cardNode ) ) {
-        //TODO remove card from output container
+
+        //TODO make this ugliness go away, only top card is interactive
+        node = outputContainer.popNode();
+        assert && assert( node === cardNode );
+
+        card = cardNode.movable;
+        card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
+
+        worldNode.addChild( cardNode );
       }
     };
 
@@ -78,12 +89,24 @@ define( function( require ) {
 
       var card = cardNode.movable;
 
-      //TODO temporary, move back to input carousel
-      card.animateTo( inputContainer.carouselLocation,
-        function() {
-          worldNode.removeChild( cardNode );
-          inputContainer.pushNode( cardNode );
-        } );
+      if ( card.locationProperty.get().x < 512 ) {
+
+        // return to input carousel
+        card.animateTo( inputContainer.carouselLocation,
+          function() {
+            worldNode.removeChild( cardNode );
+            inputContainer.pushNode( cardNode );
+          } );
+      }
+      else {
+
+        // return to output carousel
+        card.animateTo( outputContainer.carouselLocation,
+          function() {
+            worldNode.removeChild( cardNode );
+            outputContainer.pushNode( cardNode );
+          } );
+      }
     };
 
     card.locationProperty.link( function( location ) {
