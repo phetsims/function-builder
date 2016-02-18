@@ -141,7 +141,21 @@ define( function( require ) {
           this.functionChangedEmitter.emit1( this );
         }
       }
-      assert && assert( removed );
+      assert && assert( removed, 'functionInstance not found in builder' );
+    },
+
+    /**
+     * Does the builder contain the specified function instance?
+     * @param {AbstractFunction} functionInstance
+     * @returns {boolean}
+     */
+    containsFunctionInstance: function( functionInstance ) {
+      for ( var i = 0; i < this.slots.length; i++ ) {
+        if ( this.slots[i ].functionInstance === functionInstance ) {
+          return true;
+        }
+      }
+      return false;
     },
 
     /**

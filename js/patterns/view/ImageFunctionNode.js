@@ -57,7 +57,7 @@ define( function( require ) {
         functionInstance = thisNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
-      else {
+      else if ( builderNode.builder.containsFunctionInstance( functionInstance ) ) {
 
         // function is in the builder, pop it out
         //TODO temporary, thisNode should be parented to builderNode
