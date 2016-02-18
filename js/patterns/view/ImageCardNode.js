@@ -63,20 +63,19 @@ define( function( require ) {
 
         // card is in the input carousel, pop it out
         inputContainer.removeNode( thisNode );
-
+        worldNode.addChild( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
 
         // card is in the output carousel, pop it out
         outputContainer.removeNode( thisNode );
+        worldNode.addChild( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else {
         //TODO remove card from builder apparatus
       }
-
-      worldNode.addChild( thisNode );
     };
 
     // When the user stops dragging a function, decide what to do with it.
