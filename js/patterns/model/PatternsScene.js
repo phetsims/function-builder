@@ -114,7 +114,7 @@ define( function( require ) {
     this.spyGlassEnabled = ( this.builder.slots.length > 1 );
 
     this.builder.functionChangedEmitter.addListener( function( builder ) {
-      console.log( 'function changed' ); //TODO update cards
+      //TODO update cards
     } );
   }
 
