@@ -1,11 +1,14 @@
 TODO list for function-builder
 
+Builder:
+- odd division of responsibilities between Builder and BuilderNode
+
 Cards:
 - update model and view when functions change
 - update view when location changes
 
 Reset All
-- broken for functions and cards
+- broken for functions, cards, builder
 - implement erase button at same time, it's similar
 
 Bare bones slider apparatus on builder.
