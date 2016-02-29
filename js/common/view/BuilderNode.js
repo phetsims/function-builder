@@ -160,6 +160,7 @@ define( function( require ) {
      *
      * @param {MovableNode} functionNode
      * @param {number} slotNumber
+     * @public
      */
     addFunctionNode: function( functionNode, slotNumber ) {
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
@@ -174,6 +175,7 @@ define( function( require ) {
      *
      * @param {MovableNode} functionNode
      * @param {number} slotNumber
+     * @public
      */
     removeFunctionNode: function( functionNode, slotNumber ) {
       assert && assert( this.functionNodes[ slotNumber ] === functionNode, 'functionNode is not in slot ' + slotNumber );
@@ -187,6 +189,7 @@ define( function( require ) {
      *
      * @param {number} slotNumber
      * @returns {number} null if the slot is empty
+     * @public
      */
     getFunctionNode: function( slotNumber ) {
       return this.functionNodes[ slotNumber ];
