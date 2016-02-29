@@ -1,11 +1,5 @@
 TODO list for function-builder
 
-Builder:
-- function that is replaced by another function in the builder is not added to the function carousel
-- Movable.destination is private, but still used in Builder, replace with animateTo.
-- function is put in slot in model before animation to slot completes
-- re-parent functions to BuilderNode
-
 Cards:
 - update model and view when functions change
 - update view when location changes

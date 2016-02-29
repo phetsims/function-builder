@@ -132,15 +132,18 @@ define( function( require ) {
       center: rightEnd.center
     } );
 
-    // slots
-    var slotNodes = [];
+    this.slotNodes = []; // @private
+    this.functionNodes = []; // @private
     for ( var i = 0; i < builder.slots.length; i++ ) {
-      slotNodes.push( new FunctionSlotNode( {
+
+      this.slotNodes.push( new FunctionSlotNode( {
         // centered at slot locations
-        center: builder.slots[ i ].location.minus( builder.location)
+        center: builder.slots[ i ].location.minus( builder.location )
       } ) );
+
+      this.functionNodes[ i ] = null; // empty functions are null
     }
-    var slotsParent = new Node( { children: slotNodes } );
+    var slotsParent = new Node( { children: this.slotNodes } );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
@@ -150,5 +153,25 @@ define( function( require ) {
 
   functionBuilder.register( 'BuilderNode', BuilderNode );
 
-  return inherit( Node, BuilderNode );
+  return inherit( Node, BuilderNode, {
+
+    addFunctionNode: function( functionNode, slotNumber ) {
+      assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
+      this.functionNodes[ slotNumber ] = functionNode;
+      this.addChild( functionNode );
+      functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location );
+      this.builder.addFunctionInstance( functionNode.movable, slotNumber );
+    },
+
+    removeFunctionNode: function( functionNode, slotNumber ) {
+      assert && assert( this.functionNodes[ slotNumber ] === functionNode, 'functionNode is not in slot ' + slotNumber );
+      this.functionNodes[ slotNumber ] = null;
+      this.removeChild( functionNode );
+      this.builder.removeFunctionInstance( functionNode.movable, slotNumber );
+    },
+
+    getFunctionNode: function( slotNumber ) {
+      return this.functionNodes[ slotNumber ];
+    }
+  } );
 } );

@@ -74,104 +74,78 @@ define( function( require ) {
     // @public
     reset: function() {
       this.slots.forEach( function( slot ) {
-        slot.functionInstance = null;
+        //TODO
       } );
     },
 
     /**
-     * Adds a function instance, if it's close enough to a slot.
-     * If the slot is occupied, replace the function that occupies the slot.
+     * Puts a function instance into a slot.
      *
      * @param {AbstractFunction} functionInstance
-     * @returns {number} slot number it was added to, -1 if not added
+     * @param {number} slotNumber
      * @public
      */
-    addFunctionInstance: function( functionInstance ) {
-
-      // find the closest slot
-      var DISTANCE_THRESHOLD = 0.6 * this.height;
-      var slotNumber = this.getClosestSlot( functionInstance.locationProperty.get(), DISTANCE_THRESHOLD );
-
-      // if we found a slot...
-      if ( slotNumber !== -1 ) {
-
-        var slot = this.slots[ slotNumber ];
-
-        // if the slot was occupied, return the occupier to whence it came
-        if ( !slot.isEmpty() ) {
-          var oldFunctionInstance = slot.functionInstance;
-          oldFunctionInstance.destination = oldFunctionInstance.locationProperty.initialValue; //TODO replace with animateTo + functionCarousel.addNode
-        }
-
-        //TODO this is problematic, the function is put in the slot, but it's location won't match the slot until animation completes
-        // put the function instance in the slot
-        slot.functionInstance = functionInstance;
-        functionInstance.destination = slot.location; //TODO replace with animateTo
-
-        // notify that's there's been a change
-        this.functionChangedEmitter.emit1( this );
-      }
-
-      return slotNumber;
+    addFunctionInstance: function( functionInstance, slotNumber ) {
+      var slot = this.slots[ slotNumber ];
+      assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
+      slot.functionInstance = functionInstance;
+      this.functionChangedEmitter.emit1( this );
     },
 
     /**
-     * Removes a function instance.
+     * Gets the slot number occupied by a function instance.
      *
      * @param {AbstractFunction} functionInstance
+     * @returns {number} -1 if the function instance isn't in any slot
      * @public
      */
-    removeFunctionInstance: function( functionInstance ) {
-
-      var removed = false;
-
-      // iterate over the slots until we find the function instance or run out of slots
-      for ( var i = 0; i < this.slots.length && !removed; i++ ) {
+    getSlotNumber: function( functionInstance ) {
+      for ( var i = 0; i < this.slots.length; i++ ) {
         var slot = this.slots[ i ];
         if ( slot.contains( functionInstance ) ) {
-
-          // empty the slot
-          slot.functionInstance = null;
-          removed = true;
-
-          // pop function out of slot
-          functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
-
-          // notify that there's been a change
-          this.functionChangedEmitter.emit1( this );
+          return i;
         }
       }
-      assert && assert( removed, 'functionInstance not found in builder' );
+      return -1;
+    },
+
+    /**
+     * Removes a function instance from a slot.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @param {number} slotNumber
+     * @public
+     */
+    removeFunctionInstance: function( functionInstance, slotNumber ) {
+      assert && assert( this.slots[ slotNumber ].contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
+      this.slots[ slotNumber ].functionInstance = null;
+      this.functionChangedEmitter.emit1( this );
     },
 
     /**
      * Does the builder contain the specified function instance?
      * @param {AbstractFunction} functionInstance
      * @returns {boolean}
+     * @public
      */
     containsFunctionInstance: function( functionInstance ) {
-      for ( var i = 0; i < this.slots.length; i++ ) {
-        if ( this.slots[i ].functionInstance === functionInstance ) {
-          return true;
-        }
-      }
-      return false;
+      return ( this.getSlotNumber( functionInstance ) !== -1 );
     },
 
     /**
      * Gets the slot that is closest to the specified location.
      *
      * @param {Vector2} location - the location of the function instance
-     * @param {number} distanceThreshold - must be at least this close
      * @returns {number} slot number, -1 if no slot is close enough
-     * @private
+     * @public
      */
-    getClosestSlot: function( location, distanceThreshold ) {
+    getClosestSlot: function( location ) {
+      var DISTANCE_THRESHOLD = 0.6 * this.height;  // must be at least this close
       var slotNumber = -1;
       for ( var i = 0; i < this.slots.length; i++ ) {
         var slot = this.slots[ i ];
         if ( slotNumber === -1 ) {
-          if ( slot.location.distance( location ) < distanceThreshold ) {
+          if ( slot.location.distance( location ) < DISTANCE_THRESHOLD ) {
             slotNumber = i;
           }
         }

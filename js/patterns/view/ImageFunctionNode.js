@@ -33,6 +33,8 @@ define( function( require ) {
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
+    this.container = container;
+
     var thisNode = this;
 
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
@@ -48,6 +50,7 @@ define( function( require ) {
     options.startDrag = function( event, trail ) {
 
       var functionInstance = thisNode.movable;
+      var builder = builderNode.builder;
 
       if ( container.containsNode( thisNode ) ) {
 
@@ -56,30 +59,61 @@ define( function( require ) {
         worldNode.addChild( thisNode );
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
-      else if ( builderNode.builder.containsFunctionInstance( functionInstance ) ) {
+      else if ( builder.containsFunctionInstance( functionInstance ) ) {
 
         // function is in the builder, pop it out
-        //TODO temporary, thisNode should be parented to builderNode
-        thisNode.moveToFront();
-        functionInstance.moveTo( functionInstance.locationProperty.get().plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
-        builderNode.builder.removeFunctionInstance( functionInstance );
+        var slotNumber = builder.getSlotNumber( functionInstance );
+        var slotLocation = builder.slots[ slotNumber ].location;
+        builderNode.removeFunctionNode( thisNode, slotNumber );
+        worldNode.addChild( thisNode );
+        functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
+      else {
+        // function was grabbed while in the world, do nothing
+      }
+
+      assert && assert( worldNode.hasChild( thisNode ) );
     };
 
     options.endDrag = function( event, trail ) {
 
       var functionInstance = thisNode.movable;
+      var builder = builderNode.builder;
 
-      //TODO handle differently, animate to slot, worldNode.removeChild, re-parent to builderNode
-      // try to add function to the builder
-      var slotNumber = builderNode.builder.addFunctionInstance( functionInstance );
+      // Find the closest slot
+      var slotNumber = builder.getClosestSlot( functionInstance.locationProperty.get() );
 
-      // If the function isn't added to the builder, then return it to the container.
       if ( slotNumber === -1 ) {
+
+        // return function to the carousel
         functionInstance.animateTo( container.carouselLocation,
           function() {
             worldNode.removeChild( thisNode );
             container.addNode( thisNode );
+          } );
+      }
+      else {
+
+        // put function in builder slot
+        var slot = builder.slots[ slotNumber ];
+        functionInstance.animateTo( slot.location,
+          function() {
+
+            //TODO if an adjacent slot is empty, move the occupying function there
+            // If the slot is occupied, return the occupying function to the carousel.
+            var occupierNode = builderNode.getFunctionNode( slotNumber );
+            if ( occupierNode ) {
+              builderNode.removeFunctionNode( occupierNode, slotNumber );
+              worldNode.addChild( occupierNode );
+              occupierNode.movable.animateTo( occupierNode.container.carouselLocation,
+                function() {
+                  worldNode.removeChild( occupierNode );
+                  occupierNode.container.addNode( occupierNode );
+                } );
+            }
+
+            worldNode.removeChild( thisNode );
+            builderNode.addFunctionNode( thisNode, slotNumber );
           } );
       }
     };
