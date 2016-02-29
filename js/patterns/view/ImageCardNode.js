@@ -74,7 +74,8 @@ define( function( require ) {
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else {
-        //TODO remove card from builder apparatus
+        //TODO remove card from builder apparatus?
+        // card was grabbed while in the world, do nothing
       }
     };
 
