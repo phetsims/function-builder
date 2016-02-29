@@ -54,7 +54,6 @@ define( function( require ) {
         // if function is in the carousel, pop it out
         container.removeNode( thisNode );
         worldNode.addChild( thisNode );
-        functionInstance = thisNode.movable;
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else if ( builderNode.builder.containsFunctionInstance( functionInstance ) ) {
