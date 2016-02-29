@@ -33,7 +33,7 @@ define( function( require ) {
       iconScale: 0.3 // {number} scale for icon
     }, options );
 
-    this.container = container;
+    this.container = container; // @public
 
     var thisNode = this;
 
@@ -54,7 +54,7 @@ define( function( require ) {
 
       if ( container.containsNode( thisNode ) ) {
 
-        // if function is in the carousel, pop it out
+        // function is in the carousel, pop it out
         container.removeNode( thisNode );
         worldNode.addChild( thisNode );
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
