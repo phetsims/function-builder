@@ -40,7 +40,7 @@ define( function( require ) {
     this.destination = options.location.copy();
 
     // @private {function} called when animation to destination completes
-    this.animationCompleteCallback = null;
+    this.animationCompletedCallback = null;
 
     // @public {boolean} is the user dragging the function?
     this.dragging = options.dragging;
