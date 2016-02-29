@@ -155,6 +155,12 @@ define( function( require ) {
 
   return inherit( Node, BuilderNode, {
 
+    /**
+     * Adds a function to the builder.
+     *
+     * @param {MovableNode} functionNode
+     * @param {number} slotNumber
+     */
     addFunctionNode: function( functionNode, slotNumber ) {
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
       this.functionNodes[ slotNumber ] = functionNode;
@@ -163,6 +169,12 @@ define( function( require ) {
       this.builder.addFunctionInstance( functionNode.movable, slotNumber );
     },
 
+    /**
+     * Removes a function from the builder.
+     *
+     * @param {MovableNode} functionNode
+     * @param {number} slotNumber
+     */
     removeFunctionNode: function( functionNode, slotNumber ) {
       assert && assert( this.functionNodes[ slotNumber ] === functionNode, 'functionNode is not in slot ' + slotNumber );
       this.functionNodes[ slotNumber ] = null;
@@ -170,6 +182,12 @@ define( function( require ) {
       this.builder.removeFunctionInstance( functionNode.movable, slotNumber );
     },
 
+    /**
+     * Gets the function node in the specified slot.
+     *
+     * @param {number} slotNumber
+     * @returns {number} null if the slot is empty
+     */
     getFunctionNode: function( slotNumber ) {
       return this.functionNodes[ slotNumber ];
     }
