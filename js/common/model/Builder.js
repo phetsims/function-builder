@@ -126,7 +126,7 @@ define( function( require ) {
      * Convenience function, delegates to the model.
      *
      * @param {number} slotNumber
-     * @returns {Vector2} location in the world coordinate frame
+     * @returns {Vector2} location in the model coordinate frame
      * @public
      */
     getSlotLocation: function( slotNumber ) {

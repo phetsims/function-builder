@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Vector2} location - location of the slot in the global coordinate frame
+   * @param {Vector2} location - location of the slot in the model coordinate frame
    * @param {AbstractFunction|null} functionInstance - the function instance that occupies the slot, null if the slot is empty
    * @constructor
    */
