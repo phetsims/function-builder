@@ -21,13 +21,14 @@ define( function( require ) {
    */
   function PatternsSceneControl( selectedSceneProperty, scenes, options ) {
 
-    options = options || {};
-    options.orientation = 'horizontal';
-    options.spacing = 20;
-    options.baseColor = 'white';
-    options.selectedLineWidth = 2;
-    options.buttonContentXMargin = 10;
-    options.buttonContentYMargin = 16;
+    options = _.extend( {
+      orientation: 'horizontal',
+      spacing: 20,
+      baseColor: 'white',
+      selectedLineWidth: 2,
+      buttonContentXMargin: 10,
+      buttonContentYMargin: 16
+    }, options );
 
     var content = [];
     for ( var i = 0; i < scenes.length; i++ ) {
