@@ -125,6 +125,7 @@ define( function( require ) {
 
     /**
      * Does the builder contain the specified function instance?
+     *
      * @param {AbstractFunction} functionInstance
      * @returns {boolean}
      * @public
@@ -160,6 +161,7 @@ define( function( require ) {
 
   /**
    * A function slot in the builder.
+   *
    * @param location - {Vector2} location of the slot in the global coordinate frame
    * @param {AbstractFunction|null} functionInstance - the function instance that occupies the slot, null if the slot is empty
    * @constructor
@@ -173,7 +175,7 @@ define( function( require ) {
 
   inherit( Object, Slot, {
 
-    // @public is the slot empty?
+    // @public is this slot empty?
     isEmpty: function() { return ( this.functionInstance === null ); },
 
     // @public does this slot contain a specified {AbstractFunction} function instance?
