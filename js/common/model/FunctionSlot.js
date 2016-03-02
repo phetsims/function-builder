@@ -31,7 +31,8 @@ define( function( require ) {
 
     // @public does this slot contain a specified {AbstractFunction} function instance?
     contains: function( functionInstance ) {
-      return this.functionInstance === functionInstance;
+      assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
+      return ( this.functionInstance === functionInstance );
     }
   } );
 } );
