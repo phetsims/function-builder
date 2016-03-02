@@ -17,6 +17,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -35,7 +36,7 @@ define( function( require ) {
     }, options );
 
     // verify duck typing of colorScheme
-    assert && assert( FBUtils.isaBuilderColorScheme( options.colorScheme  ) );
+    assert && assert( FBUtils.isaBuilderColorScheme( options.colorScheme ) );
 
     // @public (read-only)
     this.width = options.width;
@@ -50,7 +51,7 @@ define( function( require ) {
     }
     assert && assert( totalWidthOfSlots > 0 );
 
-    // create and populate slots
+    // {FunctionSlot[]} slots
     this.slots = [];
     var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
     for ( var i = 0; i < options.numberOfSlots; i++ ) {
@@ -60,7 +61,7 @@ define( function( require ) {
       var slotLocation = leftSlotLocation.plusXY( dx, 0 );
 
       // each slot is initially empty
-      this.slots.push( new Slot( slotLocation, null ) );
+      this.slots.push( new FunctionSlot( slotLocation, null ) );
     }
 
     // @public emit1({Builder}) when any function changes
@@ -69,7 +70,7 @@ define( function( require ) {
 
   functionBuilder.register( 'Builder', Builder );
 
-  inherit( Object, Builder, {
+  return inherit( Object, Builder, {
 
     // @public
     reset: function() {
@@ -158,31 +159,4 @@ define( function( require ) {
       return slotNumber;
     }
   } );
-
-  /**
-   * A function slot in the builder.
-   *
-   * @param location - {Vector2} location of the slot in the global coordinate frame
-   * @param {AbstractFunction|null} functionInstance - the function instance that occupies the slot, null if the slot is empty
-   * @constructor
-   */
-  function Slot( location, functionInstance ) {
-    this.location = location; // @public (read-only)
-    this.functionInstance = functionInstance; // @public
-  }
-
-  functionBuilder.register( 'Builder.Slot', Slot );
-
-  inherit( Object, Slot, {
-
-    // @public is this slot empty?
-    isEmpty: function() { return ( this.functionInstance === null ); },
-
-    // @public does this slot contain a specified {AbstractFunction} function instance?
-    contains: function( functionInstance ) {
-      return this.functionInstance === functionInstance;
-    }
-  } );
-
-  return Builder;
 } );
