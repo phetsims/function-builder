@@ -98,7 +98,7 @@ define( function( require ) {
     /**
      * Returns this function to the carousel.
      *
-     * @param {Object} options
+     * @param {Object} [options]
      * @public
      */
     returnToCarousel: function( options ) {
