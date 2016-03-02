@@ -15,6 +15,3 @@ Bare bones slider apparatus on builder.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
 
-Usability:
-- spy glass (finger obscures spyglass)
-- dragging through builder vs animating through builder (will students discover these?)
