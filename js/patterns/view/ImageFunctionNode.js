@@ -47,6 +47,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
 
+    assert && assert( !options.startDrag );
     options.startDrag = function( event, trail ) {
 
       var functionInstance = thisNode.movable;
@@ -75,6 +76,7 @@ define( function( require ) {
       assert && assert( worldNode.hasChild( thisNode ) );
     };
 
+    assert && assert( !options.endDrag );
     options.endDrag = function( event, trail ) {
 
       var functionInstance = thisNode.movable;

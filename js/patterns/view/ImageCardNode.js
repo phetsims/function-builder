@@ -55,6 +55,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, imageNode ];
 
+    assert && assert( !options.startDrag );
     options.startDrag = function( event, trail ) {
 
       var card = thisNode.movable;
@@ -80,6 +81,7 @@ define( function( require ) {
     };
 
     // When the user stops dragging a function, decide what to do with it.
+    assert && assert( !options.endDrag );
     options.endDrag = function( event, trail ) {
 
       var card = thisNode.movable;

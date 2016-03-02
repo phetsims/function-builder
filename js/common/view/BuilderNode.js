@@ -51,7 +51,7 @@ define( function( require ) {
 
     }, options );
 
-    // location is determined by model
+    assert && assert( !options.x && !options.y, 'location is determined by model' );
     options.x = builder.location.x;
     options.y = builder.location.y;
 
