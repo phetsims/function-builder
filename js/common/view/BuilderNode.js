@@ -163,18 +163,9 @@ define( function( require ) {
 
     // @public returns all functions to the carousel
     reset: function() {
-      for ( var i = 0; i < this.functionNodes.length; i++ ) {
-        var functionNode = this.functionNodes[ i ];
-        if ( functionNode ) {
-
-          // remove the function from the builder
-          this.removeFunctionNode( functionNode, this.getSlotNumber( functionNode ) );
-
-          // return the function to the carousel
-          functionNode.functionInstance.moveTo( functionNode.container.carouselLocation );
-          functionNode.container.addNode( functionNode );
-        }
-      }
+      this.functionNodes.forEach( function( functionNode ) {
+        functionNode && functionNode.returnToCarousel();
+      } );
     },
 
     /**

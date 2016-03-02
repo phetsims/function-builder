@@ -82,11 +82,7 @@ define( function( require ) {
       if ( slotNumber === -1 ) {
 
         // return function to the carousel
-        functionInstance.animateTo( container.carouselLocation,
-          function() {
-            worldNode.removeChild( thisNode );
-            container.addNode( thisNode );
-          } );
+        thisNode._returnToCarousel();
       }
       else {
 
@@ -97,19 +93,46 @@ define( function( require ) {
             //TODO if an adjacent slot is empty, move the occupying function there
             // If the slot is occupied, return the occupying function to the carousel.
             var occupierNode = builderNode.getFunctionNode( slotNumber );
-            if ( occupierNode ) {
-              builderNode.removeFunctionNode( occupierNode, slotNumber );
-              worldNode.addChild( occupierNode );
-              occupierNode.functionInstance.animateTo( occupierNode.container.carouselLocation,
-                function() {
-                  worldNode.removeChild( occupierNode );
-                  occupierNode.container.addNode( occupierNode );
-                } );
-            }
+            occupierNode && occupierNode.returnToCarousel();
 
             worldNode.removeChild( thisNode );
             builderNode.addFunctionNode( thisNode, slotNumber );
           } );
+      }
+    };
+
+    // @private
+    this._returnToCarousel = function( options ) {
+
+      options = _.extend( {
+        animate: true // true: animate back to carousel, false: move immediate back to carousel
+      }, options );
+
+      if ( !container.containsNode( thisNode ) ) {
+
+        // if in the builder, move to the world
+        if ( builderNode.containsFunctionNode( thisNode ) ) {
+          var slotNumber = builderNode.getSlotNumber( thisNode );
+          builderNode.removeFunctionNode( thisNode, slotNumber );
+          worldNode.addChild( thisNode );
+        }
+
+        if ( options.animate ) {
+
+          // animate to the carousel
+          thisNode.functionInstance.animateTo( thisNode.container.carouselLocation,
+            function() {
+              worldNode.removeChild( thisNode );
+              thisNode.container.addNode( thisNode );
+            } );
+        }
+        else {
+
+          // move immediately to the carousel
+          worldNode.removeChild( thisNode );
+          thisNode.functionInstance.moveTo( thisNode.container.carouselLocation );
+          thisNode.container.addNode( thisNode );
+        }
       }
     };
 
@@ -118,5 +141,16 @@ define( function( require ) {
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( FunctionNode, ImageFunctionNode );
+  return inherit( FunctionNode, ImageFunctionNode, {
+
+    /**
+     * Returns this function to the carousel.
+     *
+     * @param {Object} options see _returnToCarousel
+     * @public
+     */
+    returnToCarousel: function( options ) {
+      this._returnToCarousel( options );
+    }
+  } );
 } );
