@@ -4,7 +4,7 @@
  * Visual representation of a Builder.
  * Cards go into a slot on the left and come out a slot on the right.
  * Functions appear from left to right, in the order that they are applied.
- * This node is the parent for function Nodes when they are in the builder.
+ * This node is the parent for function nodes when they are in the builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
