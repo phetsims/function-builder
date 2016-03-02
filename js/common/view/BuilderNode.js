@@ -171,7 +171,7 @@ define( function( require ) {
     addFunctionNode: function( functionNode, slotNumber ) {
 
       assert && assert( functionNode instanceof FunctionNode );
-      assert && assert( slotNumber >= 0 && slotNumber < this.builder.slots.length );
+      assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
 
       this.functionNodes[ slotNumber ] = functionNode;
