@@ -93,6 +93,20 @@ define( function( require ) {
     },
 
     /**
+     * Removes a function instance from a slot.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @param {number} slotNumber
+     * @public
+     */
+    removeFunctionInstance: function( functionInstance, slotNumber ) {
+      var slot = this.slots[ slotNumber ];
+      assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
+      slot.functionInstance = null;
+      this.functionChangedEmitter.emit1( this );
+    },
+
+    /**
      * Gets the slot number occupied by a function instance.
      *
      * @param {AbstractFunction} functionInstance
@@ -107,19 +121,6 @@ define( function( require ) {
         }
       }
       return -1;
-    },
-
-    /**
-     * Removes a function instance from a slot.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @param {number} slotNumber
-     * @public
-     */
-    removeFunctionInstance: function( functionInstance, slotNumber ) {
-      assert && assert( this.slots[ slotNumber ].contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
-      this.slots[ slotNumber ].functionInstance = null;
-      this.functionChangedEmitter.emit1( this );
     },
 
     /**
