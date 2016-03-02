@@ -125,9 +125,6 @@ define( function( require ) {
     // @public
     reset: function() {
 
-      // reset the builder
-      this.builder.reset();
-
       // move all cards back to the input carousel
       this.cards.slice( 0 ).forEach( function( card ) {
         //TODO fix reset for cards

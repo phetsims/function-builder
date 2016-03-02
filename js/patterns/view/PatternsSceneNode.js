@@ -184,6 +184,7 @@ define( function( require ) {
       inputCarousel.reset();
       outputCarousel.reset();
       spyGlassVisibleProperty.reset();
+      builderNode.reset();
     };
 
     // @private Populates the carousels, while we scroll them with animation disabled.

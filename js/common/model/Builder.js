@@ -72,13 +72,6 @@ define( function( require ) {
 
   return inherit( Object, Builder, {
 
-    // @public
-    reset: function() {
-      this.slots.forEach( function( slot ) {
-        //TODO
-      } );
-    },
-
     /**
      * Is the specified slot number valid?
      *
