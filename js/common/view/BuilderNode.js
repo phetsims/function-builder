@@ -1,7 +1,9 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * The 'builder' is the device that transforms inputs to outputs by applying functions.
+ * Visual representation of a Builder.
+ * Functions appear from left to right, in the order that they are applied.
+ * Cards go into a slot on the left and come out a slot on the right.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -132,6 +134,7 @@ define( function( require ) {
       center: rightEnd.center
     } );
 
+    // slots and the function nodes that are in the slots
     this.slotNodes = []; // @private
     this.functionNodes = []; // @private
     for ( var i = 0; i < builder.slots.length; i++ ) {
