@@ -12,10 +12,10 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
    * @param {ImageFunction} functionInstance
@@ -50,9 +50,6 @@ define( function( require ) {
     assert && assert( !options.startDrag );
     options.startDrag = function( event, trail ) {
 
-      var functionInstance = thisNode.movable;
-      var builder = builderNode.builder;
-
       if ( container.containsNode( thisNode ) ) {
 
         // function is in the carousel, pop it out
@@ -60,11 +57,11 @@ define( function( require ) {
         worldNode.addChild( thisNode );
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
-      else if ( builder.containsFunctionInstance( functionInstance ) ) {
+      else if ( builderNode.containsFunctionNode( thisNode ) ) {
 
         // function is in the builder, pop it out
-        var slotNumber = builder.getSlotNumber( functionInstance );
-        var slotLocation = builder.slots[ slotNumber ].location;
+        var slotNumber = builderNode.getSlotNumber( thisNode );
+        var slotLocation = builderNode.getSlotLocation( slotNumber );
         builderNode.removeFunctionNode( thisNode, slotNumber );
         worldNode.addChild( thisNode );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
@@ -79,11 +76,8 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function( event, trail ) {
 
-      var functionInstance = thisNode.movable;
-      var builder = builderNode.builder;
-
       // Find the closest slot
-      var slotNumber = builder.getClosestSlot( functionInstance.locationProperty.get() );
+      var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
 
       if ( slotNumber === -1 ) {
 
@@ -97,8 +91,7 @@ define( function( require ) {
       else {
 
         // put function in builder slot
-        var slot = builder.slots[ slotNumber ];
-        functionInstance.animateTo( slot.location,
+        functionInstance.animateTo( builderNode.getSlotLocation( slotNumber ),
           function() {
 
             //TODO if an adjacent slot is empty, move the occupying function there
@@ -107,7 +100,7 @@ define( function( require ) {
             if ( occupierNode ) {
               builderNode.removeFunctionNode( occupierNode, slotNumber );
               worldNode.addChild( occupierNode );
-              occupierNode.movable.animateTo( occupierNode.container.carouselLocation,
+              occupierNode.functionInstance.animateTo( occupierNode.container.carouselLocation,
                 function() {
                   worldNode.removeChild( occupierNode );
                   occupierNode.container.addNode( occupierNode );
@@ -120,10 +113,10 @@ define( function( require ) {
       }
     };
 
-    MovableNode.call( this, functionInstance, options );
+    FunctionNode.call( this, functionInstance, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( MovableNode, ImageFunctionNode );
+  return inherit( FunctionNode, ImageFunctionNode );
 } );

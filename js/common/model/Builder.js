@@ -80,6 +80,16 @@ define( function( require ) {
     },
 
     /**
+     * Is the specified slot number valid?
+     *
+     * @param {number} slotNumber
+     * @returns {boolean}
+     */
+    isValidSlotNumber: function( slotNumber ) {
+      return ( slotNumber >= 0 && slotNumber < this.slots.length  );
+    },
+
+    /**
      * Puts a function instance into a slot.
      *
      * @param {AbstractFunction} functionInstance
@@ -87,6 +97,8 @@ define( function( require ) {
      * @public
      */
     addFunctionInstance: function( functionInstance, slotNumber ) {
+      assert && assert( functionInstance );
+      assert && assert( this.isValidSlotNumber( slotNumber ) );
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
       slot.functionInstance = functionInstance;
@@ -101,10 +113,25 @@ define( function( require ) {
      * @public
      */
     removeFunctionInstance: function( functionInstance, slotNumber ) {
+      assert && assert( functionInstance );
+      assert && assert( this.isValidSlotNumber( slotNumber ) );
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
       slot.functionInstance = null;
       this.functionChangedEmitter.emit1( this );
+    },
+
+    /**
+     * Gets the location of the specified slot.
+     * Convenience function, delegates to the model.
+     *
+     * @param {number} slotNumber
+     * @returns {Vector2} location in the world coordinate frame
+     * @public
+     */
+    getSlotLocation: function( slotNumber ) {
+      assert && assert( this.isValidSlotNumber( slotNumber ) );
+      return this.slots[ slotNumber ].location;
     },
 
     /**
@@ -115,6 +142,7 @@ define( function( require ) {
      * @public
      */
     getSlotNumber: function( functionInstance ) {
+      assert && assert( functionInstance );
       for ( var i = 0; i < this.slots.length; i++ ) {
         var slot = this.slots[ i ];
         if ( slot.contains( functionInstance ) ) {
@@ -132,6 +160,7 @@ define( function( require ) {
      * @public
      */
     containsFunctionInstance: function( functionInstance ) {
+      assert && assert( functionInstance );
       return ( this.getSlotNumber( functionInstance ) !== -1 );
     },
 
@@ -143,6 +172,7 @@ define( function( require ) {
      * @public
      */
     getClosestSlot: function( location ) {
+      assert && assert( location );
       var DISTANCE_THRESHOLD = 0.6 * this.height;  // must be at least this close
       var slotNumber = -1;
       for ( var i = 0; i < this.slots.length; i++ ) {
