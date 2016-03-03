@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
