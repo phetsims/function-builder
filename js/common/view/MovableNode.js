@@ -23,9 +23,7 @@ define( function( require ) {
   function MovableNode( movable, options ) {
 
     options = _.extend( {
-
       cursor: 'pointer',
-
       startDrag: null, // {function|null} Called at the start of each drag sequence
       endDrag: null, // {function|null} Called at the end of each drag sequence
 
@@ -37,15 +35,14 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // move to the model location
+    // unlink not necessary, all instances exist for the lifetime of the sim
     var thisNode = this;
-    function locationObserver( location ) {
-      options.translateNode( thisNode, location );
-    }
-    movable.locationProperty.link( locationObserver );
+    movable.locationProperty.link( function( location ) {
+        options.translateNode( thisNode, location );
+      }
+    );
 
-    // @private drag the function instance
-    var dragHandler = new SimpleDragHandler( {
+    this.addInputListener( new SimpleDragHandler( {
 
       // allow touch swipes across this Node to pick it up
       allowTouchSnag: true,
@@ -66,8 +63,7 @@ define( function( require ) {
         movable.dragging = false;
         options.endDrag && options.endDrag();
       }
-    } );
-    this.addInputListener( dragHandler );
+    } ) );
   }
 
   functionBuilder.register( 'MovableNode', MovableNode );
