@@ -110,8 +110,8 @@ define( function( require ) {
 
         // if in the output container, move to the world
         if ( this.outputContainer.containsNode( this ) ) {
-          this.outputContainer.removeNode( thisNode );
-          this.worldNode.addChild( thisNode );
+          this.outputContainer.removeNode( this );
+          this.worldNode.addChild( this );
         }
 
         if ( options.animate ) {
