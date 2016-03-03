@@ -39,7 +39,7 @@ define( function( require ) {
     this.worldNode = worldNode;
 
     assert && assert( !options.startDrag );
-    options.startDrag = function( event, trail ) {
+    options.startDrag = function() {
 
       if ( inputContainer.containsNode( thisNode ) ) {
 
@@ -63,7 +63,7 @@ define( function( require ) {
 
     // When the user stops dragging a function, decide what to do with it.
     assert && assert( !options.endDrag );
-    options.endDrag = function( event, trail ) {
+    options.endDrag = function() {
 
       //TODO temporary, send the card to the closest carousel
       var xMiddle = inputContainer.carouselLocation.x + ( outputContainer.carouselLocation.x - inputContainer.carouselLocation.x ) / 2;

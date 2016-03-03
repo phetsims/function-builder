@@ -37,7 +37,7 @@ define( function( require ) {
     this.worldNode = worldNode;
 
     assert && assert( !options.startDrag );
-    options.startDrag = function( event, trail ) {
+    options.startDrag = function() {
 
       if ( container.containsNode( thisNode ) ) {
 
@@ -63,7 +63,7 @@ define( function( require ) {
     };
 
     assert && assert( !options.endDrag );
-    options.endDrag = function( event, trail ) {
+    options.endDrag = function() {
 
       // Find the closest slot
       var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
