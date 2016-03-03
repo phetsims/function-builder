@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -112,10 +112,10 @@ define( function( require ) {
       //TODO change card image based on location relative to builder slots
     } );
 
-    MovableNode.call( this, card, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, worldNode, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
-  return inherit( MovableNode, ImageCardNode );
+  return inherit( CardNode, ImageCardNode );
 } );
