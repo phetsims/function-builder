@@ -108,7 +108,7 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousel
     var eraserButtonListener = function() {
-      //TODO move this responsibility into Carousel subtype, so it can be reused in Reset All
+      //TODO move this responsibility into Carousel subtype for output carousel, so it can be reused in Reset All
       outputCarousel.items.forEach( function( container ) {
         var children = container.getChildren();
         children.forEach( function( child ) {
