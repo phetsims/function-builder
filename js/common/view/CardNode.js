@@ -70,11 +70,7 @@ define( function( require ) {
       if ( card.locationProperty.get().x < xMiddle ) {
 
         // return to input carousel
-        card.animateTo( inputContainer.carouselLocation,
-          function() {
-            worldNode.removeChild( thisNode );
-            inputContainer.addNode( thisNode );
-          } );
+        thisNode.returnToInputCarousel();
       }
       else {
 
@@ -96,5 +92,47 @@ define( function( require ) {
 
   functionBuilder.register( 'CardNode', CardNode );
 
-  return inherit( MovableNode, CardNode );
+  return inherit( MovableNode, CardNode, {
+
+    /**
+     * Returns this card to the input carousel.
+     *
+     * @param {Object} [options]
+     * @public
+     */
+    returnToInputCarousel: function( options ) {
+
+      options = _.extend( {
+        animate: true // true: animate back to carousel, false: move immediate back to carousel
+      }, options );
+
+      if ( !this.inputContainer.containsNode( this ) ) {
+
+        // if in the output container, move to the world
+        if ( this.outputContainer.containsNode( this ) ) {
+          this.outputContainer.removeNode( thisNode );
+          this.worldNode.addChild( thisNode );
+        }
+
+        if ( options.animate ) {
+
+          // animate to the input carousel
+          var thisNode = this;
+          this.card.animateTo( this.inputContainer.carouselLocation,
+            function() {
+              thisNode.worldNode.removeChild( thisNode );
+              thisNode.inputContainer.addNode( thisNode );
+            } );
+        }
+        else {
+
+          // move immediately to the input carousel
+          this.worldNode.removeChild( this );
+          this.card.moveTo( this.inputContainer.carouselLocation );
+          this.inputContainer.addNode( this );
+        }
+      }
+    }
+
+  } );
 } );
