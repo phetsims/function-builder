@@ -1,9 +1,7 @@
 TODO list for function-builder
 
-Builder:
-- odd division of responsibilities between Builder and BuilderNode
-
 Cards:
+- add CardNode base type
 - update model and view when functions change
 - update view when location changes
 
