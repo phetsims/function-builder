@@ -120,7 +120,7 @@ define( function( require ) {
 
         if ( options.animate ) {
 
-          // animate to the carousel
+          // animate to the function carousel
           var thisNode = this;
           this.functionInstance.animateTo( this.container.carouselLocation,
             function() {
@@ -130,7 +130,7 @@ define( function( require ) {
         }
         else {
 
-          // move immediately to the carousel
+          // move immediately to the function carousel
           this.worldNode.removeChild( this );
           this.functionInstance.moveTo( this.container.carouselLocation );
           this.container.addNode( this );
