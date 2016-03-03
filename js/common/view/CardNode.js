@@ -27,6 +27,8 @@ define( function( require ) {
 
     options = options || {};
 
+    assert && assert( options.children, 'requires children to specify the look of the CardNode' );
+
     var thisNode = this;
 
     // @private
