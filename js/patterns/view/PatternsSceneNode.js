@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -107,7 +108,13 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousel
     var eraserButtonListener = function() {
-      //TODO return all cards to the input carousel
+      //TODO move this responsibility into Carousel subtype, so it can be reused in Reset All
+      outputCarousel.items.forEach( function( container ) {
+        var children = container.getChildren();
+        children.forEach( function( child ) {
+          child.returnToInputCarousel && child.returnToInputCarousel();
+        } );
+      } );
     };
     var eraserButton = new EraserButton( {
       listener: eraserButtonListener,
