@@ -29,16 +29,8 @@ define( function( require ) {
       startDrag: null, // {function|null} Called at the start of each drag sequence
       endDrag: null, // {function|null} Called at the end of each drag sequence
 
-      /**
-       * Moves the node to the Movable's location.
-       * By default, the location corresponds to the Node's center.
-       *
-       * @param {Node} node
-       * @param {Vector2} location
-       */
-      translateNode: function( node, location ) {
-        node.center = location;
-      }
+      // {function(Node, Vector2)} Moves the node to the Movable's location
+      translateNode: function( node, location ) { node.center = location; }
     }, options );
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
