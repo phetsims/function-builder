@@ -1,13 +1,13 @@
 TODO list for function-builder
 
+Factor out eraserButtonListener (PatternsSceneNode), use in Reset All.
+
 Cards:
-- add CardNode base type
 - update model and view when functions change
 - update view when location changes
 
 Reset All
 - broken for functions, cards
-- implement erase button at same time, it's similar
 
 Bare bones slider apparatus on builder.
 
