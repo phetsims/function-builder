@@ -15,3 +15,6 @@ Bare bones slider apparatus on builder.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
 
+
+Usability:
+- How to keep functions that are mutable from popping out of the carousel and builder?
