@@ -111,10 +111,14 @@ define( function( require ) {
       //TODO move this responsibility into Carousel subtype for output carousel, so it can be reused in Reset All
       outputCarousel.items.forEach( function( container ) {
         var children = container.getChildren();
+        var animate = outputCarousel.isItemVisible( container ); // animate only visible cards
         children.forEach( function( child ) {
-          child.returnToInputCarousel && child.returnToInputCarousel( {
-            animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
-          });
+          if ( child.returnToInputCarousel ) {
+            child.returnToInputCarousel( {
+              animate: animate,
+              animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
+            } );
+          }
         } );
       } );
     };
