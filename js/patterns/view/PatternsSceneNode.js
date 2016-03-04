@@ -12,12 +12,12 @@ define( function( require ) {
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
   var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -89,7 +89,7 @@ define( function( require ) {
     } );
 
     // Output carousel, at right
-    var outputCarousel = new Carousel( outputContainers, {
+    var outputCarousel = new OutputCardsCarousel( outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: CARDS_PER_PAGE,
@@ -107,23 +107,8 @@ define( function( require ) {
     }, PAGE_CONTROL_OPTIONS ) );
 
     // Eraser button, centered below the output carousel
-    var eraserButtonListener = function() {
-      //TODO move this responsibility into Carousel subtype for output carousel, so it can be reused in Reset All
-      outputCarousel.items.forEach( function( container ) {
-        var children = container.getChildren();
-        var animate = outputCarousel.isItemVisible( container ); // animate only visible cards
-        children.forEach( function( child ) {
-          if ( child.returnToInputCarousel ) {
-            child.returnToInputCarousel( {
-              animate: animate,
-              animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
-            } );
-          }
-        } );
-      } );
-    };
     var eraserButton = new EraserButton( {
-      listener: eraserButtonListener,
+      listener: function() { outputCarousel.erase(); },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 40
