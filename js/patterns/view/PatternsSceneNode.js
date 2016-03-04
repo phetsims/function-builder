@@ -12,6 +12,7 @@ define( function( require ) {
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
   var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
@@ -111,7 +112,9 @@ define( function( require ) {
       outputCarousel.items.forEach( function( container ) {
         var children = container.getChildren();
         children.forEach( function( child ) {
-          child.returnToInputCarousel && child.returnToInputCarousel();
+          child.returnToInputCarousel && child.returnToInputCarousel( {
+            animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
+          });
         } );
       } );
     };

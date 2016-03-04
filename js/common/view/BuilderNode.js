@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -164,7 +165,9 @@ define( function( require ) {
     // @public returns all functions to the carousel
     reset: function() {
       this.functionNodes.forEach( function( functionNode ) {
-        functionNode && functionNode.returnToCarousel();
+        functionNode && functionNode.returnToCarousel( {
+          animationSpeed: FBConstants.RESET_ALL_ANIMATION_SPEED
+        });
       } );
     },
 

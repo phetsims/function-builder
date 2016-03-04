@@ -77,6 +77,7 @@ define( function( require ) {
 
         // put function in builder slot
         functionInstance.animateTo( builderNode.getSlotLocation( slotNumber ),
+          FBConstants.FUNCTION_ANIMATION_SPEED,
           function() {
 
             //TODO if an adjacent slot is empty, move the occupying function there
@@ -106,7 +107,8 @@ define( function( require ) {
     returnToCarousel: function( options ) {
 
       options = _.extend( {
-        animate: true // true: animate back to carousel, false: move immediate back to carousel
+        animate: true, // true: animate back to carousel, false: move immediate back to carousel
+        animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED
       }, options );
 
       if ( !this.container.containsNode( this ) ) {
@@ -123,6 +125,7 @@ define( function( require ) {
           // animate to the function carousel
           var thisNode = this;
           this.functionInstance.animateTo( this.container.carouselLocation,
+            options.animationSpeed,
             function() {
               thisNode.worldNode.removeChild( thisNode );
               thisNode.container.addNode( thisNode );

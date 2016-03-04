@@ -11,10 +11,13 @@ define( function( require ) {
 
   var FBConstants = {
 
+    // default options for each ScreenView subtype
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) },
 
+    // dimensions of a card Node
     CARD_SIZE: new Dimension2( 60, 60 ),
 
+    // dimensions of a function Node
     FUNCTION_SIZE: new Dimension2( 120, 68 ),
 
     // x-inset of arrow-like ends of a function's shape
@@ -26,11 +29,17 @@ define( function( require ) {
     // how much a card should 'pop out' of its container when clicked
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
-    // distance/second that functions move when animating
+    // distance/second that functions move when released by the user
     FUNCTION_ANIMATION_SPEED: 400,
 
-    // distance/second that cards move when animating
-    CARD_ANIMATION_SPEED: 400
+    // distance/second that cards move when released by the user
+    CARD_ANIMATION_SPEED: 400,
+
+    // distance/second that cards move when output carousel is 'erased'
+    ERASE_CARDS_ANIMATION_SPEED: 1200,
+
+    // distance/second that cards and functions move when 'Reset All' is pressed
+    RESET_ALL_ANIMATION_SPEED: 1200
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

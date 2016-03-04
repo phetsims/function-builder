@@ -76,6 +76,7 @@ define( function( require ) {
 
         // return to output carousel
         card.animateTo( outputContainer.carouselLocation,
+          FBConstants.CARD_ANIMATION_SPEED,
           function() {
             worldNode.removeChild( thisNode );
             outputContainer.addNode( thisNode );
@@ -103,7 +104,8 @@ define( function( require ) {
     returnToInputCarousel: function( options ) {
 
       options = _.extend( {
-        animate: true // true: animate back to carousel, false: move immediate back to carousel
+        animate: true, // true: animate back to carousel, false: move immediate back to carousel
+        animationSpeed: FBConstants.CARD_ANIMATION_SPEED
       }, options );
 
       if ( !this.inputContainer.containsNode( this ) ) {
@@ -119,6 +121,7 @@ define( function( require ) {
           // animate to the input carousel
           var thisNode = this;
           this.card.animateTo( this.inputContainer.carouselLocation,
+            options.animationSpeed,
             function() {
               thisNode.worldNode.removeChild( thisNode );
               thisNode.inputContainer.addNode( thisNode );
@@ -133,6 +136,5 @@ define( function( require ) {
         }
       }
     }
-
   } );
 } );

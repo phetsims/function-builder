@@ -25,16 +25,15 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location
-      dragging: false, // {boolean} is the function being dragged by the user?
-      animationSpeed: 100 // {number} distance moved per second when animating
+      dragging: false // {boolean} is the function being dragged by the user?
     }, options );
 
     PropertySet.call( this, {
       location: options.location // @public (read-only) {Vector2} DO NOT set this directly! Use moveTo or animateTo.
     } );
 
-    // @private {number} distance/second when animating
-    this.animationSpeed = options.animationSpeed;
+    // @private {number} distance/second when animating, set using animateTo
+    this.animationSpeed = 100;
 
     // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
@@ -64,9 +63,11 @@ define( function( require ) {
      * Animates to the specified location. When animation is completed, call optional callback.
      *
      * @param {Vector2} destination
+     * @param {number} animationSpeed - distance moved per second when animating
      * @param {function} [animationCompletedCallback]
      */
-    animateTo: function( destination, animationCompletedCallback ) {
+    animateTo: function( destination, animationSpeed, animationCompletedCallback ) {
+      this.animationSpeed = animationSpeed;
       this.destination = destination;
       this.animationCompletedCallback = animationCompletedCallback;
     },
