@@ -1,6 +1,8 @@
 TODO list for function-builder
 
 Split builder into foreground and background, to give illusion of dragging cards through it.
+Add draggingLayer that is between builder foreground and background, use when dragging cards.
+Rename worldNode to worldLayer.
 
 Cards:
 - update model and view when functions change
