@@ -1,8 +1,6 @@
 TODO list for function-builder
 
-Cards:
-- update model and view when functions change
-- update view when location changes
+Update card when location changes or Builder.functionChangedEmitter.emit
 
 Bare bones slider apparatus on builder.
 
