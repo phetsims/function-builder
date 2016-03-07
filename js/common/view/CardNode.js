@@ -90,20 +90,35 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
-      //TODO temporary, send the card to the closest carousel
-      if ( card.locationProperty.get().x < ( builderNode.builder.left - thisNode.width / 2 ) ) {
+      var builder = builderNode.builder;
 
-        // return to input carousel if card isn't in the builder
+      if ( card.locationProperty.get().x < ( builder.left - thisNode.width / 2 ) ) {
+
+        // card is to left of builder, return it to input carousel
         thisNode.returnToInputCarousel();
       }
-      else {
+      else if ( card.locationProperty.get().x > builder.right + thisNode.width ) {
 
-        // return to output carousel
+        // card is to right of builder, animate to output carousel
         card.animateTo( outputContainer.carouselLocation,
           FBConstants.CARD_ANIMATION_SPEED,
           function() {
             dragLayer.removeChild( thisNode );
             outputContainer.addNode( thisNode );
+          } );
+      }
+      else {
+
+        // card is in the builder, animate in a straight line through the builder, then to output carousel
+        card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
+          FBConstants.CARD_ANIMATION_SPEED,
+          function() {
+            card.animateTo( outputContainer.carouselLocation,
+              FBConstants.CARD_ANIMATION_SPEED,
+              function() {
+                dragLayer.removeChild( thisNode );
+                outputContainer.addNode( thisNode );
+              } )
           } );
       }
     };
