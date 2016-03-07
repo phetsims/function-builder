@@ -73,6 +73,7 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
+    //TODO this is crude, not well-behaved when location.y is far from builder.location.y
     // While the user is dragging, constrain its vertical location while in the builder
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location ) {
