@@ -38,7 +38,7 @@ define( function( require ) {
     // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
 
-    // @private {function} called when animation to destination completes
+    // @private {function|null} called when animation to destination completes
     this.animationCompletedCallback = null;
 
     // @public {boolean} is the user dragging the function?
