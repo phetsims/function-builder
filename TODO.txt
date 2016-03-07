@@ -2,7 +2,7 @@ TODO list for function-builder
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
-Handle dragging backwards through the builder
+Handle putting card in output slot and animating backwards through the builder
 
 Bare bones slider apparatus on builder.
 
