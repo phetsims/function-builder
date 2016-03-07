@@ -17,12 +17,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
 
   /**
    * @param {HTMLImageElement} image - images that appears on the card
@@ -30,27 +29,24 @@ define( function( require ) {
    * @constructor
    */
   function ImageCardContainer( image, options ) {
-
-    options = _.extend( {
-      size: FBConstants.CARD_SIZE
-    }, options );
-
     this.image = image; // @private
-
-    MovableContainer.call( this, options );
+    CardContainer.call( this, options );
   }
 
   functionBuilder.register( 'ImageCardContainer', ImageCardContainer );
 
-  return inherit( MovableContainer, ImageCardContainer, {
+  return inherit( CardContainer, ImageCardContainer, {
 
     /**
+     * Creates functions and puts them in the container.
+     *
      * @param {number} numberOfInstances
      * @param {PatternsScene} scene
      * @param {ImageCardContainer} inputContainer
      * @param {ImageCardContainer} outputContainer
      * @param {BuilderNode} builderNode
      * @param {Node} worldNode
+     * @override
      * @public
      */
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, worldNode ) {
