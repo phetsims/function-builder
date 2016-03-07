@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -38,7 +39,7 @@ define( function( require ) {
       bodyLineWidth: 1,
 
       // ends
-      endRadius: 15,
+      endRadiusX: 15,
       endStroke: 'black',
       endLineWidth: 1,
 
@@ -93,49 +94,33 @@ define( function( require ) {
       centerY: 0
     } );
 
-    // Left end
-    var leftEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
+    // Options for the ends
+    var END_OPTIONS = {
+      radiusX: options.endRadiusX,
+      radiusY: BODY_HEIGHT / 2,
       fill: colorScheme.ends,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
+      slotFill: options.slotFill,
+      slotStroke: options.slotStroke,
+      slotLineWidth: options.slotLineWidth,
       centerX: bodyNode.left,
       centerY: bodyNode.centerY
-    } );
+    };
+
+    // Left end
+    var leftEnd = new BuilderEndNode( 'left',
+      _.extend( {}, END_OPTIONS, {
+        centerX: bodyNode.left,
+        centerY: bodyNode.centerY
+      } ) );
 
     // Right end
-    var rightEnd = new Path( Shape.ellipse( 0, 0, options.endRadius, BODY_HEIGHT / 2, 0 ), {
-      fill: colorScheme.ends,
-      stroke: options.endStroke,
-      lineWidth: options.endLineWidth,
-      centerX: bodyNode.right,
-      centerY: bodyNode.centerY
-    } );
-
-    // Input, on left
-    var INPUT_WIDTH = 0.4 * options.endRadius;
-    var INPUT_HEIGHT = 0.75 * BODY_HEIGHT;
-    var INPUT_Y_OFFSET = 0.025 * INPUT_HEIGHT;
-    var inputShape = new Shape()
-      .moveTo( 0, INPUT_Y_OFFSET )
-      .lineTo( INPUT_WIDTH, 0 )
-      .lineTo( INPUT_WIDTH, INPUT_HEIGHT )
-      .lineTo( 0, INPUT_HEIGHT - INPUT_Y_OFFSET )
-      .close();
-    var inputNode = new Path( inputShape, {
-      fill: options.slotFill,
-      stroke: options.slotStroke,
-      lineWidth: options.slotLineWidth,
-      center: leftEnd.center
-    } );
-
-    // Output, on right
-    var outputShape = inputShape.transformed( Matrix3.scaling( -1, 1 ) );
-    var outputNode = new Path( outputShape, {
-      fill: options.slotFill,
-      stroke: options.slotStroke,
-      lineWidth: options.slotLineWidth,
-      center: rightEnd.center
-    } );
+    var rightEnd = new BuilderEndNode( 'right',
+      _.extend( {}, END_OPTIONS, {
+        centerX: bodyNode.right,
+        centerY: bodyNode.centerY
+      } ) );
 
     // slots and the function nodes that are in the slots
     var slotNodes = [];
@@ -153,7 +138,7 @@ define( function( require ) {
     var slotsParent = new Node( { children: slotNodes } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, leftEnd, rightEnd, inputNode, outputNode, slotsParent ];
+    options.children = [ bodyNode, leftEnd, rightEnd, slotsParent ];
 
     Node.call( this, options );
   }
@@ -167,7 +152,7 @@ define( function( require ) {
       this.functionNodes.forEach( function( functionNode ) {
         functionNode && functionNode.returnToCarousel( {
           animationSpeed: FBConstants.RESET_ALL_ANIMATION_SPEED
-        });
+        } );
       } );
     },
 
