@@ -90,9 +90,12 @@ define( function( require ) {
           // move directly to the destination
           this.locationProperty.set( this.destination );
 
-          // callback
+          // callback, which may set a new callback
+          var saveAnimationCompletedCallback = this.animationCompletedCallback;
           this.animationCompletedCallback && this.animationCompletedCallback();
-          this.animationCompletedCallback = null;
+          if ( saveAnimationCompletedCallback === this.animationCompletedCallback ) {
+            this.animationCompletedCallback = null;
+          }
         }
         else {
 
