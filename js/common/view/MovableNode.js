@@ -56,7 +56,7 @@ define( function( require ) {
         options.startDrag && options.startDrag();
       },
 
-      //TODO translate allows point to get disconnected from Node, use drag instead
+      //TODO translate allows pointer to get disconnected from Node, use drag instead
       // No need to constrain drag bounds because functions return to carousel or builder when released.
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
       translate: function( translationParams ) {
