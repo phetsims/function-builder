@@ -18,11 +18,11 @@ define( function( require ) {
    * @param {ImageFunction} functionInstance
    * @param {ImageFunctionContainer} container
    * @param {BuilderNode} builderNode
-   * @param {Node} worldNode
+   * @param {Node} dragLayer
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionNode( functionInstance, container, builderNode, worldNode, options ) {
+  function FunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     options = options || {};
 
@@ -34,7 +34,7 @@ define( function( require ) {
     this.functionInstance = functionInstance;
     this.container = container;
     this.builderNode = builderNode;
-    this.worldNode = worldNode;
+    this.dragLayer = dragLayer;
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
@@ -43,7 +43,7 @@ define( function( require ) {
 
         // function is in the carousel, pop it out
         container.removeNode( thisNode );
-        worldNode.addChild( thisNode );
+        dragLayer.addChild( thisNode );
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else if ( builderNode.containsFunctionNode( thisNode ) ) {
@@ -52,14 +52,14 @@ define( function( require ) {
         var slotNumber = builderNode.getSlotNumber( thisNode );
         var slotLocation = builderNode.getSlotLocation( slotNumber );
         builderNode.removeFunctionNode( thisNode, slotNumber );
-        worldNode.addChild( thisNode );
+        dragLayer.addChild( thisNode );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
-        // function was grabbed while in the world, do nothing
+        // function was grabbed while in the dragLayer, do nothing
       }
 
-      assert && assert( worldNode.hasChild( thisNode ) );
+      assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
     assert && assert( !options.endDrag );
@@ -85,7 +85,7 @@ define( function( require ) {
             var occupierNode = builderNode.getFunctionNode( slotNumber );
             occupierNode && occupierNode.returnToCarousel();
 
-            worldNode.removeChild( thisNode );
+            dragLayer.removeChild( thisNode );
             builderNode.addFunctionNode( thisNode, slotNumber );
           } );
       }
@@ -117,7 +117,7 @@ define( function( require ) {
         if ( this.builderNode.containsFunctionNode( this ) ) {
           var slotNumber = this.builderNode.getSlotNumber( this );
           this.builderNode.removeFunctionNode( this, slotNumber );
-          this.worldNode.addChild( this );
+          this.dragLayer.addChild( this );
         }
 
         if ( options.animate ) {
@@ -127,14 +127,14 @@ define( function( require ) {
           this.functionInstance.animateTo( this.container.carouselLocation,
             options.animationSpeed,
             function() {
-              thisNode.worldNode.removeChild( thisNode );
+              thisNode.dragLayer.removeChild( thisNode );
               thisNode.container.addNode( thisNode );
             } );
         }
         else {
 
           // move immediately to the function carousel
-          this.worldNode.removeChild( this );
+          this.dragLayer.removeChild( this );
           this.functionInstance.moveTo( this.container.carouselLocation );
           this.container.addNode( this );
         }

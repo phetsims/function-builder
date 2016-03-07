@@ -37,10 +37,10 @@ define( function( require ) {
      * @param {number} numberOfInstances
      * @param {PatternsScene} scene
      * @param {BuilderNode} builderNode
-     * @param {Node} worldNode
+     * @param {Node} dragLayer
      * @public
      */
-    createFunctions: function( numberOfInstances, scene, builderNode, worldNode ) {
+    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
       throw new Error( 'must be implemented by subtypes' );
     }
   } );

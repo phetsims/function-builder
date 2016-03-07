@@ -19,12 +19,12 @@ define( function( require ) {
    * @param {ImageFunctionContainer} inputContainer
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
-   * @param {Node} worldNode
+   * @param {Node} dragLayer
    * @param {Node} foregroundAnimationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options ) {
 
     options = options || {};
 
@@ -37,7 +37,7 @@ define( function( require ) {
     this.inputContainer = inputContainer;
     this.outputContainer = outputContainer;
     this.builderNode = builderNode;
-    this.worldNode = worldNode;
+    this.dragLayer = dragLayer;
     this.foregroundAnimationLayer = foregroundAnimationLayer;
 
     assert && assert( !options.startDrag );
@@ -47,29 +47,29 @@ define( function( require ) {
 
         // card is in the input carousel, pop it out
         inputContainer.removeNode( thisNode );
-        worldNode.addChild( thisNode );
+        dragLayer.addChild( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
 
         // card is in the output carousel, pop it out
         outputContainer.removeNode( thisNode );
-        worldNode.addChild( thisNode );
+        dragLayer.addChild( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
       else if ( foregroundAnimationLayer.hasChild( thisNode ) ) {
 
         // card was animating back to carousel when user grabbed it
         foregroundAnimationLayer.removeChild( thisNode );
-        worldNode.addChild( thisNode );
+        dragLayer.addChild( thisNode );
       }
       else
       {
         //TODO remove card from builder apparatus?
-        // card was grabbed while in the world, do nothing
+        // card was grabbed while in dragLayer, do nothing
       }
 
-      assert && assert( worldNode.hasChild( thisNode ) );
+      assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
     // When the user stops dragging a function, decide what to do with it.
@@ -89,7 +89,7 @@ define( function( require ) {
         card.animateTo( outputContainer.carouselLocation,
           FBConstants.CARD_ANIMATION_SPEED,
           function() {
-            worldNode.removeChild( thisNode );
+            dragLayer.removeChild( thisNode );
             outputContainer.addNode( thisNode );
           } );
       }
@@ -126,8 +126,8 @@ define( function( require ) {
           this.outputContainer.removeNode( this );
           this.foregroundAnimationLayer.addChild( this );
         }
-        else if ( this.worldNode.hasChild( this ) ) {
-          this.worldNode.removeChild( this );
+        else if ( this.dragLayer.hasChild( this ) ) {
+          this.dragLayer.removeChild( this );
           this.foregroundAnimationLayer.addChild( this );
         }
 

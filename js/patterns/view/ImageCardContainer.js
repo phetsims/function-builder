@@ -45,12 +45,12 @@ define( function( require ) {
      * @param {ImageCardContainer} inputContainer
      * @param {ImageCardContainer} outputContainer
      * @param {BuilderNode} builderNode
-     * @param {Node} worldNode
+     * @param {Node} dragLayer
      * @param {Node} foregroundAnimationLayer
      * @override
      * @public
      */
-    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer ) {
+    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer ) {
 
       assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
       assert && assert( inputContainer.carouselLocation );
@@ -65,7 +65,7 @@ define( function( require ) {
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer );
+        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer );
 
         // put the Node in this container
         this.addNode( cardNode );
