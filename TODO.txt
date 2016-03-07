@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Base types for containers?
+
 Cards:
 - update model and view when functions change
 - update view when location changes
