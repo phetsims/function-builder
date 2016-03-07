@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Split builder into foreground and background, to give illusion of dragging cards through it.
+
 Cards:
 - update model and view when functions change
 - update view when location changes
