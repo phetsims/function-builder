@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -52,7 +53,23 @@ define( function( require ) {
     var functionsParent = new Node();
 
     // Builder
-    var builderNode = new BuilderNode( scene.builder );
+    var builder = scene.builder;
+    var BUILDER_END_OPTIONS = {
+      radiusX: 15,
+      radiusY: builder.height / 2,
+      fill: builder.colorScheme.ends,
+      centerY: builder.location.y
+    };
+    var builderLeftEndNode = new BuilderEndNode( 'left', _.extend( {}, BUILDER_END_OPTIONS, {
+      centerX: builder.location.x
+    } ) );
+    var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
+      centerX: builder.location.x + builder.width
+    } ) );
+    var builderNode = new BuilderNode( builder, {
+      endRadiusX: BUILDER_END_OPTIONS.radiusX,
+      slotFill: null
+    } );
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
@@ -171,7 +188,9 @@ define( function( require ) {
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
-      builderNode, functionsParent, cardsParent
+      builderLeftEndNode, builderRightEndNode,
+      cardsParent,
+      builderNode, functionsParent
     ];
 
     Node.call( this, options );

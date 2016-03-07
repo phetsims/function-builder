@@ -139,6 +139,9 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ bodyNode, leftEnd, rightEnd, slotsParent ];
 
+    assert && assert( !options.clipArea, 'clipArea cannot be customized' );
+    options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
+
     Node.call( this, options );
   }
 
