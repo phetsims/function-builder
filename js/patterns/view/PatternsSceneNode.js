@@ -64,10 +64,10 @@ define( function( require ) {
       centerY: builder.location.y
     };
     var builderLeftEndNode = new BuilderEndNode( 'left', _.extend( {}, BUILDER_END_OPTIONS, {
-      centerX: builder.location.x
+      centerX: builder.left
     } ) );
     var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
-      centerX: builder.location.x + builder.width
+      centerX: builder.right
     } ) );
     var builderNode = new BuilderNode( builder, {
       endRadiusX: BUILDER_END_OPTIONS.radiusX,
