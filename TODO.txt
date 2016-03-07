@@ -2,6 +2,8 @@ TODO list for function-builder
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
+Handle dragging backwards through the builder
+
 Bare bones slider apparatus on builder.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
