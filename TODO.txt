@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-When resetting or erasing cards, parent them to a foreground layer, so they don't return through the builder.
-
 Cards:
 - update model and view when functions change
 - update view when location changes

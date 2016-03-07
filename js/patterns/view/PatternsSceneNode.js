@@ -52,6 +52,9 @@ define( function( require ) {
     // parent node for all function instances, while the user is dragging them
     var functionsParent = new Node();
 
+    // foreground layer, for animating cards on erase/reset, so they don't look like they are going through builder
+    var foregroundAnimationLayer = new Node();
+
     // Builder
     var builder = scene.builder;
     var BUILDER_END_OPTIONS = {
@@ -190,7 +193,8 @@ define( function( require ) {
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
       cardsParent,
-      builderNode, functionsParent
+      builderNode, functionsParent,
+      foregroundAnimationLayer
     ];
 
     Node.call( this, options );
@@ -237,7 +241,7 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsParent );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsParent );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsParent, foregroundAnimationLayer );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

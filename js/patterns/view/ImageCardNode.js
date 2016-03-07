@@ -23,10 +23,11 @@ define( function( require ) {
    * @param {ImageCardContainer} outputContainer
    * @param {BuilderNode} builderNode
    * @param {Node} worldNode
+   * @param {Node} foregroundAnimationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardNode( card, inputContainer, outputContainer, builderNode, worldNode, options ) {
+  function ImageCardNode( card, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer, options ) {
 
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
@@ -53,7 +54,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, imageNode ];
 
-    CardNode.call( this, card, inputContainer, outputContainer, builderNode, worldNode, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );

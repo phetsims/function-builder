@@ -20,10 +20,11 @@ define( function( require ) {
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
    * @param {Node} worldNode
+   * @param {Node} foregroundAnimationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, worldNode, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, worldNode, foregroundAnimationLayer, options ) {
 
     options = options || {};
 
@@ -37,6 +38,7 @@ define( function( require ) {
     this.outputContainer = outputContainer;
     this.builderNode = builderNode;
     this.worldNode = worldNode;
+    this.foregroundAnimationLayer = foregroundAnimationLayer;
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
@@ -55,10 +57,19 @@ define( function( require ) {
         worldNode.addChild( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
       }
-      else {
+      else if ( foregroundAnimationLayer.hasChild( thisNode ) ) {
+
+        // card was animating back to carousel when user grabbed it
+        foregroundAnimationLayer.removeChild( thisNode );
+        worldNode.addChild( thisNode );
+      }
+      else
+      {
         //TODO remove card from builder apparatus?
         // card was grabbed while in the world, do nothing
       }
+
+      assert && assert( worldNode.hasChild( thisNode ) );
     };
 
     // When the user stops dragging a function, decide what to do with it.
@@ -110,10 +121,14 @@ define( function( require ) {
 
       if ( !this.inputContainer.containsNode( this ) ) {
 
-        // if in the output container, move to the world
+        // if in the output container, move to the foreground
         if ( this.outputContainer.containsNode( this ) ) {
           this.outputContainer.removeNode( this );
-          this.worldNode.addChild( this );
+          this.foregroundAnimationLayer.addChild( this );
+        }
+        else if ( this.worldNode.hasChild( this ) ) {
+          this.worldNode.removeChild( this );
+          this.foregroundAnimationLayer.addChild( this );
         }
 
         if ( options.animate ) {
@@ -123,14 +138,14 @@ define( function( require ) {
           this.card.animateTo( this.inputContainer.carouselLocation,
             options.animationSpeed,
             function() {
-              thisNode.worldNode.removeChild( thisNode );
+              thisNode.foregroundAnimationLayer.removeChild( thisNode );
               thisNode.inputContainer.addNode( thisNode );
             } );
         }
         else {
 
           // move immediately to the input carousel
-          this.worldNode.removeChild( this );
+          this.foregroundAnimationLayer.removeChild( this );
           this.card.moveTo( this.inputContainer.carouselLocation );
           this.inputContainer.addNode( this );
         }
