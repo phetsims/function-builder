@@ -12,5 +12,7 @@ Move function to adjacent empty slot instead of returning to carousel.
 
 Reset All doesn't work for things that the user is dragging
 
+Vertical seam visible at left or right edge of clipArea for BuilderNode
+
 Usability:
 - How to keep functions that are mutable from popping out of the carousel and builder?
