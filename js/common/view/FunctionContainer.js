@@ -12,23 +12,22 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );;
+  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
 
   /**
-   * @param {constructor} FunctionConstructor - constructor for a subtype of {AbstractFunction}
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionContainer( FunctionConstructor, options ) {
+  function FunctionContainer( options ) {
 
     options = _.extend( {
       size: FBConstants.FUNCTION_SIZE
     }, options );
 
-    this.FunctionConstructor = FunctionConstructor; // @private
-
     MovableContainer.call( this, options );
   }
+
+  functionBuilder.register( 'FunctionContainer', FunctionContainer );
 
   return inherit( MovableContainer, FunctionContainer, {
 

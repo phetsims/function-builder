@@ -9,12 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
 
   /**
    * @param {constructor} FunctionConstructor - constructor for a subtype of {ImageFunction}
@@ -22,7 +20,8 @@ define( function( require ) {
    * @constructor
    */
   function ImageFunctionContainer( FunctionConstructor, options ) {
-    FunctionContainer.call( this, FunctionConstructor, options );
+    this.FunctionConstructor = FunctionConstructor; // @private
+    FunctionContainer.call( this, options );
   }
 
   functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
