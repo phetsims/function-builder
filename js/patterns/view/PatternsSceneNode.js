@@ -47,10 +47,10 @@ define( function( require ) {
     var thisNode = this;
 
     // parent node for all cards, while the user is dragging them
-    var cardsParent = new Node();
+    var cardsDragLayer = new Node();
 
     // parent node for all function instances, while the user is dragging them
-    var functionsParent = new Node();
+    var functionsDragLayer = new Node();
 
     // foreground layer, for animating cards on erase/reset, so they don't look like they are going through builder
     var foregroundAnimationLayer = new Node();
@@ -192,8 +192,8 @@ define( function( require ) {
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
-      cardsParent,
-      builderNode, functionsParent,
+      cardsDragLayer,
+      builderNode, functionsDragLayer,
       foregroundAnimationLayer
     ];
 
@@ -219,10 +219,10 @@ define( function( require ) {
       functionContainers.forEach( function( functionContainer ) {
 
         // function container's location
-        functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsParent );
+        functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsDragLayer );
 
         // populate the container with functions
-        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsParent );
+        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
@@ -234,14 +234,14 @@ define( function( require ) {
 
         // input container's location
         var inputContainer = inputContainers[ i ];
-        inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsParent );
+        inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsDragLayer );
 
         // output container's location
         var outputContainer = outputContainers[ i ];
-        outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsParent );
+        outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsParent, foregroundAnimationLayer );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
