@@ -66,6 +66,10 @@ define( function( require ) {
 
     // @public emit1({Builder}) when any function changes
     this.functionChangedEmitter = new Emitter();
+
+    // @public for convenience
+    this.left = this.location.x;
+    this.right = this.left + options.width;
   }
 
   functionBuilder.register( 'Builder', Builder );

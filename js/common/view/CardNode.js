@@ -13,6 +13,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {ImageFunction} card
@@ -70,6 +71,18 @@ define( function( require ) {
       }
 
       assert && assert( dragLayer.hasChild( thisNode ) );
+    };
+
+    // While the user is dragging, constrain its vertical location while in the builder
+    assert && assert( !options.translateMovable );
+    options.translateMovable = function( movable, location ) {
+      var builder = builderNode.builder;
+      if ( location.x < ( builder.left - thisNode.width / 2 ) || location.x > ( builder.right + thisNode.width / 2 ) ) {
+        movable.moveTo( location );
+      }
+      else {
+        movable.moveTo( new Vector2( location.x, builder.location.y ) );
+      }
     };
 
     // When the user stops dragging a function, decide what to do with it.

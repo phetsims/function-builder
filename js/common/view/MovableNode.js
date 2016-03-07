@@ -27,8 +27,12 @@ define( function( require ) {
       startDrag: null, // {function|null} Called at the start of each drag sequence
       endDrag: null, // {function|null} Called at the end of each drag sequence
 
-      // {function(Node, Vector2)} Moves the node to the Movable's location
+      // {function(Movable, Vector2) moves the Movable while dragging
+      translateMovable: function( movable, location ) { movable.moveTo( location ); },
+
+      // {function(Node, Vector2)} moves the Node when the Movable's location changes
       translateNode: function( node, location ) { node.center = location; }
+
     }, options );
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
@@ -56,7 +60,7 @@ define( function( require ) {
       // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
       translate: function( translationParams ) {
         var location = movable.locationProperty.get().plus( translationParams.delta );
-        movable.moveTo( location );
+        options.translateMovable( movable, location );
       },
 
       end: function( event, trail ) {
