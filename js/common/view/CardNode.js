@@ -91,10 +91,9 @@ define( function( require ) {
     options.endDrag = function() {
 
       //TODO temporary, send the card to the closest carousel
-      var xMiddle = inputContainer.carouselLocation.x + ( outputContainer.carouselLocation.x - inputContainer.carouselLocation.x ) / 2;
-      if ( card.locationProperty.get().x < xMiddle ) {
+      if ( card.locationProperty.get().x < ( builderNode.builder.left - thisNode.width / 2 ) ) {
 
-        // return to input carousel
+        // return to input carousel if card isn't in the builder
         thisNode.returnToInputCarousel();
       }
       else {
