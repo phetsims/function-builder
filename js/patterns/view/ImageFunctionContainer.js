@@ -3,14 +3,6 @@
 /**
  * Container for image functions.
  *
- * Responsibilities:
- *
- * - create a specified number of {ImageFunction} function instances, all of the same type
- * - create an associated Node for each instance
- * - handle dragging instances out of the container
- * - decide what to do with an instance when the user stops dragging it
- * - return an instance to the container when it's location is the same as the container
- *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -19,6 +11,7 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
@@ -29,25 +22,21 @@ define( function( require ) {
    * @constructor
    */
   function ImageFunctionContainer( FunctionConstructor, options ) {
-
-    options = _.extend( {
-      size: FBConstants.FUNCTION_SIZE
-    }, options );
-
-    this.FunctionConstructor = FunctionConstructor; // @private
-
-    MovableContainer.call( this, options );
+    FunctionContainer.call( this, FunctionConstructor, options );
   }
 
   functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
 
-  return inherit( MovableContainer, ImageFunctionContainer, {
+  return inherit( FunctionContainer, ImageFunctionContainer, {
 
     /**
+     * Creates functions and puts them in the container.
+     *
      * @param {number} numberOfInstances
      * @param {PatternsScene} scene
      * @param {BuilderNode} builderNode
      * @param {Node} worldNode
+     * @override
      * @public
      */
     createFunctions: function( numberOfInstances, scene, builderNode, worldNode ) {
