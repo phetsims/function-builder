@@ -4,12 +4,11 @@ Cards:
 - update model and view when functions change
 - update view when location changes
 
-Reset All
-- broken for functions, cards
-
 Bare bones slider apparatus on builder.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
+
+Reset All doesn't work for things that the user is dragging
 
 Usability:
 - How to keep functions that are mutable from popping out of the carousel and builder?
