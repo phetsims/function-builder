@@ -149,15 +149,19 @@ define( function( require ) {
 
       if ( !this.inputContainer.containsNode( this ) ) {
 
-        // if in the output container, move to the foreground
         if ( this.outputContainer.containsNode( this ) ) {
+
+          // if in the output container, move to the foreground
           this.outputContainer.removeNode( this );
           this.foregroundAnimationLayer.addChild( this );
         }
         else if ( this.dragLayer.hasChild( this ) ) {
+
+          // if in the drag layer, move to the foreground
           this.dragLayer.removeChild( this );
           this.foregroundAnimationLayer.addChild( this );
         }
+        assert && assert( this.foregroundAnimationLayer.hasChild( this ) );
 
         if ( options.animate ) {
 
