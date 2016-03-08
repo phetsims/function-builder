@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Snap card position to input/output slot only when y-coordinate is close enough.
-
 Spy glass holes builder
 
 Update card when location changes or Builder.functionChangedEmitter.emit
