@@ -41,6 +41,7 @@ define( function( require ) {
     this.dragLayer = dragLayer;
     this.foregroundAnimationLayer = foregroundAnimationLayer;
 
+    var startDragX = null;
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
@@ -69,6 +70,8 @@ define( function( require ) {
         //TODO remove card from builder apparatus?
         // card was grabbed while in dragLayer, do nothing
       }
+
+      startDragX = thisNode.card.locationProperty.get().x;
 
       assert && assert( dragLayer.hasChild( thisNode ) );
     };
@@ -107,19 +110,36 @@ define( function( require ) {
             outputContainer.addNode( thisNode );
           } );
       }
-      else {
+      else { // card is in the builder
 
-        // card is in the builder, animate in a straight line through the builder, then to output carousel
-        card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
-          FBConstants.CARD_ANIMATION_SPEED,
-          function() {
-            card.animateTo( outputContainer.carouselLocation,
-              FBConstants.CARD_ANIMATION_SPEED,
-              function() {
-                dragLayer.removeChild( thisNode );
-                outputContainer.addNode( thisNode );
-              } )
-          } );
+        if ( startDragX < builder.left ) {
+
+          // animate left-to-right through the builder, then to output carousel
+          card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
+            FBConstants.CARD_ANIMATION_SPEED,
+            function() {
+              card.animateTo( outputContainer.carouselLocation,
+                FBConstants.CARD_ANIMATION_SPEED,
+                function() {
+                  dragLayer.removeChild( thisNode );
+                  outputContainer.addNode( thisNode );
+                } )
+            } );
+        }
+        else {
+
+          // animate right-to-left through the builder, then to input carousel
+          card.animateTo( new Vector2( builder.left - thisNode.width, builder.location.y ),
+            FBConstants.CARD_ANIMATION_SPEED,
+            function() {
+              card.animateTo( inputContainer.carouselLocation,
+                FBConstants.CARD_ANIMATION_SPEED,
+                function() {
+                  dragLayer.removeChild( thisNode );
+                  inputContainer.addNode( thisNode );
+                } )
+            } );
+        }
       }
     };
 

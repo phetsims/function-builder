@@ -8,8 +8,6 @@ Snap card position to input/output slot only when y-coordinate is close enough.
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
-Handle putting card in output slot and animating backwards through the builder
-
 Bare bones slider apparatus on builder.
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
