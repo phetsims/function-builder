@@ -149,6 +149,8 @@ define( function( require ) {
 
       if ( !this.inputContainer.containsNode( this ) ) {
 
+        this.pickable = false; // prevent user from grabbing card
+
         if ( this.outputContainer.containsNode( this ) ) {
 
           // if in the output container, move to the foreground
@@ -172,6 +174,7 @@ define( function( require ) {
             function() {
               thisNode.foregroundAnimationLayer.removeChild( thisNode );
               thisNode.inputContainer.addNode( thisNode );
+              thisNode.pickable = true;
             } );
         }
         else {
@@ -180,6 +183,7 @@ define( function( require ) {
           this.foregroundAnimationLayer.removeChild( this );
           this.card.moveTo( this.inputContainer.carouselLocation );
           this.inputContainer.addNode( this );
+          this.pickable = true;
         }
       }
     }
