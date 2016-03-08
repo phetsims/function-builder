@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * 'Spy Glass' check box.
+ * Spyglass check box.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,30 +20,30 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var spyGlassString = require( 'string!FUNCTION_BUILDER/spyGlass' );
+  var spyglass = require( 'string!FUNCTION_BUILDER/spyglass' );
 
   /**
-   * @param {Property.<boolean>} spyGlassVisibleProperty
+   * @param {Property.<boolean>} spyglassVisibleProperty
    * @param {Object} [options]
    * @constructor
    */
-  function SpyGlassCheckBox( spyGlassVisibleProperty, options ) {
+  function SpyglassCheckBox( spyglassVisibleProperty, options ) {
 
     var content = new HBox( {
       spacing: 8,
       children: [
-        new Text( spyGlassString, { font: new FBFont( 20 ) } ),
-        createSpyGlassIcon()
+        new Text( spyglass, { font: new FBFont( 20 ) } ),
+        createSpyglassIcon()
       ]
     } );
 
-    CheckBox.call( this, content, spyGlassVisibleProperty, options );
+    CheckBox.call( this, content, spyglassVisibleProperty, options );
   }
 
-  functionBuilder.register( 'SpyGlassCheckBox', SpyGlassCheckBox );
+  functionBuilder.register( 'SpyglassCheckBox', SpyglassCheckBox );
 
-  // Creates the spy glass icon
-  function createSpyGlassIcon() {
+  // Creates the spyglass icon
+  function createSpyglassIcon() {
 
     var LENS_RADIUS = 10;
 
@@ -64,5 +64,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( CheckBox, SpyGlassCheckBox );
+  return inherit( CheckBox, SpyglassCheckBox );
 } );

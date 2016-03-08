@@ -47,10 +47,11 @@ define( function( require ) {
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
      * @param {Node} foregroundAnimationLayer
+     * @param {SpyglassLayer} spyglassLayer
      * @override
      * @public
      */
-    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer ) {
+    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, spyglassLayer ) {
 
       assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
       assert && assert( inputContainer.carouselLocation );
@@ -66,6 +67,7 @@ define( function( require ) {
 
         // associated Node
         var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer );
+        spyglassLayer.addCardNode( cardNode );//TODO add/remove like MoleNode?
 
         // put the Node in this container
         this.addNode( cardNode );

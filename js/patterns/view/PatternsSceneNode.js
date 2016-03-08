@@ -22,7 +22,8 @@ define( function( require ) {
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SpyGlassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyGlassCheckBox' );
+  var SpyglassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyglassCheckBox' );
+  var SpyglassLayer = require( 'FUNCTION_BUILDER/common/view/SpyglassLayer' );
 
   // constants
   var CARDS_PER_PAGE = 4; // number of cards per page in the input and output carousels
@@ -172,28 +173,37 @@ define( function( require ) {
       inputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // Spy Glass check box, to the right of functions carousel
-    var spyGlassVisibleProperty = new Property( false );
-    var spyGlassCheckBox = new SpyGlassCheckBox( spyGlassVisibleProperty, {
+    //------------------------------------------------------------------------------------------------------------------
+
+    var spyglassVisibleProperty = new Property( false );
+
+    var spyglassLayer = new SpyglassLayer( scene.builder, {
+      visible: spyglassVisibleProperty.get()
+    } );
+
+    // Spyglass check box, to the right of functions carousel
+    var spyglassCheckBox = new SpyglassCheckBox( spyglassVisibleProperty, {
       maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
       left: inputCarousel.left,
       top: functionCarousel.top
     } );
-    spyGlassVisibleProperty.link( function( visible ) {
-      //TODO implement the spy glass feature
+    spyglassVisibleProperty.link( function( visible ) {
+      spyglassLayer.visible = visible;
     } );
-    spyGlassCheckBox.visible = scene.spyGlassEnabled;
+    spyglassCheckBox.visible = scene.spyglassEnabled;
 
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
-      spyGlassCheckBox, eraserButton,
+      spyglassCheckBox, eraserButton,
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
-      builderNode, functionsDragLayer,
+      builderNode,
+      spyglassLayer,
+      functionsDragLayer,
       foregroundAnimationLayer
     ];
 
@@ -204,7 +214,7 @@ define( function( require ) {
       functionCarousel.reset();
       inputCarousel.reset();
       outputCarousel.reset();
-      spyGlassVisibleProperty.reset();
+      spyglassVisibleProperty.reset();
       builderNode.reset();
     };
 
@@ -241,7 +251,7 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer, spyglassLayer );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

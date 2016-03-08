@@ -110,8 +110,8 @@ define( function( require ) {
     // @public (read-only) {Builder}
     this.builder = options.builder;
 
-    // @public (read-only) {boolean} spy glass feature is enabled if the builder has > 1 slot
-    this.spyGlassEnabled = ( this.builder.slots.length > 1 );
+    // @public (read-only) {boolean} spyglass feature is enabled if the builder has > 1 slot
+    this.spyglassEnabled = ( this.builder.slots.length > 1 );
 
     this.builder.functionChangedEmitter.addListener( function( builder ) {
       //TODO update cards
