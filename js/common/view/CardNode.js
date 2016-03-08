@@ -13,10 +13,12 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {ImageFunction} card
+   * @param {Node} contentNode
    * @param {ImageFunctionContainer} inputContainer
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
@@ -25,11 +27,16 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options ) {
+  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options ) {
 
-    options = options || {};
-
-    assert && assert( options.children, 'requires children to specify the look of the CardNode' );
+    options = _.extend( {
+      size: FBConstants.CARD_SIZE,
+      cornerRadius: 5,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: null
+    }, options );
 
     var thisNode = this;
 
@@ -40,6 +47,13 @@ define( function( require ) {
     this.builderNode = builderNode;
     this.dragLayer = dragLayer;
     this.foregroundAnimationLayer = foregroundAnimationLayer;
+
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+      _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, contentNode ];
+    contentNode.center = backgroundNode.center;
 
     var builder = builderNode.builder;
 

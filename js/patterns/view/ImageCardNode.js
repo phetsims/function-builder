@@ -10,12 +10,10 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    * @param {ImageCard} card
@@ -32,29 +30,16 @@ define( function( require ) {
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
     options = _.extend( {
-      size: FBConstants.CARD_SIZE,
-      cornerRadius: 5,
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 1,
-      lineDash: null,
       imageScale: 0.3
     }, options );
-
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
-      _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     var imageNode = new Image( card.canvas.toDataURL(), {
       initialWidth: card.canvas.width,
       initialHeight: card.canvas.height,
-      scale: options.imageScale,
-      center: backgroundNode.center
+      scale: options.imageScale
     } );
 
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, imageNode ];
-
-    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options );
+    CardNode.call( this, card, imageNode, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
