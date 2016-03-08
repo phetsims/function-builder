@@ -115,7 +115,7 @@ define( function( require ) {
 
       var builder = builderNode.builder;
 
-      if ( card.locationProperty.get().x < ( builder.left - thisNode.width / 2 ) ) {
+      if ( card.locationProperty.get().x < ( builder.left - thisNode.width ) ) {
 
         // card is to left of builder, return it to input carousel
         thisNode.returnToInputCarousel();
