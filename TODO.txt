@@ -1,11 +1,8 @@
 TODO list for function-builder
 
-
 Update card when location changes or Builder.functionChangedEmitter.emit
 
 Spy glass holes builder
-
-"Carpet mole" representation of cards as it goes through builder
 
 ---
 

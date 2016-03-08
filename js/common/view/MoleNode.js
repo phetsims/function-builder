@@ -25,10 +25,10 @@ define( function( require ) {
     options = _.extend( {
       size: FBConstants.CARD_SIZE,
       cornerRadius: 5,
-      fill: null,
+      fill: 'white',
       stroke: 'black',
       lineWidth: 1,
-      lineDash: null
+      opacity: 0.1
     }, options );
 
     this.cardNode = cardNode; // @public

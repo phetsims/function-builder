@@ -72,6 +72,10 @@ define( function( require ) {
     var Y_INSET = 0.15 * BODY_HEIGHT;
 
     // Main body of the builder, described starting at upper-left and moving clockwise
+    var bodyGradient = new LinearGradient( 0, 0, 1, BODY_HEIGHT )
+      .addColorStop( 0, colorScheme.top )
+      .addColorStop( 0.5, colorScheme.middle )
+      .addColorStop( 1, colorScheme.bottom );
     var bodyNode = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( X_INSET, Y_INSET )
@@ -82,10 +86,7 @@ define( function( require ) {
       .lineTo( X_INSET, BODY_HEIGHT - Y_INSET )
       .lineTo( 0, BODY_HEIGHT )
       .close(), {
-      fill: new LinearGradient( 0, 0, 1, BODY_HEIGHT )
-        .addColorStop( 0, colorScheme.top )
-        .addColorStop( 0.5, colorScheme.middle )
-        .addColorStop( 1, colorScheme.bottom ),
+      fill: bodyGradient,
       stroke: options.bodyStroke,
       lineWidth: options.bodyLineWidth,
 
@@ -264,10 +265,20 @@ define( function( require ) {
       return this.builder.containsFunctionInstance( functionNode.functionInstance );
     },
 
+    /**
+     * Adds the 'mole under the carpet' representation of a card.
+     *
+     * @param {CardNode} cardNode
+     */
     addMole: function( cardNode ) {
-       this.molesParent.addChild( new MoleNode( cardNode, this.builder.location ) );
+      this.molesParent.addChild( new MoleNode( cardNode, this.builder.location ) );
     },
 
+    /**
+     * Removes the 'mole under the carpet' representation of a card.
+     *
+     * @param {CardNode} cardNode
+     */
     removeMole: function( cardNode ) {
 
       var children = this.molesParent.getChildren();
