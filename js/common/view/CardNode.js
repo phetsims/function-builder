@@ -123,11 +123,13 @@ define( function( require ) {
       else if ( card.locationProperty.get().x > builder.right + thisNode.width ) {
 
         // card is to right of builder, animate to output carousel
+        thisNode.pickable = false;
         card.animateTo( outputContainer.carouselLocation,
           FBConstants.CARD_ANIMATION_SPEED,
           function() {
             dragLayer.removeChild( thisNode );
             outputContainer.addNode( thisNode );
+            thisNode.pickable = true;
           } );
       }
       else { // card is in the builder

@@ -76,6 +76,7 @@ define( function( require ) {
       else {
 
         // put function in builder slot
+        thisNode.pickable = false;
         functionInstance.animateTo( builderNode.getSlotLocation( slotNumber ),
           FBConstants.FUNCTION_ANIMATION_SPEED,
           function() {
@@ -87,6 +88,7 @@ define( function( require ) {
 
             dragLayer.removeChild( thisNode );
             builderNode.addFunctionNode( thisNode, slotNumber );
+            thisNode.pickable = true;
           } );
       }
     };
@@ -113,6 +115,8 @@ define( function( require ) {
 
       if ( !this.container.containsNode( this ) ) {
 
+        this.pickable = false; // prevent user from grabbing function
+
         // if in the builder, move to the world
         if ( this.builderNode.containsFunctionNode( this ) ) {
           var slotNumber = this.builderNode.getSlotNumber( this );
@@ -129,6 +133,7 @@ define( function( require ) {
             function() {
               thisNode.dragLayer.removeChild( thisNode );
               thisNode.container.addNode( thisNode );
+              thisNode.pickable = true;
             } );
         }
         else {
@@ -137,6 +142,7 @@ define( function( require ) {
           this.dragLayer.removeChild( this );
           this.functionInstance.moveTo( this.container.carouselLocation );
           this.container.addNode( this );
+          this.pickable = true;
         }
       }
     }
