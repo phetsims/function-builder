@@ -53,6 +53,7 @@ define( function( require ) {
         inputContainer.removeNode( thisNode );
         dragLayer.addChild( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
+        builderNode.addMole( thisNode );
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
 
@@ -60,6 +61,7 @@ define( function( require ) {
         outputContainer.removeNode( thisNode );
         dragLayer.addChild( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
+        builderNode.addMole( thisNode );
       }
       else if ( foregroundAnimationLayer.hasChild( thisNode ) ) {
 
@@ -119,6 +121,7 @@ define( function( require ) {
           function() {
             dragLayer.removeChild( thisNode );
             outputContainer.addNode( thisNode );
+            builderNode.removeMole( thisNode );
             thisNode.pickable = true;
           } );
       }
@@ -136,6 +139,7 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   outputContainer.addNode( thisNode );
+                  builderNode.removeMole( thisNode );
                   thisNode.pickable = true;
                 } );
             } );
@@ -152,6 +156,7 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   inputContainer.addNode( thisNode );
+                  builderNode.removeMole( thisNode );
                   thisNode.pickable = true;
                 } );
             } );
@@ -218,6 +223,7 @@ define( function( require ) {
             function() {
               thisNode.foregroundAnimationLayer.removeChild( thisNode );
               thisNode.inputContainer.addNode( thisNode );
+              thisNode.builderNode.removeMole( thisNode );
               thisNode.pickable = true;
             } );
         }
@@ -227,6 +233,7 @@ define( function( require ) {
           this.foregroundAnimationLayer.removeChild( this );
           this.card.moveTo( this.inputContainer.carouselLocation );
           this.inputContainer.addNode( this );
+          thisNode.builderNode.removeMole( thisNode );
           this.pickable = true;
         }
       }

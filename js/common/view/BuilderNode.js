@@ -17,11 +17,12 @@ define( function( require ) {
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/FunctionSlotNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var MoleNode = require( 'FUNCTION_BUILDER/common/view/MoleNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/FunctionSlotNode' );
   var Shape = require( 'KITE/Shape' );
 
   /**
@@ -136,8 +137,11 @@ define( function( require ) {
     assert && assert( this.functionNodes.length === builder.slots.length );
     var slotsParent = new Node( { children: slotNodes } );
 
+    // @private 'moles under the carpet' that represents a card being dragged through the builder
+    this.molesParent = new Node();
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, leftEnd, rightEnd, slotsParent ];
+    options.children = [ bodyNode, this.molesParent, leftEnd, rightEnd, slotsParent ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
     options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
@@ -258,6 +262,28 @@ define( function( require ) {
     containsFunctionNode: function( functionNode ) {
       assert && assert( functionNode instanceof FunctionNode );
       return this.builder.containsFunctionInstance( functionNode.functionInstance );
+    },
+
+    addMole: function( cardNode ) {
+       this.molesParent.addChild( new MoleNode( cardNode, this.builder.location ) );
+    },
+
+    removeMole: function( cardNode ) {
+
+      var children = this.molesParent.getChildren();
+
+      // find the mole that corresponds to this card
+      var mole = null;
+      for ( var i = 0; i < children.length && !mole; i++ ) {
+        if ( children[ i ].cardNode === cardNode ) {
+          mole = children[ i ];
+        }
+      }
+      assert && assert( mole, 'no mole for card' );
+
+      // remove the mole
+      this.molesParent.removeChild( mole );
+      mole.dispose();
     }
   } );
 } );
