@@ -1,5 +1,9 @@
 TODO list for function-builder
 
+Use drag instead of translate in MovableNode, so point doesn't get separated from Node.
+
+Snap card position to input/output slot only when y-coordinate is close enough.
+
 Update card when location changes or Builder.functionChangedEmitter.emit
 
 Handle putting card in output slot and animating backwards through the builder
