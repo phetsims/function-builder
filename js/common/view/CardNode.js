@@ -125,6 +125,7 @@ define( function( require ) {
 
         // card is to left of builder, return it to input carousel
         thisNode.returnToInputCarousel();
+        builderNode.removeMole( thisNode );
       }
       else if ( card.locationProperty.get().x > builder.right + thisNode.width ) {
 
@@ -237,7 +238,6 @@ define( function( require ) {
             function() {
               thisNode.foregroundAnimationLayer.removeChild( thisNode );
               thisNode.inputContainer.addNode( thisNode );
-              thisNode.builderNode.removeMole( thisNode );
               thisNode.pickable = true;
             } );
         }
@@ -247,7 +247,6 @@ define( function( require ) {
           this.foregroundAnimationLayer.removeChild( this );
           this.card.moveTo( this.inputContainer.carouselLocation );
           this.inputContainer.addNode( this );
-          thisNode.builderNode.removeMole( thisNode );
           this.pickable = true;
         }
       }
