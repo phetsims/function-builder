@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -16,20 +17,27 @@ define( function( require ) {
   /**
    * @param {CardNode} cardNode
    * @param {Vector2} builderLocation
+   * @param {Object} [options]
    * @constructor
    */
-  function MoleNode( cardNode, builderLocation ) {
+  function MoleNode( cardNode, builderLocation, options ) {
 
-    this.cardNode = cardNode; // @private
-    this.builderLocation = builderLocation; // @private
+    options = _.extend( {
+      size: FBConstants.CARD_SIZE,
+      cornerRadius: 5,
+      fill: null,
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: null
+    }, options );
 
-    Rectangle.call( this, 0, 0, cardNode.width, cardNode.height, {
-      stroke: 'black'
-    } );
+    this.cardNode = cardNode; // @public
+
+    Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
 
     var thisNode = this;
     var locationObserver = function( location ) {
-      thisNode.center = location.minus( thisNode.builderLocation );
+      thisNode.center = location.minus( builderLocation );
     };
     cardNode.card.locationProperty.link( locationObserver );
 
