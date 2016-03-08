@@ -41,8 +41,9 @@ define( function( require ) {
     this.dragLayer = dragLayer;
     this.foregroundAnimationLayer = foregroundAnimationLayer;
 
-    var startDragX = null;
+    var builder = builderNode.builder;
 
+    var startDragX = null;
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
@@ -66,10 +67,10 @@ define( function( require ) {
         foregroundAnimationLayer.removeChild( thisNode );
         dragLayer.addChild( thisNode );
       }
-      else
-      {
-        //TODO remove card from builder apparatus?
+      else {
+
         // card was grabbed while in dragLayer, do nothing
+        assert && assert( dragLayer.hasChild( thisNode ) );
       }
 
       startDragX = thisNode.card.locationProperty.get().x;
@@ -77,34 +78,25 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
-    //TODO this is crude, not well-behaved when location.y is far from builder.location.y
-    // While the user is dragging, constrain its vertical location while in the builder
+    // Constrain the user's dragging
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location ) {
-      var builder = builderNode.builder;
       var y = 0;
-      var slope = 0;
       if ( location.x < ( builder.left - thisNode.width / 2 ) ) {
 
-        // slope of line between card's location in input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
-        slope = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - thisNode.width / 2 ) - inputContainer.carouselLocation.x );
-
-        // on the line between input carousel and builder input slot, y = m(x-x1) + y1
-        y = slope * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y;
+        // to the left of the builder, drag along the line between input carousel and builder input slot
+        y = slopeLeft * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else if ( location.x > ( builder.right + thisNode.width / 2 ) ) {
 
-        // slope of line between card's location in output carousel and builder's output slot, m = (y2-y1)/(x2-x1)
-        slope = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + thisNode.width / 2 ) );
-
-        // on the line between output carousel and builder input slot, y = m(x-x1) + y1
-        y = slope * ( location.x - ( builder.right + thisNode.width / 2 ) ) + builder.location.y;
+        // to the right of the builder, drag along the line between builder output slot and output carousel
+        y = slopeRight * ( location.x - ( builder.right + thisNode.width / 2 ) ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
 
-        // in the builder
+        // in the builder, drag 
         movable.moveTo( new Vector2( location.x, builder.location.y ) );
       }
     };
@@ -112,8 +104,6 @@ define( function( require ) {
     // When the user stops dragging a function, decide what to do with it.
     assert && assert( !options.endDrag );
     options.endDrag = function() {
-
-      var builder = builderNode.builder;
 
       if ( card.locationProperty.get().x < ( builder.left - thisNode.width ) ) {
 
@@ -174,6 +164,14 @@ define( function( require ) {
     } );
 
     MovableNode.call( this, card, options );
+
+    // Compute below here need to be done after supertype constructor call, so the Node has valid bounds
+
+    // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
+    var slopeLeft = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - thisNode.width / 2 ) - inputContainer.carouselLocation.x );
+
+    // slope of line between builder's output slot and output carousel, m = (y2-y1)/(x2-x1)
+    var slopeRight = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + thisNode.width / 2 ) );
   }
 
   functionBuilder.register( 'CardNode', CardNode );
