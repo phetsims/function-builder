@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Use drag instead of translate in MovableNode, so point doesn't get separated from Node.
-
 Snap card position to input/output slot only when y-coordinate is close enough.
 
 Spy glass holes builder
