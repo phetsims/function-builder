@@ -2,10 +2,10 @@ TODO list for function-builder
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
-Spy glass holes builder
+Spy glass feature - duplicate/DAG cards that are visible through holes defined by a clipArea? #11
 
 ---
-
+                         ``
 Ditch builder slider idea?
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
