@@ -6,7 +6,7 @@ Spy glass holes builder
 
 ---
 
-Bare bones slider apparatus on builder.
+Ditch builder slider idea?
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
 

@@ -27,7 +27,7 @@ define( function( require ) {
       cornerRadius: 5,
       fill: 'white',
       stroke: 'black',
-      lineWidth: 1,
+      lineWidth: 2,
       opacity: 0.1
     }, options );
 
