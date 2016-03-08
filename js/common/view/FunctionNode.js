@@ -56,7 +56,9 @@ define( function( require ) {
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
+
         // function was grabbed while in the dragLayer, do nothing
+        assert && assert( dragLayer.hasChild( thisNode ) );
       }
 
       assert && assert( dragLayer.hasChild( thisNode ) );
