@@ -42,6 +42,7 @@ define( function( require ) {
     this.foregroundAnimationLayer = foregroundAnimationLayer;
 
     var startDragX = null;
+
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
@@ -81,10 +82,29 @@ define( function( require ) {
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location ) {
       var builder = builderNode.builder;
-      if ( location.x < ( builder.left - thisNode.width / 2 ) || location.x > ( builder.right + thisNode.width / 2 ) ) {
-        movable.moveTo( location );
+      var y = 0;
+      var slope = 0;
+      if ( location.x < ( builder.left - thisNode.width / 2 ) ) {
+
+        // slope of line between card's location in input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
+        slope = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - thisNode.width / 2 ) - inputContainer.carouselLocation.x );
+
+        // on the line between input carousel and builder input slot, y = m(x-x1) + y1
+        y = slope * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y;
+        movable.moveTo( new Vector2( location.x, y ) );
+      }
+      else if ( location.x > ( builder.right + thisNode.width / 2 ) ) {
+
+        // slope of line between card's location in output carousel and builder's output slot, m = (y2-y1)/(x2-x1)
+        slope = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + thisNode.width / 2 ) );
+
+        // on the line between output carousel and builder input slot, y = m(x-x1) + y1
+        y = slope * ( location.x - ( builder.right + thisNode.width / 2 ) ) + builder.location.y;
+        movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
+
+        // in the builder
         movable.moveTo( new Vector2( location.x, builder.location.y ) );
       }
     };
@@ -123,7 +143,7 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   outputContainer.addNode( thisNode );
-                } )
+                } );
             } );
         }
         else {
@@ -137,7 +157,7 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   inputContainer.addNode( thisNode );
-                } )
+                } );
             } );
         }
       }

@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Make cards drag along a line that connects their container to the builder slot
-
 Use drag instead of translate in MovableNode, so point doesn't get separated from Node.
 
 Snap card position to input/output slot only when y-coordinate is close enough.
