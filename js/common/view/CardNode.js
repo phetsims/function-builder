@@ -137,6 +137,7 @@ define( function( require ) {
         if ( startDragX < builder.left ) {
 
           // animate left-to-right through the builder, then to output carousel
+          this.pickable = false;
           card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
@@ -145,12 +146,14 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   outputContainer.addNode( thisNode );
+                  thisNode.pickable = true;
                 } );
             } );
         }
         else {
 
           // animate right-to-left through the builder, then to input carousel
+          this.pickable = false;
           card.animateTo( new Vector2( builder.left - thisNode.width, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
@@ -159,6 +162,7 @@ define( function( require ) {
                 function() {
                   dragLayer.removeChild( thisNode );
                   inputContainer.addNode( thisNode );
+                  thisNode.pickable = true;
                 } );
             } );
         }
