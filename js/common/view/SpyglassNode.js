@@ -33,7 +33,10 @@ define( function( require ) {
       lineWidth: 5
     } );
 
-    var handleNode = new Line( 0, 0, 1.25 * lensRadius, 1.25 * lensRadius, {
+    var handleAngle = Math.PI / 2;
+    var handleX = lensRadius * Math.cos( handleAngle );
+    var handleY = lensRadius * Math.sin( handleAngle );
+    var handleNode = new Line( handleX, handleY + 3, handleX, handleY + ( lensRadius / 2 ), {
       stroke: 'black',
       lineWidth: 8,
       lineCap: 'round'
