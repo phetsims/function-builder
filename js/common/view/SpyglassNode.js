@@ -3,6 +3,7 @@
 /**
  * A spyglass, looks like a magnifying glass, use to see inside the builder.
  * Origin is at the center of the lens.
+ * Handle points to right; use options.rotation to change orientation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,34 +12,40 @@ define( function( require ) {
 
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   /**
-   * @param {number} lensRadius
    * @param {Object} [options]
    * @constructor
    */
-  function SpyglassNode( lensRadius, options ) {
+  function SpyglassNode( options ) {
 
     options = _.extend( {
-      lensFill: null
+      lensRadius: FBConstants.SPYGLASS_RADIUS,
+      lensFill: null,
+      lensLineWidth: 5,
+      handleLength: 16,
+      handleLineWidth: 8,
+      rotation: Math.PI / 4
     }, options );
 
-    var lensNode = new Circle( lensRadius, {
+    // lens
+    var lensNode = new Circle( options.lensRadius, {
       fill: options.lensFill,
       stroke: 'black',
-      lineWidth: 5
+      lineWidth: options.lensLineWidth
     } );
 
-    var handleAngle = Math.PI / 2;
-    var handleX = lensRadius * Math.cos( handleAngle );
-    var handleY = lensRadius * Math.sin( handleAngle );
-    var handleNode = new Line( handleX, handleY + 3, handleX, handleY + ( lensRadius / 2 ), {
+    // handle, pointing right
+    var handleX = options.lensRadius + ( options.lensLineWidth / 2 );
+    var handleY = 0;
+    var handleNode = new Line( handleX, handleY, handleX + options.handleLength, handleY, {
       stroke: 'black',
-      lineWidth: 8,
+      lineWidth: options.handleLineWidth,
       lineCap: 'round'
     } );
 

@@ -17,6 +17,7 @@ define( function( require ) {
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ScreenIcon = require( 'JOIST/ScreenIcon' );
+  var SpyglassNode = require( 'FUNCTION_BUILDER/common/view/SpyglassNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
@@ -98,6 +99,18 @@ define( function( require ) {
       return new Node( {
         children: [ leftNode, rightNode ],
         scale: 0.25
+      } );
+    },
+
+    /**
+     * Creates the icon for the spyglass check box.
+     * @returns {Node}
+     * @public
+     */
+    createSpyglassIcon: function() {
+      return new SpyglassNode( {
+        lensFill: FBColors.SPYGLASS_LENS,
+        scale: 0.4
       } );
     }
   };

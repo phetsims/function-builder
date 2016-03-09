@@ -14,6 +14,9 @@ define( function( require ) {
     // default options for each ScreenView subtype
     SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) },
 
+    // radius of the spyglass
+    SPYGLASS_RADIUS: 27,
+
     // dimensions of a card Node
     CARD_SIZE: new Dimension2( 60, 60 ),
 
