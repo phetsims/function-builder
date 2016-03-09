@@ -27,6 +27,7 @@ define( function( require ) {
 
     options = options || {};
 
+    //TODO add a hole and spyglass for each slot
     var holeX = builder.slots[ 0 ].location.x + FBConstants.FUNCTION_SIZE.width / 2;
     var holeY = builder.location.y;
     var holesShape = Shape.circle( holeX, holeY, FBConstants.SPYGLASS_RADIUS );

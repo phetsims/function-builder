@@ -1,8 +1,8 @@
 TODO list for function-builder
 
-Update card when location changes or Builder.functionChangedEmitter.emit
+SpyglassLayer: Add a spyglass and hole in the clipArea for each slot in the builder.
 
-Spy glass feature - duplicate/DAG cards that are visible through holes defined by a clipArea? #11
+Update card when location changes or Builder.functionChangedEmitter.emit
 
 ---
                          ``
