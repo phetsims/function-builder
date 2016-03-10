@@ -31,7 +31,7 @@ define( function( require ) {
 
     options = _.extend( {
       size: FBConstants.CARD_SIZE,
-      cornerRadius: 5,
+      cornerRadius: FBConstants.CARD_CORNER_RADIUS,
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,

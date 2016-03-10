@@ -6,9 +6,9 @@ Maybe increase spacing between items in function carousel
 
 Take popout into account when computing drag path for cards
 
-Make cards stop at spyglasses when animating
+Make cards stop at 'see inside' windows when animating
 
-Spyglass layer: removeCard isn't used, is it ok for cards to stay in this layer?
+SeeInsideLayer: removeCard isn't used, is it ok for cards to stay in this layer?
 
 Apply 'layer' pattern to 'mole' feature and other things?
 
