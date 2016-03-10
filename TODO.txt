@@ -1,5 +1,9 @@
 TODO list for function-builder
 
+Make functions wider
+
+Take popout into account when computing drag path for cards
+
 Spyglass layer: removeCard isn't used, is it ok for cards to stay in this layer?
 
 Apply 'layer' pattern to 'mole' feature and other things?
