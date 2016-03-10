@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Change Builder.location to be its center, since its dimensions are likely to change.
+
 Make functions wider
 
 Maybe increase spacing between items in function carousel
