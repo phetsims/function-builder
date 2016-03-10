@@ -25,6 +25,9 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
+  // constants
+  var ANIMATE_RESET = false; // true: functions animate back to carousel, false: they move back immediately
+
   /**
    * @param {Builder} builder
    * @param {Object} [options]
@@ -159,6 +162,7 @@ define( function( require ) {
     reset: function() {
       this.functionNodes.forEach( function( functionNode ) {
         functionNode && functionNode.returnToCarousel( {
+          animate: ANIMATE_RESET,
           animationSpeed: FBConstants.RESET_ALL_ANIMATION_SPEED
         } );
       } );
