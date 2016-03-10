@@ -20,7 +20,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var spyglass = require( 'string!FUNCTION_BUILDER/spyglass' );
+  var spyglassString = require( 'string!FUNCTION_BUILDER/spyglass' );
 
   /**
    * @param {Property.<boolean>} spyglassVisibleProperty
@@ -32,7 +32,7 @@ define( function( require ) {
     var content = new HBox( {
       spacing: 8,
       children: [
-        new Text( spyglass, { font: new FBFont( 20 ) } ),
+        new Text( spyglassString, { font: new FBFont( 20 ) } ),
         createSpyglassIcon()
       ]
     } );
