@@ -28,7 +28,7 @@ define( function( require ) {
       fill: 'white',
       stroke: 'black',
       lineWidth: 2,
-      opacity: 0.1
+      opacity: 0.2
     }, options );
 
     this.cardNode = cardNode; // @public
