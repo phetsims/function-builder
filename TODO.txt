@@ -2,7 +2,11 @@ TODO list for function-builder
 
 Make functions wider
 
+Maybe increase spacing between items in function carousel
+
 Take popout into account when computing drag path for cards
+
+Make cards stop at spyglasses when animating
 
 Spyglass layer: removeCard isn't used, is it ok for cards to stay in this layer?
 
