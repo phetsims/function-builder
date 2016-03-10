@@ -1,6 +1,8 @@
 TODO list for function-builder
 
-SpyglassLayer: Add a spyglass and hole in the clipArea for each slot in the builder.
+Spyglass layer: removeCard isn't used, is it ok for cards to stay in this layer?
+
+Apply 'layer' pattern to 'mole' feature and other things?
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
