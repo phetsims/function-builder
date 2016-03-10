@@ -137,12 +137,13 @@ define( function( require ) {
     }
     assert && assert( this.functionNodes.length === builder.slots.length );
     var slotsParent = new Node( { children: slotNodes } );
+    this.functionsParent = new Node(); // @private
 
     // @private 'moles under the carpet' that represents a card being dragged through the builder
     this.molesParent = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, this.molesParent, leftEnd, rightEnd, slotsParent ];
+    options.children = [ bodyNode, slotsParent, this.functionsParent, this.molesParent, leftEnd, rightEnd ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
     options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
@@ -177,7 +178,7 @@ define( function( require ) {
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
 
       this.functionNodes[ slotNumber ] = functionNode;
-      this.addChild( functionNode );
+      this.functionsParent.addChild( functionNode );
       functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location );
       this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
 
@@ -198,7 +199,7 @@ define( function( require ) {
       assert && assert( this.functionNodes[ slotNumber ] === functionNode, 'functionNode is not in slot ' + slotNumber );
 
       this.functionNodes[ slotNumber ] = null;
-      this.removeChild( functionNode );
+      this.functionsParent.removeChild( functionNode );
       this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
 
       assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
