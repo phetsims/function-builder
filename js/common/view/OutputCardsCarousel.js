@@ -14,6 +14,9 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  // constants
+  var ANIMATE_ERASE = false; // true: cards animate back to input carouse, false: they move back immediately
+
   /**
    * @param {Node[]} items - items in the carousel
    * @param {Object} [options]
@@ -50,7 +53,7 @@ define( function( require ) {
           var isTopCard = true;
           if ( child.returnToInputCarousel ) {
             child.returnToInputCarousel( {
-              animate: visible && isTopCard, // animate only the top card
+              animate: ANIMATE_ERASE && visible && isTopCard, // animate only the top card
               animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
             } );
             isTopCard = false;
