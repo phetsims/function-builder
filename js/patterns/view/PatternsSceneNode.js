@@ -12,7 +12,9 @@ define( function( require ) {
   var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
+  var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
   var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
@@ -22,8 +24,11 @@ define( function( require ) {
   var PageControl = require( 'SUN/PageControl' );
   var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SpyglassCheckBox = require( 'FUNCTION_BUILDER/common/view/SpyglassCheckBox' );
-  var SpyglassLayer = require( 'FUNCTION_BUILDER/common/view/SpyglassLayer' );
+  var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var seeInsideString = require( 'string!FUNCTION_BUILDER/seeInside' );
 
   // constants
   var CARDS_PER_PAGE = 4; // number of cards per page in the input and output carousels
@@ -175,34 +180,35 @@ define( function( require ) {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    var spyglassVisibleProperty = new Property( false );
+    var seeInsideProperty = new Property( false );
 
-    var spyglassLayer = new SpyglassLayer( scene.builder, {
-      visible: spyglassVisibleProperty.get()
+    var seeInsideLayer = new SeeInsideLayer( scene.builder, {
+      visible: seeInsideProperty.get()
     } );
 
     // Spyglass check box, to the right of functions carousel
-    var spyglassCheckBox = new SpyglassCheckBox( spyglassVisibleProperty, {
+    var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: new FBFont( 20 ) } ),
+      seeInsideProperty, {
       maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
       left: inputCarousel.left,
       top: functionCarousel.top
     } );
-    spyglassVisibleProperty.link( function( visible ) {
-      spyglassLayer.visible = visible;
+    seeInsideProperty.link( function( visible ) {
+      seeInsideLayer.visible = visible;
     } );
-    spyglassCheckBox.visible = scene.spyglassEnabled;
+    seeInsideCheckBox.visible = scene.seeInsideEnabled;
 
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
-      spyglassCheckBox, eraserButton,
+      seeInsideCheckBox, eraserButton,
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
       builderNode,
-      spyglassLayer,
+      seeInsideLayer,
       functionsDragLayer,
       foregroundAnimationLayer
     ];
@@ -214,7 +220,7 @@ define( function( require ) {
       functionCarousel.reset();
       inputCarousel.reset();
       outputCarousel.reset();
-      spyglassVisibleProperty.reset();
+      seeInsideProperty.reset();
       builderNode.reset();
     };
 
@@ -251,7 +257,7 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer, spyglassLayer );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer, seeInsideLayer );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Layer that implements the spyglass feature.
+ * Layer that implements the 'See Inside' feature. Each function in the builders has a 'window' at its right edge, 
+ * which lets you see the card change as it moves through the builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -16,58 +18,54 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var SpyglassNode = require( 'FUNCTION_BUILDER/common/view/SpyglassNode' );
 
   /**
    * @param {Builder} builder
    * @param {Object} [options]
    * @constructor
    */
-  function SpyglassLayer( builder, options ) {
+  function SeeInsideLayer( builder, options ) {
 
     options = options || {};
 
-    var spyglassesParent = new Node(); // parent for all spyglasses
-
     var lensesShape = new Shape();  // Shape for all lenses, used for clipArea and background color
 
-    // add a spyglass at the right end of each slot
+    // add a window at the right end of each slot
     for ( var i = 0; i < builder.slots.length; i++ ) {
 
-      // add a lens to the clipArea
-      var lensX = builder.slots[ i ].location.x + FBConstants.FUNCTION_SIZE.width / 2;
-      var lensY = builder.location.y;
+      // add a window to the clipArea
+      var centerX = builder.slots[ i ].location.x + FBConstants.FUNCTION_SIZE.width / 2;
+      var centerY = builder.location.y;
       if ( i !== 0 ) {
-        lensesShape.moveTo( lensX + FBConstants.SPYGLASS_RADIUS, lensY );
+        lensesShape.moveTo( centerX + FBConstants.SPYGLASS_RADIUS, centerY );
       }
-      lensesShape.arc( lensX, lensY, FBConstants.SPYGLASS_RADIUS, 0, Math.PI * 2 );
-
-      // spyglass
-      spyglassesParent.addChild( new SpyglassNode( {
-        lensRadius: FBConstants.SPYGLASS_RADIUS,
-        x: lensX,
-        y: lensY
-      } ) );
+      lensesShape.arc( centerX, centerY, FBConstants.SPYGLASS_RADIUS, 0, Math.PI * 2 );
     }
 
-    // @private parent for all cards
+    // @private parent for all cards, clip to the windows
     this.cardsParent = new Node( {
       clipArea: lensesShape
     } );
 
-    // background color shown in the lenses of the spyglasses, cards pass in front of this
-    var holesNode = new Path( lensesShape, {
+    // background, color shown in the windows
+    var backgroundNode = new Path( lensesShape, {
       fill: FBColors.SPYGLASS_LENS
     } );
 
-    options.children = [ holesNode, this.cardsParent, spyglassesParent ];
+    // foreground, outline of the windows
+    var foregroundNode = new Path( lensesShape, {
+      stroke: 'black',
+      lineWidth: 5
+    } );
+
+    options.children = [ backgroundNode, this.cardsParent, foregroundNode ];
 
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'SpyglassLayer', SpyglassLayer );
+  functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
 
-  return inherit( Node, SpyglassLayer, {
+  return inherit( Node, SeeInsideLayer, {
 
     /**
      * Adds a card to this layer.
