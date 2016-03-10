@@ -27,29 +27,40 @@ define( function( require ) {
 
     options = options || {};
 
-    //TODO add a hole and spyglass for each slot
-    var holeX = builder.slots[ 0 ].location.x + FBConstants.FUNCTION_SIZE.width / 2;
-    var holeY = builder.location.y;
-    var holesShape = Shape.circle( holeX, holeY, FBConstants.SPYGLASS_RADIUS );
+    var spyglassesParent = new Node(); // parent for all spyglasses
+
+    var lensesShape = new Shape();  // Shape for all lenses, used for clipArea and background color
+
+    // add a spyglass at the right end of each slot
+    for ( var i = 0; i < builder.slots.length; i++ ) {
+
+      // add a lens to the clipArea
+      var lensX = builder.slots[ i ].location.x + FBConstants.FUNCTION_SIZE.width / 2;
+      var lensY = builder.location.y;
+      if ( i !== 0 ) {
+        lensesShape.moveTo( lensX + FBConstants.SPYGLASS_RADIUS, lensY );
+      }
+      lensesShape.arc( lensX, lensY, FBConstants.SPYGLASS_RADIUS, 0, Math.PI * 2 );
+
+      // spyglass
+      spyglassesParent.addChild( new SpyglassNode( {
+        lensRadius: FBConstants.SPYGLASS_RADIUS,
+        x: lensX,
+        y: lensY
+      } ) );
+    }
 
     // @private parent for all cards
     this.cardsParent = new Node( {
-      clipArea: holesShape
+      clipArea: lensesShape
     } );
 
     // background color shown in the lenses of the spyglasses, cards pass in front of this
-    var holesNode = new Path( holesShape, {
+    var holesNode = new Path( lensesShape, {
       fill: FBColors.SPYGLASS_LENS
     } );
 
-    // spyglass
-    var spyglassNode = new SpyglassNode( {
-      lensRadius: FBConstants.SPYGLASS_RADIUS,
-      x: holeX,
-      y: holeY
-    } );
-
-    options.children = [ holesNode, this.cardsParent, spyglassNode ];
+    options.children = [ holesNode, this.cardsParent, spyglassesParent ];
 
     Node.call( this, options );
   }
@@ -58,10 +69,20 @@ define( function( require ) {
 
   return inherit( Node, SpyglassLayer, {
 
+    /**
+     * Adds a card to this layer.
+     *
+     * @param {CardNode} cardNode
+     */
     addCardNode: function( cardNode ) {
       this.cardsParent.addChild( cardNode );
     },
 
+    /**
+     * Removes a card from this layer.
+     *
+     * @param {CardNode} cardNode
+     */
     removeCardNode: function( cardNode ) {
       this.cardsParent.removeChild( cardNode );
     }
