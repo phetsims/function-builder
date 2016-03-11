@@ -38,13 +38,9 @@ define( function( require ) {
      */
     erase: function() {
       this.items.forEach( function( container ) {
-        var children = container.getChildren();
-        for ( var i = 0; i < children.length; i++ ) {
-          var child = children[ i ];
-          if ( child.returnToInputCarousel ) {
-            child.returnToInputCarousel( { animate: false } );
-          }
-        }
+        container.getChildren().forEach( function( child ) {
+          child.returnToInputCarousel && child.returnToInputCarousel( { animate: false } );
+        } );
       } );
     }
   } );
