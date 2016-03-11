@@ -35,10 +35,11 @@ define( function( require ) {
      * @param {PatternsScene} scene
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
+     * @param {Node} animationLayer
      * @override
      * @public
      */
-    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
+    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer, animationLayer ) {
 
       assert && assert( this.carouselLocation );
 
@@ -51,7 +52,7 @@ define( function( require ) {
         scene.functionInstances.push( functionInstance );
 
         // associated Node
-        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer );
+        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer, animationLayer );
 
         // put the Node in this container
         this.addNode( functionNode );

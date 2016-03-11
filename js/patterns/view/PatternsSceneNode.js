@@ -243,7 +243,7 @@ define( function( require ) {
         functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsDragLayer );
 
         // populate the container with functions
-        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer );
+        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer, functionsAnimationLayer );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;

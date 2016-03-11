@@ -21,10 +21,11 @@ define( function( require ) {
    * @param {ImageFunctionContainer} container
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
+   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
+  function ImageFunctionNode( functionInstance, container, builderNode, dragLayer, animationLayer, options ) {
 
     assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -42,7 +43,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, iconNode ];
 
-    FunctionNode.call( this, functionInstance, container, builderNode, dragLayer, options );
+    FunctionNode.call( this, functionInstance, container, builderNode, dragLayer, animationLayer, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
