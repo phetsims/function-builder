@@ -1,9 +1,5 @@
 TODO list for function-builder
 
-Use separate layers for animating cards and functions, with pickable:false, so they can't be grabbed.
-
-Delete foregroundAnimationLayer, if we never want to animate cards from output to input carousel.
-
 Take popout into account when computing drag path for cards
 
 Make cards stop at 'see inside' windows when animating
