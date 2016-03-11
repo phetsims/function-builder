@@ -57,10 +57,12 @@ define( function( require ) {
 
     var builder = builderNode.builder;
 
-    var startDragX = null;
+    var dragDirection = null; // {string} 'left'|'right'
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
+
+      dragDirection = 'right';
 
       if ( inputContainer.containsNode( thisNode ) ) {
 
@@ -90,14 +92,13 @@ define( function( require ) {
         assert && assert( dragLayer.hasChild( thisNode ) );
       }
 
-      startDragX = thisNode.card.locationProperty.get().x;
-
       assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
     // Constrain the user's dragging
     assert && assert( !options.translateMovable );
-    options.translateMovable = function( movable, location ) {
+    options.translateMovable = function( movable, location, delta ) {
+      dragDirection = ( delta.x < 0 ) ? 'left' : 'right';
       var y = 0;
       if ( location.x < ( builder.left - thisNode.width / 2 ) ) {
 
@@ -145,9 +146,9 @@ define( function( require ) {
 
         this.pickable = false;
 
-        if ( startDragX < builder.left ) {
+        if ( dragDirection === 'right' ) {
 
-          // snap to input slot
+          // snap to input slot if outside the builder
           if ( card.locationProperty.get().x < builder.left ) {
             card.moveTo( new Vector2( builder.left, builder.location.y ) );
           }
@@ -167,8 +168,9 @@ define( function( require ) {
             } );
         }
         else {
+          assert && assert( dragDirection === 'left', 'invalid dragDirection: ' + dragDirection );
 
-          // snap to output slot
+          // snap to output slot if outside the builder
           if ( card.locationProperty.get().x > builder.right ) {
             card.moveTo( new Vector2( builder.right, builder.location.y ) );
           }

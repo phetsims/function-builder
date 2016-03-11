@@ -2,8 +2,6 @@ TODO list for function-builder
 
 Take popout into account when computing drag path for cards
 
-Fix various problems with CarNode.options.endDrag, take into account direction changes and what user is trying to do
-
 Make cards stop at 'see inside' windows when animating
 
 SeeInsideLayer: removeCard isn't used, is it ok for cards to stay in this layer?
