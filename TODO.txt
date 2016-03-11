@@ -4,8 +4,6 @@ Take popout into account when computing drag path for cards
 
 Make cards stop at 'see inside' windows when animating
 
-SeeInsideLayer: removeCard isn't used, is it ok for cards to stay in this layer?
-
 Apply 'layer' pattern to 'mole' feature and other things?
 
 Update card when location changes or Builder.functionChangedEmitter.emit

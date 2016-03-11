@@ -67,10 +67,12 @@ define( function( require ) {
 
         // associated Node
         var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer );
-        seeInsideLayer.addCardNode( cardNode );//TODO add/remove like MoleNode?
 
         // put the Node in this container
         this.addNode( cardNode );
+
+        // add to other layers for various visual effects
+        seeInsideLayer.addCardNode( cardNode );
       }
     }
   } );

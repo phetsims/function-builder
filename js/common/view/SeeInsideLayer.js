@@ -60,6 +60,7 @@ define( function( require ) {
       lineWidth: 2
     } );
 
+    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, this.cardsParent, foregroundNode ];
 
     Node.call( this, options );
@@ -73,18 +74,10 @@ define( function( require ) {
      * Adds a card to this layer.
      *
      * @param {CardNode} cardNode
+     * @public
      */
     addCardNode: function( cardNode ) {
       this.cardsParent.addChild( cardNode );
-    },
-
-    /**
-     * Removes a card from this layer.
-     *
-     * @param {CardNode} cardNode
-     */
-    removeCardNode: function( cardNode ) {
-      this.cardsParent.removeChild( cardNode );
     }
   } );
 } );
