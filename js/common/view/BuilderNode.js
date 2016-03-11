@@ -13,7 +13,6 @@ define( function( require ) {
 
   // modules
   var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
@@ -24,9 +23,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-
-  // constants
-  var ANIMATE_RESET = false; // true: functions animate back to carousel, false: they move back immediately
 
   /**
    * @param {Builder} builder
@@ -158,14 +154,10 @@ define( function( require ) {
 
   return inherit( Node, BuilderNode, {
 
-    // @public returns all functions to the carousel
+    // @public returns all functions to the carousel immediately, no animation
     reset: function() {
       this.functionNodes.forEach( function( functionNode ) {
-        functionNode && functionNode.returnToCarousel( {
-          //TODO replace with animate:false if that decision sticks
-          animate: ANIMATE_RESET,
-          animationSpeed: FBConstants.RESET_ALL_ANIMATION_SPEED
-        } );
+        functionNode && functionNode.returnToCarousel( { animate: false } )
       } );
     },
 
