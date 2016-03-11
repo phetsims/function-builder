@@ -91,16 +91,16 @@ define( function( require ) {
     options.translateMovable = function( movable, location, delta ) {
       dragDx = delta.x;
       var y = 0;
-      if ( location.x < ( builder.left - thisNode.width / 2 ) ) {
+      if ( location.x < ( builder.left - MIN_DISTANCE ) ) {
 
         // to the left of the builder, drag along the line between input carousel and builder input slot
-        y = slopeLeft * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
+        y = SLOPE_LEFT * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
-      else if ( location.x > ( builder.right + thisNode.width / 2 ) ) {
+      else if ( location.x > ( builder.right + MIN_DISTANCE ) ) {
 
         // to the right of the builder, drag along the line between builder output slot and output carousel
-        y = slopeRight * ( location.x - ( builder.right + thisNode.width / 2 ) ) + builder.location.y; // y = m(x-x1) + y1
+        y = SLOPE_RIGHT * ( location.x - ( builder.right + MIN_DISTANCE ) ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
@@ -118,7 +118,7 @@ define( function( require ) {
       dragLayer.removeChild( thisNode );
       animationLayer.addChild( thisNode );
 
-      if ( card.locationProperty.get().x < ( builder.left - thisNode.width ) ) {
+      if ( card.locationProperty.get().x < ( builder.left - MIN_DISTANCE ) ) {
 
         // card is to left of builder, animate to input carousel
         card.animateTo( inputContainer.carouselLocation,
@@ -128,7 +128,7 @@ define( function( require ) {
             inputContainer.addNode( thisNode );
           } );
       }
-      else if ( card.locationProperty.get().x > builder.right + thisNode.width ) {
+      else if ( card.locationProperty.get().x > builder.right + MIN_DISTANCE ) {
 
         // card is to right of builder, animate to output carousel
         card.animateTo( outputContainer.carouselLocation,
@@ -148,7 +148,7 @@ define( function( require ) {
           }
 
           // animate left-to-right through the builder, then to output carousel
-          card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
+          card.animateTo( new Vector2( builder.right + MIN_DISTANCE, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
               card.animateTo( outputContainer.carouselLocation,
@@ -167,7 +167,7 @@ define( function( require ) {
           }
 
           // animate right-to-left through the builder, then to input carousel
-          card.animateTo( new Vector2( builder.left - thisNode.width, builder.location.y ),
+          card.animateTo( new Vector2( builder.left - MIN_DISTANCE, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
               card.animateTo( inputContainer.carouselLocation,
@@ -189,11 +189,13 @@ define( function( require ) {
 
     // Compute below here need to be done after supertype constructor call, so the Node has valid bounds
 
+    var MIN_DISTANCE = thisNode.width; // minimum distance for card to be considered 'in' slot
+
     // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
-    var slopeLeft = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - thisNode.width / 2 ) - inputContainer.carouselLocation.x );
+    var SLOPE_LEFT = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - MIN_DISTANCE ) - inputContainer.carouselLocation.x );
 
     // slope of line between builder's output slot and output carousel, m = (y2-y1)/(x2-x1)
-    var slopeRight = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + thisNode.width / 2 ) );
+    var SLOPE_RIGHT = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + MIN_DISTANCE ) );
   }
 
   functionBuilder.register( 'CardNode', CardNode );
