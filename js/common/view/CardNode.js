@@ -146,6 +146,11 @@ define( function( require ) {
 
         if ( startDragX < builder.left ) {
 
+          // snap to input slot
+          if ( card.locationProperty.get().x < builder.left ) {
+            card.moveTo( new Vector2( builder.left, builder.location.y ) );
+          }
+
           // animate left-to-right through the builder, then to output carousel
           card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
@@ -161,6 +166,11 @@ define( function( require ) {
             } );
         }
         else {
+
+          // snap to output slot
+          if ( card.locationProperty.get().x > builder.right ) {
+            card.moveTo( new Vector2( builder.right, builder.location.y ) );
+          }
 
           // animate right-to-left through the builder, then to input carousel
           card.animateTo( new Vector2( builder.left - thisNode.width, builder.location.y ),
