@@ -21,11 +21,11 @@ define( function( require ) {
    * @param {ImageCardContainer} outputContainer
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} foregroundAnimationLayer
+   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options ) {
+  function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
 
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
@@ -39,7 +39,7 @@ define( function( require ) {
       scale: options.imageScale
     } );
 
-    CardNode.call( this, card, imageNode, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options );
+    CardNode.call( this, card, imageNode, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
