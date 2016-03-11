@@ -203,7 +203,7 @@ define( function( require ) {
 
     MovableNode.call( this, card, options );
 
-    // Compute below here need to be done after supertype constructor call, so the Node has valid bounds
+    // Computations below here need to be done after supertype constructor call, so the Node has valid bounds
 
     // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
     var slopeLeft = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - thisNode.width / 2 ) - inputContainer.carouselLocation.x );
