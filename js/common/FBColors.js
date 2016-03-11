@@ -34,7 +34,6 @@ define( function( require ) {
       bottom: 'black',
       ends: 'rgb( 189, 206, 216 )'
     }
-
   };
 
   functionBuilder.register( 'FBColors', FBColors );

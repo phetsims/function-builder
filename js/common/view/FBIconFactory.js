@@ -67,7 +67,6 @@ define( function( require ) {
     /**
      * Creates the icon for the 'single' scene in the 'Patterns' screen, a single function piece.
      * @returns {Node}
-     * @public
      */
     createSingleSceneIcon: function() {
       return new FunctionBackgroundNode( {
@@ -80,7 +79,6 @@ define( function( require ) {
     /**
      * Creates the icon for the 'composed' scene in the 'Patterns' screen, 2 function pieces in series.
      * @returns {Node}
-     * @public
      */
     createComposedSceneIcon: function() {
 

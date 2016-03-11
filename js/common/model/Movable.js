@@ -53,6 +53,7 @@ define( function( require ) {
      * Moves immediately to the specified location, without animation.
      *
      * @param {Vector2} location
+     * @public
      */
     moveTo: function( location ) {
       this.destination = location;
@@ -65,6 +66,7 @@ define( function( require ) {
      * @param {Vector2} destination
      * @param {number} animationSpeed - distance moved per second when animating
      * @param {function} [animationCompletedCallback]
+     * @public
      */
     animateTo: function( destination, animationSpeed, animationCompletedCallback ) {
       this.animationSpeed = animationSpeed;

@@ -51,7 +51,7 @@ define( function( require ) {
     }
     assert && assert( totalWidthOfSlots > 0 );
 
-    // {FunctionSlot[]} slots
+    // @public {FunctionSlot[]} slots
     this.slots = [];
     var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
     for ( var i = 0; i < options.numberOfSlots; i++ ) {
@@ -81,6 +81,7 @@ define( function( require ) {
      *
      * @param {number} slotNumber
      * @returns {boolean}
+     * @public
      */
     isValidSlotNumber: function( slotNumber ) {
       return ( slotNumber >= 0 && slotNumber < this.slots.length  );
