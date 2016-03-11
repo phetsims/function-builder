@@ -105,7 +105,7 @@ define( function( require ) {
       }
       else {
 
-        // in the builder, drag 
+        // in the builder, drag horizontally
         movable.moveTo( new Vector2( location.x, builder.location.y ) );
       }
     };
