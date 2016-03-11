@@ -52,14 +52,17 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // parent node for all cards, while the user is dragging them
+    // cards are in this layer while being dragged
     var cardsDragLayer = new Node();
 
-    // parent node for all function instances, while the user is dragging them
+    // cards are in this layer while animation, so they can't be grabbed
+    var cardsAnimationLayer = new Node( { pickable: false } );
+
+    // functions are in this layer while being dragged
     var functionsDragLayer = new Node();
 
-    // foreground layer, for animating cards on erase/reset, so they don't look like they are going through builder
-    var foregroundAnimationLayer = new Node();
+    // functions are in this layer while animation, so they can't be grabbed
+    var functionsAnimationLayer = new Node( { pickable: false } );
 
     // Builder
     var builder = scene.builder;
@@ -208,10 +211,11 @@ define( function( require ) {
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
+      cardsAnimationLayer,
       builderNode,
       seeInsideLayer,
       functionsDragLayer,
-      foregroundAnimationLayer
+      functionsAnimationLayer
     ];
 
     Node.call( this, options );
@@ -258,7 +262,7 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, foregroundAnimationLayer, seeInsideLayer );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, cardsAnimationLayer, seeInsideLayer );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

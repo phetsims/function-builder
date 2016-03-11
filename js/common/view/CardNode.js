@@ -23,11 +23,11 @@ define( function( require ) {
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} foregroundAnimationLayer
+   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, options ) {
+  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
 
     options = _.extend( {
       size: FBConstants.CARD_SIZE,
@@ -46,7 +46,7 @@ define( function( require ) {
     this.outputContainer = outputContainer;
     this.builderNode = builderNode;
     this.dragLayer = dragLayer;
-    this.foregroundAnimationLayer = foregroundAnimationLayer;
+    this.animationLayer = animationLayer;
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
@@ -68,28 +68,19 @@ define( function( require ) {
 
         // card is in the input carousel, pop it out
         inputContainer.removeNode( thisNode );
-        dragLayer.addChild( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-        builderNode.addMole( thisNode );
+        dragLayer.addChild( thisNode );
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
 
         // card is in the output carousel, pop it out
         outputContainer.removeNode( thisNode );
-        dragLayer.addChild( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-        builderNode.addMole( thisNode );
-      }
-      else if ( foregroundAnimationLayer.hasChild( thisNode ) ) {
-
-        // card was animating back to carousel when user grabbed it
-        foregroundAnimationLayer.removeChild( thisNode );
         dragLayer.addChild( thisNode );
       }
       else {
 
-        // card was grabbed while in dragLayer, do nothing
-        assert && assert( dragLayer.hasChild( thisNode ) );
+        //TODO card was grabbed while paused in 'see inside' window
       }
 
       assert && assert( dragLayer.hasChild( thisNode ) );
@@ -119,32 +110,35 @@ define( function( require ) {
       }
     };
 
-    // When the user stops dragging a function, decide what to do with it.
+    // When the user stops dragging a function, animate it to the proper location
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
+      // move card to animation layer
+      dragLayer.removeChild( thisNode );
+      animationLayer.addChild( thisNode );
+
       if ( card.locationProperty.get().x < ( builder.left - thisNode.width ) ) {
 
-        // card is to left of builder, return it to input carousel
-        thisNode.returnToInputCarousel();
-        builderNode.removeMole( thisNode );
+        // card is to left of builder, animate to input carousel
+        card.animateTo( inputContainer.carouselLocation,
+          FBConstants.CARD_ANIMATION_SPEED,
+          function() {
+            animationLayer.removeChild( thisNode );
+            inputContainer.addNode( thisNode );
+          } );
       }
       else if ( card.locationProperty.get().x > builder.right + thisNode.width ) {
 
         // card is to right of builder, animate to output carousel
-        thisNode.pickable = false;
         card.animateTo( outputContainer.carouselLocation,
           FBConstants.CARD_ANIMATION_SPEED,
           function() {
-            dragLayer.removeChild( thisNode );
+            animationLayer.removeChild( thisNode );
             outputContainer.addNode( thisNode );
-            builderNode.removeMole( thisNode );
-            thisNode.pickable = true;
           } );
       }
       else { // card is in the builder
-
-        this.pickable = false;
 
         if ( dragDx > 0 ) { // dragging to the right
 
@@ -160,10 +154,8 @@ define( function( require ) {
               card.animateTo( outputContainer.carouselLocation,
                 FBConstants.CARD_ANIMATION_SPEED,
                 function() {
-                  dragLayer.removeChild( thisNode );
+                  animationLayer.removeChild( thisNode );
                   outputContainer.addNode( thisNode );
-                  builderNode.removeMole( thisNode );
-                  thisNode.pickable = true;
                 } );
             } );
         }
@@ -181,10 +173,8 @@ define( function( require ) {
               card.animateTo( inputContainer.carouselLocation,
                 FBConstants.CARD_ANIMATION_SPEED,
                 function() {
-                  dragLayer.removeChild( thisNode );
+                  animationLayer.removeChild( thisNode );
                   inputContainer.addNode( thisNode );
-                  builderNode.removeMole( thisNode );
-                  thisNode.pickable = true;
                 } );
             } );
         }
@@ -210,57 +200,24 @@ define( function( require ) {
 
   return inherit( MovableNode, CardNode, {
 
-    /**
-     * Returns this card to the input carousel.
-     *
-     * @param {Object} [options]
-     * @public
-     */
-    returnToInputCarousel: function( options ) {
-
-      options = _.extend( {
-        animate: true, // true: animate back to carousel, false: move immediate back to carousel
-        animationSpeed: FBConstants.CARD_ANIMATION_SPEED
-      }, options );
-
+    // @public Returns card immediately to the input carousel, no animation.
+    returnToInputCarousel: function() {
       if ( !this.inputContainer.containsNode( this ) ) {
 
-        this.pickable = false; // prevent user from grabbing card
-
+        // remove card from current parent
         if ( this.outputContainer.containsNode( this ) ) {
-
-          // if in the output container, move to the foreground
           this.outputContainer.removeNode( this );
-          this.foregroundAnimationLayer.addChild( this );
         }
         else if ( this.dragLayer.hasChild( this ) ) {
-
-          // if in the drag layer, move to the foreground
           this.dragLayer.removeChild( this );
-          this.foregroundAnimationLayer.addChild( this );
         }
-        assert && assert( this.foregroundAnimationLayer.hasChild( this ) );
-
-        if ( options.animate ) {
-
-          // animate to the input carousel
-          var thisNode = this;
-          this.card.animateTo( this.inputContainer.carouselLocation,
-            options.animationSpeed,
-            function() {
-              thisNode.foregroundAnimationLayer.removeChild( thisNode );
-              thisNode.inputContainer.addNode( thisNode );
-              thisNode.pickable = true;
-            } );
+        else if ( this.animationLayer.hasChild( this ) ) {
+          this.animationLayer.removeChild( this );
         }
-        else {
 
-          // move immediately to the input carousel
-          this.foregroundAnimationLayer.removeChild( this );
-          this.card.moveTo( this.inputContainer.carouselLocation );
-          this.inputContainer.addNode( this );
-          this.pickable = true;
-        }
+        // put card in the input carousel
+        this.card.moveTo( this.inputContainer.carouselLocation );
+        this.inputContainer.addNode( this );
       }
     }
   } );

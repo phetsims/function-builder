@@ -46,12 +46,12 @@ define( function( require ) {
      * @param {ImageCardContainer} outputContainer
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
-     * @param {Node} foregroundAnimationLayer
+     * @param {Node} animationLayer
      * @param {SeeInsideLayer} seeInsideLayer
      * @override
      * @public
      */
-    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer, seeInsideLayer ) {
+    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideLayer ) {
 
       assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
       assert && assert( inputContainer.carouselLocation );
@@ -66,13 +66,14 @@ define( function( require ) {
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer );
+        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer );
 
         // put the Node in this container
         this.addNode( cardNode );
 
         // add to other layers for various visual effects
         seeInsideLayer.addCardNode( cardNode );
+        builderNode.addMole( cardNode );
       }
     }
   } );

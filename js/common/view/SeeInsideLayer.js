@@ -72,6 +72,7 @@ define( function( require ) {
 
     /**
      * Adds a card to this layer.
+     * Cards are added when they are created, and remain in this layer for the lifetime of the sim.
      *
      * @param {CardNode} cardNode
      * @public

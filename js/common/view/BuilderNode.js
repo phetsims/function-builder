@@ -265,34 +265,12 @@ define( function( require ) {
 
     /**
      * Adds the 'mole under the carpet' representation of a card.
+     * Moles are added when cards are created, and persist for the lifetime of the sim.
      *
      * @param {CardNode} cardNode
      */
     addMole: function( cardNode ) {
       this.molesParent.addChild( new MoleNode( cardNode, this.builder.location ) );
-    },
-
-    /**
-     * Removes the 'mole under the carpet' representation of a card.
-     *
-     * @param {CardNode} cardNode
-     */
-    removeMole: function( cardNode ) {
-
-      var children = this.molesParent.getChildren();
-
-      // find the mole that corresponds to this card
-      var mole = null;
-      for ( var i = 0; i < children.length && !mole; i++ ) {
-        if ( children[ i ].cardNode === cardNode ) {
-          mole = children[ i ];
-        }
-      }
-      assert && assert( mole, 'no mole for card' );
-
-      // remove the mole
-      this.molesParent.removeChild( mole );
-      mole.dispose();
     }
   } );
 } );

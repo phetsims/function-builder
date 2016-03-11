@@ -39,7 +39,7 @@ define( function( require ) {
     erase: function() {
       this.items.forEach( function( container ) {
         container.getChildren().forEach( function( child ) {
-          child.returnToInputCarousel && child.returnToInputCarousel( { animate: false } );
+          child.returnToInputCarousel && child.returnToInputCarousel();
         } );
       } );
     }
