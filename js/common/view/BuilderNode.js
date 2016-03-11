@@ -157,7 +157,7 @@ define( function( require ) {
     // @public returns all functions to the carousel immediately, no animation
     reset: function() {
       this.functionNodes.forEach( function( functionNode ) {
-        functionNode && functionNode.returnToCarousel( { animate: false } )
+        functionNode && functionNode.returnToCarousel( { animate: false } );
       } );
     },
 
