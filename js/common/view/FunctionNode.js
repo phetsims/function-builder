@@ -124,7 +124,6 @@ define( function( require ) {
         if ( this.animationLayer.hasChild( this ) ) { this.animationLayer.removeChild( this ); }
         if ( this.builderNode.containsFunctionNode( this ) ) {
           this.builderNode.removeFunctionNode( this, this.builderNode.getSlotNumber( this ) );
-          this.center = this.functionInstance.location; //TODO this is a workaround, builderNode.addFunctionNode changes Node location
         }
 
         if ( options.animate ) {

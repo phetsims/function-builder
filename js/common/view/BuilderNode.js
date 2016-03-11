@@ -176,7 +176,7 @@ define( function( require ) {
 
       this.functionNodes[ slotNumber ] = functionNode;
       this.functionsParent.addChild( functionNode );
-      functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location );
+      functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location ); // center in slot
       this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
 
       assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
@@ -197,6 +197,7 @@ define( function( require ) {
 
       this.functionNodes[ slotNumber ] = null;
       this.functionsParent.removeChild( functionNode );
+      functionNode.center = functionNode.functionInstance.location; // restore location in model coordinate frame
       this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
 
       assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
