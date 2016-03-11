@@ -142,38 +142,56 @@ define( function( require ) {
       }
       else { // card is in the builder
 
+        this.pickable = false;
+
         if ( startDragX < builder.left ) {
 
-          // animate left-to-right through the builder, then to output carousel
-          this.pickable = false;
-          card.animateTo( new Vector2( builder.right + thisNode.width, builder.location.y ),
+          // animate to input slot in builder
+          card.animateTo( new Vector2( builder.left, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
-              card.animateTo( outputContainer.carouselLocation,
+
+              // then left-to-right through the builder
+              card.animateTo(
+                new Vector2( builder.right + thisNode.width, builder.location.y ),
                 FBConstants.CARD_ANIMATION_SPEED,
                 function() {
-                  dragLayer.removeChild( thisNode );
-                  outputContainer.addNode( thisNode );
-                  builderNode.removeMole( thisNode );
-                  thisNode.pickable = true;
-                } );
+
+                  // then to output carousel
+                  card.animateTo( outputContainer.carouselLocation,
+                    FBConstants.CARD_ANIMATION_SPEED,
+                    function() {
+                      dragLayer.removeChild( thisNode );
+                      outputContainer.addNode( thisNode );
+                      builderNode.removeMole( thisNode );
+                      thisNode.pickable = true;
+                    } );
+                } )
             } );
         }
         else {
 
-          // animate right-to-left through the builder, then to input carousel
-          this.pickable = false;
-          card.animateTo( new Vector2( builder.left - thisNode.width, builder.location.y ),
+          // animate to input slot in builder
+          card.animateTo( new Vector2( builder.right, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
-              card.animateTo( inputContainer.carouselLocation,
+
+              // then right-to-left through the builder
+              card.animateTo(
+                new Vector2( builder.left - thisNode.width, builder.location.y ),
                 FBConstants.CARD_ANIMATION_SPEED,
                 function() {
-                  dragLayer.removeChild( thisNode );
-                  inputContainer.addNode( thisNode );
-                  builderNode.removeMole( thisNode );
-                  thisNode.pickable = true;
-                } );
+
+                  // then to input carousel
+                  card.animateTo( inputContainer.carouselLocation,
+                    FBConstants.CARD_ANIMATION_SPEED,
+                    function() {
+                      dragLayer.removeChild( thisNode );
+                      inputContainer.addNode( thisNode );
+                      builderNode.removeMole( thisNode );
+                      thisNode.pickable = true;
+                    } );
+                } )
             } );
         }
       }
