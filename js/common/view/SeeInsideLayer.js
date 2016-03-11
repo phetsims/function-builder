@@ -30,7 +30,10 @@ define( function( require ) {
     var windowsShape = new Shape();
     for ( var i = 0; i < builder.slots.length; i++ ) {
 
-      var windowX = builder.slots[ i ].location.x + ( FBConstants.FUNCTION_SIZE.width / 2 ) - ( FBConstants.CARD_SIZE.width / 2 );
+      var windowX = builder.slots[ i ].location.x +
+                    ( FBConstants.FUNCTION_SIZE.width / 2 ) -
+                    ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 ) -
+                    ( FBConstants.CARD_SIZE.width / 2 );
       var windowY = builder.location.y - ( FBConstants.CARD_SIZE.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner

@@ -11,12 +11,23 @@ define( function( require ) {
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // constants (single builder)
+  var SINGLE_BUILDER_WIDTH = 350;
+  var SINGLE_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( SINGLE_BUILDER_WIDTH / 2 );
+  var SINGLE_BUILDER_Y = 280;
+
+  // constants (composed builder)
+  var COMPOSED_BUILDER_WIDTH = 520;
+  var COMPOSED_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( COMPOSED_BUILDER_WIDTH / 2 );
+  var COMPOSED_BUILDER_Y = SINGLE_BUILDER_Y;
 
   /**
    * @constructor
@@ -29,9 +40,9 @@ define( function( require ) {
       // single: 1 builder with 1 slot
       new PatternsScene( FBIconFactory.createSingleSceneIcon, {
         builder: new Builder( {
-          width: 350,
+          width: SINGLE_BUILDER_WIDTH,
           numberOfSlots: 1,
-          location: new Vector2( 335, 280 ),
+          location: new Vector2( SINGLE_BUILDER_X, SINGLE_BUILDER_Y ), // center of input slot
           colorScheme: FBColors.BUILDER_MAROON
         } )
       } ),
@@ -39,9 +50,9 @@ define( function( require ) {
       // composed: 1 builder with 3 slots, for demonstrating function composition
       new PatternsScene( FBIconFactory.createComposedSceneIcon, {
         builder: new Builder( {
-          width: 450,
+          width: COMPOSED_BUILDER_WIDTH,
           numberOfSlots: 3,
-          location: new Vector2( 285, 280 ),
+          location: new Vector2( COMPOSED_BUILDER_X, COMPOSED_BUILDER_Y ), // center of input slot
           colorScheme: FBColors.BUILDER_BLUE
         } )
       } )

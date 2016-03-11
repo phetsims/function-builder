@@ -11,8 +11,8 @@ define( function( require ) {
 
   var FBConstants = {
 
-    // default options for each ScreenView subtype
-    SCREEN_VIEW_OPTIONS: { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) },
+    // layoutBounds for all ScreenView subtypes
+    SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
     // dimensions of a card Node
     CARD_SIZE: new Dimension2( 60, 60 ),
@@ -21,7 +21,7 @@ define( function( require ) {
     CARD_CORNER_RADIUS: 5,
 
     // dimensions of a function Node
-    FUNCTION_SIZE: new Dimension2( 120, 68 ),
+    FUNCTION_SIZE: new Dimension2( 150, 68 ),
 
     // x-inset of arrow-like ends of a function's shape
     FUNCTION_X_INSET_FACTOR: 0.15,

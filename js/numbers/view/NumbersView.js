@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function NumbersView( model ) {
 
-    ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
+    ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
     this.addChild( new Text( 'Numbers: Under Construction', {
       font: new FBFont( 36 ),

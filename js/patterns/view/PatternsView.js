@@ -26,7 +26,7 @@ define( function( require ) {
   function PatternsView( model ) {
 
     var thisView = this;
-    ScreenView.call( this, FBConstants.SCREEN_VIEW_OPTIONS );
+    ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
     // Parent for scenes
     var scenesParent = new Node();
