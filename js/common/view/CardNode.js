@@ -58,6 +58,7 @@ define( function( require ) {
     var builder = builderNode.builder;
 
     var startDragX = null;
+
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
