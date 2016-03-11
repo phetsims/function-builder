@@ -57,7 +57,15 @@ define( function( require ) {
 
     var builder = builderNode.builder;
 
+    var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
     var dragDx = 0; // {number} most recent change in x while dragging
+
+    //TODO compute slopes and carouselLocation in options.startDrag
+    // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
+    var slopeLeft = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - MIN_DISTANCE ) - inputContainer.carouselLocation.x );
+
+    // slope of line between builder's output slot and output carousel, m = (y2-y1)/(x2-x1)
+    var slopeRight = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + MIN_DISTANCE ) );
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
@@ -94,13 +102,13 @@ define( function( require ) {
       if ( location.x < ( builder.left - MIN_DISTANCE ) ) {
 
         // to the left of the builder, drag along the line between input carousel and builder input slot
-        y = SLOPE_LEFT * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
+        y = slopeLeft * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else if ( location.x > ( builder.right + MIN_DISTANCE ) ) {
 
         // to the right of the builder, drag along the line between builder output slot and output carousel
-        y = SLOPE_RIGHT * ( location.x - ( builder.right + MIN_DISTANCE ) ) + builder.location.y; // y = m(x-x1) + y1
+        y = slopeRight * ( location.x - ( builder.right + MIN_DISTANCE ) ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
@@ -186,16 +194,6 @@ define( function( require ) {
     } );
 
     MovableNode.call( this, card, options );
-
-    // Compute below here need to be done after supertype constructor call, so the Node has valid bounds
-
-    var MIN_DISTANCE = thisNode.width; // minimum distance for card to be considered 'in' slot
-
-    // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
-    var SLOPE_LEFT = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - MIN_DISTANCE ) - inputContainer.carouselLocation.x );
-
-    // slope of line between builder's output slot and output carousel, m = (y2-y1)/(x2-x1)
-    var SLOPE_RIGHT = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + MIN_DISTANCE ) );
   }
 
   functionBuilder.register( 'CardNode', CardNode );
