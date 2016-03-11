@@ -162,6 +162,7 @@ define( function( require ) {
     reset: function() {
       this.functionNodes.forEach( function( functionNode ) {
         functionNode && functionNode.returnToCarousel( {
+          //TODO replace with animate:false if that decision sticks
           animate: ANIMATE_RESET,
           animationSpeed: FBConstants.RESET_ALL_ANIMATION_SPEED
         } );

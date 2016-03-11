@@ -53,6 +53,7 @@ define( function( require ) {
           var isTopCard = true;
           if ( child.returnToInputCarousel ) {
             child.returnToInputCarousel( {
+              //TODO replace with animate:false if that decision sticks
               animate: ANIMATE_ERASE && visible && isTopCard, // animate only the top card
               animationSpeed: FBConstants.ERASE_CARDS_ANIMATION_SPEED
             } );
