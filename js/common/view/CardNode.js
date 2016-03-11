@@ -204,16 +204,10 @@ define( function( require ) {
     returnToInputCarousel: function() {
       if ( !this.inputContainer.containsNode( this ) ) {
 
-        // remove card from current parent
-        if ( this.outputContainer.containsNode( this ) ) {
-          this.outputContainer.removeNode( this );
-        }
-        else if ( this.dragLayer.hasChild( this ) ) {
-          this.dragLayer.removeChild( this );
-        }
-        else if ( this.animationLayer.hasChild( this ) ) {
-          this.animationLayer.removeChild( this );
-        }
+        // remove from other parents
+        if ( this.outputContainer.containsNode( this ) ) { this.outputContainer.removeNode( this ); }
+        if ( this.dragLayer.hasChild( this ) ) { this.dragLayer.removeChild( this ); }
+        if ( this.animationLayer.hasChild( this ) ) { this.animationLayer.removeChild( this ); }
 
         // put card in the input carousel
         this.card.moveTo( this.inputContainer.carouselLocation );
