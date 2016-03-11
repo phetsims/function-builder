@@ -57,12 +57,12 @@ define( function( require ) {
 
     var builder = builderNode.builder;
 
-    var dragDirection = null; // {string} 'left'|'right'
+    var dragDx = 0; // {number} most recent change in x while dragging
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
-      dragDirection = 'right';
+      dragDx = 0;
 
       if ( inputContainer.containsNode( thisNode ) ) {
 
@@ -98,7 +98,7 @@ define( function( require ) {
     // Constrain the user's dragging
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location, delta ) {
-      dragDirection = ( delta.x < 0 ) ? 'left' : 'right';
+      dragDx = delta.x;
       var y = 0;
       if ( location.x < ( builder.left - thisNode.width / 2 ) ) {
 
@@ -146,7 +146,7 @@ define( function( require ) {
 
         this.pickable = false;
 
-        if ( dragDirection === 'right' ) {
+        if ( dragDx > 0 ) { // dragging to the right
 
           // snap to input slot if outside the builder
           if ( card.locationProperty.get().x < builder.left ) {
@@ -167,8 +167,7 @@ define( function( require ) {
                 } );
             } );
         }
-        else {
-          assert && assert( dragDirection === 'left', 'invalid dragDirection: ' + dragDirection );
+        else { // dragging to the left
 
           // snap to output slot if outside the builder
           if ( card.locationProperty.get().x > builder.right ) {
