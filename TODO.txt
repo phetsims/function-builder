@@ -12,6 +12,8 @@ Apply 'layer' pattern to 'mole' feature and other things?
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
+Disable erase button if there's nothing in the output carousel
+
 ---
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
