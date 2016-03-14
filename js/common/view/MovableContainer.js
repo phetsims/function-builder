@@ -79,7 +79,11 @@ define( function( require ) {
       this.contentsParent.removeChild( node );
     },
 
-    //TODO doc
+    /**
+     * Gets the contents of the container.
+     * @returns {MovableNode[]} a copy of the set of nodes in the container
+     * @public
+     */
     getContents: function() {
       return this.contentsParent.getChildren();
     }
