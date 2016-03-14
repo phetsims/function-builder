@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Take popout into account when computing drag path for cards
-
 Make cards stop at 'see inside' windows when animating
 
 Apply 'layer' pattern to 'mole' feature and other things?
