@@ -38,8 +38,12 @@ define( function( require ) {
     this.dragLayer = dragLayer;
     this.animationLayer = animationLayer;
 
+    var slotNumberRemovedFrom = -1;
+
     assert && assert( !options.startDrag );
     options.startDrag = function() {
+
+      slotNumberRemovedFrom = -1;
 
       if ( container.containsNode( thisNode ) ) {
 
@@ -54,6 +58,7 @@ define( function( require ) {
         var slotNumber = builderNode.getSlotNumber( thisNode );
         var slotLocation = builderNode.getSlotLocation( slotNumber );
         builderNode.removeFunctionNode( thisNode, slotNumber );
+        slotNumberRemovedFrom = slotNumber;
         dragLayer.addChild( thisNode );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
@@ -81,16 +86,64 @@ define( function( require ) {
       }
       else {
 
+        // If the slot is occupied, relocate the occupier
+        var occupierNode = builderNode.getFunctionNode( slotNumber );
+        if ( occupierNode ) {
+
+          var previousSlotNumber = slotNumber - 1;
+          var nextSlotNumber = slotNumber + 1;
+
+          if ( builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
+
+            // swap adjacent slots
+            builderNode.removeFunctionNode( occupierNode, slotNumber );
+            animationLayer.addChild( occupierNode );
+            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( slotNumberRemovedFrom ),
+              FBConstants.FUNCTION_ANIMATION_SPEED,
+              function() {
+                animationLayer.removeChild( occupierNode );
+                builderNode.addFunctionNode( occupierNode, slotNumberRemovedFrom );
+              }
+            );
+          }
+          else if ( builderNode.isValidSlotNumber( previousSlotNumber ) && builderNode.isSlotEmpty( previousSlotNumber ) ) {
+
+            //TODO factor out code duplicated above
+            // slot to the left is empty, move it there
+            builderNode.removeFunctionNode( occupierNode, slotNumber );
+            animationLayer.addChild( occupierNode );
+            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( previousSlotNumber ),
+              FBConstants.FUNCTION_ANIMATION_SPEED,
+              function() {
+                animationLayer.removeChild( occupierNode );
+                builderNode.addFunctionNode( occupierNode, previousSlotNumber );
+              }
+            );
+          }
+          else if ( builderNode.isValidSlotNumber( nextSlotNumber ) && builderNode.isSlotEmpty( nextSlotNumber ) ) {
+
+            // slot to the right is empty, move it there
+            builderNode.removeFunctionNode( occupierNode, slotNumber );
+            animationLayer.addChild( occupierNode );
+            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( nextSlotNumber ),
+              FBConstants.FUNCTION_ANIMATION_SPEED,
+              function() {
+                animationLayer.removeChild( occupierNode );
+                builderNode.addFunctionNode( occupierNode, nextSlotNumber );
+              }
+            );
+          }
+          else {
+
+            // return function to the carousel.
+            occupierNode.returnToCarousel();
+          }
+        }
+
         // put function in builder slot
         functionInstance.animateTo( builderNode.getSlotLocation( slotNumber ),
           FBConstants.FUNCTION_ANIMATION_SPEED,
           function() {
-
-            //TODO if an adjacent slot is empty, move the occupying function there
-            // If the slot is occupied, return the occupying function to the carousel.
-            var occupierNode = builderNode.getFunctionNode( slotNumber );
-            occupierNode && occupierNode.returnToCarousel();
-
             animationLayer.removeChild( thisNode );
             builderNode.addFunctionNode( thisNode, slotNumber );
           } );

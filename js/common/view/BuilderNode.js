@@ -218,6 +218,15 @@ define( function( require ) {
     },
 
     /**
+     * Is the specified slot number empty?
+     * @param {number} slotNumber
+     * @returns {boolean}
+     */
+    isSlotEmpty: function( slotNumber ) {
+      return !this.getFunctionNode( slotNumber );
+    },
+
+    /**
      * Gets the slot that is closest to the specified location.
      * Convenience function, delegates to the model.
      *
@@ -264,6 +273,16 @@ define( function( require ) {
     containsFunctionNode: function( functionNode ) {
       assert && assert( functionNode instanceof FunctionNode );
       return this.builder.containsFunctionInstance( functionNode.functionInstance );
+    },
+
+    /**
+     * Is the specified slot number valid?
+     * Convenience function, delegates to model.
+     * @param {number} slotNumber
+     * @returns {boolean}
+     */
+    isValidSlotNumber: function( slotNumber ) {
+      return this.builder.isValidSlotNumber( slotNumber );
     },
 
     /**
