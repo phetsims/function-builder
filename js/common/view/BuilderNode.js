@@ -218,15 +218,6 @@ define( function( require ) {
     },
 
     /**
-     * Is the specified slot number empty?
-     * @param {number} slotNumber
-     * @returns {boolean}
-     */
-    isSlotEmpty: function( slotNumber ) {
-      return !this.getFunctionNode( slotNumber );
-    },
-
-    /**
      * Gets the slot that is closest to the specified location.
      * Convenience function, delegates to the model.
      *
