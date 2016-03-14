@@ -1,8 +1,8 @@
 TODO list for function-builder
 
-Make cards stop at 'see inside' windows when animating
-
 Update card when location changes or Builder.functionChangedEmitter.emit
+
+Make cards stop at 'see inside' windows when animating
 
 Handle non-invertible functions
 
