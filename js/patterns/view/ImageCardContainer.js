@@ -2,7 +2,7 @@
 
 /**
  * Container for image cards.
- * An image card that is in a carousel is a child of this type of container.
+ * An image card that is in a carousel is a descendant of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
