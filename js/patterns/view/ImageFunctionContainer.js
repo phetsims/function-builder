@@ -2,6 +2,7 @@
 
 /**
  * Container for image functions.
+ * An image function that is in a carousel is a child of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

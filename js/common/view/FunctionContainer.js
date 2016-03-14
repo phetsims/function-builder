@@ -2,6 +2,7 @@
 
 /**
  * Base type for function containers.
+ * A function that is in a carousel is a child of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

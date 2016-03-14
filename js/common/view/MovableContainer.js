@@ -2,6 +2,7 @@
 
 /**
  * Container for Nodes of type MovableNode.
+ * A MovableNode that is in a carousel is a child of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

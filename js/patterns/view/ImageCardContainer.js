@@ -2,14 +2,7 @@
 
 /**
  * Container for image cards.
- *
- * Responsibilities:
- *
- * - create a specified number of {ImageCard} card instances, all of the same type
- * - create an associated Node for each instance
- * - handle dragging instances out of the container
- * - decide what to do with an instance when the user stops dragging it
- * - return an instance to the container when it's location is the same as the container
+ * An image card that is in a carousel is a child of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
