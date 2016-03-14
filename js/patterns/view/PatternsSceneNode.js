@@ -137,10 +137,17 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousel
     var eraserButton = new EraserButton( {
-      listener: function() { outputCarousel.erase(); },
+      listener: function() {
+        outputCarousel.erase();
+      },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 40
+    } );
+
+    // Disable the eraser button when the output carousel is empty
+    outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
+      eraserButton.enabled = ( numberOfCards > 0 );
     } );
 
     // Function carousel ----------------------------------------------------------------------------------------------

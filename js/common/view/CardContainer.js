@@ -14,6 +14,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {Object} [options]
@@ -26,6 +27,9 @@ define( function( require ) {
     }, options );
 
     MovableContainer.call( this, options );
+
+    // @public (read-only) number of items in the container
+    this.numberOfItemsProperty = new Property( 0 );
   }
 
   functionBuilder.register( 'CardContainer', CardContainer );
@@ -48,6 +52,18 @@ define( function( require ) {
      */
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideLayer ) {
       throw new Error( 'must be implemented by subtypes' );
+    },
+
+    // @public @override see MovableContainer.addNode
+    addNode: function( node ) {
+      MovableContainer.prototype.addNode.call( this, node );
+      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
+    },
+
+    // @public @override see MovableContainer.removeNode
+    removeNode: function( node ) {
+      MovableContainer.prototype.removeNode.call( this, node );
+      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
     }
   } );
 } );

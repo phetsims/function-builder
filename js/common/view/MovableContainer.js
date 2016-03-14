@@ -77,6 +77,11 @@ define( function( require ) {
      */
     removeNode: function( node ) {
       this.contentsParent.removeChild( node );
+    },
+
+    //TODO doc
+    getContents: function() {
+      return this.contentsParent.getChildren();
     }
   } );
 } );

@@ -12,17 +12,46 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
 
   /**
-   * @param {Node[]} items - items in the carousel
+   * @param {CardContainer[]} containers - containers in the carousel
    * @param {Object} [options]
    * @constructor
    */
-  function OutputCardsCarousel( items, options ) {
-    Carousel.call( this, items, options );
+  function OutputCardsCarousel( containers, options ) {
+
+    Carousel.call( this, containers, options );
+
+    // @public (read-only) {number} of cards in the carousel
+    this.numberOfCardsProperty = new Property( getNumberOfCards( containers ) );
+
+    // update numberOfCardsProperty as cards are added/removed
+    var thisNode = this;
+    var containerListener = function() {
+      thisNode.numberOfCardsProperty.set( getNumberOfCards( containers ) );
+    };
+    containers.forEach( function( container ) {
+      container.numberOfItemsProperty.link( function( numberOfItems ) {
+        containerListener();
+      } );
+    } );
   }
 
   functionBuilder.register( 'OutputCardsCarousel', OutputCardsCarousel );
+
+  /**
+   * Gets the number of cards in a set of containers.
+   * @param {CardContainer[]} containers
+   * @returns {number}
+   */
+  var getNumberOfCards = function( containers ) {
+    var numberOfCards = 0;
+    containers.forEach( function( container ) {
+      numberOfCards += container.numberOfItemsProperty.get();
+    } );
+    return numberOfCards;
+  };
 
   return inherit( Carousel, OutputCardsCarousel, {
 
@@ -38,8 +67,8 @@ define( function( require ) {
      */
     erase: function() {
       this.items.forEach( function( container ) {
-        container.getChildren().forEach( function( child ) {
-          child.returnToInputCarousel && child.returnToInputCarousel();
+        container.getContents().forEach( function( node ) {
+          node.returnToInputCarousel();
         } );
       } );
     }
