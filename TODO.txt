@@ -4,6 +4,8 @@ Make cards stop at 'see inside' windows when animating
 
 Update card when location changes or Builder.functionChangedEmitter.emit
 
+Handle non-invertible functions
+
 Disable erase button if there's nothing in the output carousel
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
