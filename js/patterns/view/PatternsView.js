@@ -52,9 +52,9 @@ define( function( require ) {
       model.reset();
 
       // view
-      sceneNodes.forEach( function( sceneNode ) {
-        sceneNode.reset();
-      } );
+      for ( var sceneIndex = 0; sceneIndex < sceneNodes.length; sceneIndex++ ) {
+        sceneNodes[ sceneIndex ].reset();
+      }
     };
 
     // Reset All button at bottom-right

@@ -130,13 +130,15 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      this.functionInstances.forEach( function( functionInstance ) {
-        functionInstance.step( dt );
-      } );
+      // functions
+      for ( var functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
+        this.functionInstances[ functionIndex ].step( dt );
+      }
 
-      this.cards.forEach( function( card ) {
-        card.step( dt );
-      } );
+      // cards
+      for ( var cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
+        this.cards[ cardIndex ].step( dt );
+      }
     }
   } );
 } );

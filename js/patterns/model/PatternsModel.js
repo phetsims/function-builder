@@ -74,9 +74,9 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      this.scenes.forEach( function( scene ) {
-        scene.step( dt );
-      } );
+      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+        this.scenes[ sceneIndex ].step( dt );
+      }
     }
   } );
 } );
