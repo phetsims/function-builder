@@ -10,8 +10,6 @@ Handle non-invertible functions
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
 
-Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
-
 Reset All doesn't work for things that the user is dragging
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode

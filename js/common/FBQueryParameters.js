@@ -16,7 +16,9 @@ define( function( require ) {
   var FBQueryParameters = {
 
     // enables developer-only features
-    DEV: getQueryParameter( 'dev' ) || false
+    DEV: getQueryParameter( 'dev' ) || false,
+
+    POPULATE_OUTPUT: getQueryParameter( 'populateOutput' ) || false
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );

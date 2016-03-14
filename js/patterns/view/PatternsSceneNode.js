@@ -15,6 +15,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
   var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
@@ -276,6 +277,13 @@ define( function( require ) {
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, cardsAnimationLayer, seeInsideLayer );
+
+        // move 1 card to the output carousel
+        if ( FBQueryParameters.POPULATE_OUTPUT ) {
+          var cardNode = inputContainer.getContents()[ 0 ];
+          inputContainer.removeNode( cardNode );
+          outputContainer.addNode( cardNode );
+        }
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
