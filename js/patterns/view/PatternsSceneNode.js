@@ -201,10 +201,10 @@ define( function( require ) {
     // Spyglass check box, to the right of functions carousel
     var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: new FBFont( 20 ) } ),
       seeInsideProperty, {
-      maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
-      left: inputCarousel.left,
-      top: functionCarousel.top
-    } );
+        maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
+        left: inputCarousel.left,
+        top: functionCarousel.top
+      } );
     seeInsideProperty.link( function( visible ) {
       seeInsideLayer.visible = visible;
     } );
@@ -230,9 +230,14 @@ define( function( require ) {
 
     // @private Resets this node
     this._reset = function() {
+
+      // reset carousels without animation
+      functionCarousel.animationEnabled = inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
       functionCarousel.reset();
       inputCarousel.reset();
       outputCarousel.reset();
+      functionCarousel.animationEnabled = inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
+
       seeInsideProperty.reset();
       builderNode.reset();
     };
