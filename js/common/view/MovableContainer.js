@@ -33,13 +33,16 @@ define( function( require ) {
     // @public location of container when it's visible in the carousel. Set after carousel is attached to scene.
     this.carouselLocation = null;
 
-    // @private
+    // @private invisible background, so that an empty container has dimensions
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
       stroke: STROKE_BACKGROUND ? 'red' : null
     } );
 
+    // @private parent for contents of the container
+    this.contentsParent = new Node();
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode ];
+    options.children = [ this.backgroundNode, this.contentsParent ];
 
     Node.call( this, options );
   }
@@ -54,7 +57,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     containsNode: function( node ) {
-      return ( this.hasChild( node ) );
+      return ( this.contentsParent.hasChild( node ) );
     },
 
     /**
@@ -63,7 +66,7 @@ define( function( require ) {
      * @public
      */
     addNode: function( node ) {
-      this.addChild( node );
+      this.contentsParent.addChild( node );
       node.center = this.backgroundNode.center;
     },
 
@@ -73,7 +76,7 @@ define( function( require ) {
      * @private
      */
     removeNode: function( node ) {
-      this.removeChild( node );
+      this.contentsParent.removeChild( node );
     }
   } );
 } );
