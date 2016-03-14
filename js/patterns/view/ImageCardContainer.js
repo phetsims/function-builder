@@ -38,16 +38,8 @@ define( function( require ) {
   return inherit( CardContainer, ImageCardContainer, {
 
     /**
-     * Creates functions and puts them in the container.
-     *
-     * @param {number} numberOfInstances
-     * @param {PatternsScene} scene
-     * @param {ImageCardContainer} inputContainer
-     * @param {ImageCardContainer} outputContainer
-     * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
-     * @param {Node} animationLayer
-     * @param {SeeInsideLayer} seeInsideLayer
+     * Creates cards and puts them in the container.
+     * See supertype CardContainer.createCards for params.
      * @override
      * @public
      */

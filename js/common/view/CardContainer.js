@@ -40,10 +40,12 @@ define( function( require ) {
      * @param {ImageCardContainer} outputContainer
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
-     * @param {Node} foregroundAnimationLayer
+     * @param {Node} animationLayer
+     * @param {SeeInsideLayer} seeInsideLayer
+     * @override
      * @public
      */
-    createFunctions: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, foregroundAnimationLayer ) {
+    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideLayer ) {
       throw new Error( 'must be implemented by subtypes' );
     }
   } );

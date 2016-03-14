@@ -30,12 +30,7 @@ define( function( require ) {
 
     /**
      * Creates functions and puts them in the container.
-     *
-     * @param {number} numberOfInstances
-     * @param {PatternsScene} scene
-     * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
-     * @param {Node} animationLayer
+     * See supertype FunctionContainer.createFunctions for params.
      * @override
      * @public
      */
