@@ -89,18 +89,13 @@ define( function( require ) {
         // If the slot is occupied, relocate the occupier
         var occupierNode = builderNode.getFunctionNode( slotNumber );
         if ( occupierNode ) {
+
           if ( builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
 
             // swap adjacent slots
             builderNode.removeFunctionNode( occupierNode, slotNumber );
             animationLayer.addChild( occupierNode );
-            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( slotNumberRemovedFrom ),
-              FBConstants.FUNCTION_ANIMATION_SPEED,
-              function() {
-                animationLayer.removeChild( occupierNode );
-                builderNode.addFunctionNode( occupierNode, slotNumberRemovedFrom );
-              }
-            );
+            occupierNode.animateToBuilder( slotNumberRemovedFrom );
           }
           else {
 
@@ -110,12 +105,7 @@ define( function( require ) {
         }
 
         // put function in builder slot
-        functionInstance.animateTo( builderNode.getSlotLocation( slotNumber ),
-          FBConstants.FUNCTION_ANIMATION_SPEED,
-          function() {
-            animationLayer.removeChild( thisNode );
-            builderNode.addFunctionNode( thisNode, slotNumber );
-          } );
+        thisNode.animateToBuilder( slotNumber );
       }
     };
 
@@ -127,7 +117,22 @@ define( function( require ) {
   return inherit( MovableNode, FunctionNode, {
 
     /**
-     * Returns function to the carousel.
+     * Animates this function to a slot in the builder.
+     * @param slotNumber
+     * @private
+     */
+    animateToBuilder: function( slotNumber ) {
+      var thisNode = this;
+      this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
+        FBConstants.FUNCTION_ANIMATION_SPEED,
+        function() {
+          thisNode.animationLayer.removeChild( thisNode );
+          thisNode.builderNode.addFunctionNode( thisNode, slotNumber );
+        } );
+    },
+
+    /**
+     * Returns this function to the carousel.
      * @param {Object} [options]
      * @public
      */
