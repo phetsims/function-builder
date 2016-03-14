@@ -38,7 +38,7 @@ define( function( require ) {
     this.dragLayer = dragLayer;
     this.animationLayer = animationLayer;
 
-    var slotNumberRemovedFrom = -1;
+    var slotNumberRemovedFrom = -1;  // slot number that function was removed from at start of drag
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
@@ -89,10 +89,6 @@ define( function( require ) {
         // If the slot is occupied, relocate the occupier
         var occupierNode = builderNode.getFunctionNode( slotNumber );
         if ( occupierNode ) {
-
-          var previousSlotNumber = slotNumber - 1;
-          var nextSlotNumber = slotNumber + 1;
-
           if ( builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
 
             // swap adjacent slots
@@ -103,33 +99,6 @@ define( function( require ) {
               function() {
                 animationLayer.removeChild( occupierNode );
                 builderNode.addFunctionNode( occupierNode, slotNumberRemovedFrom );
-              }
-            );
-          }
-          else if ( builderNode.isValidSlotNumber( previousSlotNumber ) && builderNode.isSlotEmpty( previousSlotNumber ) ) {
-
-            //TODO factor out code duplicated above
-            // slot to the left is empty, move it there
-            builderNode.removeFunctionNode( occupierNode, slotNumber );
-            animationLayer.addChild( occupierNode );
-            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( previousSlotNumber ),
-              FBConstants.FUNCTION_ANIMATION_SPEED,
-              function() {
-                animationLayer.removeChild( occupierNode );
-                builderNode.addFunctionNode( occupierNode, previousSlotNumber );
-              }
-            );
-          }
-          else if ( builderNode.isValidSlotNumber( nextSlotNumber ) && builderNode.isSlotEmpty( nextSlotNumber ) ) {
-
-            // slot to the right is empty, move it there
-            builderNode.removeFunctionNode( occupierNode, slotNumber );
-            animationLayer.addChild( occupierNode );
-            occupierNode.functionInstance.animateTo( builderNode.getSlotLocation( nextSlotNumber ),
-              FBConstants.FUNCTION_ANIMATION_SPEED,
-              function() {
-                animationLayer.removeChild( occupierNode );
-                builderNode.addFunctionNode( occupierNode, nextSlotNumber );
               }
             );
           }
