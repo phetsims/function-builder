@@ -80,7 +80,7 @@ define( function( require ) {
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
         dragLayer.addChild( thisNode );
 
-        // adjust for pop-out off set
+        // adjust for pop-out offset
         leftPoint = card.locationProperty.get();
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
@@ -90,7 +90,7 @@ define( function( require ) {
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
         dragLayer.addChild( thisNode );
 
-        // adjust for pop-out off set
+        // adjust for pop-out offset
         rightPoint = card.locationProperty.get();
       }
       else {
@@ -141,22 +141,12 @@ define( function( require ) {
       if ( card.locationProperty.get().x < INPUT_SLOT_X ) {
 
         // card is to left of builder, animate to input carousel
-        card.animateTo( inputContainer.carouselLocation,
-          FBConstants.CARD_ANIMATION_SPEED,
-          function() {
-            animationLayer.removeChild( thisNode );
-            inputContainer.addNode( thisNode );
-          } );
+        thisNode.animateToContainer( inputContainer );
       }
       else if ( card.locationProperty.get().x > OUTPUT_SLOT_X ) {
 
         // card is to right of builder, animate to output carousel
-        card.animateTo( outputContainer.carouselLocation,
-          FBConstants.CARD_ANIMATION_SPEED,
-          function() {
-            animationLayer.removeChild( thisNode );
-            outputContainer.addNode( thisNode );
-          } );
+        thisNode.animateToContainer( outputContainer );
       }
       else { // card is in the builder
 
@@ -174,12 +164,7 @@ define( function( require ) {
           card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
-              card.animateTo( outputContainer.carouselLocation,
-                FBConstants.CARD_ANIMATION_SPEED,
-                function() {
-                  animationLayer.removeChild( thisNode );
-                  outputContainer.addNode( thisNode );
-                } );
+              thisNode.animateToContainer( outputContainer );
             } );
         }
         else { // dragging to the left
@@ -193,12 +178,7 @@ define( function( require ) {
           card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
-              card.animateTo( inputContainer.carouselLocation,
-                FBConstants.CARD_ANIMATION_SPEED,
-                function() {
-                  animationLayer.removeChild( thisNode );
-                  inputContainer.addNode( thisNode );
-                } );
+              thisNode.animateToContainer( inputContainer );
             } );
         }
       }
@@ -215,7 +195,25 @@ define( function( require ) {
 
   return inherit( MovableNode, CardNode, {
 
-    // @public Returns card immediately to the input carousel, no animation.
+    /**
+     * Animates this card to a container in a carousel.
+     * @param {CardContainer} container
+     * @private
+     */
+    animateToContainer: function( container ) {
+      var thisNode = this;
+      thisNode.card.animateTo( container.carouselLocation,
+        FBConstants.CARD_ANIMATION_SPEED,
+        function() {
+          thisNode.animationLayer.removeChild( thisNode );
+          container.addNode( thisNode );
+        } );
+    },
+
+    /**
+     * Returns this card immediately to the input carousel, no animation.
+     * @public
+     */
     returnToInputCarousel: function() {
       if ( !this.inputContainer.containsNode( this ) ) {
 
