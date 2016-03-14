@@ -32,7 +32,7 @@ define( function( require ) {
       thisNode.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
     containers.forEach( function( container ) {
-      container.numberOfItemsProperty.link( function( numberOfItems ) {
+      container.numberOfCardsProperty.link( function( numberOfItems ) {
         containerListener();
       } );
     } );
@@ -48,7 +48,7 @@ define( function( require ) {
   var getNumberOfCards = function( containers ) {
     var numberOfCards = 0;
     containers.forEach( function( container ) {
-      numberOfCards += container.numberOfItemsProperty.get();
+      numberOfCards += container.numberOfCardsProperty.get();
     } );
     return numberOfCards;
   };

@@ -29,7 +29,7 @@ define( function( require ) {
     MovableContainer.call( this, options );
 
     // @public (read-only) number of items in the container
-    this.numberOfItemsProperty = new Property( 0 );
+    this.numberOfCardsProperty = new Property( 0 );
   }
 
   functionBuilder.register( 'CardContainer', CardContainer );
@@ -57,13 +57,13 @@ define( function( require ) {
     // @public @override see MovableContainer.addNode
     addNode: function( node ) {
       MovableContainer.prototype.addNode.call( this, node );
-      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
+      this.numberOfCardsProperty.set( this.numberOfCardsProperty.get() + 1 );
     },
 
     // @public @override see MovableContainer.removeNode
     removeNode: function( node ) {
       MovableContainer.prototype.removeNode.call( this, node );
-      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
+      this.numberOfCardsProperty.set( this.numberOfCardsProperty.get() - 1 );
     }
   } );
 } );
