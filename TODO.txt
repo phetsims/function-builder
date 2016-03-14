@@ -8,6 +8,8 @@ Handle non-invertible functions
 
 ---
 
+Should carousels animate on Reset All?
+
 Should 'see inside' windows be added dynamically, and only where there's a function?
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
