@@ -144,6 +144,7 @@ define( function( require ) {
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 40
     } );
+    eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
 
     // Disable the eraser button when the output carousel is empty
     outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
