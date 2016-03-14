@@ -270,8 +270,8 @@ define( function( require ) {
      *
      * @param {CardNode} cardNode
      */
-    addMole: function( cardNode ) {
-      this.molesParent.addChild( new MoleNode( cardNode, this.builder.location ) );
+    addMole: function( card ) {
+      this.molesParent.addChild( new MoleNode( card, this.builder.location ) );
     }
   } );
 } );

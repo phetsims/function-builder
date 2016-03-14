@@ -71,9 +71,11 @@ define( function( require ) {
         // put the Node in this container
         this.addNode( cardNode );
 
-        // add to other layers for various visual effects
+        // add to 'see inside' layer, for viewing the card through windows
         seeInsideLayer.addCardNode( cardNode );
-        builderNode.addMole( cardNode );
+
+        // add a 'mole under the carpet' to the builder, synchronizes with the card's location
+        builderNode.addMole( card );
       }
     }
   } );

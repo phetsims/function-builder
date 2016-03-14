@@ -15,12 +15,12 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {CardNode} cardNode
+   * @param {AbstractCard} card
    * @param {Vector2} builderLocation
    * @param {Object} [options]
    * @constructor
    */
-  function MoleNode( cardNode, builderLocation, options ) {
+  function MoleNode( card, builderLocation, options ) {
 
     options = _.extend( {
       size: FBConstants.CARD_SIZE,
@@ -34,10 +34,11 @@ define( function( require ) {
     Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
 
     var thisNode = this;
-    var locationObserver = function( location ) {
+
+    // unlink unnecessary, instances exist for lifetime of the sim
+    card.locationProperty.link( function( location ) {
       thisNode.center = location.minus( builderLocation );
-    };
-    cardNode.card.locationProperty.link( locationObserver );
+    } );
   }
 
   functionBuilder.register( 'MoleNode', MoleNode );
