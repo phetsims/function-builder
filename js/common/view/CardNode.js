@@ -58,6 +58,9 @@ define( function( require ) {
     var builder = builderNode.builder;
 
     var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
+    var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
+    var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
+
     var dragDx = 0; // {number} most recent change in x while dragging
     var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
     var slopeRight = 0; // {number} slope of the line connecting the ouptut carousel and builder input slot
@@ -96,10 +99,10 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ) );
 
       // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
-      slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - ( builder.left - MIN_DISTANCE ) );
+      slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - INPUT_SLOT_X );
 
       // slope of line between output carousel and builder's output slot, m = (y2-y1)/(x2-x1)
-      slopeRight = ( rightPoint.y - builder.location.y ) / ( rightPoint.x - ( builder.right + MIN_DISTANCE ) );
+      slopeRight = ( rightPoint.y - builder.location.y ) / ( rightPoint.x - OUTPUT_SLOT_X );
     };
 
     // Constrain the user's dragging
@@ -107,16 +110,16 @@ define( function( require ) {
     options.translateMovable = function( movable, location, delta ) {
       dragDx = delta.x;
       var y = 0;
-      if ( location.x < ( builder.left - MIN_DISTANCE ) ) {
+      if ( location.x < INPUT_SLOT_X ) {
 
         // to the left of the builder, drag along the line between input carousel and builder input slot
-        y = slopeLeft * ( location.x - ( builder.left - MIN_DISTANCE) ) + builder.location.y; // y = m(x-x1) + y1
+        y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
-      else if ( location.x > ( builder.right + MIN_DISTANCE ) ) {
+      else if ( location.x > OUTPUT_SLOT_X ) {
 
         // to the right of the builder, drag along the line between output carousel and builder output
-        y = slopeRight * ( location.x - ( builder.right + MIN_DISTANCE) ) + builder.location.y; // y = m(x-x1) + y1
+        y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
@@ -134,7 +137,7 @@ define( function( require ) {
       dragLayer.removeChild( thisNode );
       animationLayer.addChild( thisNode );
 
-      if ( card.locationProperty.get().x < ( builder.left - MIN_DISTANCE ) ) {
+      if ( card.locationProperty.get().x < INPUT_SLOT_X ) {
 
         // card is to left of builder, animate to input carousel
         card.animateTo( inputContainer.carouselLocation,
@@ -144,7 +147,7 @@ define( function( require ) {
             inputContainer.addNode( thisNode );
           } );
       }
-      else if ( card.locationProperty.get().x > builder.right + MIN_DISTANCE ) {
+      else if ( card.locationProperty.get().x > OUTPUT_SLOT_X ) {
 
         // card is to right of builder, animate to output carousel
         card.animateTo( outputContainer.carouselLocation,
@@ -164,7 +167,7 @@ define( function( require ) {
           }
 
           // animate left-to-right through the builder, then to output carousel
-          card.animateTo( new Vector2( builder.right + MIN_DISTANCE, builder.location.y ),
+          card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
               card.animateTo( outputContainer.carouselLocation,
@@ -183,7 +186,7 @@ define( function( require ) {
           }
 
           // animate right-to-left through the builder, then to input carousel
-          card.animateTo( new Vector2( builder.left - MIN_DISTANCE, builder.location.y ),
+          card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
             FBConstants.CARD_ANIMATION_SPEED,
             function() {
               card.animateTo( inputContainer.carouselLocation,
