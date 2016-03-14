@@ -124,6 +124,7 @@ define( function( require ) {
       }
       else {
 
+        //TODO constrain dragging to the left for non-invertible functions
         // in the builder, drag horizontally
         movable.moveTo( new Vector2( location.x, builder.location.y ) );
       }
@@ -158,6 +159,9 @@ define( function( require ) {
           } );
       }
       else { // card is in the builder
+
+        //TODO if 'see inside' feature is on, animate to next window
+        //TODO constrain animation to the left for non-invertible functions
 
         if ( dragDx > 0 ) { // dragging to the right
 
