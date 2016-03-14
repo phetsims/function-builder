@@ -70,11 +70,13 @@ define( function( require ) {
     var X_INSET = 0.15 * BODY_WIDTH;
     var Y_INSET = 0.15 * BODY_HEIGHT;
 
-    // Main body of the builder, described starting at upper-left and moving clockwise
+    // Gradient for the body
     var bodyGradient = new LinearGradient( 0, 0, 1, BODY_HEIGHT )
       .addColorStop( 0, colorScheme.top )
       .addColorStop( 0.5, colorScheme.middle )
       .addColorStop( 1, colorScheme.bottom );
+
+    // Body of the builder, described starting at upper-left and moving clockwise
     var bodyNode = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( X_INSET, Y_INSET )
@@ -109,14 +111,14 @@ define( function( require ) {
     };
 
     // Left end
-    var leftEnd = new BuilderEndNode( 'left',
+    var leftEndNode = new BuilderEndNode( 'left',
       _.extend( {}, END_OPTIONS, {
         centerX: bodyNode.left,
         centerY: bodyNode.centerY
       } ) );
 
     // Right end
-    var rightEnd = new BuilderEndNode( 'right',
+    var rightEndNode = new BuilderEndNode( 'right',
       _.extend( {}, END_OPTIONS, {
         centerX: bodyNode.right,
         centerY: bodyNode.centerY
@@ -139,10 +141,10 @@ define( function( require ) {
     this.functionsParent = new Node(); // @private
 
     // @private 'moles under the carpet' that represents a card being dragged through the builder
-    this.molesParent = new Node();
+    this.molesLayer = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, slotsParent, this.functionsParent, this.molesParent, leftEnd, rightEnd ];
+    options.children = [ bodyNode, slotsParent, this.functionsParent, this.molesLayer, leftEndNode, rightEndNode ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
     options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
@@ -271,7 +273,7 @@ define( function( require ) {
      * @param {AbstractCard} card
      */
     addMole: function( card ) {
-      this.molesParent.addChild( new MoleNode( card, this.builder.location ) );
+      this.molesLayer.addChild( new MoleNode( card, this.builder.location ) );
     }
   } );
 } );
