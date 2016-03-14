@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for Nodes of type MovableNode.
+ * Base type for containers of MovableNode.
  * A MovableNode that is in a carousel is a descendant of this type of container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
