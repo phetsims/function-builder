@@ -61,7 +61,7 @@ define( function( require ) {
       var slotLocation = leftSlotLocation.plusXY( dx, 0 );
 
       // each slot is initially empty
-      this.slots.push( new FunctionSlot( slotLocation, null ) );
+      this.slots.push( new FunctionSlot( slotLocation ) );
     }
 
     // @public emit1({Builder}) when any function changes

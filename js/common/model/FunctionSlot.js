@@ -14,12 +14,15 @@ define( function( require ) {
 
   /**
    * @param {Vector2} location - location of the slot in the model coordinate frame
-   * @param {AbstractFunction|null} functionInstance - the function instance that occupies the slot, null if the slot is empty
    * @constructor
    */
-  function FunctionSlot( location, functionInstance ) {
-    this.location = location; // @public (read-only)
-    this.functionInstance = functionInstance; // @public
+  function FunctionSlot( location ) {
+
+    // @public (read-only)
+    this.location = location;
+
+    // @public {AbstractFunction|null} the function instance that occupies the slot, null if the slot is empty
+    this.functionInstance = null;
   }
 
   functionBuilder.register( 'FunctionSlot', FunctionSlot );
