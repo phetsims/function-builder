@@ -25,7 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location
-      dragging: false // {boolean} is the function being dragged by the user?
+      dragging: false // {boolean} is this instance being dragged by the user?
     }, options );
 
     PropertySet.call( this, {
@@ -41,7 +41,7 @@ define( function( require ) {
     // @private {function|null} called when animation to destination completes
     this.animationCompletedCallback = null;
 
-    // @public {boolean} is the user dragging the function?
+    // @public {boolean} is the user dragging this instance?
     this.dragging = options.dragging;
   }
 
@@ -75,7 +75,7 @@ define( function( require ) {
     },
 
     /**
-     * Animates translation of the function instance, when it's not being dragged by the user.
+     * Animates location, when not being dragged by the user.
      *
      * @param {number} dt - time since the previous step, in seconds
      * @public
@@ -83,8 +83,10 @@ define( function( require ) {
     step: function( dt ) {
       if ( !this.dragging && !this.locationProperty.get().equals( this.destination ) ) {
 
-        // animate to the destination
+        // distance from destination
         var totalDistance = this.locationProperty.get().distance( this.destination );
+
+        // distance to move on this step
         var stepDistance = this.animationSpeed * dt;
 
         if ( totalDistance < stepDistance ) {

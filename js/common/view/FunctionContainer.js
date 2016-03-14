@@ -3,7 +3,7 @@
 /**
  * Base type for function containers.
  * A function that is in a carousel is a descendant of this type of container.
- descendant
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {

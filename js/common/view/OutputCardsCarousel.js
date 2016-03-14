@@ -23,7 +23,7 @@ define( function( require ) {
 
     Carousel.call( this, containers, options );
 
-    // @public (read-only) {number} of cards in the carousel
+    // @public (read-only) {number} of cards in the carousel, used to disable 'eraser' button when carousel is empty
     this.numberOfCardsProperty = new Property( getNumberOfCards( containers ) );
 
     // update numberOfCardsProperty as cards are added/removed

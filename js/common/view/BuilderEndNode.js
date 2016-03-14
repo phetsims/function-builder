@@ -2,7 +2,7 @@
 
 /**
  * The end piece of a builder, which provide some pseudo-3D perspective.
- * It consists of an ellipse this a slot that a card passes through.
+ * It consists of an ellipse with a parallelogram slot that a card passes through.
  * This is factored out to facilitate splitting the builder into foreground and background,
  * so that we can provide the illusion of a card passing through the builder.
  *
@@ -56,15 +56,17 @@ define( function( require ) {
     var SLOT_HEIGHT = 1.5 * options.radiusY;
     var SLOT_Y_OFFSET = 0.025 * SLOT_HEIGHT; // determines perspective of slot
 
-    // shape for a slot that faces left
+    // shape for a slot that faces left, parallelogram described from upper-left, moving clockwise
     var slotShape = new Shape()
       .moveTo( 0, SLOT_Y_OFFSET )
       .lineTo( SLOT_WIDTH, 0 )
       .lineTo( SLOT_WIDTH, SLOT_HEIGHT )
       .lineTo( 0, SLOT_HEIGHT - SLOT_Y_OFFSET )
       .close();
+
+    // shape for a slot that faces right is a reflection
     if ( faces === 'right' ) {
-      slotShape = slotShape.transformed( Matrix3.scaling( -1, 1 ) ); // reflect
+      slotShape = slotShape.transformed( Matrix3.scaling( -1, 1 ) );
     }
 
     // slot node
