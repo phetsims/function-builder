@@ -18,6 +18,7 @@ define( function( require ) {
     // enables developer-only features
     DEV: getQueryParameter( 'dev' ) || false,
 
+    // populates the output carousel with 1 card of each type
     POPULATE_OUTPUT: getQueryParameter( 'populateOutput' ) || false
   };
 
