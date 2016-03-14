@@ -122,20 +122,6 @@ define( function( require ) {
 
   return inherit( Object, PatternsScene, {
 
-    // @public
-    reset: function() {
-
-      // move all cards back to the input carousel
-      this.cards.slice( 0 ).forEach( function( card ) {
-        //TODO fix reset for cards
-      } );
-
-      // move all functions back to the function carousel
-      this.functionInstances.slice( 0 ).forEach( function( functionInstance ) {
-        //TODO fix reset for functions
-      } );
-    },
-
     /**
      * Animates the scene.
      *

@@ -16,15 +16,15 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsScene = require( 'FUNCTION_BUILDER/patterns/model/PatternsScene' );
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants (single builder)
+  // constants (builder for the 'single' scene)
   var SINGLE_BUILDER_WIDTH = 350;
   var SINGLE_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( SINGLE_BUILDER_WIDTH / 2 );
   var SINGLE_BUILDER_Y = 280;
 
-  // constants (composed builder)
+  // constants (builder for the 'composed' scene)
   var COMPOSED_BUILDER_WIDTH = 520;
   var COMPOSED_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( COMPOSED_BUILDER_WIDTH / 2 );
   var COMPOSED_BUILDER_Y = SINGLE_BUILDER_Y;
@@ -58,21 +58,14 @@ define( function( require ) {
       } )
     ];
 
-    // @public
-    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+    PropertySet.call( this, {
+      selectedScene: this.scenes[ 0 ]  // @public
+    } );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );
 
-  return inherit( Object, PatternsModel, {
-
-    // @public
-    reset: function() {
-      this.scenes.forEach( function( scene ) {
-        scene.reset();
-      } );
-      this.selectedSceneProperty.reset();
-    },
+  return inherit( PropertySet, PatternsModel, {
 
     /**
      * Animates the model.
