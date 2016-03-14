@@ -12,11 +12,8 @@ Should 'see inside' windows be added dynamically, and only where there's a funct
 
 Need a way to pre-populate output carousel with 1 card of each type for testing convenience.
 
-Move function to adjacent empty slot instead of returning to carousel.
-
 Reset All doesn't work for things that the user is dragging
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode
 
-Usability:
-- How to keep functions that are mutable from popping out of the carousel and builder?
+How to keep functions with spinners from popping out of the carousel and builder?
