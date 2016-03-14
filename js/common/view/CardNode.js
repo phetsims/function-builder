@@ -59,18 +59,16 @@ define( function( require ) {
 
     var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
     var dragDx = 0; // {number} most recent change in x while dragging
-
-    //TODO compute slopes and carouselLocation in options.startDrag
-    // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
-    var slopeLeft = ( builder.location.y - inputContainer.carouselLocation.y ) / ( ( builder.left - MIN_DISTANCE ) - inputContainer.carouselLocation.x );
-
-    // slope of line between builder's output slot and output carousel, m = (y2-y1)/(x2-x1)
-    var slopeRight = ( outputContainer.carouselLocation.y - builder.location.y ) / ( outputContainer.carouselLocation.x - ( builder.right + MIN_DISTANCE ) );
+    var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
+    var slopeRight = 0; // {number} slope of the line connecting the ouptut carousel and builder input slot
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
       dragDx = 0;
+
+      var leftPoint = inputContainer.carouselLocation;
+      var rightPoint = outputContainer.carouselLocation;
 
       if ( inputContainer.containsNode( thisNode ) ) {
 
@@ -78,6 +76,9 @@ define( function( require ) {
         inputContainer.removeNode( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
         dragLayer.addChild( thisNode );
+
+        // adjust for pop-out off set
+        leftPoint = card.locationProperty.get();
       }
       else if ( outputContainer.containsNode( thisNode ) ) {
 
@@ -85,13 +86,20 @@ define( function( require ) {
         outputContainer.removeNode( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
         dragLayer.addChild( thisNode );
+
+        // adjust for pop-out off set
+        rightPoint = card.locationProperty.get();
       }
       else {
-
         //TODO card was grabbed while paused in 'see inside' window
       }
-
       assert && assert( dragLayer.hasChild( thisNode ) );
+
+      // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
+      slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - ( builder.left - MIN_DISTANCE ) );
+
+      // slope of line between output carousel and builder's output slot, m = (y2-y1)/(x2-x1)
+      slopeRight = ( rightPoint.y - builder.location.y ) / ( rightPoint.x - ( builder.right + MIN_DISTANCE ) );
     };
 
     // Constrain the user's dragging
@@ -102,13 +110,13 @@ define( function( require ) {
       if ( location.x < ( builder.left - MIN_DISTANCE ) ) {
 
         // to the left of the builder, drag along the line between input carousel and builder input slot
-        y = slopeLeft * ( location.x - inputContainer.carouselLocation.x ) + inputContainer.carouselLocation.y; // y = m(x-x1) + y1
+        y = slopeLeft * ( location.x - ( builder.left - MIN_DISTANCE) ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else if ( location.x > ( builder.right + MIN_DISTANCE ) ) {
 
-        // to the right of the builder, drag along the line between builder output slot and output carousel
-        y = slopeRight * ( location.x - ( builder.right + MIN_DISTANCE ) ) + builder.location.y; // y = m(x-x1) + y1
+        // to the right of the builder, drag along the line between output carousel and builder output
+        y = slopeRight * ( location.x - ( builder.right + MIN_DISTANCE) ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
       else {
