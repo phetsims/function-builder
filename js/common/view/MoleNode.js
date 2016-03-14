@@ -31,8 +31,6 @@ define( function( require ) {
       opacity: 0.2
     }, options );
 
-    this.cardNode = cardNode; // @public
-
     Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
 
     var thisNode = this;
@@ -40,20 +38,9 @@ define( function( require ) {
       thisNode.center = location.minus( builderLocation );
     };
     cardNode.card.locationProperty.link( locationObserver );
-
-    // @private
-    this.disposeMoleNode = function() {
-      cardNode.card.locationProperty.unlink( locationObserver );
-    };
   }
 
   functionBuilder.register( 'MoleNode', MoleNode );
 
-  return inherit( Rectangle, MoleNode, {
-
-    // @public
-    dispose: function() {
-      this.disposeMoleNode();
-    }
-  } );
+  return inherit( Rectangle, MoleNode );
 } );
