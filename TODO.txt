@@ -8,6 +8,8 @@ Handle non-invertible functions
 
 ---
 
+Move view-related stuff (locationProperty, slots, ...) out of model?
+
 Should 'see inside' windows be added dynamically, and only where there's a function?
 
 Reset All doesn't work for things that the user is dragging
