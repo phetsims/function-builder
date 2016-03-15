@@ -30,6 +30,10 @@ define( function( require ) {
       buttonContentYMargin: 16
     }, options );
 
+    // touchArea optimized for spacing
+    options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
+    options.touchAreaYDilation = 5;
+
     var content = [];
     for ( var i = 0; i < scenes.length; i++ ) {
       content.push( {
