@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AbstractCard = require( 'FUNCTION_BUILDER/common/model/AbstractCard' );
+  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,12 +24,12 @@ define( function( require ) {
     // @public (read-only) do not modify this canvas' pixels or context
     this.canvas = canvas;
 
-    AbstractCard.call( this, options );
+    Card.call( this, options );
   }
 
   functionBuilder.register( 'ImageCard', ImageCard );
 
-  return inherit( AbstractCard, ImageCard, {}, {
+  return inherit( Card, ImageCard, {}, {
 
     /**
      * Creates an ImageCard from an HTMLImageElement.

@@ -15,7 +15,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
-   * @param {AbstractCard} card
+   * @param {Card} card
    * @param {Vector2} builderLocation
    * @param {Object} [options]
    * @constructor

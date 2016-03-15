@@ -280,7 +280,7 @@ define( function( require ) {
      * Adds the 'mole under the carpet' representation of a card.
      * Moles are added when cards are created, and persist for the lifetime of the sim.
      *
-     * @param {AbstractCard} card
+     * @param {Card} card
      */
     addMole: function( card ) {
       this.molesLayer.addChild( new MoleNode( card, this.builder.location ) );

@@ -1,6 +1,5 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
-//TODO rename to Card ?
 /**
  * Base type for cards.
  *
@@ -19,7 +18,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function AbstractCard( options ) {
+  function Card( options ) {
 
     options = _.extend( {
       animationSpeed: FBConstants.CARD_ANIMATION_SPEED  // {number} distance/second when animating
@@ -28,7 +27,7 @@ define( function( require ) {
     Movable.call( this, options );
   }
 
-  functionBuilder.register( 'AbstractCard', AbstractCard );
+  functionBuilder.register( 'Card', Card );
 
-  return inherit( Movable, AbstractCard );
+  return inherit( Movable, Card );
 } );
