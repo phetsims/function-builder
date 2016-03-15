@@ -199,7 +199,7 @@ define( function( require ) {
       visible: seeInsideProperty.get()
     } );
 
-    // Spyglass check box, to the left of functions carousel
+    // 'See Inside' check box, to the left of functions carousel
     var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: new FBFont( 20 ) } ),
       seeInsideProperty, {
         maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
