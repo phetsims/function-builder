@@ -110,9 +110,6 @@ define( function( require ) {
     // @public (read-only) {Builder}
     this.builder = options.builder;
 
-    // @public (read-only) {boolean} 'See Inside' feature is enabled if the builder has > 1 slot
-    this.seeInsideEnabled = ( this.builder.slots.length > 1 );
-
     this.builder.functionChangedEmitter.addListener( function( builder ) {
       //TODO update cards
     } );

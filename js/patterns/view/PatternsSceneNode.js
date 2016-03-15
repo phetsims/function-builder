@@ -209,7 +209,7 @@ define( function( require ) {
     seeInsideProperty.link( function( visible ) {
       seeInsideLayer.visible = visible;
     } );
-    seeInsideCheckBox.visible = scene.seeInsideEnabled;
+    seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
 
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
