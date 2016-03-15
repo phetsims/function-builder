@@ -206,6 +206,7 @@ define( function( require ) {
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
+    seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
     seeInsideProperty.link( function( visible ) {
       seeInsideLayer.visible = visible;
     } );
