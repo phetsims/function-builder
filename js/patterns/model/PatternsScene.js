@@ -1,7 +1,8 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * A scene in the 'Patterns' screen. A scene is a particular configuration of functions, inputs, with 1 builder.
+ * A scene in the 'Patterns' screen.
+ * A scene is a particular configuration of functions, cards, and a builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
