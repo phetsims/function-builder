@@ -8,7 +8,7 @@ Handle non-invertible functions
 
 ---
 
-Move view-related stuff (locationProperty, slots, ...) out of model?
+Move view-related stuff (locationProperty, slots, animation, ...) out of model?
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
 
