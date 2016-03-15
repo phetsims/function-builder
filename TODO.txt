@@ -4,7 +4,7 @@ Update card when location changes or Builder.functionChangedEmitter.emit
 
 Make cards stop at 'see inside' windows when animating.
 
-Flush cards out of builder when 'see inside' is turned off.
+Flush cards out of builder when 'see inside' is turned off (account for Reset All).
 
 Handle non-invertible functions
 
