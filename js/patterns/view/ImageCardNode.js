@@ -34,20 +34,21 @@ define( function( require ) {
     }, options );
 
     // @private
-    this.card = card;
-    this.builder = builderNode.builder;
     this.imageScale = options.imageScale;
-    this.imageNode = null;
+    this.imageNode = null; // {Image} set by updateContent
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
 
     var thisNode = this;
     this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
-      thisNode.updateImage( numberOfFunctionsToApply );
+      thisNode.updateContent( numberOfFunctionsToApply );
     } );
 
+    // Updates any cards that are not in the input carousel when any function in the builder changes.
     builderNode.builder.functionChangedEmitter.addListener( function() {
-      thisNode.updateImage( thisNode.numberOfFunctionsToApplyProperty.get() );
+      if ( !inputContainer.containsNode( thisNode ) ) {
+        thisNode.updateContent( thisNode.numberOfFunctionsToApplyProperty.get() );
+      }
     } );
   }
 
@@ -55,11 +56,10 @@ define( function( require ) {
 
   return inherit( CardNode, ImageCardNode, {
 
-    //TODO this unnecessarily updates cards in the input carousel when functions change
-    // @private updates the image on the card
-    updateImage: function( numberOfFunctionsToApply ) {
+    // @private updates the content displayed on the card, in this case an image
+    updateContent: function( numberOfFunctionsToApply ) {
 
-      var slots = this.builder.slots;
+      var slots = this.builderNode.builder.slots;
 
       assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= slots.length ) );
 

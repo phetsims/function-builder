@@ -40,7 +40,7 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @private
+    // @protected
     this.card = card;
     this.inputContainer = inputContainer;
     this.outputContainer = outputContainer;

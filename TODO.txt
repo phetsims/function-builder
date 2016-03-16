@@ -1,13 +1,14 @@
 TODO list for function-builder
 
-Refine ImageCardNode.updateImage. Move observers of builder.functionChangedEmitter and numberOfFunctionsToApplyProperty
-to CardNode?
+Refine ImageCardNode.updateContent. Move observers of builder.functionChangedEmitter and numberOfFunctionsToApplyProperty to CardNode.
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).
 
 Handle non-invertible functions
+
+Two functions may be animating towards the same slot, causing an assertion failure when the 2nd function arrives.
 
 ---
 
