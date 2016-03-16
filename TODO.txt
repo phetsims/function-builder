@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Refine ImageCardNode.updateContent. Move observers of builder.functionChangedEmitter and numberOfFunctionsToApplyProperty to CardNode.
-
 Factor drag behavior out of CardNode and FunctionNode, move to their own type.
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.

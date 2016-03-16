@@ -185,6 +185,26 @@ define( function( require ) {
         }
       }
       return slotNumber;
+    },
+
+    /**
+     * Applies functions to an input.
+     * @param {*} input - input, type is specific to the functions
+     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * @returns {*} output, with same type as input
+     */
+    applyFunctions: function( input, numberOfFunctionsToApply ) {
+
+      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.slots.length ) );
+
+      var output = input;
+      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
+        var slot = this.slots[ i ];
+        if ( !slot.isEmpty() ) {
+          output = slot.functionInstance.apply( output );
+        }
+      }
+      return output;
     }
   } );
 } );

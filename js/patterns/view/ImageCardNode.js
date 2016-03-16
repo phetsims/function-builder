@@ -38,39 +38,23 @@ define( function( require ) {
     this.imageNode = null; // {Image} set by updateContent
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
-
-    var thisNode = this;
-    this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
-      thisNode.updateContent( numberOfFunctionsToApply );
-    } );
-
-    // Updates any cards that are not in the input carousel when any function in the builder changes.
-    builderNode.builder.functionChangedEmitter.addListener( function() {
-      if ( !inputContainer.containsNode( thisNode ) ) {
-        thisNode.updateContent( thisNode.numberOfFunctionsToApplyProperty.get() );
-      }
-    } );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
   return inherit( CardNode, ImageCardNode, {
 
-    // @private updates the content displayed on the card, in this case an image
-    updateContent: function( numberOfFunctionsToApply ) {
+    /**
+     * Updates the image displayed on the card.
+     * @param {Builder} builder
+     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * @protected
+     * @override
+     */
+    updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      var slots = this.builderNode.builder.slots;
-
-      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= slots.length ) );
-
-      // run the card's canvas through the applicable functions
-      var canvas = this.card.canvas;
-      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
-        var slot = slots[ i ];
-        if ( !slot.isEmpty() ) {
-          canvas = slot.functionInstance.apply( canvas );
-        }
-      }
+      // run the card through the builder
+      var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
       // remove the old image
       this.imageNode && this.removeChild( this.imageNode );

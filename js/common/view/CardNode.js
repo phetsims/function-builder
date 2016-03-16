@@ -199,11 +199,32 @@ define( function( require ) {
         return 0;
       }
     );
+
+    this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
+      thisNode.updateContent( builder, numberOfFunctionsToApply );
+    } );
+
+    // Updates any cards that are not in the input carousel when any function in the builder changes.
+    builderNode.builder.functionChangedEmitter.addListener( function() {
+      if ( !inputContainer.containsNode( thisNode ) ) {
+        thisNode.updateContent( builder, thisNode.numberOfFunctionsToApplyProperty.get() );
+      }
+    } );
   }
 
   functionBuilder.register( 'CardNode', CardNode );
 
   return inherit( MovableNode, CardNode, {
+
+    /**
+     * Updates the card's content, based on where the card is relative the the builder slots.
+     * @param {Builder} builder
+     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * @protected
+     */
+    updateContent: function( builder, numberOfFunctionsToApply ) {
+      throw new Error( 'must be implemented by subtype' );
+    },
 
     /**
      * Animates this card to a container in a carousel.
