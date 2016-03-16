@@ -230,22 +230,6 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // move 1 card to the output carousel
-    var populateOutputCarousel = function() {
-      if ( FBQueryParameters.POPULATE_OUTPUT ) {
-        for ( var i = 0; i < inputContainers.length; i++ ) {
-
-          var inputContainer = inputContainers[ i ];
-          var outputContainer = outputContainers[ i ];
-
-          var cardNode = inputContainer.getContents()[ 0 ];
-          inputContainer.removeNode( cardNode );
-          cardNode.card.moveTo( outputContainer.carouselLocation );
-          outputContainer.addNode( cardNode );
-        }
-      }
-    };
-
     // @private Resets this node
     this._reset = function() {
 
@@ -260,7 +244,7 @@ define( function( require ) {
       builderNode.reset();
 
       // move 1 of each card to the output carousel, for testing
-      populateOutputCarousel();
+      populateOutputCarousel( inputCarousel, outputCarousel );
     };
 
     // @private Populates the carousels, while we scroll them with animation disabled.
@@ -303,11 +287,34 @@ define( function( require ) {
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
       // move 1 of each card to the output carousel, for testing
-      populateOutputCarousel();
+      populateOutputCarousel( inputCarousel, outputCarousel );
     };
   }
 
   functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
+
+  /**
+   *  Move 1 of each card to the output carousel, for testing.
+   *  If the required query parameter isn't present, this is a no-op.
+   */
+  var populateOutputCarousel = function( inputCarousel, outputCarousel ) {
+
+    assert && assert( inputCarousel.items.length === outputCarousel.items.length,
+      'input and output carousels must have the same number of items' );
+
+    if ( FBQueryParameters.POPULATE_OUTPUT ) {
+      for ( var i = 0; i < inputCarousel.items.length; i++ ) {
+
+        var inputContainer = inputCarousel.items[ i ];
+        var outputContainer = outputCarousel.items[ i ];
+
+        var cardNode = inputContainer.getContents()[ 0 ];
+        inputContainer.removeNode( cardNode );
+        cardNode.card.moveTo( outputContainer.carouselLocation );
+        outputContainer.addNode( cardNode );
+      }
+    }
+  };
 
   /**
    * For a container that is visible in some carousel, gets the location of the container in the model coordinate frame.
