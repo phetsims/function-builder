@@ -1,6 +1,7 @@
 TODO list for function-builder
 
-Update card when location changes or Builder.functionChangedEmitter.emit
+Refine ImageCardNode.updateImage. Move observers of builder.functionChangedEmitter and numberOfFunctionsToApplyProperty
+to CardNode?
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 

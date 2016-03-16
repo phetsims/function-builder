@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -18,7 +19,6 @@ define( function( require ) {
 
   /**
    * @param {ImageFunction} card
-   * @param {Node} contentNode
    * @param {ImageFunctionContainer} inputContainer
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
@@ -27,7 +27,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
 
     options = _.extend( {
       size: FBConstants.CARD_SIZE,
@@ -48,12 +48,12 @@ define( function( require ) {
     this.dragLayer = dragLayer;
     this.animationLayer = animationLayer;
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+    // @protected
+    this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, contentNode ];
-    contentNode.center = backgroundNode.center;
+    options.children = [ this.backgroundNode ];
 
     var builder = builderNode.builder;
 
@@ -184,11 +184,19 @@ define( function( require ) {
       }
     };
 
-    card.locationProperty.link( function( location ) {
-      //TODO change card image based on location relative to builder slots
-    } );
-
     MovableNode.call( this, card, options );
+
+    // @protected Number of functions to apply is based on where the card is located relative to the function slots in the builder
+    this.numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
+      function( location ) {
+        for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
+         if ( location.x >= builder.slots[ i ].location.x ) {
+            return i + 1;
+         }
+        }
+        return 0;
+      }
+    );
   }
 
   functionBuilder.register( 'CardNode', CardNode );

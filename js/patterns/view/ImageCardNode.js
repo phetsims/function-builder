@@ -33,16 +33,57 @@ define( function( require ) {
       imageScale: 0.3
     }, options );
 
-    var imageNode = new Image( card.canvas.toDataURL(), {
-      initialWidth: card.canvas.width,
-      initialHeight: card.canvas.height,
-      scale: options.imageScale
+    // @private
+    this.card = card;
+    this.builder = builderNode.builder;
+    this.imageScale = options.imageScale;
+    this.imageNode = null;
+
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
+
+    var thisNode = this;
+    this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
+      thisNode.updateImage( numberOfFunctionsToApply );
     } );
 
-    CardNode.call( this, card, imageNode, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
+    builderNode.builder.functionChangedEmitter.addListener( function() {
+      thisNode.updateImage( thisNode.numberOfFunctionsToApplyProperty.get() );
+    } );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
 
-  return inherit( CardNode, ImageCardNode );
+  return inherit( CardNode, ImageCardNode, {
+
+    //TODO this unnecessarily updates cards in the input carousel when functions change
+    // @private updates the image on the card
+    updateImage: function( numberOfFunctionsToApply ) {
+
+      var slots = this.builder.slots;
+
+      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= slots.length ) );
+
+      // run the card's canvas through the applicable functions
+      var canvas = this.card.canvas;
+      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
+        var slot = slots[ i ];
+        if ( !slot.isEmpty() ) {
+          canvas = slot.functionInstance.apply( canvas );
+        }
+      }
+
+      // remove the old image
+      this.imageNode && this.removeChild( this.imageNode );
+
+      //TODO this.imageNode.setImage would be preferred, but doesn't work reliably with a data URL
+      // add the new image
+      this.imageNode = new Image( canvas.toDataURL(), {
+        initialWidth: canvas.width,
+        initialHeight: canvas.height,
+        scale: this.imageScale,
+        center: this.backgroundNode.center
+      } );
+      this.addChild( this.imageNode );
+    }
+  } );
 } );
