@@ -230,6 +230,22 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    // move 1 card to the output carousel
+    var populateOutputCarousel = function() {
+      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+        for ( var i = 0; i < inputContainers.length; i++ ) {
+
+          var inputContainer = inputContainers[ i ];
+          var outputContainer = outputContainers[ i ];
+
+          var cardNode = inputContainer.getContents()[ 0 ];
+          inputContainer.removeNode( cardNode );
+          cardNode.card.moveTo( outputContainer.carouselLocation );
+          outputContainer.addNode( cardNode );
+        }
+      }
+    };
+
     // @private Resets this node
     this._reset = function() {
 
@@ -242,6 +258,9 @@ define( function( require ) {
 
       seeInsideProperty.reset();
       builderNode.reset();
+
+      // move 1 of each card to the output carousel, for testing
+      populateOutputCarousel();
     };
 
     // @private Populates the carousels, while we scroll them with animation disabled.
@@ -278,17 +297,13 @@ define( function( require ) {
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, cardsAnimationLayer, seeInsideLayer );
-
-        // move 1 card to the output carousel
-        if ( FBQueryParameters.POPULATE_OUTPUT ) {
-          var cardNode = inputContainer.getContents()[ 0 ];
-          inputContainer.removeNode( cardNode );
-          outputContainer.addNode( cardNode );
-        }
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
+
+      // move 1 of each card to the output carousel, for testing
+      populateOutputCarousel();
     };
   }
 
