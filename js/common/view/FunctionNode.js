@@ -43,6 +43,8 @@ define( function( require ) {
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
+      assert && assert( !animationLayer.hasChild( thisNode ), 'nodes in animationLayer should not be pickable' );
+
       slotNumberRemovedFrom = -1;
 
       if ( container.containsNode( thisNode ) ) {

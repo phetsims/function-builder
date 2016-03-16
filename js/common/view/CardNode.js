@@ -68,6 +68,8 @@ define( function( require ) {
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
+      assert && assert( !animationLayer.hasChild( thisNode ), 'nodes in animationLayer should not be pickable' );
+
       dragDx = 0;
 
       var leftPoint = inputContainer.carouselLocation;
@@ -96,7 +98,7 @@ define( function( require ) {
       else {
         //TODO card was grabbed while paused in 'see inside' window
       }
-      assert && assert( dragLayer.hasChild( thisNode ) );
+      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' ); //TODO assertion failure seen here with fuzzMouse
 
       // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
       slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - INPUT_SLOT_X );
@@ -135,7 +137,7 @@ define( function( require ) {
     options.endDrag = function() {
 
       // move card to animation layer
-      dragLayer.removeChild( thisNode );
+      dragLayer.removeChild( thisNode ); //TODO assertion failure seen here with fuzzMouse
       animationLayer.addChild( thisNode );
 
       if ( card.locationProperty.get().x < INPUT_SLOT_X ) {
