@@ -110,10 +110,6 @@ define( function( require ) {
 
     // @public (read-only) {Builder}
     this.builder = options.builder;
-
-    this.builder.functionChangedEmitter.addListener( function( builder ) {
-      //TODO update cards
-    } );
   }
 
   functionBuilder.register( 'PatternsScene', PatternsScene );
