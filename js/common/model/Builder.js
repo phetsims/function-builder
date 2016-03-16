@@ -64,7 +64,7 @@ define( function( require ) {
       this.slots.push( new FunctionSlot( slotLocation ) );
     }
 
-    // @public emit1({Builder}) when any function changes
+    // @public emit when any function changes
     this.functionChangedEmitter = new Emitter();
 
     // @public for convenience
@@ -100,7 +100,7 @@ define( function( require ) {
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
       slot.functionInstance = functionInstance;
-      this.functionChangedEmitter.emit1( this );
+      this.functionChangedEmitter.emit();
     },
 
     /**
@@ -116,7 +116,7 @@ define( function( require ) {
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
       slot.functionInstance = null;
-      this.functionChangedEmitter.emit1( this );
+      this.functionChangedEmitter.emit();
     },
 
     /**
