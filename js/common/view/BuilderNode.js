@@ -251,6 +251,7 @@ define( function( require ) {
      *
      * @param {FunctionNode} functionNode
      * @returns {number} -1 if functionNode is not in the builder
+     * @public
      */
     getSlotNumber: function( functionNode ) {
       assert && assert( functionNode instanceof FunctionNode );
@@ -273,8 +274,10 @@ define( function( require ) {
     /**
      * Is the specified slot number valid?
      * Convenience function, delegates to model.
+     *
      * @param {number} slotNumber
      * @returns {boolean}
+     * @public
      */
     isValidSlotNumber: function( slotNumber ) {
       return this.builder.isValidSlotNumber( slotNumber );
@@ -285,6 +288,7 @@ define( function( require ) {
      * Moles are added when cards are created, and persist for the lifetime of the sim.
      *
      * @param {Card} card
+     * @public
      */
     addMole: function( card ) {
       this.molesLayer.addChild( new MoleNode( card, this.builder.location ) );
