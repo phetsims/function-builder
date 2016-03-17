@@ -68,7 +68,7 @@ define( function( require ) {
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
-      assert && assert( !animationLayer.hasChild( thisNode ), 'startDrag: nodes in animationLayer should not be pickable' ); //TODO assertion failure with fuzzMouse, #16
+      assert && assert( !animationLayer.hasChild( thisNode ), 'startDrag: nodes in animationLayer should not be pickable' );
 
       dragDx = 0;
 
@@ -136,7 +136,7 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
-      assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: card should be in dragLayer' ); //TODO assertion failure with fuzzMouse, #16
+      assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: card should be in dragLayer' );
 
       // move card to animation layer
       dragLayer.removeChild( thisNode );
