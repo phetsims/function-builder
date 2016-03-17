@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var OpacityTo = require( 'FUNCTION_BUILDER/common/view/OpacityTo' );
+  var OpacityTo = require( 'TWIXT/OpacityTo' );
   var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
   var PatternsSceneNode = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );

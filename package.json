@@ -17,6 +17,9 @@
     "requirejsNamespace": "FUNCTION_BUILDER",
     "preload": [
       "../sherpa/lib/Tween-r12.js"
+    ],
+    "phetLibs": [
+      "twixt"
     ]
   }
 }
