@@ -1,8 +1,6 @@
 TODO list for function-builder
 
-InvalidStateError on Firefox 45, #15
-
-Automated testing errors, #16
+Clear occupied builder slot in animation callback, so that a slot doesn't become occupied between the time that animation starts and ends.
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 
