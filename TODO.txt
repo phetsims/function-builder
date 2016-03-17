@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Firefox, built version startup: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+
 Factor drag behavior out of CardNode and FunctionNode, move to their own type.
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
