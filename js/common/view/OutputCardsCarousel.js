@@ -68,7 +68,7 @@ define( function( require ) {
     erase: function() {
       this.items.forEach( function( container ) {
         container.getContents().forEach( function( node ) {
-          node.returnToInputCarousel();
+          node.moveToInputCarousel();
         } );
       } );
     }

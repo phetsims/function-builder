@@ -243,10 +243,10 @@ define( function( require ) {
     },
 
     /**
-     * Returns this card immediately to the input carousel, no animation.
+     * Moves this card immediately to the input carousel, no animation.
      * @public
      */
-    returnToInputCarousel: function() {
+    moveToInputCarousel: function() {
       if ( !this.inputContainer.containsNode( this ) ) {
 
         // remove from other parents
