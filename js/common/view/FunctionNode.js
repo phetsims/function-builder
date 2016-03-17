@@ -89,6 +89,7 @@ define( function( require ) {
       }
       else {
 
+        //TODO do this in the animationCompletedCallback of animateToBuilder, #19
         // If the slot is occupied, relocate the occupier
         var occupierNode = builderNode.getFunctionNode( slotNumber );
         if ( occupierNode ) {
