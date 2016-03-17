@@ -247,17 +247,9 @@ define( function( require ) {
      * @public
      */
     moveToInputCarousel: function() {
-      if ( !this.inputContainer.containsNode( this ) ) {
-
-        // remove from other parents
-        if ( this.outputContainer.containsNode( this ) ) { this.outputContainer.removeNode( this ); }
-        if ( this.dragLayer.hasChild( this ) ) { this.dragLayer.removeChild( this ); }
-        if ( this.animationLayer.hasChild( this ) ) { this.animationLayer.removeChild( this ); }
-
-        // put card in the input carousel
-        this.card.moveTo( this.inputContainer.carouselLocation );
-        this.inputContainer.addNode( this );
-      }
+      assert && assert( !this.inputContainer.containsNode( this ) );
+      this.card.moveTo( this.inputContainer.carouselLocation );
+      this.inputContainer.addNode( this );
     }
   } );
 } );

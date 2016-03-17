@@ -158,9 +158,13 @@ define( function( require ) {
 
     // @public returns all functions to the carousel immediately, no animation
     reset: function() {
-      this.functionNodes.forEach( function( functionNode ) {
-        functionNode && functionNode.returnToCarousel( { animate: false } );
-      } );
+      for ( var i = 0; i < this.functionNodes.length; i++ ) {
+        var functionNode = this.functionNodes[ i ];
+        if ( functionNode ) {
+          this.removeFunctionNode( functionNode, this.getSlotNumber( functionNode ) );
+          functionNode && functionNode.moveToCarousel();
+        }
+      }
     },
 
     /**

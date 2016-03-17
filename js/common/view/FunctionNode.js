@@ -84,7 +84,7 @@ define( function( require ) {
       if ( slotNumber === -1 ) {
 
         // no builder slot, animate back to the carousel
-        thisNode.returnToCarousel();
+        thisNode.animateToCarousel();
       }
       else {
 
@@ -92,17 +92,18 @@ define( function( require ) {
         var occupierNode = builderNode.getFunctionNode( slotNumber );
         if ( occupierNode ) {
 
+          builderNode.removeFunctionNode( occupierNode, slotNumber );
+          animationLayer.addChild( occupierNode );
+
           if ( builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
 
             // swap adjacent slots
-            builderNode.removeFunctionNode( occupierNode, slotNumber );
-            animationLayer.addChild( occupierNode );
             occupierNode.animateToBuilder( slotNumberRemovedFrom );
           }
           else {
 
             // return function to the carousel.
-            occupierNode.returnToCarousel();
+            occupierNode.animateToCarousel();
           }
         }
 
@@ -124,6 +125,7 @@ define( function( require ) {
      * @private
      */
     animateToBuilder: function( slotNumber ) {
+      assert && assert( this.animationLayer.hasChild( this ) );
       var thisNode = this;
       this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
         FBConstants.FUNCTION_ANIMATION_SPEED,
@@ -134,46 +136,28 @@ define( function( require ) {
     },
 
     /**
-     * Returns this function to the carousel.
-     * @param {Object} [options]
+     * Animates this function to the carousel.
+     * @private
+     */
+    animateToCarousel: function() {
+      assert && assert( this.animationLayer.hasChild( this ) );
+      var thisNode = this;
+      this.functionInstance.animateTo( this.container.carouselLocation,
+        FBConstants.FUNCTION_ANIMATION_SPEED,
+        function() {
+          thisNode.animationLayer.removeChild( thisNode );
+          thisNode.container.addNode( thisNode );
+        } );
+    },
+
+    /**
+     * Moves this function immediately to the carousel, no animation.
      * @public
      */
-    returnToCarousel: function( options ) {
-
-      options = _.extend( {
-        animate: true, // true: animate back to carousel, false: move immediately back to carousel
-        animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED
-      }, options );
-
-      // if not already in the carousel ...
-      if ( !this.container.containsNode( this ) ) {
-
-        // remove from other parents
-        if ( this.dragLayer.hasChild( this ) ) { this.dragLayer.removeChild( this ); }
-        if ( this.animationLayer.hasChild( this ) ) { this.animationLayer.removeChild( this ); }
-        if ( this.builderNode.containsFunctionNode( this ) ) {
-          this.builderNode.removeFunctionNode( this, this.builderNode.getSlotNumber( this ) );
-        }
-
-        if ( options.animate ) {
-
-          // animate to the function carousel
-          var thisNode = this;
-          this.animationLayer.addChild( this );
-          this.functionInstance.animateTo( this.container.carouselLocation,
-            options.animationSpeed,
-            function() {
-              thisNode.animationLayer.removeChild( thisNode );
-              thisNode.container.addNode( thisNode );
-            } );
-        }
-        else {
-
-          // move immediately to the function carousel
-          this.functionInstance.moveTo( this.container.carouselLocation );
-          this.container.addNode( this );
-        }
-      }
+    moveToCarousel: function() {
+      assert && assert( !this.container.containsNode( this ) );
+      this.functionInstance.moveTo( this.container.carouselLocation );
+      this.container.addNode( this );
     }
   } );
 } );
