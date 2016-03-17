@@ -72,6 +72,7 @@ define( function( require ) {
           cardNode.moveToInputCarousel();
         } );
       } );
+      assert && assert( getNumberOfCards( this.items ) === 0 );
     }
   } );
 } );
