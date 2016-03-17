@@ -13,15 +13,12 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ScreenIcon = require( 'JOIST/ScreenIcon' );
+  var StarShape = require( 'SCENERY_PHET/StarShape' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
-
-  // images
-  var starImage = require( 'image!FUNCTION_BUILDER/inputs/star.png' );
 
   var FBIconFactory = {
 
@@ -30,10 +27,26 @@ define( function( require ) {
      * @returns {Node}
      */
     createPatternsScreenIcon: function() {
-      var functionInstance = new Warhol();
-      var card = ImageCard.withImage( starImage );
-      var imageNode = new Image( functionInstance.apply( card.canvas ) );
-      return new ScreenIcon( imageNode, { fill: 'rgb( 255, 247, 235 )' } );
+
+      var leftTopStar = createStarWithBackground( FBColors.WARHOL.rightBottom, FBColors.WARHOL.leftTop );
+      var rightTopStar = createStarWithBackground( FBColors.WARHOL.leftBottom, FBColors.WARHOL.rightTop, {
+        left: leftTopStar.right,
+        top: leftTopStar.top
+      } );
+      var leftBottomStar = createStarWithBackground( FBColors.WARHOL.rightTop, FBColors.WARHOL.leftBottom, {
+        left: leftTopStar.left,
+        top: leftTopStar.bottom
+      } );
+      var rightBottomStar = createStarWithBackground( FBColors.WARHOL.leftTop, FBColors.WARHOL.rightBottom, {
+        left: leftBottomStar.right,
+        top: leftTopStar.bottom
+      } );
+
+      var parent = new Node( {
+        children: [ leftTopStar, rightTopStar,leftBottomStar, rightBottomStar ]
+      } );
+
+      return new ScreenIcon( parent, { fill: 'rgb( 255, 247, 235 )' } );
     },
 
     /**
@@ -43,7 +56,7 @@ define( function( require ) {
     createNumbersScreenIcon: function() {
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 255, 246, 187 )'
-      });
+      } );
       var textNode = new Text( '+ 3', {
         font: new FBFont( 36 ),
         center: functionNode.center
@@ -101,6 +114,22 @@ define( function( require ) {
   };
 
   functionBuilder.register( 'FBIconFactory', FBIconFactory );
+
+  /**
+   * Creates a star on a background rectangle.
+   * @param {Color|string} starFill
+   * @param {Color|string} backgroundFill
+   * @param {Object} [options]
+   * @returns {Node}
+   */
+  var createStarWithBackground = function( starFill, backgroundFill, options ) {
+    options = options || {};
+    var starNode = new Path( new StarShape(), { fill: starFill } );
+    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, { fill: backgroundFill } );
+    starNode.center = backgroundNode.center;
+    options.children = [ backgroundNode, starNode ];
+    return new Node( options );
+  };
 
   return FBIconFactory;
 } );

@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -20,10 +21,10 @@ define( function( require ) {
   var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
 
   // constants
-  var LEFT_TOP_COLOR = new Color( 255, 81, 231 );
-  var RIGHT_TOP_COLOR = new Color( 250, 255, 105 );
-  var LEFT_BOTTOM_COLOR = new Color( 88, 113, 255 );
-  var RIGHT_BOTTOM_COLOR = new Color( 6, 255, 175 );
+  var LEFT_TOP_COLOR = Color.toColor( FBColors.WARHOL.leftTop );
+  var RIGHT_TOP_COLOR = Color.toColor( FBColors.WARHOL.rightTop );
+  var LEFT_BOTTOM_COLOR = Color.toColor( FBColors.WARHOL.leftBottom );
+  var RIGHT_BOTTOM_COLOR = Color.toColor( FBColors.WARHOL.rightBottom );
 
   /**
    * @param {Object} [options]
