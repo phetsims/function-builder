@@ -40,12 +40,12 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @protected
+    // @public
     this.card = card;
+
+    // @private
     this.inputContainer = inputContainer;
-    this.outputContainer = outputContainer;
     this.builderNode = builderNode;
-    this.dragLayer = dragLayer;
     this.animationLayer = animationLayer;
 
     // @protected

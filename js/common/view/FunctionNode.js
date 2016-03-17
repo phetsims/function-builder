@@ -31,11 +31,12 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @private
+    // @public
     this.functionInstance = functionInstance;
+
+    // @private
     this.container = container;
     this.builderNode = builderNode;
-    this.dragLayer = dragLayer;
     this.animationLayer = animationLayer;
 
     var slotNumberRemovedFrom = -1;  // slot number that function was removed from at start of drag
