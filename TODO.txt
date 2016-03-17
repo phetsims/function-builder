@@ -10,6 +10,8 @@ Handle non-invertible functions
 
 Two functions may be animating towards the same slot, causing an assertion failure when the 2nd function arrives.
 
+Make a sprint on the Numbers screen
+
 ---
 
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
