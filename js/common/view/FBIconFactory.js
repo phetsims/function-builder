@@ -23,21 +23,31 @@ define( function( require ) {
   var FBIconFactory = {
 
     /**
-     * Creates the icon for the 'Patterns' screen, the Warhol function applied to the star image.
+     * Creates the icon for the 'Patterns' screen, the Warhol function applied to a star shape.
+     * To improve the quality at the larger size needed, we're not actually using the Warhol function.
      * @returns {Node}
      */
     createPatternsScreenIcon: function() {
 
-      var leftTopStar = createStarWithBackground( FBColors.WARHOL.rightBottom, FBColors.WARHOL.leftTop );
-      var rightTopStar = createStarWithBackground( FBColors.WARHOL.leftBottom, FBColors.WARHOL.rightTop, {
+      var leftTopStar = createStarWithBackground( {
+        backgroundFill: FBColors.WARHOL.leftTop,
+        starFill: FBColors.WARHOL.rightBottom
+      } );
+      var rightTopStar = createStarWithBackground( {
+        backgroundFill: FBColors.WARHOL.rightTop,
+        starFill: FBColors.WARHOL.leftBottom,
         left: leftTopStar.right,
         top: leftTopStar.top
       } );
-      var leftBottomStar = createStarWithBackground( FBColors.WARHOL.rightTop, FBColors.WARHOL.leftBottom, {
+      var leftBottomStar = createStarWithBackground( {
+        backgroundFill: FBColors.WARHOL.leftBottom,
+        starFill: FBColors.WARHOL.rightTop,
         left: leftTopStar.left,
         top: leftTopStar.bottom
       } );
-      var rightBottomStar = createStarWithBackground( FBColors.WARHOL.leftTop, FBColors.WARHOL.rightBottom, {
+      var rightBottomStar = createStarWithBackground( {
+        backgroundFill: FBColors.WARHOL.rightBottom,
+        starFill: FBColors.WARHOL.leftTop,
         left: leftBottomStar.right,
         top: leftTopStar.bottom
       } );
@@ -117,16 +127,20 @@ define( function( require ) {
 
   /**
    * Creates a star on a background rectangle.
-   * @param {Color|string} starFill
-   * @param {Color|string} backgroundFill
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createStarWithBackground = function( starFill, backgroundFill, options ) {
-    options = options || {};
-    var starNode = new Path( new StarShape(), { fill: starFill } );
-    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, { fill: backgroundFill } );
+  var createStarWithBackground = function( options ) {
+
+    options = _.extend( {
+      starFill: 'white', // {Color|string}
+      backgroundFill: 'black' // {Color|string}
+    }, options );
+
+    var starNode = new Path( new StarShape(), { fill: options.starFill } );
+    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, { fill: options.backgroundFill } );
     starNode.center = backgroundNode.center;
+
     options.children = [ backgroundNode, starNode ];
     return new Node( options );
   };
