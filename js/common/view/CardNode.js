@@ -248,7 +248,6 @@ define( function( require ) {
      */
     moveToInputCarousel: function() {
       assert && assert( !this.inputContainer.containsNode( this ) );
-      this.card.moveTo( this.inputContainer.carouselLocation );
       this.inputContainer.addNode( this );
     }
   } );

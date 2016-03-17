@@ -66,6 +66,7 @@ define( function( require ) {
      * @public
      */
     addNode: function( node ) {
+      node.movable.moveTo( this.carouselLocation );
       this.contentsParent.addChild( node );
       node.center = this.backgroundNode.center;
     },

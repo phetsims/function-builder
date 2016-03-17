@@ -37,6 +37,8 @@ define( function( require ) {
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
+    this.movable = movable;
+
     Node.call( this, options );
 
     // unlink not necessary, all instances exist for the lifetime of the sim

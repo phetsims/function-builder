@@ -156,7 +156,6 @@ define( function( require ) {
      */
     moveToCarousel: function() {
       assert && assert( !this.container.containsNode( this ) );
-      this.functionInstance.moveTo( this.container.carouselLocation );
       this.container.addNode( this );
     }
   } );

@@ -310,7 +310,6 @@ define( function( require ) {
 
         var cardNode = inputContainer.getContents()[ 0 ];
         inputContainer.removeNode( cardNode );
-        cardNode.card.moveTo( outputContainer.carouselLocation );
         outputContainer.addNode( cardNode );
       }
     }
