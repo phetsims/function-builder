@@ -232,6 +232,7 @@ define( function( require ) {
      * @private
      */
     animateToContainer: function( container ) {
+      assert && assert( this.animationLayer.hasChild( this ) );
       var thisNode = this;
       thisNode.card.animateTo( container.carouselLocation,
         FBConstants.CARD_ANIMATION_SPEED,
