@@ -41,6 +41,8 @@ define( function( require ) {
 
     var slotNumberRemovedFrom = -1;  // slot number that function was removed from at start of drag
 
+    //-------------------------------------------------------------------------------
+    // start a drag cycle
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
@@ -72,6 +74,8 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ) );
     };
 
+    //-------------------------------------------------------------------------------
+    // end a drag cycle
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 

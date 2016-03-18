@@ -65,6 +65,8 @@ define( function( require ) {
     var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
     var slopeRight = 0; // {number} slope of the line connecting the ouptut carousel and builder input slot
 
+    //-------------------------------------------------------------------------------
+    // start a drag cycle
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
@@ -107,7 +109,8 @@ define( function( require ) {
       slopeRight = ( rightPoint.y - builder.location.y ) / ( rightPoint.x - OUTPUT_SLOT_X );
     };
 
-    // Constrain the user's dragging
+    //-------------------------------------------------------------------------------
+    // constrain dragging
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location, delta ) {
       dragDx = delta.x;
@@ -132,7 +135,8 @@ define( function( require ) {
       }
     };
 
-    // When the user stops dragging a function, animate it to the proper location
+    //-------------------------------------------------------------------------------
+    // end a drag cycle
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
