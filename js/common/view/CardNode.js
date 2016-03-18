@@ -98,7 +98,7 @@ define( function( require ) {
       else {
         //TODO card was grabbed while paused in 'see inside' window
       }
-      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' ); //TODO assertion failure with fuzzMouse
+      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' );
 
       // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
       slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - INPUT_SLOT_X );
