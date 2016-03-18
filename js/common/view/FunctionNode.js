@@ -89,28 +89,8 @@ define( function( require ) {
       }
       else {
 
-        //TODO do this in the animationCompletedCallback of animateToBuilder, #19
-        // If the slot is occupied, relocate the occupier
-        var occupierNode = builderNode.getFunctionNode( slotNumber );
-        if ( occupierNode ) {
-
-          builderNode.removeFunctionNode( occupierNode, slotNumber );
-          animationLayer.addChild( occupierNode );
-
-          if ( builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
-
-            // swap adjacent slots
-            occupierNode.animateToBuilder( slotNumberRemovedFrom );
-          }
-          else {
-
-            // return function to the carousel.
-            occupierNode.animateToCarousel();
-          }
-        }
-
         // put function in builder slot
-        thisNode.animateToBuilder( slotNumber );
+        thisNode.animateToBuilder( slotNumber, slotNumberRemovedFrom );
       }
     };
 
@@ -123,15 +103,36 @@ define( function( require ) {
 
     /**
      * Animates this function to a slot in the builder.
-     * @param slotNumber
+     * @param {number} slotNumber - slot number that the function is animating to
+     * @param {number} slotNumberRemovedFrom - slot number that the function was removed from
      * @private
      */
-    animateToBuilder: function( slotNumber ) {
+    animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
       assert && assert( this.animationLayer.hasChild( this ) );
       var thisNode = this;
       this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
         FBConstants.FUNCTION_ANIMATION_SPEED,
         function() {
+
+          // If the slot is occupied, relocate the occupier.
+          var occupierNode = thisNode.builderNode.getFunctionNode( slotNumber );
+          if ( occupierNode ) {
+
+            thisNode.builderNode.removeFunctionNode( occupierNode, slotNumber );
+            thisNode.animationLayer.addChild( occupierNode );
+
+            if ( thisNode.builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
+
+              // swap adjacent slots
+              occupierNode.animateToBuilder( slotNumberRemovedFrom, slotNumber );
+            }
+            else {
+
+              // return function to the carousel.
+              occupierNode.animateToCarousel();
+            }
+          }
+
           thisNode.animationLayer.removeChild( thisNode );
           thisNode.builderNode.addFunctionNode( thisNode, slotNumber );
         } );
