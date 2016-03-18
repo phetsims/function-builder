@@ -6,8 +6,6 @@ Flush cards out of builder when 'see inside' is turned off (account for Reset Al
 
 Handle non-invertible functions
 
-Two functions may be animating towards the same slot, causing an assertion failure when the 2nd function arrives.
-
 ---
 
 Make a sprint on the Numbers screen (sans table and equation)
