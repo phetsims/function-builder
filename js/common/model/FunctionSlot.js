@@ -37,5 +37,8 @@ define( function( require ) {
       assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
       return ( this.functionInstance === functionInstance );
     }
+  }, {
+
+    NO_SLOT_NUMBER: -1  // used to indicate the absence of a valid slot number
   } );
 } );

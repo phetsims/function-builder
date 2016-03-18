@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
 
   /**
@@ -39,7 +40,7 @@ define( function( require ) {
     this.builderNode = builderNode;
     this.animationLayer = animationLayer;
 
-    var slotNumberRemovedFrom = -1;  // slot number that function was removed from at start of drag
+    var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
     //-------------------------------------------------------------------------------
     // start a drag cycle
@@ -48,7 +49,7 @@ define( function( require ) {
 
       assert && assert( !animationLayer.hasChild( thisNode ), 'nodes in animationLayer should not be pickable' );
 
-      slotNumberRemovedFrom = -1;
+      slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;
 
       if ( container.containsNode( thisNode ) ) {
 
@@ -86,7 +87,7 @@ define( function( require ) {
       // Find the closest slot
       var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
 
-      if ( slotNumber === -1 ) {
+      if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
 
         // no builder slot, animate back to the carousel
         thisNode.animateToCarousel();

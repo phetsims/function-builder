@@ -226,7 +226,7 @@ define( function( require ) {
      * Convenience function, delegates to the model.
      *
      * @param {Vector2} location - the location of the function instance
-     * @returns {number} slot number, -1 if no slot is close enough
+     * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
      * @public
      */
     getClosestSlot: function( location ) {
@@ -250,7 +250,7 @@ define( function( require ) {
      * Convenience function, delegates to the model.
      *
      * @param {FunctionNode} functionNode
-     * @returns {number} -1 if functionNode is not in the builder
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if functionNode is not in the builder
      * @public
      */
     getSlotNumber: function( functionNode ) {

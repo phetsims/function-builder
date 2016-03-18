@@ -136,7 +136,7 @@ define( function( require ) {
      * Gets the slot number occupied by a function instance.
      *
      * @param {AbstractFunction} functionInstance
-     * @returns {number} -1 if the function instance isn't in any slot
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if the function instance isn't in any slot
      * @public
      */
     getSlotNumber: function( functionInstance ) {
@@ -147,7 +147,7 @@ define( function( require ) {
           return i;
         }
       }
-      return -1;
+      return FunctionSlot.NO_SLOT_NUMBER;
     },
 
     /**
@@ -159,23 +159,23 @@ define( function( require ) {
      */
     containsFunctionInstance: function( functionInstance ) {
       assert && assert( functionInstance );
-      return ( this.getSlotNumber( functionInstance ) !== -1 );
+      return ( this.getSlotNumber( functionInstance ) !== FunctionSlot.NO_SLOT_NUMBER );
     },
 
     /**
      * Gets the slot that is closest to the specified location.
      *
      * @param {Vector2} location - the location of the function instance
-     * @returns {number} slot number, -1 if no slot is close enough
+     * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
      * @public
      */
     getClosestSlot: function( location ) {
       assert && assert( location );
       var DISTANCE_THRESHOLD = 0.6 * this.height;  // must be at least this close
-      var slotNumber = -1;
+      var slotNumber = FunctionSlot.NO_SLOT_NUMBER;
       for ( var i = 0; i < this.slots.length; i++ ) {
         var slot = this.slots[ i ];
-        if ( slotNumber === -1 ) {
+        if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
           if ( slot.location.distance( location ) < DISTANCE_THRESHOLD ) {
             slotNumber = i;
           }
