@@ -81,6 +81,8 @@ define( function( require ) {
     // Fade between scenes
     var newFadeIn; // {OpacityTo}
     var oldFadeOut; // {OpacityTo}
+
+    // unlink unnecessary, instances exist for lifetime of the sim
     model.selectedSceneProperty.link( function( scene, oldScene ) {
 
       // Stop any animation that is in progress

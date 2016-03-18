@@ -147,7 +147,8 @@ define( function( require ) {
     } );
     eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
 
-    // Disable the eraser button when the output carousel is empty
+    // Disable the eraser button when the output carousel is empty.
+    // unlink unnecessary, instances exist for lifetime of the sim.
     outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
       eraserButton.enabled = ( numberOfCards > 0 );
     } );
@@ -180,13 +181,15 @@ define( function( require ) {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    // Link input carousel to output carousel, so that they display the same page number
+    // Link input carousel to output carousel, so that they display the same page number.
+    // unlink unnecessary, instances exist for lifetime of the sim.
     assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
     inputCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // Link output carousel to input carousel
+    // Link output carousel to input carousel.
+    // unlink unnecessary, instances exist for lifetime of the sim.
     outputCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputCarousel.pageNumberProperty.set( pageNumber );
     } );
@@ -207,6 +210,8 @@ define( function( require ) {
         top: functionCarousel.top
       } );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
+
+    // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.link( function( visible ) {
       seeInsideLayer.visible = visible;
     } );

@@ -32,6 +32,8 @@ define( function( require ) {
       thisNode.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
     containers.forEach( function( container ) {
+
+      // unlink unnecessary, instances exist for lifetime of the sim
       container.numberOfCardsProperty.link( function( numberOfCards ) {
         containerListener();
       } );

@@ -41,7 +41,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // unlink not necessary, all instances exist for the lifetime of the sim
+    // unlink unnecessary, instances exist for lifetime of the sim
     var thisNode = this;
     movable.locationProperty.link( function( location ) {
         options.translateNode( thisNode, location );

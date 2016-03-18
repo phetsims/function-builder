@@ -206,11 +206,13 @@ define( function( require ) {
       }
     );
 
+    // unlink unnecessary, instances exist for lifetime of the sim
     this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
       thisNode.updateContent( builder, numberOfFunctionsToApply );
     } );
 
     // Updates any cards that are not in the input carousel when any function in the builder changes.
+    // removeListener unnecessary, instances exist for the lifetime of the sim.
     builderNode.builder.functionChangedEmitter.addListener( function() {
       if ( !inputContainer.containsNode( thisNode ) ) {
         thisNode.updateContent( builder, thisNode.numberOfFunctionsToApplyProperty.get() );
