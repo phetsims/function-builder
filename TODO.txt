@@ -1,6 +1,6 @@
 TODO list for function-builder
 
-Ghost card in input carousel, visible when container is empty
+Ghost card in input carousel, visible when container is empty (see 1.0.0-dev.9)
 
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 
