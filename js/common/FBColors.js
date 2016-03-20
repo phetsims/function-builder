@@ -13,8 +13,6 @@ define( function( require ) {
 
   var FBColors = {
 
-    SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',
-
     // common colors
     LIGHT_GREEN: 'rgb( 147, 231, 129 )',
     LIGHT_PURPLE: 'rgb( 205, 175, 230 )',

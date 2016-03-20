@@ -25,7 +25,7 @@ define( function( require ) {
       new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'red' } ),
       function() { return {}; },
       function( model ) { return new TestView( model ); },
-      { backgroundColor: FBColors.SCREEN_BACKGROUND }
+      { backgroundColor: 'rgb( 255, 247, 234 )' }
     );
   }
 
