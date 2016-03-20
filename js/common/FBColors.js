@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Colors used in this simulations.
+ * Colors used in this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

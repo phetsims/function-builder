@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Various utility functions for this sim.
+ * Various utility functions for this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
