@@ -9,12 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
-  var TestView = require( 'FUNCTION_BUILDER/test/view/TestView' );
+  var TestScreenView = require( 'FUNCTION_BUILDER/test/view/TestScreenView' );
 
   /**
    * @constructor
@@ -24,7 +23,7 @@ define( function( require ) {
       'Test',
       new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'red' } ),
       function() { return {}; },
-      function( model ) { return new TestView( model ); },
+      function( model ) { return new TestScreenView( model ); },
       { backgroundColor: 'rgb( 255, 247, 234 )' }
     );
   }

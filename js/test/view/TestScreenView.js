@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * View for the 'Test' screen.
+ * ScreenView for the 'Test' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +18,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function TestView() {
+  function TestScreenView() {
     DemosView.call( this, 'test', [
 
     /**
@@ -31,7 +31,7 @@ define( function( require ) {
     ] );
   }
 
-  functionBuilder.register( 'TestView', TestView );
+  functionBuilder.register( 'TestScreenView', TestScreenView );
 
-  return inherit( ScreenView, TestView );
+  return inherit( ScreenView, TestScreenView );
 } );
