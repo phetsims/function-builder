@@ -10,12 +10,14 @@ define( function( require ) {
 
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Text = require( 'SCENERY/nodes/Text' );
+
+  // images
+  var equationsMockupImage = require( 'mipmap!FUNCTION_BUILDER/mockups/Equations-mockup.png' );
 
   /**
    * @param {EquationsModel} model
@@ -25,8 +27,9 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    this.addChild( new Text( 'Equations: Under Construction', {
-      font: new FBFont( 36 ),
+    //TODO replace mockup image
+    this.addChild( new Image( equationsMockupImage, {
+      opacity: 0.5,
       center: this.layoutBounds.center
     } ) );
 
