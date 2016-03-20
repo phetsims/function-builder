@@ -93,7 +93,7 @@ define( function( require ) {
      */
     createSingleSceneIcon: function() {
       return new FunctionBackgroundNode( {
-        fill: FBColors.LIGHT_GREEN,
+        fill: 'rgb( 147, 231, 129 )',
         lineWidth: 3,
         scale: 0.25
       } );
@@ -106,12 +106,12 @@ define( function( require ) {
     createComposedSceneIcon: function() {
 
       var leftNode = new FunctionBackgroundNode( {
-        fill: FBColors.LIGHT_GREEN,
+        fill: 'rgb( 147, 231, 129 )',
         lineWidth: 3
       } );
 
       var rightNode = new FunctionBackgroundNode( {
-        fill: FBColors.LIGHT_PURPLE,
+        fill: 'rgb( 205, 175, 230 )',
         lineWidth: 3,
         left: leftNode.right - leftNode.xInset - 1
       } );

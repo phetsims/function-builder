@@ -13,10 +13,6 @@ define( function( require ) {
 
   var FBColors = {
 
-    // common colors
-    LIGHT_GREEN: 'rgb( 147, 231, 129 )',
-    LIGHT_PURPLE: 'rgb( 205, 175, 230 )',
-
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_MAROON: {
       top: 'rgb( 200, 182, 188 )',
