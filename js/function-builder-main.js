@@ -19,8 +19,6 @@ define( function( require ) {
   // strings
   var functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
-  var screens = [ new PatternsScreen(), new NumbersScreen(), new EquationsScreen(), new TestScreen() ];
-
   var options = {
     credits: {
       leadDesign: 'Amanda McGarry',
@@ -30,6 +28,12 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
+    var screens = [
+      new PatternsScreen(), 
+      new NumbersScreen(),
+      new EquationsScreen(),
+      new TestScreen() //TODO add only for ?dev
+    ];
     var sim = new Sim( functionBuilderTitleString, screens, options );
     sim.start();
   } );
