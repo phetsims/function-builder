@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * View for the 'Equations' screen.
+ * ScreenView for the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,18 +17,18 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
 
   // images
-  var equationsMockupImage = require( 'mipmap!FUNCTION_BUILDER/mockups/Equations-mockup.png' );
+  var numbersMockupImage = require( 'mipmap!FUNCTION_BUILDER/mockups/Numbers-mockup.png' );
 
   /**
-   * @param {EquationsModel} model
+   * @param {NumbersModel} model
    * @constructor
    */
-  function EquationsView( model ) {
+  function NumbersScreenView( model ) {
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
     //TODO replace mockup image
-    this.addChild( new Image( equationsMockupImage, {
+    this.addChild( new Image( numbersMockupImage, {
       opacity: 0.5,
       center: this.layoutBounds.center
     } ) );
@@ -42,7 +42,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
   }
 
-  functionBuilder.register( 'EquationsView', EquationsView );
+  functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
 
-  return inherit( ScreenView, EquationsView );
+  return inherit( ScreenView, NumbersScreenView );
 } );

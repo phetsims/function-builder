@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PatternsModel = require( 'FUNCTION_BUILDER/patterns/model/PatternsModel' );
-  var PatternsView = require( 'FUNCTION_BUILDER/patterns/view/PatternsView' );
+  var PatternsScreenView = require( 'FUNCTION_BUILDER/patterns/view/PatternsScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
@@ -28,7 +28,7 @@ define( function( require ) {
       screenPatternsString,
       FBIconFactory.createPatternsScreenIcon(),
       function() { return new PatternsModel(); },
-      function( model ) { return new PatternsView( model ); },
+      function( model ) { return new PatternsScreenView( model ); },
       { backgroundColor: 'rgb( 255, 247, 234 )' }
     );
   }

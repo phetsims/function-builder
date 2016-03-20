@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * View for the 'Patterns' screen.
+ * ScreenView for the 'Patterns' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {PatternsModel} model
    * @constructor
    */
-  function PatternsView( model ) {
+  function PatternsScreenView( model ) {
 
     var thisView = this;
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
@@ -126,7 +126,7 @@ define( function( require ) {
     } );
   }
 
-  functionBuilder.register( 'PatternsView', PatternsView );
+  functionBuilder.register( 'PatternsScreenView', PatternsScreenView );
 
-  return inherit( ScreenView, PatternsView );
+  return inherit( ScreenView, PatternsScreenView );
 } );

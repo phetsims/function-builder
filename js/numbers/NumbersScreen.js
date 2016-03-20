@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
-  var NumbersView = require( 'FUNCTION_BUILDER/numbers/view/NumbersView' );
+  var NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
@@ -28,7 +28,7 @@ define( function( require ) {
       screenNumbersString,
       FBIconFactory.createNumbersScreenIcon(),
       function() { return new NumbersModel(); },
-      function( model ) { return new NumbersView( model ); },
+      function( model ) { return new NumbersScreenView( model ); },
       { backgroundColor: 'rgb( 239, 255, 249 )' }
     );
   }
