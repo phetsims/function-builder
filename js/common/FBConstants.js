@@ -19,6 +19,7 @@ define( function( require ) {
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
+    // options for cards and things that looks like cards ('see inside' windows, 'mole under carpet')
     CARD_OPTIONS: {
       size: new Dimension2( 60, 60 ), // dimensions of a card Node
       cornerRadius: 5, // corner radius of a card Node
