@@ -1,8 +1,5 @@
 TODO list for function-builder
 
-Ghost card in input carousel, visible when container is empty (see 1.0.0-dev.9, 1/27/16)
-https://github.com/phetsims/function-builder/tree/f4d7512746d3f785f5f11af22b95bc069f57fdf3/js
-
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).

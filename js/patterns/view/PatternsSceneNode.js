@@ -89,7 +89,7 @@ define( function( require ) {
     // Containers in the input carousel
     var inputContainers = [];
     scene.cardImages.forEach( function( cardImage ) {
-      inputContainers.push( new ImageCardContainer( cardImage ) );
+      inputContainers.push( new ImageCardContainer( cardImage, { showGhostCard: true } ) );
     } );
 
     // Input carousel, at left

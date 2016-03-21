@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
@@ -30,7 +31,7 @@ define( function( require ) {
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
     options = _.extend( {
-      imageScale: 0.3
+      imageScale: FBConstants.IMAGE_CARD_SCALE
     }, options );
 
     // @private

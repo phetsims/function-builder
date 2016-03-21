@@ -27,7 +27,8 @@ define( function( require ) {
   function MovableContainer( options ) {
 
     options = _.extend( {
-      size: new Dimension2( 100, 100 ) // {Dimension2} size of the container
+      size: new Dimension2( 100, 100 ), // {Dimension2} size of the container
+      emptyNode: null // {Node|null} node that's visible when the container is empty
     }, options );
 
     // @public location of container when it's visible in the carousel. Set after carousel is attached to scene.
@@ -42,7 +43,9 @@ define( function( require ) {
     this.contentsParent = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, this.contentsParent ];
+    options.children = [ this.backgroundNode ];
+    options.emptyNode && options.children.push( options.emptyNode );
+    options.children.push( this.contentsParent );
 
     Node.call( this, options );
   }

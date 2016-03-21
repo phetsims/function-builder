@@ -47,7 +47,10 @@ define( function( require ) {
     ERASE_CARDS_ANIMATION_SPEED: 1200,
 
     // distance/second that cards and functions move when 'Reset All' is pressed
-    RESET_ALL_ANIMATION_SPEED: 1200
+    RESET_ALL_ANIMATION_SPEED: 1200,
+
+    // scale for the images on the image cards
+    IMAGE_CARD_SCALE: 0.3
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );
