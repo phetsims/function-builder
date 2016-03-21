@@ -120,10 +120,15 @@ define( function( require ) {
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
+      else if ( dragDx >= 0 ) {
+
+        // in the builder, dragging horizontally to the right
+        movable.moveTo( new Vector2( location.x, builder.location.y ) );
+      }
       else {
 
-        //TODO constrain dragging to the left for non-invertible functions
-        // in the builder, drag horizontally
+        // in the builder, dragging horizontally to the left
+        //TODO prevent dragging past slots that contain non-invertible functions
         movable.moveTo( new Vector2( location.x, builder.location.y ) );
       }
     };
@@ -154,7 +159,7 @@ define( function( require ) {
         //TODO if 'see inside' feature is on, animate to next window
         //TODO constrain animation to the left for non-invertible functions
 
-        if ( dragDx > 0 ) { // dragging to the right
+        if ( dragDx >= 0 ) { // dragging to the right
 
           // snap to input slot if outside the builder
           if ( card.locationProperty.get().x < builder.left ) {
