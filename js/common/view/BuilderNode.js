@@ -178,7 +178,7 @@ define( function( require ) {
 
       assert && assert( functionNode instanceof FunctionNode );
       assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
-      assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' ); //TODO assertion failure with fuzzMouse, #16
+      assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
 
       this.functionNodes[ slotNumber ] = functionNode;
       this.functionsParent.addChild( functionNode );
