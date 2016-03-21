@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO investigate how this might be created using ImageCardNode
 /**
- * TODO doc
+ * 'Ghost' version of image card that appears in empty input carousel container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
