@@ -60,7 +60,7 @@ define( function( require ) {
     var BLOCKED_X_OFFSET = SeeInsideLayer.WINDOW_LEFT_OFFSET + ( 0.4 * options.size.width );
 
     var dragDx = 0; // {number} most recent change in x while dragging
-    var blocked = false; // {boolean} dragging to the left is blocked by a non-invertible function
+    var blocked = false; // {boolean} was dragging to the left blocked by a non-invertible function?
     var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
     var slopeRight = 0; // {number} slope of the line connecting the ouptut carousel and builder input slot
 
