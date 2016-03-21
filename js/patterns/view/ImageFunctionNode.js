@@ -15,6 +15,8 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NonInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NonInvertibleSymbolNode' );
+  var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
    * @param {ImageFunction} functionInstance
@@ -40,13 +42,53 @@ define( function( require ) {
       center: backgroundNode.center
     } );
 
+    //TODO move to FunctionNode
+    // @private
+    this.nonInvertibleSymbolNode = new NonInvertibleSymbolNode( {
+      center: backgroundNode.center,
+      visible: false
+    } );
+
+    // @private {OpacityTo} animation for nonInvertibleSymbolNode
+    this.opacityTo = null;
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, iconNode ];
+    options.children = [ backgroundNode, iconNode, this.nonInvertibleSymbolNode ];
 
     FunctionNode.call( this, functionInstance, container, builderNode, dragLayer, animationLayer, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( FunctionNode, ImageFunctionNode );
+  return inherit( FunctionNode, ImageFunctionNode, {
+
+    //TODO move to FunctionNode
+    /**
+     * Shows the non-invertible symbol for a brief time, fading it out.
+     * @public
+     */
+    showNonInvertibleSymbolNode: function() {
+
+      // stop any animation in progress
+      this.opacityTo && this.opacityTo.stop();
+
+      // start full opaque
+      var nonInvertibleSymbolNode = this.nonInvertibleSymbolNode;
+      nonInvertibleSymbolNode.visible = true;
+
+      // fade out
+      this.opacityTo = new OpacityTo( nonInvertibleSymbolNode, {
+        duration: 1500, // ms
+        startOpacity: 1,
+        endOpacity: 0,
+        onStart: function() {
+          nonInvertibleSymbolNode.visible = true;
+        },
+        onComplete: function() {
+          nonInvertibleSymbolNode.visible = false;
+        }
+      } );
+      this.opacityTo.start();
+    }
+  } );
 } );

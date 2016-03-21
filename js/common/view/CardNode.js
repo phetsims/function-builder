@@ -146,6 +146,7 @@ define( function( require ) {
             if ( !slot.isInvertible() && location.x < blockedX ) {
               blocked = true;
               movable.moveTo( new Vector2( blockedX, builder.location.y ) );
+              thisNode.builderNode.getFunctionNode( i ).showNonInvertibleSymbolNode();
             }
           }
         }
