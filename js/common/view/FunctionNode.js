@@ -80,6 +80,8 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
+      assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
+
       // move function to animation layer
       dragLayer.removeChild( thisNode );
       animationLayer.addChild( thisNode );
