@@ -15,7 +15,7 @@ define( function( require ) {
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
-  var NonInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NonInvertibleSymbolNode' );
+  var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
   var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
@@ -46,15 +46,15 @@ define( function( require ) {
     contentNode.center = backgroundNode.center;
 
     // @private
-    this.nonInvertibleSymbolNode = new NonInvertibleSymbolNode( {
+    this.notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
       center: backgroundNode.center,
       visible: false
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, contentNode, this.nonInvertibleSymbolNode ];
+    options.children = [ backgroundNode, contentNode, this.notInvertibleSymbolNode ];
 
-    // @private {OpacityTo} animation for nonInvertibleSymbolNode
+    // @private {OpacityTo} animation for notInvertibleSymbolNode
     this.opacityTo = null;
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
@@ -187,27 +187,27 @@ define( function( require ) {
     },
 
     /**
-     * Shows the non-invertible symbol for a brief time, fading it out.
+     * Shows the 'not invertible' symbol for a brief time, then fades it out.
      * @public
      */
-    showNonInvertibleSymbolNode: function() {
+    showNotInvertibleSymbol: function() {
 
       // stop any animation in progress
       this.opacityTo && this.opacityTo.stop();
 
-      // start full opaque
-      var nonInvertibleSymbolNode = this.nonInvertibleSymbolNode;
-      nonInvertibleSymbolNode.visible = true;
-      nonInvertibleSymbolNode.opacity = 1;
+      // show the symbol
+      var notInvertibleSymbolNode = this.notInvertibleSymbolNode;
+      notInvertibleSymbolNode.visible = true;
+      notInvertibleSymbolNode.opacity = 1;
 
       // fade out
-      this.opacityTo = new OpacityTo( nonInvertibleSymbolNode, {
-        delay: 1000, // ms
-        duration: 1500, // ms
+      this.opacityTo = new OpacityTo( notInvertibleSymbolNode, {
+        delay: 1000, // delay before fade out begins, ms
+        duration: 1500, // fade out time, ms
         endOpacity: 0,
         easing: TWEEN.Easing.Quadratic.In,
         onComplete: function() {
-          nonInvertibleSymbolNode.visible = false;
+          notInvertibleSymbolNode.visible = false;
         }
       } );
       this.opacityTo.start();

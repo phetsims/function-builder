@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Symbol that indicates that a function is non-invertible.
+ * Symbol that indicates that a function is not invertible.
  * Consists of the universal 'no' symbol (circle with slash).
  * Displayed on a function when it actively blocks a card from passing through the builder.
  *
@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function NonInvertibleSymbolNode( options ) {
+  function NotInvertibleSymbolNode( options ) {
 
     options = _.extend( {
       radius: 20,
@@ -49,7 +49,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'NonInvertibleSymbolNode', NonInvertibleSymbolNode );
+  functionBuilder.register( 'NotInvertibleSymbolNode', NotInvertibleSymbolNode );
 
-  return inherit( Node, NonInvertibleSymbolNode );
+  return inherit( Node, NotInvertibleSymbolNode );
 } );

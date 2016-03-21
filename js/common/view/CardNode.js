@@ -146,7 +146,7 @@ define( function( require ) {
             if ( !slot.isInvertible() && location.x < blockedX ) {
               blocked = true;
               movable.moveTo( new Vector2( blockedX, builder.location.y ) );
-              thisNode.builderNode.getFunctionNode( i ).showNonInvertibleSymbolNode();
+              thisNode.builderNode.getFunctionNode( i ).showNotInvertibleSymbol();
             }
           }
         }
@@ -221,7 +221,7 @@ define( function( require ) {
             card.animateTo( new Vector2( blockedX, builder.location.y ),
               FBConstants.CARD_ANIMATION_SPEED,
               function() {
-                thisNode.builderNode.getFunctionNode( i ).showNonInvertibleSymbolNode();
+                thisNode.builderNode.getFunctionNode( i ).showNotInvertibleSymbol();
                 card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
                   FBConstants.CARD_ANIMATION_SPEED,
                   function() {
