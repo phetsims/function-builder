@@ -4,7 +4,7 @@ Make cards stop at 'see inside' windows when animating, add arrows to move to ne
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).
 
-Handle non-invertible functions
+Handle non-invertible functions (requires switching from translate to drag in Movable)
 
 ---
 
