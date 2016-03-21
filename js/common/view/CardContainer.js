@@ -23,7 +23,7 @@ define( function( require ) {
   function CardContainer( options ) {
 
     options = _.extend( {
-      size: FBConstants.CARD_SIZE
+      size: FBConstants.CARD_OPTIONS.size
     }, options );
 
     MovableContainer.call( this, options );

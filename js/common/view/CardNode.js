@@ -29,14 +29,7 @@ define( function( require ) {
    */
   function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
 
-    options = _.extend( {
-      size: FBConstants.CARD_SIZE,
-      cornerRadius: FBConstants.CARD_CORNER_RADIUS,
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 1,
-      lineDash: null
-    }, options );
+    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
     var thisNode = this;
 

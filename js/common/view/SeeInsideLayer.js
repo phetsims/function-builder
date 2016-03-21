@@ -34,15 +34,15 @@ define( function( require ) {
       var windowX = builder.slots[ i ].location.x +
                     ( FBConstants.FUNCTION_SIZE.width / 2 ) -
                     ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 ) -
-                    ( FBConstants.CARD_SIZE.width / 2 );
-      var windowY = builder.location.y - ( FBConstants.CARD_SIZE.height / 2 );
+                    ( FBConstants.CARD_OPTIONS.size.width / 2 );
+      var windowY = builder.location.y - ( FBConstants.CARD_OPTIONS.size.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner
         windowsShape.moveTo( windowX + 10, windowY );
       }
       windowsShape.roundRect( windowX, windowY,
-        FBConstants.CARD_SIZE.width, FBConstants.CARD_SIZE.height,
-        FBConstants.CARD_CORNER_RADIUS, FBConstants.CARD_CORNER_RADIUS );
+        FBConstants.CARD_OPTIONS.size.width, FBConstants.CARD_OPTIONS.size.height,
+        FBConstants.CARD_OPTIONS.cornerRadius, FBConstants.CARD_OPTIONS.cornerRadius );
     }
 
     // @private parent for all cards, clip to the windows

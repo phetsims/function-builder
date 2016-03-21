@@ -24,15 +24,9 @@ define( function( require ) {
    */
   function ImageGhostCard( image, options ) {
 
-    options = _.extend( {
-      size: FBConstants.CARD_SIZE,
-      cornerRadius: FBConstants.CARD_CORNER_RADIUS,
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 1,
-      lineDash: [ 4, 4 ],
-      opacity: 0.5
-    } );
+    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
+    options.lineDash = [ 4, 4 ];
+    options.opacity = 0.5;
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );

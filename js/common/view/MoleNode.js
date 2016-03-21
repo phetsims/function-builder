@@ -23,8 +23,8 @@ define( function( require ) {
   function MoleNode( card, builderLocation, options ) {
 
     options = _.extend( {
-      size: FBConstants.CARD_SIZE,
-      cornerRadius: 5,
+      size: FBConstants.CARD_OPTIONS.size,
+      cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
       fill: 'white',
       stroke: 'black',
       lineWidth: 2,

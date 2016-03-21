@@ -19,11 +19,14 @@ define( function( require ) {
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
-    // dimensions of a card Node
-    CARD_SIZE: new Dimension2( 60, 60 ),
-
-    // corner radius of a card Node
-    CARD_CORNER_RADIUS: 5,
+    CARD_OPTIONS: {
+      size: new Dimension2( 60, 60 ), // dimensions of a card Node
+      cornerRadius: 5, // corner radius of a card Node
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: null
+    },
 
     // dimensions of a function Node
     FUNCTION_SIZE: new Dimension2( 150, 68 ),
