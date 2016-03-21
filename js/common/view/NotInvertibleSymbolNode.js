@@ -1,9 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Symbol that indicates that a function is not invertible.
+ * Symbol used to indicate that a function is not invertible.
  * Consists of the universal 'no' symbol (circle with slash).
- * Displayed on a function when it actively blocks a card from passing through the builder.
+ * Displayed on a function when it blocks a card from passing through the builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
