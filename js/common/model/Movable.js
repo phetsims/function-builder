@@ -69,8 +69,8 @@ define( function( require ) {
      * @public
      */
     animateTo: function( destination, animationSpeed, animationCompletedCallback ) {
-      this.animationSpeed = animationSpeed;
       this.destination = destination;
+      this.animationSpeed = animationSpeed;
       this.animationCompletedCallback = animationCompletedCallback;
     },
 
