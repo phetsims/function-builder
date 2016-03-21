@@ -56,6 +56,9 @@ define( function( require ) {
     var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
     var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
 
+    // block when left edge of card is just slightly past left edge of 'see inside' window for a non-invertible function
+    var BLOCKED_X_OFFSET = SeeInsideLayer.WINDOW_LEFT_OFFSET + ( 0.4 * options.size.width );
+
     var dragDx = 0; // {number} most recent change in x while dragging
     var blocked = false; // {boolean} dragging to the left is blocked by a non-invertible function
     var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
@@ -138,14 +141,10 @@ define( function( require ) {
         // block dragging past slots that contain non-invertible functions
         for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
           var slot = builder.slots[ i ];
-
-          // left edge of card just slightly past left edge of 'see inside' window
-          var minX = slot.location.x + SeeInsideLayer.WINDOW_LEFT_OFFSET + ( 0.4 * thisNode.width );
-
-          // block dragging past non-invertible function
-          if ( !slot.isInvertible() && location.x < minX ) {
+          var blockedX = slot.location.x + BLOCKED_X_OFFSET;
+          if ( !slot.isInvertible() && location.x < blockedX ) {
             blocked = true;
-            movable.moveTo( new Vector2( minX, builder.location.y ) );
+            movable.moveTo( new Vector2( blockedX, builder.location.y ) );
           }
         }
 
@@ -214,12 +213,9 @@ define( function( require ) {
 
           if ( builder.isValidSlotNumber( blockedSlotNumber ) ) {
 
-            //TODO computation duplicated above
-            // left edge of card just slightly past left edge of 'see inside' window
-            var minX = slot.location.x + SeeInsideLayer.WINDOW_LEFT_OFFSET + ( 0.4 * thisNode.width );
-
             // animate to non-invertible function, then reverse direction to output carousel
-            card.animateTo( new Vector2( minX, builder.location.y ),
+            var blockedX = slot.location.x + BLOCKED_X_OFFSET;
+            card.animateTo( new Vector2( blockedX, builder.location.y ),
               FBConstants.CARD_ANIMATION_SPEED,
               function() {
                 card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
