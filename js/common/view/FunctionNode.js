@@ -9,14 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
+  var NonInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NonInvertibleSymbolNode' );
+  var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
    * @param {ImageFunction} functionInstance
+   * @param {Node} contentNode
    * @param {ImageFunctionContainer} container
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
@@ -24,11 +28,9 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionNode( functionInstance, container, builderNode, dragLayer, animationLayer, options ) {
+  function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, animationLayer, options ) {
 
     options = options || {};
-
-    assert && assert( options.children, 'requires children to specify the look of the FunctionNode' );
 
     var thisNode = this;
 
@@ -39,6 +41,21 @@ define( function( require ) {
     this.container = container;
     this.builderNode = builderNode;
     this.animationLayer = animationLayer;
+
+    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
+    contentNode.center = backgroundNode.center;
+
+    // @private
+    this.nonInvertibleSymbolNode = new NonInvertibleSymbolNode( {
+      center: backgroundNode.center,
+      visible: false
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, contentNode, this.nonInvertibleSymbolNode ];
+
+    // @private {OpacityTo} animation for nonInvertibleSymbolNode
+    this.opacityTo = null;
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
@@ -167,6 +184,34 @@ define( function( require ) {
     moveToCarousel: function() {
       assert && assert( !this.container.containsNode( this ) );
       this.container.addNode( this );
+    },
+
+    /**
+     * Shows the non-invertible symbol for a brief time, fading it out.
+     * @public
+     */
+    showNonInvertibleSymbolNode: function() {
+
+      // stop any animation in progress
+      this.opacityTo && this.opacityTo.stop();
+
+      // start full opaque
+      var nonInvertibleSymbolNode = this.nonInvertibleSymbolNode;
+      nonInvertibleSymbolNode.visible = true;
+
+      // fade out
+      this.opacityTo = new OpacityTo( nonInvertibleSymbolNode, {
+        duration: 1500, // ms
+        startOpacity: 1,
+        endOpacity: 0,
+        onStart: function() {
+          nonInvertibleSymbolNode.visible = true;
+        },
+        onComplete: function() {
+          nonInvertibleSymbolNode.visible = false;
+        }
+      } );
+      this.opacityTo.start();
     }
   } );
 } );
