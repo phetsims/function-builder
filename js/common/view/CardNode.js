@@ -138,7 +138,7 @@ define( function( require ) {
 
         // in the builder, dragging horizontally to the left
 
-        // block dragging past slots that contain non-invertible functions
+        // block dragging past a non-invertible function
         for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
           var slot = builder.slots[ i ];
           var blockedX = slot.location.x + BLOCKED_X_OFFSET;
