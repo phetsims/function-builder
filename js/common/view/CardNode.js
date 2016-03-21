@@ -43,7 +43,7 @@ define( function( require ) {
     this.builderNode = builderNode;
     this.animationLayer = animationLayer;
 
-    // @protected
+    // @protected the basic shape of a blank card
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
