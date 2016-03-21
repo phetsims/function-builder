@@ -9,14 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NonInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NonInvertibleSymbolNode' );
-  var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
    * @param {ImageFunction} functionInstance
