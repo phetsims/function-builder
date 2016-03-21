@@ -36,6 +36,11 @@ define( function( require ) {
     contains: function( functionInstance ) {
       assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
       return ( this.functionInstance === functionInstance );
+    },
+
+    // @public is the slot invertible? meaning, can a card be dragged backwards through this slot?
+    isInvertible: function() {
+      return ( this.isEmpty() || this.functionInstance.invertible );
     }
   }, {
 
