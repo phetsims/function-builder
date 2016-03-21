@@ -221,6 +221,7 @@ define( function( require ) {
             card.animateTo( new Vector2( blockedX, builder.location.y ),
               FBConstants.CARD_ANIMATION_SPEED,
               function() {
+                thisNode.builderNode.getFunctionNode( i ).showNonInvertibleSymbolNode();
                 card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
                   FBConstants.CARD_ANIMATION_SPEED,
                   function() {
