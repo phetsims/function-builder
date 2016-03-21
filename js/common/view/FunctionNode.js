@@ -198,15 +198,14 @@ define( function( require ) {
       // start full opaque
       var nonInvertibleSymbolNode = this.nonInvertibleSymbolNode;
       nonInvertibleSymbolNode.visible = true;
+      nonInvertibleSymbolNode.opacity = 1;
 
       // fade out
       this.opacityTo = new OpacityTo( nonInvertibleSymbolNode, {
+        delay: 1000, // ms
         duration: 1500, // ms
-        startOpacity: 1,
         endOpacity: 0,
-        onStart: function() {
-          nonInvertibleSymbolNode.visible = true;
-        },
+        easing: TWEEN.Easing.Quadratic.In,
         onComplete: function() {
           nonInvertibleSymbolNode.visible = false;
         }
