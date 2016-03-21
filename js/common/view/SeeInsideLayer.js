@@ -31,10 +31,7 @@ define( function( require ) {
     var windowsShape = new Shape();
     for ( var i = 0; i < builder.slots.length; i++ ) {
 
-      var windowX = builder.slots[ i ].location.x +
-                    ( FBConstants.FUNCTION_SIZE.width / 2 ) -
-                    ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 ) -
-                    ( FBConstants.CARD_OPTIONS.size.width / 2 );
+      var windowX = builder.slots[ i ].location.x + SeeInsideLayer.WINDOW_LEFT_OFFSET;
       var windowY = builder.location.y - ( FBConstants.CARD_OPTIONS.size.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner
@@ -81,5 +78,11 @@ define( function( require ) {
     addCardNode: function( cardNode ) {
       this.cardsParent.addChild( cardNode );
     }
+  }, {
+
+    // {number} offset of left edge of 'see inside' window from center of it's corresponding slot in the builder
+    WINDOW_LEFT_OFFSET: ( FBConstants.FUNCTION_SIZE.width / 2 ) -
+                        ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 ) -
+                        ( FBConstants.CARD_OPTIONS.size.width / 2 )
   } );
 } );
