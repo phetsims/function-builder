@@ -138,13 +138,15 @@ define( function( require ) {
 
         // in the builder, dragging horizontally to the left
 
-        // block dragging past a non-invertible function
+        // block dragging past a non-invertible function to our left
         for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
           var slot = builder.slots[ i ];
-          var blockedX = slot.location.x + BLOCKED_X_OFFSET;
-          if ( !slot.isInvertible() && location.x < blockedX ) {
-            blocked = true;
-            movable.moveTo( new Vector2( blockedX, builder.location.y ) );
+          if ( movable.locationProperty.get().x > slot.location.x ) { // only slots to the left
+            var blockedX = slot.location.x + BLOCKED_X_OFFSET;
+            if ( !slot.isInvertible() && location.x < blockedX ) {
+              blocked = true;
+              movable.moveTo( new Vector2( blockedX, builder.location.y ) );
+            }
           }
         }
 
