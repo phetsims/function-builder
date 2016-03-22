@@ -85,7 +85,7 @@ define( function( require ) {
     // Input carousel --------------------------------------------------------------------------------------------------
 
     // Containers in the input carousel
-    var inputContainers = this.createCardContainers( scene );
+    var inputContainers = this.createCardContainers( scene, { showGhostCard: true } );
 
     // Input carousel, at left
     var inputCarousel = new Carousel( inputContainers, {
@@ -354,21 +354,23 @@ define( function( require ) {
     /**
      * Creates the card containers that go in the card carousels.
      * @param {Scene} scene
+     * @param {Object} [containerOptions]
      * @returns {CardContainer[]}
      * @protected
      */
-    createCardContainers: function( scene ) {
+    createCardContainers: function( scene, containerOptions ) {
       throw new Error( 'must be implemented by subtype' );
     },
 
     /**
      * Creates the function containers that go in the function carousels.
      * @param {Scene} scene
+     * @param {Object} [containerOptions]
      * @returns {FunctionContainer[]}
      * @protected
      * @override
      */
-    createFunctionContainers: function( scene ) {
+    createFunctionContainers: function( scene, containerOptions ) {
       throw new Error( 'must be implemented by subtype' );
     }
   } );

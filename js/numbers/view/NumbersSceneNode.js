@@ -32,14 +32,15 @@ define( function( require ) {
     /**
      * Creates the card containers that go in the card carousels.
      * @param {{NumbersScene}} scene
+     * @param {Object} [containerOptions]
      * @returns {NumberCardContainer[]}
      * @protected
      * @override
      */
-    createCardContainers: function( scene ) {
+    createCardContainers: function( scene, containerOptions ) {
       var containers = [];
       scene.cardNumbers.forEach( function( value ) {
-        containers.push( new NumberCardContainer( value ) );
+        containers.push( new NumberCardContainer( value, containerOptions ) );
       } );
       return containers;
     },
@@ -47,14 +48,15 @@ define( function( require ) {
     /**
      * Creates the function containers that go in the function carousels.
      * @param {NumbersScene} scene
+     * @param {Object} [containerOptions]
      * @returns {NumberFunctionContainer[]}
      * @protected
      * @override
      */
-    createFunctionContainers: function( scene ) {
+    createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionConstructors.forEach( function( FunctionConstructor ) {
-        functionContainers.push( new NumberFunctionContainer( FunctionConstructor, scene ) );
+        functionContainers.push( new NumberFunctionContainer( FunctionConstructor, containerOptions ) );
       } );
       return functionContainers;
     }

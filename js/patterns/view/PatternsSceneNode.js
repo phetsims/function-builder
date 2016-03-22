@@ -32,14 +32,15 @@ define( function( require ) {
     /**
      * Creates the card containers that go in the input and output carousels.
      * @param {PatternsScene} scene
+     * @param {Object} [containerOptions]
      * @returns {ImageCardContainer[]}
      * @protected
      * @override
      */
-    createCardContainers: function( scene ) {
+    createCardContainers: function( scene, containerOptions ) {
       var containers = [];
       scene.cardImages.forEach( function( cardImage ) {
-        containers.push( new ImageCardContainer( cardImage ) );
+        containers.push( new ImageCardContainer( cardImage, containerOptions ) );
       } );
       return containers;
     },
@@ -47,14 +48,15 @@ define( function( require ) {
     /**
      * Creates the function containers that go in the function carousels.
      * @param {PatternsScene} scene
+     * @param {Object} [containerOptions]
      * @returns {ImageFunctionContainer[]}
      * @protected
      * @override
      */
-    createFunctionContainers: function( scene ) {
+    createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionConstructors.forEach( function( FunctionConstructor ) {
-        functionContainers.push( new ImageFunctionContainer( FunctionConstructor, scene ) );
+        functionContainers.push( new ImageFunctionContainer( FunctionConstructor, containerOptions ) );
       } );
       return functionContainers;
     }
