@@ -1,10 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
-  * output = input - 3
-  *
-  * @author Chris Malley (PixelZoom, Inc.)
-  */
+ * output = input + 7
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
@@ -17,16 +17,16 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function Minus3( options ) {
+  function Plus7( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 198, 231, 220 )'
+      fill: 'rgb( 232, 169, 236 )'
     } );
-    NumberFunction.call( this, '\u2212 3', options );
+    NumberFunction.call( this, '? ?', options );
   }
 
-  functionBuilder.register( 'Minus3', Minus3 );
+  functionBuilder.register( 'Plus7', Plus7 );
 
-  return inherit( NumberFunction, Minus3, {
+  return inherit( NumberFunction, Plus7, {
 
     /**
      * Applies this function.
@@ -36,7 +36,7 @@ define( function( require ) {
      * @override
      */
     apply: function( input ) {
-      return input - 3;
+      return input + 7;
     }
   } );
 } );

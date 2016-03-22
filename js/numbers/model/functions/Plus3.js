@@ -21,7 +21,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 235, 191, 109 )'
     } );
-    NumberFunction.call( this, '+3', options );
+    NumberFunction.call( this, '\u002b 3', options );
   }
 
   functionBuilder.register( 'Plus3', Plus3 );

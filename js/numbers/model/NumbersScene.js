@@ -14,25 +14,21 @@ define( function( require ) {
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
 
   // function modules
+  var Minus0 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus0' );
   var Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus3' );
   var Plus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus3' );
+  var Plus3Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus3Times2' );
+  var Plus7 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus7' );
+  var Times1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times1' );
+  var Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2' );
+  var Times2Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2Minus3' );
+  var Times2Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2Plus1' );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
   function NumbersScene( options ) {
-
-    // Functions are:
-    // + 3 : rgb( 235, 191, 109 )
-    // - 3  : rgb( 198, 231, 220 )
-    // x ? : (x 1) : rgb( 209, 151, 169 )
-    // - ? : (- 0) : rgb( 255, 246, 187 )
-    // x 2 + 1 : DOUBLE : rgb( 208, 282, 224 ), rgb( 253, 204, 196 )
-    // ?? : (x 2) : rgb( 246, 181, 138 )
-    // + ? x ? (+ 3 x 2) : DOUBLE : rgb( 135, 196, 229 ), rgb( 222, 220, 205 )
-    // ? ? (+ 7) : rgb( 232, 169, 236 )
-    // ? ? ? ? (x 2 - 3) : DOUBLE : rgb( 165, 209, 167 ), rgb( 255, 246, 187 )
 
     /**
      * Constructors for {NumberFunction} types, in the order that they appear in the function carousel.
@@ -41,8 +37,14 @@ define( function( require ) {
      */
     this.functionConstructors = [
       Plus3,
-      Minus3
-      //TODO additional functions
+      Minus3,
+      Times1,
+      Minus0,
+      Times2Plus1,
+      Times2,
+      Plus3Times2,
+      Plus7,
+      Times2Minus3
     ];
 
     /**

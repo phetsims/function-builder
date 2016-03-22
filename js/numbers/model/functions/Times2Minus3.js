@@ -1,10 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
-  * output = input - 3
-  *
-  * @author Chris Malley (PixelZoom, Inc.)
-  */
+ * output = ( input * 2 ) - 3
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
 define( function( require ) {
   'use strict';
 
@@ -17,16 +17,16 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function Minus3( options ) {
+  function Times2Minus3( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 198, 231, 220 )'
+      fill: 'rgb( 165, 209, 167 )' //TODO double function, other half has fill: 'rgb( 255, 246, 187 )'
     } );
-    NumberFunction.call( this, '\u2212 3', options );
+    NumberFunction.call( this, '? ? ? ?', options );
   }
 
-  functionBuilder.register( 'Minus3', Minus3 );
+  functionBuilder.register( 'Times2Minus3', Times2Minus3 );
 
-  return inherit( NumberFunction, Minus3, {
+  return inherit( NumberFunction, Times2Minus3, {
 
     /**
      * Applies this function.
@@ -36,7 +36,7 @@ define( function( require ) {
      * @override
      */
     apply: function( input ) {
-      return input - 3;
+      return ( input * 2 ) - 3;
     }
   } );
 } );
