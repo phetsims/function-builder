@@ -26,9 +26,9 @@ define( function( require ) {
    */
   function Shrink75( options ) {
 
-    options = _.extend( {
+    options = _.extend( {}, options, {
       fill: 'rgb( 246, 164, 255 )'
-    }, options );
+    } );
 
     ImageFunction.call( this, shrink75Image, options );
   }

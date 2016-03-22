@@ -23,9 +23,9 @@ define( function( require ) {
    */
   function MysteryC( options ) {
 
-    options = _.extend( {
+    options = _.extend( {}, options, {
       fill: 'rgb( 222, 186, 247 )'
-    }, options );
+    } );
 
     ImageFunction.call( this, mysteryCImage, options );
   }

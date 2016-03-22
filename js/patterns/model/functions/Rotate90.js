@@ -23,9 +23,9 @@ define( function( require ) {
    */
   function Rotate90( options ) {
 
-    options = _.extend( {
+    options = _.extend( {}, options, {
       fill: 'rgb( 147, 231, 128 )'
-    }, options );
+    } );
 
     ImageFunction.call( this, rotate90Image, options );
   }

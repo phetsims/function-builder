@@ -23,9 +23,9 @@ define( function( require ) {
    */
   function Identity( options ) {
 
-    options = _.extend( {
+    options = _.extend( {}, options, {
       fill: 'rgb( 255, 161, 43 )'
-    }, options );
+    } );
 
     ImageFunction.call( this, identityImage, options );
   }

@@ -23,9 +23,9 @@ define( function( require ) {
    */
   function InvertRGB( options ) {
 
-    options = _.extend( {
+    options = _.extend( {}, options, {
       fill: 'black'
-    }, options );
+    } );
 
     ImageFunction.call( this, invertRGBImage, options );
   }
