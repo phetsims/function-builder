@@ -46,6 +46,16 @@ define( function( require ) {
     // @public
     reset: function() {
       //TODO delete this if there's ultimately nothing to do
+    },
+
+    /**
+     * Animates the model.
+     *
+     * @param {number} dt - time since the previous step, in seconds
+     * @public
+     */
+    step: function( dt ) {
+      this.scene.step( dt );
     }
   } );
 } );
