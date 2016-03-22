@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Function that is used to transform images.
+ * Base type for all image-processing functions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {HTMLImageElement|MipMapArray} image - image that represents the function type
+   * @param {HTMLImageElement} image - image that represents the function type
    * @param {Object} [options]
    * @constructor
    */
