@@ -13,7 +13,6 @@ define( function( require ) {
 
   var FBUtils = {
 
-    //TODO generally useful?
     /**
      * Does an object have a set of properties? Use this to verify duck typing.
      *
