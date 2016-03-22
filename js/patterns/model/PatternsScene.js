@@ -42,13 +42,13 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {function: Node} createIcon - function used to create the icon that represents the scene
+   * @param {Node} icon - icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( createIcon, options ) {
+  function PatternsScene( icon, options ) {
 
-    this.createIcon = createIcon; // @public (read-only)
+    this.icon = icon; // @public (read-only)
 
     /**
      * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.

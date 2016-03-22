@@ -38,7 +38,7 @@ define( function( require ) {
     this.scenes = [
 
       // single: 1 builder with 1 slot
-      new PatternsScene( FBIconFactory.createSingleSceneIcon, {
+      new PatternsScene( FBIconFactory.createSingleSceneIcon(), {
         builder: new Builder( {
           width: SINGLE_BUILDER_WIDTH,
           numberOfSlots: 1,
@@ -48,7 +48,7 @@ define( function( require ) {
       } ),
 
       // composed: 1 builder with 3 slots, for demonstrating function composition
-      new PatternsScene( FBIconFactory.createComposedSceneIcon, {
+      new PatternsScene( FBIconFactory.createComposedSceneIcon(), {
         builder: new Builder( {
           width: COMPOSED_BUILDER_WIDTH,
           numberOfSlots: 3,
