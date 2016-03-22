@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * A scene in the 'Patterns' screen.
+ * A scene in the 'Patterns' screen, which deals with image-processing functions applied to images.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
