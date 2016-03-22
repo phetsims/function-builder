@@ -56,7 +56,6 @@ define( function( require ) {
     for ( var i = -4; i < 4; i++ ) {
       this.cardNumbers.push( i );
     }
-    //TODO show cards 0-3 initially in carousel
 
     Scene.call( this, options );
   }

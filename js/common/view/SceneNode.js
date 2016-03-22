@@ -46,8 +46,9 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, options ) {
 
-    // no options specific to this type
-    options = options || {};
+    options = _.extend( {
+      cardCarouselDefaultPageNumber: 0 // {number} initial page number for card carousels
+    }, options );
 
     var thisNode = this;
 
@@ -92,6 +93,7 @@ define( function( require ) {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: CARDS_PER_PAGE,
+      defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
       left: layoutBounds.left + 50,
@@ -115,6 +117,7 @@ define( function( require ) {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: CARDS_PER_PAGE,
+      defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),

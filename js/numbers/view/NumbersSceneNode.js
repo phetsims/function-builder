@@ -22,6 +22,9 @@ define( function( require ) {
    * @constructor
    */
   function NumbersSceneNode( scene, layoutBounds, options ) {
+    options = _.extend( {}, options, {
+      cardCarouselDefaultPageNumber: 1
+    } );
     SceneNode.call( this, scene, layoutBounds, options );
   }
 
