@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO much in common with ImageCardContainer
 /**
- * Container for image cards. This container is intended to be put in a carousel.
+ * Container for number cards. This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,34 +12,34 @@ define( function( require ) {
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
-  var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
-  var ImageGhostCard = require( 'FUNCTION_BUILDER/patterns/view/ImageGhostCard' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
+  var NumberCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumberCardNode' );
+  var NumberGhostCard = require( 'FUNCTION_BUILDER/numbers/view/NumberGhostCard' );
 
   /**
-   * @param {HTMLImageElement} image - images that appears on the card
+   * @param {number} value - number that appears on the card
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardContainer( image, options ) {
+  function NumberCardContainer( value, options ) {
 
     options = _.extend( {
       showGhostCard: false // {boolean} whether to show a 'ghost' card when the container is empty
     }, options );
 
-    this.image = image; // @private
+    this.value = value; // @private
 
     if ( options.showGhostCard ) {
-      options.emptyNode = new ImageGhostCard( image );
+      options.emptyNode = new NumberGhostCard( value );
     }
 
     CardContainer.call( this, options );
   }
 
-  functionBuilder.register( 'ImageCardContainer', ImageCardContainer );
+  functionBuilder.register( 'NumberCardContainer', NumberCardContainer );
 
-  return inherit( CardContainer, ImageCardContainer, {
+  return inherit( CardContainer, NumberCardContainer, {
 
     /**
      * Creates cards and puts them in the container.
@@ -55,13 +56,11 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var card = ImageCard.withImage( this.image, {
-          location: inputContainer.carouselLocation
-        } );
+        var card = new NumberCard( this. value );
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer );
+        var cardNode = new NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer );
 
         // put the Node in this container
         this.addNode( cardNode );

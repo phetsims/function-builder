@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -54,7 +55,13 @@ define( function( require ) {
     RESET_ALL_ANIMATION_SPEED: 1200,
 
     // scale for the images on the image cards
-    IMAGE_CARD_SCALE: 0.3
+    IMAGE_CARD_SCALE: 0.3,
+
+    // font for number cards
+    NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
+
+    // font for number functions
+    NUMBER_FUNCTION_FONT: new FBFont( 30, { weight: 'bold' } )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

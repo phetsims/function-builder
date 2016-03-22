@@ -17,8 +17,6 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
-  var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
@@ -87,10 +85,7 @@ define( function( require ) {
     // Input carousel --------------------------------------------------------------------------------------------------
 
     // Containers in the input carousel
-    var inputContainers = [];
-    scene.cardImages.forEach( function( cardImage ) {
-      inputContainers.push( new ImageCardContainer( cardImage, { showGhostCard: true } ) );
-    } );
+    var inputContainers = this.createCardContainers( scene );
 
     // Input carousel, at left
     var inputCarousel = new Carousel( inputContainers, {
@@ -113,10 +108,7 @@ define( function( require ) {
     // Output carousel ------------------------------------------------------------------------------------------------
 
     // Containers in the output carousel
-    var outputContainers = []; // {ImageCardStackNode[]}
-    scene.cardImages.forEach( function( cardImage ) {
-      outputContainers.push( new ImageCardContainer( cardImage ) );
-    } );
+    var outputContainers = this.createCardContainers( scene );
 
     // Output carousel, at right
     var outputCarousel = new OutputCardsCarousel( outputContainers, {
@@ -156,10 +148,7 @@ define( function( require ) {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    var functionContainers = [];
-    scene.functionConstructors.forEach( function( FunctionConstructor ) {
-      functionContainers.push( new ImageFunctionContainer( FunctionConstructor, scene ) );
-    } );
+    var functionContainers = this.createFunctionContainers( scene );
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
@@ -360,6 +349,27 @@ define( function( require ) {
     // @public
     populateCarousels: function() {
       this._populateCarousels();
+    },
+
+    /**
+     * Creates the card containers that go in the card carousels.
+     * @param {Scene} scene
+     * @returns {CardContainer[]}
+     * @protected
+     */
+    createCardContainers: function( scene ) {
+      throw new Error( 'must be implemented by subtype' );
+    },
+
+    /**
+     * Creates the function containers that go in the function carousels.
+     * @param {Scene} scene
+     * @returns {FunctionContainer[]}
+     * @protected
+     * @override
+     */
+    createFunctionContainers: function( scene ) {
+      throw new Error( 'must be implemented by subtype' );
     }
   } );
 } );

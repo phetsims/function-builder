@@ -8,7 +8,7 @@ Flush cards out of builder when 'see inside' is turned off (account for Reset Al
 
 ---
 
-Make a sprint on the Numbers screen (sans table and equation)
+Nothing happens on endDrag in Numbers screen
 
 Double-functions for Numbers screen
 

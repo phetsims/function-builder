@@ -9,34 +9,43 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var NumbersScene = require( 'FUNCTION_BUILDER/numbers/model/NumbersScene' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  var BUILDER_WIDTH = 420;
 
   /**
    * @constructor
    */
   function NumbersModel() {
 
-    // Inputs are:
-    // [-4,7]
-    // show [0,3] initially
-
-    // Functions are:
-    // + 3 : rgb(235,191,109)
-    // - 3  : rgb(198,231,220)
-    // x ? : (x 1) : rgb(209,151,169)
-    // - ? : (- 0) : rgb(255,246,187)
-    // x 2 + 1 : DOUBLE : rgb(208,282,224), rgb(253,204,196)
-    // ?? : (x 2) : rgb(246,181,138)
-    // + ? x ? (+ 3 x 2) : DOUBLE : rgb(135,196,229), rgb(222,220,205)
-    // ? ? (+ 7) : rgb(232,169,236)
-    // ? ? ? ? (x 2 - 3) : DOUBLE : rgb(165,209,167), rgb(255,246,187)
-
-    PropertySet.call( this, {} );
+    this.scene =
+      new NumbersScene( {
+        numberOfEachCard: 2,
+        numberOfEachFunction: 2,
+        builder: new Builder( {
+          width: BUILDER_WIDTH,
+          numberOfSlots: 2,
+          // center of input slot
+          location: new Vector2( ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 ), 280 ),
+          colorScheme: FBColors.BUILDER_BLUE
+        } )
+      } );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( PropertySet, NumbersModel );
+  return inherit( Object, NumbersModel, {
+
+    // @public
+    reset: function() {
+      //TODO delete this if there's ultimately nothing to do
+    }
+  } );
 } );

@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO much in common with ImageFunctionContainer
 /**
- * Container for image functions. This container is intended to be put in a carousel.
+ * Container for number functions. This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,22 +12,22 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
-  var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionNode' );
 
   /**
-   * @param {constructor} FunctionConstructor - constructor for a subtype of {ImageFunction}
+   * @param {constructor} FunctionConstructor - constructor for a subtype of {NumberFunction}
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionContainer( FunctionConstructor, options ) {
+  function NumberFunctionContainer( FunctionConstructor, options ) {
     this.FunctionConstructor = FunctionConstructor; // @private
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
+  functionBuilder.register( 'NumberFunctionContainer', NumberFunctionContainer );
 
-  return inherit( FunctionContainer, ImageFunctionContainer, {
+  return inherit( FunctionContainer, NumberFunctionContainer, {
 
     /**
      * Creates functions and puts them in the container.
@@ -47,7 +48,7 @@ define( function( require ) {
         scene.functionInstances.push( functionInstance );
 
         // associated Node
-        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer, animationLayer );
+        var functionNode = new NumberFunctionNode( functionInstance, this, builderNode, dragLayer, animationLayer );
 
         // put the Node in this container
         this.addNode( functionNode );
