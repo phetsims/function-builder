@@ -96,7 +96,6 @@ define( function( require ) {
       var sceneIndex = model.scenes.indexOf( scene );
       var sceneNode = sceneNodes[ sceneIndex ];
 
-      //TODO prevent interaction with sceneNode and oldSceneNode while animation is taking place?
       // Fade scenes in/out as selection changes
       if ( oldScene ) {
 
