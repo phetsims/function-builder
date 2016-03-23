@@ -36,7 +36,7 @@ define( function( require ) {
      * @public (read-only)
      */
     this.cardNumbers = [];
-    for ( var i = -4; i < 4; i++ ) {
+    for ( var i = -4; i < 8; i++ ) {
       this.cardNumbers.push( i );
     }
 
