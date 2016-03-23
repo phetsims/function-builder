@@ -22,16 +22,16 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function Plus3Times2( options ) {
+  function MysteryPlus3Times2( options ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 135, 196, 229 )' //TODO double function, other half has fill: 'rgb( 222, 220, 205 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }
 
-  functionBuilder.register( 'Plus3Times2', Plus3Times2 );
+  functionBuilder.register( 'MysteryPlus3Times2', MysteryPlus3Times2 );
 
-  return inherit( NumberFunction, Plus3Times2, {
+  return inherit( NumberFunction, MysteryPlus3Times2, {
 
     /**
      * Applies this function.
