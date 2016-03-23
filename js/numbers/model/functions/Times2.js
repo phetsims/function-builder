@@ -13,6 +13,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
 
+  // constants
+  var LABEL_STRING = '? ?';
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -21,7 +24,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 246, 181, 138 )'
     } );
-    NumberFunction.call( this, '? ?', options );
+    NumberFunction.call( this, LABEL_STRING, options );
   }
 
   functionBuilder.register( 'Times2', Times2 );

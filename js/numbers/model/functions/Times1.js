@@ -13,6 +13,10 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
+  // constants
+  var LABEL_STRING = StringUtils.format( '{0} ?', FBSymbols.TIMES );
 
   /**
    * @param {Object} [options]
@@ -22,7 +26,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 209, 151, 169 )'
     } );
-    NumberFunction.call( this, FBSymbols.TIMES + ' ?', options );
+    NumberFunction.call( this, LABEL_STRING, options );
   }
 
   functionBuilder.register( 'Times1', Times1 );
