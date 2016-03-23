@@ -25,18 +25,17 @@ define( function( require ) {
    */
   function NumbersModel() {
 
-    this.scene =
-      new NumbersScene( {
-        numberOfEachCard: 1,
-        numberOfEachFunction: 2,
-        builder: new Builder( {
-          width: BUILDER_WIDTH,
-          numberOfSlots: 2,
-          // center of input slot
-          location: new Vector2( ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 ), 280 ),
-          colorScheme: FBColors.BUILDER_BLUE
-        } )
-      } );
+    this.scene = new NumbersScene( {
+      numberOfEachCard: 1,
+      numberOfEachFunction: 2,
+      builder: new Builder( {
+        width: BUILDER_WIDTH,
+        numberOfSlots: 2,
+        // center of input slot
+        location: new Vector2( ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 ), 280 ),
+        colorScheme: FBColors.BUILDER_BLUE
+      } )
+    } );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
