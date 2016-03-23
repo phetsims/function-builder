@@ -19,10 +19,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // shared constants
-  var NUMBER_OF_EACH_CARD = 2;
-  var NUMBER_OF_EACH_FUNCTION = 2;
-
   // constants for the 'single' scene
   var SINGLE_BUILDER_WIDTH = 350;
   var SINGLE_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( SINGLE_BUILDER_WIDTH / 2 );
@@ -43,8 +39,8 @@ define( function( require ) {
 
       // single: builder with 1 slot, for exploring application of 1 function
       new PatternsScene( FBIconFactory.createSingleSceneIcon(), {
-        numberOfEachCard: NUMBER_OF_EACH_CARD,
-        numberOfEachFunction: NUMBER_OF_EACH_FUNCTION,
+        numberOfEachCard: 2,
+        numberOfEachFunction: 1,
         builder: new Builder( {
           width: SINGLE_BUILDER_WIDTH,
           numberOfSlots: 1,
@@ -55,8 +51,8 @@ define( function( require ) {
 
       // composed: builder with 3 slots, for exploring function composition
       new PatternsScene( FBIconFactory.createComposedSceneIcon(), {
-        numberOfEachCard: NUMBER_OF_EACH_CARD,
-        numberOfEachFunction: NUMBER_OF_EACH_FUNCTION,
+        numberOfEachCard: 2,
+        numberOfEachFunction: 2,
         builder: new Builder( {
           width: COMPOSED_BUILDER_WIDTH,
           numberOfSlots: 3,
