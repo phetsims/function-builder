@@ -17,6 +17,8 @@ Double functions for Numbers screen
 
 ---
 
+Set maxWidth for labels on CheckBoxes, instead of CheckBoxes.
+
 Numbers screen has no functions that are not invertible, should it?
 
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
