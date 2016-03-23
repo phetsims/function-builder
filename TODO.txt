@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Pointer gets disconnected from blocked cards, switch from translate to drag in MovableNode
-
 Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).

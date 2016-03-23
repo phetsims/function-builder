@@ -37,16 +37,19 @@ define( function( require ) {
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
+    var thisNode = this;
+
     this.movable = movable; // @public
 
     Node.call( this, options );
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    var thisNode = this;
     movable.locationProperty.link( function( location ) {
         options.translateNode( thisNode, location );
       }
     );
+
+    var startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
 
     this.addInputListener( new SimpleDragHandler( {
 
@@ -54,15 +57,22 @@ define( function( require ) {
       allowTouchSnag: true,
 
       start: function( event, trail ) {
+
         movable.dragging = true;
         options.startDrag && options.startDrag();
+
+        // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
+        var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+        startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
       },
 
-      // No need to constrain drag bounds because functions return to carousel or builder when released.
-      // @param { {Vector2} delta, {Vector2} oldPosition, {Vector2} position } translationParams
-      translate: function( translationParams ) {
-        var location = movable.locationProperty.get().plus( translationParams.delta );
-        options.translateMovable( movable, location, translationParams.delta );
+      // No need to constrain drag bounds because Movables return to carousel or builder when released.
+      drag: function( event, trail ) {
+        var previousLocation = movable.locationProperty.get();
+        var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+        var location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
+        var delta = location.minus( previousLocation );
+        options.translateMovable( movable, location, delta );
       },
 
       end: function( event, trail ) {
