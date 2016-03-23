@@ -14,6 +14,8 @@ Double functions for Numbers screen
 
 ---
 
+Numbers screen has no functions that are not invertible, should it?
+
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
