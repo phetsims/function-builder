@@ -55,7 +55,7 @@ define( function( require ) {
     options.children = [ backgroundNode, contentNode, this.notInvertibleSymbolNode ];
 
     // @private {OpacityTo} animation to indicate that this function is non-invertible
-    this.opacityTo = null;
+    this.notInvertibleAnimation = null;
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
@@ -197,26 +197,26 @@ define( function( require ) {
       assert && assert( !this.functionInstance.invertible );
 
       // stop any animation in progress
-      this.opacityTo && this.opacityTo.stop();
+      this.notInvertibleAnimation && this.notInvertibleAnimation.stop();
 
       // show the symbol
       var notInvertibleSymbolNode = this.notInvertibleSymbolNode;
+      notInvertibleSymbolNode.opacity = 0.85; // start slightly transparent
       notInvertibleSymbolNode.visible = true;
-      notInvertibleSymbolNode.opacity = 1;
 
-      // fade out
+      // fade out by animating opacity
       var thisNode = this;
-      this.opacityTo = new OpacityTo( notInvertibleSymbolNode, {
+      this.notInvertibleAnimation = new OpacityTo( notInvertibleSymbolNode, {
         delay: 1000, // delay before fade out begins, ms
         duration: 1500, // fade out time, ms
         endOpacity: 0,
         easing: TWEEN.Easing.Quadratic.In,
         onComplete: function() {
           notInvertibleSymbolNode.visible = false;
-          thisNode.opacityTo = null;
+          thisNode.notInvertibleAnimation = null;
         }
       } );
-      this.opacityTo.start();
+      this.notInvertibleAnimation.start();
     },
 
     /**
@@ -225,8 +225,8 @@ define( function( require ) {
      * @public
      */
     stopNotInvertibleAnimation: function() {
-      this.opacityTo && this.opacityTo.stop();
-      this.opacityTo = null;
+      this.notInvertibleAnimation && this.notInvertibleAnimation.stop();
+      this.notInvertibleAnimation = null;
       this.notInvertibleSymbolNode.visible = false;
     }
   } );
