@@ -61,7 +61,10 @@ define( function( require ) {
     NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
 
     // font for number functions
-    NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } )
+    NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
+
+    // font for check boxes
+    CHECK_BOX_FONT: new FBFont( 18 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

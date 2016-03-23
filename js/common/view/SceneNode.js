@@ -14,7 +14,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -195,7 +195,7 @@ define( function( require ) {
     } );
 
     // 'See Inside' check box, to the left of functions carousel
-    var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: new FBFont( 20 ) } ),
+    var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: FBConstants.CHECK_BOX_FONT } ),
       seeInsideProperty, {
         maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
         left: inputCarousel.left,
@@ -286,6 +286,9 @@ define( function( require ) {
       // move 1 of each card to the output carousel, for testing
       populateOutputCarousel( inputCarousel, outputCarousel );
     };
+
+    // @public (read-only) provided for layout
+    this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );

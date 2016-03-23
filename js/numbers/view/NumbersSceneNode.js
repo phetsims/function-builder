@@ -9,11 +9,18 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CheckBox = require( 'SUN/CheckBox' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
+  var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var simplifyEquationString = require( 'string!FUNCTION_BUILDER/simplifyEquation' );
 
   /**
    * @param {NumbersScene} scene - model for this scene
@@ -22,15 +29,36 @@ define( function( require ) {
    * @constructor
    */
   function NumbersSceneNode( scene, layoutBounds, options ) {
+
     options = _.extend( {}, options, {
       cardCarouselDefaultPageNumber: 1
     } );
+
     SceneNode.call( this, scene, layoutBounds, options );
+
+    // @private view-specific properties
+    this.simplifyEquationProperty = new Property( false );
+
+    // 'Simplify Equation' check box
+    var simplifyEquationCheckBox = new CheckBox( new Text( simplifyEquationString, { font: FBConstants.CHECK_BOX_FONT } ),
+      this.simplifyEquationProperty, {
+        maxWidth: this.seeInsideCheckBox.maxWidth,
+        left: this.seeInsideCheckBox.left,
+        top: this.seeInsideCheckBox.bottom + 15
+      } );
+    this.addChild( simplifyEquationCheckBox );
+    simplifyEquationCheckBox.moveToBack();
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
 
   return inherit( SceneNode, NumbersSceneNode, {
+
+    // @override
+    reset: function() {
+      SceneNode.prototype.reset.call( this );
+      this.simplifyEquationProperty.reset();
+    },
 
     /**
      * Creates the card containers that go in the card carousels.
