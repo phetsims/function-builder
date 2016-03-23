@@ -51,26 +51,6 @@ define( function( require ) {
     this.icon = icon; // @public (read-only)
 
     /**
-     * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.
-     * @type {constructor[]}
-     * @public (read-only)
-     */
-    this.functionConstructors = [
-      Mirror,
-      Rotate90,
-      Grayscale,
-      Rotate180,
-      Identity,
-      InvertRGB,
-      Erase,
-      Shrink75,
-      Warhol,
-      MysteryA,
-      MysteryB,
-      MysteryC
-    ];
-
-    /**
      * Images for the input cards, in the order that they appear in the input carousel.
      * @type {HTMLImageElement[]}
      * @public (read-only)
@@ -88,6 +68,26 @@ define( function( require ) {
       circleImage,
       triangleImage,
       starImage
+    ];
+
+    /**
+     * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.
+     * @type {constructor[]}
+     * @public (read-only)
+     */
+    this.functionConstructors = [
+      Mirror,
+      Rotate90,
+      Grayscale,
+      Rotate180,
+      Identity,
+      InvertRGB,
+      Erase,
+      Shrink75,
+      Warhol,
+      MysteryA,
+      MysteryB,
+      MysteryC
     ];
 
     Scene.call( this, options );

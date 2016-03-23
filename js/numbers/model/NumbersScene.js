@@ -31,6 +31,16 @@ define( function( require ) {
   function NumbersScene( options ) {
 
     /**
+     * Numbers for the input cards, in the order that they appear in the input carousel.
+     * @type {HTMLImageElement[]}
+     * @public (read-only)
+     */
+    this.cardNumbers = [];
+    for ( var i = -4; i < 4; i++ ) {
+      this.cardNumbers.push( i );
+    }
+
+    /**
      * Constructors for {NumberFunction} types, in the order that they appear in the function carousel.
      * @type {constructor[]}
      * @public (read-only)
@@ -46,16 +56,6 @@ define( function( require ) {
       MysteryPlus7,
       MysteryTimes2Minus3
     ];
-
-    /**
-     * Numbers for the input cards, in the order that they appear in the input carousel.
-     * @type {HTMLImageElement[]}
-     * @public (read-only)
-     */
-    this.cardNumbers = [];
-    for ( var i = -4; i < 4; i++ ) {
-      this.cardNumbers.push( i );
-    }
 
     Scene.call( this, options );
   }
