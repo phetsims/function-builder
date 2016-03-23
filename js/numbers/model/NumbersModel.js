@@ -27,7 +27,7 @@ define( function( require ) {
 
     this.scene =
       new NumbersScene( {
-        numberOfEachCard: 2,
+        numberOfEachCard: 1,
         numberOfEachFunction: 2,
         builder: new Builder( {
           width: BUILDER_WIDTH,
