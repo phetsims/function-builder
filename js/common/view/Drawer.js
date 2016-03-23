@@ -26,9 +26,11 @@ define( function( require ) {
     options = _.extend( {
       size: null, // {Dimension2|null} !null: contents sized to fit in container, null: container sized to fit contents
       handleLocation: 'top', // {string} 'top'|'bottom'
-      xMargin: 30,
-      yMargin: 10
+      xMargin: 0,
+      yMargin: 0
     }, options );
+
+    assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
 
     // size of contents, adjusted for margins
     var CONTENTS_WIDTH = contentsNode.width + ( 2 * options.xMargin );
@@ -51,9 +53,7 @@ define( function( require ) {
       contentsNode.setScaleMagnitude( scale );
     }
 
-    // center the contents in the container
-    contentsNode.center = containerNode.center;
-
+    //TODO use a RectangularToggleButton?
     // handle
     var handleCornerRadius = 5;
     var handleNode = new Rectangle( 0, 0, 70, 30, {
@@ -63,14 +63,18 @@ define( function( require ) {
       cornerRadius: handleCornerRadius
     } );
 
-    // position the handle at center-top or center-bottom
+    // layout, position the handle at center-top or center-bottom
+    containerNode.x = 0;
     handleNode.centerX = containerNode.centerX;
     if ( options.handleLocation === 'top' ) {
-      handleNode.bottom = containerNode.top + handleCornerRadius;
+      handleNode.top = 0;
+      containerNode.top = handleNode.bottom - handleCornerRadius;
     }
     else {
+      containerNode.top = 0;
       handleNode.top = containerNode.bottom - handleCornerRadius;
     }
+    contentsNode.center = containerNode.center;
 
     // put all of the moving pieces together
     var drawerNode = new Node( {

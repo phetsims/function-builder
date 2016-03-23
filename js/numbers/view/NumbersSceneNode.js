@@ -19,6 +19,7 @@ define( function( require ) {
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
   var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -59,11 +60,26 @@ define( function( require ) {
     var equationDrawer = new Drawer( equationNode, {
       handleLocation: 'bottom',
       size: new Dimension2( 240, 75 ),
+      xMargin: 30,
+      yMargin: 10,
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + 40 //TODO magic number
     } );
     this.addChild( equationDrawer );
     equationDrawer.moveToBack();
+
+    // Table drawer
+    var tableNode = new Rectangle( 0, 0, 200, 200, {
+      fill: 'white',
+      stroke: 'black'
+    } );
+    var tableDrawer = new Drawer( tableNode, {
+      handleLocation: 'top',
+      centerX: scene.builder.centerX,
+      bottom: scene.builder.location.y - 40 //TODO magic number
+    } );
+    this.addChild( tableDrawer );
+    tableDrawer.moveToBack();
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
