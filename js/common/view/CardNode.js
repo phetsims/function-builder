@@ -113,46 +113,47 @@ define( function( require ) {
     assert && assert( !options.translateMovable );
     options.translateMovable = function( movable, location, delta ) {
 
+      blocked = false; // assume we're not blocked, because functions may be changing simultaneously via multi-touch
       dragDx = delta.x;
-      blocked = false;
 
       var y = 0;
-      if ( location.x < INPUT_SLOT_X ) {
 
-        // to the left of the builder, drag along the line between input carousel and builder input slot
-        y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
-        movable.moveTo( new Vector2( location.x, y ) );
-      }
-      else if ( location.x > OUTPUT_SLOT_X ) {
+      if ( location.x > OUTPUT_SLOT_X ) {
 
         // to the right of the builder, drag along the line between output carousel and builder output
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         movable.moveTo( new Vector2( location.x, y ) );
       }
-      else if ( dragDx >= 0 ) {
+      else { // to left of builder's output slot
 
-        // in the builder, dragging horizontally to the right
-        movable.moveTo( new Vector2( location.x, builder.location.y ) );
-      }
-      else {
-
-        // in the builder, dragging horizontally to the left
-
-        // block dragging past a non-invertible function to our left
-        for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
-          var slot = builder.slots[ i ];
-          if ( movable.locationProperty.get().x > slot.location.x ) { // only slots to the left
-            var blockedX = slot.location.x + BLOCKED_X_OFFSET;
-            if ( !slot.isInvertible() && location.x < blockedX ) {
-              blocked = true;
-              movable.moveTo( new Vector2( blockedX, builder.location.y ) );
-              thisNode.builderNode.getFunctionNode( i ).showNotInvertibleSymbol();
+        // dragging to the left, check to see if blocked by a non-invertible function
+        if ( dragDx < 0 ) {
+          for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
+            var slot = builder.slots[ i ];
+            if ( movable.locationProperty.get().x > slot.location.x ) { // only slots to the left
+              var blockedX = slot.location.x + BLOCKED_X_OFFSET;
+              if ( !slot.isInvertible() && location.x < blockedX ) {
+                blocked = true;
+                movable.moveTo( new Vector2( blockedX, builder.location.y ) );
+                thisNode.builderNode.getFunctionNode( i ).showNotInvertibleSymbol();
+              }
             }
           }
         }
 
         if ( !blocked ) {
-          movable.moveTo( new Vector2( location.x, builder.location.y ) );
+
+          if ( location.x < INPUT_SLOT_X ) {
+
+            // to the left of the builder, drag along the line between input carousel and builder input slot
+            y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
+            movable.moveTo( new Vector2( location.x, y ) );
+          }
+          else {
+
+            // in the builder, dragging horizontally
+            movable.moveTo( new Vector2( location.x, builder.location.y ) );
+          }
         }
       }
     };
