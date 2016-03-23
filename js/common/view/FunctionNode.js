@@ -196,23 +196,21 @@ define( function( require ) {
 
       assert && assert( !this.functionInstance.invertible );
 
-      // stop any animation in progress
+      // stop animation if it's already running
       this.notInvertibleAnimation && this.notInvertibleAnimation.stop();
 
-      // show the symbol
-      var notInvertibleSymbolNode = this.notInvertibleSymbolNode;
-      notInvertibleSymbolNode.opacity = 0.85; // start slightly transparent
-      notInvertibleSymbolNode.visible = true;
-
-      // fade out by animating opacity
+      // start animation, show symbol and gradually fade out
       var thisNode = this;
-      this.notInvertibleAnimation = new OpacityTo( notInvertibleSymbolNode, {
-        delay: 1000, // delay before fade out begins, ms
-        duration: 1500, // fade out time, ms
+      this.notInvertibleAnimation = new OpacityTo( this.notInvertibleSymbolNode, {
+        startOpacity: 0.85,
         endOpacity: 0,
-        easing: TWEEN.Easing.Quadratic.In,
+        duration: 1500, // fade out time, ms
+        easing: TWEEN.Easing.Quintic.In, // most of opacity change happens at end of duration
+        onStart: function() {
+          thisNode.notInvertibleSymbolNode.visible = true;
+        },
         onComplete: function() {
-          notInvertibleSymbolNode.visible = false;
+          thisNode.notInvertibleSymbolNode.visible = false;
           thisNode.notInvertibleAnimation = null;
         }
       } );
@@ -225,9 +223,10 @@ define( function( require ) {
      * @public
      */
     stopNotInvertibleAnimation: function() {
-      this.notInvertibleAnimation && this.notInvertibleAnimation.stop();
-      this.notInvertibleAnimation = null;
-      this.notInvertibleSymbolNode.visible = false;
+      if ( this.notInvertibleAnimation ) {
+        this.notInvertibleAnimation.stop();
+        this.notInvertibleSymbolNode.visible = false;
+      }
     }
   } );
 } );
