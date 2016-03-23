@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
@@ -21,7 +22,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 209, 151, 169 )'
     } );
-    NumberFunction.call( this, '\u00d7 ?', options );
+    NumberFunction.call( this, FBSymbols.TIMES + ' ?', options );
   }
 
   functionBuilder.register( 'Times1', Times1 );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
@@ -21,7 +22,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 135, 196, 229 )' //TODO double function, other half has fill: 'rgb( 222, 220, 205 )'
     } );
-    NumberFunction.call( this, '\u002b ? \u00d7 ?', options );
+    NumberFunction.call( this, FBSymbols.PLUS + ' ? ' + FBSymbols.TIMES + ' ?', options );
   }
 
   functionBuilder.register( 'Plus3Times2', Plus3Times2 );
