@@ -10,7 +10,7 @@ Flush cards out of builder when 'see inside' is turned off (account for Reset Al
 
 Investigate different approach to NumberFunction subtypes, include some form of operator precedence to support equations
 
-Double-functions for Numbers screen
+Double functions for Numbers screen
 
 ---
 
