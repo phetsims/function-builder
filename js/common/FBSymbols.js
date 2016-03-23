@@ -12,6 +12,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
   var FBSymbols = {
+    DIVIDE: '\u00f7',
     MINUS: '\u2212',
     PLUS: '\u002b',
     TIMES: '\u00d7'
