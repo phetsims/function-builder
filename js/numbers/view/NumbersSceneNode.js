@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO method of adding components, doing layout, handling i18n feels kludgy
 /**
  * Displays a scene in the 'Numbers' screen.
  *
@@ -10,6 +11,8 @@ define( function( require ) {
 
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -42,13 +45,25 @@ define( function( require ) {
     // 'Simplify Equation' check box
     var simplifyEquationCheckBox = new CheckBox( new Text( simplifyEquationString, { font: FBConstants.CHECK_BOX_FONT } ),
       this.simplifyEquationProperty, {
-        //TODO this i18n and layout feels kludgy
         maxWidth: this.seeInsideCheckBox.maxWidth,
         left: this.seeInsideCheckBox.left,
         top: this.seeInsideCheckBox.bottom + 15
       } );
     this.addChild( simplifyEquationCheckBox );
     simplifyEquationCheckBox.moveToBack();
+
+    // Equation drawer
+    var equationNode = new Text( 'equation', {
+      font: FBConstants.EQUATION_FONT
+    } );
+    var equationDrawer = new Drawer( equationNode, {
+      handleLocation: 'bottom',
+      size: new Dimension2( 240, 75 ),
+      centerX: scene.builder.centerX,
+      top: scene.builder.location.y + 40 //TODO magic number
+    } );
+    this.addChild( equationDrawer );
+    equationDrawer.moveToBack();
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );

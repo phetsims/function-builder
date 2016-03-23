@@ -64,7 +64,10 @@ define( function( require ) {
     NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
 
     // font for check boxes
-    CHECK_BOX_FONT: new FBFont( 18 )
+    CHECK_BOX_FONT: new FBFont( 18 ),
+
+    // font for equations
+    EQUATION_FONT: new FBFont( 22 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

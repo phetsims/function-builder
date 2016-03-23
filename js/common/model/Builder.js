@@ -70,6 +70,7 @@ define( function( require ) {
     // @public for convenience
     this.left = this.location.x;
     this.right = this.left + options.width;
+    this.centerX = this.left + ( options.width / 2 );
   }
 
   functionBuilder.register( 'Builder', Builder );
