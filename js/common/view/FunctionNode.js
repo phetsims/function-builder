@@ -77,6 +77,8 @@ define( function( require ) {
       }
       else if ( builderNode.containsFunctionNode( thisNode ) ) {
 
+        thisNode.stopNonInvertibleAnimation();
+
         // function is in the builder, pop it out
         var slotNumber = builderNode.getSlotNumber( thisNode );
         var slotLocation = builderNode.getSlotLocation( slotNumber );
@@ -187,10 +189,12 @@ define( function( require ) {
     },
 
     /**
-     * Shows the 'not invertible' symbol for a brief time, then fades it out.
+     * Starts animation showing that a function is not invertible.
      * @public
      */
-    showNotInvertibleSymbol: function() {
+    startNonInvertibleAnimation: function() {
+
+      assert && assert( !this.functionInstance.invertible );
 
       // stop any animation in progress
       this.opacityTo && this.opacityTo.stop();
@@ -201,6 +205,7 @@ define( function( require ) {
       notInvertibleSymbolNode.opacity = 1;
 
       // fade out
+      var thisNode = this;
       this.opacityTo = new OpacityTo( notInvertibleSymbolNode, {
         delay: 1000, // delay before fade out begins, ms
         duration: 1500, // fade out time, ms
@@ -208,9 +213,21 @@ define( function( require ) {
         easing: TWEEN.Easing.Quadratic.In,
         onComplete: function() {
           notInvertibleSymbolNode.visible = false;
+          thisNode.opacityTo = null;
         }
       } );
       this.opacityTo.start();
+    },
+
+    /**
+     * Stops animation showing that a function is not invertible.
+     * If no animation is in progress, this is a no-op.
+     * @public
+     */
+    stopNonInvertibleAnimation: function() {
+      this.opacityTo && this.opacityTo.stop();
+      this.opacityTo = null;
+      this.notInvertibleSymbolNode.visible = false;
     }
   } );
 } );
