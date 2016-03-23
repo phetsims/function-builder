@@ -16,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
-  var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
    * @param {ImageFunction} functionInstance
@@ -53,9 +52,6 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, contentNode, this.notInvertibleSymbolNode ];
-
-    // @private {OpacityTo} animation to indicate that this function is non-invertible
-    this.notInvertibleAnimation = null;
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
@@ -193,28 +189,8 @@ define( function( require ) {
      * @public
      */
     startNotInvertibleAnimation: function() {
-
       assert && assert( !this.functionInstance.invertible );
-
-      // stop animation if it's already running
-      this.notInvertibleAnimation && this.notInvertibleAnimation.stop();
-
-      // start animation, show symbol and gradually fade out
-      var thisNode = this;
-      this.notInvertibleAnimation = new OpacityTo( this.notInvertibleSymbolNode, {
-        startOpacity: 0.85,
-        endOpacity: 0,
-        duration: 1500, // fade out time, ms
-        easing: TWEEN.Easing.Quintic.In, // most of opacity change happens at end of duration
-        onStart: function() {
-          thisNode.notInvertibleSymbolNode.visible = true;
-        },
-        onComplete: function() {
-          thisNode.notInvertibleSymbolNode.visible = false;
-          thisNode.notInvertibleAnimation = null;
-        }
-      } );
-      this.notInvertibleAnimation.start();
+      this.notInvertibleSymbolNode.startAnimation();
     },
 
     /**
@@ -223,10 +199,7 @@ define( function( require ) {
      * @public
      */
     stopNotInvertibleAnimation: function() {
-      if ( this.notInvertibleAnimation ) {
-        this.notInvertibleAnimation.stop();
-        this.notInvertibleSymbolNode.visible = false;
-      }
+      this.notInvertibleSymbolNode.stopAnimation();
     }
   } );
 } );
