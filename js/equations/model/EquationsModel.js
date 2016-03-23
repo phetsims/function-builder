@@ -22,7 +22,7 @@ define( function( require ) {
     // [-4,6], x
     // show [0,3] initially
 
-    // Function, 2 of each:
+    // Functions, 2 of each:
     // + N : rgb( 246, 203, 144 )
     // - N : rgb( 152, 231, 156 )
     // x N : rgb( 237, 165, 222 )
