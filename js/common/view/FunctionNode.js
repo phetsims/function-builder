@@ -54,7 +54,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, contentNode, this.notInvertibleSymbolNode ];
 
-    // @private {OpacityTo} animation for notInvertibleSymbolNode
+    // @private {OpacityTo} animation to indicate that this function is non-invertible
     this.opacityTo = null;
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
@@ -77,7 +77,7 @@ define( function( require ) {
       }
       else if ( builderNode.containsFunctionNode( thisNode ) ) {
 
-        thisNode.stopNonInvertibleAnimation();
+        thisNode.stopNotInvertibleAnimation();
 
         // function is in the builder, pop it out
         var slotNumber = builderNode.getSlotNumber( thisNode );
@@ -192,7 +192,7 @@ define( function( require ) {
      * Starts animation showing that a function is not invertible.
      * @public
      */
-    startNonInvertibleAnimation: function() {
+    startNotInvertibleAnimation: function() {
 
       assert && assert( !this.functionInstance.invertible );
 
@@ -224,7 +224,7 @@ define( function( require ) {
      * If no animation is in progress, this is a no-op.
      * @public
      */
-    stopNonInvertibleAnimation: function() {
+    stopNotInvertibleAnimation: function() {
       this.opacityTo && this.opacityTo.stop();
       this.opacityTo = null;
       this.notInvertibleSymbolNode.visible = false;
