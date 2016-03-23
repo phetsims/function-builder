@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Range = require( 'DOT/Range' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
 
   // function modules
@@ -24,6 +25,9 @@ define( function( require ) {
   var Plus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus3' );
   var Times2Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2Plus1' );
 
+  // constants
+  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -36,7 +40,7 @@ define( function( require ) {
      * @public (read-only)
      */
     this.cardNumbers = [];
-    for ( var i = -4; i < 8; i++ ) {
+    for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       this.cardNumbers.push( i );
     }
 
