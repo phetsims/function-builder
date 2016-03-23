@@ -42,6 +42,7 @@ define( function( require ) {
     // 'Simplify Equation' check box
     var simplifyEquationCheckBox = new CheckBox( new Text( simplifyEquationString, { font: FBConstants.CHECK_BOX_FONT } ),
       this.simplifyEquationProperty, {
+        //TODO this i18n and layout feels kludgy
         maxWidth: this.seeInsideCheckBox.maxWidth,
         left: this.seeInsideCheckBox.left,
         top: this.seeInsideCheckBox.bottom + 15
