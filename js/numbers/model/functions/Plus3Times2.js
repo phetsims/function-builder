@@ -22,7 +22,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
       fill: 'rgb( 135, 196, 229 )' //TODO double function, other half has fill: 'rgb( 222, 220, 205 )'
     } );
-    NumberFunction.call( this, FBSymbols.PLUS + ' ? ' + FBSymbols.TIMES + ' ?', options );
+    NumberFunction.call( this, FBSymbols.PLUS + ' ? | ' + FBSymbols.TIMES + ' ?', options );
   }
 
   functionBuilder.register( 'Plus3Times2', Plus3Times2 );
