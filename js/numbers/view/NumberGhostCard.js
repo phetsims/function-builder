@@ -11,9 +11,8 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var GhostCard = require( 'FUNCTION_BUILDER/common/view/GhostCard' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -22,26 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function NumberGhostCard( value, options ) {
-
-    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
-    options.lineDash = [ 4, 4 ];
-    options.opacity = 0.5;
-
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
-      _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
-
-    var imageNode = new Text( value, {
-      font: FBConstants.NUMBER_CARD_FONT,
-      center: backgroundNode.center
-    } );
-
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, imageNode ];
-
-    Node.call( this, options );
+    GhostCard.call( this, new Text( value, { font: FBConstants.NUMBER_CARD_FONT } ), options );
   }
 
   functionBuilder.register( 'NumberGhostCard', NumberGhostCard );
 
-  return inherit( Node, NumberGhostCard );
+  return inherit( GhostCard, NumberGhostCard );
 } );
