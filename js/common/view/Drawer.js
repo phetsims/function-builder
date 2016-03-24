@@ -15,6 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -62,12 +63,19 @@ define( function( require ) {
 
     //TODO use a RectangularToggleButton?
     // handle
-    var handleCornerRadius = 5;
-    var handleNode = new Rectangle( 0, 0, 70, 30, {
+    var HANDLE_CORNER_RADIUS = 5;
+    var HANDLE_RADII = ( options.handleLocation === 'top' ) ? {
+      topLeft: HANDLE_CORNER_RADIUS,
+      topRight: HANDLE_CORNER_RADIUS
+    } : {
+      bottomLeft: HANDLE_CORNER_RADIUS,
+      bottomRight: HANDLE_CORNER_RADIUS
+    };
+    var handleShape = Shape.roundedRectangleWithRadii( 0, 0, 70, 30, HANDLE_RADII );
+    var handleNode = new Path( handleShape, {
       cursor: 'pointer',
       fill: '#F2E916',
-      stroke: 'black',
-      cornerRadius: handleCornerRadius
+      stroke: 'black'
     } );
 
     // plus and minus indicators on handle
@@ -85,11 +93,11 @@ define( function( require ) {
     handleNode.centerX = containerNode.centerX;
     if ( options.handleLocation === 'top' ) {
       handleNode.top = 0;
-      containerNode.top = handleNode.bottom - handleCornerRadius;
+      containerNode.top = handleNode.bottom - 1;
     }
     else {
       containerNode.top = 0;
-      handleNode.top = containerNode.bottom - handleCornerRadius;
+      handleNode.top = containerNode.bottom - 1;
     }
     contentsNode.center = containerNode.center;
 
