@@ -9,19 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Dimension2 = require( 'DOT/Dimension2' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  var HANDLE_SIZE = new Dimension2( 70, 20 );
+  var HANDLE_CORNER_RADIUS = 5;
+  var ARROW_SIZE = new Dimension2( 20, 7 );
 
   /**
    * @param {Node} contentsNode
@@ -63,8 +67,7 @@ define( function( require ) {
       contentsNode.setScaleMagnitude( scale );
     }
 
-    // handle
-    var HANDLE_CORNER_RADIUS = 5;
+    // handle, rectangle with top or bottom corners rounded, the other corners square
     var HANDLE_RADII = ( options.handleLocation === 'top' ) ? {
       topLeft: HANDLE_CORNER_RADIUS,
       topRight: HANDLE_CORNER_RADIUS
@@ -72,22 +75,33 @@ define( function( require ) {
       bottomLeft: HANDLE_CORNER_RADIUS,
       bottomRight: HANDLE_CORNER_RADIUS
     };
-    var handleShape = Shape.roundedRectangleWithRadii( 0, 0, 70, 30, HANDLE_RADII );
+    var handleShape = Shape.roundedRectangleWithRadii( 0, 0, HANDLE_SIZE.width, HANDLE_SIZE.height, HANDLE_RADII );
     var handleNode = new Path( handleShape, {
       cursor: 'pointer',
       fill: '#F2E916',
       stroke: 'black'
     } );
 
-    // plus and minus indicators on handle
-    var INDICATOR_OPTIONS = {
-      font: new FBFont( 20 ),
+    // arrow shapes
+    var upArrowShape = new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( ARROW_SIZE.width / 2, -ARROW_SIZE.height )
+      .lineTo( ARROW_SIZE.width, 0 );
+    var downArrowShape = upArrowShape.transformed( Matrix3.rotation2( Math.PI ) );
+
+    // open and close arrows
+    var ARROW_OPTIONS = {
+      stroke: 'black',
+      lineWidth: 2,
+      lineCap: 'round',
       center: handleNode.center
     };
-    var plusNode = new Text( FBSymbols.PLUS, _.extend( {}, INDICATOR_OPTIONS,{ visible: !options.open } ) );
-    var minusNode = new Text( FBSymbols.MINUS, _.extend( {}, INDICATOR_OPTIONS,{ visible: options.open } ) );
-    handleNode.addChild( plusNode );
-    handleNode.addChild( minusNode );
+    var openArrowNode = new Path( ( options.handleLocation === 'top' ) ? upArrowShape : downArrowShape, ARROW_OPTIONS );
+    var closeArrowNode = new Path( ( options.handleLocation === 'top' ) ? downArrowShape : upArrowShape, ARROW_OPTIONS );
+    handleNode.addChild( openArrowNode );
+    handleNode.addChild( closeArrowNode );
+    openArrowNode.visible = !options.open;
+    closeArrowNode.visible = options.open;
 
     // layout, position the handle at center-top or center-bottom
     containerNode.x = 0;
@@ -140,8 +154,8 @@ define( function( require ) {
         constantSpeed: false,
         duration: 500,  // ms
         onStart: function() {
-          plusNode.visible = !open;
-          minusNode.visible = open;
+          openArrowNode.visible = !open;
+          closeArrowNode.visible = open;
         },
         onComplete: function() {
           animation = null;

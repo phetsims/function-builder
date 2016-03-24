@@ -63,7 +63,7 @@ define( function( require ) {
       open: true,
       handleLocation: 'top',
       centerX: scene.builder.centerX,
-      bottom: scene.builder.location.y - 40 //TODO magic number
+      bottom: scene.builder.location.y - 42 //TODO magic number
     } );
     this.addChild( this.tableDrawer );
     this.tableDrawer.moveToBack();
@@ -80,7 +80,7 @@ define( function( require ) {
       xMargin: 30,
       yMargin: 10,
       centerX: scene.builder.centerX,
-      top: scene.builder.location.y + 40 //TODO magic number
+      top: scene.builder.location.y + 42 //TODO magic number
     } );
     this.addChild( this.equationDrawer );
     this.equationDrawer.moveToBack();
