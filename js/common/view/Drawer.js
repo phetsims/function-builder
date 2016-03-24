@@ -61,7 +61,6 @@ define( function( require ) {
       contentsNode.setScaleMagnitude( scale );
     }
 
-    //TODO use a RectangularToggleButton?
     // handle
     var HANDLE_CORNER_RADIUS = 5;
     var HANDLE_RADII = ( options.handleLocation === 'top' ) ? {
