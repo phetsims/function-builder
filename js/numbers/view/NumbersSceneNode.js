@@ -53,11 +53,28 @@ define( function( require ) {
     this.addChild( simplifyEquationCheckBox );
     simplifyEquationCheckBox.moveToBack();
 
+    // Table drawer
+    var tableNode = new Rectangle( 0, 0, 200, 200, {
+      fill: 'white',
+      stroke: 'black'
+    } );
+    // @private
+    this.tableDrawer = new Drawer( tableNode, {
+      open: true,
+      handleLocation: 'top',
+      centerX: scene.builder.centerX,
+      bottom: scene.builder.location.y - 40 //TODO magic number
+    } );
+    this.addChild( this.tableDrawer );
+    this.tableDrawer.moveToBack();
+
     // Equation drawer
     var equationNode = new Text( 'equation', {
       font: FBConstants.EQUATION_FONT
     } );
-    var equationDrawer = new Drawer( equationNode, {
+    // @private
+    this.equationDrawer = new Drawer( equationNode, {
+      open: false,
       handleLocation: 'bottom',
       size: new Dimension2( 240, 75 ),
       xMargin: 30,
@@ -65,21 +82,8 @@ define( function( require ) {
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + 40 //TODO magic number
     } );
-    this.addChild( equationDrawer );
-    equationDrawer.moveToBack();
-
-    // Table drawer
-    var tableNode = new Rectangle( 0, 0, 200, 200, {
-      fill: 'white',
-      stroke: 'black'
-    } );
-    var tableDrawer = new Drawer( tableNode, {
-      handleLocation: 'top',
-      centerX: scene.builder.centerX,
-      bottom: scene.builder.location.y - 40 //TODO magic number
-    } );
-    this.addChild( tableDrawer );
-    tableDrawer.moveToBack();
+    this.addChild( this.equationDrawer );
+    this.equationDrawer.moveToBack();
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
@@ -90,6 +94,8 @@ define( function( require ) {
     reset: function() {
       SceneNode.prototype.reset.call( this );
       this.simplifyEquationProperty.reset();
+      this.equationDrawer.reset();
+      this.tableDrawer.reset();
     },
 
     /**

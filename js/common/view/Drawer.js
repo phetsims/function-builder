@@ -10,11 +10,15 @@ define( function( require ) {
 
   // modules
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {Node} contentsNode
@@ -27,10 +31,13 @@ define( function( require ) {
       size: null, // {Dimension2|null} !null: contents sized to fit in container, null: container sized to fit contents
       handleLocation: 'top', // {string} 'top'|'bottom'
       xMargin: 0,
-      yMargin: 0
+      yMargin: 0,
+      open: true // {boolean} is the drawer initially open?
     }, options );
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
+
+    var thisNode = this;
 
     // size of contents, adjusted for margins
     var CONTENTS_WIDTH = contentsNode.width + ( 2 * options.xMargin );
@@ -63,6 +70,16 @@ define( function( require ) {
       cornerRadius: handleCornerRadius
     } );
 
+    // plus and minus indicators on handle
+    var INDICATOR_OPTIONS = {
+      font: new FBFont( 20 ),
+      center: handleNode.center
+    };
+    var plusNode = new Text( FBSymbols.PLUS, INDICATOR_OPTIONS );
+    var minusNode = new Text( FBSymbols.MINUS, INDICATOR_OPTIONS );
+    handleNode.addChild( plusNode );
+    handleNode.addChild( minusNode );
+
     // layout, position the handle at center-top or center-bottom
     containerNode.x = 0;
     handleNode.centerX = containerNode.centerX;
@@ -87,23 +104,31 @@ define( function( require ) {
     options.clipArea = Shape.rect( 0, 0, drawerNode.width, drawerNode.height );
     Node.call( this, options );
 
-    // click on the handle to open/close the drawer
-    var isOpen = true;
-    var yOffsetToClose = ( options.handleLocation === 'top' ) ? containerNode.height : -containerNode.height;
+    // click on the handle to toggle between open and closed
+    var yOpenedOffset = 0;
+    var yClosedOffset = ( options.handleLocation === 'top' ) ? containerNode.height : -containerNode.height;
     handleNode.addInputListener( new DownUpListener( {
       down: function( event, trail ) {
-        if ( isOpen ) {
-          drawerNode.top = drawerNode.top + yOffsetToClose;
-        }
-        else {
-          drawerNode.top = drawerNode.top - yOffsetToClose;
-        }
-        isOpen = !isOpen;
+        thisNode.openProperty.set( !thisNode.openProperty.get() );
       }
     } ) );
+
+    // @public is the drawer open?
+    this.openProperty = new Property( options.open );
+    this.openProperty.link( function( open ) {
+      plusNode.visible = !open;
+      minusNode.visible = open;
+      drawerNode.top = ( open ? yOpenedOffset : yClosedOffset );
+    } );
   }
 
   functionBuilder.register( 'Drawer', Drawer );
 
-  return inherit( Node, Drawer );
+  return inherit( Node, Drawer, {
+
+    // @public
+    reset: function() {
+      this.openProperty.reset();
+    }
+  } );
 } );
