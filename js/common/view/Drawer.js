@@ -14,12 +14,14 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Node} contentsNode
@@ -82,8 +84,8 @@ define( function( require ) {
       font: new FBFont( 20 ),
       center: handleNode.center
     };
-    var plusNode = new Text( FBSymbols.PLUS, INDICATOR_OPTIONS );
-    var minusNode = new Text( FBSymbols.MINUS, INDICATOR_OPTIONS );
+    var plusNode = new Text( FBSymbols.PLUS, _.extend( {}, INDICATOR_OPTIONS,{ visible: !options.open } ) );
+    var minusNode = new Text( FBSymbols.MINUS, _.extend( {}, INDICATOR_OPTIONS,{ visible: options.open } ) );
     handleNode.addChild( plusNode );
     handleNode.addChild( minusNode );
 
@@ -111,21 +113,41 @@ define( function( require ) {
     options.clipArea = Shape.rect( 0, 0, drawerNode.width, drawerNode.height );
     Node.call( this, options );
 
+    var openLocation = new Vector2( drawerNode.x, 0 );
+    var closeLocation = new Vector2( drawerNode.x,  ( options.handleLocation === 'top' ) ? containerNode.height : -containerNode.height );
+    drawerNode.translation = options.open ? openLocation : closeLocation;
+
     // click on the handle to toggle between open and closed
-    var yOpenedOffset = 0;
-    var yClosedOffset = ( options.handleLocation === 'top' ) ? containerNode.height : -containerNode.height;
     handleNode.addInputListener( new DownUpListener( {
       down: function( event, trail ) {
         thisNode.openProperty.set( !thisNode.openProperty.get() );
       }
     } ) );
 
+    var animation = null; // {MoveTo} animation that opens/closes the drawer
+
     // @public is the drawer open?
     this.openProperty = new Property( options.open );
-    this.openProperty.link( function( open ) {
-      plusNode.visible = !open;
-      minusNode.visible = open;
-      drawerNode.top = ( open ? yOpenedOffset : yClosedOffset );
+
+    // animate opening and closing of the drawer
+    this.openProperty.lazyLink( function( open ) {
+
+      // stop any animation that's in progress
+      animation && animation.stop();
+
+      // start the animation
+      animation = new MoveTo( drawerNode, open ? openLocation : closeLocation, {
+        constantSpeed: false,
+        duration: 500,  // ms
+        onStart: function() {
+          plusNode.visible = !open;
+          minusNode.visible = open;
+        },
+        onComplete: function() {
+          animation = null;
+        }
+      } );
+      animation.start();
     } );
   }
 
