@@ -1,6 +1,8 @@
 TODO list for function-builder
 
-Make cards stop at 'see inside' windows when animating, add arrows to move to next/previous window.
+Make cards stop at 'see inside' windows when animating.
+
+Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).
 
