@@ -26,10 +26,11 @@ define( function( require ) {
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
    * @param {Node} animationLayer
+   * @param {Property.<boolean>} seeInsideProperty
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideProperty, options ) {
 
     options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 

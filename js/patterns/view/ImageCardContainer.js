@@ -46,7 +46,7 @@ define( function( require ) {
      * @override
      * @public
      */
-    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideLayer ) {
+    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideLayer, seeInsideProperty ) {
 
       assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
       assert && assert( inputContainer.carouselLocation );
@@ -61,7 +61,7 @@ define( function( require ) {
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer );
+        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideProperty );
 
         // put the Node in this container
         this.addNode( cardNode );

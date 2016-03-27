@@ -23,10 +23,11 @@ define( function( require ) {
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
    * @param {Node} animationLayer
+   * @param {Property.<boolean>} seeInsideProperty
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options ) {
+  function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideProperty, options ) {
 
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
@@ -38,7 +39,7 @@ define( function( require ) {
     this.imageScale = options.imageScale;
     this.imageNode = null; // {Image} set by updateContent
 
-    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );

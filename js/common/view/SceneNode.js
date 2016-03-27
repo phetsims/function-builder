@@ -277,7 +277,8 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode, cardsDragLayer, cardsAnimationLayer, seeInsideLayer );
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
+          cardsDragLayer, cardsAnimationLayer, seeInsideLayer, seeInsideProperty );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
