@@ -67,7 +67,7 @@ define( function( require ) {
     CHECK_BOX_FONT: new FBFont( 18 ),
 
     // font for equations
-    EQUATION_FONT: new FBFont( 22 )
+    EQUATION_FONT: new FBFont( 20 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

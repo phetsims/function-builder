@@ -69,14 +69,15 @@ define( function( require ) {
     this.tableDrawer.moveToBack();
 
     // Equation drawer
-    var equationNode = new Text( 'equation', {
+    var equationNode = new Text( '', {
       font: FBConstants.EQUATION_FONT
     } );
     // @private
+    var EQUATION_DRAWER_SIZE = new Dimension2( 240, 75 ); //TODO move to FBConstants
     this.equationDrawer = new Drawer( equationNode, {
       open: false,
       handleLocation: 'bottom',
-      size: new Dimension2( 240, 75 ),
+      size: EQUATION_DRAWER_SIZE,
       xMargin: 30,
       yMargin: 10,
       centerX: scene.builder.centerX,
@@ -84,6 +85,13 @@ define( function( require ) {
     } );
     this.addChild( this.equationDrawer );
     this.equationDrawer.moveToBack();
+
+    //TODO temporary
+    this.simplifyEquationProperty.link( function( simplifyEquation ) {
+      equationNode.text = simplifyEquation ? 'simplified equation' : 'unsimplified equation';
+      equationNode.centerX = EQUATION_DRAWER_SIZE.width / 2;
+      equationNode.centerY = EQUATION_DRAWER_SIZE.height / 2;
+    } );
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
