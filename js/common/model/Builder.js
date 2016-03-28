@@ -223,13 +223,13 @@ define( function( require ) {
     },
 
     /**
-     * Gets the location of the center of the 'see inside' window that is associated with a slot.
-     * @param {number} slotNumber
+     * Gets the location (center) of a 'see inside' window.
+     * @param {number} windowNumber
      * @returns {*}
      */
-    getWindowLocation: function( slotNumber ) {
-      assert && assert( this.isValidSlotNumber( slotNumber ) );
-      var slot = this.slots[ slotNumber ];
+    getWindowLocation: function( windowNumber ) {
+      assert && assert( this.isValidWindowNumber( windowNumber ) );
+      var slot = this.slots[ windowNumber ];
       return new Vector2( slot.location.x + WINDOW_X_OFFSET, slot.location.y );
     },
 
