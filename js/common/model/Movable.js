@@ -58,6 +58,7 @@ define( function( require ) {
     moveTo: function( location ) {
       this.destination = location;
       this.locationProperty.set( location );
+      this.animationCompletedCallback = null;
     },
 
     /**
