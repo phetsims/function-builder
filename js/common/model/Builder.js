@@ -21,6 +21,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // {number} x-offset of center of 'see inside' window from it's corresponding slot in the builder
+  var WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -
+                        ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 );
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -206,6 +210,57 @@ define( function( require ) {
         }
       }
       return output;
+    },
+
+    /**
+     * Is the specified window number valid?
+     * @param {number} windowNumber
+     * @returns {boolean}
+     * @public
+     */
+    isValidWindowNumber: function( windowNumber ) {
+      return this.isValidSlotNumber( windowNumber );
+    },
+
+    /**
+     * Gets the location of the center of the 'see inside' window that is associated with a slot.
+     * @param {number} slotNumber
+     * @returns {*}
+     */
+    getWindowLocation: function( slotNumber ) {
+      assert && assert( this.isValidSlotNumber( slotNumber ) );
+      var slot = this.slots[ slotNumber ];
+      return new Vector2( slot.location.x + WINDOW_X_OFFSET, slot.location.y );
+    },
+
+    /**
+     * Gets the number of the window that is immediately to the right of a location.
+     * @param {Vector2} location
+     * @returns {number}
+     */
+    getRightWindowNumber: function( location ) {
+      for ( var i = 0; i < this.slots.length; i++ ) {
+        var windowLocation = this.getWindowLocation( i );
+        if ( location.x <= windowLocation.x ) {
+          return i;
+        }
+      }
+      return FunctionSlot.NO_SLOT_NUMBER;
+    },
+
+    /**
+     * Gets the number of the window that is immediately to the left of a location.
+     * @param {Vector2} location
+     * @returns {number}
+     */
+    getLeftWindowNumber: function( location ) {
+      for ( var i = this.slots.length - 1; i >= 0; i-- ) {
+        var windowLocation = this.getWindowLocation( i );
+        if ( windowLocation.x <= location.x ) {
+          return i;
+        }
+      }
+      return FunctionSlot.NO_SLOT_NUMBER;
     }
   } );
 } );

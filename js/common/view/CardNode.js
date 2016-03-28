@@ -16,7 +16,6 @@ define( function( require ) {
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -57,9 +56,6 @@ define( function( require ) {
     var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
     var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
 
-    // block when left edge of card is just slightly past left edge of 'see inside' window for a non-invertible function
-    var BLOCKED_X_OFFSET = SeeInsideLayer.WINDOW_LEFT_OFFSET + ( 0.4 * options.size.width );
-
     var dragDx = 0; // {number} most recent change in x while dragging
     var blocked = false; // {boolean} was dragging to the left blocked by a non-invertible function?
     var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
@@ -98,7 +94,7 @@ define( function( require ) {
         rightPoint = card.locationProperty.get();
       }
       else {
-        //TODO card was grabbed while paused in 'see inside' window
+        // card was grabbed while in 'see inside' window
       }
       assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' );
 
@@ -132,7 +128,10 @@ define( function( require ) {
           for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
             var slot = builder.slots[ i ];
             if ( movable.locationProperty.get().x > slot.location.x ) { // only slots to the left
-              var blockedX = slot.location.x + BLOCKED_X_OFFSET;
+              var windowLocation = builder.getWindowLocation( i );
+
+              // block when left edge of card is slightly past left edge of 'see inside' window for a non-invertible function
+              var blockedX = windowLocation.x - ( 0.4 * options.size.width );
               if ( !slot.isInvertible() && location.x < blockedX ) {
                 blocked = true;
                 movable.moveTo( new Vector2( blockedX, builder.location.y ) );
@@ -171,6 +170,7 @@ define( function( require ) {
       animationLayer.addChild( thisNode );
 
       var cardX = card.locationProperty.get().x;
+      var windowLocation; // hoist
 
       if ( cardX < INPUT_SLOT_X ) {
 
@@ -183,8 +183,6 @@ define( function( require ) {
         thisNode.animateToContainer( outputContainer );
       }
       else { // card is in the builder
-
-        //TODO if 'see inside' feature is on, animate to next window
 
         if ( dragDx >= 0 || blocked ) { // dragging to the right or blocked by a non-invertible function
 
@@ -219,11 +217,11 @@ define( function( require ) {
           if ( builder.isValidSlotNumber( blockedSlotNumber ) ) {
 
             // animate to non-invertible function, then reverse direction to output carousel
-            var blockedX = slot.location.x + BLOCKED_X_OFFSET;
-            card.animateTo( new Vector2( blockedX, builder.location.y ),
+            windowLocation = builder.getWindowLocation( blockedSlotNumber );
+            card.animateTo( windowLocation,
               FBConstants.CARD_ANIMATION_SPEED,
               function() {
-                thisNode.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
+                thisNode.builderNode.getFunctionNode( blockedSlotNumber ).startNotInvertibleAnimation();
                 card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
                   FBConstants.CARD_ANIMATION_SPEED,
                   function() {

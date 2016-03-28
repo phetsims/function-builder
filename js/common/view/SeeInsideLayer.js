@@ -17,6 +17,10 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
+  // constants
+  var WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
+  var CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
+
   /**
    * @param {Builder} builder
    * @param {Object} [options]
@@ -25,21 +29,19 @@ define( function( require ) {
   function SeeInsideLayer( builder, options ) {
 
     options = options || {};
-    options.pickable = false; // so that cards in this layer are not pickable
 
     // add a window at the right end of each slot
     var windowsShape = new Shape();
     for ( var i = 0; i < builder.slots.length; i++ ) {
 
-      var windowX = builder.slots[ i ].location.x + SeeInsideLayer.WINDOW_LEFT_OFFSET;
-      var windowY = builder.location.y - ( FBConstants.CARD_OPTIONS.size.height / 2 );
+      var windowLocation = builder.getWindowLocation( i );
+      var windowLeft = windowLocation.x - ( WINDOW_SIZE.width / 2 );
+      var windowY = windowLocation.y - ( WINDOW_SIZE.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner
-        windowsShape.moveTo( windowX + 10, windowY );
+        windowsShape.moveTo( windowLocation.x, windowY );
       }
-      windowsShape.roundRect( windowX, windowY,
-        FBConstants.CARD_OPTIONS.size.width, FBConstants.CARD_OPTIONS.size.height,
-        FBConstants.CARD_OPTIONS.cornerRadius, FBConstants.CARD_OPTIONS.cornerRadius );
+      windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
     }
 
     // @private parent for all cards, clip to the windows
@@ -78,11 +80,5 @@ define( function( require ) {
     addCardNode: function( cardNode ) {
       this.cardsParent.addChild( cardNode );
     }
-  }, {
-
-    // {number} offset of left edge of 'see inside' window from center of it's corresponding slot in the builder
-    WINDOW_LEFT_OFFSET: ( FBConstants.FUNCTION_SIZE.width / 2 ) -
-                        ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 ) -
-                        ( FBConstants.CARD_OPTIONS.size.width / 2 )
   } );
 } );
