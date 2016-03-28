@@ -5,6 +5,8 @@
  * The functions occupy a set of slots in what is conceptually a serial pipeline.
  * Each slot contains 0 or 1 function instance.
  * An empty slot is equivalent to the identity function.
+ * Each slot has an associated window, through which a card can be seen when passing through the builder
+ * when the 'See Inside' feature is turned on.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
