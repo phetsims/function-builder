@@ -55,6 +55,7 @@ define( function( require ) {
     var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
     var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
     var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
+    var BLOCKED_X_OFFSET = -( 0.4 * options.size.width ); // x offset from window location for a non-invertible function
 
     var dragDx = 0; // {number} most recent change in x while dragging
     var blocked = false; // {boolean} was dragging to the left blocked by a non-invertible function?
@@ -108,7 +109,7 @@ define( function( require ) {
     //-------------------------------------------------------------------------------
     // constrain dragging
     assert && assert( !options.translateMovable );
-    options.translateMovable = function( movable, location, delta ) {
+    options.translateMovable = function( card, location, delta ) {
 
       blocked = false; // assume we're not blocked, because functions may be changing simultaneously via multi-touch
       dragDx = delta.x;
@@ -119,7 +120,7 @@ define( function( require ) {
 
         // to the right of the builder, drag along the line between output carousel and builder output
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
-        movable.moveTo( new Vector2( location.x, y ) );
+        card.moveTo( new Vector2( location.x, y ) );
       }
       else { // to left of builder's output slot
 
@@ -127,14 +128,14 @@ define( function( require ) {
         if ( dragDx < 0 ) {
           for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
             var slot = builder.slots[ i ];
-            if ( movable.locationProperty.get().x > slot.location.x ) { // only slots to the left
+            if ( card.locationProperty.get().x > slot.location.x ) { // only slots to the left
               var windowLocation = builder.getWindowLocation( i );
 
               // block when left edge of card is slightly past left edge of 'see inside' window for a non-invertible function
-              var blockedX = windowLocation.x - ( 0.4 * options.size.width );
+              var blockedX = windowLocation.x + BLOCKED_X_OFFSET;
               if ( !slot.isInvertible() && location.x < blockedX ) {
                 blocked = true;
-                movable.moveTo( new Vector2( blockedX, builder.location.y ) );
+                card.moveTo( new Vector2( blockedX, builder.location.y ) );
                 thisNode.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
               }
             }
@@ -147,12 +148,12 @@ define( function( require ) {
 
             // to the left of the builder, drag along the line between input carousel and builder input slot
             y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
-            movable.moveTo( new Vector2( location.x, y ) );
+            card.moveTo( new Vector2( location.x, y ) );
           }
           else {
 
             // in the builder, dragging horizontally
-            movable.moveTo( new Vector2( location.x, builder.location.y ) );
+            card.moveTo( new Vector2( location.x, builder.location.y ) );
           }
         }
       }
@@ -170,7 +171,8 @@ define( function( require ) {
       animationLayer.addChild( thisNode );
 
       var cardX = card.locationProperty.get().x;
-      var windowLocation; // hoist
+      var windowNumber; // {number}
+      var windowLocation; // {Vector2}
 
       if ( cardX < INPUT_SLOT_X ) {
 
@@ -191,12 +193,26 @@ define( function( require ) {
             card.moveTo( new Vector2( builder.left, builder.location.y ) );
           }
 
-          // animate left-to-right through the builder, then to output carousel
-          card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-            FBConstants.CARD_ANIMATION_SPEED,
-            function() {
-              thisNode.animateToContainer( outputContainer );
-            } );
+          windowNumber = builder.getRightWindowNumber( card.locationProperty.get() );
+          if ( seeInsideProperty.get() && builder.isValidWindowNumber( windowNumber ) ) {
+
+            // animate to 'see inside' window to right of card
+            windowLocation = builder.getWindowLocation( windowNumber );
+            card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
+              function() {
+                animationLayer.removeChild( thisNode );
+                dragLayer.addChild( thisNode );
+              } );
+          }
+          else {
+
+            // animate left-to-right through the builder, then to output carousel
+            card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
+              FBConstants.CARD_ANIMATION_SPEED,
+              function() {
+                thisNode.animateToContainer( outputContainer );
+              } );
+          }
         }
         else { // dragging to the left
 
@@ -208,7 +224,7 @@ define( function( require ) {
           var blockedSlotNumber = FunctionSlot.NO_SLOT_NUMBER;
           for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
             var slot = builder.slots[ i ];
-            if ( !slot.isInvertible() ) {
+            if ( card.locationProperty.get().x > slot.location.x && !slot.isInvertible() ) { // only slots to the left
               blockedSlotNumber = i;
               break;
             }
@@ -216,27 +232,56 @@ define( function( require ) {
 
           if ( builder.isValidSlotNumber( blockedSlotNumber ) ) {
 
-            // animate to non-invertible function, then reverse direction to output carousel
+            // animate to non-invertible function, then reverse direction to window or output carousel
             windowLocation = builder.getWindowLocation( blockedSlotNumber );
-            card.animateTo( windowLocation,
+            var blockedX = windowLocation.x + BLOCKED_X_OFFSET;
+            card.animateTo( new Vector2( blockedX, windowLocation.y ),
               FBConstants.CARD_ANIMATION_SPEED,
               function() {
                 thisNode.builderNode.getFunctionNode( blockedSlotNumber ).startNotInvertibleAnimation();
-                card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-                  FBConstants.CARD_ANIMATION_SPEED,
-                  function() {
-                    thisNode.animateToContainer( outputContainer );
-                  } );
+                if ( seeInsideProperty.get() ) {
+
+                  // animate to 'see inside' window associated with blocked slot
+                  card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
+                    function() {
+                      animationLayer.removeChild( thisNode );
+                      dragLayer.addChild( thisNode );
+                    } );
+                }
+                else {
+
+                  // animate to output carousel
+                  card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
+                    FBConstants.CARD_ANIMATION_SPEED,
+                    function() {
+                      thisNode.animateToContainer( outputContainer );
+                    } );
+                }
               } );
           }
           else {
 
-            // all functions are invertible, animate right-to-left through the builder, then to input carousel
-            card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
-              FBConstants.CARD_ANIMATION_SPEED,
-              function() {
-                thisNode.animateToContainer( inputContainer );
-              } );
+            // all functions are invertible
+            windowNumber = builder.getLeftWindowNumber( card.locationProperty.get() );
+            if ( seeInsideProperty.get() && builder.isValidWindowNumber( windowNumber ) ) {
+
+              // animate to 'see inside' window to the left of card
+              windowLocation = builder.getWindowLocation( windowNumber );
+              card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
+                function() {
+                  animationLayer.removeChild( thisNode );
+                  dragLayer.addChild( thisNode );
+                } );
+            }
+            else {
+
+              // animate right-to-left through the builder, then to input carousel
+              card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
+                FBConstants.CARD_ANIMATION_SPEED,
+                function() {
+                  thisNode.animateToContainer( inputContainer );
+                } );
+            }
           }
         }
       }
@@ -248,9 +293,9 @@ define( function( require ) {
     this.numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
       function( location ) {
         for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
-         if ( location.x >= builder.slots[ i ].location.x ) {
+          if ( location.x >= builder.slots[ i ].location.x ) {
             return i + 1;
-         }
+          }
         }
         return 0;
       }
