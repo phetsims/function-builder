@@ -19,7 +19,6 @@ define( function( require ) {
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
   var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -54,14 +53,15 @@ define( function( require ) {
     simplifyEquationCheckBox.moveToBack();
 
     // Table drawer
-    var tableNode = new Rectangle( 0, 0, 200, 200, {
-      fill: 'white',
-      stroke: 'black'
+    var tableNode = new Text( 'In/Out table', {
+      font: FBConstants.EQUATION_FONT
     } );
+    var TABLE_DRAWER_SIZE = new Dimension2( 200, 200 ); //TODO move to FBConstants
     // @private
     this.tableDrawer = new Drawer( tableNode, {
       open: true,
       handleLocation: 'top',
+      size: TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
       bottom: scene.builder.location.y - 42 //TODO magic number
     } );
@@ -72,8 +72,8 @@ define( function( require ) {
     var equationNode = new Text( '', {
       font: FBConstants.EQUATION_FONT
     } );
-    // @private
     var EQUATION_DRAWER_SIZE = new Dimension2( 240, 75 ); //TODO move to FBConstants
+    // @private
     this.equationDrawer = new Drawer( equationNode, {
       open: false,
       handleLocation: 'bottom',
