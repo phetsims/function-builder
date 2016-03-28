@@ -236,7 +236,7 @@ define( function( require ) {
     /**
      * Gets the number of the window that is immediately to the right of a location.
      * @param {Vector2} location
-     * @returns {number}
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
      */
     getRightWindowNumber: function( location ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
@@ -251,7 +251,7 @@ define( function( require ) {
     /**
      * Gets the number of the window that is immediately to the left of a location.
      * @param {Vector2} location
-     * @returns {number}
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
      */
     getLeftWindowNumber: function( location ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {
