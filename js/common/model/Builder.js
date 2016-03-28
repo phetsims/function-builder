@@ -84,14 +84,23 @@ define( function( require ) {
   return inherit( Object, Builder, {
 
     /**
-     * Is the specified slot number valid?
-     *
-     * @param {number} slotNumber
-     * @returns {boolean}
-     * @public
+     * Applies functions to an input.
+     * @param {*} input - input, type is specific to the functions
+     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * @returns {*} output, with same type as input
      */
-    isValidSlotNumber: function( slotNumber ) {
-      return ( slotNumber >= 0 && slotNumber < this.slots.length  );
+    applyFunctions: function( input, numberOfFunctionsToApply ) {
+
+      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.slots.length ) );
+
+      var output = input;
+      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
+        var slot = this.slots[ i ];
+        if ( !slot.isEmpty() ) {
+          output = slot.functionInstance.apply( output );
+        }
+      }
+      return output;
     },
 
     /**
@@ -127,16 +136,26 @@ define( function( require ) {
     },
 
     /**
-     * Gets the location of the specified slot.
-     * Convenience function, delegates to the model.
+     * Does the builder contain the specified function instance?
      *
-     * @param {number} slotNumber
-     * @returns {Vector2} location in the model coordinate frame
+     * @param {AbstractFunction} functionInstance
+     * @returns {boolean}
      * @public
      */
-    getSlotLocation: function( slotNumber ) {
-      assert && assert( this.isValidSlotNumber( slotNumber ) );
-      return this.slots[ slotNumber ].location;
+    containsFunctionInstance: function( functionInstance ) {
+      assert && assert( functionInstance );
+      return ( this.getSlotNumber( functionInstance ) !== FunctionSlot.NO_SLOT_NUMBER );
+    },
+
+    /**
+     * Is the specified slot number valid?
+     *
+     * @param {number} slotNumber
+     * @returns {boolean}
+     * @public
+     */
+    isValidSlotNumber: function( slotNumber ) {
+      return ( slotNumber >= 0 && slotNumber < this.slots.length  );
     },
 
     /**
@@ -158,16 +177,17 @@ define( function( require ) {
     },
 
     /**
-     * Does the builder contain the specified function instance?
-     *
-     * @param {AbstractFunction} functionInstance
-     * @returns {boolean}
-     * @public
-     */
-    containsFunctionInstance: function( functionInstance ) {
-      assert && assert( functionInstance );
-      return ( this.getSlotNumber( functionInstance ) !== FunctionSlot.NO_SLOT_NUMBER );
-    },
+      * Gets the location of the specified slot.
+      * Convenience function, delegates to the model.
+      *
+      * @param {number} slotNumber
+      * @returns {Vector2} location in the model coordinate frame
+      * @public
+      */
+     getSlotLocation: function( slotNumber ) {
+       assert && assert( this.isValidSlotNumber( slotNumber ) );
+       return this.slots[ slotNumber ].location;
+     },
 
     /**
      * Gets the slot that is closest to the specified location.
@@ -192,26 +212,6 @@ define( function( require ) {
         }
       }
       return slotNumber;
-    },
-
-    /**
-     * Applies functions to an input.
-     * @param {*} input - input, type is specific to the functions
-     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
-     * @returns {*} output, with same type as input
-     */
-    applyFunctions: function( input, numberOfFunctionsToApply ) {
-
-      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.slots.length ) );
-
-      var output = input;
-      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
-        var slot = this.slots[ i ];
-        if ( !slot.isEmpty() ) {
-          output = slot.functionInstance.apply( output );
-        }
-      }
-      return output;
     },
 
     /**
