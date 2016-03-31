@@ -29,6 +29,7 @@ define( function( require ) {
   function SeeInsideLayer( builder, options ) {
 
     options = options || {};
+    options.pickable = false; // so that cards in this layer are not pickable
 
     // add a window at the right end of each slot
     var windowsShape = new Shape();
