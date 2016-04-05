@@ -1,5 +1,8 @@
 TODO list for function-builder
 
+While card is animating, it needs to check state of seeInsideProperty, so it stops at visible windows.
+  May need to add @param {function} [stepCallback] to Movable.animateTo.
+
 Document @params
 
 Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
