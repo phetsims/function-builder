@@ -25,24 +25,23 @@ define( function( require ) {
 
     options = _.extend( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location
-      dragging: false // {boolean} is this instance being dragged by the user?
+      dragging: false, // {boolean} is this instance being dragged by the user?
+      animationSpeed: 100 // {number} distance/second when animating
     }, options );
 
     PropertySet.call( this, {
       location: options.location // @public (read-only) {Vector2} DO NOT set this directly! Use moveTo or animateTo.
     } );
 
-    // @private {number} distance/second when animating, set using animateTo
-    this.animationSpeed = 100;
+    // @public
+    this.animationSpeed = options.animationSpeed;
+    this.dragging = options.dragging;
 
     // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
 
-    // @private {function|null} called when animation to destination completes
+    // @private {function|null} called when animation to destination completes, set using animateTo
     this.animationCompletedCallback = null;
-
-    // @public {boolean} is the user dragging this instance?
-    this.dragging = options.dragging;
   }
 
   functionBuilder.register( 'Movable', Movable );
@@ -65,13 +64,11 @@ define( function( require ) {
      * Animates to the specified location. When animation is completed, call optional callback.
      *
      * @param {Vector2} destination
-     * @param {number} animationSpeed - distance moved per second when animating
      * @param {function} [animationCompletedCallback]
      * @public
      */
-    animateTo: function( destination, animationSpeed, animationCompletedCallback ) {
+    animateTo: function( destination, animationCompletedCallback ) {
       this.destination = destination;
-      this.animationSpeed = animationSpeed;
       this.animationCompletedCallback = animationCompletedCallback;
     },
 

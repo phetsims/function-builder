@@ -191,13 +191,12 @@ define( function( require ) {
 
             // animate to 'see inside' window to right of card
             windowLocation = builder.getWindowLocation( windowNumber );
-            card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
+            card.animateTo( windowLocation );
           }
           else {
 
             // animate left-to-right through the builder, then to output carousel
             card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-              FBConstants.CARD_ANIMATION_SPEED,
               function() {
                 thisNode.animateToContainer( outputContainer );
               } );
@@ -225,19 +224,17 @@ define( function( require ) {
             windowLocation = builder.getWindowLocation( blockedSlotNumber );
             var blockedX = windowLocation.x + BLOCKED_X_OFFSET;
             card.animateTo( new Vector2( blockedX, windowLocation.y ),
-              FBConstants.CARD_ANIMATION_SPEED,
               function() {
                 thisNode.builderNode.getFunctionNode( blockedSlotNumber ).startNotInvertibleAnimation();
                 if ( seeInsideProperty.get() ) {
 
                   // animate to 'see inside' window associated with blocked slot
-                  card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
+                  card.animateTo( windowLocation );
                 }
                 else {
 
                   // animate to output carousel
                   card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-                    FBConstants.CARD_ANIMATION_SPEED,
                     function() {
                       thisNode.animateToContainer( outputContainer );
                     } );
@@ -252,13 +249,12 @@ define( function( require ) {
 
               // animate to 'see inside' window to the left of card
               windowLocation = builder.getWindowLocation( windowNumber );
-              card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
+              card.animateTo( windowLocation );
             }
             else {
 
               // animate right-to-left through the builder, then to input carousel
               card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
-                FBConstants.CARD_ANIMATION_SPEED,
                 function() {
                   thisNode.animateToContainer( inputContainer );
                 } );
@@ -319,7 +315,6 @@ define( function( require ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       thisNode.card.animateTo( container.carouselLocation,
-        FBConstants.CARD_ANIMATION_SPEED,
         function() {
           thisNode.dragLayer.removeChild( thisNode );
           container.addNode( thisNode );

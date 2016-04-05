@@ -129,7 +129,6 @@ define( function( require ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
-        FBConstants.FUNCTION_ANIMATION_SPEED,
         function() {
 
           // If the slot is occupied, relocate the occupier.
@@ -164,7 +163,6 @@ define( function( require ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       this.functionInstance.animateTo( this.container.carouselLocation,
-        FBConstants.FUNCTION_ANIMATION_SPEED,
         function() {
           thisNode.dragLayer.removeChild( thisNode );
           thisNode.container.addNode( thisNode );

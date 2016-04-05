@@ -43,10 +43,10 @@ define( function( require ) {
     // how much a card should 'pop out' of its container when clicked
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
-    // distance/second that functions move when released by the user
+    // distance/second that functions move when animating
     FUNCTION_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
-    // distance/second that cards move when released by the user
+    // distance/second that cards move when animating
     CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
     // scale for the images on the image cards
