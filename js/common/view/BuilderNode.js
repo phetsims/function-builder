@@ -2,9 +2,10 @@
 
 /**
  * Visual representation of a Builder.
- * Cards go into a slot on the left and come out a slot on the right.
+ * Cards pass through the builder horizontally.
+ * An 'input' slot is on the left end, 'output' slot on the right end.
  * Functions appear from left to right, in the order that they are applied.
- * This node is the parent for function nodes when they are in the builder.
+ * This node is the ancestor for function nodes when they are in the builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
