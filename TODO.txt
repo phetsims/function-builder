@@ -6,14 +6,10 @@ While card is animating, it needs to check state of seeInsideProperty, so it sto
 While card is animating to left, it needs to check continuously for non-invertible functions, since
   functions in builder may change while card is animating, #24.
 
-Document @params
-
-Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
-
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).
   If we don't do this, then 'mole cards' will need to be draggable, which is a big deal.
 
-Reset All doesn't handle cards that are paused in 'see inside' windows.
+Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
 
 ---
 
@@ -26,13 +22,17 @@ Double functions for Numbers screen
 
 ---
 
+Document function @params
+
 Set maxWidth for labels on CheckBoxes, instead of CheckBoxes.
 
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
 
-Reset All doesn't work for things that the user is dragging
+Reset All doesn't handle cards that are being dragged, animating or paused in 'see inside' windows.
+
+Reset All doesn't handle functions that are being dragged or animating.
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode
 
