@@ -189,6 +189,7 @@ define( function( require ) {
        return this.slots[ slotNumber ].location;
      },
 
+    //TODO add @param {number} distanceThreshold
     /**
      * Gets the slot that is closest to the specified location.
      *
