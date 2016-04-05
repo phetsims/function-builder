@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -29,7 +30,7 @@ define( function( require ) {
       FBIconFactory.createNumbersScreenIcon(),
       function() { return new NumbersModel(); },
       function( model ) { return new NumbersScreenView( model ); },
-      { backgroundColor: 'rgb( 239, 255, 249 )' }
+      { backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND }
     );
   }
 

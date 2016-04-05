@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
   var EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -29,7 +30,7 @@ define( function( require ) {
       FBIconFactory.createEquationsScreenIcon(),
       function() { return new EquationsModel(); },
       function( model ) { return new EquationsScreenView( model ); },
-      { backgroundColor: 'rgb( 255, 255, 226 )' }
+      { backgroundColor: FBColors.EQUATIONS_SCREEN_BACKGROUND }
     );
   }
 

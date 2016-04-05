@@ -56,7 +56,7 @@ define( function( require ) {
         children: [ leftTopStar, rightTopStar,leftBottomStar, rightBottomStar ]
       } );
 
-      return new ScreenIcon( parent, { fill: 'rgb( 255, 247, 235 )' } );
+      return new ScreenIcon( parent, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
     },
 
     /**
@@ -72,9 +72,7 @@ define( function( require ) {
         center: functionNode.center
       } );
       var iconNode = new Node( { children: [ functionNode, textNode ] } );
-      return new ScreenIcon( iconNode, {
-        fill: 'rgb( 239, 255, 249 )'
-      } );
+      return new ScreenIcon( iconNode, { fill: FBColors.NUMBERS_SCREEN_BACKGROUND } );
     },
 
     /**
@@ -82,9 +80,8 @@ define( function( require ) {
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-      return new ScreenIcon( new Text( 'y = 2x + 1', { font: new FBFont( 80 ) } ), {
-        fill: 'rgb( 255, 255, 235 )'
-      } );
+      var iconNode = new Text( 'y = 2x + 1', { font: new FBFont( 80 ) } );
+      return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
     },
 
     /**

@@ -13,6 +13,11 @@ define( function( require ) {
 
   var FBColors = {
 
+    // background colors for Screens
+    PATTERNS_SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',
+    NUMBERS_SCREEN_BACKGROUND: 'rgb( 239, 255, 249 )',
+    EQUATIONS_SCREEN_BACKGROUND: 'rgb( 255, 255, 226 )',
+
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_MAROON: {
       top: 'rgb( 200, 182, 188 )',
