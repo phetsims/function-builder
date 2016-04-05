@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Set default animation speed in FunctionNode and CardNode
+
 Document @params
 
 Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
