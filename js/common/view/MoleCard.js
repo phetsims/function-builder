@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MoleNode( card, builderLocation, options ) {
+  function MoleCard( card, builderLocation, options ) {
 
     options = _.extend( {
       size: FBConstants.CARD_OPTIONS.size,
@@ -41,7 +41,7 @@ define( function( require ) {
     } );
   }
 
-  functionBuilder.register( 'MoleNode', MoleNode );
+  functionBuilder.register( 'MoleCard', MoleCard );
 
-  return inherit( Rectangle, MoleNode );
+  return inherit( Rectangle, MoleCard );
 } );
