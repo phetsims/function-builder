@@ -31,7 +31,12 @@ define( function( require ) {
      * @returns {boolean}
      */
     isaBuilderColorScheme: function( object ) {
-      return FBUtils.hasOwnProperties( object, [ 'top', 'middle', 'bottom', 'ends' ] );
+      return FBUtils.hasOwnProperties( object, [
+        'top',    // top color for vertical gradient
+        'middle', // middle color for vertical gradient
+        'bottom', // bottom color for vertical gradient
+        'ends'    // color for builder ends
+      ] );
     }
   };
 
