@@ -52,17 +52,11 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // cards are in this layer while being dragged
+    // cards are in this layer while they are draggable
     var cardsDragLayer = new Node();
 
-    // cards are in this layer while animation, so they can't be grabbed
-    var cardsAnimationLayer = new Node( { pickable: false } );
-
-    // functions are in this layer while being dragged
+    // functions are in this layer while they are draggable
     var functionsDragLayer = new Node();
-
-    // functions are in this layer while animation, so they can't be grabbed
-    var functionsAnimationLayer = new Node( { pickable: false } );
 
     // Builder
     var builder = scene.builder;
@@ -218,11 +212,9 @@ define( function( require ) {
       functionCarousel, functionPageControl,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
-      cardsAnimationLayer,
       builderNode,
       seeInsideLayer,
-      functionsDragLayer,
-      functionsAnimationLayer
+      functionsDragLayer
     ];
 
     Node.call( this, options );
@@ -258,7 +250,7 @@ define( function( require ) {
         functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsDragLayer );
 
         // populate the container with functions
-        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer, functionsAnimationLayer );
+        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
@@ -278,7 +270,7 @@ define( function( require ) {
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
-          cardsDragLayer, cardsAnimationLayer, seeInsideLayer, seeInsideProperty );
+          cardsDragLayer, seeInsideLayer, seeInsideProperty );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

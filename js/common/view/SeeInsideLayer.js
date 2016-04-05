@@ -2,7 +2,7 @@
 
 /**
  * Layer that implements the 'See Inside' feature. Each function in the builders has a 'window' at its right edge,
- * which lets you see the card change as it moves through the builder.
+ * which lets you see the card change as it moves through the builder. Cards can be grabbed through these windows.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,7 +29,6 @@ define( function( require ) {
   function SeeInsideLayer( builder, options ) {
 
     options = options || {};
-    options.pickable = false; // so that cards in this layer are not pickable
 
     // add a window at the right end of each slot
     var windowsShape = new Shape();

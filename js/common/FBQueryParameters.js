@@ -19,7 +19,10 @@ define( function( require ) {
     DEV: getQueryParameter( 'dev' ) || false,
 
     // populates the output carousel with 1 card of each type
-    POPULATE_OUTPUT: getQueryParameter( 'populateOutput' ) || false
+    POPULATE_OUTPUT: getQueryParameter( 'populateOutput' ) || false,
+
+    // makes all animation run slowly, so that things are easier to grab while they're animating
+    SLOW: getQueryParameter( 'slow' ) || false
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );

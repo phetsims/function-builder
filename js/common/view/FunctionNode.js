@@ -23,11 +23,10 @@ define( function( require ) {
    * @param {ImageFunctionContainer} container
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, animationLayer, options ) {
+  function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
 
     options = options || {};
 
@@ -39,7 +38,7 @@ define( function( require ) {
     // @private
     this.container = container;
     this.builderNode = builderNode;
-    this.animationLayer = animationLayer;
+    this.dragLayer = dragLayer;
 
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
     contentNode.center = backgroundNode.center;
@@ -59,8 +58,6 @@ define( function( require ) {
     // start a drag cycle
     assert && assert( !options.startDrag );
     options.startDrag = function() {
-
-      assert && assert( !animationLayer.hasChild( thisNode ), 'nodes in animationLayer should not be pickable' );
 
       slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;
 
@@ -97,10 +94,6 @@ define( function( require ) {
 
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
 
-      // move function to animation layer
-      dragLayer.removeChild( thisNode );
-      animationLayer.addChild( thisNode );
-
       // Find the closest slot
       var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
 
@@ -130,7 +123,7 @@ define( function( require ) {
      * @private
      */
     animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
-      assert && assert( this.animationLayer.hasChild( this ) );
+      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
         FBConstants.FUNCTION_ANIMATION_SPEED,
@@ -141,7 +134,7 @@ define( function( require ) {
           if ( occupierNode ) {
 
             thisNode.builderNode.removeFunctionNode( occupierNode, slotNumber );
-            thisNode.animationLayer.addChild( occupierNode );
+            thisNode.dragLayer.addChild( occupierNode );
 
             if ( thisNode.builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
 
@@ -155,7 +148,7 @@ define( function( require ) {
             }
           }
 
-          thisNode.animationLayer.removeChild( thisNode );
+          thisNode.dragLayer.removeChild( thisNode );
           thisNode.builderNode.addFunctionNode( thisNode, slotNumber );
         } );
     },
@@ -165,12 +158,12 @@ define( function( require ) {
      * @private
      */
     animateToCarousel: function() {
-      assert && assert( this.animationLayer.hasChild( this ) );
+      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       this.functionInstance.animateTo( this.container.carouselLocation,
         FBConstants.FUNCTION_ANIMATION_SPEED,
         function() {
-          thisNode.animationLayer.removeChild( thisNode );
+          thisNode.dragLayer.removeChild( thisNode );
           thisNode.container.addNode( thisNode );
         } );
     },
@@ -181,6 +174,9 @@ define( function( require ) {
      */
     moveToCarousel: function() {
       assert && assert( !this.container.containsNode( this ) );
+      if ( this.dragLayer.hasChild( this ) ) {
+        this.dragLayer.removeChild( this );
+      }
       this.container.addNode( this );
     },
 

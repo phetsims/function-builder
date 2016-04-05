@@ -24,12 +24,11 @@ define( function( require ) {
    * @param {ImageFunctionContainer} outputContainer
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} animationLayer
    * @param {Property.<boolean>} seeInsideProperty
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, animationLayer, seeInsideProperty, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
     options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
@@ -41,7 +40,7 @@ define( function( require ) {
     // @private
     this.inputContainer = inputContainer;
     this.builderNode = builderNode;
-    this.animationLayer = animationLayer;
+    this.dragLayer = dragLayer;
 
     // @protected the basic shape of a blank card
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
@@ -66,8 +65,6 @@ define( function( require ) {
     // start a drag cycle
     assert && assert( !options.startDrag );
     options.startDrag = function() {
-
-      assert && assert( !animationLayer.hasChild( thisNode ), 'startDrag: nodes in animationLayer should not be pickable' );
 
       dragDx = 0;
 
@@ -166,10 +163,6 @@ define( function( require ) {
 
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: card should be in dragLayer' );
 
-      // move card to animation layer
-      dragLayer.removeChild( thisNode );
-      animationLayer.addChild( thisNode );
-
       var cardX = card.locationProperty.get().x;
       var windowNumber; // {number}
       var windowLocation; // {Vector2}
@@ -198,11 +191,7 @@ define( function( require ) {
 
             // animate to 'see inside' window to right of card
             windowLocation = builder.getWindowLocation( windowNumber );
-            card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
-              function() {
-                animationLayer.removeChild( thisNode );
-                dragLayer.addChild( thisNode );
-              } );
+            card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
           }
           else {
 
@@ -242,11 +231,7 @@ define( function( require ) {
                 if ( seeInsideProperty.get() ) {
 
                   // animate to 'see inside' window associated with blocked slot
-                  card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
-                    function() {
-                      animationLayer.removeChild( thisNode );
-                      dragLayer.addChild( thisNode );
-                    } );
+                  card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
                 }
                 else {
 
@@ -267,11 +252,7 @@ define( function( require ) {
 
               // animate to 'see inside' window to the left of card
               windowLocation = builder.getWindowLocation( windowNumber );
-              card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED,
-                function() {
-                  animationLayer.removeChild( thisNode );
-                  dragLayer.addChild( thisNode );
-                } );
+              card.animateTo( windowLocation, FBConstants.CARD_ANIMATION_SPEED );
             }
             else {
 
@@ -335,12 +316,12 @@ define( function( require ) {
      * @private
      */
     animateToContainer: function( container ) {
-      assert && assert( this.animationLayer.hasChild( this ) );
+      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       thisNode.card.animateTo( container.carouselLocation,
         FBConstants.CARD_ANIMATION_SPEED,
         function() {
-          thisNode.animationLayer.removeChild( thisNode );
+          thisNode.dragLayer.removeChild( thisNode );
           container.addNode( thisNode );
         } );
     },
@@ -351,6 +332,9 @@ define( function( require ) {
      */
     moveToInputCarousel: function() {
       assert && assert( !this.inputContainer.containsNode( this ) );
+      if ( this.dragLayer.hasChild( this ) ) {
+        this.dragLayer.removeChild( this );
+      }
       this.inputContainer.addNode( this );
     }
   } );

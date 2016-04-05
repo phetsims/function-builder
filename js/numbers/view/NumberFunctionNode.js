@@ -22,11 +22,10 @@ define( function( require ) {
    * @param {NumberFunctionContainer} container
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function NumberFunctionNode( functionInstance, container, builderNode, dragLayer, animationLayer, options ) {
+  function NumberFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof NumberFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -34,7 +33,7 @@ define( function( require ) {
       font: FBConstants.NUMBER_FUNCTION_FONT
     } );
 
-    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, animationLayer, options );
+    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
   functionBuilder.register( 'NumberFunctionNode', NumberFunctionNode );

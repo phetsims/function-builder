@@ -20,11 +20,10 @@ define( function( require ) {
    * @param {ImageFunctionContainer} container
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
-   * @param {Node} animationLayer
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionNode( functionInstance, container, builderNode, dragLayer, animationLayer, options ) {
+  function ImageFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -36,7 +35,7 @@ define( function( require ) {
       scale: options.iconScale
     } );
 
-    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, animationLayer, options );
+    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );

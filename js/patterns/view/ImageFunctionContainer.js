@@ -34,7 +34,7 @@ define( function( require ) {
      * @override
      * @public
      */
-    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer, animationLayer ) {
+    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
 
       assert && assert( this.carouselLocation );
 
@@ -47,7 +47,7 @@ define( function( require ) {
         scene.functionInstances.push( functionInstance );
 
         // associated Node
-        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer, animationLayer );
+        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer );
 
         // put the Node in this container
         this.addNode( functionNode );
