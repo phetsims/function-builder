@@ -73,7 +73,7 @@ define( function( require ) {
     // @public emit when any function changes
     this.functionChangedEmitter = new Emitter();
 
-    // @public for convenience
+    // @public for layout convenience
     this.left = this.location.x;
     this.right = this.left + options.width;
     this.centerX = this.left + ( options.width / 2 );
@@ -85,14 +85,13 @@ define( function( require ) {
 
     /**
      * Applies functions to an input.
+     *
      * @param {*} input - input, type is specific to the functions
-     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * @param {number} numberOfFunctionsToApply - how many functions to apply (empty slot is identity)
      * @returns {*} output, with same type as input
      */
     applyFunctions: function( input, numberOfFunctionsToApply ) {
-
       assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.slots.length ) );
-
       var output = input;
       for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
         var slot = this.slots[ i ];
@@ -178,7 +177,6 @@ define( function( require ) {
 
     /**
       * Gets the location of the specified slot.
-      * Convenience function, delegates to the model.
       *
       * @param {number} slotNumber
       * @returns {Vector2} location in the model coordinate frame
@@ -238,6 +236,7 @@ define( function( require ) {
 
     /**
      * Gets the number of the window that is immediately to the right of a location.
+     *
      * @param {Vector2} location
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
      */
@@ -253,6 +252,7 @@ define( function( require ) {
 
     /**
      * Gets the number of the window that is immediately to the left of a location.
+     *
      * @param {Vector2} location
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
      */
