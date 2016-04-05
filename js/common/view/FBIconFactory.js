@@ -35,18 +35,21 @@ define( function( require ) {
         backgroundFill: FBColors.WARHOL.leftTop,
         starFill: FBColors.WARHOL.rightBottom
       } );
+
       var rightTopStar = createStarWithBackground( {
         backgroundFill: FBColors.WARHOL.rightTop,
         starFill: FBColors.WARHOL.leftBottom,
         left: leftTopStar.right,
         top: leftTopStar.top
       } );
+
       var leftBottomStar = createStarWithBackground( {
         backgroundFill: FBColors.WARHOL.leftBottom,
         starFill: FBColors.WARHOL.rightTop,
         left: leftTopStar.left,
         top: leftTopStar.bottom
       } );
+
       var rightBottomStar = createStarWithBackground( {
         backgroundFill: FBColors.WARHOL.rightBottom,
         starFill: FBColors.WARHOL.leftTop,
@@ -54,11 +57,11 @@ define( function( require ) {
         top: leftTopStar.bottom
       } );
 
-      var parent = new Node( {
+      var iconNode = new Node( {
         children: [ leftTopStar, rightTopStar,leftBottomStar, rightBottomStar ]
       } );
 
-      return new ScreenIcon( parent, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
+      return new ScreenIcon( iconNode, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
     },
 
     /**
@@ -66,14 +69,18 @@ define( function( require ) {
      * @returns {Node}
      */
     createNumbersScreenIcon: function() {
+
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 255, 246, 187 )'
       } );
+
       var textNode = new Text( FBSymbols.PLUS + ' 3', {
         font: new FBFont( 36 ),
         center: functionNode.center
       } );
+
       var iconNode = new Node( { children: [ functionNode, textNode ] } );
+
       return new ScreenIcon( iconNode, { fill: FBColors.NUMBERS_SCREEN_BACKGROUND } );
     },
 
