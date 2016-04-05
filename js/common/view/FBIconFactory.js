@@ -22,10 +22,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // strings
-  var xString = require( 'string!FUNCTION_BUILDER/x' );
-  var yString = require( 'string!FUNCTION_BUILDER/y' );
-
   var FBIconFactory = {
 
     /**
@@ -86,7 +82,7 @@ define( function( require ) {
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-      var equationString = StringUtils.format( '{0} = 2{1} {2} 1', yString, xString, FBSymbols.PLUS );
+      var equationString = StringUtils.format( '{0} = 2{1} {2} 1', FBSymbols.Y, FBSymbols.X, FBSymbols.PLUS );
       var iconNode = new Text( equationString, { font: new FBFont( 80 ) } );
       return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
     },
