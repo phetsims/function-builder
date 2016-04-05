@@ -130,7 +130,7 @@ define( function( require ) {
       assert && assert( this.isValidSlotNumber( slotNumber ) );
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
-      slot.functionInstance = null;
+      slot.clear();
       this.functionChangedEmitter.emit();
     },
 

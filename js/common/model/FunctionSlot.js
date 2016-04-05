@@ -32,6 +32,9 @@ define( function( require ) {
     // @public is this slot empty?
     isEmpty: function() { return ( this.functionInstance === null ); },
 
+    // @public clears the slot, makes it empty
+    clear: function() { this.functionInstance = null; },
+
     // @public does this slot contain a specified {AbstractFunction} function instance?
     contains: function( functionInstance ) {
       assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
