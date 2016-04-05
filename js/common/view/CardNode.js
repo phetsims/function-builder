@@ -68,6 +68,7 @@ define( function( require ) {
 
       dragDx = 0;
 
+      // points used to compute slope of line between input/output carousels and input/output builder slots
       var leftPoint = inputContainer.carouselLocation;
       var rightPoint = outputContainer.carouselLocation;
 
