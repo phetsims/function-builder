@@ -12,6 +12,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -47,12 +48,6 @@ define( function( require ) {
 
     // distance/second that cards move when released by the user
     CARD_ANIMATION_SPEED: 400,
-
-    // distance/second that cards move when output carousel is 'erased'
-    ERASE_CARDS_ANIMATION_SPEED: 1200,
-
-    // distance/second that cards and functions move when 'Reset All' is pressed
-    RESET_ALL_ANIMATION_SPEED: 1200,
 
     // scale for the images on the image cards
     IMAGE_CARD_SCALE: 0.3,
