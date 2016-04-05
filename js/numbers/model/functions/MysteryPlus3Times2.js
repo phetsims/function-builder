@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function MysteryPlus3Times2( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 135, 196, 229 )' //TODO double function, other half has fill: 'rgb( 222, 220, 205 )'
+      fill: 'rgb( 135, 196, 229 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }

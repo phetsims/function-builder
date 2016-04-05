@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function Minus3( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 198, 231, 220 )'
+      fill: 'rgb( 135, 196, 229 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }

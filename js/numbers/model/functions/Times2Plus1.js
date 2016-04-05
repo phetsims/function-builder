@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function Times2Plus1( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 208, 201, 225 )' //TODO double function, other half has fill: 'rgb( 253, 204, 196 )'
+      fill: 'rgb( 208, 201, 225 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }

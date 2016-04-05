@@ -15,14 +15,20 @@ define( function( require ) {
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
 
   // function modules
+  var Minus2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus2' );
   var Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus3' );
-  var MysteryMinus0 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryMinus0' );
+  var MinusMystery0 = require( 'FUNCTION_BUILDER/numbers/model/functions/MinusMystery0' );
   var MysteryPlus3Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryPlus3Times2' );
   var MysteryPlus7 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryPlus7' );
-  var MysteryTimes1 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryTimes1' );
+  var TimesMystery1 = require( 'FUNCTION_BUILDER/numbers/model/functions/TimesMystery1' );
   var MysteryTimes2 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryTimes2' );
   var MysteryTimes2Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryTimes2Minus3' );
+  var Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus1' );
+  var Plus1Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus1Times2' );
   var Plus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus3' );
+  var PlusMystery2 = require( 'FUNCTION_BUILDER/numbers/model/functions/PlusMystery2' );
+  var Times0 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times0' );
+  var Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2' );
   var Times2Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2Plus1' );
 
   // constants
@@ -51,12 +57,18 @@ define( function( require ) {
      */
     this.functionConstructors = [
       Plus3,
+      Plus1,
+      PlusMystery2,
       Minus3,
-      MysteryTimes1,
-      MysteryMinus0,
+      Minus2,
+      MinusMystery0,
+      Times2,
+      Times0,
+      TimesMystery1,
       Times2Plus1,
-      MysteryTimes2,
+      Plus1Times2,
       MysteryPlus3Times2,
+      MysteryTimes2,
       MysteryPlus7,
       MysteryTimes2Minus3
     ];

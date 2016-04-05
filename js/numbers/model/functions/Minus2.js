@@ -1,10 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * output = input * 1
- *
- * @author Chris Malley (PixelZoom, Inc.)
- */
+  * output = input - 3
+  *
+  * @author Chris Malley (PixelZoom, Inc.)
+  */
 define( function( require ) {
   'use strict';
 
@@ -16,22 +16,22 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // constants
-  var LABEL_STRING = StringUtils.format( '{0} ?', FBSymbols.TIMES );
+  var LABEL_STRING = StringUtils.format( '{0} 2', FBSymbols.MINUS );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
-  function MysteryTimes1( options ) {
+  function Minus2( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 209, 151, 169 )'
+      fill: 'rgb( 198, 231, 220 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }
 
-  functionBuilder.register( 'MysteryTimes1', MysteryTimes1 );
+  functionBuilder.register( 'Minus2', Minus2 );
 
-  return inherit( NumberFunction, MysteryTimes1, {
+  return inherit( NumberFunction, Minus2, {
 
     /**
      * Applies this function.
@@ -41,7 +41,7 @@ define( function( require ) {
      * @override
      */
     apply: function( input ) {
-      return input;
+      return input - 2;
     }
   } );
 } );

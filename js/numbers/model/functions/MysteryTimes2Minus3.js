@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function MysteryTimes2Minus3( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 165, 209, 167 )' //TODO double function, other half has fill: 'rgb( 255, 246, 187 )'
+      fill: 'rgb( 165, 209, 167 )'
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }

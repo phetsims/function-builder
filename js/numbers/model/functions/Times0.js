@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * output = input + 3
+ * output = input * 2
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,22 +16,23 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // constants
-  var LABEL_STRING = StringUtils.format( '{0} 3', FBSymbols.PLUS );
+  var LABEL_STRING = StringUtils.format( '{0} 0', FBSymbols.TIMES );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
-  function Plus3( options ) {
+  function Times0( options ) {
     options = _.extend( {}, options, {
-      fill: 'rgb( 165, 209, 167 )'
+      fill: 'rgb( 255, 246, 187 )',
+      invertible: false
     } );
     NumberFunction.call( this, LABEL_STRING, options );
   }
 
-  functionBuilder.register( 'Plus3', Plus3 );
+  functionBuilder.register( 'Times0', Times0 );
 
-  return inherit( NumberFunction, Plus3, {
+  return inherit( NumberFunction, Times0, {
 
     /**
      * Applies this function.
@@ -41,7 +42,7 @@ define( function( require ) {
      * @override
      */
     apply: function( input ) {
-      return input + 3;
+      return input * 0;
     }
   } );
 } );
