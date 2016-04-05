@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -18,7 +19,12 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ScreenIcon = require( 'JOIST/ScreenIcon' );
   var StarShape = require( 'SCENERY_PHET/StarShape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var xString = require( 'string!FUNCTION_BUILDER/x' );
+  var yString = require( 'string!FUNCTION_BUILDER/y' );
 
   var FBIconFactory = {
 
@@ -67,7 +73,7 @@ define( function( require ) {
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 255, 246, 187 )'
       } );
-      var textNode = new Text( '+ 3', {
+      var textNode = new Text( FBSymbols.PLUS + ' 3', {
         font: new FBFont( 36 ),
         center: functionNode.center
       } );
@@ -76,11 +82,12 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'Equations' screen, an equation.
+     * Creates the icon for the 'Equations' screen, the equation y = 2x + 1
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-      var iconNode = new Text( 'y = 2x + 1', { font: new FBFont( 80 ) } );
+      var equationString = StringUtils.format( '{0} = 2{1} {2} 1', yString, xString, FBSymbols.PLUS );
+      var iconNode = new Text( equationString, { font: new FBFont( 80 ) } );
       return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
     },
 

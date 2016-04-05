@@ -16,5 +16,11 @@
   },
   "simplifyEquation": {
     "value": "Simplify Equation"
+  },
+  "x": {
+    "value": "x"
+  },
+  "y": {
+    "value": "y"
   }
 }
