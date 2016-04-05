@@ -18,11 +18,11 @@ define( function( require ) {
 
   /**
    * @param {NumberCard} card
-   * @param {NumberCardContainer} inputContainer
-   * @param {NumberCardContainer} outputContainer
+   * @param {NumberCardContainer} inputContainer - container in the input carousel
+   * @param {NumberCardContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
-   * @param {Node} dragLayer
-   * @param {Property.<boolean>} seeInsideProperty
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
    * @param {Object} [options]
    * @constructor
    */
@@ -41,8 +41,7 @@ define( function( require ) {
 
     /**
      * Updates the number (value) displayed on the card.
-     * @param {Builder} builder
-     * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
+     * See supertype CardNode.updateContent for params.
      * @protected
      * @override
      */

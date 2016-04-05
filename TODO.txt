@@ -22,8 +22,6 @@ Double functions for Numbers screen
 
 ---
 
-Document function @params
-
 Set maxWidth for labels on CheckBoxes, instead of CheckBoxes.
 
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?

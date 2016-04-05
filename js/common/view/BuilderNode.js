@@ -142,10 +142,10 @@ define( function( require ) {
     this.functionsParent = new Node(); // @private
 
     // @private 'moles under the carpet' that represents a card being dragged through the builder
-    this.molesLayer = new Node();
+    this.moleCardsLayer = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, slotsParent, this.functionsParent, this.molesLayer, leftEndNode, rightEndNode ];
+    options.children = [ bodyNode, slotsParent, this.functionsParent, this.moleCardsLayer, leftEndNode, rightEndNode ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
     options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
@@ -292,7 +292,7 @@ define( function( require ) {
      * @public
      */
     addMole: function( card ) {
-      this.molesLayer.addChild( new MoleCard( card, this.builder.location ) );
+      this.moleCardsLayer.addChild( new MoleCard( card, this.builder.location ) );
     }
   } );
 } );

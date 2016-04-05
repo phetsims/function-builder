@@ -39,7 +39,7 @@ define( function( require ) {
      * @param {PatternsScene} scene
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
-     * @override
+     * @abstract
      * @public
      */
     createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {

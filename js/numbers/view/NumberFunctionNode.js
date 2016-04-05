@@ -19,9 +19,9 @@ define( function( require ) {
 
   /**
    * @param {NumberFunction} functionInstance
-   * @param {NumberFunctionContainer} container
+   * @param {NumberFunctionContainer} container - container in the function carousel
    * @param {BuilderNode} builderNode
-   * @param {Node} dragLayer
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
    * @constructor
    */

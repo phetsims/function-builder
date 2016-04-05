@@ -47,7 +47,7 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      // functions
+      // function instances
       for ( var functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
         this.functionInstances[ functionIndex ].step( dt );
       }

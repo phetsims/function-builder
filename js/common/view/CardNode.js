@@ -20,11 +20,11 @@ define( function( require ) {
 
   /**
    * @param {ImageFunction} card
-   * @param {ImageFunctionContainer} inputContainer
-   * @param {ImageFunctionContainer} outputContainer
+   * @param {ImageFunctionContainer} inputContainer - container in the input carousel
+   * @param {ImageFunctionContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
-   * @param {Node} dragLayer
-   * @param {Property.<boolean>} seeInsideProperty
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
    * @param {Object} [options]
    * @constructor
    */
@@ -299,6 +299,7 @@ define( function( require ) {
 
     /**
      * Updates the card's content, based on where the card is relative the the builder slots.
+     *
      * @param {Builder} builder
      * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
      * @protected
@@ -309,6 +310,7 @@ define( function( require ) {
 
     /**
      * Animates this card to a container in a carousel.
+     *
      * @param {CardContainer} container
      * @private
      */

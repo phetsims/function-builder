@@ -127,6 +127,7 @@ define( function( require ) {
 
   /**
    * Creates a star on a background rectangle.
+   *
    * @param {Object} [options]
    * @returns {Node}
    */

@@ -31,8 +31,7 @@ define( function( require ) {
 
     /**
      * Creates the card containers that go in the input and output carousels.
-     * @param {PatternsScene} scene
-     * @param {Object} [containerOptions]
+     * See SceneNode.createCardContainers for params.
      * @returns {ImageCardContainer[]}
      * @protected
      * @override
@@ -47,8 +46,7 @@ define( function( require ) {
 
     /**
      * Creates the function containers that go in the function carousels.
-     * @param {PatternsScene} scene
-     * @param {Object} [containerOptions]
+     * See SceneNode.createFunctionContainers for params.
      * @returns {ImageFunctionContainer[]}
      * @protected
      * @override

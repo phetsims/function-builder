@@ -54,6 +54,7 @@ define( function( require ) {
      *
      * @param {*} input
      * @returns {*} output, of the same type as input
+     * @abstract
      * @public
      */
     apply: function( input ) {

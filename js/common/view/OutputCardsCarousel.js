@@ -44,6 +44,7 @@ define( function( require ) {
 
   /**
    * Gets the number of cards in a set of containers.
+   *
    * @param {CardContainer[]} containers
    * @returns {number}
    */

@@ -47,7 +47,7 @@ define( function( require ) {
      * @param {Node} dragLayer
      * @param {SeeInsideLayer} seeInsideLayer
      * @param {Property.<boolean>} seeInsideProperty
-     * @override
+     * @abstract
      * @public
      */
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode,

@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Canvas utilities that are (somewhat) specific to the needs of this sim.
+ * Utility functions for Canvas operations.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,6 +15,7 @@ define( function( require ) {
 
     /**
      * Creates a canvas with the specified dimensions.
+     *
      * @param {number} width
      * @param {number} height
      * @returns {HTMLCanvasElement}
@@ -28,6 +29,7 @@ define( function( require ) {
 
     /**
      * Creates a canvas sized for the specified image.
+     *
      * @param {HTMLImageElement} image
      * @returns {HTMLCanvasElement}
      */
@@ -42,6 +44,7 @@ define( function( require ) {
 
     /**
      * Creates a canvas sized for the specified image data.
+     *
      * @param {ImageData} imageData
      * @returns {HTMLCanvasElement}
      */
@@ -53,6 +56,7 @@ define( function( require ) {
 
     /**
      * Gets the image data associated with a canvas.
+     *
      * @param {HTMLCanvasElement} canvas
      * @returns {ImageData}
      */
@@ -62,6 +66,7 @@ define( function( require ) {
 
     /**
      * Creates blank image data with the same dimensions as some canvas.
+     *
      * @param {HTMLCanvasElement} canvas
      * @returns {ImageData}
      */

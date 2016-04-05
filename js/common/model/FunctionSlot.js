@@ -12,6 +12,9 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  // constants
+  var NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
+
   /**
    * @param {Vector2} location - location of the slot in the model coordinate frame
    * @constructor
@@ -22,31 +25,55 @@ define( function( require ) {
     this.location = location;
 
     // @public {AbstractFunction|null} the function instance that occupies the slot, null if the slot is empty
-    this.functionInstance = null;
+    this.functionInstance = NO_FUNCTION_INSTANCE;
   }
 
   functionBuilder.register( 'FunctionSlot', FunctionSlot );
 
   return inherit( Object, FunctionSlot, {
 
-    // @public is this slot empty?
-    isEmpty: function() { return ( this.functionInstance === null ); },
+    /**
+     * Is this slot empty?
+     *
+     * @returns {boolean}
+     * @public
+     */
+    isEmpty: function() {
+      return ( this.functionInstance === NO_FUNCTION_INSTANCE );
+    },
 
-    // @public clears the slot, makes it empty
-    clear: function() { this.functionInstance = null; },
+    /**
+     * Clears the slot, makes it empty.
+     * @public
+     */
+    clear: function() {
+      this.functionInstance = NO_FUNCTION_INSTANCE;
+    },
 
-    // @public does this slot contain a specified {AbstractFunction} function instance?
+    /**
+     * Does this slot contain a specified function instance?
+     *
+     * @param {AbstractFunction} functionInstance
+     * @returns {boolean}
+     * @public
+     */
     contains: function( functionInstance ) {
       assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
       return ( this.functionInstance === functionInstance );
     },
 
-    // @public is the slot invertible? meaning, can a card be dragged backwards through this slot?
+    /**
+     * Is the slot invertible? Meaning, can a card be dragged backwards through this slot?
+     *
+     * @returns {boolean}
+     * @public
+     */
     isInvertible: function() {
       return ( this.isEmpty() || this.functionInstance.invertible );
     }
   }, {
 
-    NO_SLOT_NUMBER: -1  // used to indicate the absence of a valid slot number
+    // used to indicate the absence of a valid slot number
+    NO_SLOT_NUMBER: -1
   } );
 } );

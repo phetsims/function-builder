@@ -55,9 +55,9 @@ define( function( require ) {
      * @public
      */
     moveTo: function( location ) {
+      this.animationCompletedCallback = null; // cancels any pending callback
       this.destination = location;
       this.locationProperty.set( location );
-      this.animationCompletedCallback = null;
     },
 
     /**
@@ -102,7 +102,9 @@ define( function( require ) {
         else {
 
           // move one step towards the destination
-          var stepAngle = Math.atan2( this.destination.y - this.locationProperty.get().y, this.destination.x - this.locationProperty.get().x );
+          var stepAngle = Math.atan2(
+            this.destination.y - this.locationProperty.get().y,
+            this.destination.x - this.locationProperty.get().x );
           var stepVector = Vector2.createPolar( stepDistance, stepAngle );
           this.locationProperty.set( this.locationProperty.get().plus( stepVector ) );
         }

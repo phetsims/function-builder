@@ -345,13 +345,18 @@ define( function( require ) {
       this._reset();
     },
 
-    // @public
+    /**
+     * Populates the function and card carousels. This must be done after the view is created, because
+     * we need to know the location of the containers in the carousels.
+     * @public
+     */
     populateCarousels: function() {
       this._populateCarousels();
     },
 
     /**
      * Creates the card containers that go in the card carousels.
+     *
      * @param {Scene} scene
      * @param {Object} [containerOptions]
      * @returns {CardContainer[]}
@@ -363,11 +368,12 @@ define( function( require ) {
 
     /**
      * Creates the function containers that go in the function carousels.
+     *
      * @param {Scene} scene
      * @param {Object} [containerOptions]
      * @returns {FunctionContainer[]}
+     * @abstract
      * @protected
-     * @override
      */
     createFunctionContainers: function( scene, containerOptions ) {
       throw new Error( 'must be implemented by subtype' );

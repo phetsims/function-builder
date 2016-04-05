@@ -108,8 +108,7 @@ define( function( require ) {
 
     /**
      * Creates the card containers that go in the card carousels.
-     * @param {{NumbersScene}} scene
-     * @param {Object} [containerOptions]
+     * See SceneNode.createCardContainers for params.
      * @returns {NumberCardContainer[]}
      * @protected
      * @override
@@ -124,8 +123,7 @@ define( function( require ) {
 
     /**
      * Creates the function containers that go in the function carousels.
-     * @param {NumbersScene} scene
-     * @param {Object} [containerOptions]
+     * See SceneNode.createFunctionContainers for params.
      * @returns {NumberFunctionContainer[]}
      * @protected
      * @override

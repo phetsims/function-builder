@@ -56,6 +56,7 @@ define( function( require ) {
 
     /**
      * Is the specified Node in the container?
+     *
      * @param {MovableNode} node
      * @returns {boolean}
      */
@@ -65,6 +66,7 @@ define( function( require ) {
 
     /**
      * Adds a Node to the container.
+     *
      * @param {MovableNode} node
      * @public
      */
@@ -76,6 +78,7 @@ define( function( require ) {
 
     /**
      * Removes a Node from the container.
+     *
      * @param {MovableNode} node
      * @private
      */
@@ -85,6 +88,7 @@ define( function( require ) {
 
     /**
      * Gets the contents of the container.
+     *
      * @returns {MovableNode[]} a copy of the set of nodes in the container
      * @public
      */
