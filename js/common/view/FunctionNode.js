@@ -18,11 +18,11 @@ define( function( require ) {
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
 
   /**
-   * @param {ImageFunction} functionInstance
-   * @param {Node} contentNode
-   * @param {ImageFunctionContainer} container
-   * @param {BuilderNode} builderNode
-   * @param {Node} dragLayer
+   * @param {ImageFunction} functionInstance - model element associated with this node
+   * @param {Node} contentNode - content that appears on the function, specific to functionInstance
+   * @param {ImageFunctionContainer} container - container in the function carousel where this node originates
+   * @param {BuilderNode} builderNode - BuilderNode that may contain this node
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
    * @constructor
    */
@@ -70,9 +70,12 @@ define( function( require ) {
       }
       else if ( builderNode.containsFunctionNode( thisNode ) ) {
 
+        // function is in the builder
+
+        // if this node's 'not invertible' animation was running, stop it
         thisNode.stopNotInvertibleAnimation();
 
-        // function is in the builder, pop it out
+        // pop it out of the builder
         var slotNumber = builderNode.getSlotNumber( thisNode );
         var slotLocation = builderNode.getSlotLocation( slotNumber );
         builderNode.removeFunctionNode( thisNode, slotNumber );
@@ -81,10 +84,10 @@ define( function( require ) {
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
-        // function was grabbed while in the dragLayer, do nothing
+        // function was grabbed while in dragLayer, do nothing
       }
 
-      assert && assert( dragLayer.hasChild( thisNode ) );
+      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag: function should be in dragLayer' );
     };
 
     //-------------------------------------------------------------------------------
@@ -94,7 +97,7 @@ define( function( require ) {
 
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
 
-      // Find the closest slot
+      // Find the closest slot in the builder
       var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
