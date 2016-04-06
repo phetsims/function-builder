@@ -130,8 +130,8 @@ define( function( require ) {
      */
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
-      scene.functionConstructors.forEach( function( FunctionConstructor ) {
-        functionContainers.push( new NumberFunctionContainer( FunctionConstructor, containerOptions ) );
+      scene.functionData.forEach( function( functionData ) {
+        functionContainers.push( new NumberFunctionContainer( functionData, containerOptions ) );
       } );
       return functionContainers;
     }

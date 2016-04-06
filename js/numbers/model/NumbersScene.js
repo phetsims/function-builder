@@ -9,27 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Range = require( 'DOT/Range' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
-
-  // function modules
-  var Minus2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus2' );
-  var Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Minus3' );
-  var MinusMystery0 = require( 'FUNCTION_BUILDER/numbers/model/functions/MinusMystery0' );
-  var MysteryPlus3Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryPlus3Times2' );
-  var MysteryPlus7 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryPlus7' );
-  var TimesMystery1 = require( 'FUNCTION_BUILDER/numbers/model/functions/TimesMystery1' );
-  var MysteryTimes2 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryTimes2' );
-  var MysteryTimes2Minus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/MysteryTimes2Minus3' );
-  var Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus1' );
-  var Plus1Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus1Times2' );
-  var Plus3 = require( 'FUNCTION_BUILDER/numbers/model/functions/Plus3' );
-  var PlusMystery2 = require( 'FUNCTION_BUILDER/numbers/model/functions/PlusMystery2' );
-  var Times0 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times0' );
-  var Times2 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2' );
-  var Times2Plus1 = require( 'FUNCTION_BUILDER/numbers/model/functions/Times2Plus1' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // constants
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
@@ -51,26 +36,131 @@ define( function( require ) {
     }
 
     /**
-     * Constructors for {NumberFunction} types, in the order that they appear in the function carousel.
-     * @type {constructor[]}
+     * Data structures for creating {NumberFunction} instances, in the order that they appear in the function carousel.
+     * @type {Object[]}
      * @public (read-only)
      */
-    this.functionConstructors = [
-      Plus3,
-      Plus1,
-      PlusMystery2,
-      Minus3,
-      Minus2,
-      MinusMystery0,
-      Times2,
-      Times0,
-      TimesMystery1,
-      Times2Plus1,
-      Plus1Times2,
-      MysteryPlus3Times2,
-      MysteryTimes2,
-      MysteryPlus7,
-      MysteryTimes2Minus3
+    this.functionData = [
+
+      // + 3
+      {
+        labelString: StringUtils.format( '{0} 3', FBSymbols.PLUS ),
+        fill: 'rgb( 165, 209, 167 )',
+        apply: function( input ) { return input + 3; },
+        invertible: true
+      },
+
+      // + 1
+      {
+        labelString: StringUtils.format( '{0} 1', FBSymbols.PLUS ),
+        fill: 'rgb( 235, 191, 109 )',
+        apply: function( input ) { return input + 1; },
+        invertible: true
+      },
+
+      // + ?
+      {
+        labelString: StringUtils.format( '{0} ?', FBSymbols.PLUS ),
+        fill: 'rgb( 232, 169, 236 )',
+        apply: function( input ) { return input + 2; },
+        invertible: true
+      },
+
+      // - 3
+      {
+        labelString: StringUtils.format( '{0} 3', FBSymbols.MINUS ),
+        fill: 'rgb( 135, 196, 229 )',
+        apply: function( input ) { return input - 3; },
+        invertible: true
+      },
+
+      // - 2
+      {
+        labelString: StringUtils.format( '{0} 2', FBSymbols.MINUS ),
+        fill: 'rgb( 198, 231, 220 )',
+        apply: function( input ) { return input - 2; },
+        invertible: true
+      },
+
+      // - ?
+      {
+        labelString: StringUtils.format( '{0} ?', FBSymbols.MINUS ),
+        fill: 'rgb( 255, 246, 187 )',
+        apply: function( input ) { return input; },
+        invertible: true
+      },
+
+      // x 2
+      {
+        labelString: StringUtils.format( '{0} 2', FBSymbols.TIMES ),
+        fill: 'rgb( 208, 201, 225 )',
+        apply: function( input ) { return input * 2; },
+        invertible: true
+      },
+
+      // x 0
+      {
+        labelString: StringUtils.format( '{0} 0', FBSymbols.TIMES ),
+        fill: 'rgb( 255, 246, 187 )',
+        apply: function( input ) { return 0; },
+        invertible: false
+      },
+
+      // x ?
+      {
+        labelString: StringUtils.format( '{0} ?', FBSymbols.TIMES ),
+        fill: 'rgb( 209, 151, 169 )',
+        apply: function( input ) { return input * 1; },
+        invertible: true
+      },
+
+      // x 2 , + 1
+      {
+        labelString: StringUtils.format( '{0} 2 , {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
+        fill: 'rgb( 208, 201, 225 )',
+        apply: function( input ) { return ( input * 2 ) + 1; },
+        invertible: true
+      },
+
+      // + 1 , x 2
+      {
+        labelString: StringUtils.format( '{0} 1 , {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
+        fill: 'rgb( 232, 169, 236 )',
+        apply: function( input ) { return ( input + 1 ) * 2; },
+        invertible: true
+      },
+
+      // + ? , x ?
+      {
+        labelString: StringUtils.format( '{0} ? , {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
+        fill: 'rgb( 135, 196, 229 )',
+        apply: function( input ) { return ( input + 3 ) * 2; },
+        invertible: true
+      },
+
+      // ? ?
+      {
+        labelString: '? ?',
+        fill: 'rgb( 246, 181, 138 )',
+        apply: function( input ) { return input * 2; },
+        invertible: true
+      },
+
+      // ? ?
+      {
+        labelString: '? ?',
+        fill: 'rgb( 232, 169, 236 )',
+        apply: function( input ) { return input + 7; },
+        invertible: true
+      },
+
+      // ? ? , ? ?
+      {
+        labelString: '? ? , ? ?',
+        fill: 'rgb( 165, 209, 167 )',
+        apply: function( input ) { return ( input * 2 ) - 3; },
+        invertible: true
+      }
     ];
 
     Scene.call( this, options );

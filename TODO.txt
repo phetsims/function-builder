@@ -16,8 +16,6 @@ Add arrows to move cards to next/previous window. Does this interfere with Equat
 Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
 outputs may be fractions, adds a graph.
 
-Investigate different approach to NumberFunction subtypes, include some form of operator precedence to support equations
-
 Double functions for Numbers screen
 
 ---

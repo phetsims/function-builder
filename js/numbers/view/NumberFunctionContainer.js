@@ -13,15 +13,16 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
   var NumberFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionNode' );
 
   /**
-   * @param {constructor} FunctionConstructor - constructor for a subtype of {NumberFunction}
+   * @param {Object} functionData - data structure for creating NumberFunction instances
    * @param {Object} [options]
    * @constructor
    */
-  function NumberFunctionContainer( FunctionConstructor, options ) {
-    this.FunctionConstructor = FunctionConstructor; // @private
+  function NumberFunctionContainer( functionData, options ) {
+    this.functionData = functionData; // @private
     FunctionContainer.call( this, options );
   }
 
@@ -42,7 +43,7 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var functionInstance = new this.FunctionConstructor( {
+        var functionInstance = new NumberFunction( this.functionData, {
           location: this.carouselLocation
         } );
         scene.functionInstances.push( functionInstance );
