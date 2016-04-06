@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Object} functionData - see NumbersScene
+   * @param {Object} functionData - data required to instantiate, see NumbersScene
    * @param {Object} [options]
    * @constructor
    */
