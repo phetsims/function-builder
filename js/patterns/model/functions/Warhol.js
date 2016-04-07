@@ -100,7 +100,6 @@ define( function( require ) {
       var halfCanvas = CanvasUtils.createCanvas( inputCanvas.width / 2, inputCanvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
-      var halfData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
 
       // Convert the scaled image to grayscale
       var grayscaleCanvas = this.grayscale.apply( halfCanvas );
