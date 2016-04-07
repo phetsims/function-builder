@@ -23,10 +23,14 @@ define( function( require ) {
    */
   function Grayscale( options ) {
 
-    options = _.extend( {}, options, {
+    options = _.extend( {
+      backgroundColor: null
+    }, options, {
       fill: 'rgb( 232, 232, 232 )',
       invertible: false
     } );
+
+    this.backgroundColor = options.backgroundColor; // @private
 
     ImageFunction.call( this, grayScaleImage, options );
   }
@@ -49,6 +53,15 @@ define( function( require ) {
       // Average the red, green and blue values of each pixel. This drains the color from the image.
       var data = imageData.data;
       for ( var i = 0; i < data.length - 4; i += 4 ) {
+
+        // map fully transparent pixels to background color
+        if ( this.backgroundColor && data[ i + 3 ] === 0 ) {
+          data[ i ] = this.backgroundColor.red;
+          data[ i + 1 ] = this.backgroundColor.green;
+          data[ i + 2 ] = this.backgroundColor.blue;
+          data[ i + 3 ] = this.backgroundColor.alpha * 255;
+        }
+
         var average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
         data[ i ] = average;
         data[ i + 1 ] = average;

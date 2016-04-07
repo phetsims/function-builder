@@ -21,6 +21,7 @@ define( function( require ) {
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -33,7 +34,7 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 25, 25, 47 ) ];
 
-  var PROCESS_BACKGROUND = false; // should the background of the image be processed?
+  var OPAQUE_BACKGROUND = true; // should the background of the image be made opaque?
 
   /**
    * @param {Object} [options]
@@ -46,11 +47,17 @@ define( function( require ) {
       invertible: false
     } );
 
+    // @private
+    this.grayscale = new Grayscale( {
+      backgroundColor: OPAQUE_BACKGROUND ? new Color( 255, 255, 255, 255 ) : null
+    } );
+
     ImageFunction.call( this, warholImage, options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );
 
+  //TODO move to CanvasUtils
   /**
    * Sets the RGBA components of a pixel.
    *
@@ -73,29 +80,6 @@ define( function( require ) {
     imageData.data[ index + 1 ] = green;
     imageData.data[ index + 2 ] = blue;
     imageData.data[ index + 3 ] = alpha;
-  };
-
-  //TODO use Grayscale.js
-  /**
-   * Converts pixel data to grayscale.
-   *
-   * @param {ImageData} imageData - underlying pixel data of a Canvas
-   * @returns {ImageData}
-   */
-  var applyGrayscale = function( imageData ) {
-    for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
-
-      // Convert transparent background pixels to opaque white
-      if ( PROCESS_BACKGROUND && imageData.data[ i + 3 ] === 0 ) {
-        setPixelRGBA( imageData, i, 255, 255, 255, 255 );
-      }
-
-      // Convert to grayscale by averaging the red, green and blue values of each pixel.
-      // This drains the color from the image.
-      var average = ( imageData.data[ i ] + imageData.data[ i + 1 ] + imageData.data[ i + 2 ] ) / 3;
-      setPixelRGBA( imageData, i, average, average, average, imageData.data[ i + 3 ] );
-    }
-    return imageData;
   };
 
   /**
@@ -137,13 +121,14 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      // Draw the input into a half-size canvas, effectively scaling by 50%
+      // Convert the image to grayscale
+      var grayscaleCanvas = this.grayscale.apply( inputCanvas );
+
+      // Draw the grayscale image into a half-size canvas, effectively scaling by 50%
       var halfCanvas = CanvasUtils.createCanvas( inputCanvas.width / 2, inputCanvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
-      halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
-
-      // Convert the scaled image to grayscale
-      var grayscaleData = applyGrayscale( halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height ) );
+      halfContext.drawImage( grayscaleCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
+      var halfData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
 
       // Create blank ImageData that will hold the result of mapping grayscale to colors.
       var colorMappedData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
@@ -153,13 +138,13 @@ define( function( require ) {
       var outputContext = outputCanvas.getContext( '2d' );
 
       // Draw the scaled image in each quadrant with a different color map applied.
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, LEFT_TOP_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( halfData, colorMappedData, LEFT_TOP_COLOR_MAP ),
         0, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, RIGHT_TOP_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( halfData, colorMappedData, RIGHT_TOP_COLOR_MAP ),
         outputCanvas.width / 2, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, LEFT_BOTTOM_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( halfData, colorMappedData, LEFT_BOTTOM_COLOR_MAP ),
         0, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, RIGHT_BOTTOM_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( halfData, colorMappedData, RIGHT_BOTTOM_COLOR_MAP ),
         outputCanvas.width / 2, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
 
       return outputCanvas;
