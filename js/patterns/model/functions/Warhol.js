@@ -51,8 +51,9 @@ define( function( require ) {
 
   /**
    * Sets the RGBA components of a pixel.
-   * @param {ImageData} imageData
-   * @param {number} index
+   *
+   * @param {ImageData} imageData - underlying pixel data of a Canvas
+   * @param {number} index - index of a specific pixel
    * @param {number} red
    * @param {number} green
    * @param {number} blue
@@ -70,16 +71,6 @@ define( function( require ) {
     imageData.data[ index + 1 ] = green;
     imageData.data[ index + 2 ] = blue;
     imageData.data[ index + 3 ] = alpha * 255;
-  };
-
-  /**
-   * Sets the color of a pixel.
-   * @param {ImageData} imageData
-   * @param {number} index
-   * @param {Color} color
-   */
-  var setPixelColor = function( imageData, index, color ) {
-    setPixelRGBA( imageData, index, color.red, color.green, color.blue, color.alpha );
   };
 
   /**
@@ -102,7 +93,8 @@ define( function( require ) {
       var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
       assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
 
-      setPixelColor( outputData, i, colorMap[ colorIndex ] );
+      var color = colorMap[ colorIndex ];
+      setPixelRGBA( outputData, i, color.red, color.green, color.blue, 1 );
     }
     return outputData;
   };
@@ -111,6 +103,7 @@ define( function( require ) {
 
     /**
      * Applies this function.
+     *
      * @param {HTMLCanvasElement} inputCanvas
      * @returns {HTMLCanvasElement}
      * @public
