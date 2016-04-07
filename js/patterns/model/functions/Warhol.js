@@ -34,7 +34,7 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 25, 25, 47 ) ];
 
-  var OPAQUE_BACKGROUND = true; // should the background of the image be made opaque?
+  var OPAQUE_BACKGROUND = false; // should the background of the image be made opaque?
 
   /**
    * @param {Object} [options]
@@ -56,31 +56,6 @@ define( function( require ) {
   }
 
   functionBuilder.register( 'Warhol', Warhol );
-
-  //TODO move to CanvasUtils
-  /**
-   * Sets the RGBA components of a pixel.
-   *
-   * @param {ImageData} imageData - underlying pixel data of a Canvas
-   * @param {number} index - index of a specific pixel
-   * @param {number} red
-   * @param {number} green
-   * @param {number} blue
-   * @param {number} alpha
-   */
-  var setPixelRGBA = function( imageData, index, red, green, blue, alpha ) {
-
-    assert && assert( index >= 0 && index < imageData.data.length - 4 );
-    assert && assert( red >= 0 && red <= 255 );
-    assert && assert( green >= 0 && green <= 255 );
-    assert && assert( blue >= 0 && blue <= 255 );
-    assert && assert( alpha >=0 && alpha <= 255 );
-
-    imageData.data[ index ] = red;
-    imageData.data[ index + 1 ] = green;
-    imageData.data[ index + 2 ] = blue;
-    imageData.data[ index + 3 ] = alpha;
-  };
 
   /**
    * Applies a color map, based on intensity of the pixels in the input.
@@ -104,7 +79,7 @@ define( function( require ) {
 
       // apply the color map
       var color = colorMap[ colorIndex ];
-      setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
+      CanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
     }
     return outputData;
   };

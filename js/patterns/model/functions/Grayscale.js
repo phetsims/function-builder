@@ -24,7 +24,7 @@ define( function( require ) {
   function Grayscale( options ) {
 
     options = _.extend( {
-      backgroundColor: null
+      backgroundColor: null // {Color|null} convert fully transparent pixels to this Color
     }, options, {
       fill: 'rgb( 232, 232, 232 )',
       invertible: false
@@ -56,10 +56,7 @@ define( function( require ) {
 
         // map fully transparent pixels to background color
         if ( this.backgroundColor && data[ i + 3 ] === 0 ) {
-          data[ i ] = this.backgroundColor.red;
-          data[ i + 1 ] = this.backgroundColor.green;
-          data[ i + 2 ] = this.backgroundColor.blue;
-          data[ i + 3 ] = this.backgroundColor.alpha * 255;
+          CanvasUtils.setPixelColor( imageData, i, this.backgroundColor );
         }
 
         var average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
