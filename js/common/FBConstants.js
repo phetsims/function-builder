@@ -50,7 +50,7 @@ define( function( require ) {
     CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
     // scale for the images on the image cards
-    IMAGE_CARD_SCALE: 0.3,
+    IMAGE_CARD_SCALE: 0.34,
 
     // font for number cards
     NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
