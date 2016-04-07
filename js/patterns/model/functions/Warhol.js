@@ -33,7 +33,7 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 25, 25, 47 ) ];
 
-  var PRESERVE_ALPHA = true; // should alpha in the input image be preserved?
+  var PROCESS_BACKGROUND = false; // should the background of the image be processed?
 
   /**
    * @param {Object} [options]
@@ -75,6 +75,7 @@ define( function( require ) {
     imageData.data[ index + 3 ] = alpha;
   };
 
+  //TODO use Grayscale.js
   /**
    * Converts pixel data to grayscale.
    *
@@ -84,20 +85,15 @@ define( function( require ) {
   var applyGrayscale = function( imageData ) {
     for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
 
-      var alpha = PRESERVE_ALPHA ? imageData.data[ i + 3 ] : 255;
-
-      if ( !PRESERVE_ALPHA && imageData.data[ i + 3 ] === 0 ) {
-
-        // transparent pixel -> opaque white
-        setPixelRGBA( imageData, i, 255, 255, 255, alpha );
+      // Convert transparent background pixels to opaque white
+      if ( PROCESS_BACKGROUND && imageData.data[ i + 3 ] === 0 ) {
+        setPixelRGBA( imageData, i, 255, 255, 255, 255 );
       }
-      else {
 
-        // Convert to grayscale by averaging the red, green and blue values of each pixel.
-        // This drains the color from the image.
-        var average = ( imageData.data[ i ] + imageData.data[ i + 1 ] + imageData.data[ i + 2 ] ) / 3;
-        setPixelRGBA( imageData, i, average, average, average, alpha );
-      }
+      // Convert to grayscale by averaging the red, green and blue values of each pixel.
+      // This drains the color from the image.
+      var average = ( imageData.data[ i ] + imageData.data[ i + 1 ] + imageData.data[ i + 2 ] ) / 3;
+      setPixelRGBA( imageData, i, average, average, average, imageData.data[ i + 3 ] );
     }
     return imageData;
   };
@@ -124,8 +120,7 @@ define( function( require ) {
 
       // apply the color map
       var color = colorMap[ colorIndex ];
-      var alpha = PRESERVE_ALPHA ? inputData.data[ i + 3 ] : 255;
-      setPixelRGBA( outputData, i, color.red, color.green, color.blue, alpha );
+      setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
     }
     return outputData;
   };
