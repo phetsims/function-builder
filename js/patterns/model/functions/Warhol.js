@@ -76,6 +76,33 @@ define( function( require ) {
   };
 
   /**
+   * Converts pixel data to grayscale.
+   *
+   * @param {ImageData} imageData - underlying pixel data of a Canvas
+   * @returns {ImageData}
+   */
+  var applyGrayscale = function( imageData ) {
+    for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
+
+      var alpha = PRESERVE_ALPHA ? imageData.data[ i + 3 ] : 255;
+
+      if ( !PRESERVE_ALPHA && imageData.data[ i + 3 ] === 0 ) {
+
+        // transparent pixel -> opaque white
+        setPixelRGBA( imageData, i, 255, 255, 255, alpha );
+      }
+      else {
+
+        // Convert to grayscale by averaging the red, green and blue values of each pixel.
+        // This drains the color from the image.
+        var average = ( imageData.data[ i ] + imageData.data[ i + 1 ] + imageData.data[ i + 2 ] ) / 3;
+        setPixelRGBA( imageData, i, average, average, average, alpha );
+      }
+    }
+    return imageData;
+  };
+
+  /**
    * Applies a color map, based on intensity of the pixels in the input.
    *
    * @param {ImageData} inputData
@@ -120,32 +147,15 @@ define( function( require ) {
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
 
-      // Convert the scaled image to grayscale, on a white background
-      var grayscaleData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
-      for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
+      // Convert the scaled image to grayscale
+      var grayscaleData = applyGrayscale( halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height ) );
 
-        var alpha = PRESERVE_ALPHA ? grayscaleData.data[ i + 3 ] : 255;
-
-        if ( !PRESERVE_ALPHA && grayscaleData.data[ i + 3 ] === 0 ) {
-
-          // transparent pixel -> opaque white
-          setPixelRGBA( grayscaleData, i, 255, 255, 255, alpha );
-        }
-        else {
-
-          // Convert to grayscale by averaging the red, green and blue values of each pixel.
-          // This drains the color from the image.
-          var average = ( grayscaleData.data[ i ] + grayscaleData.data[ i + 1 ] + grayscaleData.data[ i + 2 ] ) / 3;
-          setPixelRGBA( grayscaleData, i, average, average, average, alpha );
-        }
-      }
+      // Create blank ImageData that will hold the result of mapping grayscale to colors.
+      var colorMappedData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Create the output canvas
       var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
       var outputContext = outputCanvas.getContext( '2d' );
-
-      // Create blank image data that will hold the result of mapping the grayscale to colors.
-      var colorMappedData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Draw the scaled image in each quadrant with a different color map applied.
       outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, LEFT_TOP_COLOR_MAP ),
