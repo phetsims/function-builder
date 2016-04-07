@@ -33,6 +33,8 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 25, 25, 47 ) ];
 
+  var PRESERVE_ALPHA = true; // should alpha in the input image be preserved?
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -65,12 +67,12 @@ define( function( require ) {
     assert && assert( red >= 0 && red <= 255 );
     assert && assert( green >= 0 && green <= 255 );
     assert && assert( blue >= 0 && blue <= 255 );
-    assert && assert( alpha >=0 && alpha <= 1 );
+    assert && assert( alpha >=0 && alpha <= 255 );
 
     imageData.data[ index ] = red;
     imageData.data[ index + 1 ] = green;
     imageData.data[ index + 2 ] = blue;
-    imageData.data[ index + 3 ] = alpha * 255;
+    imageData.data[ index + 3 ] = alpha;
   };
 
   /**
@@ -89,12 +91,14 @@ define( function( require ) {
       var intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
       assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
 
-      // use intensity range to look up color
+      // map intensity to a color map
       var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
       assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
 
+      // apply the color map
       var color = colorMap[ colorIndex ];
-      setPixelRGBA( outputData, i, color.red, color.green, color.blue, 1 );
+      var alpha = PRESERVE_ALPHA ? inputData.data[ i + 3 ] : 255;
+      setPixelRGBA( outputData, i, color.red, color.green, color.blue, alpha );
     }
     return outputData;
   };
@@ -119,17 +123,20 @@ define( function( require ) {
       // Convert the scaled image to grayscale, on a white background
       var grayscaleData = halfContext.getImageData( 0, 0, halfCanvas.width, halfCanvas.height );
       for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
-        if ( grayscaleData.data[ i + 3 ] !== 255 ) {
+
+        var alpha = PRESERVE_ALPHA ? grayscaleData.data[ i + 3 ] : 255;
+
+        if ( !PRESERVE_ALPHA && grayscaleData.data[ i + 3 ] === 0 ) {
 
           // transparent pixel -> opaque white
-          setPixelRGBA( grayscaleData, i, 255, 255, 255, 1 );
+          setPixelRGBA( grayscaleData, i, 255, 255, 255, alpha );
         }
         else {
 
-          // non-transparent pixel -> grayscale
-          // Average the red, green and blue values of each pixel. This drains the color from the image.
+          // Convert to grayscale by averaging the red, green and blue values of each pixel.
+          // This drains the color from the image.
           var average = ( grayscaleData.data[ i ] + grayscaleData.data[ i + 1 ] + grayscaleData.data[ i + 2 ] ) / 3;
-          setPixelRGBA( grayscaleData, i, average, average, average, 1 );
+          setPixelRGBA( grayscaleData, i, average, average, average, alpha );
         }
       }
 
