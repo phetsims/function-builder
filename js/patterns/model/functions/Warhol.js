@@ -9,8 +9,8 @@
  * 1. Scale the image by 50%.
  * 2. Convert the image to grayscale.
  * 3. Use intensity of pixels in the grayscale image to map pixels to colors.
- * 4. Draw the mapped image into 1 of the 4 quadrants.
- * 5. Repeat steps 3 & 4 for each quadrant, using a different color mapping.
+ * 4. Draw the color-mapped image into 1 of the 4 quadrants.
+ * 5. Repeat steps 3 & 4 for each quadrant, using a different color map.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
