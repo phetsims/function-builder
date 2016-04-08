@@ -60,6 +60,8 @@ define( function( require ) {
 
   /**
    * Applies a color map, based on intensity of the pixels in the input.
+   * While it's tempting to implement this as a subtype of ImageFunction,
+   * doing so would increase the number of Canvases created when applying Warhol.
    *
    * @param {ImageData} inputData
    * @param {ImageData} outputData
@@ -70,12 +72,13 @@ define( function( require ) {
     assert && assert( inputData.data.length === outputData.data.length );
     for ( var i = 0; i < inputData.data.length - 4; i += 4 ) {
 
-      // convert RGB to intensity, see NTSC CCIR 601 specification
+      // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
+      // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
       var intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
       assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
 
       // map intensity to a color map
-      var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
+      var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) ); //TODO is this accurate?
       assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
 
       // apply the color map
@@ -97,7 +100,8 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      // Draw the image into a half-size canvas, effectively scaling by 50%
+      // Draw the image into a half-size canvas, effectively scaling by 50%.
+      // Do this first so that we're processing fewer pixels in subsequent operations.
       var halfCanvas = CanvasUtils.createCanvas( inputCanvas.width / 2, inputCanvas.height / 2 );
       var halfContext = halfCanvas.getContext( '2d' );
       halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
@@ -106,22 +110,24 @@ define( function( require ) {
       var grayscaleCanvas = this.grayscale.apply( halfCanvas );
       var grayscaleData = CanvasUtils.getImageData( grayscaleCanvas );
 
-      // Create blank ImageData that will hold the result of mapping grayscale to colors.
-      var colorMappedData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
-
-      // Create the output canvas
+      // Create the output canvas, with same dimensions as inputCanvas
       var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
       var outputContext = outputCanvas.getContext( '2d' );
 
-      // Draw the scaled image in each quadrant with a different color map applied.
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, LEFT_TOP_COLOR_MAP ),
-        0, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, RIGHT_TOP_COLOR_MAP ),
-        outputCanvas.width / 2, 0, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, LEFT_BOTTOM_COLOR_MAP ),
-        0, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, colorMappedData, RIGHT_BOTTOM_COLOR_MAP ),
-        outputCanvas.width / 2, outputCanvas.height / 2, 0, 0, outputCanvas.width / 2, outputCanvas.height / 2 );
+      // Create a 'scratch' ImageData that will hold the result of mapping grayscale to colors.
+      // This gets reused for each color mapping, so be sure to draw the data to the output canvas
+      // before proceeding with the next mapping.
+      var scratchData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
+
+      // Draw a color-mapped image to each quadrant of the output canvas, using a different map in each quadrant.
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_TOP_COLOR_MAP ), 
+        0, 0 );
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, RIGHT_TOP_COLOR_MAP ), 
+        outputCanvas.width / 2, 0 );
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_BOTTOM_COLOR_MAP ), 
+        0, outputCanvas.height / 2 );
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, RIGHT_BOTTOM_COLOR_MAP ), 
+        outputCanvas.width / 2, outputCanvas.height / 2 );
 
       return outputCanvas;
     }

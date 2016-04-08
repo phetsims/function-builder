@@ -24,6 +24,7 @@ define( function( require ) {
   function Grayscale( options ) {
 
     options = _.extend( {
+      //TODO if we decide on Warhol.OPAQUE_BACKGROUND=false, delete this option and associated code
       backgroundColor: null // {Color|null} convert fully transparent pixels to this Color
     }, options, {
       fill: 'rgb( 232, 232, 232 )',
