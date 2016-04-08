@@ -7,7 +7,6 @@ While card is animating to left, it needs to check continuously for non-invertib
   functions in builder may change while card is animating, #24.
 
 Flush cards out of builder when 'see inside' is turned off (account for Reset All).
-  If we don't do this, then MoleCard will need to forward events to an associated CardNode.
 
 Add arrows to move cards to next/previous window. Does this interfere with Equation drawer?
 
