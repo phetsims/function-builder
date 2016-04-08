@@ -139,7 +139,7 @@ define( function( require ) {
     options = options || {};
 
     var starNode = new Path( new StarShape(), {
-      fill: colorMap[ 2 ],  // assumes that star.png is filled with red
+      fill: colorMap[ 2 ],  // assumes that star.png is filled with yellow
       stroke: colorMap[ 0 ] // assumes that star.png is stroked with black
     } );
     var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, {
