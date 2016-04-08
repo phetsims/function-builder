@@ -28,7 +28,19 @@ define( function( require ) {
   // images
   var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
 
-  // constants
+  /**
+   * Color maps, for mapping grayscale intensity to RGB.
+   *
+   * Intensity range is [0,255], where 0 is darkest, 255 is brightest. For the purposes of color mapping, the intensity
+   * range is divided into equal 'bands', based on the number of colors in the map. Each pixel in the grayscale image
+   * is examined, its intensity is computed, and the corresponding color is used from the color map.
+   *
+   * For example, if COLOR_MAP has 4 colors, then there will be 4 intensity bands (0-64, 65-127, 128-192, 193-255)
+   * which map to indices 0-3 (respectively) of the map.  If a pixel's intensity is 68, then COLOR_MAP[1] will
+   * be used as the color for the pixel.
+   *
+   * @type {Color[]}
+   */
   var LEFT_TOP_COLOR_MAP = [ new Color( 0, 0, 255 ), new Color( 0, 255, 0 ), new Color( 255, 0, 0 ), new Color( 255, 255, 0 ) ];
   var RIGHT_TOP_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
