@@ -45,121 +45,109 @@ define( function( require ) {
       // + 3
       {
         labelString: StringUtils.format( '{0} 3', FBSymbols.PLUS ),
-        fill: 'rgb( 165, 209, 167 )',
         apply: function( input ) { return input + 3; },
-        invertible: true
+        options: { fill: 'rgb( 165, 209, 167 )' }
       },
 
       // + 1
       {
         labelString: StringUtils.format( '{0} 1', FBSymbols.PLUS ),
-        fill: 'rgb( 235, 191, 109 )',
         apply: function( input ) { return input + 1; },
-        invertible: true
+        options: { fill: 'rgb( 235, 191, 109 )' }
       },
 
       // + ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.PLUS ),
-        fill: 'rgb( 232, 169, 236 )',
         apply: function( input ) { return input + 2; },
-        invertible: true
+        options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // - 3
       {
         labelString: StringUtils.format( '{0} 3', FBSymbols.MINUS ),
-        fill: 'rgb( 135, 196, 229 )',
         apply: function( input ) { return input - 3; },
-        invertible: true
+        options: { fill: 'rgb( 135, 196, 229 )' }
       },
 
       // - 2
       {
         labelString: StringUtils.format( '{0} 2', FBSymbols.MINUS ),
-        fill: 'rgb( 198, 231, 220 )',
         apply: function( input ) { return input - 2; },
-        invertible: true
+        options: { fill: 'rgb( 198, 231, 220 )' }
       },
 
       // - ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.MINUS ),
-        fill: 'rgb( 255, 246, 187 )',
         apply: function( input ) { return input; },
-        invertible: true
+        options: { fill: 'rgb( 255, 246, 187 )' }
       },
 
       // x 2
       {
         labelString: StringUtils.format( '{0} 2', FBSymbols.TIMES ),
-        fill: 'rgb( 208, 201, 225 )',
         apply: function( input ) { return input * 2; },
-        invertible: true
+        options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
       // x 0
       {
         labelString: StringUtils.format( '{0} 0', FBSymbols.TIMES ),
-        fill: 'rgb( 255, 246, 187 )',
         apply: function( input ) { return 0; },
-        invertible: false
+        options: {
+          fill: 'rgb( 255, 246, 187 )',
+          invertible: false
+        }
       },
 
       // x ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.TIMES ),
-        fill: 'rgb( 209, 151, 169 )',
         apply: function( input ) { return input * 1; },
-        invertible: true
+        options: { fill: 'rgb( 209, 151, 169 )' }
       },
 
       // x 2 , + 1
       {
         labelString: StringUtils.format( '{0} 2 , {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
-        fill: 'rgb( 208, 201, 225 )',
         apply: function( input ) { return ( input * 2 ) + 1; },
-        invertible: true
+        options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
       // + 1 , x 2
       {
         labelString: StringUtils.format( '{0} 1 , {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
-        fill: 'rgb( 232, 169, 236 )',
         apply: function( input ) { return ( input + 1 ) * 2; },
-        invertible: true
+        options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // + ? , x ?
       {
         labelString: StringUtils.format( '{0} ? , {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
-        fill: 'rgb( 135, 196, 229 )',
         apply: function( input ) { return ( input + 3 ) * 2; },
-        invertible: true
+        options: { fill: 'rgb( 135, 196, 229 )' }
       },
 
       // ? ?
       {
         labelString: '? ?',
-        fill: 'rgb( 246, 181, 138 )',
         apply: function( input ) { return input * 2; },
-        invertible: true
+        options: { fill: 'rgb( 246, 181, 138 )' }
       },
 
       // ? ?
       {
         labelString: '? ?',
-        fill: 'rgb( 232, 169, 236 )',
         apply: function( input ) { return input + 7; },
-        invertible: true
+        options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // ? ? , ? ?
       {
         labelString: '? ? , ? ?',
-        fill: 'rgb( 165, 209, 167 )',
         apply: function( input ) { return ( input * 2 ) - 3; },
-        invertible: true
+        options: { fill: 'rgb( 165, 209, 167 )' }
       }
     ];
 

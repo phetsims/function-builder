@@ -14,18 +14,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {Object} functionData - data required to instantiate, see NumbersScene
+   * @param {string} labelString
+   * @param {function(number):number} apply
    * @param {Object} [options]
    * @constructor
    */
-  function NumberFunction( functionData, options ) {
+  function NumberFunction( labelString, apply, options ) {
 
-    options = options || {};
-    options.fill = functionData.fill;
-    options.invertible = functionData.invertible;
-
-    this.labelString = functionData.labelString; // @public (read-only) label that appears on the function
-    this.applyFunction = functionData.apply; // @private
+    this.labelString = labelString; // @public (read-only) label that appears on the function
+    this._apply = apply; // @private
 
     AbstractFunction.call( this, options );
   }
@@ -35,7 +32,7 @@ define( function( require ) {
   return inherit( AbstractFunction, NumberFunction, {
 
     apply: function( value ) {
-      return this.applyFunction( value );
+      return this._apply( value );
     }
   } );
 } );

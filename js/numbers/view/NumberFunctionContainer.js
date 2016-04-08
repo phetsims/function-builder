@@ -43,13 +43,14 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var functionInstance = new NumberFunction( this.functionData, {
+        var functionOptions = _.extend( {
           location: this.carouselLocation
-        } );
-        scene.functionInstances.push( functionInstance );
+        }, this.functionData.options );
+        var functionInstance = new NumberFunction( this.functionData.labelString, this.functionData.apply, functionOptions );
 
         // associated Node
         var functionNode = new NumberFunctionNode( functionInstance, this, builderNode, dragLayer );
+        scene.functionInstances.push( functionInstance );
 
         // put the Node in this container
         this.addNode( functionNode );
