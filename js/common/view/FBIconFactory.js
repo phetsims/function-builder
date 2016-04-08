@@ -27,7 +27,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'Patterns' screen, the Warhol function applied to a star shape.
-     * To improve the quality at the larger size needed, we're not actually using the Warhol function,
+     * To provide the quality needed for the icon, we're not actually using the Warhol function,
      * but we are using its color maps.
      * @returns {Node}
      */
@@ -142,10 +142,11 @@ define( function( require ) {
       fill: colorMap[ 2 ],  // assumes that star.png is filled with yellow
       stroke: colorMap[ 0 ] // assumes that star.png is stroked with black
     } );
+
     var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, {
-      fill: colorMap[ 3 ]  // assumes that transparent pixels in star.png are converted to opaque white
+      fill: colorMap[ 3 ],  // assumes that transparent pixels in star.png are converted to opaque white
+      center: starNode.center
     } );
-    starNode.center = backgroundNode.center;
 
     options.children = [ backgroundNode, starNode ];
     return new Node( options );
