@@ -32,14 +32,6 @@ define( function( require ) {
       middle: 'rgb( 6, 114, 180 )',
       bottom: 'black',
       ends: 'rgb( 189, 206, 216 )'
-    },
-
-    // Warhol function background colors
-    WARHOL: {
-      leftTop: 'rgb( 255, 81, 231 )',  // magenta
-      rightTop: 'rgb( 250, 255, 105 )',  // yellow
-      leftBottom: 'rgb( 88, 113, 255 )', // blue
-      rightBottom: 'rgb( 6, 255, 175 )' // green
     }
   };
 

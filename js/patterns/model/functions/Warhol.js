@@ -143,5 +143,12 @@ define( function( require ) {
 
       return outputCanvas;
     }
+  }, {
+
+    // @public For use by FBIconFactory.createPatternsScreenIcon
+    LEFT_TOP_COLOR_MAP: LEFT_TOP_COLOR_MAP,
+    RIGHT_TOP_COLOR_MAP: RIGHT_TOP_COLOR_MAP,
+    LEFT_BOTTOM_COLOR_MAP: LEFT_BOTTOM_COLOR_MAP,
+    RIGHT_BOTTOM_COLOR_MAP: RIGHT_BOTTOM_COLOR_MAP
   } );
 } );

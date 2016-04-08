@@ -21,38 +21,31 @@ define( function( require ) {
   var StarShape = require( 'SCENERY_PHET/StarShape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   var FBIconFactory = {
 
     /**
      * Creates the icon for the 'Patterns' screen, the Warhol function applied to a star shape.
-     * To improve the quality at the larger size needed, we're not actually using the Warhol function.
+     * To improve the quality at the larger size needed, we're not actually using the Warhol function,
+     * but we are using its color maps.
      * @returns {Node}
      */
     createPatternsScreenIcon: function() {
 
-      var leftTopStar = createStarWithBackground( {
-        backgroundFill: FBColors.WARHOL.leftTop,
-        starFill: FBColors.WARHOL.rightBottom
-      } );
-
-      var rightTopStar = createStarWithBackground( {
-        backgroundFill: FBColors.WARHOL.rightTop,
-        starFill: FBColors.WARHOL.leftBottom,
+      var leftTopStar = createWarholStar( Warhol.LEFT_TOP_COLOR_MAP );
+      
+      var rightTopStar = createWarholStar( Warhol.RIGHT_TOP_COLOR_MAP, {
         left: leftTopStar.right,
         top: leftTopStar.top
       } );
 
-      var leftBottomStar = createStarWithBackground( {
-        backgroundFill: FBColors.WARHOL.leftBottom,
-        starFill: FBColors.WARHOL.rightTop,
+      var leftBottomStar = createWarholStar( Warhol.LEFT_BOTTOM_COLOR_MAP, {
         left: leftTopStar.left,
         top: leftTopStar.bottom
       } );
 
-      var rightBottomStar = createStarWithBackground( {
-        backgroundFill: FBColors.WARHOL.rightBottom,
-        starFill: FBColors.WARHOL.leftTop,
+      var rightBottomStar = createWarholStar( Warhol.RIGHT_BOTTOM_COLOR_MAP, {
         left: leftBottomStar.right,
         top: leftTopStar.bottom
       } );
@@ -135,18 +128,23 @@ define( function( require ) {
   /**
    * Creates a star on a background rectangle.
    *
+   * @param {Color[]} colorMap
    * @param {Object} [options]
    * @returns {Node}
    */
-  var createStarWithBackground = function( options ) {
+  var createWarholStar = function( colorMap, options ) {
 
-    options = _.extend( {
-      starFill: 'white', // {Color|string}
-      backgroundFill: 'black' // {Color|string}
-    }, options );
+    assert && assert( colorMap.length === 4 );
 
-    var starNode = new Path( new StarShape(), { fill: options.starFill } );
-    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, { fill: options.backgroundFill } );
+    options = options || {};
+
+    var starNode = new Path( new StarShape(), {
+      fill: colorMap[ 2 ],  // assumes that star.png is filled with red
+      stroke: colorMap[ 0 ] // assumes that star.png is stroked with black
+    } );
+    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, {
+      fill: colorMap[ 3 ]  // assumes that transparent pixels in star.png are converted to opaque white
+    } );
     starNode.center = backgroundNode.center;
 
     options.children = [ backgroundNode, starNode ];
