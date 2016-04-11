@@ -40,7 +40,7 @@ define( function( require ) {
     this.builderNode = builderNode;
     this.dragLayer = dragLayer;
 
-    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewInfo );
+    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
     contentNode.center = backgroundNode.center;
 
     // @private

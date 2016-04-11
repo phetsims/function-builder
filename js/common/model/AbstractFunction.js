@@ -40,7 +40,7 @@ define( function( require ) {
     this.invertible = options.invertible;
 
     // @public (read-only) properties related to visual representation, in the model for convenience
-    this.viewInfo = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
+    this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
     Movable.call( this, options );
   }

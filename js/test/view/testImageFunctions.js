@@ -195,7 +195,7 @@ define( function( require ) {
       .lineTo( X_INSET, HEIGHT / 2 )
       .close();
 
-    var backgroundNode = new Path( backgroundShape, functionInstance.viewInfo );
+    var backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
 
     var iconNode = new Image( functionInstance.image, {
       scale: 0.3,
