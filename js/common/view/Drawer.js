@@ -39,10 +39,13 @@ define( function( require ) {
       handleLocation: 'top', // {string} 'top'|'bottom'
       xMargin: 0,
       yMargin: 0,
-      open: true // {boolean} is the drawer initially open?
+      open: true, // {boolean} is the drawer initially open?
+      animationEnabled: true // {boolean} is animation enabled when opening/closing the drawer?
     }, options );
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
+
+    this._animationEnabled = options.animationEnabled; // @private
 
     var thisNode = this;
 
@@ -149,19 +152,27 @@ define( function( require ) {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      // start the animation
-      animation = new MoveTo( drawerNode, open ? openLocation : closeLocation, {
-        constantSpeed: false,
-        duration: 500,  // ms
-        onStart: function() {
-          openArrowNode.visible = !open;
-          closeArrowNode.visible = open;
-        },
-        onComplete: function() {
-          animation = null;
-        }
-      } );
-      animation.start();
+      // adjust arrow on the handle
+      openArrowNode.visible = !open;
+      closeArrowNode.visible = open;
+
+      if ( thisNode._animationEnabled ) {
+
+        // animate open/closed
+        animation = new MoveTo( drawerNode, open ? openLocation : closeLocation, {
+          constantSpeed: false,
+          duration: 500,  // ms
+          onComplete: function() {
+            animation = null;
+          }
+        } );
+        animation.start();
+      }
+      else {
+
+        // animation disabled, move immediately to new state
+        drawerNode.translation = open ? openLocation : closeLocation;
+      }
     } );
   }
 
@@ -171,7 +182,31 @@ define( function( require ) {
 
     // @public
     reset: function() {
+
+      // reset the open/closed state of the drawer, without animating
+      this.animationEnabled = false;
       this.openProperty.reset();
-    }
+      this.animationEnabled = true;
+    },
+
+    /**
+     * Determines whether animation is enabled for opening/closing drawer.
+     * @param {boolean} animationEnabled
+     * @public
+     */
+    setAnimationEnabled: function( animationEnabled ) {
+      this._animationEnabled = animationEnabled;
+    },
+    set animationEnabled( value ) { this.setAnimationEnabled( value ); },
+
+    /**
+     * Is animation enabled for for opening/closing drawer?
+     * @returns {boolean}
+     * @public
+     */
+    getAnimationEnabled: function() {
+      return this._animationEnabled;
+    },
+    get animationEnabled() { return this.getAnimationEnabled(); },
   } );
 } );
