@@ -78,7 +78,6 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      //TODO step only the selected scene if performance becomes an issue
       for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
         this.scenes[ sceneIndex ].step( dt );
       }
