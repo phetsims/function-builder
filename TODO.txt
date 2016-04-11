@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Flush cards out of builder when 'see inside' is turned off (account for Reset All).
-
 ---
 
 Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
