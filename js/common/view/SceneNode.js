@@ -364,6 +364,7 @@ define( function( require ) {
      * @param {Object} [containerOptions]
      * @returns {CardContainer[]}
      * @protected
+     * @abstract
      */
     createCardContainers: function( scene, containerOptions ) {
       throw new Error( 'must be implemented by subtype' );
@@ -375,8 +376,8 @@ define( function( require ) {
      * @param {Scene} scene
      * @param {Object} [containerOptions]
      * @returns {FunctionContainer[]}
-     * @abstract
      * @protected
+     * @abstract
      */
     createFunctionContainers: function( scene, containerOptions ) {
       throw new Error( 'must be implemented by subtype' );

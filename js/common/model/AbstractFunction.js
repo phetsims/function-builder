@@ -54,8 +54,8 @@ define( function( require ) {
      *
      * @param {*} input
      * @returns {*} output, of the same type as input
-     * @abstract
      * @public
+     * @abstract
      */
     apply: function( input ) {
       throw new Error( 'must be implemented by subtype' );

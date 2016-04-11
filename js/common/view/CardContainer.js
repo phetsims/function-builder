@@ -47,12 +47,12 @@ define( function( require ) {
      * @param {Node} dragLayer
      * @param {SeeInsideLayer} seeInsideLayer
      * @param {Property.<boolean>} seeInsideProperty
-     * @abstract
      * @public
+     * @abstract
      */
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode,
                            dragLayer, seeInsideLayer, seeInsideProperty ) {
-      throw new Error( 'must be implemented by subtypes' );
+      throw new Error( 'must be implemented by subtype' );
     },
 
     // @public @override see MovableContainer.addNode
