@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Shrinks by 75%.
+ * Shrinks an image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,27 +15,28 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images
-  var shrink75Image = require( 'mipmap!FUNCTION_BUILDER/functions/shrink75.png' );
-
-  // constants
-  var SCALE = 0.75;
+  var shrinkImage = require( 'mipmap!FUNCTION_BUILDER/functions/shrink.png' );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
-  function Shrink75( options ) {
+  function Shrink( options ) {
 
     options = _.extend( {}, options, {
-      fill: 'rgb( 246, 164, 255 )'
+      fill: 'rgb( 246, 164, 255 )',
+      scale: 0.75
     } );
+    
+    assert && assert( options.scale > 0 && options.scale < 1 );
+    this.scale = options.scale; // @private
 
-    ImageFunction.call( this, shrink75Image, options );
+    ImageFunction.call( this, shrinkImage, options );
   }
 
-  functionBuilder.register( 'Shrink75', Shrink75 );
+  functionBuilder.register( 'Shrink', Shrink );
 
-  return inherit( ImageFunction, Shrink75, {
+  return inherit( ImageFunction, Shrink, {
 
     /**
      * Applies this function.
@@ -52,9 +53,9 @@ define( function( require ) {
       var context = outputCanvas.getContext( '2d' );
 
       // Scale
-      var translationFactor = 0.5 * ( 1 - SCALE );
+      var translationFactor = 0.5 * ( 1 - this.scale );
       context.translate( translationFactor * outputCanvas.width, translationFactor * outputCanvas.height );
-      context.scale( SCALE, SCALE );
+      context.scale( this.scale, this.scale );
 
       // Draw the input canvas to the output canvas
       context.drawImage( inputCanvas, 0, 0 );

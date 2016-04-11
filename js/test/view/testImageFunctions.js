@@ -22,7 +22,7 @@ define( function( require ) {
   var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
   var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
   var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
-  var Shrink75 = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink75' );
+  var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // common modules
@@ -81,7 +81,7 @@ define( function( require ) {
       new Rotate180(),
       new InvertRGB(),
       new Erase(),
-      new Shrink75(),
+      new Shrink(),
       new Warhol(),
       new MysteryA(),
       new MysteryB(),
