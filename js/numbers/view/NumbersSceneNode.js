@@ -105,8 +105,8 @@ define( function( require ) {
     reset: function() {
       SceneNode.prototype.reset.call( this );
       this.simplifyEquationProperty.reset();
-      this.equationDrawer.reset();
-      this.tableDrawer.reset();
+      this.equationDrawer.reset( { animationEnabled: false } );
+      this.tableDrawer.reset( { animationEnabled: false } );
     },
 
     /**

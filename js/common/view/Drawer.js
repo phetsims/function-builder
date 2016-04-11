@@ -180,13 +180,20 @@ define( function( require ) {
 
   return inherit( Node, Drawer, {
 
-    // @public
-    reset: function() {
+    /**
+     * @param {Object} [options]
+     * @public
+     */
+    reset: function( options ) {
 
-      // reset the open/closed state of the drawer, without animating
-      this.animationEnabled = false;
+      options = _.extend( {
+        animationEnabled: true
+      }, options );
+
+      var saveAnimationEnabled = this.animationEnabled;
+      this.animationEnabled = options.animationEnabled;
       this.openProperty.reset();
-      this.animationEnabled = true;
+      this.animationEnabled = saveAnimationEnabled;
     },
 
     /**
