@@ -18,3 +18,5 @@ No inverse functions, always compute forward
 
 See Inside layer uses scenery DAG and clipArea features
 
+Memory management (unlink, detach, removeListener,...)
+
