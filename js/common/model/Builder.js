@@ -243,7 +243,7 @@ define( function( require ) {
     getRightWindowNumber: function( location ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( location.x <= windowLocation.x ) {
+        if ( location.x < windowLocation.x ) {
           return i;
         }
       }
@@ -259,7 +259,7 @@ define( function( require ) {
     getLeftWindowNumber: function( location ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x <= location.x ) {
+        if ( windowLocation.x < location.x ) {
           return i;
         }
       }
