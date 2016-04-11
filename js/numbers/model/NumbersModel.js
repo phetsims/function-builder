@@ -19,6 +19,8 @@ define( function( require ) {
 
   // constants
   var BUILDER_WIDTH = 420;
+  var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
+  var BUILDER_Y = 280;
 
   /**
    * @constructor
@@ -31,8 +33,7 @@ define( function( require ) {
       builder: new Builder( {
         width: BUILDER_WIDTH,
         numberOfSlots: 2,
-        // center of input slot
-        location: new Vector2( ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 ), 280 ),
+        location: new Vector2( BUILDER_X, BUILDER_Y ), // center of input slot
         colorScheme: FBColors.BUILDER_BLUE
       } )
     } );
