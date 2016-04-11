@@ -189,9 +189,12 @@ define( function( require ) {
     } );
 
     // 'See Inside' check box, to the left of functions carousel
-    var seeInsideCheckBox = new CheckBox( new Text( seeInsideString, { font: FBConstants.CHECK_BOX_FONT } ),
+    var seeInsideCheckBox = new CheckBox(
+      new Text( seeInsideString, {
+        font: FBConstants.CHECK_BOX_FONT,
+        maxWidth: 135 // i18n, determined empirically
+      } ),
       seeInsideProperty, {
-        maxWidth: 0.85 * ( functionCarousel.left - inputCarousel.left ),
         left: inputCarousel.left,
         top: functionCarousel.top
       } );

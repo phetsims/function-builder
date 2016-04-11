@@ -43,9 +43,12 @@ define( function( require ) {
     this.simplifyEquationProperty = new Property( false );
 
     // 'Simplify Equation' check box
-    var simplifyEquationCheckBox = new CheckBox( new Text( simplifyEquationString, { font: FBConstants.CHECK_BOX_FONT } ),
+    var simplifyEquationCheckBox = new CheckBox(
+      new Text( simplifyEquationString, {
+        font: FBConstants.CHECK_BOX_FONT,
+        maxWidth: 135 // i18n, determined empirically
+      } ),
       this.simplifyEquationProperty, {
-        maxWidth: this.seeInsideCheckBox.maxWidth,
         left: this.seeInsideCheckBox.left,
         top: this.seeInsideCheckBox.bottom + 15
       } );
