@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -39,8 +38,10 @@ define( function( require ) {
 
     // @private
     this.inputContainer = inputContainer;
+    this.outputContainer = outputContainer;
     this.builderNode = builderNode;
     this.dragLayer = dragLayer;
+    this.seeInsideProperty = seeInsideProperty;
 
     // @protected the basic shape of a blank card
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
@@ -54,7 +55,7 @@ define( function( require ) {
     var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
     var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
     var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
-    var BLOCKED_X_OFFSET = -( 0.4 * options.size.width ); // x offset from window location for a non-invertible function
+    var BLOCKED_X_OFFSET = ( 0.4 * options.size.width ); // how far to move card to left of window for a non-invertible function
 
     var dragDx = 0; // {number} most recent change in x while dragging
     var blocked = false; // {boolean} was dragging to the left blocked by a non-invertible function?
@@ -130,7 +131,7 @@ define( function( require ) {
               var windowLocation = builder.getWindowLocation( i );
 
               // block when left edge of card is slightly past left edge of 'see inside' window for a non-invertible function
-              var blockedX = windowLocation.x + BLOCKED_X_OFFSET;
+              var blockedX = windowLocation.x - BLOCKED_X_OFFSET;
               if ( !slot.isInvertible() && location.x < blockedX ) {
                 blocked = true;
                 card.moveTo( new Vector2( blockedX, builder.location.y ) );
@@ -165,8 +166,6 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: card should be in dragLayer' );
 
       var cardX = card.locationProperty.get().x;
-      var windowNumber; // {number}
-      var windowLocation; // {Vector2}
 
       if ( cardX < INPUT_SLOT_X ) {
 
@@ -182,85 +181,21 @@ define( function( require ) {
 
         if ( dragDx >= 0 || blocked ) { // dragging to the right or blocked by a non-invertible function
 
-          // snap to input slot if outside the builder
+          // snap to input slot
           if ( cardX < builder.left ) {
             card.moveTo( new Vector2( builder.left, builder.location.y ) );
           }
 
-          windowNumber = builder.getRightWindowNumber( card.locationProperty.get() );
-          if ( seeInsideProperty.get() && builder.isValidWindowNumber( windowNumber ) ) {
-
-            // animate to 'see inside' window to right of card
-            windowLocation = builder.getWindowLocation( windowNumber );
-            card.animateTo( windowLocation );
-          }
-          else {
-
-            // animate left-to-right through the builder, then to output carousel
-            card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-              function() {
-                thisNode.animateToContainer( outputContainer );
-              } );
-          }
+          thisNode.animateLeftToRight( OUTPUT_SLOT_X );
         }
         else { // dragging to the left
 
-          // snap to output slot if outside the builder
+          // snap to output slot
           if ( cardX > builder.right ) {
             card.moveTo( new Vector2( builder.right, builder.location.y ) );
           }
 
-          var blockedSlotNumber = FunctionSlot.NO_SLOT_NUMBER;
-          for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
-            var slot = builder.slots[ i ];
-            if ( card.locationProperty.get().x > slot.location.x && !slot.isInvertible() ) { // only slots to the left
-              blockedSlotNumber = i;
-              break;
-            }
-          }
-
-          if ( builder.isValidSlotNumber( blockedSlotNumber ) ) {
-
-            // animate to non-invertible function, then reverse direction to window or output carousel
-            windowLocation = builder.getWindowLocation( blockedSlotNumber );
-            var blockedX = windowLocation.x + BLOCKED_X_OFFSET;
-            card.animateTo( new Vector2( blockedX, windowLocation.y ),
-              function() {
-                thisNode.builderNode.getFunctionNode( blockedSlotNumber ).startNotInvertibleAnimation();
-                if ( seeInsideProperty.get() ) {
-
-                  // animate to 'see inside' window associated with blocked slot
-                  card.animateTo( windowLocation );
-                }
-                else {
-
-                  // animate to output carousel
-                  card.animateTo( new Vector2( OUTPUT_SLOT_X, builder.location.y ),
-                    function() {
-                      thisNode.animateToContainer( outputContainer );
-                    } );
-                }
-              } );
-          }
-          else {
-
-            // all functions are invertible
-            windowNumber = builder.getLeftWindowNumber( card.locationProperty.get() );
-            if ( seeInsideProperty.get() && builder.isValidWindowNumber( windowNumber ) ) {
-
-              // animate to 'see inside' window to the left of card
-              windowLocation = builder.getWindowLocation( windowNumber );
-              card.animateTo( windowLocation );
-            }
-            else {
-
-              // animate right-to-left through the builder, then to input carousel
-              card.animateTo( new Vector2( INPUT_SLOT_X, builder.location.y ),
-                function() {
-                  thisNode.animateToContainer( inputContainer );
-                } );
-            }
-          }
+          thisNode.animateRightToLeft( INPUT_SLOT_X, OUTPUT_SLOT_X, BLOCKED_X_OFFSET );
         }
       }
     };
@@ -303,6 +238,7 @@ define( function( require ) {
      * @param {Builder} builder
      * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
      * @protected
+     * @abstract
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
       throw new Error( 'must be implemented by subtype' );
@@ -334,6 +270,91 @@ define( function( require ) {
         this.dragLayer.removeChild( this );
       }
       this.inputContainer.addNode( this );
+    },
+
+    /**
+     * Animates left-to-right through the builder, stopping at the first 'See Inside' window that's visible.
+     * If no 'See Inside' window is visible, the card continues to the output carousel.
+     *
+     * @param outputSlotX - x coordinate where card is considered to be in the output slot
+     * @private
+     */
+    animateLeftToRight: function( outputSlotX ) {
+
+      var thisNode = this;
+      var builder = thisNode.builderNode.builder;
+      var windowNumber = builder.getRightWindowNumber( thisNode.card.locationProperty.get() );
+
+      if ( builder.isValidWindowNumber( windowNumber ) ) {
+
+        // animate to 'See Inside' window to right of card
+        var windowLocation = builder.getWindowLocation( windowNumber );
+        thisNode.card.animateTo( windowLocation, function() {
+
+          // if 'See Inside' is not enabled, continue to next window
+          if ( !thisNode.seeInsideProperty.get() ) {
+            thisNode.animateLeftToRight( outputSlotX );
+          }
+        } );
+      }
+      else {
+
+        // animate to output slot, then to output carousel
+        thisNode.card.animateTo( new Vector2( outputSlotX, builder.location.y ),
+          function() {
+            thisNode.animateToContainer( thisNode.outputContainer );
+          } );
+      }
+    },
+
+    /**
+     * Animates right-to-left through the builder, stopping at the first 'See Inside' window that's visible.
+     * If no 'See Inside' window is visible, the card continues to the input carousel.  If an non-invertible
+     * function is encountered at any time, then the card reverses direction (see animateLeftToRight).
+     *
+     * @param {number} inputSlotX - x coordinate where card is considered to be in the input slot
+     * @param {number} outputSlotX - x coordinate where card is considered to be in the output slot
+     * @param {number} blockedXOffset - how far to move card to left of window for a non-invertible function
+     * @private
+     */
+    animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
+
+      var thisNode = this;
+      var builder = thisNode.builderNode.builder;
+      var windowNumber = builder.getLeftWindowNumber( thisNode.card.locationProperty.get() );
+
+      if ( builder.isValidWindowNumber( windowNumber ) ) {
+
+        // animate to 'See Inside' window to left of card
+        var windowLocation = builder.getWindowLocation( windowNumber );
+        thisNode.card.animateTo( windowLocation, function() {
+
+          var slot = builder.slots[ windowNumber ];
+
+          if ( !slot.isEmpty() && !slot.functionInstance.invertible ) {
+
+            // encountered a non-invertible function, go slight past it, then reverse direction
+            thisNode.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
+            thisNode.card.animateTo( new Vector2( windowLocation.x - blockedXOffset, windowLocation.y ),
+              function() {
+                thisNode.animateLeftToRight( outputSlotX );
+              } );
+          }
+          else if ( !thisNode.seeInsideProperty.get() ) {
+
+            // if 'See Inside' is not enabled, continue to next window
+            thisNode.animateRightToLeft( inputSlotX );
+          }
+        } );
+      }
+      else {
+
+        // animate to input slot, then to input carousel
+        thisNode.card.animateTo( new Vector2( inputSlotX, builder.location.y ),
+          function() {
+            thisNode.animateToContainer( thisNode.inputContainer );
+          } );
+      }
     }
   } );
 } );
