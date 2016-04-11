@@ -335,7 +335,7 @@ define( function( require ) {
 
           if ( !slot.isEmpty() && !slot.functionInstance.invertible ) {
 
-            // encountered a non-invertible function, go slight past it, then reverse direction
+            // encountered a non-invertible function, go slightly past it, then reverse direction
             thisNode.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
             thisNode.card.animateTo( new Vector2( windowLocation.x - blockedXOffset, windowLocation.y ),
               function() {
