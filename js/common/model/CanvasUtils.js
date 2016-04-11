@@ -28,7 +28,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates a canvas sized for the specified image.
+     * Creates a canvas sized for the specified image, draws the image into the canvas.
      *
      * @param {HTMLImageElement} image
      * @returns {HTMLCanvasElement}
@@ -43,7 +43,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates a canvas sized for the specified image data.
+     * Creates a canvas sized for the specified ImageData, draws the ImageData into the canvas.
      *
      * @param {ImageData} imageData
      * @returns {HTMLCanvasElement}

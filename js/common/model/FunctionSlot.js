@@ -24,7 +24,7 @@ define( function( require ) {
     // @public (read-only)
     this.location = location;
 
-    // @public {AbstractFunction|null} the function instance that occupies the slot, null if the slot is empty
+    // @public {AbstractFunction|null} the function instance that occupies the slot, possibly empty
     this.functionInstance = NO_FUNCTION_INSTANCE;
   }
 
@@ -34,7 +34,6 @@ define( function( require ) {
 
     /**
      * Is this slot empty?
-     *
      * @returns {boolean}
      * @public
      */
@@ -64,7 +63,6 @@ define( function( require ) {
 
     /**
      * Is the slot invertible? Meaning, can a card be dragged backwards through this slot?
-     *
      * @returns {boolean}
      * @public
      */
