@@ -13,10 +13,6 @@ Double functions for Numbers screen
 
 ---
 
-Move view-related stuff (locationProperty, slots, animation, ...) out of model?
-
-Should 'see inside' windows be added dynamically, and only where there's a function?
-
 Reset All doesn't handle cards that are being dragged, animating or paused in 'see inside' windows.
 
 Reset All doesn't handle functions that are being dragged or animating.
