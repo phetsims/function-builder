@@ -38,6 +38,7 @@ define( function( require ) {
     // @private
     this.container = container;
     this.builderNode = builderNode;
+    this.builder = builderNode.builder;
     this.dragLayer = dragLayer;
 
     var backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
@@ -76,10 +77,8 @@ define( function( require ) {
         thisNode.stopNotInvertibleAnimation();
 
         // pop it out of the builder
-        var slotNumber = builderNode.getSlotNumber( thisNode );
-        var slotLocation = builderNode.getSlotLocation( slotNumber );
-        builderNode.removeFunctionNode( thisNode, slotNumber );
-        slotNumberRemovedFrom = slotNumber;
+        slotNumberRemovedFrom = builderNode.removeFunctionNode( thisNode );
+        var slotLocation = builderNode.builder.getSlotLocation( slotNumberRemovedFrom );
         dragLayer.addChild( thisNode );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
@@ -98,7 +97,7 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
 
       // Find the closest slot in the builder
-      var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get(),
+      var slotNumber = builderNode.builder.getClosestSlot( functionInstance.locationProperty.get(),
         FBConstants.FUNCTION_DISTANCE_THRESHOLD );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
@@ -128,18 +127,25 @@ define( function( require ) {
      */
     animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
+
       var thisNode = this;
-      this.functionInstance.animateTo( this.builderNode.getSlotLocation( slotNumber ),
+
+      // to improve readability
+      var builderNode = thisNode.builderNode;
+      var builder = builderNode.builder;
+      var dragLayer = thisNode.dragLayer;
+
+      thisNode.functionInstance.animateTo( builder.getSlotLocation( slotNumber ),
         function() {
 
           // If the slot is occupied, relocate the occupier.
-          var occupierNode = thisNode.builderNode.getFunctionNode( slotNumber );
+          var occupierNode = builderNode.getFunctionNode( slotNumber );
           if ( occupierNode ) {
 
-            thisNode.builderNode.removeFunctionNode( occupierNode, slotNumber );
-            thisNode.dragLayer.addChild( occupierNode );
+            builderNode.removeFunctionNode( occupierNode, slotNumber );
+            dragLayer.addChild( occupierNode );
 
-            if ( thisNode.builderNode.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
+            if ( builder.isValidSlotNumber( slotNumberRemovedFrom ) && Math.abs( slotNumberRemovedFrom - slotNumber ) === 1 ) {
 
               // swap adjacent slots
               occupierNode.animateToBuilder( slotNumberRemovedFrom, slotNumber );
@@ -151,8 +157,8 @@ define( function( require ) {
             }
           }
 
-          thisNode.dragLayer.removeChild( thisNode );
-          thisNode.builderNode.addFunctionNode( thisNode, slotNumber );
+          dragLayer.removeChild( thisNode );
+          builderNode.addFunctionNode( thisNode, slotNumber );
         } );
     },
 
@@ -163,7 +169,7 @@ define( function( require ) {
     animateToCarousel: function() {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
-      this.functionInstance.animateTo( this.container.carouselLocation,
+      thisNode.functionInstance.animateTo( thisNode.container.carouselLocation,
         function() {
           thisNode.dragLayer.removeChild( thisNode );
           thisNode.container.addNode( thisNode );

@@ -162,14 +162,14 @@ define( function( require ) {
       for ( var i = 0; i < this.functionNodes.length; i++ ) {
         var functionNode = this.functionNodes[ i ];
         if ( functionNode ) {
-          this.removeFunctionNode( functionNode, this.getSlotNumber( functionNode ) );
+          this.removeFunctionNode( functionNode );
           functionNode && functionNode.moveToCarousel();
         }
       }
     },
 
     /**
-     * Adds a function to the builder.
+     * Adds a FunctionNode to the builder.
      *
      * @param {FunctionNode} functionNode
      * @param {number} slotNumber
@@ -181,37 +181,44 @@ define( function( require ) {
       assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
 
+      // add to view
       this.functionNodes[ slotNumber ] = functionNode;
       this.functionsParent.addChild( functionNode );
       functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location ); // center in slot
-      this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
 
+      // add to model
+      this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
       assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
     },
 
     /**
-     * Removes a function from the builder.
+     * Removes a FunctionNode from the builder.
      *
      * @param {FunctionNode} functionNode
-     * @param {number} slotNumber
+     * @returns {number} slot number that functionNode was removed from
      * @public
      */
-    removeFunctionNode: function( functionNode, slotNumber ) {
+    removeFunctionNode: function( functionNode ) {
 
       assert && assert( functionNode instanceof FunctionNode );
-      assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
-      assert && assert( this.functionNodes[ slotNumber ] === functionNode, 'functionNode is not in slot ' + slotNumber );
 
+      var slotNumber =  this.functionNodes.indexOf( functionNode );
+      assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
+
+      // remove from view
       this.functionNodes[ slotNumber ] = null;
       this.functionsParent.removeChild( functionNode );
       functionNode.center = functionNode.functionInstance.location; // restore location in model coordinate frame
-      this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
 
+      // remove from model
+      this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
       assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
+
+      return slotNumber;
     },
 
     /**
-     * Gets the function node in the specified slot.
+     * Gets the FunctionNode in the specified slot.
      *
      * @param {number} slotNumber
      * @returns {FunctionNode} null if the slot is empty
@@ -223,46 +230,7 @@ define( function( require ) {
     },
 
     /**
-     * Gets the slot that is closest to the specified location.
-     * Convenience function, delegates to the model.
-     *
-     * @param {Vector2} location - the location of the function instance
-     * @param {number} distanceThreshold - location must be at least this close to slot's location
-     * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
-     * @public
-     */
-    getClosestSlot: function( location, distanceThreshold ) {
-      return this.builder.getClosestSlot( location, distanceThreshold );
-    },
-
-    /**
-     * Gets the location of the specified slot.
-     * Convenience function, delegates to the model.
-     *
-     * @param {number} slotNumber
-     * @returns {Vector2} location in the model coordinate frame
-     * @public
-     */
-    getSlotLocation: function( slotNumber ) {
-      return this.builder.getSlotLocation( slotNumber );
-    },
-
-    /**
-     * Gets the slot number for the specified function node.
-     * Convenience function, delegates to the model.
-     *
-     * @param {FunctionNode} functionNode
-     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if functionNode is not in the builder
-     * @public
-     */
-    getSlotNumber: function( functionNode ) {
-      assert && assert( functionNode instanceof FunctionNode );
-      return this.builder.getSlotNumber( functionNode.functionInstance );
-    },
-
-    /**
-     * Does the builder contain the specified function node?
-     * Convenience function, delegates to the model.
+     * Does the builder contain the specified FunctionNode?
      *
      * @param {FunctionNode} functionNode
      * @returns {boolean}
@@ -270,19 +238,7 @@ define( function( require ) {
      */
     containsFunctionNode: function( functionNode ) {
       assert && assert( functionNode instanceof FunctionNode );
-      return this.builder.containsFunctionInstance( functionNode.functionInstance );
-    },
-
-    /**
-     * Is the specified slot number valid?
-     * Convenience function, delegates to model.
-     *
-     * @param {number} slotNumber
-     * @returns {boolean}
-     * @public
-     */
-    isValidSlotNumber: function( slotNumber ) {
-      return this.builder.isValidSlotNumber( slotNumber );
+      return ( this.functionNodes.indexOf( functionNode ) !== -1 );
     },
 
     /**

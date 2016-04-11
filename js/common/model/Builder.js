@@ -214,6 +214,7 @@ define( function( require ) {
 
     /**
      * Is the specified window number valid?
+     *
      * @param {number} windowNumber
      * @returns {boolean}
      * @public
@@ -224,6 +225,7 @@ define( function( require ) {
 
     /**
      * Gets the location (center) of a 'see inside' window.
+     *
      * @param {number} windowNumber
      * @returns {*}
      */

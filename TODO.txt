@@ -11,8 +11,6 @@ Double functions for Numbers screen
 
 ---
 
-Revisit division of responsibilities for Builder and BuilderNode
-
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
 
 Should 'see inside' windows be added dynamically, and only where there's a function?
