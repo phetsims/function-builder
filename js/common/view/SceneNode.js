@@ -225,11 +225,13 @@ define( function( require ) {
     // @private Resets this node
     this._reset = function() {
 
-      // reset carousels without animation
-      var CAROUSEL_RESET_OPTIONS = { animationEnabled: false };
-      functionCarousel.reset( CAROUSEL_RESET_OPTIONS );
-      inputCarousel.reset( CAROUSEL_RESET_OPTIONS );
-      outputCarousel.reset( CAROUSEL_RESET_OPTIONS );
+      // Reset carousels without animation
+      functionCarousel.reset( { animationEnabled: false } );
+      // Because the input and output carousels are linked, we need to use this approach:
+      inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
+      inputCarousel.reset();
+      outputCarousel.reset();
+      inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
       seeInsideProperty.reset();
       builderNode.reset();
