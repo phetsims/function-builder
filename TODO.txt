@@ -2,6 +2,8 @@ TODO list for function-builder
 
 ---
 
+Dynamic functions
+
 In/Out table
 
 Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
