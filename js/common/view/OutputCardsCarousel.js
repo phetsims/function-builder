@@ -34,7 +34,7 @@ define( function( require ) {
     containers.forEach( function( container ) {
 
       // unlink unnecessary, instances exist for lifetime of the sim
-      container.numberOfCardsProperty.link( function( numberOfCards ) {
+      container.numberOfItemsProperty.link( function( numberOfItems ) {
         containerListener();
       } );
     } );
@@ -51,7 +51,7 @@ define( function( require ) {
   var getNumberOfCards = function( containers ) {
     var numberOfCards = 0;
     containers.forEach( function( container ) {
-      numberOfCards += container.numberOfCardsProperty.get();
+      numberOfCards += container.numberOfItemsProperty.get();
     } );
     return numberOfCards;
   };

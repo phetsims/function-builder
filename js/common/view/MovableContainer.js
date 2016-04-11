@@ -15,6 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
@@ -41,6 +42,9 @@ define( function( require ) {
 
     // @private parent for contents of the container
     this.contentsParent = new Node();
+
+    // @public (read-only) number of items in the container
+    this.numberOfItemsProperty = new Property( 0 );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
@@ -74,6 +78,7 @@ define( function( require ) {
       node.movable.moveTo( this.carouselLocation );
       this.contentsParent.addChild( node );
       node.center = this.backgroundNode.center;
+      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
     },
 
     /**
@@ -84,6 +89,7 @@ define( function( require ) {
      */
     removeNode: function( node ) {
       this.contentsParent.removeChild( node );
+      this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
     },
 
     /**

@@ -36,7 +36,7 @@ define( function( require ) {
      * Creates functions and puts them in the container.
      *
      * @param {number} numberOfInstances
-     * @param {PatternsScene} scene
+     * @param {Scene} scene
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
      * @public
