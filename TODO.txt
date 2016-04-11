@@ -17,6 +17,8 @@ Double functions for Numbers screen
 
 ---
 
+Revisit division of responsibilities for Builder and BuilderNode
+
 Set maxWidth for labels on CheckBoxes, instead of CheckBoxes.
 
 Move view-related stuff (locationProperty, slots, animation, ...) out of model?
