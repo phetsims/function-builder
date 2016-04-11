@@ -187,7 +187,7 @@ define( function( require ) {
     reset: function( options ) {
 
       options = _.extend( {
-        animationEnabled: true
+        animationEnabled: this.animationEnabled
       }, options );
 
       var saveAnimationEnabled = this.animationEnabled;
