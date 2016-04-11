@@ -187,22 +187,21 @@ define( function( require ) {
        return this.slots[ slotNumber ].location;
      },
 
-    //TODO add @param {number} distanceThreshold
     /**
      * Gets the slot that is closest to the specified location.
      *
      * @param {Vector2} location - the location of the function instance
+     * @param {number} distanceThreshold - location must be at least this close to slot's location
      * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
      * @public
      */
-    getClosestSlot: function( location ) {
+    getClosestSlot: function( location, distanceThreshold ) {
       assert && assert( location );
-      var DISTANCE_THRESHOLD = 0.6 * this.height;  // must be at least this close
       var slotNumber = FunctionSlot.NO_SLOT_NUMBER;
       for ( var i = 0; i < this.slots.length; i++ ) {
         var slot = this.slots[ i ];
         if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
-          if ( slot.location.distance( location ) < DISTANCE_THRESHOLD ) {
+          if ( slot.location.distance( location ) < distanceThreshold ) {
             slotNumber = i;
           }
         }

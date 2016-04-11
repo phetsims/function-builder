@@ -40,6 +40,9 @@ define( function( require ) {
     // how much a function should 'pop out' of its container when clicked
     FUNCTION_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
+    // function must be at least this close to a slot to be put into the builder
+    FUNCTION_DISTANCE_THRESHOLD: 75,
+
     // how much a card should 'pop out' of its container when clicked
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 

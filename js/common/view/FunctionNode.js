@@ -98,7 +98,8 @@ define( function( require ) {
       assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
 
       // Find the closest slot in the builder
-      var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get() );
+      var slotNumber = builderNode.getClosestSlot( functionInstance.locationProperty.get(),
+        FBConstants.FUNCTION_DISTANCE_THRESHOLD );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
 

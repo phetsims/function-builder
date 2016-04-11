@@ -227,11 +227,12 @@ define( function( require ) {
      * Convenience function, delegates to the model.
      *
      * @param {Vector2} location - the location of the function instance
+     * @param {number} distanceThreshold - location must be at least this close to slot's location
      * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
      * @public
      */
-    getClosestSlot: function( location ) {
-      return this.builder.getClosestSlot( location );
+    getClosestSlot: function( location, distanceThreshold ) {
+      return this.builder.getClosestSlot( location, distanceThreshold );
     },
 
     /**
