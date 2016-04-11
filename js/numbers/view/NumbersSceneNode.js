@@ -62,7 +62,7 @@ define( function( require ) {
     var TABLE_DRAWER_SIZE = new Dimension2( 200, 200 ); //TODO move to FBConstants
     // @private
     this.tableDrawer = new Drawer( tableNode, {
-      open: false,
+      open: true,
       handleLocation: 'top',
       size: TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
