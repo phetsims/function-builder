@@ -46,9 +46,6 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 55, 211, 37 ) ];
 
-  //TODO delete this when we make a decision
-  var OPAQUE_BACKGROUND = true; // should the background of the image be made opaque?
-
   /**
    * @param {Object} [options]
    * @constructor
@@ -57,13 +54,12 @@ define( function( require ) {
 
     options = _.extend( {}, options, {
       fill: 'rgb( 250, 186, 75 )',
-      invertible: false
+      invertible: false,
+      background: new Color( 255, 255, 255, 255 ) // {Color|null} background color for the image
     } );
 
-    // @private
-    this.grayscale = new Grayscale( {
-      backgroundColor: OPAQUE_BACKGROUND ? new Color( 255, 255, 255, 255 ) : null
-    } );
+    this.background = options.background; // @private
+    this.grayscale = new Grayscale(); // @private
 
     ImageFunction.call( this, warholImage, options );
   }
@@ -83,11 +79,6 @@ define( function( require ) {
   var applyColorMap = function( inputData, outputData, colorMap ) {
     assert && assert( inputData.data.length === outputData.data.length );
     for ( var i = 0; i < inputData.data.length - 4; i += 4 ) {
-
-      // convert fully transparent pixels to opaque white
-      if ( OPAQUE_BACKGROUND && inputData.data[ i + 3 ] === 0 ) {
-        CanvasUtils.setPixelRGBA( inputData, i, 255, 255, 255, 255 );
-      }
 
       // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
       // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
@@ -126,6 +117,16 @@ define( function( require ) {
       // Convert the scaled image to grayscale
       var grayscaleCanvas = this.grayscale.apply( halfCanvas );
       var grayscaleData = CanvasUtils.getImageData( grayscaleCanvas );
+
+      // Put image on an optional background, by changing transparent pixels to the background color
+      if ( this.background ) {
+        for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
+          if ( grayscaleData.data[ i + 3 ] === 0 ) {
+            CanvasUtils.setPixelRGBA( grayscaleData, i,
+              this.background.red, this.background.green, this.background.blue, this.background.alpha * 255 );
+          }
+        }
+      }
 
       // Create the output canvas, with same dimensions as inputCanvas
       var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
