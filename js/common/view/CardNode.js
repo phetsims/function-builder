@@ -226,6 +226,13 @@ define( function( require ) {
         thisNode.updateContent( builder, thisNode.numberOfFunctionsToApplyProperty.get() );
       }
     } );
+
+    // When 'See Inside' is turned off, flush out any cards that are stopped in windows.
+    seeInsideProperty.lazyLink( function( seeInside ) {
+       if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
+         thisNode.animateLeftToRight( OUTPUT_SLOT_X );
+       }
+    } );
   }
 
   functionBuilder.register( 'CardNode', CardNode );

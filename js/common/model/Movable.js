@@ -73,13 +73,21 @@ define( function( require ) {
     },
 
     /**
+     * Is the Movable animating?
+     * @returns {boolean}
+     */
+    isAnimating: function() {
+      return !this.dragging && !this.locationProperty.get().equals( this.destination );
+    },
+
+    /**
      * Animates location, when not being dragged by the user.
      *
      * @param {number} dt - time since the previous step, in seconds
      * @public
      */
     step: function( dt ) {
-      if ( !this.dragging && !this.locationProperty.get().equals( this.destination ) ) {
+      if ( this.isAnimating() ) {
 
         // distance from destination
         var totalDistance = this.locationProperty.get().distance( this.destination );
