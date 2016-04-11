@@ -86,7 +86,7 @@ define( function( require ) {
       assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
 
       // map intensity to a color map
-      var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) ); //TODO is this accurate?
+      var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
       assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
 
       // apply the color map
