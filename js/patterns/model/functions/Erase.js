@@ -37,6 +37,7 @@ define( function( require ) {
 
     /**
      * Applies this function.
+     *
      * @param {HTMLCanvasElement} inputCanvas
      * @returns {HTMLCanvasElement}
      * @public

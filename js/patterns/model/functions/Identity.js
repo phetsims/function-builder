@@ -36,12 +36,15 @@ define( function( require ) {
 
     /**
      * Applies this function.
+     *
      * @param {HTMLCanvasElement} inputCanvas
      * @returns {HTMLCanvasElement}
      * @public
      * @override
      */
     apply: function( inputCanvas ) {
+
+      // copy the input data to the output canvas
       var imageData = CanvasUtils.getImageData( inputCanvas );
       return CanvasUtils.createCanvasWithImageData( imageData );
     }
