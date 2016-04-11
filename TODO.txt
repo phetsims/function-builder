@@ -2,6 +2,8 @@ TODO list for function-builder
 
 ---
 
+In/Out table
+
 Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
 outputs may be fractions, adds a graph.
 
