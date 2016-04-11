@@ -63,6 +63,7 @@ define( function( require ) {
      *
      * @param {MovableNode} node
      * @returns {boolean}
+     * @public
      */
     containsNode: function( node ) {
       return ( this.contentsParent.hasChild( node ) );
@@ -85,7 +86,7 @@ define( function( require ) {
      * Removes a Node from the container.
      *
      * @param {MovableNode} node
-     * @private
+     * @public
      */
     removeNode: function( node ) {
       this.contentsParent.removeChild( node );
