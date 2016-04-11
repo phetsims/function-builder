@@ -170,12 +170,12 @@ define( function( require ) {
       if ( cardX < INPUT_SLOT_X ) {
 
         // card is to left of builder, animate to input carousel
-        thisNode.animateToContainer( inputContainer );
+        thisNode.animateToCarousel( inputContainer );
       }
       else if ( cardX > OUTPUT_SLOT_X ) {
 
         // card is to right of builder, animate to output carousel
-        thisNode.animateToContainer( outputContainer );
+        thisNode.animateToCarousel( outputContainer );
       }
       else { // card is in the builder
 
@@ -250,7 +250,7 @@ define( function( require ) {
      * @param {CardContainer} container
      * @private
      */
-    animateToContainer: function( container ) {
+    animateToCarousel: function( container ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       var thisNode = this;
       thisNode.card.animateTo( container.carouselLocation,
@@ -302,7 +302,7 @@ define( function( require ) {
         // animate to output slot, then to output carousel
         thisNode.card.animateTo( new Vector2( outputSlotX, builder.location.y ),
           function() {
-            thisNode.animateToContainer( thisNode.outputContainer );
+            thisNode.animateToCarousel( thisNode.outputContainer );
           } );
       }
     },
@@ -352,7 +352,7 @@ define( function( require ) {
         // animate to input slot, then to input carousel
         thisNode.card.animateTo( new Vector2( inputSlotX, builder.location.y ),
           function() {
-            thisNode.animateToContainer( thisNode.inputContainer );
+            thisNode.animateToCarousel( thisNode.inputContainer );
           } );
       }
     }
