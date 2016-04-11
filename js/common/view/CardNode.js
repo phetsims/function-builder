@@ -280,6 +280,7 @@ define( function( require ) {
      * @private
      */
     animateLeftToRight: function( outputSlotX ) {
+      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
@@ -318,6 +319,7 @@ define( function( require ) {
      * @private
      */
     animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
+      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
