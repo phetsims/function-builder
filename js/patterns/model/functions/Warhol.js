@@ -151,7 +151,7 @@ define( function( require ) {
     }
   }, {
 
-    // @public For use by FBIconFactory.createPatternsScreenIcon
+    // @public for use by FBIconFactory.createPatternsScreenIcon
     LEFT_TOP_COLOR_MAP: LEFT_TOP_COLOR_MAP,
     RIGHT_TOP_COLOR_MAP: RIGHT_TOP_COLOR_MAP,
     LEFT_BOTTOM_COLOR_MAP: LEFT_BOTTOM_COLOR_MAP,
