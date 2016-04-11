@@ -214,6 +214,6 @@ define( function( require ) {
     getAnimationEnabled: function() {
       return this._animationEnabled;
     },
-    get animationEnabled() { return this.getAnimationEnabled(); },
+    get animationEnabled() { return this.getAnimationEnabled(); }
   } );
 } );
