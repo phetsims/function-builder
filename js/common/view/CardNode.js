@@ -352,7 +352,7 @@ define( function( require ) {
           else if ( !thisNode.seeInsideProperty.get() ) {
 
             // if 'See Inside' is not enabled, continue to next window
-            thisNode.animateRightToLeft( inputSlotX );
+            thisNode.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
           }
         } );
       }
