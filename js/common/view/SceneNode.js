@@ -227,6 +227,7 @@ define( function( require ) {
 
       // Reset carousels without animation
       functionCarousel.reset( { animationEnabled: false } );
+
       // Because the input and output carousels are linked, we need to use this approach:
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
       inputCarousel.reset();
