@@ -14,8 +14,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} labelString
-   * @param {function(number):number} apply
+   * @param {string} labelString - label shown on the function
+   * @param {function(number):number} apply - implementation of the apply function
    * @param {Object} [options]
    * @constructor
    */
@@ -31,6 +31,14 @@ define( function( require ) {
 
   return inherit( AbstractFunction, NumberFunction, {
 
+    /**
+     * Applies this function.
+     *
+     * @param {number} value
+     * @returns {number}
+     * @public
+     * @override
+     */
     apply: function( value ) {
       return this._apply( value );
     }
