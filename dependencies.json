@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.17 Tue Apr 05 2016 18:07:44 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.18 Mon Apr 11 2016 10:15:52 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -17,15 +17,15 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "33ae235e302fbfb1aa0a541265b7241237501865",
+    "sha": "833eef12a0c06039634802ebb2b50acd347a0a09",
     "branch": "master"
   },
   "function-builder": {
-    "sha": "21ba76791463fee7f87d048270002b332189ee08",
+    "sha": "510f27db05916a1e0098d9e3ecf611895549c245",
     "branch": "master"
   },
   "joist": {
-    "sha": "ecd8d968e09ee1be00a444a261a01d1b391422e2",
+    "sha": "393ac1c96784522e6720ea69c41fab388df4b8f0",
     "branch": "master"
   },
   "kite": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "953074cca0879fe5c5d1041670a45ff697796742",
+    "sha": "33a3bb5d7b3bfab38157f400e705c2a4e2c6202f",
     "branch": "master"
   },
   "tandem": {
