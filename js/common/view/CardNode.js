@@ -228,6 +228,7 @@ define( function( require ) {
     } );
 
     // When 'See Inside' is turned off, flush out any cards that are stopped in windows.
+    // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.lazyLink( function( seeInside ) {
        if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
          thisNode.animateLeftToRight( OUTPUT_SLOT_X );
