@@ -20,3 +20,5 @@ See Inside layer uses scenery DAG and clipArea features
 
 Memory management (unlink, detach, removeListener,...)
 
+View stuff (locationProperty, slots, animation,...) in the model for convenience
+
