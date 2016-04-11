@@ -23,10 +23,7 @@ define( function( require ) {
    */
   function Grayscale( options ) {
 
-    options = _.extend( {
-      //TODO if we decide on Warhol.OPAQUE_BACKGROUND=false, delete this option and associated code
-      backgroundColor: null // {Color|null} convert fully transparent pixels to this Color
-    }, options, {
+    options = _.extend( {}, options, {
       fill: 'rgb( 232, 232, 232 )',
       invertible: false
     } );
@@ -54,12 +51,6 @@ define( function( require ) {
       // Average the red, green and blue values of each pixel. This drains the color from the image.
       var data = imageData.data;
       for ( var i = 0; i < data.length - 4; i += 4 ) {
-
-        // map fully transparent pixels to background color
-        if ( this.backgroundColor && data[ i + 3 ] === 0 ) {
-          CanvasUtils.setPixelColor( imageData, i, this.backgroundColor );
-        }
-
         var average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
         data[ i ] = average;
         data[ i + 1 ] = average;

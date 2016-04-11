@@ -84,6 +84,11 @@ define( function( require ) {
     assert && assert( inputData.data.length === outputData.data.length );
     for ( var i = 0; i < inputData.data.length - 4; i += 4 ) {
 
+      // convert fully transparent pixels to opaque white
+      if ( OPAQUE_BACKGROUND && inputData.data[ i + 3 ] === 0 ) {
+        CanvasUtils.setPixelRGBA( inputData, i, 255, 255, 255, 255 );
+      }
+
       // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
       // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
       var intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];

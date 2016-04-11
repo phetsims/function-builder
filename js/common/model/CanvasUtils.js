@@ -96,18 +96,6 @@ define( function( require ) {
       imageData.data[ pixelIndex + 1 ] = green;
       imageData.data[ pixelIndex + 2 ] = blue;
       imageData.data[ pixelIndex + 3 ] = alpha;
-    },
-
-    /**
-     * Sets the color of a pixel.
-     *
-     * @param {ImageData} imageData - underlying pixel data of a Canvas
-     * @param {number} pixelIndex - index of a specific pixel
-     * @param {Color} color
-     */
-    setPixelColor: function( imageData, pixelIndex, color ) {
-      CanvasUtils.setPixelRGBA( imageData, pixelIndex,
-        color.red, color.green, color.blue, color.alpha * 255 );
     }
   };
 
