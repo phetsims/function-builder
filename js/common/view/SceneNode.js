@@ -226,11 +226,10 @@ define( function( require ) {
     this._reset = function() {
 
       // reset carousels without animation
-      functionCarousel.animationEnabled = inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      functionCarousel.reset();
-      inputCarousel.reset();
-      outputCarousel.reset();
-      functionCarousel.animationEnabled = inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
+      var CAROUSEL_RESET_OPTIONS = { animationEnabled: false };
+      functionCarousel.reset( CAROUSEL_RESET_OPTIONS );
+      inputCarousel.reset( CAROUSEL_RESET_OPTIONS );
+      outputCarousel.reset( CAROUSEL_RESET_OPTIONS );
 
       seeInsideProperty.reset();
       builderNode.reset();
