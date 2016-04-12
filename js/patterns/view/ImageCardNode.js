@@ -34,9 +34,8 @@ define( function( require ) {
       imageScale: FBConstants.IMAGE_CARD_SCALE
     }, options );
 
-    // @private
-    this.imageScale = options.imageScale;
-    this.imageNode = null; // {Image} set by updateContent
+    this.imageScale = options.imageScale; // @private
+    this.imageNode = null; // @private {Image} created lazily by updateContent
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -53,21 +52,26 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // run the card through the builder
+      // run the image through the builder
       var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
-      // remove the old image
-      this.imageNode && this.removeChild( this.imageNode );
+      // update what's displayed on the card
+      if ( !this.imageNode ) {
 
-      //TODO this.imageNode.setImage would be preferred, but doesn't work reliably with a data URL
-      // add the new image
-      this.imageNode = new Image( canvas.toDataURL(), {
-        initialWidth: canvas.width,
-        initialHeight: canvas.height,
-        scale: this.imageScale,
-        center: this.backgroundNode.center
-      } );
-      this.addChild( this.imageNode );
+        // create imageNode lazily
+        this.imageNode = new Image( canvas.toDataURL(), {
+          initialWidth: canvas.width,
+          initialHeight: canvas.height,
+          scale: this.imageScale
+        } );
+        this.addChild( this.imageNode );
+      }
+      else {
+
+        // set the new image
+        this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+      }
+      this.imageNode.center = this.backgroundNode.center;
     }
   } );
 } );
