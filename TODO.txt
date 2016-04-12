@@ -2,20 +2,29 @@ TODO list for function-builder
 
 ---
 
-Dynamic functions
+ImageCardNode.updateContent - create an issue for JO, would prefer to use this.imageNode.setImage
 
-In/Out table
+Specify format of unsimplified and simplified equations
+
+Dynamic functions
 
 Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
 outputs may be fractions, adds a graph.
+
+In/Out table
 
 Double functions for Numbers screen
 
 ---
 
-Reset All doesn't handle cards that are being dragged, animating or paused in 'see inside' windows.
+Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
 
-Reset All doesn't handle functions that are being dragged or animating.
+Propose ditching double functions; they appear only in Numbers screen (a scaffolding screen), and the same things
+  can be accomplished with single functions
+
+Reset All
+- doesn't handle cards that are being dragged, animating or paused in 'see inside' windows
+- doesn't handle functions that are being dragged or animating
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode
 
