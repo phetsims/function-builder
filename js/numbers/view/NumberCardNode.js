@@ -30,7 +30,7 @@ define( function( require ) {
 
     assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
 
-    this.valueNode = null; // @private {Text} set by updateContent
+    this.valueNode = null; // @private {Text} created lazily by updateContent
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -50,15 +50,19 @@ define( function( require ) {
       // run the number through the builder
       var value = builder.applyFunctions( this.card.value, numberOfFunctionsToApply );
 
-      // remove the old value
-      this.valueNode && this.removeChild( this.valueNode );
+      // update what's displayed on the card
+      if ( !this.valueNode ) {
 
-      // add the new value
-      this.valueNode = new Text( value, {
-        font: FBConstants.NUMBER_CARD_FONT,
-        center: this.backgroundNode.center
-      } );
-      this.addChild( this.valueNode );
+        // create valueNode lazily
+        this.valueNode = new Text( value, { font: FBConstants.NUMBER_CARD_FONT } );
+        this.addChild( this.valueNode );
+      }
+      else {
+
+        // set the new value
+        this.valueNode.text = value;
+      }
+      this.valueNode.center = this.backgroundNode.center;
     }
   } );
 } );
