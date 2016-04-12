@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-ImageCardNode.updateContent - create an issue for JO, would prefer to use this.imageNode.setImage
-
 Specify format of unsimplified and simplified equations
 
 Dynamic functions
