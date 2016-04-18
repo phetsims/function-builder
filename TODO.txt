@@ -7,6 +7,7 @@ Discuss with AP:
 - in/out vs input/output in Numbers screen
 - table
 - double functions
+- move 'Simplify Equation' check box into equation drawer?
 
 ---
 
