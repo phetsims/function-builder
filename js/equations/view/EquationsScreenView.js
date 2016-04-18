@@ -1,5 +1,6 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
+//TODO much in common with EquationsScreenView
 /**
  * ScreenView for the 'Equations' screen.
  *
@@ -9,37 +10,47 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
-  // images
-  var equationsMockupImage = require( 'mipmap!FUNCTION_BUILDER/mockups/Equations-mockup.png' );
-
   /**
-   * @param {EquationsModel} model
+   * @param {NumbersModel} model
    * @constructor
    */
   function EquationsScreenView( model ) {
 
+    var thisView = this;
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    //TODO replace mockup image
-    this.addChild( new Image( equationsMockupImage, {
-      opacity: 0.5,
-      center: this.layoutBounds.center
-    } ) );
+    // Scene
+    var sceneNode = new EquationsSceneNode( model.scene, thisView.layoutBounds );
 
-    // Reset All button
+    // Resets this screen
+    var resetAll = function() {
+      model.reset();
+      sceneNode.reset();
+    };
+
+    // Reset All button at bottom-right
     var resetAllButton = new ResetAllButton( {
-      listener: function() { model.reset(); },
       right: this.layoutBounds.maxX - 20,
-      bottom: this.layoutBounds.maxY - 20
+      bottom: this.layoutBounds.maxY - 20,
+      listener: resetAll
     } );
+
+    // rendering order
     this.addChild( resetAllButton );
+    this.addChild( sceneNode );
+
+    /**
+     * After the scene graph is fully constructed, populate parts of the model that
+     * depend on the location of things in the view.
+     */
+    sceneNode.populateCarousels();
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );

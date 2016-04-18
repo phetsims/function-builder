@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
  * Model for the 'Equations' screen.
@@ -9,35 +9,53 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  var BUILDER_WIDTH = 520;
+  var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
+  var BUILDER_Y = 280;
 
   /**
    * @constructor
    */
   function EquationsModel() {
 
-    // Cards, 1 of each:
-    // [-4,6], x
-    // show [0,3] initially
-
-    // Functions, 2 of each, N range is [-3,3]
-    // + N : rgb( 246, 203, 144 )
-    // - N : rgb( 152, 231, 156 )
-    // x N : rgb( 237, 165, 222 )
-    // ÷ N : rgb( 183, 200, 249 )
-    // A : ? : rgb( 28, 191, 167 )
-    // B : ? : rgb( 252, 241, 157 )
-    //
-    // N = [-3,3]
-
-    // Builder has 3 slots
-
-    PropertySet.call( this, {} );
+    this.scene = new EquationsScene( {
+      numberOfEachCard: 1,
+      numberOfEachFunction: 3,
+      builder: new Builder( {
+        width: BUILDER_WIDTH,
+        numberOfSlots: 2,
+        location: new Vector2( BUILDER_X, BUILDER_Y ), // center of input slot
+        colorScheme: FBColors.BUILDER_BLUE
+      } )
+    } );
   }
 
   functionBuilder.register( 'EquationsModel', EquationsModel );
 
-  return inherit( PropertySet, EquationsModel );
+  return inherit( Object, EquationsModel, {
+
+    // @public
+    reset: function() {
+      //TODO delete this if there's ultimately nothing to do
+    },
+
+    /**
+     * Animates the model.
+     *
+     * @param {number} dt - time since the previous step, in seconds
+     * @public
+     */
+    step: function( dt ) {
+      this.scene.step( dt );
+    }
+  } );
 } );
