@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO method of adding components, doing layout, handling i18n feels kludgy
 /**
  * Displays a scene in the 'Numbers' screen.
  *
@@ -11,7 +10,6 @@ define( function( require ) {
 
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -52,8 +50,7 @@ define( function( require ) {
         left: this.seeInsideCheckBox.left,
         top: this.seeInsideCheckBox.bottom + 15
       } );
-    this.addChild( simplifyEquationCheckBox );
-    simplifyEquationCheckBox.moveToBack();
+    this.controlsLayer.addChild( simplifyEquationCheckBox );
 
     // Table drawer
     var tableNode = new Text( 'In/Out table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
@@ -65,8 +62,7 @@ define( function( require ) {
       centerX: scene.builder.centerX,
       bottom: scene.builder.location.y - 42 //TODO magic number
     } );
-    this.addChild( this.tableDrawer );
-    this.tableDrawer.moveToBack();
+    this.drawersLayer.addChild( this.tableDrawer );
 
     // Equation drawer
     var equationNode = new Text( '', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
@@ -80,8 +76,7 @@ define( function( require ) {
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + 42 //TODO magic number
     } );
-    this.addChild( this.equationDrawer );
-    this.equationDrawer.moveToBack();
+    this.drawersLayer.addChild( this.equationDrawer );
 
     //TODO temporary
     this.simplifyEquationProperty.link( function( simplifyEquation ) {

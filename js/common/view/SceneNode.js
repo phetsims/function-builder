@@ -58,6 +58,12 @@ define( function( require ) {
     // functions are in this layer while they are draggable
     var functionsDragLayer = new Node();
 
+    // @protected basic UI controls get added to this layer
+    this.controlsLayer = new Node();
+
+    // @protected drawers get added to this layer by subtypes
+    this.drawersLayer = new Node();
+
     // Builder
     var builder = scene.builder;
     var BUILDER_END_OPTIONS = {
@@ -134,6 +140,7 @@ define( function( require ) {
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 40
     } );
+    this.controlsLayer.addChild( eraserButton );
     eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
 
     // Disable the eraser button when the output carousel is empty.
@@ -198,6 +205,7 @@ define( function( require ) {
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
+    this.controlsLayer.addChild( seeInsideCheckBox );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
@@ -209,10 +217,11 @@ define( function( require ) {
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
-      seeInsideCheckBox, eraserButton,
+      this.controlsLayer,
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
+      this.drawersLayer,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
       builderNode,
