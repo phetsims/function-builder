@@ -65,7 +65,11 @@ define( function( require ) {
     CHECK_BOX_FONT: new FBFont( 18 ),
 
     // font for equations
-    EQUATION_FONT: new FBFont( 20 )
+    EQUATION_FONT: new FBFont( 20 ),
+
+    // size of drawers
+    TABLE_DRAWER_SIZE: new Dimension2( 200, 200 ),
+    EQUATION_DRAWER_SIZE: new Dimension2( 240, 75 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

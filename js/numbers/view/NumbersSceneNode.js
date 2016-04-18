@@ -56,15 +56,12 @@ define( function( require ) {
     simplifyEquationCheckBox.moveToBack();
 
     // Table drawer
-    var tableNode = new Text( 'In/Out table', {
-      font: FBConstants.EQUATION_FONT
-    } );
-    var TABLE_DRAWER_SIZE = new Dimension2( 200, 200 ); //TODO move to FBConstants
+    var tableNode = new Text( 'In/Out table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
     // @private
     this.tableDrawer = new Drawer( tableNode, {
       open: true,
       handleLocation: 'top',
-      size: TABLE_DRAWER_SIZE,
+      size: FBConstants.TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
       bottom: scene.builder.location.y - 42 //TODO magic number
     } );
@@ -72,15 +69,12 @@ define( function( require ) {
     this.tableDrawer.moveToBack();
 
     // Equation drawer
-    var equationNode = new Text( '', {
-      font: FBConstants.EQUATION_FONT
-    } );
-    var EQUATION_DRAWER_SIZE = new Dimension2( 240, 75 ); //TODO move to FBConstants
+    var equationNode = new Text( '', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
     // @private
     this.equationDrawer = new Drawer( equationNode, {
       open: false,
       handleLocation: 'bottom',
-      size: EQUATION_DRAWER_SIZE,
+      size: FBConstants.EQUATION_DRAWER_SIZE,
       xMargin: 30,
       yMargin: 10,
       centerX: scene.builder.centerX,
@@ -92,8 +86,8 @@ define( function( require ) {
     //TODO temporary
     this.simplifyEquationProperty.link( function( simplifyEquation ) {
       equationNode.text = simplifyEquation ? 'simplified equation' : 'unsimplified equation';
-      equationNode.centerX = EQUATION_DRAWER_SIZE.width / 2;
-      equationNode.centerY = EQUATION_DRAWER_SIZE.height / 2;
+      equationNode.centerX = FBConstants.EQUATION_DRAWER_SIZE.width / 2;
+      equationNode.centerY = FBConstants.EQUATION_DRAWER_SIZE.height / 2;
     } );
   }
 
