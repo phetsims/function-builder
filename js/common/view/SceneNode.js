@@ -196,7 +196,8 @@ define( function( require ) {
     } );
 
     // 'See Inside' check box, to the left of functions carousel
-    var seeInsideCheckBox = new CheckBox(
+    // @protected (read-only) for layout in subtypes
+    this.seeInsideCheckBox = new CheckBox(
       new Text( seeInsideString, {
         font: FBConstants.CHECK_BOX_FONT,
         maxWidth: 135 // i18n, determined empirically
@@ -205,14 +206,14 @@ define( function( require ) {
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
-    this.controlsLayer.addChild( seeInsideCheckBox );
-    seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
+    this.controlsLayer.addChild( this.seeInsideCheckBox );
+    this.seeInsideCheckBox.touchArea = this.seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.link( function( visible ) {
       seeInsideLayer.visible = visible;
     } );
-    seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
+    this.seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
 
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
@@ -293,9 +294,6 @@ define( function( require ) {
       // move 1 of each card to the output carousel, for testing
       populateOutputCarousel( inputCarousel, outputCarousel );
     };
-
-    // @public (read-only) provided for layout
-    this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );
