@@ -1,27 +1,28 @@
 TODO list for function-builder
 
 ---
-Discuss with AP:
 
-✓ BigRational (BigRat)
-- unsimplified and simplified equations (email AG & AP)
-- in/out vs input/output in Numbers screen
-- table (email AG & AP, mini design meeting)
-- double functions (reduce space)
-- move 'Simplify Equation' check box into equation drawer? (yes)
-- placement of eyeball switch (clarify spec with AG)
+Design issues: (email AG & AP)
+- format of unsimplified and simplified equations
+- grammar: in/out vs input/output in Numbers screen
+- necessity of table feature
+- specification and placement of eyeball switch
 
 ---
 
 Flesh out basic functionality of Equations screen
 
-Double functions for Numbers screen
+Double functions for Numbers screen, may need to make functions wider
 
 Specify format of unsimplified and simplified equations
 
 Dynamic functions
 
 In/Out table
+
+Move 'Simplify Equation' check box into equation drawer
+
+Move 'See Inside' check box closer to builder, replace with icon on/off switch?
 
 ---
 
