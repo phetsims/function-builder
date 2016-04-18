@@ -4,6 +4,7 @@ TODO list for function-builder
 Discuss with AP:
 
 - unsimplified and simplified equations
+- in/out vs input/output in Numbers screen
 - table
 - double functions
 
