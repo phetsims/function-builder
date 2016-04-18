@@ -3,6 +3,7 @@ TODO list for function-builder
 ---
 Discuss with AP:
 
+- BigRational
 - unsimplified and simplified equations
 - in/out vs input/output in Numbers screen
 - table
