@@ -12,13 +12,11 @@ Design issues: (email AG & AP)
 
 Flesh out basic functionality of Equations screen
 
-Double functions for Numbers screen, may need to make functions wider
-
-Specify format of unsimplified and simplified equations
-
 Dynamic functions
 
-In/Out table
+Double functions for Numbers screen, may need to make functions wider
+
+Rational numbers in model and view
 
 Move 'Simplify Equation' check box into equation drawer
 
