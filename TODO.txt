@@ -13,16 +13,15 @@ Discuss with AP:
 
 ---
 
+Flesh out basic functionality of Equations screen
+
+Double functions for Numbers screen
+
 Specify format of unsimplified and simplified equations
 
 Dynamic functions
 
-Equations screen is a more general form of Numbers screen. In Equations, functions are dynamic,
-outputs may be fractions, adds a graph.
-
 In/Out table
-
-Double functions for Numbers screen
 
 ---
 
