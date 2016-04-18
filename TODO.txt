@@ -9,6 +9,7 @@ Discuss with AP:
 - table
 - double functions
 - move 'Simplify Equation' check box into equation drawer?
+- placement of eyeball switch
 
 ---
 
