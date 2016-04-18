@@ -10,11 +10,13 @@ Design issues: (email AG & AP)
 
 ---
 
-Flesh out basic functionality of Equations screen
+Make builder (subtype?) call functionChangedEmitter.emit when EquationFunction.operandProperty changes
 
-Dynamic functions
+Make spinner skip over 0 operand for 'divide' function
 
-Double functions for Numbers screen, may need to make functions wider
+Dynamically set 'invertible' for 'times' function, invertible = ( operand !== 0 );
+
+Complete view of double functions, may need to make all functions wider to prevent overlap with 'See Inside' windows
 
 Rational numbers in model and view
 
@@ -23,6 +25,10 @@ Move 'Simplify Equation' check box into equation drawer
 Move 'See Inside' check box closer to builder, replace with icon on/off switch?
 
 ---
+
+Number vs Numbers prefix on .js files
+
+Equation vs Equations prefix on .js files
 
 Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
 
