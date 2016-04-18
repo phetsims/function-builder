@@ -36,6 +36,7 @@ define( function( require ) {
 
     }, options );
 
+    //TODO this may need to be mutable to support 'times' function with dynamic operand (spinner)
     // @public (read-only)
     this.invertible = options.invertible;
 
