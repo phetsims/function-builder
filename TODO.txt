@@ -4,12 +4,12 @@ TODO list for function-builder
 Discuss with AP:
 
 ✓ BigRational (BigRat)
-- unsimplified and simplified equations
+- unsimplified and simplified equations (email AG & AP)
 - in/out vs input/output in Numbers screen
-- table
-- double functions
-- move 'Simplify Equation' check box into equation drawer?
-- placement of eyeball switch
+- table (email AG & AP, mini design meeting)
+- double functions (reduce space)
+- move 'Simplify Equation' check box into equation drawer? (yes)
+- placement of eyeball switch (clarify spec with AG)
 
 ---
 
