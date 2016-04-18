@@ -67,12 +67,12 @@ define( function( require ) {
 
     // To improve readability of shape code
     var BODY_WIDTH = builder.width;
-    var BODY_HEIGHT = builder.height;
+    var END_HEIGHT = builder.endHeight;
     var X_INSET = 0.15 * BODY_WIDTH;
-    var Y_INSET = 0.15 * BODY_HEIGHT;
+    var Y_INSET = ( END_HEIGHT - builder.waistHeight ) / 2;
 
     // Gradient for the body
-    var bodyGradient = new LinearGradient( 0, 0, 1, BODY_HEIGHT )
+    var bodyGradient = new LinearGradient( 0, 0, 1, END_HEIGHT )
       .addColorStop( 0, colorScheme.top )
       .addColorStop( 0.5, colorScheme.middle )
       .addColorStop( 1, colorScheme.bottom );
@@ -83,10 +83,10 @@ define( function( require ) {
       .lineTo( X_INSET, Y_INSET )
       .lineTo( BODY_WIDTH - X_INSET, Y_INSET )
       .lineTo( BODY_WIDTH, 0 )
-      .lineTo( BODY_WIDTH, BODY_HEIGHT )
-      .lineTo( BODY_WIDTH - X_INSET, BODY_HEIGHT - Y_INSET )
-      .lineTo( X_INSET, BODY_HEIGHT - Y_INSET )
-      .lineTo( 0, BODY_HEIGHT )
+      .lineTo( BODY_WIDTH, END_HEIGHT )
+      .lineTo( BODY_WIDTH - X_INSET, END_HEIGHT - Y_INSET )
+      .lineTo( X_INSET, END_HEIGHT - Y_INSET )
+      .lineTo( 0, END_HEIGHT )
       .close(), {
       fill: bodyGradient,
       stroke: options.bodyStroke,
@@ -100,7 +100,7 @@ define( function( require ) {
     // Options for the ends
     var END_OPTIONS = {
       radiusX: options.endRadiusX,
-      radiusY: BODY_HEIGHT / 2,
+      radiusY: END_HEIGHT / 2,
       fill: colorScheme.ends,
       stroke: options.endStroke,
       lineWidth: options.endLineWidth,
@@ -148,7 +148,7 @@ define( function( require ) {
     options.children = [ bodyNode, slotsParent, this.functionsParent, this.moleCardsLayer, leftEndNode, rightEndNode ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
-    options.clipArea = Shape.rect( 0, -BODY_HEIGHT / 2, BODY_WIDTH, BODY_HEIGHT );
+    options.clipArea = Shape.rect( 0, -END_HEIGHT / 2, BODY_WIDTH, END_HEIGHT );
 
     Node.call( this, options );
   }

@@ -36,7 +36,8 @@ define( function( require ) {
     options = _.extend( {
       numberOfSlots: 1, // {number} number of function slots
       width: 450, // {number} horizontal distance between input and output
-      height: 125, // {number} height of tallest part of the builder
+      endHeight: 125, // {number} height of the builder at it ends
+      waistHeight: 87, // {number} height of the builder at its waist
       location: new Vector2( 0, 0 ), // {Vector2} location of the center of the input
       colorScheme: FBColors.BUILDER_MAROON // {Object} color scheme, see FBUtils.isaBuilderColorScheme
     }, options );
@@ -46,7 +47,8 @@ define( function( require ) {
 
     // @public (read-only)
     this.width = options.width;
-    this.height = options.height;
+    this.endHeight = options.endHeight;
+    this.waistHeight = options.waistHeight;
     this.location = options.location;
     this.colorScheme = options.colorScheme;
 

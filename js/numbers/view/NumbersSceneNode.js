@@ -23,6 +23,9 @@ define( function( require ) {
   // strings
   var simplifyEquationString = require( 'string!FUNCTION_BUILDER/simplifyEquation' );
 
+  // constants
+  var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
+
   /**
    * @param {NumbersScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
@@ -60,7 +63,7 @@ define( function( require ) {
       handleLocation: 'top',
       size: FBConstants.TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
-      bottom: scene.builder.location.y - 42 //TODO magic number
+      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );
 
@@ -74,7 +77,7 @@ define( function( require ) {
       xMargin: 30,
       yMargin: 10,
       centerX: scene.builder.centerX,
-      top: scene.builder.location.y + 42 //TODO magic number
+      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
 

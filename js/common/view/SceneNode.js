@@ -68,7 +68,7 @@ define( function( require ) {
     var builder = scene.builder;
     var BUILDER_END_OPTIONS = {
       radiusX: 15,
-      radiusY: builder.height / 2,
+      radiusY: builder.endHeight / 2,
       fill: builder.colorScheme.ends,
       centerY: builder.location.y
     };
