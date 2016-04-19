@@ -50,10 +50,13 @@ define( function( require ) {
         maxWidth: 135 // i18n, determined empirically
       } ),
       this.simplifyEquationProperty, {
+        //TODO preferable to make seeInsideCheckBox private
         left: this.seeInsideCheckBox.left,
         top: this.seeInsideCheckBox.bottom + 15
       } );
     this.controlsLayer.addChild( simplifyEquationCheckBox );
+    //TODO this overlaps with carousel button
+    simplifyEquationCheckBox.touchArea = simplifyEquationCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // Table drawer
     var tableNode = new Text( 'In/Out table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
