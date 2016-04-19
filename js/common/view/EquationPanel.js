@@ -17,7 +17,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var simplifyEquationString = require( 'string!FUNCTION_BUILDER/simplifyEquation' );
+  var simplifyString = require( 'string!FUNCTION_BUILDER/simplify' );
 
   /**
    * @param {Property.<boolean>} simplifyEquationProperty
@@ -39,7 +39,7 @@ define( function( require ) {
     var equationNode = new Text( '', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
 
     // 'Simplify Equation' check box, at bottom center
-    var simplifyEquationLabel = new Text( simplifyEquationString, {
+    var simplifyEquationLabel = new Text( simplifyString, {
       font: FBConstants.CHECK_BOX_FONT,
       maxWidth: 0.9 * options.size.width
     } );
