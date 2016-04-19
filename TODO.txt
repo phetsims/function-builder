@@ -15,8 +15,6 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 ---
 
-Dynamically set 'invertible' for 'times' function, invertible = ( operand !== 0 );
-
 How to handle 'x' card in Equations screen?
 
 How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?

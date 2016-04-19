@@ -61,7 +61,12 @@ define( function( require ) {
       {
         labelString: FBSymbols.TIMES,
         apply: function( input, operand ) { return input * operand; },
-        options: { fill: 'rgb( 237, 165, 222 )' }
+        options: {
+          fill: 'rgb( 237, 165, 222 )',
+
+          // multiplication by zero is not invertible
+          isInvertibleWithOperand: function( operand ) { return ( operand !== 0 ); }
+        }
       },
 
       // divide
@@ -70,7 +75,9 @@ define( function( require ) {
         apply: function( input, operand ) { return input / operand; },
         options: {
           fill: 'rgb( 183, 200, 249 )',
-          zeroOperandValid: false // zero is not a valid operand, since division by zero is undefined
+
+          // zero is not a valid operand, since division by zero is undefined
+          zeroOperandValid: false
         }
       }
 

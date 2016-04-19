@@ -26,7 +26,8 @@ define( function( require ) {
 
     options = _.extend( {
       operandRange: new Range( -3, 3, 1 ), // range of operandProperty
-      zeroOperandValid: true // {boolean} is zero a valid operand?
+      zeroOperandValid: true, // {boolean} is zero a valid operand?
+      isInvertibleWithOperand: null // {function:boolean|null} is this function invertible for specified operand?
     }, options );
 
     assert && assert( !( options.operandRange.defaultValue === 0 && !options.zeroOperandValid ),
@@ -36,6 +37,7 @@ define( function( require ) {
     this._apply = apply; // @private
     this.operandRange = options.operandRange; // @public (read-only)
     this.zeroOperandValid = options.zeroOperandValid; // @public (read-only)
+    this.isInvertibleWithOperand = options.isInvertibleWithOperand; // @private
 
     // @public
     this.operandProperty = new Property( options.operandRange.defaultValue );
@@ -52,6 +54,20 @@ define( function( require ) {
   functionBuilder.register( 'EquationFunction', EquationFunction );
 
   return inherit( AbstractFunction, EquationFunction, {
+
+    /**
+     * Is this function invertible for the current value of its operand?
+     * @public
+     * @override
+     */
+    getInvertible: function() {
+      if ( this.isInvertibleWithOperand ) {
+        return this.isInvertibleWithOperand( this.operandProperty.get() );
+      }
+      else {
+        return AbstractFunction.prototype.getInvertible.call( this );
+      }
+    },
 
     /**
      * Applies this function.
