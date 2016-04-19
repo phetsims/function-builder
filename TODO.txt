@@ -8,6 +8,11 @@ Design issues: (email AG & AP)
 - necessity of table feature
 - specification and placement of eyeball switch
 
+Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
+
+Propose ditching double functions; they appear only in Numbers screen (a scaffolding screen), and the same things
+  can be accomplished with single functions
+
 ---
 
 Make builder (subtype?) call functionChangedEmitter.emit when EquationFunction.operandProperty changes
@@ -30,15 +35,8 @@ Number vs Numbers prefix on .js files
 
 Equation vs Equations prefix on .js files
 
-Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
-
-Propose ditching double functions; they appear only in Numbers screen (a scaffolding screen), and the same things
-  can be accomplished with single functions
-
 Reset All
 - doesn't handle cards that are being dragged, animating or paused in 'see inside' windows
 - doesn't handle functions that are being dragged or animating
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode
-
-How to keep functions with spinners from popping out of the carousel and builder?
