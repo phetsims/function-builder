@@ -29,10 +29,10 @@ define( function( require ) {
 
     this.scene = new EquationsScene( {
       numberOfEachCard: 1,
-      numberOfEachFunction: 3,
+      numberOfEachFunction: 2,
       builder: new Builder( {
         width: BUILDER_WIDTH,
-        numberOfSlots: 2,
+        numberOfSlots: 3,
         location: new Vector2( BUILDER_X, BUILDER_Y ), // center of input slot
         colorScheme: FBColors.BUILDER_BLUE
       } )
