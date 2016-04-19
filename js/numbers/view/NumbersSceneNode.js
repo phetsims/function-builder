@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
+  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -19,9 +19,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var Text = require( 'SCENERY/nodes/Text' );
-
-  // strings
-  var simplifyEquationString = require( 'string!FUNCTION_BUILDER/simplifyEquation' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -43,24 +40,10 @@ define( function( require ) {
     // @private view-specific properties
     this.simplifyEquationProperty = new Property( false );
 
-    // 'Simplify Equation' check box
-    var simplifyEquationCheckBox = new CheckBox(
-      new Text( simplifyEquationString, {
-        font: FBConstants.CHECK_BOX_FONT,
-        maxWidth: 135 // i18n, determined empirically
-      } ),
-      this.simplifyEquationProperty, {
-        //TODO preferable to make seeInsideCheckBox private
-        left: this.seeInsideCheckBox.left,
-        top: this.seeInsideCheckBox.bottom + 15
-      } );
-    this.controlsLayer.addChild( simplifyEquationCheckBox );
-    //TODO this overlaps with carousel button
-    simplifyEquationCheckBox.touchArea = simplifyEquationCheckBox.localBounds.dilatedXY( 10, 10 );
-
-    // Table drawer
+    // Table
     var tableNode = new Text( 'In/Out table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
-    // @private
+
+    // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
       open: true,
       handleLocation: 'top',
@@ -70,26 +53,21 @@ define( function( require ) {
     } );
     this.drawersLayer.addChild( this.tableDrawer );
 
-    // Equation drawer
-    var equationNode = new Text( '', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
-    // @private
-    this.equationDrawer = new Drawer( equationNode, {
+    // Equation and related controls
+    var equationPanel = new EquationPanel( this.simplifyEquationProperty, {
+       size: FBConstants.EQUATION_DRAWER_SIZE
+    } );
+
+    // @private Equation drawer
+    this.equationDrawer = new Drawer( equationPanel, {
       open: false,
       handleLocation: 'bottom',
-      size: FBConstants.EQUATION_DRAWER_SIZE,
       xMargin: 30,
       yMargin: 10,
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
-
-    //TODO temporary
-    this.simplifyEquationProperty.link( function( simplifyEquation ) {
-      equationNode.text = simplifyEquation ? 'simplified equation' : 'unsimplified equation';
-      equationNode.centerX = FBConstants.EQUATION_DRAWER_SIZE.width / 2;
-      equationNode.centerY = FBConstants.EQUATION_DRAWER_SIZE.height / 2;
-    } );
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );

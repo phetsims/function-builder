@@ -69,7 +69,7 @@ define( function( require ) {
 
     // size of drawers
     TABLE_DRAWER_SIZE: new Dimension2( 200, 200 ),
-    EQUATION_DRAWER_SIZE: new Dimension2( 240, 75 )
+    EQUATION_DRAWER_SIZE: new Dimension2( 220, 100 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );
