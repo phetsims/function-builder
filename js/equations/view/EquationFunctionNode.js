@@ -41,6 +41,13 @@ define( function( require ) {
       xMargin: 6
     } );
 
+    // prevent clicking on the picker from starting a drag sequence for the function node
+    picker.addInputListener( {
+      down: function( event, trail ) {
+        event.handle(); // don't propagate event to parent
+      }
+    } );
+
     var contentNode = new HBox( {
       children: [ operatorNode, picker ],
       spacing: 5
