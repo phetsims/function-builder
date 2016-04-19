@@ -10,9 +10,16 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var aString = require( 'string!FUNCTION_BUILDER/A' );
 
   // images
   var mysteryAImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryA.png' );
@@ -27,7 +34,19 @@ define( function( require ) {
       fill: 'rgb( 127, 225, 173 )'
     } );
 
-    ImageFunction.call( this, mysteryAImage, options );
+    var imageNode = new Image( mysteryAImage );
+
+    var textNode = new Text( aString, {
+      font: FBConstants.FUNCTION_ICON_FONT,
+      maxWidth: 0.3 * imageNode.width,
+      center: imageNode.center
+    } );
+
+    var iconNode = new Node( {
+      children: [ imageNode, textNode ]
+    } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'MysteryA', MysteryA );

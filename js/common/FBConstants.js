@@ -52,14 +52,20 @@ define( function( require ) {
     // distance/second that cards move when animating
     CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
-    // scale for the images on the image cards
-    IMAGE_CARD_SCALE: 0.34,
+    // scale for the images on cards
+    CARD_IMAGE_SCALE: 0.34,
+
+    // scale of the images on functions
+    FUNCTION_IMAGE_SCALE: 0.3,
 
     // font for number cards
     NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
 
     // font for number functions
     NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
+
+    // font for text on function icons
+    FUNCTION_ICON_FONT: new FBFont( 85, { weight: 'bold' } ),
 
     // font for check boxes
     CHECK_BOX_FONT: new FBFont( 18 ),

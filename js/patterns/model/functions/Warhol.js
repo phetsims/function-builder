@@ -22,6 +22,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -61,7 +62,7 @@ define( function( require ) {
     this.background = options.background; // @private
     this.grayscale = new Grayscale(); // @private
 
-    ImageFunction.call( this, warholImage, options );
+    ImageFunction.call( this, new Image( warholImage ), options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );

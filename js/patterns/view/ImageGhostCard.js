@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function ImageGhostCard( image, options ) {
-    GhostCard.call( this, new Image( image, { scale: FBConstants.IMAGE_CARD_SCALE } ), options );
+    GhostCard.call( this, new Image( image, { scale: FBConstants.CARD_IMAGE_SCALE } ), options );
   }
 
   functionBuilder.register( 'ImageGhostCard', ImageGhostCard );

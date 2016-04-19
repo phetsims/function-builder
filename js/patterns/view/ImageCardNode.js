@@ -31,7 +31,7 @@ define( function( require ) {
     assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
 
     options = _.extend( {
-      imageScale: FBConstants.IMAGE_CARD_SCALE
+      imageScale: FBConstants.CARD_IMAGE_SCALE
     }, options );
 
     this.imageScale = options.imageScale; // @private

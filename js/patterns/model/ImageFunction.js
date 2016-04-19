@@ -14,12 +14,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {HTMLImageElement} image - image that represents the function type
+   * @param {Node} iconNode - icon that represents the function type
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunction( image, options ) {
-    this.image = image; // @public (read-only)
+  function ImageFunction( iconNode, options ) {
+    this.iconNode = iconNode; // @public (read-only)
     AbstractFunction.call( this, options );
   }
 

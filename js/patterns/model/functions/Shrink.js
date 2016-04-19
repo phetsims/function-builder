@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -31,7 +32,7 @@ define( function( require ) {
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 
-    ImageFunction.call( this, shrinkImage, options );
+    ImageFunction.call( this, new Image( shrinkImage ), options );
   }
 
   functionBuilder.register( 'Shrink', Shrink );

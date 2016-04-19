@@ -197,7 +197,8 @@ define( function( require ) {
 
     var backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
 
-    var iconNode = new Image( functionInstance.image, {
+    var iconNode = new Node( {
+      children: [ functionInstance.iconNode ],
       scale: 0.3,
       center: backgroundNode.center
     } );

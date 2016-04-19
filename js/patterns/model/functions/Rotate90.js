@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -27,7 +28,7 @@ define( function( require ) {
       fill: 'rgb( 147, 231, 128 )'
     } );
 
-    ImageFunction.call( this, rotate90Image, options );
+    ImageFunction.call( this, new Image( rotate90Image ), options );
   }
 
   functionBuilder.register( 'Rotate90', Rotate90 );

@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -30,7 +31,7 @@ define( function( require ) {
 
     this.backgroundColor = options.backgroundColor; // @private
 
-    ImageFunction.call( this, grayScaleImage, options );
+    ImageFunction.call( this, new Image( grayScaleImage ), options );
   }
 
   functionBuilder.register( 'Grayscale', Grayscale );
