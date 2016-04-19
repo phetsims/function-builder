@@ -15,8 +15,6 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 ---
 
-Make spinner skip over 0 operand for 'divide' function
-
 Dynamically set 'invertible' for 'times' function, invertible = ( operand !== 0 );
 
 How to handle 'x' card in Equations screen?

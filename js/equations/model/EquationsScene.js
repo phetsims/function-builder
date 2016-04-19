@@ -68,7 +68,10 @@ define( function( require ) {
       {
         labelString: FBSymbols.DIVIDE,
         apply: function( input, operand ) { return input / operand; },
-        options: { fill: 'rgb( 183, 200, 249 )' }
+        options: {
+          fill: 'rgb( 183, 200, 249 )',
+          zeroOperandValid: false // zero is not a valid operand, since division by zero is undefined
+        }
       }
 
       //TODO how to add 'A' and 'B' mystery functions, which are unlike the other functions?

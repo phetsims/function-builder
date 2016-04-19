@@ -12,11 +12,10 @@ define( function( require ) {
   var EquationFunction = require( 'FUNCTION_BUILDER/equations/model/EquationFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBNumberPicker = require( 'FUNCTION_BUILDER/equations/view/FBNumberPicker' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -35,10 +34,10 @@ define( function( require ) {
       font: FBConstants.NUMBER_FUNCTION_FONT
     } );
 
-    //TODO customize picker options
-    var picker = new NumberPicker( functionInstance.operandProperty, new Property( functionInstance.operandRange ), {
-      color: '#F2E916',
-      xMargin: 6
+    var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
+      skipZero: !functionInstance.zeroOperandValid,
+      //TODO customize picker options
+      color: '#F2E916'
     } );
 
     // prevent clicking on the picker from starting a drag sequence for the function node

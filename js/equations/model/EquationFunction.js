@@ -25,17 +25,25 @@ define( function( require ) {
   function EquationFunction( labelString, apply, options ) {
 
     options = _.extend( {
-      operandRange: new Range( -3, 3, 1 ) // range of operandProperty
+      operandRange: new Range( -3, 3, 1 ), // range of operandProperty
+      zeroOperandValid: true // {boolean} is zero a valid operand?
     }, options );
+
+    assert && assert( !( options.operandRange.defaultValue === 0 && !options.zeroOperandValid ),
+      'default value zero is not a valid operand' );
 
     this.labelString = labelString; // @public (read-only)
     this._apply = apply; // @private
     this.operandRange = options.operandRange; // @public (read-only)
+    this.zeroOperandValid = options.zeroOperandValid; // @public (read-only)
 
     // @public
     this.operandProperty = new Property( options.operandRange.defaultValue );
     this.operandProperty.link( function( operand ) {
-       assert && assert( options.operandRange.contains( operand ), 'operand out of range: ' + operand  );
+
+      // validate operand
+      assert && assert( options.operandRange.contains( operand ), 'operand out of range: ' + operand );
+      assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
     } );
 
     AbstractFunction.call( this, options );
