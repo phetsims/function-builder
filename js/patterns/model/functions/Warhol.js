@@ -20,6 +20,7 @@ define( function( require ) {
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -62,7 +63,9 @@ define( function( require ) {
     this.background = options.background; // @private
     this.grayscale = new Grayscale(); // @private
 
-    ImageFunction.call( this, new Image( warholImage ), options );
+    var iconNode = new Image( warholImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );

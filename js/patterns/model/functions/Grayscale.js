@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
@@ -29,9 +30,9 @@ define( function( require ) {
       invertible: false
     } );
 
-    this.backgroundColor = options.backgroundColor; // @private
+    var iconNode = new Image( grayScaleImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
 
-    ImageFunction.call( this, new Image( grayScaleImage ), options );
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Grayscale', Grayscale );

@@ -34,11 +34,11 @@ define( function( require ) {
       fill: 'rgb( 127, 225, 173 )'
     } );
 
-    var imageNode = new Image( mysteryAImage );
+    var imageNode = new Image( mysteryAImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
 
     var textNode = new Text( aString, {
-      font: FBConstants.FUNCTION_ICON_FONT,
-      maxWidth: 0.3 * imageNode.width,
+      font: FBConstants.PATTERNS_FUNCTION_FONT,
+      maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width,
       center: imageNode.center
     } );
 

@@ -65,7 +65,7 @@ define( function( require ) {
     NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
 
     // font for text on function icons
-    FUNCTION_ICON_FONT: new FBFont( 85, { weight: 'bold' } ),
+    PATTERNS_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
 
     // font for check boxes
     CHECK_BOX_FONT: new FBFont( 18 ),

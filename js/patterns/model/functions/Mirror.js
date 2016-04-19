@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
@@ -28,7 +29,9 @@ define( function( require ) {
       fill: 'rgb( 128, 197, 237 )'
     } );
 
-    ImageFunction.call( this, new Image( mirrorImage ), options );
+    var iconNode = new Image( mirrorImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Mirror', Mirror );
