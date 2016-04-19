@@ -15,8 +15,6 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 ---
 
-i18n of 'A', 'B', 'C' on mystery functions
-
 How to handle 'x' card in Equations screen?
 
 How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
