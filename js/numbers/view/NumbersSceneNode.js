@@ -45,7 +45,7 @@ define( function( require ) {
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
-      open: true,
+      open: false, //TODO should be true by default
       handleLocation: 'top',
       size: FBConstants.TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
