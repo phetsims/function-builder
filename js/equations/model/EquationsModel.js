@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var EquationsBuilder = require( 'FUNCTION_BUILDER/equations/model/EquationsBuilder' );
   var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
@@ -30,7 +30,7 @@ define( function( require ) {
     this.scene = new EquationsScene( {
       numberOfEachCard: 1,
       numberOfEachFunction: 2,
-      builder: new Builder( {
+      builder: new EquationsBuilder( {
         width: BUILDER_WIDTH,
         numberOfSlots: 3,
         location: new Vector2( BUILDER_X, BUILDER_Y ), // center of input slot
