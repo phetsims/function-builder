@@ -36,9 +36,8 @@ define( function( require ) {
 
     }, options );
 
-    //TODO this may need to be mutable to support 'times' function with dynamic operand (spinner)
-    // @public (read-only)
-    this.invertible = options.invertible;
+    // @private
+    this._invertible = options.invertible;
 
     // @public (read-only) properties related to visual representation, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
@@ -49,6 +48,14 @@ define( function( require ) {
   functionBuilder.register( 'AbstractFunction', AbstractFunction );
 
   return inherit( Movable, AbstractFunction, {
+
+    /**
+     * Is this function invertible?
+     * @returns {boolean}
+     * @public
+     */
+    getInvertible: function() { return this._invertible; },
+    get invertible() { return this.getInvertible(); },
 
     /**
      * Applies the function to the input, produces the output.
