@@ -15,17 +15,19 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 ---
 
-Make builder (subtype?) call functionChangedEmitter.emit when EquationFunction.operandProperty changes
+Move 'Simplify Equation' check box into equation drawer
 
 Make spinner skip over 0 operand for 'divide' function
 
 Dynamically set 'invertible' for 'times' function, invertible = ( operand !== 0 );
 
+How to handle 'x' card in Equations screen?
+
+How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
+
 Complete view of double functions, may need to make all functions wider to prevent overlap with 'See Inside' windows
 
 Rational numbers in model and view
-
-Move 'Simplify Equation' check box into equation drawer
 
 Move 'See Inside' check box closer to builder, replace with icon on/off switch?
 
