@@ -31,6 +31,8 @@ Move 'See Inside' check box closer to builder, replace with icon on/off switch?
 
 ---
 
+i18n of 'A', 'B', 'C' on mystery function PNG files
+
 Number vs Numbers prefix on .js files
 
 Equation vs Equations prefix on .js files
