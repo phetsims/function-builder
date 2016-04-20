@@ -92,7 +92,7 @@ define( function( require ) {
     var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
       scale: 0.65,
       left: 30, //TODO temporary
-      top: 530  //TODO temporary
+      top: 540  //TODO temporary
     } );
     this.controlsLayer.addChild( functionIconsSwitch );
   }
