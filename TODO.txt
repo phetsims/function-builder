@@ -15,7 +15,7 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 ---
 
-Rational numbers in model and view
+Rational numbers in model and view, https://github.com/peterolson/BigRational.js
 
 Better way to specify functions in NumbersScene and EquationsScene
 
