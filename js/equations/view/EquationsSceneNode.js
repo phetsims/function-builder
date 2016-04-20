@@ -20,8 +20,8 @@ define( function( require ) {
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
   var PropertySet = require( 'AXON/PropertySet' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
+  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -60,7 +60,7 @@ define( function( require ) {
     this.drawersLayer.addChild( this.graphDrawer );
 
     // Table
-    var tableNode = new Text( 'XY table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
+    var tableNode = new XYTableNode(); //TODO temporary
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {

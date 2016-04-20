@@ -18,7 +18,7 @@ define( function( require ) {
   var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
   var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -40,8 +40,12 @@ define( function( require ) {
     // @private view-specific properties
     this.simplifyEquationProperty = new Property( false );
 
+    //TODO temporary
     // Table
-    var tableNode = new Text( 'In/Out table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
+    var tableNode = new XYTableNode( {
+      xString: 'In',
+      yString: 'Out'
+    } );
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
