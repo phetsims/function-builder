@@ -29,7 +29,7 @@ define( function( require ) {
     // Builder
 
     // all builders have the same y location
-    BUILDER_Y: 280,
+    BUILDER_Y: 285,
 
     //--------------------------------------------------------------------------------------------------------
     // Cards
