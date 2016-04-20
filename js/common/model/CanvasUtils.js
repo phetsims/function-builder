@@ -65,6 +65,22 @@ define( function( require ) {
     },
 
     /**
+     * Is the canvas blank? The definition of 'blank' is all transparent pixels.
+     *
+     * @param {HTMLCanvasElement} canvas
+     * @returns {boolean}
+     */
+    isBlank: function( canvas ) {
+      var imageData = CanvasUtils.getImageData( canvas );
+      for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
+        if ( imageData.data[ i + 3 ] !== 0 ) {
+          return false; // we're done when we find one non-transparent pixel
+        }
+      }
+      return true;
+    },
+
+    /**
      * Sets the RGBA components of a pixel.
      *
      * @param {ImageData} imageData - underlying pixel data of a Canvas
