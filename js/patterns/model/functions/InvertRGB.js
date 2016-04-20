@@ -20,18 +20,12 @@ define( function( require ) {
   var invertRGBImage = require( 'mipmap!FUNCTION_BUILDER/functions/invertRGB.png' );
 
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function InvertRGB( options ) {
-
-    options = _.extend( {}, options, {
+  function InvertRGB() {
+    ImageFunction.call( this, new Image( invertRGBImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
       fill: 'black'
     } );
-
-    var iconNode = new Image( invertRGBImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'InvertRGB', InvertRGB );

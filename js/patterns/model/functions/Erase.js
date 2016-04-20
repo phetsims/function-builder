@@ -20,19 +20,13 @@ define( function( require ) {
   var eraseImage = require( 'mipmap!FUNCTION_BUILDER/functions/erase.png' );
 
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function Erase( options ) {
-
-    options = _.extend( {}, options, {
+  function Erase() {
+    ImageFunction.call( this, new Image( eraseImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
       fill: 'rgb( 0, 222, 224 )',
       invertible: false
     } );
-
-    var iconNode = new Image( eraseImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Erase', Erase );

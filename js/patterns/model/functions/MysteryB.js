@@ -25,14 +25,9 @@ define( function( require ) {
   var mysteryBImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryB.png' );
 
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function MysteryB( options ) {
-
-    options = _.extend( {}, options, {
-      fill: 'rgb( 249, 144, 99 )'
-    } );
+  function MysteryB() {
 
     var imageNode = new Image( mysteryBImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
 
@@ -46,7 +41,9 @@ define( function( require ) {
       children: [ imageNode, textNode ]
     } );
 
-    ImageFunction.call( this, iconNode, options );
+    ImageFunction.call( this, iconNode, {
+      fill: 'rgb( 249, 144, 99 )'
+    } );
   }
 
   functionBuilder.register( 'MysteryB', MysteryB );

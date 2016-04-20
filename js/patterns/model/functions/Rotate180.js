@@ -20,18 +20,12 @@ define( function( require ) {
   var rotate180Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate180.png' );
 
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function Rotate180( options ) {
-
-    options = _.extend( {}, options, {
+  function Rotate180() {
+    ImageFunction.call( this, new Image( rotate180Image, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
       fill: 'rgb( 147, 231, 128 )'
     } );
-
-    var iconNode = new Image( rotate180Image, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Rotate180', Rotate180 );

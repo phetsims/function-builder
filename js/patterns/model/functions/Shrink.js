@@ -25,17 +25,16 @@ define( function( require ) {
    */
   function Shrink( options ) {
 
-    options = _.extend( {}, options, {
-      fill: 'rgb( 246, 164, 255 )',
+    options = _.extend( {
       scale: 0.75
-    } );
+    }, options );
     
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 
-    var iconNode = new Image( shrinkImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
+    ImageFunction.call( this, new Image( shrinkImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+      fill: 'rgb( 246, 164, 255 )'
+    } );
   }
 
   functionBuilder.register( 'Shrink', Shrink );

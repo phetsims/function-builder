@@ -48,24 +48,20 @@ define( function( require ) {
   var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), new Color( 65, 0, 89 ), new Color( 255, 125, 18 ) ];
   var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 145, 132, 98 ), new Color( 184, 45, 63 ), new Color( 25, 78, 125 ), new Color( 55, 211, 37 ) ];
 
+  // {Color|null} replace fully-transparent pixels in the image with this color
+  var BACKGROUND = new Color( 255, 255, 255, 255 );
+
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function Warhol( options ) {
+  function Warhol(  ) {
 
-    options = _.extend( {}, options, {
-      fill: 'rgb( 250, 186, 75 )',
-      invertible: false,
-      background: new Color( 255, 255, 255, 255 ) // {Color|null} background color for the image
-    } );
-
-    this.background = options.background; // @private
     this.grayscale = new Grayscale(); // @private
 
-    var iconNode = new Image( warholImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
+    ImageFunction.call( this, new Image( warholImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+      fill: 'rgb( 250, 186, 75 )',
+      invertible: false // grayscale conversion and intensity mapping are both lossy
+    } );
   }
 
   functionBuilder.register( 'Warhol', Warhol );
@@ -123,11 +119,11 @@ define( function( require ) {
       var grayscaleData = CanvasUtils.getImageData( grayscaleCanvas );
 
       // Put image on an optional background, by changing transparent pixels to the background color
-      if ( this.background ) {
+      if ( BACKGROUND ) {
         for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
           if ( grayscaleData.data[ i + 3 ] === 0 ) {
             CanvasUtils.setPixelRGBA( grayscaleData, i,
-              this.background.red, this.background.green, this.background.blue, this.background.alpha * 255 );
+              BACKGROUND.red, BACKGROUND.green, BACKGROUND.blue, BACKGROUND.alpha * 255 );
           }
         }
       }
