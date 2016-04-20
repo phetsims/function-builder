@@ -21,7 +21,8 @@ define( function( require ) {
     DIVIDE: '\u00f7',
     MINUS: '\u2212',
     PLUS: '\u002b',
-    TIMES: '\u00d7'
+    TIMES: '\u00d7',
+    EQUALS: '\u003d'
   };
 
   functionBuilder.register( 'FBSymbols', FBSymbols );

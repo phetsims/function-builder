@@ -82,7 +82,7 @@ define( function( require ) {
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-      var equationString = StringUtils.format( '{0} = 2{1} {2} 1', FBSymbols.Y, FBSymbols.X, FBSymbols.PLUS );
+      var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
       var iconNode = new Text( equationString, { font: new FBFont( 80 ) } );
       return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
     },
