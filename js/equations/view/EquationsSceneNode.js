@@ -53,7 +53,7 @@ define( function( require ) {
     this.graphDrawer = new Drawer( graphNode, {
       open: false,
       handleLocation: 'top',
-      left: scene.builder.centerX + 10,
+      left: scene.builder.centerX - 5,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.graphDrawer );
@@ -65,7 +65,7 @@ define( function( require ) {
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO should be true by default
       handleLocation: 'top',
-      right: scene.builder.centerX - 10,
+      right: this.graphDrawer.left - 15,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );
