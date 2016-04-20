@@ -8,6 +8,7 @@ Design issues: (email AG & AP)
 - grammar: in/out vs input/output in Numbers screen
 - necessity of table feature
 - specification and placement of eyeball switch
+- arrows or grippers on drawer handles?
 
 Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
 
