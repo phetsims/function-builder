@@ -77,11 +77,11 @@ define( function( require ) {
     // scale of the images on functions
     FUNCTION_IMAGE_SCALE: 0.3,
 
+    // font for image functions
+    IMAGE_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
+
     // font for number functions
     NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
-
-    // font for text on function icons
-    PATTERNS_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
 
     //--------------------------------------------------------------------------------------------------------
     // Other

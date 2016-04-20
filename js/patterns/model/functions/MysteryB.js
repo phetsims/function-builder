@@ -32,7 +32,7 @@ define( function( require ) {
     var imageNode = new Image( mysteryBImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
 
     var textNode = new Text( bString, {
-      font: FBConstants.PATTERNS_FUNCTION_FONT,
+      font: FBConstants.IMAGE_FUNCTION_FONT,
       maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width,
       center: imageNode.center
     } );
