@@ -53,21 +53,19 @@ define( function( require ) {
     this.graphDrawer = new Drawer( graphNode, {
       open: false,
       handleLocation: 'top',
-      size: FBConstants.GRAPH_DRAWER_SIZE,
-      right: scene.builder.right - 50,
+      left: scene.builder.centerX + 10,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.graphDrawer );
 
     // Table
-    var tableNode = new XYTableNode(); //TODO temporary
+    var tableNode = new XYTableNode();
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO should be true by default
       handleLocation: 'top',
-      size: FBConstants.TABLE_DRAWER_SIZE,
-      right: this.graphDrawer.left - 10,
+      right: scene.builder.centerX - 10,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );

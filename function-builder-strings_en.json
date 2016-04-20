@@ -17,6 +17,12 @@
   "simplify": {
     "value": "Simplify"
   },
+  "in": {
+     "value": "In"
+  },
+  "out": {
+     "value": "Out"
+  },
   "x": {
     "value": "x"
   },

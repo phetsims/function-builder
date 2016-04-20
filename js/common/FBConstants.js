@@ -101,7 +101,7 @@ define( function( require ) {
 
     // size of drawers
     TABLE_DRAWER_SIZE: new Dimension2( 175, 200 ),
-    GRAPH_DRAWER_SIZE: new Dimension2( 265, 200 ),
+    GRAPH_DRAWER_SIZE: new Dimension2( 200, 200 ),
     EQUATION_DRAWER_SIZE: new Dimension2( 220, 100 )
   };
 

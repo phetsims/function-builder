@@ -20,6 +20,10 @@ define( function( require ) {
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
+  // strings
+  var inString = require( 'string!FUNCTION_BUILDER/in' );
+  var outString = require( 'string!FUNCTION_BUILDER/out' );
+
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
 
@@ -40,18 +44,16 @@ define( function( require ) {
     // @private view-specific properties
     this.simplifyEquationProperty = new Property( false );
 
-    //TODO temporary
     // Table
     var tableNode = new XYTableNode( {
-      xString: 'In',
-      yString: 'Out'
+      xString: inString,
+      yString: outString
     } );
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO should be true by default
       handleLocation: 'top',
-      size: FBConstants.TABLE_DRAWER_SIZE,
       centerX: scene.builder.centerX,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
