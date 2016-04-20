@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO invertible will change dynamically for divide function, how to handle that?
 /**
  * A numeric function for the 'Equations' screen, with dynamic operand.
  *
