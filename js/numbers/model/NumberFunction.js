@@ -40,6 +40,7 @@ define( function( require ) {
      * @override
      */
     apply: function( value ) {
+      assert && assert( typeof value === 'number', 'unsupported value type: ' + ( typeof value ) );
       return this._apply( value );
     }
   } );
