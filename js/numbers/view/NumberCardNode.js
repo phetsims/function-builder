@@ -31,8 +31,13 @@ define( function( require ) {
 
     assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
 
+    options = options || {};
+
     // @private
-    this.textNode = new Text( '', { font: FBConstants.NUMBER_CARD_FONT } );
+    this.textNode = new Text( '', {
+      font: FBConstants.NUMBER_CARD_FONT,
+      maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
+    } );
 
     CardNode.call( this, card, this.textNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
