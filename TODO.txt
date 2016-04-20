@@ -4,6 +4,7 @@ TODO list for function-builder
 
 Design issues: (email AG & AP)
 - format of unsimplified and simplified equations
+- where to put sign on slope?
 - grammar: in/out vs input/output in Numbers screen
 - necessity of table feature
 - specification and placement of eyeball switch

@@ -11,10 +11,12 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -37,7 +39,7 @@ define( function( require ) {
     } );
 
     // Equation
-    var equationNode = new Text( '', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
+    var equationNode = new SlopeInterceptEquationNode( -11, 9, FBSymbols.PLUS, 4 ); //TODO temporary
 
     // 'Simplify Equation' check box, at bottom center
     var simplifyEquationLabel = new Text( simplifyString, {
@@ -56,8 +58,7 @@ define( function( require ) {
     Node.call( this, options );
 
     simplifyEquationProperty.link( function( simplifyEquation ) {
-      //TODO temporary
-      equationNode.text = simplifyEquation ? 'simplified equation' : 'unsimplified equation';
+      //TODO update equation
 
       // center in available space
       equationNode.centerX = backgroundNode.centerX;
