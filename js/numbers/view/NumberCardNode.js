@@ -31,9 +31,10 @@ define( function( require ) {
 
     assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
 
-    this.valueNode = null; // @private {Text} created lazily by updateContent
+    // @private
+    this.textNode = new Text( '', { font: FBConstants.NUMBER_CARD_FONT } );
 
-    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, this.textNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'NumberCardNode', NumberCardNode );
@@ -48,28 +49,12 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // run the number through the builder
+      // run the input value through the builder
       var value = builder.applyFunctions( this.card.value, numberOfFunctionsToApply );
 
-      //TODO temporary, need to convert to fraction
-      var valueString = Util.toFixedNumber( value, 2 );
-
-      // update what's displayed on the card
-      if ( !this.valueNode ) {
-
-        // create valueNode lazily
-        this.valueNode = new Text( valueString, {
-          font: FBConstants.NUMBER_CARD_FONT,
-          maxWidth: 0.9 * this.width // constrain value to fit on card
-        } );
-        this.addChild( this.valueNode );
-      }
-      else {
-
-        // set the new value
-        this.valueNode.text = valueString;
-      }
-      this.valueNode.center = this.backgroundNode.center;
+      // display the output value
+      this.textNode.text = Util.toFixedNumber( value, 2 ); //TODO temporary, need to convert to fraction
+      this.textNode.center = this.backgroundNode.center;
     }
   } );
 } );

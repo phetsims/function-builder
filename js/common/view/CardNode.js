@@ -19,6 +19,7 @@ define( function( require ) {
 
   /**
    * @param {ImageFunction} card
+   * @param {Node} contentNode - what appears on the card
    * @param {ImageFunctionContainer} inputContainer - container in the input carousel
    * @param {ImageFunctionContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
@@ -27,7 +28,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
     options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
@@ -48,7 +49,7 @@ define( function( require ) {
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode ];
+    options.children = [ this.backgroundNode, contentNode ];
 
     var builder = builderNode.builder;
 

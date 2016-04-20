@@ -34,10 +34,14 @@ define( function( require ) {
       imageScale: FBConstants.CARD_IMAGE_SCALE
     }, options );
 
-    this.imageScale = options.imageScale; // @private
-    this.imageNode = null; // @private {Image} created lazily by updateContent
+    // @private
+    this.imageNode = new Image( card.canvas.toDataURL(), {
+      initialWidth: card.canvas.width,
+      initialHeight: card.canvas.height,
+      scale: options.imageScale
+    } );
 
-    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, this.imageNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
@@ -52,25 +56,11 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // run the image through the builder
+      // run the input image through the builder
       var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
-      // update what's displayed on the card
-      if ( !this.imageNode ) {
-
-        // create imageNode lazily
-        this.imageNode = new Image( canvas.toDataURL(), {
-          initialWidth: canvas.width,
-          initialHeight: canvas.height,
-          scale: this.imageScale
-        } );
-        this.addChild( this.imageNode );
-      }
-      else {
-
-        // set the new image
-        this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
-      }
+      // display the output image
+      this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
       this.imageNode.center = this.backgroundNode.center;
     }
   } );
