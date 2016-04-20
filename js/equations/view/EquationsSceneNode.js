@@ -91,8 +91,10 @@ define( function( require ) {
     // show/hide function icons
     var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
       scale: 0.65,
-      left: 30, //TODO temporary
-      top: 540  //TODO temporary
+
+      //TODO temporary hard-coded location, below the 'See Inside' button
+      left: 30,
+      top: 540
     } );
     this.controlsLayer.addChild( functionIconsSwitch );
   }
