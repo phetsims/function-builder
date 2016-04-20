@@ -23,6 +23,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
+  var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -57,6 +58,7 @@ define( function( require ) {
   function Warhol() {
 
     this.grayscale = new Grayscale(); // @private
+    this.identity = new Identity(); // @private
 
     ImageFunction.call( this, new Image( warholImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
       fill: 'rgb( 250, 186, 75 )',
@@ -112,9 +114,8 @@ define( function( require ) {
 
       if ( CanvasUtils.isBlank( inputCanvas ) ) {
 
-        // the input is blank, don't apply Warhol, copy input to output
-        var imageData = CanvasUtils.getImageData( inputCanvas );
-        outputCanvas = CanvasUtils.createCanvasWithImageData( imageData );
+        // The input canvas is blank, apply Identity instead of Warhol.
+        outputCanvas = this.identity.apply( inputCanvas );
       }
       else {
 
