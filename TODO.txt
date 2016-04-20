@@ -21,7 +21,9 @@ Better way to specify functions in NumbersScene and EquationsScene
 
 Complete view of double functions, may need to make all functions wider to prevent overlap with 'See Inside' windows
 
-How to handle 'x' card in Equations screen? What form is supposed to display in windows and output carousel?
+How to handle 'x' card in Equations screen?
+    Can't apply the functions, need to build an equation based on a set of functions.
+    What equation form is supposed to display in output carousel? in 'See Inside' windows?
 
 How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
 
