@@ -31,7 +31,7 @@ define( function( require ) {
     assert && assert( functionInstance instanceof EquationFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     var operatorNode = new Text( functionInstance.labelString, {
-      font: FBConstants.NUMBER_FUNCTION_FONT
+      font: FBConstants.FUNCTION_OPERATOR_FONT
     } );
 
     var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
