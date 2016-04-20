@@ -17,8 +17,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var CARD_SIZE = new Dimension2( 60, 60 );
-  var FUNCTION_SIZE = new Dimension2( 150, CARD_SIZE.height + 8 );
+  var CARD_SIZE = new Dimension2( 70, 70 );
+  var FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
 
   var FBConstants = {
 
@@ -51,7 +51,7 @@ define( function( require ) {
     CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
     // scale for the images on cards
-    CARD_IMAGE_SCALE: 0.34,
+    CARD_IMAGE_SCALE: 0.4,
 
     // font for number cards
     NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),

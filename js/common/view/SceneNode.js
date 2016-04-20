@@ -96,7 +96,7 @@ define( function( require ) {
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
-      left: layoutBounds.left + 50,
+      left: layoutBounds.left + 30,
       top: layoutBounds.top + 50
     } );
 

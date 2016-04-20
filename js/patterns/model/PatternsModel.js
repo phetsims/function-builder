@@ -26,7 +26,7 @@ define( function( require ) {
 
   // constants for the 'composed' scene
   var COMPOSED_BUILDER_SLOTS = 3;
-  var COMPOSED_BUILDER_WIDTH = ( COMPOSED_BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
+  var COMPOSED_BUILDER_WIDTH = ( COMPOSED_BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 50;
   var COMPOSED_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( COMPOSED_BUILDER_WIDTH / 2 );
 
   /**
