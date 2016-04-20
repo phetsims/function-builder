@@ -40,7 +40,7 @@ define( function( require ) {
     // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
 
-    // @private {function|null} called when animation to destination completes, set using animateTo
+    // @private {function|null|undefined} called when animation to destination completes, set using animateTo
     this.animationCompletedCallback = null;
   }
 
