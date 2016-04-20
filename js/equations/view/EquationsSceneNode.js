@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO much in common with NumbersSceneNode
 /**
  * Displays a scene in the 'Equations' screen.
  *
@@ -9,12 +10,20 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
+  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var GraphNode = require( 'FUNCTION_BUILDER/equations/view/GraphNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
-  var NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' ); //TODO from numbers package
+  var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // constants
+  var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
 
   /**
    * @param {EquationsScene} scene - model for this scene
@@ -24,22 +33,69 @@ define( function( require ) {
    */
   function EquationsSceneNode( scene, layoutBounds, options ) {
 
-    NumbersSceneNode.call( this, scene, layoutBounds, options );
+    options = _.extend( {}, options, {
+      cardCarouselDefaultPageNumber: 1
+    } );
 
-    //TODO add graph drawer
-    //TODO move table drawer
+    SceneNode.call( this, scene, layoutBounds, options );
+
+    // @private view-specific properties
+    this.simplifyEquationProperty = new Property( false );
+
+    // Graph
+    var graphNode = new GraphNode();
+
+    // @private Graph drawer
+    this.graphDrawer = new Drawer( graphNode, {
+      open: false,
+      handleLocation: 'top',
+      size: FBConstants.GRAPH_DRAWER_SIZE,
+      right: scene.builder.right - 50,
+      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
+    } );
+    this.drawersLayer.addChild( this.graphDrawer );
+
+    // Table
+    var tableNode = new Text( 'XY table', { font: FBConstants.EQUATION_FONT } ); //TODO temporary
+
+    // @private Table drawer
+    this.tableDrawer = new Drawer( tableNode, {
+      open: false, //TODO should be true by default
+      handleLocation: 'top',
+      size: FBConstants.TABLE_DRAWER_SIZE,
+      right: this.graphDrawer.left - 10,
+      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
+    } );
+    this.drawersLayer.addChild( this.tableDrawer );
+
+    // Equation and related controls
+    var equationPanel = new EquationPanel( this.simplifyEquationProperty, {
+      size: FBConstants.EQUATION_DRAWER_SIZE
+    } );
+
+    // @private Equation drawer
+    this.equationDrawer = new Drawer( equationPanel, {
+      open: false,
+      handleLocation: 'bottom',
+      xMargin: 30,
+      yMargin: 10,
+      centerX: scene.builder.centerX,
+      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
+    } );
+    this.drawersLayer.addChild( this.equationDrawer );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
 
-  return inherit( NumbersSceneNode, EquationsSceneNode, {
+  return inherit( SceneNode, EquationsSceneNode, {
 
     // @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
       this.simplifyEquationProperty.reset();
-      this.equationDrawer.reset( { animationEnabled: false } );
       this.tableDrawer.reset( { animationEnabled: false } );
+      this.graphDrawer.reset( { animationEnabled: false } );
+      this.equationDrawer.reset( { animationEnabled: false } );
     },
 
     /**

@@ -96,8 +96,12 @@ define( function( require ) {
     // font for equations
     EQUATION_FONT: new FBFont( 20 ),
 
+    // font for graph
+    GRAPH_FONT: new FBFont( 20 ),
+
     // size of drawers
-    TABLE_DRAWER_SIZE: new Dimension2( 200, 200 ),
+    TABLE_DRAWER_SIZE: new Dimension2( 175, 200 ),
+    GRAPH_DRAWER_SIZE: new Dimension2( 265, 200 ),
     EQUATION_DRAWER_SIZE: new Dimension2( 220, 100 )
   };
 
