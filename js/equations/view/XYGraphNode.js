@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Graph (XY plot) for the 'Equations' screen.
+ * XY graph for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GraphNode( options ) {
+  function XYGraphNode( options ) {
 
     options = _.extend( {
       size: FBConstants.GRAPH_DRAWER_SIZE
@@ -42,7 +42,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'GraphNode', GraphNode );
+  functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
-  return inherit( Node, GraphNode );
+  return inherit( Node, XYGraphNode );
 } );

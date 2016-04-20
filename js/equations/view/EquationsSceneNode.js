@@ -15,13 +15,13 @@ define( function( require ) {
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionIconsSwitch = require( 'FUNCTION_BUILDER/equations/view/FunctionIconsSwitch' );
-  var GraphNode = require( 'FUNCTION_BUILDER/equations/view/GraphNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
   var PropertySet = require( 'AXON/PropertySet' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -47,7 +47,7 @@ define( function( require ) {
     } );
 
     // Graph
-    var graphNode = new GraphNode();
+    var graphNode = new XYGraphNode();
 
     // @private Graph drawer
     this.graphDrawer = new Drawer( graphNode, {
