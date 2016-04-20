@@ -9,6 +9,7 @@ Design issues: (email AG & AP)
 - necessity of table feature
 - specification and placement of eyeball switch
 - arrows or grippers on drawer handles?
+- small font on function icons in Numbers screen due to double functions and 'See Inside' windows
 
 Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
 
