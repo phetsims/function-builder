@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -63,6 +64,8 @@ define( function( require ) {
       equationNode.centerY = backgroundNode.top + ( simplifyEquationCheckBox.top - backgroundNode.top ) / 2;
     } );
   }
+
+  functionBuilder.register( 'EquationPanel', EquationPanel );
 
   return inherit( Node, EquationPanel );
 } );
