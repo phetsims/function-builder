@@ -17,11 +17,15 @@ Propose ditching double functions; they appear only in Numbers screen (a scaffol
 
 Rational numbers in model and view
 
+Better way to specify functions in NumbersScene and EquationsScene
+
 Complete view of double functions, may need to make all functions wider to prevent overlap with 'See Inside' windows
 
 How to handle 'x' card in Equations screen?
 
 How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
+
+Equations and Numbers model elements should be identical, only the view is different
 
 Equation
 
