@@ -57,10 +57,13 @@ define( function( require ) {
     var CONTAINER_WIDTH = options.size ? options.size.width : CONTENTS_WIDTH;
     var CONTAINER_HEIGHT = options.size ? options.size.height : CONTENTS_HEIGHT;
 
-    // container that holds the contents
-    var containerNode = new Rectangle( 0, 0, CONTAINER_WIDTH, CONTAINER_HEIGHT, {
-      cornerRadius: 0,
-      fill: 'white',
+    // background
+    var backgroundNode = new Rectangle( 0, 0, CONTAINER_WIDTH, CONTAINER_HEIGHT, {
+      fill: 'white'
+    } );
+
+    // border
+    var borderNode = new Rectangle( 0, 0, CONTAINER_WIDTH, CONTAINER_HEIGHT, {
       stroke: 'black'
     } );
 
@@ -107,21 +110,22 @@ define( function( require ) {
     closeArrowNode.visible = options.open;
 
     // layout, position the handle at center-top or center-bottom
-    containerNode.x = 0;
-    handleNode.centerX = containerNode.centerX;
+    backgroundNode.x = 0;
+    handleNode.centerX = backgroundNode.centerX;
     if ( options.handleLocation === 'top' ) {
       handleNode.top = 0;
-      containerNode.top = handleNode.bottom - 1;
+      backgroundNode.top = handleNode.bottom - 1;
     }
     else {
-      containerNode.top = 0;
-      handleNode.top = containerNode.bottom - 1;
+      backgroundNode.top = 0;
+      handleNode.top = backgroundNode.bottom - 1;
     }
-    contentsNode.center = containerNode.center;
+    borderNode.center = backgroundNode.center;
+    contentsNode.center = backgroundNode.center;
 
     // put all of the moving pieces together
     var drawerNode = new Node( {
-      children: [ handleNode, containerNode, contentsNode ]
+      children: [ handleNode, backgroundNode, contentsNode, borderNode ]
     } );
 
     // wrap the drawer with a clipping area, to show/hide the container
@@ -131,7 +135,7 @@ define( function( require ) {
     Node.call( this, options );
 
     var openLocation = new Vector2( drawerNode.x, 0 );
-    var closeLocation = new Vector2( drawerNode.x,  ( options.handleLocation === 'top' ) ? containerNode.height : -containerNode.height );
+    var closeLocation = new Vector2( drawerNode.x,  ( options.handleLocation === 'top' ) ? backgroundNode.height : -backgroundNode.height );
     drawerNode.translation = options.open ? openLocation : closeLocation;
 
     // click on the handle to toggle between open and closed
