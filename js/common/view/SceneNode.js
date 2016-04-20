@@ -158,7 +158,7 @@ define( function( require ) {
     var functionCarousel = new Carousel( functionContainers, {
       orientation: 'horizontal',
       itemsPerPage: 3,
-      spacing: 15,
+      spacing: 12,
       buttonTouchAreaXDilation: 15,
       buttonTouchAreaYDilation: 5,
       centerX: layoutBounds.centerX,
