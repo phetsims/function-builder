@@ -138,7 +138,7 @@ define( function( require ) {
       },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
-      top: outputCarousel.bottom + 40
+      top: outputCarousel.bottom + 25
     } );
     this.controlsLayer.addChild( eraserButton );
     eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
