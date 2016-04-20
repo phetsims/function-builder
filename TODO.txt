@@ -23,6 +23,10 @@ How to handle 'x' card in Equations screen?
 
 How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
 
+Equation
+
+Graph
+
 ---
 
 Move 'See Inside' check box closer to builder, replace with icon on/off switch?
