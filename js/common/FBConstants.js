@@ -16,17 +16,27 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
+  var CARD_SIZE = new Dimension2( 60, 60 );
+  var FUNCTION_SIZE = new Dimension2( 150, CARD_SIZE.height + 8 );
+
   var FBConstants = {
 
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
+    //--------------------------------------------------------------------------------------------------------
+    // Builder
+
     // all builders have the same y location
     BUILDER_Y: 280,
 
+    //--------------------------------------------------------------------------------------------------------
+    // Cards
+
     // options for cards and things that looks like cards ('see inside' windows, 'mole under carpet')
     CARD_OPTIONS: {
-      size: new Dimension2( 60, 60 ), // dimensions of a card Node
+      size: CARD_SIZE, // dimensions of a card Node
       cornerRadius: 5, // corner radius of a card Node
       fill: 'white',
       stroke: 'black',
@@ -34,8 +44,23 @@ define( function( require ) {
       lineDash: null
     },
 
+    // how much a card should 'pop out' of its container when clicked
+    CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
+
+    // distance/second that cards move when animating
+    CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
+
+    // scale for the images on cards
+    CARD_IMAGE_SCALE: 0.34,
+
+    // font for number cards
+    NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
+
+    //--------------------------------------------------------------------------------------------------------
+    // Functions
+
     // dimensions of a function Node
-    FUNCTION_SIZE: new Dimension2( 150, 68 ),
+    FUNCTION_SIZE: FUNCTION_SIZE,
 
     // x-inset of arrow-like ends of a function's shape
     FUNCTION_X_INSET_FACTOR: 0.15,
@@ -44,31 +69,22 @@ define( function( require ) {
     FUNCTION_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // function must be at least this close to a slot to be put into the builder
-    FUNCTION_DISTANCE_THRESHOLD: 75,
-
-    // how much a card should 'pop out' of its container when clicked
-    CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
+    FUNCTION_DISTANCE_THRESHOLD: ( FUNCTION_SIZE.width / 2 ) - 1,
 
     // distance/second that functions move when animating
     FUNCTION_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
-    // distance/second that cards move when animating
-    CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
-
-    // scale for the images on cards
-    CARD_IMAGE_SCALE: 0.34,
-
     // scale of the images on functions
     FUNCTION_IMAGE_SCALE: 0.3,
-
-    // font for number cards
-    NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
 
     // font for number functions
     NUMBER_FUNCTION_FONT: new FBFont( 20, { weight: 'bold' } ),
 
     // font for text on function icons
     PATTERNS_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
+
+    //--------------------------------------------------------------------------------------------------------
+    // Other
 
     // font for check boxes
     CHECK_BOX_FONT: new FBFont( 18 ),
