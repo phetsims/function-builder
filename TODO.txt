@@ -16,6 +16,8 @@ Propose ditching the in/out table; it's redundant, potentially confusing, and wo
 Propose ditching double functions; they appear only in Numbers screen (a scaffolding screen), and the same things
   can be accomplished with single functions
 
+Propose ditching the eyeball switch feature
+
 When do points appear on graph?
 
 ---
