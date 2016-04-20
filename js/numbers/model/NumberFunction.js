@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A numeric function for the 'Numbers' screen.
+ * A function that operates on numbers, for the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
