@@ -35,6 +35,7 @@ define( function( require ) {
     } );
 
     var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
+      font: FBConstants.FUNCTION_PICKER_FONT,
       skipZero: !functionInstance.zeroOperandValid,
       //TODO customize picker options
       color: '#F2E916'

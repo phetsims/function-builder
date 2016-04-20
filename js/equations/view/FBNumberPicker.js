@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -24,7 +23,6 @@ define( function( require ) {
   function FBNumberPicker( valueProperty, valueRange, options ) {
 
     options = _.extend( {
-      font: FBConstants.PICKER_FONT,
       xMargin: 6,
       skipZero: false // {boolean} whether to skip zero value
     }, options );
