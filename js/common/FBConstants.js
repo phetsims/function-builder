@@ -21,6 +21,9 @@ define( function( require ) {
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
+    // all builders have the same y location
+    BUILDER_Y: 280,
+
     // options for cards and things that looks like cards ('see inside' windows, 'mole under carpet')
     CARD_OPTIONS: {
       size: new Dimension2( 60, 60 ), // dimensions of a card Node

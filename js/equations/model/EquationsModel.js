@@ -18,9 +18,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var BUILDER_WIDTH = 520;
+  var BUILDER_SLOTS = 3;
+  var BUILDER_WIDTH = ( BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
-  var BUILDER_Y = 280;
 
   /**
    * @constructor
@@ -31,9 +31,9 @@ define( function( require ) {
       numberOfEachCard: 1,
       numberOfEachFunction: 2,
       builder: new EquationsBuilder( {
+        numberOfSlots: BUILDER_SLOTS,
         width: BUILDER_WIDTH,
-        numberOfSlots: 3,
-        location: new Vector2( BUILDER_X, BUILDER_Y ), // center of input slot
+        location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
         colorScheme: FBColors.BUILDER_BLUE
       } )
     } );

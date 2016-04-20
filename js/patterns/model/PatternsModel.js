@@ -20,14 +20,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants for the 'single' scene
-  var SINGLE_BUILDER_WIDTH = 350;
+  var SINGLE_BUILDER_SLOTS = 1;
+  var SINGLE_BUILDER_WIDTH = ( SINGLE_BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 200;
   var SINGLE_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( SINGLE_BUILDER_WIDTH / 2 );
-  var SINGLE_BUILDER_Y = 280;
 
   // constants for the 'composed' scene
-  var COMPOSED_BUILDER_WIDTH = 520;
+  var COMPOSED_BUILDER_SLOTS = 3;
+  var COMPOSED_BUILDER_WIDTH = ( COMPOSED_BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var COMPOSED_BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( COMPOSED_BUILDER_WIDTH / 2 );
-  var COMPOSED_BUILDER_Y = SINGLE_BUILDER_Y;
 
   /**
    * @constructor
@@ -42,9 +42,9 @@ define( function( require ) {
         numberOfEachCard: 2,
         numberOfEachFunction: 1,
         builder: new Builder( {
+          numberOfSlots: SINGLE_BUILDER_SLOTS,
           width: SINGLE_BUILDER_WIDTH,
-          numberOfSlots: 1,
-          location: new Vector2( SINGLE_BUILDER_X, SINGLE_BUILDER_Y ), // center of input slot
+          location: new Vector2( SINGLE_BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
           colorScheme: FBColors.BUILDER_MAROON
         } )
       } ),
@@ -54,16 +54,16 @@ define( function( require ) {
         numberOfEachCard: 2,
         numberOfEachFunction: 2,
         builder: new Builder( {
+          numberOfSlots: COMPOSED_BUILDER_SLOTS,
           width: COMPOSED_BUILDER_WIDTH,
-          numberOfSlots: 3,
-          location: new Vector2( COMPOSED_BUILDER_X, COMPOSED_BUILDER_Y ), // center of input slot
+          location: new Vector2( COMPOSED_BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
           colorScheme: FBColors.BUILDER_BLUE
         } )
       } )
     ];
 
     PropertySet.call( this, {
-      selectedScene: this.scenes[ 0 ]  // @public
+      selectedScene: this.scenes[ 0 ] // @public
     } );
   }
 
