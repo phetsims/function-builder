@@ -42,7 +42,9 @@ define( function( require ) {
      * @override
      */
     apply: function( inputCanvas ) {
-      var imageData = CanvasUtils.createImageData( inputCanvas ); // blank image data, same dimensions as input
+
+      // blank image data (transparent black pixels), same dimensions as input
+      var imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
       return CanvasUtils.createCanvasWithImageData( imageData );
     }
   } );

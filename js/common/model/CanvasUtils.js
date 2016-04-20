@@ -65,16 +65,6 @@ define( function( require ) {
     },
 
     /**
-     * Creates blank image data with the same dimensions as some canvas.
-     *
-     * @param {HTMLCanvasElement} canvas
-     * @returns {ImageData}
-     */
-    createImageData: function( canvas ) {
-      return canvas.getContext( '2d' ).createImageData( canvas.width, canvas.height );
-    },
-    
-    /**
      * Sets the RGBA components of a pixel.
      *
      * @param {ImageData} imageData - underlying pixel data of a Canvas
