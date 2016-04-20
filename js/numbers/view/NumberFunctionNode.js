@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with ImageFunctionNode
 /**
  * Node that displays a {NumberFunction}.
  *
