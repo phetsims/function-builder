@@ -60,7 +60,7 @@ define( function( require ) {
         // create valueNode lazily
         this.valueNode = new Text( valueString, {
           font: FBConstants.NUMBER_CARD_FONT,
-          maxWidth: 0.9 * this.width
+          maxWidth: 0.9 * this.width // constrain value to fit on card
         } );
         this.addChild( this.valueNode );
       }
