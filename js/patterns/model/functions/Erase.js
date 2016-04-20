@@ -25,7 +25,7 @@ define( function( require ) {
   function Erase() {
     ImageFunction.call( this, new Image( eraseImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
       fill: 'rgb( 0, 222, 224 )',
-      invertible: false
+      invertible: false // lossy, erased image data cannot be restored
     } );
   }
 
