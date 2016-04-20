@@ -28,7 +28,7 @@ define( function( require ) {
       // {number} distance/second when animating
       animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
-      // default look of the view associated with a function
+      // properties related to visual representation, in the model for convenience
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
