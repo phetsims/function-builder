@@ -28,7 +28,7 @@ define( function( require ) {
       size: FBConstants.TABLE_DRAWER_SIZE,
       xString: FBSymbols.X,
       yString: FBSymbols.Y,
-      headingFont: new FBFont( 24 )
+      headingFont: new FBFont( 20 )
     }, options );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, { fill: 'white' } );
