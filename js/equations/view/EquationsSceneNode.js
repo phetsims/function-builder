@@ -14,11 +14,12 @@ define( function( require ) {
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FunctionIconsSwitch = require( 'FUNCTION_BUILDER/equations/view/FunctionIconsSwitch' );
   var GraphNode = require( 'FUNCTION_BUILDER/equations/view/GraphNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -40,7 +41,10 @@ define( function( require ) {
     SceneNode.call( this, scene, layoutBounds, options );
 
     // @private view-specific properties
-    this.simplifyEquationProperty = new Property( false );
+    this.viewProperties = new PropertySet( {
+      simplifyEquation: false,
+      functionIconsVisible: true
+    } );
 
     // Graph
     var graphNode = new GraphNode();
@@ -69,7 +73,7 @@ define( function( require ) {
     this.drawersLayer.addChild( this.tableDrawer );
 
     // Equation and related controls
-    var equationPanel = new EquationPanel( this.simplifyEquationProperty, {
+    var equationPanel = new EquationPanel( this.viewProperties.simplifyEquationProperty, {
       size: FBConstants.EQUATION_DRAWER_SIZE
     } );
 
@@ -83,6 +87,14 @@ define( function( require ) {
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
+
+    // show/hide function icons
+    var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
+      scale: 0.65,
+      left: 30, //TODO temporary
+      top: 530  //TODO temporary
+    } );
+    this.controlsLayer.addChild( functionIconsSwitch );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
@@ -92,7 +104,11 @@ define( function( require ) {
     // @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
-      this.simplifyEquationProperty.reset();
+
+      // view-specific properties
+      this.viewProperties.reset();
+
+      // drawers
       this.tableDrawer.reset( { animationEnabled: false } );
       this.graphDrawer.reset( { animationEnabled: false } );
       this.equationDrawer.reset( { animationEnabled: false } );
