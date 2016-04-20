@@ -110,21 +110,21 @@ define( function( require ) {
 
       // x 2 , + 1
       {
-        labelString: StringUtils.format( '{0} 2 , {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
+        labelString: StringUtils.format( '{0} 2  {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
         apply: function( input ) { return ( input * 2 ) + 1; },
         options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
       // + 1 , x 2
       {
-        labelString: StringUtils.format( '{0} 1 , {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
+        labelString: StringUtils.format( '{0} 1  {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
         apply: function( input ) { return ( input + 1 ) * 2; },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // + ? , x ?
       {
-        labelString: StringUtils.format( '{0} ? , {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
+        labelString: StringUtils.format( '{0} ?  {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
         apply: function( input ) { return ( input + 3 ) * 2; },
         options: { fill: 'rgb( 135, 196, 229 )' }
       },
@@ -145,7 +145,7 @@ define( function( require ) {
 
       // ? ? , ? ?
       {
-        labelString: '? ? , ? ?',
+        labelString: '? ?  ? ?',
         apply: function( input ) { return ( input * 2 ) - 3; },
         options: { fill: 'rgb( 165, 209, 167 )' }
       }
