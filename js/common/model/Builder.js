@@ -33,13 +33,28 @@ define( function( require ) {
    */
   function Builder( options ) {
 
+    // used to compute other default option values
+    var NUMBER_OF_SLOTS = ( options && options.numberOfSlots ) ? options.numberOfSlots : 1;
+
     options = _.extend( {
-      numberOfSlots: 1, // {number} number of function slots
-      width: 450, // {number} horizontal distance between input and output
-      endHeight: 125, // {number} height of the builder at it ends
-      waistHeight: 87, // {number} height of the builder at its waist
-      location: new Vector2( 0, 0 ), // {Vector2} location of the center of the input
-      colorScheme: FBColors.BUILDER_MAROON // {Object} color scheme, see FBUtils.isaBuilderColorScheme
+
+      // {number} number of function slots
+      numberOfSlots: NUMBER_OF_SLOTS,
+
+      // {number} horizontal distance between input and output slots
+      width: ( NUMBER_OF_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 75,
+
+      // {number} height of the builder at it ends
+      endHeight: FBConstants.FUNCTION_SIZE.height + 58,
+
+      // {number} height of the builder at its waist
+      waistHeight: FBConstants.FUNCTION_SIZE.height + 20,
+
+      // {Vector2} location of the center of the input
+      location: new Vector2( 0, 0 ),
+
+      // {Object} color scheme, see FBUtils.isaBuilderColorScheme
+      colorScheme: FBColors.BUILDER_MAROON
     }, options );
 
     // verify duck typing of colorScheme
