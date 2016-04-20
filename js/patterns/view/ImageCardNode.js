@@ -56,7 +56,7 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // run the input image through the builder
+      // {HTMLCanvasElement} run the input image through the builder
       var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
       // display the output image

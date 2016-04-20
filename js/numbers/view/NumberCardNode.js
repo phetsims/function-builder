@@ -49,7 +49,7 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // run the input value through the builder
+      // {number} run the input value through the builder
       var value = builder.applyFunctions( this.card.value, numberOfFunctionsToApply );
 
       // display the output value
