@@ -5,53 +5,49 @@ TODO list for function-builder
 DESIGN
 
 Equations:
-- specify format of unsimplified and simplified equations
-- what is shown in 'See Inside' window?
+- specify format of unsimplified and simplified equations (design doc is incomplete/inconsistent)
+- which form is shown in 'See Inside' window?
 - does output carousel always show simplified form?
 - where to put sign on slope? vertically centered on fraction line?
+- Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
 
-Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
+Double functions:
+- Are they really necessary? They appear explicitly only in Numbers screen (a scaffolding screen), and the same things can be accomplished with single functions
+- Small font on function icons in Numbers screen is due to double functions and overlap with 'See Inside’ windows
 
-Drawers:
-- arrows or grippers on drawer handles?
-
-A and B mystery functions filling in Equations screen
-- Are they needed in this screen?
-- They complicate implementation because they are totally different than the other functions in the carousel.
-- They are labeled 'A' and 'B', different than '?' style used in Numbers screen, how will the student know
-  that they are double functions?
-- They aren't much of a mystery if once you run 'x' through them, since you'll see the equation in the output.
-
-Grammar: In/Out are not nouns
-
-Revisit the 'table' feature. It's redundant (input/output carousels are effectively a table), potentially confusing
-because ordering is different, relatively expensive to implement.
-
-Revisit double functions. They appear only in Numbers screen (a scaffolding screen), and the same things
-can be accomplished with single functions
-- small font on function icons in Numbers screen due to double functions and 'See Inside' windows
-
-Revisit the eyeball switch feature.
-- What is the goal, is there another way to do the same thing?
-- Does it apply only to functions in the builder?
-- When a function is popped out of the builder, does it immediately become visible?
-- Location: why is the switch near the function carousel when it applies to the builder?
+Mystery functions in Equations screen
+- A: (x-2)*2
+- B: (x/2)+1)
+- Are mystery functions needed in this screen? They complicate implementation because they are totally different than the other functions in the carousel.
+- They are labeled 'A' and 'B', different than ‘?? ??' style used in Numbers screen for double functions.
+- How will the student know that they are double functions? They don’t look like the double functions in the Numbers screen.
+- They aren't much of a mystery once you run 'x' through them, since you'll see the equation in the output.
 
 Table:
+- this feature seems redundant, input/output carousels are effectively a table, what is the table adding?
+- potentially confusing, due to different ordering than carousel?
+- relatively expensive to implement
+- grammar police: In/Out are not nouns
 - Confirm the specification: Once an input enters the builder it appears in the table under “In”. After
-  it exits the builder and flies to the output panel the output value will appear in the table under “Out”.
-- When is an entry removed from the table? When it's removed from the output carousel?
+it exits the builder and flies to the output panel the output value will appear in the table under “Out”.
+- When is an entry removed from the table? When it's removed from the output carousel? Returned to the input carousel? Never?
 - When an entry is removed from the table, do all rows below it move up?
-- Clicking on a card and immediately releasing it will move the table row to the end of the table. Is that OK?
-- How important is highlighting by selecting rows in table? What happens when the corresponding item in
-  the carousel is not visible? Does the corresponding point on graph also need to highlight?
-  Multi-touch behavior?
+- If an entry is remove when it’s card is removed from the output carousel, then clicking on a card and immediately releasing it will move the table row to the end of the table. That seems potentially confusing.
+- How important is highlighting by selecting rows in table? What happens when the corresponding item in the carousel is not visible? Does the corresponding point on graph also need to highlight? How does highlighting work for multi-touch?
 
 Graph:
 - When does a point appear on graph? When its corresponding card is put in the output carousel?
 - When is a point removed from the graph? When its corresponding card is removed from the output carousel?
 
+Eyeball switch feature
+- What is the goal? Is there another way to do the same thing?
+- Does it apply only to functions in the builder?
+- When a function is popped out of the builder, does its icon immediately become visible?
+- Why is the switch located near the function carousel when it applies to the builder?
+
 ---
+
+Use grippers instead of arrows drawer handles
 
 Rational numbers in model and view, https://github.com/peterolson/BigRational.js
 
