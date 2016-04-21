@@ -8,7 +8,7 @@ Equations:
 - specify format of unsimplified and simplified equations
 - what is shown in 'See Inside' window?
 - does output carousel always show simplified form?
-- where to put sign on slope?
+- where to put sign on slope? to left of fraction line?
 
 Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
 
@@ -31,23 +31,25 @@ because ordering is different, relatively expensive to implement.
 Revisit double functions. They appear only in Numbers screen (a scaffolding screen), and the same things
 can be accomplished with single functions
 
-Revisit necessity of the eyeball switch feature.
+Revisit the eyeball switch feature.
 - What is the goal, is there another way to do the same thing?
-- specification and placement of switch
+- Does it apply only to functions in the builder?
+- When a function is popped out of the builder, does it immediately become visible?
+- Location: why is the switch near the function carousel when it applies to the builder?
 
 Table:
 - Confirm the specification: Once an input enters the builder it appears in the table under “In”. After
   it exits the builder and flies to the output panel the output value will appear in the table under “Out”.
 - When is an entry removed from the table? When it's removed from the output carousel?
-- When a card is removed from the output carousel, is its entry in the table removed? Clicking on a card and
-  immediately releasing it will move the table row to the end
 - When an entry is removed from the table, do all rows below it move up?
+- Clicking on a card and immediately releasing it will move the table row to the end of the table. Is that OK?
 - How important is highlighting by selecting rows in table? What happens when the corresponding item in
-  the carousel is not visible? Will this be confusing?
+  the carousel is not visible? Does the corresponding point on graph also need to highlight?
+  Multi-touch behavior?
 
 Graph:
-- When does a point appear on graph? When card is in the output carousel?
-- When are points removed from the graph? When card is removed from the output carousel?
+- When does a point appear on graph? When its corresponding card is put in the output carousel?
+- When is a point removed from the graph? When its corresponding card is removed from the output carousel?
 
 ---
 
