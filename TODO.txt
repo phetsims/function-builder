@@ -2,24 +2,52 @@ TODO list for function-builder
 
 ---
 
-Design issues: (email AG & AP)
-- format of unsimplified and simplified equations
+DESIGN
+
+Equations:
+- specify format of unsimplified and simplified equations
+- what is shown in 'See Inside' window?
+- does output carousel always show simplified form?
 - where to put sign on slope?
-- grammar: in/out vs input/output in Numbers screen
-- necessity of table feature
-- specification and placement of eyeball switch
+
+Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
+
+Drawers:
 - arrows or grippers on drawer handles?
 - small font on function icons in Numbers screen due to double functions and 'See Inside' windows
-- what goal are A and B mystery functions filling in Equations screen?
 
-Propose ditching the in/out table; it's redundant, potentially confusing, and would provide more space for graph
+A and B mystery functions filling in Equations screen
+- Are they needed in this screen?
+- They complicate implementation because they are totally different than the other functions in the carousel.
+- They are labeled 'A' and 'B', different than '?' style used in Numbers screen, how will the student know
+  that they are double functions?
+- They aren't much of a mystery if once you run 'x' through them, since you'll see the equation in the output.
 
-Propose ditching double functions; they appear only in Numbers screen (a scaffolding screen), and the same things
-  can be accomplished with single functions
+Grammar: In/Out are not nouns
 
-Propose ditching the eyeball switch feature
+Revisit the 'table' feature. It's redundant (input/output carousels are effectively a table), potentially confusing
+because ordering is different, relatively expensive to implement.
 
-When do points appear on graph?
+Revisit double functions. They appear only in Numbers screen (a scaffolding screen), and the same things
+can be accomplished with single functions
+
+Revisit necessity of the eyeball switch feature.
+- What is the goal, is there another way to do the same thing?
+- specification and placement of switch
+
+Table:
+- Confirm the specification: Once an input enters the builder it appears in the table under “In”. After
+  it exits the builder and flies to the output panel the output value will appear in the table under “Out”.
+- When is an entry removed from the table? When it's removed from the output carousel?
+- When a card is removed from the output carousel, is its entry in the table removed? Clicking on a card and
+  immediately releasing it will move the table row to the end
+- When an entry is removed from the table, do all rows below it move up?
+- How important is highlighting by selecting rows in table? What happens when the corresponding item in
+  the carousel is not visible? Will this be confusing?
+
+Graph:
+- When does a point appear on graph? When card is in the output carousel?
+- When are points removed from the graph? When card is removed from the output carousel?
 
 ---
 
