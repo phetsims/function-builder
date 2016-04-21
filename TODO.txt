@@ -8,7 +8,7 @@ Equations:
 - specify format of unsimplified and simplified equations
 - what is shown in 'See Inside' window?
 - does output carousel always show simplified form?
-- where to put sign on slope? to left of fraction line?
+- where to put sign on slope? vertically centered on fraction line?
 
 Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
 
