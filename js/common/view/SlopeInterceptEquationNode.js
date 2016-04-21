@@ -33,17 +33,21 @@ define( function( require ) {
       font: new FBFont( 24 ), // font for non-slope components
       fractionFont: new FBFont( 18 ), // font for rise and run
       equalsXSpacing: 8, // x space on both sides of equals
+      signXSpacing: 2, // x spacing between sign and slope
       operatorXSpacing: 8, // x space on both sides of operator
       slopeXSpacing: 4, // x space between slope and x
       slopeYSpacing: 2  // y space above and below fraction line
     } );
 
+    var negativeSlope = ( ( rise / run ) < 0 );
+
     // components of the equation
     var TEXT_OPTIONS = { font: options.font };
     var yNode = new Text( FBSymbols.Y, TEXT_OPTIONS );
     var equalsNode = new Text( FBSymbols.EQUALS, TEXT_OPTIONS );
-    var riseNode = new Text( rise, { font: options.fractionFont } );
-    var runNode = new Text( run, { font: options.fractionFont } );
+    var negativeNode = new Text( FBSymbols.MINUS, { font: options.fractionFont } );
+    var riseNode = new Text( Math.abs( rise ), { font: options.fractionFont } );
+    var runNode = new Text( Math.abs( run ), { font: options.fractionFont } );
     var fractionLineNode = new Line( 0, 0, Math.max( riseNode.width, runNode.width ), 0, {
       stroke: 'black'
     } );
@@ -53,9 +57,15 @@ define( function( require ) {
 
     // brute force layout
     equalsNode.left = yNode.right + options.equalsXSpacing;
-    equalsNode.centerY = yNode.centerY;
-    fractionLineNode.left = equalsNode.right + options.equalsXSpacing;
-    fractionLineNode.centerY = equalsNode.centerY;
+    if ( negativeSlope ) {
+      negativeNode.left = equalsNode.right + options.equalsXSpacing;
+      fractionLineNode.left = negativeNode.right + options.signXSpacing;
+      fractionLineNode.centerY = negativeNode.centerY;
+    }
+    else {
+      fractionLineNode.left = equalsNode.right + options.equalsXSpacing;
+      fractionLineNode.centerY = equalsNode.centerY;
+    }
     riseNode.centerX = fractionLineNode.centerX;
     riseNode.bottom = fractionLineNode.top - options.slopeYSpacing;
     runNode.centerX = fractionLineNode.centerX;
@@ -68,7 +78,11 @@ define( function( require ) {
     interceptNode.y = yNode.y;
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ yNode, equalsNode, riseNode, fractionLineNode, runNode, xNode, operatorNode, interceptNode ];
+    options.children = [ yNode, equalsNode ];
+    if ( negativeSlope ) {
+      options.children.push( negativeNode );
+    }
+    options.children.push( riseNode, fractionLineNode, runNode, xNode, operatorNode, interceptNode );
 
     Node.call( this, options );
   }
