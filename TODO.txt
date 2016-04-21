@@ -14,7 +14,6 @@ Is 'Simplified' the proper label for the check box? The specification seems to w
 
 Drawers:
 - arrows or grippers on drawer handles?
-- small font on function icons in Numbers screen due to double functions and 'See Inside' windows
 
 A and B mystery functions filling in Equations screen
 - Are they needed in this screen?
@@ -30,6 +29,7 @@ because ordering is different, relatively expensive to implement.
 
 Revisit double functions. They appear only in Numbers screen (a scaffolding screen), and the same things
 can be accomplished with single functions
+- small font on function icons in Numbers screen due to double functions and 'See Inside' windows
 
 Revisit the eyeball switch feature.
 - What is the goal, is there another way to do the same thing?
