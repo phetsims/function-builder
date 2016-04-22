@@ -27,6 +27,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
 
   // images
   var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
@@ -57,6 +58,7 @@ define( function( require ) {
    */
   function Warhol() {
 
+    this.shrink = new Shrink( { scale: 0.5 } );
     this.grayscale = new Grayscale(); // @private
     this.identity = new Identity(); // @private
 
@@ -119,11 +121,9 @@ define( function( require ) {
       }
       else {
 
-        // Draw the image into a half-size canvas, effectively scaling by 50%.
+        // Shrink the input by 50%.
         // Do this first so that we're processing fewer pixels in subsequent operations.
-        var halfCanvas = CanvasUtils.createCanvas( inputCanvas.width / 2, inputCanvas.height / 2 );
-        var halfContext = halfCanvas.getContext( '2d' );
-        halfContext.drawImage( inputCanvas, 0, 0, halfCanvas.width, halfCanvas.height );
+        var halfCanvas = this.shrink.apply( inputCanvas );
 
         // Convert the scaled image to grayscale
         var grayscaleCanvas = this.grayscale.apply( halfCanvas );
@@ -146,7 +146,7 @@ define( function( require ) {
         // Create a 'scratch' ImageData that will hold the result of mapping grayscale to colors.
         // This gets reused for each color mapping, so be sure to draw the data to the output canvas
         // before proceeding with the next mapping.
-        var scratchData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
+        var scratchData = halfCanvas.getContext( '2d' ).createImageData( halfCanvas.width, halfCanvas.height );
 
         // Draw a color-mapped image to each quadrant of the output canvas, using a different map in each quadrant.
         outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_TOP_COLOR_MAP ),
