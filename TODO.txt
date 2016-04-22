@@ -47,7 +47,7 @@ Eyeball switch feature
 
 ---
 
-Use grippers instead of arrows drawer handles
+Shrink function should also shrink the canvas size
 
 Rational numbers in model and view, https://github.com/peterolson/BigRational.js
 

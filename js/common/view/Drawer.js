@@ -13,7 +13,6 @@ define( function( require ) {
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -25,7 +24,13 @@ define( function( require ) {
   // constants
   var HANDLE_SIZE = new Dimension2( 70, 20 );
   var HANDLE_CORNER_RADIUS = 5;
-  var ARROW_SIZE = new Dimension2( 20, 7 );
+  var HANDLE_FILL = 'rgb( 230, 230, 230 )'; //TODO move to FBColors, also use for carousel buttons?
+  var GRIPPY_DOT_RADIUS = 1;
+  var GRIPPY_DOT_COLOR = 'black';
+  var GRIPPY_DOT_ROWS = 2;
+  var GRIPPY_DOT_COLUMNS = 4;
+  var GRIPPY_DOT_X_SPACING = 9;
+  var GRIPPY_DOT_Y_SPACING = 5;
 
   /**
    * @param {Node} contentsNode
@@ -84,30 +89,27 @@ define( function( require ) {
     var handleShape = Shape.roundedRectangleWithRadii( 0, 0, HANDLE_SIZE.width, HANDLE_SIZE.height, HANDLE_RADII );
     var handleNode = new Path( handleShape, {
       cursor: 'pointer',
-      fill: '#F2E916',
+      fill: HANDLE_FILL,
       stroke: 'black'
     } );
 
-    // arrow shapes
-    var upArrowShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( ARROW_SIZE.width / 2, -ARROW_SIZE.height )
-      .lineTo( ARROW_SIZE.width, 0 );
-    var downArrowShape = upArrowShape.transformed( Matrix3.rotation2( Math.PI ) );
-
-    // open and close arrows
-    var ARROW_OPTIONS = {
-      stroke: 'black',
-      lineWidth: 2,
-      lineCap: 'round',
+    // grippy dots on the handle
+    var grippyDotsShape = new Shape();
+    var grippyX = 0;
+    var grippyY = 0;
+    for ( var row = 0; row < GRIPPY_DOT_ROWS; row++ ) {
+      for ( var column = 0; column < GRIPPY_DOT_COLUMNS; column++ ) {
+        grippyX = column * GRIPPY_DOT_X_SPACING;
+        grippyY = row * GRIPPY_DOT_Y_SPACING;
+        grippyDotsShape.moveTo( grippyX, grippyY );
+        grippyDotsShape.arc(  grippyX, grippyY, GRIPPY_DOT_RADIUS, 0, 2 * Math.PI );
+      }
+    }
+    var grippyDotsNode = new Path( grippyDotsShape, {
+      fill: GRIPPY_DOT_COLOR,
       center: handleNode.center
-    };
-    var openArrowNode = new Path( ( options.handleLocation === 'top' ) ? upArrowShape : downArrowShape, ARROW_OPTIONS );
-    var closeArrowNode = new Path( ( options.handleLocation === 'top' ) ? downArrowShape : upArrowShape, ARROW_OPTIONS );
-    handleNode.addChild( openArrowNode );
-    handleNode.addChild( closeArrowNode );
-    openArrowNode.visible = !options.open;
-    closeArrowNode.visible = options.open;
+    } );
+    handleNode.addChild( grippyDotsNode );
 
     // layout, position the handle at center-top or center-bottom
     backgroundNode.x = 0;
@@ -155,10 +157,6 @@ define( function( require ) {
 
       // stop any animation that's in progress
       animation && animation.stop();
-
-      // adjust arrow on the handle
-      openArrowNode.visible = !open;
-      closeArrowNode.visible = open;
 
       if ( thisNode._animationEnabled ) {
 
