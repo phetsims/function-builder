@@ -51,18 +51,9 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      // Create the output canvas
-      var outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-      var context = outputCanvas.getContext( '2d' );
-
-      // Scale
-      var translationFactor = 0.5 * ( 1 - this.scale );
-      context.translate( translationFactor * outputCanvas.width, translationFactor * outputCanvas.height );
-      context.scale( this.scale, this.scale );
-
-      // Draw the input canvas to the output canvas
-      context.drawImage( inputCanvas, 0, 0 );
-
+      // scale by drawing into a smaller canvas
+      var outputCanvas = CanvasUtils.createCanvas( this.scale * inputCanvas.width, this.scale * inputCanvas.height );
+      outputCanvas.getContext( '2d' ).drawImage( inputCanvas, 0, 0, outputCanvas.width, outputCanvas.height );
       return outputCanvas;
     }
   } );
