@@ -15,7 +15,9 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -45,8 +47,28 @@ define( function( require ) {
       top: backgroundNode.top + 6
     } );
 
+    //TODO temporary grid
+    var gridShape = new Shape()
+                      .moveTo( backgroundNode.width / 2, 0 )
+                      .lineTo( backgroundNode.width / 2, backgroundNode.height );
+    var numberOfRows = Math.floor( backgroundNode.height / ( xNode.height + 8 ) );
+    var rowHeight = backgroundNode.height / numberOfRows;
+    for ( var row = 1; row < numberOfRows; row++ ) {
+      gridShape.moveTo( 0, row * rowHeight );
+      gridShape.lineTo( backgroundNode.width, row * rowHeight );
+    }
+    var gridNode = new Path( gridShape, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
+
+    // heading background
+    var headingBackgroundNode = new Rectangle( 0, 0, backgroundNode.width, rowHeight, {
+      fill: 'rgb( 144, 226, 252 )' // bright blue
+    } );
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, xNode, yNode ];
+    options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode ];
 
     Node.call( this, options );
   }
