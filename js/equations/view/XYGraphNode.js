@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO graph should use a ModelViewTransform2
 /**
  * XY graph for the 'Equations' screen.
  *
@@ -72,13 +73,13 @@ define( function( require ) {
 
     // x axis
     var xAxisNode = new ArrowNode( 0, 0, backgroundNode.width, 0, AXIS_OPTIONS );
-    xAxisNode.centerY = 0.75 * backgroundNode.height; //TODO compute
+    xAxisNode.centerY = ( X_AXIS_RANGE.max / X_AXIS_RANGE.getLength() ) * backgroundNode.height;
 
     // y axis
     var yAxisNode = new ArrowNode( 0, 0, 0, backgroundNode.height, AXIS_OPTIONS );
-    yAxisNode.centerX = 0.25 * backgroundNode.width; //TODO compute
+    yAxisNode.centerX = ( 1 - ( Y_AXIS_RANGE.max / Y_AXIS_RANGE.getLength() ) ) * backgroundNode.width;
 
-    //TODO temporary, a couple of points
+    //TODO temporary, demonstrate a few points
     var pointsParent = new Node();
     pointsParent.addChild( new Circle( POINT_RADIUS, {
       fill: POINT_FILL,
