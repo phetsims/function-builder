@@ -47,8 +47,6 @@ Eyeball switch feature
 
 ---
 
-Shrink function should also shrink the canvas size
-
 Rational numbers in model and view, https://github.com/peterolson/BigRational.js
 
 Better way to specify functions in NumbersScene and EquationsScene
