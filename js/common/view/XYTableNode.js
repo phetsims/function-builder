@@ -48,14 +48,14 @@ define( function( require ) {
     } );
 
     //TODO temporary grid
+    var NUMBER_OF_ROWS = Math.floor( backgroundNode.height / ( xNode.height + 8 ) );
+    var ROW_HEIGHT = backgroundNode.height / NUMBER_OF_ROWS;
     var gridShape = new Shape()
-                      .moveTo( backgroundNode.width / 2, 0 )
-                      .lineTo( backgroundNode.width / 2, backgroundNode.height );
-    var numberOfRows = Math.floor( backgroundNode.height / ( xNode.height + 8 ) );
-    var rowHeight = backgroundNode.height / numberOfRows;
-    for ( var row = 1; row < numberOfRows; row++ ) {
-      gridShape.moveTo( 0, row * rowHeight );
-      gridShape.lineTo( backgroundNode.width, row * rowHeight );
+      .moveTo( backgroundNode.width / 2, 0 )
+      .lineTo( backgroundNode.width / 2, backgroundNode.height );
+    for ( var row = 1; row < NUMBER_OF_ROWS; row++ ) {
+      gridShape.moveTo( 0, row * ROW_HEIGHT );
+      gridShape.lineTo( backgroundNode.width, row * ROW_HEIGHT );
     }
     var gridNode = new Path( gridShape, {
       stroke: 'black',
@@ -63,7 +63,7 @@ define( function( require ) {
     } );
 
     // heading background
-    var headingBackgroundNode = new Rectangle( 0, 0, backgroundNode.width, rowHeight, {
+    var headingBackgroundNode = new Rectangle( 0, 0, backgroundNode.width, ROW_HEIGHT, {
       fill: 'rgb( 144, 226, 252 )' // bright blue
     } );
 
