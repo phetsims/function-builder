@@ -24,7 +24,7 @@ define( function( require ) {
   // constants
   var HANDLE_SIZE = new Dimension2( 70, 20 );
   var HANDLE_CORNER_RADIUS = 5;
-  var HANDLE_FILL = 'rgb( 230, 230, 230 )'; //TODO move to FBColors, also use for carousel buttons?
+  var HANDLE_FILL = 'rgb( 230, 230, 230 )';
   var GRIPPY_DOT_RADIUS = 1;
   var GRIPPY_DOT_COLOR = 'black';
   var GRIPPY_DOT_ROWS = 2;
