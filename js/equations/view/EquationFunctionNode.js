@@ -38,6 +38,7 @@ define( function( require ) {
     var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
       color: functionInstance.viewOptions.pickerColor,
       font: FBConstants.FUNCTION_PICKER_FONT,
+      arrowLineWidth: 0.5,
       skipZero: !functionInstance.zeroOperandValid
     } );
 
