@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
   var EquationFunction = require( 'FUNCTION_BUILDER/equations/model/EquationFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
