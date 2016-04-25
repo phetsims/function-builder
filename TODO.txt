@@ -65,6 +65,10 @@ Equation
 
 Graph
 
+Table
+
+Eyeball switch
+
 ---
 
 Move 'See Inside' check box closer to builder, replace with icon on/off switch?
