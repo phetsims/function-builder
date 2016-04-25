@@ -47,14 +47,20 @@ define( function( require ) {
       {
         labelString: FBSymbols.PLUS,
         apply: function( input, operand ) { return input + operand; },
-        options: { fill: 'rgb( 246, 203, 144 )' }
+        options: {
+          fill: 'rgb( 246, 203, 144 )',
+          pickerColor: 'rgb( 227, 114, 42 )'
+        }
       },
 
       // minus
       {
         labelString: FBSymbols.MINUS,
         apply: function( input, operand ) { return input - operand; },
-        options: { fill: 'rgb( 152, 231, 156 )' }
+        options: {
+          fill: 'rgb( 152, 231, 156 )',
+          pickerColor: 'rgb( 25, 168, 52 )'
+        }
       },
 
       // times
@@ -63,6 +69,7 @@ define( function( require ) {
         apply: function( input, operand ) { return input * operand; },
         options: {
           fill: 'rgb( 237, 165, 222 )',
+          pickerColor: 'rgb( 223, 17, 213 )',
 
           // multiplication by zero is not invertible
           isInvertibleWithOperand: function( operand ) { return ( operand !== 0 ); }
@@ -75,6 +82,7 @@ define( function( require ) {
         apply: function( input, operand ) { return input / operand; },
         options: {
           fill: 'rgb( 183, 200, 249 )',
+          pickerColor: 'rgb( 14, 89, 218 )',
 
           // zero is not a valid operand, since division by zero is undefined
           zeroOperandValid: false

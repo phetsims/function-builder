@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var EquationFunction = require( 'FUNCTION_BUILDER/equations/model/EquationFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
@@ -35,10 +36,9 @@ define( function( require ) {
     } );
 
     var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
+      color: functionInstance.viewOptions.pickerColor,
       font: FBConstants.FUNCTION_PICKER_FONT,
-      skipZero: !functionInstance.zeroOperandValid,
-      //TODO customize picker options
-      color: '#F2E916'
+      skipZero: !functionInstance.zeroOperandValid
     } );
 
     // prevent clicking on the picker from starting a drag sequence for the function node

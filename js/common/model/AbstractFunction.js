@@ -32,7 +32,8 @@ define( function( require ) {
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
-      lineDash: null // {number[]|null}
+      lineDash: null, // {number[]|null}
+      pickerColor: null // {Color|string|null}
 
     }, options );
 
@@ -40,7 +41,7 @@ define( function( require ) {
     this._invertible = options.invertible;
 
     // @public (read-only) properties related to visual representation, in the model for convenience
-    this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
+    this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash', 'pickerColor' );
 
     Movable.call( this, options );
   }
