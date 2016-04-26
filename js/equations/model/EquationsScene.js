@@ -79,7 +79,10 @@ define( function( require ) {
       // divide
       {
         labelString: FBSymbols.DIVIDE,
-        apply: function( input, operand ) { return input.divide( operand ); },
+        apply: function( input, operand ) {
+          assert && assert( operand !== 0, 'attempt to divide by zero' );
+          return input.divide( operand );
+        },
         options: {
           fill: 'rgb( 183, 200, 249 )',
           pickerColor: 'rgb( 14, 89, 218 )',
