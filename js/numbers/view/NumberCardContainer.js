@@ -16,6 +16,7 @@ define( function( require ) {
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumberCardNode' );
   var NumberGhostCard = require( 'FUNCTION_BUILDER/numbers/view/NumberGhostCard' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {number} value - number that appears on the card
@@ -23,6 +24,8 @@ define( function( require ) {
    * @constructor
    */
   function NumberCardContainer( value, options ) {
+
+    assert && assert( Util.isInteger( value ) );
 
     options = _.extend( {
       showGhostCard: false // {boolean} whether to show a 'ghost' card when the container is empty

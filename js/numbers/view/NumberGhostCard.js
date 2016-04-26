@@ -14,6 +14,7 @@ define( function( require ) {
   var GhostCard = require( 'FUNCTION_BUILDER/common/view/GhostCard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {number} value
@@ -21,7 +22,8 @@ define( function( require ) {
    * @constructor
    */
   function NumberGhostCard( value, options ) {
-    GhostCard.call( this, new Text( value, { font: FBConstants.NUMBER_CARD_FONT } ), options );
+    assert && assert( Util.isInteger( value ) );
+    GhostCard.call( this, new Text( value, { font: FBConstants.NUMBER_CARD_QUOTIENT_FONT } ), options );
   }
 
   functionBuilder.register( 'NumberGhostCard', NumberGhostCard );

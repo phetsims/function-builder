@@ -54,7 +54,9 @@ define( function( require ) {
     CARD_IMAGE_SCALE: 0.4,
 
     // font for number cards
-    NUMBER_CARD_FONT: new FBFont( 30, { weight: 'bold' } ),
+    NUMBER_CARD_SIGN_FONT: new FBFont( 22, { weight: 'bold' } ),
+    NUMBER_CARD_QUOTIENT_FONT: new FBFont( 30, { weight: 'bold' } ),
+    NUMBER_CARD_FRACTION_FONT: new FBFont( 20, { weight: 'bold' } ),
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
