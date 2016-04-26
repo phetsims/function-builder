@@ -83,7 +83,7 @@ define( function( require ) {
     IMAGE_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
 
     // font for number functions
-    NUMBER_FUNCTION_FONT: new FBFont( 18, { weight: 'bold' } ),
+    NUMBER_FUNCTION_FONT: new FBFont( 18 ),
 
     // font for pickers
     FUNCTION_PICKER_FONT: new FBFont( 30 ),
