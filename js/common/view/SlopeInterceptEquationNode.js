@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO render sign of slope separately from rise and run
 //TODO omit run if it's 1
 /**
  * Equation in slope-intercept form.
