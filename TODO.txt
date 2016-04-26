@@ -47,8 +47,6 @@ Eyeball switch feature
 
 ---
 
-Rational numbers in model and view, https://github.com/peterolson/BigRational.js
-
 Better way to specify functions in NumbersScene and EquationsScene
 
 Revisit how to handle double functions in model and view
