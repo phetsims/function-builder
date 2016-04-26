@@ -38,6 +38,8 @@ it exits the builder and flies to the output panel the output value will appear 
 Graph:
 - When does a point appear on graph? When its corresponding card is put in the output carousel?
 - When is a point removed from the graph? When its corresponding card is removed from the output carousel?
+- With 2 instances of multiplication, values are outside the graph range
+- With 2 instances of division, 10 values between -4/9 and 2/3
 
 Eyeball switch feature
 - What is the goal? Is there another way to do the same thing?
