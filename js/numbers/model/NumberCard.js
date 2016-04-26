@@ -12,9 +12,13 @@ define( function( require ) {
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'DOT/Util' );
+
+  // constants
+  var createBigRational = bigRat; // global created by BigRational.js preload
 
   /**
-   * @param {number} value
+   * @param {BigRational} value
    * @param {Object} [options]
    * @constructor
    */
@@ -25,5 +29,19 @@ define( function( require ) {
 
   functionBuilder.register( 'NumberCard', NumberCard );
 
-  return inherit( Card, NumberCard );
+  return inherit( Card, NumberCard, {}, {
+
+    /**
+     * Convenience function for creating a NumberCard from an integer.
+     * @param {number} value
+     * @param {Object} [options]
+     * @returns {NumberCard}
+     * @static
+     * @public
+     */
+    withInteger: function( value, options ) {
+      assert && assert( Util.isInteger( value ), 'value is not an integer: ' + value  );
+      return new NumberCard( createBigRational( value ), options );
+    }
+  } );
 } );

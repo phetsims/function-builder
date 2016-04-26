@@ -15,7 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
 
   /**
    * @param {NumberCard} card
@@ -54,11 +53,11 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // {number} run the input value through the builder
+      // {BigRational} run the input value through the builder
       var value = builder.applyFunctions( this.card.value, numberOfFunctionsToApply );
 
       // display the output value
-      this.textNode.text = Util.toFixedNumber( value, 2 ); //TODO temporary, need to convert to fraction
+      this.textNode.text = value.toString(); //TODO temporary
       this.textNode.center = this.backgroundNode.center;
     }
   } );

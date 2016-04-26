@@ -71,8 +71,8 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {number} value
-     * @returns {number}
+     * @param {BigRational} value
+     * @returns {BigRational}
      * @public
      * @override
      */

@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {string} labelString - label shown on the function
-   * @param {function(number):number} apply - implementation of the apply function
+   * @param {function(BigRational):BigRational} apply - implementation of the apply function
    * @param {Object} [options]
    * @constructor
    */
@@ -34,13 +34,12 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {number} value
-     * @returns {number}
+     * @param {BigRational} value
+     * @returns {BigRational}
      * @public
      * @override
      */
     apply: function( value ) {
-      assert && assert( typeof value === 'number', 'unsupported value type: ' + ( typeof value ) );
       return this._apply( value );
     }
   } );

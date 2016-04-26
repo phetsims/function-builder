@@ -57,7 +57,7 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var card = new NumberCard( this. value );
+        var card = NumberCard.withInteger( this.value );
         scene.cards.push( card );
 
         // associated Node

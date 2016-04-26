@@ -45,56 +45,56 @@ define( function( require ) {
       // + 3
       {
         labelString: StringUtils.format( '{0} 3', FBSymbols.PLUS ),
-        apply: function( input ) { return input + 3; },
+        apply: function( input ) { return input.plus( 3 ); },
         options: { fill: 'rgb( 165, 209, 167 )' }
       },
 
       // + 1
       {
         labelString: StringUtils.format( '{0} 1', FBSymbols.PLUS ),
-        apply: function( input ) { return input + 1; },
+        apply: function( input ) { return input.plus( 1 ); },
         options: { fill: 'rgb( 235, 191, 109 )' }
       },
 
       // + ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.PLUS ),
-        apply: function( input ) { return input + 2; },
+        apply: function( input ) { return input.plus( 2 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // - 3
       {
         labelString: StringUtils.format( '{0} 3', FBSymbols.MINUS ),
-        apply: function( input ) { return input - 3; },
+        apply: function( input ) { return input.minus( 3 ); },
         options: { fill: 'rgb( 135, 196, 229 )' }
       },
 
       // - 2
       {
         labelString: StringUtils.format( '{0} 2', FBSymbols.MINUS ),
-        apply: function( input ) { return input - 2; },
+        apply: function( input ) { return input.minus( 2 ); },
         options: { fill: 'rgb( 198, 231, 220 )' }
       },
 
       // - ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.MINUS ),
-        apply: function( input ) { return input; },
+        apply: function( input ) { return input.times( 1 ); },
         options: { fill: 'rgb( 255, 246, 187 )' }
       },
 
       // x 2
       {
         labelString: StringUtils.format( '{0} 2', FBSymbols.TIMES ),
-        apply: function( input ) { return input * 2; },
+        apply: function( input ) { return input.times( 2 ); },
         options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
       // x 0
       {
         labelString: StringUtils.format( '{0} 0', FBSymbols.TIMES ),
-        apply: function( input ) { return 0; },
+        apply: function( input ) { return input.times( 0 ); },
         options: {
           fill: 'rgb( 255, 246, 187 )',
           invertible: false
@@ -104,49 +104,49 @@ define( function( require ) {
       // x ?
       {
         labelString: StringUtils.format( '{0} ?', FBSymbols.TIMES ),
-        apply: function( input ) { return input * 1; },
+        apply: function( input ) { return input.times( 1 ); },
         options: { fill: 'rgb( 209, 151, 169 )' }
       },
 
       // x 2 , + 1
       {
         labelString: StringUtils.format( '{0} 2  {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
-        apply: function( input ) { return ( input * 2 ) + 1; },
+        apply: function( input ) { return input.times( 2 ).plus( 1 ); },
         options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
       // + 1 , x 2
       {
         labelString: StringUtils.format( '{0} 1  {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
-        apply: function( input ) { return ( input + 1 ) * 2; },
+        apply: function( input ) { return input.plus( 1 ).times( 2 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // + ? , x ?
       {
         labelString: StringUtils.format( '{0} ?  {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
-        apply: function( input ) { return ( input + 3 ) * 2; },
+        apply: function( input ) { return input.plus( 3 ).times( 2 ); },
         options: { fill: 'rgb( 135, 196, 229 )' }
       },
 
       // ? ?
       {
         labelString: '? ?',
-        apply: function( input ) { return input * 2; },
+        apply: function( input ) { return input.times( 2 ); },
         options: { fill: 'rgb( 246, 181, 138 )' }
       },
 
       // ? ?
       {
         labelString: '? ?',
-        apply: function( input ) { return input + 7; },
+        apply: function( input ) { return input.plus( 7 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // ? ? , ? ?
       {
         labelString: '? ?  ? ?',
-        apply: function( input ) { return ( input * 2 ) - 3; },
+        apply: function( input ) { return input.times( 2 ).minus( 3 ); },
         options: { fill: 'rgb( 165, 209, 167 )' }
       }
     ];

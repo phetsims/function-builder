@@ -46,7 +46,7 @@ define( function( require ) {
       // plus
       {
         labelString: FBSymbols.PLUS,
-        apply: function( input, operand ) { return input + operand; },
+        apply: function( input, operand ) { return input.plus( operand ); },
         options: {
           fill: 'rgb( 246, 203, 144 )',
           pickerColor: 'rgb( 227, 114, 42 )'
@@ -56,7 +56,7 @@ define( function( require ) {
       // minus
       {
         labelString: FBSymbols.MINUS,
-        apply: function( input, operand ) { return input - operand; },
+        apply: function( input, operand ) { return input.minus( operand ); },
         options: {
           fill: 'rgb( 152, 231, 156 )',
           pickerColor: 'rgb( 25, 168, 52 )'
@@ -66,7 +66,7 @@ define( function( require ) {
       // times
       {
         labelString: FBSymbols.TIMES,
-        apply: function( input, operand ) { return input * operand; },
+        apply: function( input, operand ) { return input.times( operand ); },
         options: {
           fill: 'rgb( 237, 165, 222 )',
           pickerColor: 'rgb( 223, 17, 213 )',
@@ -79,7 +79,7 @@ define( function( require ) {
       // divide
       {
         labelString: FBSymbols.DIVIDE,
-        apply: function( input, operand ) { return input / operand; },
+        apply: function( input, operand ) { return input.divide( operand ); },
         options: {
           fill: 'rgb( 183, 200, 249 )',
           pickerColor: 'rgb( 14, 89, 218 )',
