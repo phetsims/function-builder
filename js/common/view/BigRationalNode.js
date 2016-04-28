@@ -139,10 +139,14 @@ define( function( require ) {
    * @constructor
    */
   function WholeNumberNode( wholeNumber, options ) {
+
     assert && assert( Util.isInteger( wholeNumber ) );
+
     options = options || {};
     options.text = wholeNumber;
+
     Text.call( this, wholeNumber, options );
+
     this.setValue( wholeNumber );
   }
   
