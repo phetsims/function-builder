@@ -4,13 +4,6 @@ TODO list for function-builder
 
 QUESTIONS
 
-Equations:
-- specify format of unsimplified and simplified equations (design doc is incomplete/inconsistent)
-- which form is shown in 'See Inside' window?
-- does output carousel always show simplified form?
-- where to put sign on slope? vertically centered on fraction line?
-- Is 'Simplified' the proper label for the check box? The specification seems to want expanded form in some cases.
-
 Double functions:
 - Are they really necessary? They appear explicitly only in Numbers screen (a scaffolding screen), and the same things can be accomplished with single functions
 - Small font on function icons in Numbers screen is due to double functions and overlap with 'See Inside’ windows
@@ -39,9 +32,14 @@ it exits the builder and flies to the output panel the output value will appear 
 
 DECISIONS
 
+Equations:
+- Cards always show simplified form
+- simplified form === slope-intercept
+- see rtf for "helpful" form (unsimplified)
+- Use script for x and y symbols (see Expression Exchange)
+
 Graph:
-- Graph will auto-scale to one of several pre-determined scales
-- When scale changes, fade graph in/out (if performance allows)
+- Graph will use max scale [-100,100] to start, so we can understand the issues
 - Point is added to graph when put in output carousel
 - Point is removed from graph when removed from output carousel
 
@@ -51,6 +49,16 @@ Eyeball switch feature
 - Change switch to check box with closed-eye icon on function card
 - Change 'See Inside' label to an icon showing 'window'
 - Keep both in lower-left of screen
+
+Double functions:
+- use a smaller font for double functions
+
+Equation mystery functions, add the following 5:
+? spinner (+)
+? (+2)
+? (-1)
+? ?
+? ?
 
 ---
 
