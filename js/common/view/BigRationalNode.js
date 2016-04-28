@@ -44,19 +44,19 @@ define( function( require ) {
     this.fractionXSpace = options.fractionXSpace;
     this.mixedNumber = options.mixedNumber;
 
-    // @private sign
+    // @private sign, correct sign set by setValue
     this.signNode = new Text( '', {
       fill: options.color,
       font: options.signFont
     } );
 
-    // @private whole number, correct value set by setValue below
+    // @private whole number, correct value set by setValue
     this.wholeNumberNode = new WholeNumberNode( 1, {
       fill: options.color,
       font: options.wholeNumberFont
     } );
 
-    // @private fraction, correct value set by setValue below
+    // @private fraction, correct value set by setValue
     this.fractionNode = new FractionNode( 1, 1, {
       color: options.color,
       font: options.fractionFont,
