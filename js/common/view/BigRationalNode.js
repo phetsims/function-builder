@@ -26,6 +26,8 @@ define( function( require ) {
    */
   function BigRationalNode( value, options ) {
 
+    assert && assert( value.constructor.name === 'BigRational' );
+
     options = _.extend( {
       color: 'black', // {Color|string} color used for all sub-parts of this node
       negativeSymbol: '\u2212', // {string} symbol used for negative sign
@@ -84,6 +86,8 @@ define( function( require ) {
      * @public
      */
     setValue: function( value ) {
+
+      assert && assert( value.constructor.name === 'BigRational' );
 
       // set the sign
       this.signNode.text = value.isNegative() ? this.negativeSymbol : this.positiveSymbol;
