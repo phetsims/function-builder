@@ -34,6 +34,7 @@ define( function( require ) {
 
     // @private
     this.bigRationalNode = new BigRationalNode( card.value, {
+      mixedNumber: false, // display as improper fraction
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 

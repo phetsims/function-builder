@@ -1,8 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Displays a BigRational (rational number) as a quotient and fractional remainder.
- * 
+ * Displays a rational number, as implemented by the 3rd-party BigRational library.
+ * The number can be displayed as either a mixed number or improper fraction.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -32,8 +33,11 @@ define( function( require ) {
       color: 'black',
       signFont: FBConstants.NUMBER_CARD_SIGN_FONT,
       quotientFont: FBConstants.NUMBER_CARD_QUOTIENT_FONT,
-      fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT
+      fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT,
+      mixedNumber: true // {boolean} true: display as mixed number, false: display as improper fraction
     }, options );
+
+    this.mixedNumber = options.mixedNumber; // @private
 
     // @private sign
     this.signNode = new Text( '', {
@@ -93,32 +97,12 @@ define( function( require ) {
         this.fractionLineNode.setLine( 0, 0, 1, 0 );
 
         // layout
-        this.quotientNode.left = isNegative ? this.signNode.right + SIGN_X_SPACING : 0;
+        this.quotientNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
         this.quotientNode.centerY = this.signNode.centerY;
         this.numeratorNode.left = this.denominatorNode.left = this.fractionLineNode.left = this.quotientNode.left;
         this.numeratorNode.centerY = this.denominatorNode.centerY = this.fractionLineNode.centerY = this.quotientNode.centerY;
       }
-      else if ( value.numerator.lt( value.denominator ) ) {  // fraction only
-
-        // visibility
-        this.quotientNode.visible = false;
-        this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = true;
-
-        // values
-        this.quotientNode.text = '';
-        this.numeratorNode.text = value.numerator;
-        this.denominatorNode.text = value.denominator;
-        this.fractionLineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
-
-        // layout
-        this.fractionLineNode.left = isNegative ? this.signNode.right + SIGN_X_SPACING : 0;
-        this.fractionLineNode.centerY = this.signNode.centerY;
-        this.quotientNode.centerX = this.numeratorNode.centerX = this.denominatorNode.centerX = this.fractionLineNode.centerX;
-        this.quotientNode.centerY = this.fractionLineNode.centerY;
-        this.numeratorNode.bottom = this.fractionLineNode.top - FRACTION_Y_SPACING;
-        this.denominatorNode.top = this.fractionLineNode.bottom + FRACTION_Y_SPACING;
-      }
-      else { // quotient and fractional remainder
+      else if ( this.mixedNumber && value.numerator.gt( value.denominator ) ) { // mixed number (quotient and proper fraction)
 
         // visibility
         this.quotientNode.visible = this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = true;
@@ -133,13 +117,33 @@ define( function( require ) {
         this.fractionLineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
 
         // layout
-        this.quotientNode.left = isNegative ? this.signNode.right + SIGN_X_SPACING : 0;
+        this.quotientNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
         this.quotientNode.centerY = this.signNode.centerY;
         this.fractionLineNode.left = this.quotientNode.right + FRACTION_X_SPACING;
         this.fractionLineNode.centerY = this.quotientNode.centerY;
         this.numeratorNode.centerX = this.fractionLineNode.centerX;
         this.numeratorNode.bottom = this.fractionLineNode.top - FRACTION_Y_SPACING;
         this.denominatorNode.centerX = this.fractionLineNode.centerX;
+        this.denominatorNode.top = this.fractionLineNode.bottom + FRACTION_Y_SPACING;
+      }
+      else { // fraction, possibly improper
+
+        // visibility
+        this.quotientNode.visible = false;
+        this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = true;
+
+        // values
+        this.quotientNode.text = '';
+        this.numeratorNode.text = value.numerator;
+        this.denominatorNode.text = value.denominator;
+        this.fractionLineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
+
+        // layout
+        this.fractionLineNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
+        this.fractionLineNode.centerY = this.signNode.centerY;
+        this.quotientNode.centerX = this.numeratorNode.centerX = this.denominatorNode.centerX = this.fractionLineNode.centerX;
+        this.quotientNode.centerY = this.fractionLineNode.centerY;
+        this.numeratorNode.bottom = this.fractionLineNode.top - FRACTION_Y_SPACING;
         this.denominatorNode.top = this.fractionLineNode.bottom + FRACTION_Y_SPACING;
       }
     }
