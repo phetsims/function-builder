@@ -140,16 +140,16 @@ define( function( require ) {
   } );
 
   /**
-   * @param {number} value
+   * @param {number} wholeNumber
    * @param {Object} options
    * @constructor
    */
-  function WholeNumberNode( value, options ) {
-    assert && assert( Util.isInteger( value ) );
+  function WholeNumberNode( wholeNumber, options ) {
+    assert && assert( Util.isInteger( wholeNumber ) );
     options = options || {};
-    options.text = value;
-    Text.call( this, value, options );
-    this.setValue( value );
+    options.text = wholeNumber;
+    Text.call( this, wholeNumber, options );
+    this.setValue( wholeNumber );
   }
   
   functionBuilder.register( 'BigRationalNode.WholeNumberNode', WholeNumberNode );
@@ -157,12 +157,12 @@ define( function( require ) {
   inherit( Text, WholeNumberNode, {
 
     /**
-     * @param {number} value
+     * @param {number} wholeNumber
      * @public
      */
-    setValue: function( value ) {
-      assert && assert( Util.isInteger( value ) );
-      this.text = value;
+    setValue: function( wholeNumber ) {
+      assert && assert( Util.isInteger( wholeNumber ) );
+      this.text = wholeNumber;
     }
   } );
 
