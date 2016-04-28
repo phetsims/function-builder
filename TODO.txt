@@ -2,7 +2,7 @@ TODO list for function-builder
 
 ---
 
-DESIGN
+QUESTIONS
 
 Equations:
 - specify format of unsimplified and simplified equations (design doc is incomplete/inconsistent)
