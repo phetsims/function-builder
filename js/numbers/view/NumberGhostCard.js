@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function NumberGhostCard( value, options ) {
     assert && assert( Util.isInteger( value ) );
-    GhostCard.call( this, new Text( value, { font: FBConstants.NUMBER_CARD_QUOTIENT_FONT } ), options );
+    GhostCard.call( this, new Text( value, { font: FBConstants.NUMBER_CARD_WHOLE_NUMBER_FONT } ), options );
   }
 
   functionBuilder.register( 'NumberGhostCard', NumberGhostCard );
