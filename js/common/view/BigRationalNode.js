@@ -79,7 +79,6 @@ define( function( require ) {
   inherit( Node, BigRationalNode, {
 
     /**
-     * Sets the value displayed by this node.
      * @param {BigRational} value - see BigRational.js
      * @public
      */
