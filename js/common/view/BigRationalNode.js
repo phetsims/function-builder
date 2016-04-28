@@ -12,15 +12,13 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
-
-  // constants
-  var SIGN_X_SPACING = 3;
-  var FRACTION_X_SPACING = 3;
-  var FRACTION_Y_SPACING = 2;
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {BigRational} value - see BigRational.js (3rd-party library)
@@ -30,122 +28,211 @@ define( function( require ) {
   function BigRationalNode( value, options ) {
 
     options = _.extend( {
-      color: 'black',
+      color: 'black', // {Color|string} color used for all sub-parts of this node
       signFont: FBConstants.NUMBER_CARD_SIGN_FONT,
-      quotientFont: FBConstants.NUMBER_CARD_QUOTIENT_FONT,
+      wholeNumberFont: FBConstants.NUMBER_CARD_WHOLE_NUMBER_FONT,
       fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT,
+      fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
+      signXSpace: 3, // {number} space to right of sign
+      fractionXSpace: 3, // {number} horizontal space around fraction
+      fractionYSpace: 2, // {number} vertical space in fraction
       mixedNumber: true // {boolean} true: display as mixed number, false: display as improper fraction
     }, options );
 
-    this.mixedNumber = options.mixedNumber; // @private
+    // @private options required in setValue
+    this.signXSpace = options.signXSpace;
+    this.fractionXSpace = options.fractionXSpace;
+    this.mixedNumber = options.mixedNumber;
 
     // @private sign
     this.signNode = new Text( '', {
-      font: options.signFont,
-      fill: options.color
+      fill: options.color,
+      font: options.signFont
     } );
 
-    // @private integer quotient
-    this.quotientNode = new Text( '', {
-      font: options.quotientFont,
-      fill: options.color
+    // @private whole number, correct value set by setValue below
+    this.wholeNumberNode = new WholeNumberNode( 1, {
+      fill: options.color,
+      font: options.wholeNumberFont
     } );
 
-    // fraction
-    var fractionOptions = {
+    // @private fraction, correct value set by setValue below
+    this.fractionNode = new FractionNode( 1, 1, {
+      color: options.color,
       font: options.fractionFont,
-      fill: options.color
-    };
-    this.numeratorNode = new Text( '', fractionOptions ); // @private
-    this.denominatorNode = new Text( '', fractionOptions ); // @private
-    this.fractionLineNode = new Line( 0, 0, 1, 0, { stroke: options.color, lineWidth: 1 } ); // @private
+      lineWidth: options.fractionLineWidth,
+      ySpace: options.fractionYSpace
+    } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.signNode, this.quotientNode, this.numeratorNode, this.fractionLineNode, this.denominatorNode ];
+    options.children = [ this.signNode, this.wholeNumberNode, this.fractionNode ];
 
     Node.call( this, options );
 
     this.setValue( value );
   }
+  
+  functionBuilder.register( 'BigRationalNode', BigRationalNode );
 
-  return inherit( Node, BigRationalNode, {
+  inherit( Node, BigRationalNode, {
 
     /**
      * Sets the value displayed by this node.
-     * @param {BigRational} value
+     * @param {BigRational} value - see BigRational.js
      * @public
      */
     setValue: function( value ) {
 
-      // set the sign
+      // determine the sign
       var isNegative = value.isNegative();
       this.signNode.text = isNegative ? FBSymbols.MINUS : '';
 
-      // display absolute value of numbers, since we have a separate node for sign
+      // display absolute value, since we have a separate node for sign
       value = value.abs();
 
-      // display the value
-      if ( value.denominator.equals( 1 ) ) { // quotient only
+      if ( value.denominator.equals( 1 ) ) { // integer
 
         // visibility
-        this.quotientNode.visible = true;
-        this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = false;
+        this.wholeNumberNode.visible = true;
+        this.fractionNode.visible = false;
 
-        // values
-        this.quotientNode.text = value.numerator;
-        this.numeratorNode.text = this.denominatorNode.text = '';
-        this.fractionLineNode.setLine( 0, 0, 1, 0 );
+        // value
+        this.wholeNumberNode.setValue( value.numerator.valueOf() );
 
         // layout
-        this.quotientNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
-        this.quotientNode.centerY = this.signNode.centerY;
-        this.numeratorNode.left = this.denominatorNode.left = this.fractionLineNode.left = this.quotientNode.left;
-        this.numeratorNode.centerY = this.denominatorNode.centerY = this.fractionLineNode.centerY = this.quotientNode.centerY;
+        this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.wholeNumberNode.centerY = this.signNode.centerY;
+        this.fractionNode.center = this.wholeNumberNode.center;
       }
-      else if ( this.mixedNumber && value.numerator.gt( value.denominator ) ) { // mixed number (quotient and proper fraction)
+      else if ( this.mixedNumber && value.numerator.gt( value.denominator ) ) { // mixed number
 
         // visibility
-        this.quotientNode.visible = this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = true;
+        this.wholeNumberNode.visible = true;
+        this.fractionNode.visible = true;
 
         // values
-        var quotient = value.floor();
-        var fraction = value.minus( quotient );
-
-        this.quotientNode.text = quotient;
-        this.numeratorNode.text = fraction.numerator;
-        this.denominatorNode.text = fraction.denominator;
-        this.fractionLineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
+        var wholeNumber = value.floor();
+        var fraction = value.minus( wholeNumber );
+        this.wholeNumberNode.setValue( wholeNumber.valueOf() );
+        this.fractionNode.setValue( fraction.numerator.valueOf(), fraction.denominator.valueOf() );
 
         // layout
-        this.quotientNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
-        this.quotientNode.centerY = this.signNode.centerY;
-        this.fractionLineNode.left = this.quotientNode.right + FRACTION_X_SPACING;
-        this.fractionLineNode.centerY = this.quotientNode.centerY;
-        this.numeratorNode.centerX = this.fractionLineNode.centerX;
-        this.numeratorNode.bottom = this.fractionLineNode.top - FRACTION_Y_SPACING;
-        this.denominatorNode.centerX = this.fractionLineNode.centerX;
-        this.denominatorNode.top = this.fractionLineNode.bottom + FRACTION_Y_SPACING;
+        this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.wholeNumberNode.centerY = this.signNode.centerY;
+        this.fractionNode.left = this.wholeNumberNode.right + this.fractionXSpace;
+        this.fractionNode.centerY = this.wholeNumberNode.centerY;
       }
       else { // fraction, possibly improper
 
         // visibility
-        this.quotientNode.visible = false;
-        this.numeratorNode.visible = this.denominatorNode.visible = this.fractionLineNode.visible = true;
+        this.wholeNumberNode.visible = false;
+        this.fractionNode.visible = true;
 
-        // values
-        this.quotientNode.text = '';
-        this.numeratorNode.text = value.numerator;
-        this.denominatorNode.text = value.denominator;
-        this.fractionLineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
+        // value
+        this.fractionNode.setValue( value.numerator.valueOf(), value.denominator.valueOf() );
 
         // layout
-        this.fractionLineNode.left = isNegative ? ( this.signNode.right + SIGN_X_SPACING ) : 0;
-        this.fractionLineNode.centerY = this.signNode.centerY;
-        this.quotientNode.centerX = this.numeratorNode.centerX = this.denominatorNode.centerX = this.fractionLineNode.centerX;
-        this.quotientNode.centerY = this.fractionLineNode.centerY;
-        this.numeratorNode.bottom = this.fractionLineNode.top - FRACTION_Y_SPACING;
-        this.denominatorNode.top = this.fractionLineNode.bottom + FRACTION_Y_SPACING;
+        this.fractionNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.fractionNode.centerY = this.signNode.centerY;
+        this.wholeNumberNode.center = this.fractionNode.center;
       }
     }
   } );
+
+  /**
+   * @param {number} value
+   * @param {Object} options
+   * @constructor
+   */
+  function WholeNumberNode( value, options ) {
+    assert && assert( Util.isInteger( value ) );
+    options = options || {};
+    options.text = value;
+    Text.call( this, value, options );
+    this.setValue( value );
+  }
+  
+  functionBuilder.register( 'BigRationalNode.WholeNumberNode', WholeNumberNode );
+
+  inherit( Text, WholeNumberNode, {
+
+    /**
+     * @param {number} value
+     * @public
+     */
+    setValue: function( value ) {
+      assert && assert( Util.isInteger( value ) );
+      this.text = value;
+    }
+  } );
+
+  /**
+   * @param {number} numerator
+   * @param {number} denominator
+   * @param {Object} [options]
+   * @constructor
+   */
+  function FractionNode( numerator, denominator, options ) {
+
+    assert && assert( Util.isInteger( numerator ) );
+    assert && assert( Util.isInteger( denominator ) );
+
+    options = _.extend( {
+      color: 'black',
+      font: new PhetFont( 20 ),
+      lineWidth: 1,
+      ySpace: 1
+    }, options );
+    
+    this.ySpace = options.ySpace; // @private
+
+    // numerator and denominator
+    var FRACTION_OPTIONS = {
+      fill: options.color,
+      font: options.font
+    };
+    this.numeratorNode = new Text( numerator, FRACTION_OPTIONS ); // @private
+    this.denominatorNode = new Text( denominator, FRACTION_OPTIONS ); // @private
+
+    // @private line separating numerator and denominator
+    this.lineNode = new Line( 0, 0, 1, 0, {
+      stroke: options.color,
+      lineWidth: options.lineWidth
+    } );
+
+    options.children = [ this.numeratorNode, this.denominatorNode, this.lineNode ];
+
+    Node.call( this, options );
+    
+    this.setValue( numerator, denominator );
+  }
+  
+  functionBuilder.register( 'BigRationalNode.FractionNode', FractionNode );
+
+  inherit( Node, FractionNode, {
+
+    /**
+     * @param {number} numerator
+     * @param {number} denominator
+     * @public
+     */
+    setValue: function( numerator, denominator ) {
+
+      assert && assert( Util.isInteger( numerator ) );
+      assert && assert( Util.isInteger( denominator ) );
+
+      // node properties
+      this.numeratorNode.text = numerator;
+      this.denominatorNode.text = denominator;
+      this.lineNode.setLine( 0, 0, Math.max( this.numeratorNode.width, this.denominatorNode.width ), 0 );
+
+      // layout
+      this.numeratorNode.centerX = this.lineNode.centerX;
+      this.numeratorNode.bottom = this.lineNode.top - this.ySpace;
+      this.denominatorNode.centerX = this.lineNode.centerX;
+      this.denominatorNode.top = this.lineNode.bottom + this.ySpace;
+    }
+  } );
+
+  return BigRationalNode;
 } );

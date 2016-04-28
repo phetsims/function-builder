@@ -55,7 +55,7 @@ define( function( require ) {
 
     // font for number cards
     NUMBER_CARD_SIGN_FONT: new FBFont( 22 ),
-    NUMBER_CARD_QUOTIENT_FONT: new FBFont( 30 ),
+    NUMBER_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
     NUMBER_CARD_FRACTION_FONT: new FBFont( 20 ),
 
     //--------------------------------------------------------------------------------------------------------
