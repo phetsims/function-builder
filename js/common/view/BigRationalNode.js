@@ -34,7 +34,7 @@ define( function( require ) {
       fractionFont: new PhetFont( 20 ),
       fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
       signXSpace: 3, // {number} space to right of sign
-      fractionXSpace: 3, // {number} horizontal space around fraction
+      fractionXSpace: 3, // {number} horizontal space between whole number and fraction
       fractionYSpace: 2, // {number} vertical space in fraction
       mixedNumber: true // {boolean} true: display as mixed number, false: display as improper fraction
     }, options );
