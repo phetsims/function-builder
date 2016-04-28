@@ -40,7 +40,7 @@ it exits the builder and flies to the output panel the output value will appear 
 DECISIONS
 
 Graph:
-- Graph autoscale to one of several appropriate pre-determined scales
+- Graph will auto-scale to one of several pre-determined scales
 - When scale changes, fade graph in/out (if performance allows)
 - Point appears on graph when put in output carousel
 - Point removed from graph when removed from output carousel
