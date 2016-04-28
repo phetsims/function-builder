@@ -22,7 +22,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var POINT_RADIUS = 4;
+  var POINT_RADIUS = 3;
   var POINT_FILL = 'black';
   var X_AXIS_RANGE = new Range( -5, 15 );
   var Y_AXIS_RANGE = new Range( -5, 15 );
