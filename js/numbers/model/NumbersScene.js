@@ -131,21 +131,21 @@ define( function( require ) {
 
       // ? ?
       {
-        labelString: '? ?',
+        labelString: '?',
         apply: function( input ) { return input.times( 2 ); },
         options: { fill: 'rgb( 246, 181, 138 )' }
       },
 
       // ? ?
       {
-        labelString: '? ?',
+        labelString: '?',
         apply: function( input ) { return input.plus( 7 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
       // ? ? , ? ?
       {
-        labelString: '? ?  ? ?',
+        labelString: '?   ?',
         apply: function( input ) { return input.times( 2 ).minus( 3 ); },
         options: { fill: 'rgb( 165, 209, 167 )' }
       }
