@@ -39,7 +39,7 @@ define( function( require ) {
       mixedNumber: true // {boolean} true: display as mixed number, false: display as improper fraction
     }, options );
 
-    // @private options required in setValue
+    // @private options required by setValue
     this.negativeSymbol = options.negativeSymbol;
     this.positiveSymbol = options.positiveSymbol;
     this.signXSpace = options.signXSpace;
