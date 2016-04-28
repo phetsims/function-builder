@@ -50,17 +50,17 @@ Eyeball switch feature
 - Change 'See Inside' label to an icon showing 'window'
 - Keep both in lower-left of screen
 
-Double functions:
-- use a smaller font for double functions
-
-Equation mystery functions, add the following 5:
-? spinner (+)
-? (+2)
-? (-1)
-? ?
-? ?
-
 ---
+
+Remove mystery functions in Numbers and Equations screen
+
+Remove double functions in Numbers screen
+
+Numbers: 3 functions per page, plus, minus, times, divide
+
+Equations: 2 functions per page
+
+Mystery: mock up - 1 single, 1 double, 1 triple, generators for single/double/triple
 
 Better way to specify functions in NumbersScene and EquationsScene
 
