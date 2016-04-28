@@ -92,48 +92,42 @@ define( function( require ) {
 
       if ( value.denominator.equals( 1 ) ) { // integer
 
-        // visibility
+        // whole number
         this.wholeNumberNode.visible = true;
-        this.fractionNode.visible = false;
-
-        // value
         this.wholeNumberNode.setValue( value.numerator.valueOf() );
-
-        // layout
         this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
+
+        // fraction
+        this.fractionNode.visible = false;
         this.fractionNode.center = this.wholeNumberNode.center;
       }
       else if ( this.mixedNumber && value.numerator.gt( value.denominator ) ) { // mixed number
 
-        // visibility
+        // whole number
         this.wholeNumberNode.visible = true;
-        this.fractionNode.visible = true;
-
-        // values
         var wholeNumber = value.floor();
-        var fraction = value.minus( wholeNumber );
         this.wholeNumberNode.setValue( wholeNumber.valueOf() );
-        this.fractionNode.setValue( fraction.numerator.valueOf(), fraction.denominator.valueOf() );
-
-        // layout
         this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
+
+        // fraction
+        this.fractionNode.visible = true;
+        var fraction = value.minus( wholeNumber );
+        this.fractionNode.setValue( fraction.numerator.valueOf(), fraction.denominator.valueOf() );
         this.fractionNode.left = this.wholeNumberNode.right + this.fractionXSpace;
         this.fractionNode.centerY = this.wholeNumberNode.centerY;
       }
       else { // fraction, possibly improper
 
-        // visibility
-        this.wholeNumberNode.visible = false;
+        // fraction
         this.fractionNode.visible = true;
-
-        // value
         this.fractionNode.setValue( value.numerator.valueOf(), value.denominator.valueOf() );
-
-        // layout
         this.fractionNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
         this.fractionNode.centerY = this.signNode.centerY;
+
+        // whole number
+        this.wholeNumberNode.visible = false;
         this.wholeNumberNode.center = this.fractionNode.center;
       }
     }
