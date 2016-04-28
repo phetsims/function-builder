@@ -23,7 +23,7 @@ define( function( require ) {
   var FRACTION_Y_SPACING = 2;
 
   /**
-   * @param {BigRational} value - see BigRational.js
+   * @param {BigRational} value - see BigRational.js (3rd-party library)
    * @param {Object} [options]
    * @constructor
    */
