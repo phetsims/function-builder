@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Displays a rational number, as implemented by the 3rd-party BigRational library.
+ * Displays a rational number, as implemented by the BigRational 3rd-party library.
  * The number can be displayed as either a mixed number or improper fraction.
  *
  * @author Chris Malley (PixelZoom, Inc.)
