@@ -10,8 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -29,9 +27,11 @@ define( function( require ) {
 
     options = _.extend( {
       color: 'black', // {Color|string} color used for all sub-parts of this node
-      signFont: FBConstants.NUMBER_CARD_SIGN_FONT,
-      wholeNumberFont: FBConstants.NUMBER_CARD_WHOLE_NUMBER_FONT,
-      fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT,
+      negativeSymbol: '\u2212', // {string} symbol used for negative sign
+      positiveSymbol: '', // {string} symbol used for positive sign
+      signFont: new PhetFont( 22 ),
+      wholeNumberFont: new PhetFont( 30 ),
+      fractionFont: new PhetFont( 20 ),
       fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
       signXSpace: 3, // {number} space to right of sign
       fractionXSpace: 3, // {number} horizontal space around fraction
@@ -40,6 +40,8 @@ define( function( require ) {
     }, options );
 
     // @private options required in setValue
+    this.negativeSymbol = options.negativeSymbol;
+    this.positiveSymbol = options.positiveSymbol;
     this.signXSpace = options.signXSpace;
     this.fractionXSpace = options.fractionXSpace;
     this.mixedNumber = options.mixedNumber;
@@ -83,9 +85,8 @@ define( function( require ) {
      */
     setValue: function( value ) {
 
-      // determine the sign
-      var isNegative = value.isNegative();
-      this.signNode.text = isNegative ? FBSymbols.MINUS : '';
+      // set the sign
+      this.signNode.text = value.isNegative() ? this.negativeSymbol : this.positiveSymbol;
 
       // display absolute value, since we have a separate node for sign
       value = value.abs();
@@ -95,7 +96,7 @@ define( function( require ) {
         // whole number
         this.wholeNumberNode.visible = true;
         this.wholeNumberNode.setValue( value.valueOf() );
-        this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
         // fraction
@@ -108,7 +109,7 @@ define( function( require ) {
         this.wholeNumberNode.visible = true;
         var wholeNumber = value.floor();
         this.wholeNumberNode.setValue( wholeNumber.valueOf() );
-        this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
         // fraction
@@ -123,7 +124,7 @@ define( function( require ) {
         // fraction
         this.fractionNode.visible = true;
         this.fractionNode.setValue( value.numerator.valueOf(), value.denominator.valueOf() );
-        this.fractionNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
+        this.fractionNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.fractionNode.centerY = this.signNode.centerY;
 
         // whole number

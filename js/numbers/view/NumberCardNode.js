@@ -12,6 +12,7 @@ define( function( require ) {
   var BigRationalNode = require( 'FUNCTION_BUILDER/common/view/BigRationalNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
@@ -35,6 +36,10 @@ define( function( require ) {
     // @private
     this.bigRationalNode = new BigRationalNode( card.value, {
       mixedNumber: false, // display as improper fraction
+      negativeSymbol: FBSymbols.MINUS,
+      signFont: FBConstants.NUMBER_CARD_SIGN_FONT,
+      wholeNumberFont: FBConstants.NUMBER_CARD_WHOLE_NUMBER_FONT,
+      fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT,
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 
