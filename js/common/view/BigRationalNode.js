@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO migrate BigRationalNode to scenery-phet
 /**
  * Displays a rational number, as implemented by the BigRational 3rd-party library.
  * The number can be displayed as either a mixed number or improper fraction.
