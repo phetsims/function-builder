@@ -94,7 +94,7 @@ define( function( require ) {
 
         // whole number
         this.wholeNumberNode.visible = true;
-        this.wholeNumberNode.setValue( value.numerator.valueOf() );
+        this.wholeNumberNode.setValue( value.valueOf() );
         this.wholeNumberNode.left = isNegative ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
@@ -102,7 +102,7 @@ define( function( require ) {
         this.fractionNode.visible = false;
         this.fractionNode.center = this.wholeNumberNode.center;
       }
-      else if ( this.mixedNumber && value.numerator.gt( value.denominator ) ) { // mixed number
+      else if ( this.mixedNumber && value.gt( 1 ) ) { // mixed number
 
         // whole number
         this.wholeNumberNode.visible = true;
