@@ -42,31 +42,31 @@ define( function( require ) {
      */
     this.functionData = [
 
-      // + 3
-      {
-        labelString: StringUtils.format( '{0} 3', FBSymbols.PLUS ),
-        apply: function( input ) { return input.plus( 3 ); },
-        options: { fill: 'rgb( 165, 209, 167 )' }
-      },
-
       // + 1
       {
         labelString: StringUtils.format( '{0} 1', FBSymbols.PLUS ),
         apply: function( input ) { return input.plus( 1 ); },
+        options: { fill: 'rgb( 165, 209, 167 )' }
+      },
+
+      // + 2
+      {
+        labelString: StringUtils.format( '{0} 2', FBSymbols.PLUS ),
+        apply: function( input ) { return input.plus( 2 ); },
         options: { fill: 'rgb( 235, 191, 109 )' }
       },
 
-      // + ?
+      // + 3
       {
-        labelString: StringUtils.format( '{0} ?', FBSymbols.PLUS ),
-        apply: function( input ) { return input.plus( 2 ); },
+        labelString: StringUtils.format( '{0} 3', FBSymbols.PLUS ),
+        apply: function( input ) { return input.plus( 3 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
-      // - 3
+      // - 1
       {
-        labelString: StringUtils.format( '{0} 3', FBSymbols.MINUS ),
-        apply: function( input ) { return input.minus( 3 ); },
+        labelString: StringUtils.format( '{0} 1', FBSymbols.MINUS ),
+        apply: function( input ) { return input.minus( 1 ); },
         options: { fill: 'rgb( 135, 196, 229 )' }
       },
 
@@ -77,77 +77,56 @@ define( function( require ) {
         options: { fill: 'rgb( 198, 231, 220 )' }
       },
 
-      // - ?
+      // - 3
       {
-        labelString: StringUtils.format( '{0} ?', FBSymbols.MINUS ),
-        apply: function( input ) { return input.times( 1 ); },
+        labelString: StringUtils.format( '{0} 3', FBSymbols.MINUS ),
+        apply: function( input ) { return input.minus( 3 ); },
         options: { fill: 'rgb( 255, 246, 187 )' }
       },
 
-      // x 2
-      {
-        labelString: StringUtils.format( '{0} 2', FBSymbols.TIMES ),
-        apply: function( input ) { return input.times( 2 ); },
-        options: { fill: 'rgb( 208, 201, 225 )' }
-      },
-
-      // x 0
+      // * 0
       {
         labelString: StringUtils.format( '{0} 0', FBSymbols.TIMES ),
         apply: function( input ) { return input.times( 0 ); },
         options: {
-          fill: 'rgb( 255, 246, 187 )',
+          fill: 'rgb( 208, 201, 225 )',
           invertible: false
         }
       },
 
-      // x ?
+      // * 1
       {
-        labelString: StringUtils.format( '{0} ?', FBSymbols.TIMES ),
+        labelString: StringUtils.format( '{0} 1', FBSymbols.TIMES ),
         apply: function( input ) { return input.times( 1 ); },
+        options: { fill: 'rgb( 255, 246, 187 )' }
+      },
+
+      // * 2
+      {
+        labelString: StringUtils.format( '{0} 2', FBSymbols.TIMES ),
+        apply: function( input ) { return input.times( 2 ); },
         options: { fill: 'rgb( 209, 151, 169 )' }
       },
 
-      // x 2 , + 1
+      // / 1
       {
-        labelString: StringUtils.format( '{0} 2  {1} 1', FBSymbols.TIMES, FBSymbols.PLUS ),
-        apply: function( input ) { return input.times( 2 ).plus( 1 ); },
+        labelString: StringUtils.format( '{0} 1', FBSymbols.DIVIDE ),
+        apply: function( input ) { return input.divide( 1 ); },
         options: { fill: 'rgb( 208, 201, 225 )' }
       },
 
-      // + 1 , x 2
+      // / 2
       {
-        labelString: StringUtils.format( '{0} 1  {1} 2', FBSymbols.PLUS, FBSymbols.TIMES ),
-        apply: function( input ) { return input.plus( 1 ).times( 2 ); },
+        labelString: StringUtils.format( '{0} 2', FBSymbols.DIVIDE ),
+        apply: function( input ) { return input.divide( 2 ); },
         options: { fill: 'rgb( 232, 169, 236 )' }
       },
 
-      // + ? , x ?
+      // / 3
       {
-        labelString: StringUtils.format( '{0} ?  {1} ?', FBSymbols.PLUS, FBSymbols.TIMES ),
-        apply: function( input ) { return input.plus( 3 ).times( 2 ); },
+        labelString: StringUtils.format( '{0} 3', FBSymbols.DIVIDE ),
+        apply: function( input ) { return input.divide( 3 ); },
         options: { fill: 'rgb( 135, 196, 229 )' }
-      },
-
-      // ? ?
-      {
-        labelString: '?',
-        apply: function( input ) { return input.times( 2 ); },
-        options: { fill: 'rgb( 246, 181, 138 )' }
-      },
-
-      // ? ?
-      {
-        labelString: '?',
-        apply: function( input ) { return input.plus( 7 ); },
-        options: { fill: 'rgb( 232, 169, 236 )' }
-      },
-
-      // ? ? , ? ?
-      {
-        labelString: '?   ?',
-        apply: function( input ) { return input.times( 2 ).minus( 3 ); },
-        options: { fill: 'rgb( 165, 209, 167 )' }
       }
     ];
 
