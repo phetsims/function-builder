@@ -12,6 +12,7 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -119,6 +120,16 @@ define( function( require ) {
       return new Node( {
         children: [ leftNode, rightNode ],
         scale: 0.25
+      } );
+    },
+
+    /**
+     * Creates the icon for the control that hides icons on the functions in the builder.
+     * @returns {Node}
+     */
+    createHideFunctionsIcon: function() {
+      return new FontAwesomeNode( 'eye_close', {
+        scale: 0.65
       } );
     }
   };

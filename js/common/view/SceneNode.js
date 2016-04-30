@@ -15,9 +15,9 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionIconsSwitch = require( 'FUNCTION_BUILDER/equations/view/FunctionIconsSwitch' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
@@ -57,7 +57,7 @@ define( function( require ) {
     // @protected view-specific properties
     this.viewProperties = new PropertySet( {
       seeInside: false, // {boolean} show/hide windows that allow you to 'see inside' the builder
-      functionIconsVisible: true // {boolean} show/hide icons on the functions in the the builder
+      hideFunctionIcons: false // {boolean} should icons on the functions in the builder be hidden?
     } );
 
     // cards are in this layer while they are draggable
@@ -206,7 +206,7 @@ define( function( require ) {
     var seeInsideCheckBox = new CheckBox(
       new Text( seeInsideString, {
         font: FBConstants.CHECK_BOX_FONT,
-        maxWidth: 135 // i18n, determined empirically
+        maxWidth: 135 // i18n, determined empirically  //TODO delete this when we switch to using an icon
       } ),
       this.viewProperties.seeInsideProperty, {
         left: inputCarousel.left,
@@ -222,12 +222,14 @@ define( function( require ) {
     seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
 
     // show/hide function icons
-    var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
-      scale: 0.65,
-      left: seeInsideCheckBox.left,
-      top: seeInsideCheckBox.bottom + 20
-    } );
-    this.controlsLayer.addChild( functionIconsSwitch );
+    var hideFunctionIconsCheckBox = new CheckBox(
+      FBIconFactory.createHideFunctionsIcon(),
+      this.viewProperties.hideFunctionIconsProperty, {
+        font: FBConstants.CHECK_BOX_FONT,
+        left: seeInsideCheckBox.left,
+        top: seeInsideCheckBox.bottom + 20
+      } );
+    this.controlsLayer.addChild( hideFunctionIconsCheckBox );
 
     //------------------------------------------------------------------------------------------------------------------
 
