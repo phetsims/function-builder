@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
@@ -128,10 +129,24 @@ define( function( require ) {
      * @returns {Node}
      */
     createSeeInsideIcon: function() {
-      return new FunctionBackgroundNode( {
+
+      var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
         lineWidth: 3,
         scale: 0.35
+      } );
+
+      var windowLength = 0.85 * functionNode.height;
+      var windowNode = new Rectangle( 0, 0, windowLength, windowLength, {
+        cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
+        fill: 'black',
+        stroke: 'gray',
+        centerX: functionNode.right - 0.5 * windowLength,  //TODO not quite correct
+        centerY: functionNode.centerY
+      } );
+
+      return new Node( {
+        children: [ functionNode, windowNode ]
       } );
     },
 
