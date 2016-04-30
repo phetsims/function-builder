@@ -128,8 +128,20 @@ define( function( require ) {
      * @returns {Node}
      */
     createHideFunctionsIcon: function() {
-      return new FontAwesomeNode( 'eye_close', {
-        scale: 0.65
+
+      var functionNode = new FunctionBackgroundNode( {
+        fill: FBColors.HIDDEN_FUNCTION,
+        lineWidth: 3,
+        scale: 0.35
+      } );
+
+      var closedEyeNode = new FontAwesomeNode( 'eye_close', {
+        maxHeight: 0.75 * functionNode.height,
+        center: functionNode.center
+      } );
+
+      return new Node( {
+        children: [ functionNode, closedEyeNode ]
       } );
     }
   };

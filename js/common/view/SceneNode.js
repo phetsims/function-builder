@@ -226,6 +226,7 @@ define( function( require ) {
       FBIconFactory.createHideFunctionsIcon(),
       this.viewProperties.hideFunctionIconsProperty, {
         font: FBConstants.CHECK_BOX_FONT,
+        spacing: 8,
         left: seeInsideCheckBox.left,
         top: seeInsideCheckBox.bottom + 20
       } );

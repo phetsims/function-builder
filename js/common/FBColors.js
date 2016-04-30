@@ -18,6 +18,9 @@ define( function( require ) {
     NUMBERS_SCREEN_BACKGROUND: 'rgb( 239, 255, 249 )',
     EQUATIONS_SCREEN_BACKGROUND: 'rgb( 255, 255, 226 )',
 
+    // color for a function whose icon is hidden
+    HIDDEN_FUNCTION: 'rgb( 220, 220, 220 )',
+
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_MAROON: {
       top: 'rgb( 200, 182, 188 )',
