@@ -136,7 +136,7 @@ define( function( require ) {
       } );
 
       var closedEyeNode = new FontAwesomeNode( 'eye_close', {
-        maxHeight: 0.75 * functionNode.height,
+        maxHeight: 0.65 * functionNode.height,
         center: functionNode.center
       } );
 
