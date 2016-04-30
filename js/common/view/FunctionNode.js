@@ -58,7 +58,7 @@ define( function( require ) {
     this.eyeCloseNode = new FontAwesomeNode( 'eye_close', {
       visible: false
     } );
-    this.eyeCloseNode.setScaleMagnitude( ( 0.45 * this.backgroundNode.height ) / this.eyeCloseNode.height );
+    this.eyeCloseNode.setScaleMagnitude( ( 0.4 * this.backgroundNode.height ) / this.eyeCloseNode.height );
     this.eyeCloseNode.center = this.backgroundNode.center;
 
     assert && assert( !options.children, 'decoration not supported' );
