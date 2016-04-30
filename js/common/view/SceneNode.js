@@ -53,7 +53,7 @@ define( function( require ) {
     // @protected view-specific properties
     this.viewProperties = new PropertySet( {
       seeInside: false, // {boolean} show/hide windows that allow you to 'see inside' the builder
-      hideFunctionIcons: false // {boolean} should icons on the functions in the builder be hidden?
+      hideFunctions: false // {boolean} should the identity of functions in the builder be hidden?
     } );
 
     // cards are in this layer while they are draggable
@@ -194,16 +194,16 @@ define( function( require ) {
     // Misc controls ----------------------------------------------------------------------------------------------------
 
     // hHide function icons in the builder
-    var hideFunctionIconsCheckBox = new CheckBox(
+    var hideFunctionsCheckBox = new CheckBox(
       FBIconFactory.createHideFunctionsIcon(),
-      this.viewProperties.hideFunctionIconsProperty, {
+      this.viewProperties.hideFunctionsProperty, {
         font: FBConstants.CHECK_BOX_FONT,
         spacing: 8,
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
-    this.controlsLayer.addChild( hideFunctionIconsCheckBox );
-    hideFunctionIconsCheckBox.touchArea = hideFunctionIconsCheckBox.localBounds.dilatedXY( 10, 10 );
+    this.controlsLayer.addChild( hideFunctionsCheckBox );
+    hideFunctionsCheckBox.touchArea = hideFunctionsCheckBox.localBounds.dilatedXY( 10, 10 );
 
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
       visible: this.viewProperties.seeInsideProperty.get()
@@ -214,8 +214,8 @@ define( function( require ) {
       FBIconFactory.createSeeInsideIcon(),
       this.viewProperties.seeInsideProperty, {
         spacing: 8,
-        left: hideFunctionIconsCheckBox.left,
-        top: hideFunctionIconsCheckBox.bottom + 25
+        left: hideFunctionsCheckBox.left,
+        top: hideFunctionsCheckBox.bottom + 25
       } );
     this.controlsLayer.addChild( seeInsideCheckBox );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
