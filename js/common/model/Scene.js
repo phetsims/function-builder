@@ -20,8 +20,8 @@ define( function( require ) {
   function Scene( options ) {
 
     options = _.extend( {
-      numberOfEachCard: 2, // {number} number of instances of each card type
-      numberOfEachFunction: 2, // {number} number of instances of each function type
+      numberOfEachCard: 1, // {number} number of instances of each card type
+      numberOfEachFunction: 1, // {number} number of instances of each function type
       builder: new Builder()
     }, options );
 
