@@ -193,18 +193,28 @@ define( function( require ) {
 
     // Misc controls ----------------------------------------------------------------------------------------------------
 
+    // hHide function icons in the builder
+    var hideFunctionIconsCheckBox = new CheckBox(
+      FBIconFactory.createHideFunctionsIcon(),
+      this.viewProperties.hideFunctionIconsProperty, {
+        font: FBConstants.CHECK_BOX_FONT,
+        spacing: 8,
+        left: inputCarousel.left,
+        top: functionCarousel.top
+      } );
+    this.controlsLayer.addChild( hideFunctionIconsCheckBox );
+
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
       visible: this.viewProperties.seeInsideProperty.get()
     } );
 
-    // 'See Inside' check box, to the left of functions carousel
-    // @protected (read-only) for layout in subtypes
+    // 'See Inside' windows in builder
     var seeInsideCheckBox = new CheckBox(
       FBIconFactory.createSeeInsideIcon(),
       this.viewProperties.seeInsideProperty, {
         spacing: 8,
-        left: inputCarousel.left,
-        top: functionCarousel.top
+        left: hideFunctionIconsCheckBox.left,
+        top: hideFunctionIconsCheckBox.bottom + 20
       } );
     this.controlsLayer.addChild( seeInsideCheckBox );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
@@ -214,17 +224,6 @@ define( function( require ) {
       seeInsideLayer.visible = seeInside;
     } );
     seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
-
-    // show/hide function icons
-    var hideFunctionIconsCheckBox = new CheckBox(
-      FBIconFactory.createHideFunctionsIcon(),
-      this.viewProperties.hideFunctionIconsProperty, {
-        font: FBConstants.CHECK_BOX_FONT,
-        spacing: 8,
-        left: seeInsideCheckBox.left,
-        top: seeInsideCheckBox.bottom + 20
-      } );
-    this.controlsLayer.addChild( hideFunctionIconsCheckBox );
 
     //------------------------------------------------------------------------------------------------------------------
 
