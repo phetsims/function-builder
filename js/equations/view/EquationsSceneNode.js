@@ -35,7 +35,8 @@ define( function( require ) {
   function EquationsSceneNode( scene, layoutBounds, options ) {
 
     options = _.extend( {}, options, {
-      cardCarouselDefaultPageNumber: 1
+      cardCarouselDefaultPageNumber: 1,
+      functionsPerPage: 2
     } );
 
     SceneNode.call( this, scene, layoutBounds, options );
