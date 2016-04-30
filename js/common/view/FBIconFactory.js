@@ -25,6 +25,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
+  // constants
+  var FUNCTION_ICON_SCALE = 0.35; // uniform scale for function icons on all controls
+
   var FBIconFactory = {
 
     /**
@@ -97,7 +100,7 @@ define( function( require ) {
       return new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
         lineWidth: 3,
-        scale: 0.25
+        scale: FUNCTION_ICON_SCALE
       } );
     },
 
@@ -107,20 +110,22 @@ define( function( require ) {
      */
     createComposedSceneIcon: function() {
 
+      var LINE_WIDTH = 3;
+
       var leftNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
-        lineWidth: 3
+        lineWidth: LINE_WIDTH
       } );
 
       var rightNode = new FunctionBackgroundNode( {
         fill: 'rgb( 205, 175, 230 )',
-        lineWidth: 3,
-        left: leftNode.right - leftNode.xInset - 1
+        lineWidth: LINE_WIDTH,
+        left: leftNode.right - leftNode.xInset - ( 2 * LINE_WIDTH )
       } );
 
       return new Node( {
         children: [ leftNode, rightNode ],
-        scale: 0.25
+        scale: FUNCTION_ICON_SCALE
       } );
     },
 
@@ -133,7 +138,7 @@ define( function( require ) {
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
         lineWidth: 3,
-        scale: 0.35
+        scale: FUNCTION_ICON_SCALE
       } );
 
       var windowLength = 0.85 * functionNode.height;
@@ -159,7 +164,7 @@ define( function( require ) {
       var functionNode = new FunctionBackgroundNode( {
         fill: FBColors.HIDDEN_FUNCTION,
         lineWidth: 3,
-        scale: 0.35
+        scale: FUNCTION_ICON_SCALE
       } );
 
       var closedEyeNode = new FontAwesomeNode( 'eye_close', {
