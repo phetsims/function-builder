@@ -33,19 +33,11 @@ Graph:
 
 ---
 
-Mystery: mock up - 1 single, 1 double, 1 triple, generators for single/double/triple
+Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
 Better way to specify functions in NumbersScene and EquationsScene
 
-Revisit how to handle double functions in model and view
-
-How to handle 'x' card in Equations screen?
-    Can't apply the functions, need to build an equation based on a set of functions.
-    What equation form is supposed to display in output carousel? in 'See Inside' windows?
-
-How to handle 'A' and 'B' functions in Equations screen? And why are they necessary?
-
-Equations and Numbers model elements should be identical, only the view is different
+Add 'x' card in Equations screen
 
 Equation
 
@@ -56,8 +48,6 @@ Table?
 Double functions?
 
 ---
-
-Move 'See Inside' check box closer to builder, replace with icon on/off switch?
 
 Number vs Numbers prefix on .js files
 
