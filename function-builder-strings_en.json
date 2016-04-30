@@ -11,6 +11,9 @@
   "screen.equations": {
     "value": "Equations"
   },
+  "screen.mystery": {
+    "value": "Mystery"
+  },
   "simplify": {
     "value": "Simplify"
   },
@@ -34,5 +37,8 @@
   },
   "C": {
     "value": "C"
+  },
+  "mysteryCharacter": {
+    "value": "?"
   }
 }

@@ -17,6 +17,7 @@ define( function( require ) {
     PATTERNS_SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',
     NUMBERS_SCREEN_BACKGROUND: 'rgb( 239, 255, 249 )',
     EQUATIONS_SCREEN_BACKGROUND: 'rgb( 255, 255, 226 )',
+    MYSTERY_SCREEN_BACKGROUND: 'rgb( 255, 255, 226 )', //TODO choose a unique color
 
     // color for a function whose icon is hidden
     HIDDEN_FUNCTION: 'rgb( 220, 220, 220 )',

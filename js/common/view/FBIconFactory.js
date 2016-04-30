@@ -25,6 +25,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
+  // strings
+  var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
+
   // constants
   var FUNCTION_ICON_SCALE = 0.35; // uniform scale for function icons on all controls
 
@@ -90,6 +93,17 @@ define( function( require ) {
       var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
       var iconNode = new Text( equationString, { font: new FBFont( 80 ) } );
       return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
+    },
+
+    /**
+     * Creates the icon for the 'Mystery' screen.
+     * @returns {Node}
+     */
+    createMysteryScreenIcon: function() {
+      var iconNode = new Text( mysteryCharacterString, {
+        font: new FBFont( 30 )
+      } );
+      return new ScreenIcon( iconNode, { fill: FBColors.MYSTERY_SCREEN_BACKGROUND } );
     },
 
     /**

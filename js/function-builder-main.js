@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  var MysteryScreen = require( 'FUNCTION_BUILDER/mystery/MysteryScreen' );
   var NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
   var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
   var Sim = require( 'JOIST/Sim' );
@@ -33,7 +34,8 @@ define( function( require ) {
     var screens = [
       new PatternsScreen(), 
       new NumbersScreen(),
-      new EquationsScreen()
+      new EquationsScreen(),
+      new MysteryScreen()
     ];
 
     if ( FBQueryParameters.DEV ) {
