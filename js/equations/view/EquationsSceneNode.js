@@ -14,11 +14,9 @@ define( function( require ) {
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FunctionIconsSwitch = require( 'FUNCTION_BUILDER/equations/view/FunctionIconsSwitch' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
-  var PropertySet = require( 'AXON/PropertySet' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
@@ -41,11 +39,8 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, options );
 
-    // @private view-specific properties
-    this.viewProperties = new PropertySet( {
-      simplifyEquation: false,
-      functionIconsVisible: true
-    } );
+    // add additional view-specific properties
+    this.viewProperties.addProperty( 'simplifyEquation', false );
 
     // Graph
     var graphNode = new XYGraphNode();
@@ -86,16 +81,6 @@ define( function( require ) {
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
-
-    // show/hide function icons
-    var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
-      scale: 0.65,
-
-      //TODO temporary hard-coded location, below the 'See Inside' button
-      left: 30,
-      top: 540
-    } );
-    this.controlsLayer.addChild( functionIconsSwitch );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
@@ -105,9 +90,6 @@ define( function( require ) {
     // @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
-
-      // view-specific properties
-      this.viewProperties.reset();
 
       // drawers
       this.tableDrawer.reset( { animationEnabled: false } );

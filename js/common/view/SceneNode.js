@@ -17,11 +17,12 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionIconsSwitch = require( 'FUNCTION_BUILDER/equations/view/FunctionIconsSwitch' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   var PageControl = require( 'SUN/PageControl' );
-  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -52,6 +53,12 @@ define( function( require ) {
     }, options );
 
     var thisNode = this;
+
+    // @protected view-specific properties
+    this.viewProperties = new PropertySet( {
+      seeInside: false, // {boolean} show/hide windows that allow you to 'see inside' the builder
+      functionIconsVisible: true // {boolean} show/hide icons on the functions in the the builder
+    } );
 
     // cards are in this layer while they are draggable
     var cardsDragLayer = new Node();
@@ -188,12 +195,10 @@ define( function( require ) {
       inputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    //------------------------------------------------------------------------------------------------------------------
-
-    var seeInsideProperty = new Property( false );
+    // Misc controls ----------------------------------------------------------------------------------------------------
 
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
-      visible: seeInsideProperty.get()
+      visible: this.viewProperties.seeInsideProperty.get()
     } );
 
     // 'See Inside' check box, to the left of functions carousel
@@ -203,7 +208,7 @@ define( function( require ) {
         font: FBConstants.CHECK_BOX_FONT,
         maxWidth: 135 // i18n, determined empirically
       } ),
-      seeInsideProperty, {
+      this.viewProperties.seeInsideProperty, {
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
@@ -211,10 +216,20 @@ define( function( require ) {
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    seeInsideProperty.link( function( visible ) {
-      seeInsideLayer.visible = visible;
+    this.viewProperties.seeInsideProperty.link( function( seeInside ) {
+      seeInsideLayer.visible = seeInside;
     } );
     seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
+
+    // show/hide function icons
+    var functionIconsSwitch = new FunctionIconsSwitch( this.viewProperties.functionIconsVisibleProperty, {
+      scale: 0.65,
+      left: seeInsideCheckBox.left,
+      top: seeInsideCheckBox.bottom + 20
+    } );
+    this.controlsLayer.addChild( functionIconsSwitch );
+
+    //------------------------------------------------------------------------------------------------------------------
 
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
@@ -236,6 +251,8 @@ define( function( require ) {
     // @private Resets this node
     this._reset = function() {
 
+      thisNode.viewProperties.reset();
+
       // Reset carousels without animation
       functionCarousel.reset( { animationEnabled: false } );
 
@@ -245,7 +262,6 @@ define( function( require ) {
       outputCarousel.reset();
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
-      seeInsideProperty.reset();
       builderNode.reset();
 
       // move 1 of each card to the output carousel, for testing
@@ -286,7 +302,7 @@ define( function( require ) {
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
-          cardsDragLayer, seeInsideLayer, seeInsideProperty );
+          cardsDragLayer, seeInsideLayer, thisNode.viewProperties.seeInsideProperty );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();

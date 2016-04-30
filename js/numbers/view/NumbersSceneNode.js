@@ -41,8 +41,8 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, options );
 
-    // @private view-specific properties
-    this.simplifyEquationProperty = new Property( false );
+    // add additional view-specific properties
+    this.viewProperties.addProperty( 'simplifyEquation', false );
 
     // Table
     var tableNode = new XYTableNode( {
@@ -60,7 +60,7 @@ define( function( require ) {
     this.drawersLayer.addChild( this.tableDrawer );
 
     // Equation and related controls
-    var equationPanel = new EquationPanel( this.simplifyEquationProperty, {
+    var equationPanel = new EquationPanel( this.viewProperties.simplifyEquationProperty, {
        size: FBConstants.EQUATION_DRAWER_SIZE
     } );
 
@@ -83,7 +83,8 @@ define( function( require ) {
     // @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
-      this.simplifyEquationProperty.reset();
+
+      // drawers
       this.equationDrawer.reset( { animationEnabled: false } );
       this.tableDrawer.reset( { animationEnabled: false } );
     },
