@@ -160,7 +160,7 @@ define( function( require ) {
     this.hideFunctionsProperty.link( function( hideFunctions ) {
       thisNode.functionNodes.forEach( function( functionNode ) {
         functionNode && functionNode.setIdentityHidden( hideFunctions );
-      } )
+      } );
     } );
   }
 
