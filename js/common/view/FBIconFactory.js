@@ -13,9 +13,9 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var HiddenFunctionNode = require( 'FUNCTION_BUILDER/common/view/HiddenFunctionNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -170,24 +170,13 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the control that hides icons on the functions in the builder.
+     * Creates the icon for the control that hides the identity of functions in the builder.
      * @returns {Node}
      */
     createHideFunctionsIcon: function() {
-
-      var functionNode = new FunctionBackgroundNode( {
-        fill: FBColors.HIDDEN_FUNCTION,
+      return new HiddenFunctionNode( {
         lineWidth: 3,
         scale: FUNCTION_ICON_SCALE
-      } );
-
-      var closedEyeNode = new FontAwesomeNode( 'eye_close', {
-        maxHeight: 0.65 * functionNode.height,
-        center: functionNode.center
-      } );
-
-      return new Node( {
-        children: [ functionNode, closedEyeNode ]
       } );
     }
   };
