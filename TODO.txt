@@ -43,22 +43,9 @@ Graph:
 - Point is added to graph when put in output carousel
 - Point is removed from graph when removed from output carousel
 
-Eyeball switch feature
-- Applies only to functions in the builder
-- Add to all screens
-- Change switch to check box with closed-eye icon on function card
-- Change 'See Inside' label to an icon showing 'window'
-- Keep both in lower-left of screen
-
 ---
 
-Remove mystery functions in Numbers and Equations screen
-
-Remove double functions in Numbers screen
-
-Numbers: 3 functions per page, plus, minus, times, divide
-
-Equations: 2 functions per page
+Hide Functions feature
 
 Mystery: mock up - 1 single, 1 double, 1 triple, generators for single/double/triple
 
