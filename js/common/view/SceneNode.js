@@ -30,7 +30,6 @@ define( function( require ) {
   var seeInsideString = require( 'string!FUNCTION_BUILDER/seeInside' );
 
   // constants
-  var CARDS_PER_PAGE = 4; // number of cards per page in the input and output carousels
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
   var PAGE_CONTROL_OPTIONS = {
     interactive: true,
@@ -47,7 +46,9 @@ define( function( require ) {
   function SceneNode( scene, layoutBounds, options ) {
 
     options = _.extend( {
-      cardCarouselDefaultPageNumber: 0 // {number} initial page number for card carousels
+      cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
+      cardsPerPage: 4, // {number} cards per page in the input and output carousels
+      functionsPerPage: 3// {number} functions per page in the functions carousel
     }, options );
 
     var thisNode = this;
@@ -92,7 +93,7 @@ define( function( require ) {
     var inputCarousel = new Carousel( inputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
-      itemsPerPage: CARDS_PER_PAGE,
+      itemsPerPage: options.cardsPerPage,
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
@@ -116,7 +117,7 @@ define( function( require ) {
     var outputCarousel = new OutputCardsCarousel( outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
-      itemsPerPage: CARDS_PER_PAGE,
+      itemsPerPage: options.cardsPerPage,
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
@@ -157,7 +158,7 @@ define( function( require ) {
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
       orientation: 'horizontal',
-      itemsPerPage: 3,
+      itemsPerPage: options.functionsPerPage,
       spacing: 12,
       buttonTouchAreaXDilation: 15,
       buttonTouchAreaYDilation: 5,
