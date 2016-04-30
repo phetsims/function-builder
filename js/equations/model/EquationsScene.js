@@ -91,10 +91,6 @@ define( function( require ) {
           zeroOperandValid: false
         }
       }
-
-      //TODO how to add 'A' and 'B' mystery functions, which are unlike the other functions?
-      // A : ( x - 2 ) * 2 : rgb( 28, 191, 167 )
-      // B : ( x / 2 ) + 1 : rgb( 252, 241, 157 )
     ];
 
     Scene.call( this, options );
