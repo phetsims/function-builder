@@ -155,6 +155,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    // Hide/reveal the identify of functions in the builder.
     // unlink unnecessary, instances exist for lifetime of the sim
     this.hideFunctionsProperty = hideFunctionsProperty; // @private
     this.hideFunctionsProperty.link( function( hideFunctions ) {
