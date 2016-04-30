@@ -146,7 +146,7 @@ define( function( require ) {
         cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
         fill: 'black',
         stroke: 'gray',
-        centerX: functionNode.right - 0.5 * windowLength,  //TODO not quite correct
+        centerX: functionNode.right - ( FBConstants.FUNCTION_X_INSET_FACTOR * functionNode.width ),
         centerY: functionNode.centerY
       } );
 
