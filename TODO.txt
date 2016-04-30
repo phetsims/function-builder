@@ -4,18 +4,6 @@ TODO list for function-builder
 
 QUESTIONS
 
-Double functions:
-- Are they really necessary? They appear explicitly only in Numbers screen (a scaffolding screen), and the same things can be accomplished with single functions
-- Small font on function icons in Numbers screen is due to double functions and overlap with 'See Inside’ windows
-
-Mystery functions in Equations screen
-- A: (x-2)*2
-- B: (x/2)+1)
-- Are mystery functions needed in this screen? They complicate implementation because they are totally different than the other functions in the carousel.
-- They are labeled 'A' and 'B', different than ‘?? ??' style used in Numbers screen for double functions.
-- How will the student know that they are double functions? They don’t look like the double functions in the Numbers screen.
-- They aren't much of a mystery once you run 'x' through them, since you'll see the equation in the output.
-
 Table:
 - this feature seems redundant, input/output carousels are effectively a table, what is the table adding?
 - potentially confusing, due to different ordering than carousel?
@@ -65,9 +53,9 @@ Equation
 
 Graph
 
-Table
+Table?
 
-Eyeball switch
+Double functions?
 
 ---
 
