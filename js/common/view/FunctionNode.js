@@ -9,7 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
@@ -36,22 +38,31 @@ define( function( require ) {
     this.functionInstance = functionInstance;
 
     // @private
+    this.contentNode = contentNode;
     this.container = container;
     this.builderNode = builderNode;
     this.builder = builderNode.builder;
     this.dragLayer = dragLayer;
 
-    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
-    contentNode.center = backgroundNode.center;
+    // @private
+    this.backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
+    contentNode.center = this.backgroundNode.center;
 
     // @private
     this.notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
-      center: backgroundNode.center,
+      center: this.backgroundNode.center,
       visible: false
     } );
 
+    // @private
+    this.eyeCloseNode = new FontAwesomeNode( 'eye_close', {
+      visible: false
+    } );
+    this.eyeCloseNode.setScaleMagnitude( ( 0.45 * this.backgroundNode.height ) / this.eyeCloseNode.height );
+    this.eyeCloseNode.center = this.backgroundNode.center;
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, contentNode, this.notInvertibleSymbolNode ];
+    options.children = [ this.backgroundNode, contentNode, this.eyeCloseNode, this.notInvertibleSymbolNode ];
 
     var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
@@ -204,6 +215,17 @@ define( function( require ) {
      */
     stopNotInvertibleAnimation: function() {
       this.notInvertibleSymbolNode.stopAnimation();
+    },
+
+    /**
+     * Hides the identity of this function by changing its background to gray and replacing its content with 'eye close' icon.
+     * @param {boolean} hidden
+     * @public
+     */
+    setIdentityHidden: function( hidden ) {
+      this.contentNode.visible = !hidden;
+      this.eyeCloseNode.visible = hidden;
+      this.backgroundNode.fill = hidden ? FBColors.HIDDEN_FUNCTION : this.functionInstance.viewOptions.fill;
     }
   } );
 } );

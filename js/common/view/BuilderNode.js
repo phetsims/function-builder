@@ -27,10 +27,11 @@ define( function( require ) {
 
   /**
    * @param {Builder} builder
+   * @param {Property.<boolean>} hideFunctionsProperty
    * @param {Object} [options]
    * @constructor
    */
-  function BuilderNode( builder, options ) {
+  function BuilderNode( builder, hideFunctionsProperty, options ) {
 
     options = _.extend( {
 
@@ -58,6 +59,8 @@ define( function( require ) {
     assert && assert( !options.x && !options.y, 'location is determined by model' );
     options.x = builder.location.x;
     options.y = builder.location.y;
+
+    var thisNode = this;
 
     // @public (read-only)
     this.builder = builder;
@@ -151,6 +154,14 @@ define( function( require ) {
     options.clipArea = Shape.rect( 0, -END_HEIGHT / 2, BODY_WIDTH, END_HEIGHT );
 
     Node.call( this, options );
+
+    // unlink unnecessary, instances exist for lifetime of the sim
+    this.hideFunctionsProperty = hideFunctionsProperty; // @private
+    this.hideFunctionsProperty.link( function( hideFunctions ) {
+      thisNode.functionNodes.forEach( function( functionNode ) {
+        functionNode && functionNode.setIdentityHidden( hideFunctions );
+      } )
+    } );
   }
 
   functionBuilder.register( 'BuilderNode', BuilderNode );
@@ -189,6 +200,9 @@ define( function( require ) {
       // add to model
       this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
       assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
+
+      // hide the identity of function in the builder, if feature is enabled
+      functionNode.setIdentityHidden( this.hideFunctionsProperty.get() );
     },
 
     /**
@@ -213,6 +227,9 @@ define( function( require ) {
       // remove from model
       this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
       assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
+
+      // reveal function's identity
+      functionNode.setIdentityHidden( false );
 
       return slotNumber;
     },

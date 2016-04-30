@@ -33,8 +33,6 @@ Graph:
 
 ---
 
-Hide Functions feature
-
 Mystery: mock up - 1 single, 1 double, 1 triple, generators for single/double/triple
 
 Better way to specify functions in NumbersScene and EquationsScene

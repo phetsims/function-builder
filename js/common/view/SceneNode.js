@@ -82,7 +82,7 @@ define( function( require ) {
     var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
       centerX: builder.right
     } ) );
-    var builderNode = new BuilderNode( builder, {
+    var builderNode = new BuilderNode( builder, this.viewProperties.hideFunctionsProperty, {
       endRadiusX: BUILDER_END_OPTIONS.radiusX,
       slotFill: null
     } );
