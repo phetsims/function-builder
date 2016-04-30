@@ -124,6 +124,18 @@ define( function( require ) {
     },
 
     /**
+     * Creates the icon for the control that shows/hides the 'see inside' windows on the builder.
+     * @returns {Node}
+     */
+    createSeeInsideIcon: function() {
+      return new FunctionBackgroundNode( {
+        fill: 'rgb( 147, 231, 129 )',
+        lineWidth: 3,
+        scale: 0.35
+      } );
+    },
+
+    /**
      * Creates the icon for the control that hides icons on the functions in the builder.
      * @returns {Node}
      */

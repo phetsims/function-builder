@@ -25,10 +25,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
-  var Text = require( 'SCENERY/nodes/Text' );
-
-  // strings
-  var seeInsideString = require( 'string!FUNCTION_BUILDER/seeInside' );
 
   // constants
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
@@ -204,11 +200,9 @@ define( function( require ) {
     // 'See Inside' check box, to the left of functions carousel
     // @protected (read-only) for layout in subtypes
     var seeInsideCheckBox = new CheckBox(
-      new Text( seeInsideString, {
-        font: FBConstants.CHECK_BOX_FONT,
-        maxWidth: 135 // i18n, determined empirically  //TODO delete this when we switch to using an icon
-      } ),
+      FBIconFactory.createSeeInsideIcon(),
       this.viewProperties.seeInsideProperty, {
+        spacing: 8,
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
