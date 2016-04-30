@@ -203,6 +203,7 @@ define( function( require ) {
         top: functionCarousel.top
       } );
     this.controlsLayer.addChild( hideFunctionIconsCheckBox );
+    hideFunctionIconsCheckBox.touchArea = hideFunctionIconsCheckBox.localBounds.dilatedXY( 10, 10 );
 
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
       visible: this.viewProperties.seeInsideProperty.get()
@@ -214,7 +215,7 @@ define( function( require ) {
       this.viewProperties.seeInsideProperty, {
         spacing: 8,
         left: hideFunctionIconsCheckBox.left,
-        top: hideFunctionIconsCheckBox.bottom + 20
+        top: hideFunctionIconsCheckBox.bottom + 25
       } );
     this.controlsLayer.addChild( seeInsideCheckBox );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
