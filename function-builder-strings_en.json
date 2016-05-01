@@ -17,11 +17,11 @@
   "simplify": {
     "value": "Simplify"
   },
-  "in": {
-     "value": "In"
+  "input": {
+     "value": "Input"
   },
-  "out": {
-     "value": "Out"
+  "output": {
+     "value": "Output"
   },
   "x": {
     "value": "\ud835\udccd"

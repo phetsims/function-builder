@@ -20,8 +20,8 @@ define( function( require ) {
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // strings
-  var inString = require( 'string!FUNCTION_BUILDER/in' );
-  var outString = require( 'string!FUNCTION_BUILDER/out' );
+  var inputString = require( 'string!FUNCTION_BUILDER/input' );
+  var outputString = require( 'string!FUNCTION_BUILDER/output' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -36,8 +36,8 @@ define( function( require ) {
 
     options = _.extend( {}, options, {
       cardCarouselDefaultPageNumber: 1,
-      inputLabel: inString,
-      outputLabel: outString
+      inputLabel: inputString,
+      outputLabel: outputString
     } );
 
     SceneNode.call( this, scene, layoutBounds, options );
@@ -47,8 +47,8 @@ define( function( require ) {
 
     // Table
     var tableNode = new XYTableNode( {
-      xString: inString,
-      yString: outString
+      xString: inputString,
+      yString: outputString
     } );
 
     // @private Table drawer
