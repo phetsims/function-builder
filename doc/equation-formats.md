@@ -41,7 +41,7 @@ The simplified format is equivalent to slope-intercept.
 
 Variations suggested by AP:
 
-| Builder  | "Simplify" unchecked | "Simplify" checked (slope-intercept) |
+| Builder contains...  | "Simplify" unchecked | "Simplify" checked (slope-intercept) |
 | ------------- | ------------- | ------------- |
 / 1 * 2 + 1 | y = [2x]/1 + 1 | y = 2x + 1 |
 / 3 * 2 + 1 | y = [2x]/3 + 1 | y = 2/3 x + 1 |
