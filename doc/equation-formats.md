@@ -2,9 +2,10 @@ Function Builder - equation formats
 
 Square brackets [] will not be rendered, they are used to indicate a numerator.
 
-Builder			    "Simplify" unchecked	    "Simplify" checked (slope-intercept)
+| Builder  | "Simplify" unchecked | "Simplify" checked (slope-intercept) |
+| ------------- | ------------- | ------------- |
+- 3 - 2	| y = x - 5 | y = x - 5 |
 
-- 3 - 2			    y = x - 5			        y = x - 5
 + 1 - 2			    y = x - 1			        y = x - 1
 + 3 * 2			    y = 2(x + 3)		        y = 2x + 6
 * 2 + 3			    y = 2x + 3			        y = 2x + 3
