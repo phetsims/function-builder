@@ -17,6 +17,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -25,6 +26,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
@@ -45,7 +47,9 @@ define( function( require ) {
     options = _.extend( {
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
-      functionsPerPage: 3// {number} functions per page in the functions carousel
+      functionsPerPage: 3, // {number} functions per page in the functions carousel
+      inputLabel: FBSymbols.X,
+      outputLabel: FBSymbols.Y
     }, options );
 
     var thisNode = this;
@@ -104,6 +108,14 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
+    // Label above the input carousel
+    var inputLabelNode = new Text( options.inputLabel, {
+      font: FBConstants.CARD_CAROUSEL_LABEL_FONT,
+      maxWidth: inputCarousel.width,
+      centerX: inputCarousel.centerX,
+      bottom: inputCarousel.top - 10
+    } );
+
     // Page control for input carousel
     var inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
@@ -126,6 +138,14 @@ define( function( require ) {
       buttonTouchAreaYDilation: 15,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
+    } );
+
+    // Label above the output carousel
+    var outputLabelNode = new Text( options.outputLabel, {
+      font: FBConstants.CARD_CAROUSEL_LABEL_FONT,
+      maxWidth: outputCarousel.width,
+      centerX: outputCarousel.centerX,
+      bottom: outputCarousel.top - 10
     } );
 
     // Page control for output carousel
@@ -232,8 +252,8 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       this.controlsLayer,
-      inputCarousel, inputPageControl,
-      outputCarousel, outputPageControl,
+      inputCarousel, inputLabelNode, inputPageControl,
+      outputCarousel, outputLabelNode, outputPageControl,
       functionCarousel, functionPageControl,
       this.drawersLayer,
       builderLeftEndNode, builderRightEndNode,

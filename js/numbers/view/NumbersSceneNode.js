@@ -35,7 +35,9 @@ define( function( require ) {
   function NumbersSceneNode( scene, layoutBounds, options ) {
 
     options = _.extend( {}, options, {
-      cardCarouselDefaultPageNumber: 1
+      cardCarouselDefaultPageNumber: 1,
+      inputLabel: inString,
+      outputLabel: outString
     } );
 
     SceneNode.call( this, scene, layoutBounds, options );
