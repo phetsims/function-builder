@@ -65,4 +65,4 @@ Rules for generating unsimplified format:
 
 (5) If the fragment preceding multiplication contains operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
 
-(6) The fragment preceding division is treated as a numerator, eg: +1 / 3 → [x + 1]/3
+(6) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
