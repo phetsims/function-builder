@@ -65,7 +65,7 @@ Rules for generating unsimplified format:
 
 (5) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3
 
-(6) If the fragment preceding multiplication contains operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
+(6) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
 
 (7) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
 
