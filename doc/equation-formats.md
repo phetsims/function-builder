@@ -11,7 +11,7 @@ Cards always show the righthand side of the simplified (slope-intercept) equatio
 
 **Examples**
 
-| Builder contains... | "Simplify" unchecked | "Simplify" checked |
+| Builder | Unsimplified | Simplified |
 | ------------- | ------------- | ------------- |
 - 3 - 2	| y = x - 5 | y = x - 5 |
 + 1 - 2	| y = x - 1	| y = x - 1 |
@@ -46,7 +46,7 @@ Cards always show the righthand side of the simplified (slope-intercept) equatio
 
 Variations suggested by AP:
 
-| Builder contains...  | "Simplify" unchecked | "Simplify" checked (slope-intercept) |
+| Builder  | Unsimplified | Simplified |
 | ------------- | ------------- | ------------- |
 / 1 * 2 + 1 | y = [2x]/1 + 1 | y = 2x + 1 |
 / 3 * 2 + 1 | y = [2x]/3 + 1 | y = 2/3 x + 1 |
