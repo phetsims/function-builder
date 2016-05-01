@@ -5,7 +5,7 @@ Square brackets [] will not be rendered, they are used to indicate a numerator.
 
 The simplified format is equivalent to slope-intercept.
 
-| Builder  | "Simplify" unchecked | "Simplify" checked |
+| Builder contains... | "Simplify" unchecked | "Simplify" checked |
 | ------------- | ------------- | ------------- |
 - 3 - 2	| y = x - 5 | y = x - 5 |
 + 1 - 2	| y = x - 1	| y = x - 1 |
