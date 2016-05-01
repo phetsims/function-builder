@@ -1,4 +1,5 @@
 Function Builder - equation formats
+=============
 
 Square brackets [] will not be rendered, they are used to indicate a numerator.
 
