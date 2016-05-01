@@ -22,11 +22,6 @@ define( function( require ) {
    * @constructor
    */
   function PatternsSceneNode( scene, layoutBounds, options ) {
-
-    options = options || {};
-    options.inputLabel = '';
-    options.outputLabel = '';
-
     SceneNode.call( this, scene, layoutBounds, options );
   }
 

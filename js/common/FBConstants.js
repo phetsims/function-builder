@@ -58,7 +58,9 @@ define( function( require ) {
     NUMBER_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
     NUMBER_CARD_FRACTION_FONT: new FBFont( 20 ),
 
-    CARD_CAROUSEL_LABEL_FONT: new FBFont( 30 ),
+    // carousel label fonts
+    NUMBERS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 20 ),
+    EQUATIONS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 30 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Functions

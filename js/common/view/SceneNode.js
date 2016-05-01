@@ -17,7 +17,6 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -48,8 +47,8 @@ define( function( require ) {
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
       functionsPerPage: 3, // {number} functions per page in the functions carousel
-      inputLabel: FBSymbols.X,
-      outputLabel: FBSymbols.Y
+      inputLabelNode: new Text( '' ), // {Node} label for the input carousel
+      outputLabelNode: new Text( '' ) // {Node} label for the output carousel
     }, options );
 
     var thisNode = this;
@@ -109,12 +108,8 @@ define( function( require ) {
     } );
 
     // Label above the input carousel
-    var inputLabelNode = new Text( options.inputLabel, {
-      font: FBConstants.CARD_CAROUSEL_LABEL_FONT,
-      maxWidth: inputCarousel.width,
-      centerX: inputCarousel.centerX,
-      bottom: inputCarousel.top - 10
-    } );
+    options.inputLabelNode.centerX = inputCarousel.centerX;
+    options.inputLabelNode.bottom = inputCarousel.top - 10;
 
     // Page control for input carousel
     var inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
@@ -141,12 +136,8 @@ define( function( require ) {
     } );
 
     // Label above the output carousel
-    var outputLabelNode = new Text( options.outputLabel, {
-      font: FBConstants.CARD_CAROUSEL_LABEL_FONT,
-      maxWidth: outputCarousel.width,
-      centerX: outputCarousel.centerX,
-      bottom: outputCarousel.top - 10
-    } );
+    options.outputLabelNode.centerX = outputCarousel.centerX;
+    options.outputLabelNode.bottom = outputCarousel.top - 10;
 
     // Page control for output carousel
     var outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
@@ -252,8 +243,8 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       this.controlsLayer,
-      inputCarousel, inputLabelNode, inputPageControl,
-      outputCarousel, outputLabelNode, outputPageControl,
+      inputCarousel, options.inputLabelNode, inputPageControl,
+      outputCarousel, options.outputLabelNode, outputPageControl,
       functionCarousel, functionPageControl,
       this.drawersLayer,
       builderLeftEndNode, builderRightEndNode,

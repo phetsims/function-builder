@@ -17,6 +17,7 @@ define( function( require ) {
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // strings
@@ -36,8 +37,8 @@ define( function( require ) {
 
     options = _.extend( {}, options, {
       cardCarouselDefaultPageNumber: 1,
-      inputLabel: inputString,
-      outputLabel: outputString
+      inputLabelNode: new Text( inputString, { font: FBConstants.NUMBERS_CARD_CAROUSEL_LABEL_FONT } ),
+      outputLabelNode: new Text( outputString, { font: FBConstants.NUMBERS_CARD_CAROUSEL_LABEL_FONT } )
     } );
 
     SceneNode.call( this, scene, layoutBounds, options );
