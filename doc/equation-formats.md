@@ -1,12 +1,15 @@
 Function Builder - equation formats
 =============
 
+**Notes**
+
 Square brackets [] will not be rendered, they are used to indicate a numerator.
 
 The simplified format is equivalent to slope-intercept.
 
 Cards always show the righthand side of the simplified (slope-intercept) equation.
 
+**Examples**
 
 | Builder contains... | "Simplify" unchecked | "Simplify" checked |
 | ------------- | ------------- | ------------- |
@@ -41,7 +44,6 @@ Cards always show the righthand side of the simplified (slope-intercept) equatio
 + 1 * 2 / 3 | y = [2(x + 1)]/3 | y = 2/3 x + 2/3 |
 / 3 + 3 / 2 | y = [x/3 + 3]/2 | y = 1/6 x + 3/2 |
 
-
 Variations suggested by AP:
 
 | Builder contains...  | "Simplify" unchecked | "Simplify" checked (slope-intercept) |
@@ -49,3 +51,18 @@ Variations suggested by AP:
 / 1 * 2 + 1 | y = [2x]/1 + 1 | y = 2x + 1 |
 / 3 * 2 + 1 | y = [2x]/3 + 1 | y = 2/3 x + 1 |
 
+**Rules**
+
+Rules for generating unsimplified format:
+
+(1) Adjacent addition and subtraction is collapsed, eg: + 3 - 2 → x + 1
+
+(2) Adjacent multiplication is collapsed, eg: * 2 * 3 → 6x
+
+(3) Adjacent division is collapsed, eg: / 3 / 2 → x/6
+
+(4) Adjacent multiplication and division that evaluates to 1 is hidden, eg: / 3 * 3 → x
+
+(5) If the fragment preceding multiplication contains operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
+
+(6) The fragment preceding division is treated as a numerator, eg: +1 / 3 → [x + 1]/3
