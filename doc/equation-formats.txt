@@ -1,0 +1,38 @@
+Function Builder - equation formats
+
+Builder			    “Helpful”				Slope-intercept
+
+- 3 - 2			    OUT = IN - 5			OUT = IN - 5
++ 1 - 2			    OUT = IN -1			    OUT = IN - 1
++ 3 × 2			    OUT = 2( IN + 3)		OUT = 2 IN + 6
+× 2 + 3			    OUT = 2 IN + 3			OUT = 2 IN + 3
+× 0 × 2			    OUT = 0				    OUT = 0
+/ 3 + 2			    OUT = IN/3 + 2			OUT = 1/3 IN + 2
++ 2 / 3			    OUT = [IN + 2]/3		OUT = 1/3 IN+ 2/3
+/ 3 × 3			    OUT = IN 				OUT = IN
+/ 3 × 0			    OUT = 0				    OUT = 0
+/ 3 × 1			    OUT = [1 IN]/3			OUT = 1/3 IN
+/ 3 × 2			    OUT = [2 IN]/3 			OUT = 2/3 IN
+/ 1 + 2			    OUT = IN + 2			OUT = IN + 2
+× 0 / 3			    OUT = 0				    OUT = 0
+× 1 / 3			    OUT = [1 IN]/3			OUT = IN/3
+× 2 / 3			    OUT = [2 IN]/3			OUT = 2/3 IN
+- 3 × 2 + 1			OUT = 2( IN - 3 ) + 1	OUT = 2 IN - 5
+- 3 + 1 × 2			OUT = 2( IN - 2 )		OUT = 2 IN - 4
+× 0 × 2 + 1			OUT = 1				    OUT = 1
+× 0 + 1 × 2			OUT = 2				    OUT = 2
+× 1 × 2 + 1			OUT = 2 IN + 1			OUT = 2 IN + 1
+× 1 + 1 × 2			OUT = 2( 1 IN + 1)		OUT = 2 IN + 2
+× 3 × 2 + 1			OUT = 6 IN + 1			OUT = 6 IN + 1
+× 3 + 1 × 2			OUT = 2( 3 IN + 1)		OUT = 6 IN + 2
+/ 1 × 2 + 1         OUT = 2( IN/1 ) + 1		OUT = 2 IN + 1
+/ 1 + 1 × 2			OUT = 2( IN/1 + 1)		OUT = 2 IN + 2
+/ 3 × 2 + 1			OUT = 2( IN/3 ) + 1 	OUT = 2/3 IN + 1
+/ 3 + 1 × 2			OUT = 2( IN/3 + 1)		OUT = 2/3 IN + 2
+× 2 + 1 / 3         OUT = [2 IN + 1]/3		OUT = 2/3 IN + 1/3
++ 1 × 2 / 3 	    OUT = [2(IN + 1)]/3		OUT = 2/3 IN + 2/3
+/ 3 + 3 / 2			OUT = [IN/3 + 3 ]/2		OUT = 1/6 IN + 3/2
+
+
+
+
