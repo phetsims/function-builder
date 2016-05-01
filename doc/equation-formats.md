@@ -59,7 +59,7 @@ Rules for generating unsimplified format:
 
 (2) Adjacent multiplication is collapsed, eg: * 2 * 3 → 6x
 
-(3) Multiplication by zero replaces the term with 0, eg: + 2 * 0 → 0
+(3) Multiplication by zero is collapsed to 0, eg: + 2 * 0 → 0
 
 (4) Adjacent division is collapsed, eg: / 3 / 2 → x/6
 
