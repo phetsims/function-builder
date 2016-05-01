@@ -5,7 +5,7 @@ Square brackets [] will not be rendered, they are used to indicate a numerator.
 
 The simplified format is equivalent to slope-intercept.
 
-Cards always show the righthand side of the slope-intercept equation.
+Cards always show the righthand side of the simplified (slope-intercept) equation.
 
 
 | Builder contains... | "Simplify" unchecked | "Simplify" checked |
