@@ -30,7 +30,9 @@ define( function( require ) {
   function EquationPanel( simplifyEquationProperty, options ) {
 
     options = _.extend( {
-      size: FBConstants.EQUATION_DRAWER_SIZE
+      size: FBConstants.EQUATION_DRAWER_SIZE,
+      xSymbol: FBSymbols.X, // {string} symbol for x, the input
+      ySymbol: FBSymbols.Y // {string} symbol for y, the output
     }, options );
 
     // background
@@ -39,7 +41,10 @@ define( function( require ) {
     } );
 
     // Equation
-    var equationNode = new SlopeInterceptEquationNode( -11, 9, FBSymbols.PLUS, 4 ); //TODO temporary
+    var equationNode = new SlopeInterceptEquationNode( -11, 9, FBSymbols.PLUS, 4, {
+      xSymbol: options.xSymbol,
+      ySymbol: options.ySymbol
+    } ); //TODO temporary
 
     // 'Simplify Equation' check box, at bottom center
     var simplifyEquationLabel = new Text( simplifyString, {

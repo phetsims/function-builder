@@ -63,7 +63,9 @@ define( function( require ) {
 
     // Equation and related controls
     var equationPanel = new EquationPanel( this.viewProperties.simplifyEquationProperty, {
-       size: FBConstants.EQUATION_DRAWER_SIZE
+      size: FBConstants.EQUATION_DRAWER_SIZE,
+      xSymbol: inputString,
+      ySymbol: outputString
     } );
 
     // @private Equation drawer

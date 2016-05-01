@@ -29,6 +29,8 @@ define( function( require ) {
   function SlopeInterceptEquationNode( rise, run, operator, intercept, options ) {
 
     options = _.extend( {
+      xSymbol: FBSymbols.X,
+      ySymbol: FBSymbols.Y,
       font: new FBFont( 24 ), // font for non-slope components
       fractionFont: new FBFont( 18 ), // font for rise and run
       equalsXSpacing: 8, // x space on both sides of equals
@@ -36,13 +38,13 @@ define( function( require ) {
       operatorXSpacing: 8, // x space on both sides of operator
       slopeXSpacing: 4, // x space between slope and x
       slopeYSpacing: 2  // y space above and below fraction line
-    } );
+    }, options);
 
     var negativeSlope = ( ( rise / run ) < 0 );
 
     // components of the equation
     var TEXT_OPTIONS = { font: options.font };
-    var yNode = new Text( FBSymbols.Y, TEXT_OPTIONS );
+    var yNode = new Text( options.ySymbol, TEXT_OPTIONS );
     var equalsNode = new Text( FBSymbols.EQUALS, TEXT_OPTIONS );
     var negativeNode = new Text( FBSymbols.MINUS, { font: options.fractionFont } );
     var riseNode = new Text( Math.abs( rise ), { font: options.fractionFont } );
@@ -50,7 +52,7 @@ define( function( require ) {
     var fractionLineNode = new Line( 0, 0, Math.max( riseNode.width, runNode.width ), 0, {
       stroke: 'black'
     } );
-    var xNode = new Text( FBSymbols.X, TEXT_OPTIONS );
+    var xNode = new Text( options.xSymbol, TEXT_OPTIONS );
     var operatorNode = new Text( operator, TEXT_OPTIONS );
     var interceptNode = new Text( intercept, TEXT_OPTIONS );
 
