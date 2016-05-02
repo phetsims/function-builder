@@ -44,8 +44,6 @@ Graph
 
 Table?
 
-Double functions?
-
 ---
 
 Number vs Numbers prefix on .js files
