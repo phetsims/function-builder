@@ -17,13 +17,12 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   * @param {string} labelString
-   * @param {function(number,number):number} applyNumber - implementation of the apply function for numbers
-   * @param {function(string,number):string} applyEquation - implementation of the apply function for equations
+   * @param {string} operatorString - string representation of the operator
+   * @param {function(number,number):number} apply - implementation of the apply function for numbers
    * @param {Object} [options]
    * @constructor
    */
-  function EquationFunction( labelString, applyNumber, applyString, options ) {
+  function EquationFunction( operatorString, apply, options ) {
 
     options = _.extend( {
       operandRange: new Range( -3, 3, 1 ), // range of operandProperty
@@ -34,9 +33,8 @@ define( function( require ) {
     assert && assert( !( options.operandRange.defaultValue === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
 
-    this.labelString = labelString; // @public (read-only)
-    this._applyNumber = applyNumber; // @private
-    this._applyString = applyString; // @private
+    this.operatorString = operatorString; // @public (read-only)
+    this._apply = apply; // @private
     this.operandRange = options.operandRange; // @public (read-only)
     this.zeroOperandValid = options.zeroOperandValid; // @public (read-only)
     this.isInvertibleWithOperand = options.isInvertibleWithOperand; // @private
@@ -81,10 +79,10 @@ define( function( require ) {
      */
     apply: function( value ) {
       if ( typeof value === 'string' ) {
-        return this._applyString( value, this.operandProperty.get() );
+        return value + ' ' + this.operatorString + this.operandProperty.get();
       }
       else {
-        return this._applyNumber( value, this.operandProperty.get() );
+        return this._apply( value, this.operandProperty.get() );
       }
     }
   } );

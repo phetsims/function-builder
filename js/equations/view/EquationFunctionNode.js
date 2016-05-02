@@ -30,7 +30,7 @@ define( function( require ) {
 
     assert && assert( functionInstance instanceof EquationFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
-    var operatorNode = new Text( functionInstance.labelString, {
+    var operatorNode = new Text( functionInstance.operatorString, {
       font: FBConstants.EQUATIONS_FUNCTION_OPERATOR_FONT
     } );
 

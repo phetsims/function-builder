@@ -46,8 +46,8 @@ define( function( require ) {
         var functionOptions = _.extend( {
           location: this.carouselLocation
         }, this.functionData.options );
-        var functionInstance = new EquationFunction( this.functionData.labelString,
-          this.functionData.applyNumber, this.functionData.applyEquation, functionOptions );
+        var functionInstance = new EquationFunction(
+          this.functionData.operatorString, this.functionData.apply, functionOptions );
 
         // associated Node
         var functionNode = new EquationFunctionNode( functionInstance, this, builderNode, dragLayer );

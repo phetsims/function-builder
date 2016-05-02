@@ -51,9 +51,8 @@ define( function( require ) {
 
       // plus
       {
-        labelString: FBSymbols.PLUS,
-        applyNumber: function( input, operand ) { return input.plus( operand ); },
-        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.PLUS + ' ' + operand; },
+        operatorString: FBSymbols.PLUS,
+        apply: function( input, operand ) { return input.plus( operand ); },
         options: {
           fill: 'rgb( 246, 203, 144 )',
           pickerColor: 'rgb( 227, 114, 42 )'
@@ -62,9 +61,8 @@ define( function( require ) {
 
       // minus
       {
-        labelString: FBSymbols.MINUS,
-        applyNumber: function( input, operand ) { return input.minus( operand ); },
-        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.MINUS + ' ' + operand; },
+        operatorString: FBSymbols.MINUS,
+        apply: function( input, operand ) { return input.minus( operand ); },
         options: {
           fill: 'rgb( 152, 231, 156 )',
           pickerColor: 'rgb( 25, 168, 52 )'
@@ -73,9 +71,8 @@ define( function( require ) {
 
       // times
       {
-        labelString: FBSymbols.TIMES,
-        applyNumber: function( input, operand ) { return input.times( operand ); },
-        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.TIMES + ' ' + operand; },
+        operatorString: FBSymbols.TIMES,
+        apply: function( input, operand ) { return input.times( operand ); },
         options: {
           fill: 'rgb( 237, 165, 222 )',
           pickerColor: 'rgb( 223, 17, 213 )',
@@ -89,14 +86,10 @@ define( function( require ) {
 
       // divide
       {
-        labelString: FBSymbols.DIVIDE,
-        applyNumber: function( input, operand ) {
+        operatorString: FBSymbols.DIVIDE,
+        apply: function( input, operand ) {
           assert && assert( operand !== 0, 'attempt to divide by zero' );
           return input.divide( operand );
-        },
-        applyEquation: function( input, operand ) {
-          assert && assert( operand !== 0, 'attempt to divide by zero' );
-          return input + ' ' + FBSymbols.DIVIDE + ' ' + operand;
         },
         options: {
           fill: 'rgb( 183, 200, 249 )',
