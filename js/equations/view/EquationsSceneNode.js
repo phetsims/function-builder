@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
+  var EquationCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationCardContainer' );
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
@@ -105,16 +106,25 @@ define( function( require ) {
      * Creates the card containers that go in the card carousels.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumberCardContainer options
+     * @param {Object} [containerOptions] - see NumberCardContainer and EquationCardContainer options
      * @returns {CardContainer[]}
      * @protected
      * @override
      */
     createCardContainers: function( scene, containerOptions ) {
+
       var containers = [];
+
+      // numbers
       scene.cardNumbers.forEach( function( value ) {
         containers.push( new NumberCardContainer( value, containerOptions ) );
       } );
+
+      // symbols, eg 'x'
+      scene.cardSymbols.forEach( function( value ) {
+        containers.push( new EquationCardContainer( value, containerOptions ) );
+      } );
+
       return containers;
     },
 

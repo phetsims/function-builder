@@ -2,6 +2,7 @@
 
 /**
  * A numeric function for the 'Equations' screen, with dynamic operand.
+ * Can be applied to either a rational number or a mathematical equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,11 +18,12 @@ define( function( require ) {
 
   /**
    * @param {string} labelString
-   * @param {function(number,number):number} apply - implementation of the apply function
+   * @param {function(number,number):number} applyNumber - implementation of the apply function for numbers
+   * @param {function(string,number):string} applyEquation - implementation of the apply function for equations
    * @param {Object} [options]
    * @constructor
    */
-  function EquationFunction( labelString, apply, options ) {
+  function EquationFunction( labelString, applyNumber, applyString, options ) {
 
     options = _.extend( {
       operandRange: new Range( -3, 3, 1 ), // range of operandProperty
@@ -33,7 +35,8 @@ define( function( require ) {
       'default value zero is not a valid operand' );
 
     this.labelString = labelString; // @public (read-only)
-    this._apply = apply; // @private
+    this._applyNumber = applyNumber; // @private
+    this._applyString = applyString; // @private
     this.operandRange = options.operandRange; // @public (read-only)
     this.zeroOperandValid = options.zeroOperandValid; // @public (read-only)
     this.isInvertibleWithOperand = options.isInvertibleWithOperand; // @private
@@ -71,13 +74,18 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {BigRational} value
-     * @returns {BigRational}
+     * @param {BigRational|string} value - rational number or mathematical equation
+     * @returns {BigRational|string}
      * @public
      * @override
      */
     apply: function( value ) {
-      return this._apply( value, this.operandProperty.get() );
+      if ( typeof value === 'string' ) {
+        return this._applyString( value, this.operandProperty.get() );
+      }
+      else {
+        return this._applyNumber( value, this.operandProperty.get() );
+      }
     }
   } );
 } );

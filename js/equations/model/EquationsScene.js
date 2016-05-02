@@ -33,7 +33,13 @@ define( function( require ) {
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       this.cardNumbers.push( i );
     }
-    //TODO how to add 'x' symbol card, which is unlike the other cards?
+
+    /**
+     * Symbols on the input cards, in the order that they appear in the input carousel.
+     * Symbols will be added to the carousel after numbers.
+     * @type {*[]}
+     */
+    this.cardSymbols = [ FBSymbols.X ];
 
     /**
      * Data structures for creating {EquationFunction} instances,
@@ -46,7 +52,8 @@ define( function( require ) {
       // plus
       {
         labelString: FBSymbols.PLUS,
-        apply: function( input, operand ) { return input.plus( operand ); },
+        applyNumber: function( input, operand ) { return input.plus( operand ); },
+        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.PLUS + ' ' + operand; },
         options: {
           fill: 'rgb( 246, 203, 144 )',
           pickerColor: 'rgb( 227, 114, 42 )'
@@ -56,7 +63,8 @@ define( function( require ) {
       // minus
       {
         labelString: FBSymbols.MINUS,
-        apply: function( input, operand ) { return input.minus( operand ); },
+        applyNumber: function( input, operand ) { return input.minus( operand ); },
+        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.MINUS + ' ' + operand; },
         options: {
           fill: 'rgb( 152, 231, 156 )',
           pickerColor: 'rgb( 25, 168, 52 )'
@@ -66,22 +74,29 @@ define( function( require ) {
       // times
       {
         labelString: FBSymbols.TIMES,
-        apply: function( input, operand ) { return input.times( operand ); },
+        applyNumber: function( input, operand ) { return input.times( operand ); },
+        applyEquation: function( input, operand ) { return input + ' ' + FBSymbols.TIMES + ' ' + operand; },
         options: {
           fill: 'rgb( 237, 165, 222 )',
           pickerColor: 'rgb( 223, 17, 213 )',
 
           // multiplication by zero is not invertible
-          isInvertibleWithOperand: function( operand ) { return ( operand !== 0 ); }
+          isInvertibleWithOperand: function( operand ) {
+            return ( operand !== 0 );
+          }
         }
       },
 
       // divide
       {
         labelString: FBSymbols.DIVIDE,
-        apply: function( input, operand ) {
+        applyNumber: function( input, operand ) {
           assert && assert( operand !== 0, 'attempt to divide by zero' );
           return input.divide( operand );
+        },
+        applyEquation: function( input, operand ) {
+          assert && assert( operand !== 0, 'attempt to divide by zero' );
+          return input + ' ' + FBSymbols.DIVIDE + ' ' + operand;
         },
         options: {
           fill: 'rgb( 183, 200, 249 )',
