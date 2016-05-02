@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for image cards. This container is intended to be put in a carousel.
+ * Container for image cards.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,13 +27,11 @@ define( function( require ) {
       showGhostCard: false // {boolean} whether to show a 'ghost' card when the container is empty
     }, options );
 
-    this.image = image; // @private
-
     if ( options.showGhostCard ) {
       options.emptyNode = new ImageGhostCard( image );
     }
 
-    CardContainer.call( this, options );
+    CardContainer.call( this, image, options );
   }
 
   functionBuilder.register( 'ImageCardContainer', ImageCardContainer );
@@ -41,38 +39,23 @@ define( function( require ) {
   return inherit( CardContainer, ImageCardContainer, {
 
     /**
-     * Creates cards and puts them in the container.
-     * See supertype CardContainer.createCards for params.
-     * @override
+     * Creates the model element for a card.
+     * See supertype CardContainer.createCard for params.
      * @public
+     * @override
      */
-    createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode,
-                           dragLayer, seeInsideLayer, seeInsideProperty ) {
+    createCard: function( value, location ) {
+      return ImageCard.withImage( value, { location: location } );
+    },
 
-      assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
-      assert && assert( inputContainer.carouselLocation );
-      assert && assert( outputContainer.carouselLocation );
-
-      for ( var i = 0; i < numberOfInstances; i++ ) {
-
-        // model element
-        var card = ImageCard.withImage( this.image, {
-          location: inputContainer.carouselLocation
-        } );
-        scene.cards.push( card );
-
-        // associated Node
-        var cardNode = new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
-
-        // put the Node in this container
-        this.addNode( cardNode );
-
-        // add to 'see inside' layer, for viewing the card through windows
-        seeInsideLayer.addCardNode( cardNode );
-
-        // add a 'mole under the carpet' to the builder, synchronizes with the card's location
-        builderNode.addMole( card );
-      }
+    /**
+     * Creates the view element (Node) for a card.
+     * See supertype CardContainer.createCardNode for params.
+     * @public
+     * @override
+     */
+    createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
+      return new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty )
     }
   } );
 } );
