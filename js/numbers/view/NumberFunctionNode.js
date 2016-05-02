@@ -29,7 +29,7 @@ define( function( require ) {
     assert && assert( functionInstance instanceof NumberFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     var contentNode = new Text( functionInstance.labelString, {
-      font: FBConstants.NUMBER_FUNCTION_FONT
+      font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );

@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Erase() {
-    ImageFunction.call( this, new Image( eraseImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 0, 222, 224 )',
       invertible: false // lossy, erased image data cannot be restored
     } );

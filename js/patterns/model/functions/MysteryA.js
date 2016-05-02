@@ -29,10 +29,10 @@ define( function( require ) {
    */
   function MysteryA() {
 
-    var imageNode = new Image( mysteryAImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } );
+    var imageNode = new Image( mysteryAImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     var textNode = new Text( aString, {
-      font: FBConstants.IMAGE_FUNCTION_FONT,
+      font: FBConstants.PATTERNS_FUNCTION_FONT,
       maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width,
       center: imageNode.center
     } );

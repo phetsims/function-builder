@@ -32,7 +32,7 @@ define( function( require ) {
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 
-    ImageFunction.call( this, new Image( shrinkImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 246, 164, 255 )'
     } );
   }

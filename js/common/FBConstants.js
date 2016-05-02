@@ -16,7 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // constants
+  // constants that are used to compute other constants
   var CARD_SIZE = new Dimension2( 70, 70 );
   var FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
 
@@ -53,12 +53,12 @@ define( function( require ) {
     // scale for the images on cards
     CARD_IMAGE_SCALE: 0.4,
 
-    // font for number cards
-    NUMBER_CARD_SIGN_FONT: new FBFont( 22 ),
-    NUMBER_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
-    NUMBER_CARD_FRACTION_FONT: new FBFont( 20 ),
+    // fonts for cards in the Numbers screen
+    NUMBERS_CARD_SIGN_FONT: new FBFont( 22 ),
+    NUMBERS_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
+    NUMBERS_CARD_FRACTION_FONT: new FBFont( 20 ),
 
-    // carousel label fonts
+    // fonts for carousel labels
     NUMBERS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 20 ),
     EQUATIONS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 30 ),
 
@@ -80,18 +80,18 @@ define( function( require ) {
     // distance/second that functions move when animating
     FUNCTION_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
 
-    // scale of the images on functions
-    FUNCTION_IMAGE_SCALE: 0.3,
+    // scale of the icons on functions in Patterns screen
+    PATTERNS_FUNCTION_ICON_SCALE: 0.3,
 
-    // font for image functions
-    IMAGE_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
+    // font for functions in Patterns screen
+    PATTERNS_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
 
-    // font for number functions
-    NUMBER_FUNCTION_FONT: new FBFont( 30 ),
+    // font for functions in Numbers screen
+    NUMBERS_FUNCTION_FONT: new FBFont( 30 ),
 
-    // font for pickers
-    FUNCTION_PICKER_FONT: new FBFont( 30 ),
-    FUNCTION_OPERATOR_FONT: new FBFont( 26 ),
+    // fonts for functions in Equations screen
+    EQUATIONS_FUNCTION_PICKER_FONT: new FBFont( 30 ),
+    EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 26 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Other

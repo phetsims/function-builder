@@ -37,9 +37,9 @@ define( function( require ) {
     this.bigRationalNode = new BigRationalNode( card.value, {
       mixedNumber: false, // display as improper fraction
       negativeSymbol: FBSymbols.MINUS,
-      signFont: FBConstants.NUMBER_CARD_SIGN_FONT,
-      wholeNumberFont: FBConstants.NUMBER_CARD_WHOLE_NUMBER_FONT,
-      fractionFont: FBConstants.NUMBER_CARD_FRACTION_FONT,
+      signFont: FBConstants.NUMBERS_CARD_SIGN_FONT,
+      wholeNumberFont: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT,
+      fractionFont: FBConstants.NUMBERS_CARD_FRACTION_FONT,
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 

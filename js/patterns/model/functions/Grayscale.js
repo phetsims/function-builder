@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Grayscale() {
-    ImageFunction.call( this, new Image( grayScaleImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 232, 232, 232 )',
       invertible: false // converting to grayscale is lossy
     } );

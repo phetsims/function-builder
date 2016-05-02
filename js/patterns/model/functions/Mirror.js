@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Mirror() {
-    ImageFunction.call( this, new Image( mirrorImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 128, 197, 237 )'
     } );
   }

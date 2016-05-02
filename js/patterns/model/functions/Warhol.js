@@ -62,7 +62,7 @@ define( function( require ) {
     this.grayscale = new Grayscale(); // @private
     this.identity = new Identity(); // @private
 
-    ImageFunction.call( this, new Image( warholImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 250, 186, 75 )',
       invertible: false // grayscale conversion and intensity mapping are both lossy
     } );

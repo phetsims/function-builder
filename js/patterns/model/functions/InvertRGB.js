@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function InvertRGB() {
-    ImageFunction.call( this, new Image( invertRGBImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'black'
     } );
   }

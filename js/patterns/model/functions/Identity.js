@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Identity() {
-    ImageFunction.call( this, new Image( identityImage, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( identityImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 255, 161, 43 )'
     } );
   }

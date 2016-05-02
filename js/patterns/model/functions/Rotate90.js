@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Rotate90() {
-    ImageFunction.call( this, new Image( rotate90Image, { scale: FBConstants.FUNCTION_IMAGE_SCALE } ), {
+    ImageFunction.call( this, new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
       fill: 'rgb( 147, 231, 128 )'
     } );
   }

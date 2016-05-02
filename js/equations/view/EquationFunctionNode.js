@@ -31,12 +31,12 @@ define( function( require ) {
     assert && assert( functionInstance instanceof EquationFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     var operatorNode = new Text( functionInstance.labelString, {
-      font: FBConstants.FUNCTION_OPERATOR_FONT
+      font: FBConstants.EQUATIONS_FUNCTION_OPERATOR_FONT
     } );
 
     var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
       color: functionInstance.viewOptions.pickerColor,
-      font: FBConstants.FUNCTION_PICKER_FONT,
+      font: FBConstants.EQUATIONS_FUNCTION_PICKER_FONT,
       arrowLineWidth: 0.5,
       skipZero: !functionInstance.zeroOperandValid
     } );
