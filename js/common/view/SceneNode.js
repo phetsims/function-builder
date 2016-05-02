@@ -407,7 +407,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the function containers that go in the function carousels.
+     * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
      * @param {Object} [containerOptions]

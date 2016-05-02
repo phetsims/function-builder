@@ -95,7 +95,9 @@ define( function( require ) {
 
     /**
      * Creates the card containers that go in the card carousels.
-     * See SceneNode.createCardContainers for params.
+     *
+     * @param {Scene} scene
+     * @param {Object} [containerOptions] - see NumberCardContainer option
      * @returns {CardContainer[]}
      * @protected
      * @override
@@ -109,8 +111,10 @@ define( function( require ) {
     },
 
     /**
-     * Creates the function containers that go in the function carousels.
-     * See SceneNode.createFunctionContainers for params.
+     * Creates the function containers that go in the function carousel.
+     *
+     * @param {Scene} scene
+     * @param {Object} [containerOptions] - see NumberFunctionContainer options
      * @returns {FunctionContainer[]}
      * @protected
      * @override
