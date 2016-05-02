@@ -60,7 +60,9 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var card = NumberCard.withInteger( this.value );
+        var card = NumberCard.withInteger( this.value, {
+          location: inputContainer.carouselLocation
+        } );
         scene.cards.push( card );
 
         // associated Node
