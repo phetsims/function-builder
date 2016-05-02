@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -36,6 +37,8 @@ define( function( require ) {
     // @public {ImageFunction[]} all function instances that exist
     this.functionInstances = [];
   }
+
+  functionBuilder.register( 'Scene', Scene );
 
   return inherit( Object, Scene, {
 
