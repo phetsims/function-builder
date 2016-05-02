@@ -44,6 +44,8 @@ Table?
 
 Better way to specify functions in NumbersScene and EquationsScene
 
+Better pattern for ghost cards
+
 ---
 
 Number vs Numbers prefix on .js files
