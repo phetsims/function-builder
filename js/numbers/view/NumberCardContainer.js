@@ -44,7 +44,7 @@ define( function( require ) {
      * @override
      */
     createCard: function( value, location ) {
-      return NumberCard.withInteger( value, { location: location } )
+      return NumberCard.withInteger( value, { location: location } );
     },
 
     /**

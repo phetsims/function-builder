@@ -51,7 +51,7 @@ define( function( require ) {
      * @override
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
-      return new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty )
+      return new ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
     }
   } );
 } );
