@@ -34,8 +34,6 @@ Graph:
 
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
-Better way to specify functions in NumbersScene and EquationsScene
-
 Add 'x' card in Equations screen
 
 Equation
@@ -43,6 +41,8 @@ Equation
 Graph
 
 Table?
+
+Better way to specify functions in NumbersScene and EquationsScene
 
 ---
 
