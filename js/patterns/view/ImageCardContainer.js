@@ -24,12 +24,8 @@ define( function( require ) {
   function ImageCardContainer( image, options ) {
 
     options = _.extend( {
-      showGhostCard: false // {boolean} whether to show a 'ghost' card when the container is empty
+      emptyNode: new ImageGhostCard( image ) // {Node} shown when the container is empty
     }, options );
-
-    if ( options.showGhostCard ) {
-      options.emptyNode = new ImageGhostCard( image );
-    }
 
     CardContainer.call( this, image, options );
   }

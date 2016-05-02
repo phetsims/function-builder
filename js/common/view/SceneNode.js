@@ -93,7 +93,7 @@ define( function( require ) {
     // Input carousel --------------------------------------------------------------------------------------------------
 
     // Containers in the input carousel
-    var inputContainers = this.createCardContainers( scene, { showGhostCard: true } );
+    var inputContainers = this.createCardContainers( scene );
 
     // Input carousel, at left
     var inputCarousel = new Carousel( inputContainers, {
@@ -121,7 +121,9 @@ define( function( require ) {
     // Output carousel ------------------------------------------------------------------------------------------------
 
     // Containers in the output carousel
-    var outputContainers = this.createCardContainers( scene );
+    var outputContainers = this.createCardContainers( scene, {
+      emptyNode: null // don't show anything in empty output containers
+    } );
 
     // Output carousel, at right
     var outputCarousel = new OutputCardsCarousel( outputContainers, {

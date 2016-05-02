@@ -27,12 +27,8 @@ define( function( require ) {
     assert && assert( Util.isInteger( value ) );
 
     options = _.extend( {
-      showGhostCard: false // {boolean} whether to show a 'ghost' card when the container is empty
+      emptyNode: new NumberGhostCard( value ) // {Node} shown when the container is empty
     }, options );
-
-    if ( options.showGhostCard ) {
-      options.emptyNode = new NumberGhostCard( value );
-    }
 
     CardContainer.call( this, value, options );
   }
