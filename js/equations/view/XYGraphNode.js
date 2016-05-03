@@ -23,6 +23,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
+  var ABS_RANGE = 100;
   var POINT_RADIUS = 3;
   var POINT_FILL = 'black';
   var AXIS_OPTIONS = {
@@ -42,8 +43,8 @@ define( function( require ) {
 
     options = _.extend( {
       size: FBConstants.GRAPH_DRAWER_SIZE,
-      xRange: new Range( -100, 100 ),
-      yRange: new Range( -100, 100 ),
+      xRange: new Range( -ABS_RANGE, ABS_RANGE ),
+      yRange: new Range( -ABS_RANGE, ABS_RANGE ),
       xGridSpacing: 10,
       yGridSpacing: 10,
       xTickSpacing: 50,
@@ -65,7 +66,8 @@ define( function( require ) {
     var gridShape = new Shape();
 
     // vertical lines
-    for ( var x = options.xRange.min + options.xGridSpacing; x < options.xRange.max; ) {
+    var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
+    for ( var x = xMinGridLine; x <= options.xRange.max; ) {
       var viewX = modelViewTransform.modelToViewX( x );
       gridShape.moveTo( viewX, 0 );
       gridShape.lineTo( viewX, backgroundNode.height );
@@ -73,7 +75,8 @@ define( function( require ) {
     }
 
     // horizontal lines
-    for ( var y = options.yRange.min + options.yGridSpacing; y < options.yRange.max; ) {
+    var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
+    for ( var y = yMinGridLine; y <= options.yRange.max; ) {
       var viewY = modelViewTransform.modelToViewY( y );
       gridShape.moveTo( 0, viewY );
       gridShape.lineTo( backgroundNode.width, viewY );
