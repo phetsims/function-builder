@@ -171,15 +171,15 @@ define( function( require ) {
       lineWidth: 2
     } );
 
-    //TODO temporary, demonstrate a few points
+    //TODO temporary, demonstrate the worst-case points
     this.pointsParent = new Node();
-    var points = [
-      new Vector2( 0, 0 ),
-      new Vector2( 20, 20 ),
-      new Vector2( 40, 40 ),
-      new Vector2( 60, 60 ),
-      new Vector2( 80, 80 )
-    ];
+    var points = [];
+    for ( var x = -4; x < 7; x++ ) {
+      points.push( new Point( new Vector2( x, ( x + 3 ) * 3 * 3 ), 'red' ) );
+      points.push( new Point( new Vector2( x, ( x - 3 ) * 3 * 3 ), 'green' ) );
+      points.push( new Point( new Vector2( x, ( x + 3 ) / 3 / 3 ), 'blue' ) );
+      points.push( new Point( new Vector2( x, ( x - 3 ) / 3 / 3 ), 'orange' ) );
+    }
     points.forEach( function( point ) {
       thisNode.addPoint( point );
     } );
@@ -201,18 +201,18 @@ define( function( require ) {
      * @public
      */
     addPoint: function( point ) {
-      this.pointsParent.addChild( new PointNode( this.modelViewTransform.modelToViewPosition( point ) ) );
+      this.pointsParent.addChild( new PointNode( point, this.modelViewTransform ) );
     },
 
     /**
      * Removes the first occurrence of a point from the graph.
      *
-     * @param {Vector2} point
+     * @param {Point} point
      * @public
      */
     removePoint: function( point ) {
 
-      assert && assert( point instanceof Vector2 );
+      assert && assert( point instanceof Point );
 
       var removed = false;
       for ( var i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
@@ -238,17 +238,38 @@ define( function( require ) {
   } );
 
   /**
-   * @param {Vector2} point
+   * @param {Vector2} location
+   * @param {Color|string} color
+   * @constructor
+   */
+  function Point( location, color ) {
+    this.location = location; // @public
+    this.color = color; // @public
+  }
+
+  functionBuilder.register( 'XYGraphNode.Point', Point, {
+
+    equals: function( point ) {
+      return this.location.equals( point.location ) && this.color.equals( point.color ); //TODO Color vs string
+    }
+  } );
+
+  inherit( Object, Point );
+
+  /**
+   * @param {Point} point
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
    */
-  function PointNode( point, options ) {
+  function PointNode( point, modelViewTransform, options ) {
 
     options = _.extend( {
-      radius: 3,
-      fill: 'black'
+      radius: 3
     }, options );
-    options.center = point;
+
+    options.center = modelViewTransform.modelToViewPosition( point.location );
+    options.fill = point.color;
 
     this.point = point;
 
