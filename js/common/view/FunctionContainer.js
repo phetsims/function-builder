@@ -40,9 +40,49 @@ define( function( require ) {
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
      * @public
-     * @abstract
      */
     createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
+
+      assert && assert( this.carouselLocation );
+
+      for ( var i = 0; i < numberOfInstances; i++ ) {
+
+        // model element
+        var functionInstance = this.createFunctionInstance( this.carouselLocation );
+        scene.functionInstances.push( functionInstance );
+
+        // associated Node
+        var functionNode = this.createFunctionNode( functionInstance, this, builderNode, dragLayer );
+
+        // put the Node in this container
+        this.addNode( functionNode );
+      }
+    },
+
+    /***
+     * Creates the model element for a function.
+     *
+     * @param {Vector2} location - the function's initial location
+     * @returns {Card}
+     * @protected
+     * @abstract
+     */
+    createFunctionInstance: function( location ) {
+      throw new Error( 'must be implemented by subtype' );
+    },
+
+    /**
+     * Creates the view element (Node) for a function.
+     *
+     * @param {AbstractFunction} functionInstance
+     * @param {FunctionContainer} container
+     * @param {BuilderNode} builderNode
+     * @param {Node} dragLayer
+     * @returns {Node}
+     * @protected
+     * @abstract
+     */
+    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
       throw new Error( 'must be implemented by subtype' );
     }
   } );

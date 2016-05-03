@@ -30,31 +30,30 @@ define( function( require ) {
 
   return inherit( FunctionContainer, NumberFunctionContainer, {
 
-    /**
-     * Creates functions and puts them in the container.
-     * See supertype FunctionContainer.createFunctions for params.
-     * @override
-     * @public
+    /***
+     * Creates the model element for a function.
+     * See supertype FunctionContainer.createFunctionInstance for params.
+     * @returns {AbstractFunction}
+     * @protected
+     * @abstract
      */
-    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
-
-      assert && assert( this.carouselLocation );
-
-      for ( var i = 0; i < numberOfInstances; i++ ) {
-
-        // model element
-        var functionOptions = _.extend( {
+    createFunctionInstance: function( location ) {
+      return new NumberFunction( this.functionData.labelString, this.functionData.apply,
+        _.extend( {
           location: this.carouselLocation
-        }, this.functionData.options );
-        var functionInstance = new NumberFunction( this.functionData.labelString, this.functionData.apply, functionOptions );
+        }, this.functionData.options )
+      );
+    },
 
-        // associated Node
-        var functionNode = new NumberFunctionNode( functionInstance, this, builderNode, dragLayer );
-        scene.functionInstances.push( functionInstance );
-
-        // put the Node in this container
-        this.addNode( functionNode );
-      }
+    /**
+     * Creates the view element (Node) for a function.
+     * See supertype FunctionContainer.createFunctionNode for params.
+     * @returns {Node}
+     * @protected
+     * @abstract
+     */
+    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
+      return new NumberFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );

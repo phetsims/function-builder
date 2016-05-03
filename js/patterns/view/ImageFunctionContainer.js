@@ -28,30 +28,26 @@ define( function( require ) {
 
   return inherit( FunctionContainer, ImageFunctionContainer, {
 
-    /**
-     * Creates functions and puts them in the container.
-     * See supertype FunctionContainer.createFunctions for params.
-     * @override
-     * @public
+    /***
+     * Creates the model element for a function.
+     * See supertype FunctionContainer.createFunctionInstance for params.
+     * @returns {AbstractFunction}
+     * @protected
+     * @abstract
      */
-    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
+    createFunctionInstance: function( location ) {
+      return new this.FunctionConstructor( { location: this.carouselLocation } );
+    },
 
-      assert && assert( this.carouselLocation );
-
-      for ( var i = 0; i < numberOfInstances; i++ ) {
-
-        // model element
-        var functionInstance = new this.FunctionConstructor( {
-          location: this.carouselLocation
-        } );
-        scene.functionInstances.push( functionInstance );
-
-        // associated Node
-        var functionNode = new ImageFunctionNode( functionInstance, this, builderNode, dragLayer );
-
-        // put the Node in this container
-        this.addNode( functionNode );
-      }
+    /**
+     * Creates the view element (Node) for a function.
+     * See supertype FunctionContainer.createFunctionNode for params.
+     * @returns {Node}
+     * @protected
+     * @abstract
+     */
+    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
+      return new ImageFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );
