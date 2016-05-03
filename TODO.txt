@@ -36,10 +36,6 @@ Better pattern for ghost cards
 
 ---
 
-Number vs Numbers prefix on .js files
-
-Equation vs Equations prefix on .js files
-
 Reset All
 - doesn't handle cards that are being dragged, animating or paused in 'see inside' windows
 - doesn't handle functions that are being dragged or animating
