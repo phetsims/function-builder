@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with ImageFunctionContainer
 /**
  * Container for number functions. This container is intended to be put in a carousel.
  *

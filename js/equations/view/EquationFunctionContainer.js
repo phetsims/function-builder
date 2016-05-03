@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with EquationFunctionContainer
 /**
  * Container for equation functions. This container is intended to be put in a carousel.
  *
