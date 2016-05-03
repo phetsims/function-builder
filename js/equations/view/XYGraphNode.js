@@ -181,7 +181,7 @@ define( function( require ) {
       new Vector2( 80, 80 )
     ];
     points.forEach( function( point ) {
-      thisNode.pointsParent.addChild( new PointNode( thisNode.modelViewTransform.modelToViewPosition( point ) ) );
+      thisNode.addPoint( point );
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
@@ -192,7 +192,50 @@ define( function( require ) {
 
   functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
-  inherit( Node, XYGraphNode );
+  inherit( Node, XYGraphNode, {
+
+    /**
+     * Adds a point to the graph.
+     *
+     * @param {Vector2} point
+     * @public
+     */
+    addPoint: function( point ) {
+      this.pointsParent.addChild( new PointNode( this.modelViewTransform.modelToViewPosition( point ) ) );
+    },
+
+    /**
+     * Removes the first occurrence of a point from the graph.
+     *
+     * @param {Vector2} point
+     * @public
+     */
+    removePoint: function( point ) {
+
+      assert && assert( point instanceof Vector2 );
+
+      var removed = false;
+      for ( var i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
+
+        var pointNode = this.pointsParent.getChildAt( i );
+        assert && assert( pointNode instanceof PointNode );
+
+        if ( pointNode.point.equals( point ) ) {
+          this.pointsParent.removeChild( pointNode );
+          removed = true;
+        }
+      }
+      assert && assert( removed, 'point not found: ' + point );
+    },
+
+    /**
+     * Removes all points from the graph.
+     * @public
+     */
+    removeAllPoints: function() {
+      this.pointsParent.removeAllChildren();
+    }
+  } );
 
   /**
    * @param {Vector2} point
