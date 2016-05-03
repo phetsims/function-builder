@@ -19,26 +19,14 @@ it exits the builder and flies to the output panel the output value will appear 
 
 ---
 
-DECISIONS
-
-Equations:
-- Cards always show simplified form
-- simplified form === slope-intercept
-- see rtf for "helpful" form (unsimplified)
-- Use script for x and y symbols (see Expression Exchange)
-
-Graph:
-- Graph will use max scale [-100,100] to start, so we can understand the issues
-- Point is added to graph when put in output carousel
-- Point is removed from graph when removed from output carousel
-
----
-
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
-Equation
+Equation (see equations-formats.md)
 
 Graph
+- start with fixed scale [-100,100], so we can understand the issues
+- Point is added to graph when put in output carousel
+- Point is removed from graph when removed from output carousel
 
 Table?
 
