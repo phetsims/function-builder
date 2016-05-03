@@ -39,7 +39,7 @@ define( function( require ) {
     /**
      * Creates the model element for a card.
      * See supertype CardContainer.createCard for params.
-     * @public
+     * @protected
      * @override
      */
     createCard: function( value, location ) {
@@ -49,7 +49,7 @@ define( function( require ) {
     /**
      * Creates the view element (Node) for a card.
      * See supertype CardContainer.createCardNode for params.
-     * @public
+     * @protected
      * @override
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {

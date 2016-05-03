@@ -81,7 +81,7 @@ define( function( require ) {
      * @param {*} value - the card's value, type determined by subtype
      * @param {Vector2} location - the card's initial location
      * @returns {Card}
-     * @public
+     * @protected
      * @abstract
      */
     createCard: function( value, location ) {
@@ -98,7 +98,7 @@ define( function( require ) {
      * @param {Node} dragLayer
      * @param {SeeInsideLayer} seeInsideProperty
      * @returns {Node}
-     * @public
+     * @protected
      * @abstract
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
