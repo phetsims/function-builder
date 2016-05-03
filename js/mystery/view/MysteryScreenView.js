@@ -22,7 +22,7 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    //TODO
+    //TODO implement constructor
   }
 
   functionBuilder.register( 'MysteryScreenView', MysteryScreenView );

@@ -54,7 +54,7 @@ define( function( require ) {
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
-      open: false, //TODO should be true by default
+      open: false, //TODO table drawer should be open by default
       handleLocation: 'top',
       centerX: scene.builder.centerX,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP

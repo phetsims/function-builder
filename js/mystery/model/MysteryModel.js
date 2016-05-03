@@ -16,7 +16,7 @@ define( function( require ) {
    * @constructor
    */
   function MysteryModel() {
-    //TODO
+    //TODO implement constructor
   }
 
   functionBuilder.register( 'MysteryModel', MysteryModel );
@@ -25,7 +25,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO delete this if there's ultimately nothing to do
+      //TODO delete reset if there's ultimately nothing to do
     },
 
     /**
@@ -35,7 +35,7 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      //TODO
+      //TODO implement step
     }
   } );
 } );
