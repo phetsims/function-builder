@@ -27,7 +27,7 @@ define( function( require ) {
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // images
-  var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
+  var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
 
   // strings
   var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
@@ -188,8 +188,8 @@ define( function( require ) {
       else {
 
         // image
-        contentNode = new Image( triangleImage, {
-          maxWidth: 0.75 * windowNode.width
+        contentNode = new Image( stickFigureImage, {
+          maxHeight: 0.75 * windowNode.height
         } );
       }
       contentNode.center = windowNode.center;
