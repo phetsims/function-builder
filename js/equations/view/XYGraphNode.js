@@ -26,8 +26,6 @@ define( function( require ) {
 
   // constants
   var ABS_RANGE = 100;
-  var POINT_RADIUS = 3;
-  var POINT_FILL = 'black';
   var AXIS_OPTIONS = {
     doubleHead: true,
     headWidth: 8,
@@ -56,12 +54,15 @@ define( function( require ) {
       tickLabelSpace: 2
     }, options );
 
+    var thisNode = this;
+
     // model-view transform
     var xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
     var yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
     var xScale = options.size.width / options.xRange.getLength();
     var yScale = -options.size.height / options.yRange.getLength(); // inverted
-    var modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
+    // @private
+    this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
       fill: 'white'
@@ -73,7 +74,7 @@ define( function( require ) {
     // vertical lines
     var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
     for ( var modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
-      var viewGridX = modelViewTransform.modelToViewX( modelGridX );
+      var viewGridX = this.modelViewTransform.modelToViewX( modelGridX );
       gridShape.moveTo( viewGridX, 0 );
       gridShape.lineTo( viewGridX, backgroundNode.height );
       modelGridX += options.xGridSpacing;
@@ -82,7 +83,7 @@ define( function( require ) {
     // horizontal lines
     var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
     for ( var modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
-      var viewGridY = modelViewTransform.modelToViewY( modelGridY );
+      var viewGridY = this.modelViewTransform.modelToViewY( modelGridY );
       gridShape.moveTo( 0, viewGridY );
       gridShape.lineTo( backgroundNode.width, viewGridY );
       modelGridY += options.yGridSpacing;
@@ -93,7 +94,7 @@ define( function( require ) {
       lineWidth: 0.5
     } );
 
-    var viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
+    var viewOrigin = this.modelViewTransform.modelToViewXY( 0, 0 );
 
     // x axis
     var xAxisNode = new ArrowNode( 0, 0, backgroundNode.width, 0, AXIS_OPTIONS );
@@ -120,7 +121,7 @@ define( function( require ) {
 
       if ( modelTickX !== 0 ) {
 
-        viewTickPosition = modelViewTransform.modelToViewXY( modelTickX, 0 );
+        viewTickPosition = this.modelViewTransform.modelToViewXY( modelTickX, 0 );
 
         // line
         tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
@@ -147,7 +148,7 @@ define( function( require ) {
 
       if ( modelTickY !== 0 ) {
 
-        viewTickPosition = modelViewTransform.modelToViewXY( 0, modelTickY );
+        viewTickPosition = this.modelViewTransform.modelToViewXY( 0, modelTickY );
 
         // line
         tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
@@ -171,7 +172,7 @@ define( function( require ) {
     } );
 
     //TODO temporary, demonstrate a few points
-    var pointsParent = new Node();
+    this.pointsParent = new Node();
     var points = [
       new Vector2( 0, 0 ),
       new Vector2( 20, 20 ),
@@ -180,19 +181,40 @@ define( function( require ) {
       new Vector2( 80, 80 )
     ];
     points.forEach( function( point ) {
-      pointsParent.addChild( new Circle( POINT_RADIUS, {
-        fill: POINT_FILL,
-        center: modelViewTransform.modelToViewPosition( point )
-      } ) );
+      thisNode.pointsParent.addChild( new PointNode( thisNode.modelViewTransform.modelToViewPosition( point ) ) );
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent, xAxisNode, yAxisNode, pointsParent ];
+    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent, xAxisNode, yAxisNode, this.pointsParent ];
 
     Node.call( this, options );
   }
 
   functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
-  return inherit( Node, XYGraphNode );
+  inherit( Node, XYGraphNode );
+
+  /**
+   * @param {Vector2} point
+   * @param {Object} [options]
+   * @constructor
+   */
+  function PointNode( point, options ) {
+
+    options = _.extend( {
+      radius: 3,
+      fill: 'black'
+    }, options );
+    options.center = point;
+
+    this.point = point;
+
+    Circle.call( this, options.radius, options );
+  }
+
+  functionBuilder.register( 'XYGraphNode.PointNode', PointNode );
+
+  inherit( Circle, PointNode );
+
+  return XYGraphNode;
 } );
