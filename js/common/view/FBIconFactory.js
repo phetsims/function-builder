@@ -114,7 +114,8 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'single' scene in the 'Patterns' screen, a single function piece.
+     * Creates the icon for the 'single' scene radio button in the 'Patterns' screen.
+     * The icons is a single function piece.
      * @returns {Node}
      */
     createSingleSceneIcon: function() {
@@ -126,7 +127,8 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'composed' scene in the 'Patterns' screen, 2 function pieces in series.
+     * Creates the icon for the 'composed' scene radio button in the 'Patterns' screen.
+     * The icon is 2 function pieces in series.
      * @returns {Node}
      */
     createComposedSceneIcon: function() {
@@ -149,7 +151,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the control that shows/hides the 'see inside' windows on the builder.
+     * Creates the icon for the 'see inside' check box, which shows/hides windows in the builder.
      * @param {Object} [options]
      * @returns {Node}
      */
@@ -200,7 +202,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the control that hides icons on the functions in the builder.
+     * Creates the icon for the 'hide functions' check box, which hides the identity of functions in the builder.
      * @returns {Node}
      */
     createHideFunctionsIcon: function() {
