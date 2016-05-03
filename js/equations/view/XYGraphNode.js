@@ -25,7 +25,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var ABS_RANGE = 100;
   var AXIS_OPTIONS = {
     doubleHead: true,
     headWidth: 8,
@@ -35,6 +34,10 @@ define( function( require ) {
     stroke: null
   };
 
+  //TODO temporary constants for dev testing
+  var DEV_ABS_RANGE = 100;
+  var DEV_INPUT_RANGE = new Range( -4, 6 );
+
   /**
    * @param {Builder} builder
    * @param {Object} [options]
@@ -43,17 +46,34 @@ define( function( require ) {
   function XYGraphNode( builder, options ) {
 
     options = _.extend( {
-      size: FBConstants.GRAPH_DRAWER_SIZE,
-      xRange: new Range( -ABS_RANGE, ABS_RANGE ),
-      yRange: new Range( -ABS_RANGE, ABS_RANGE ),
-      xGridSpacing: 10,
-      yGridSpacing: 10,
-      xTickSpacing: 50,
-      yTickSpacing: 50,
-      tickLength: 5,
-      tickFont: new FBFont( 12 ),
-      tickLabelSpace: 2
+
+      size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
+      background: 'white', // {Color|string} background color of the graph
+      xRange: new Range( -DEV_ABS_RANGE, DEV_ABS_RANGE ), // {Range} of the x axis, in model coordinates
+      yRange: new Range( -DEV_ABS_RANGE, DEV_ABS_RANGE ), // {Range} of the y axis, in model coordinates
+
+      // grid
+      xGridSpacing: 10, // {number} spacing of vertical grid lines, in model coordinates
+      yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
+      gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
+      gridLineWidth: 0.5, // {number} lineWidth of the grid
+
+      // ticks
+      xTickSpacing: 50, // {number} spacing of x-axis tick marks, in model coordinates
+      yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
+      tickLength: 5, // {number} length of tick lines, in view coordinates
+      tickFont: new FBFont( 12 ), // {Font} font for tick labels
+      tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
+
+      // points
+      pointFill: 'black', // {Color|string} point color
+      pointRadius: 2 // {number} point radius, in view coordinates
+
     }, options );
+
+    // @private
+    this.pointFill = options.pointFill;
+    this.pointRadius = options.pointRadius;
 
     var thisNode = this;
 
@@ -66,7 +86,7 @@ define( function( require ) {
     this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      fill: 'white'
+      fill: options.background
     } );
 
     // grid
@@ -91,8 +111,8 @@ define( function( require ) {
     }
 
     var gridNode = new Path( gridShape, {
-      stroke: 'rgb( 200, 200, 200 )',
-      lineWidth: 0.5
+      stroke: options.gridStroke,
+      lineWidth: options.gridLineWidth
     } );
 
     var viewOrigin = this.modelViewTransform.modelToViewXY( 0, 0 );
@@ -196,7 +216,7 @@ define( function( require ) {
     // @private
     updatePoints: function() {
       this.removeAllPoints();
-      for ( var x = -4; x < 7; x++ ) {
+      for ( var x = DEV_INPUT_RANGE.min; x <= DEV_INPUT_RANGE.max; x++ ) {
         var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length ); // {BigRational}
         this.addPoint( new Vector2( x, y.valueOf() ) );
       }
@@ -210,7 +230,10 @@ define( function( require ) {
      */
     addPoint: function( point ) {
       assert && assert( point instanceof Vector2 );
-      this.pointsParent.addChild( new PointNode( point, this.modelViewTransform ) );
+      this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
+        radius: this.pointRadius,
+        fill: this.pointFill
+      } ) );
     },
 
     /**
@@ -255,15 +278,14 @@ define( function( require ) {
   function PointNode( point, modelViewTransform, options ) {
 
     options = _.extend( {
-      radius: 2,
+      radius: 1,
       fill: 'black'
     }, options );
-
-    options.center = modelViewTransform.modelToViewPosition( point );
 
     this.point = point;
 
     Circle.call( this, options.radius, options );
+    this.center = modelViewTransform.modelToViewPosition( point );
   }
 
   functionBuilder.register( 'XYGraphNode.PointNode', PointNode );
