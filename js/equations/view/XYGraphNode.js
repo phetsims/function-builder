@@ -255,7 +255,7 @@ define( function( require ) {
   function PointNode( point, modelViewTransform, options ) {
 
     options = _.extend( {
-      radius: 3,
+      radius: 2,
       fill: 'black'
     }, options );
 
