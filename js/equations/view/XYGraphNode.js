@@ -12,6 +12,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -48,7 +50,10 @@ define( function( require ) {
       xGridSpacing: 10,
       yGridSpacing: 10,
       xTickSpacing: 50,
-      yTickSpacing: 50
+      yTickSpacing: 50,
+      tickLength: 5,
+      tickFont: new FBFont( 12 ),
+      tickLabelSpace: 2
     }, options );
 
     // model-view transform
@@ -67,20 +72,20 @@ define( function( require ) {
 
     // vertical lines
     var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
-    for ( var x = xMinGridLine; x <= options.xRange.max; ) {
-      var viewX = modelViewTransform.modelToViewX( x );
-      gridShape.moveTo( viewX, 0 );
-      gridShape.lineTo( viewX, backgroundNode.height );
-      x += options.xGridSpacing;
+    for ( var modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
+      var viewGridX = modelViewTransform.modelToViewX( modelGridX );
+      gridShape.moveTo( viewGridX, 0 );
+      gridShape.lineTo( viewGridX, backgroundNode.height );
+      modelGridX += options.xGridSpacing;
     }
 
     // horizontal lines
     var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
-    for ( var y = yMinGridLine; y <= options.yRange.max; ) {
-      var viewY = modelViewTransform.modelToViewY( y );
-      gridShape.moveTo( 0, viewY );
-      gridShape.lineTo( backgroundNode.width, viewY );
-      y += options.yGridSpacing;
+    for ( var modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
+      var viewGridY = modelViewTransform.modelToViewY( modelGridY );
+      gridShape.moveTo( 0, viewGridY );
+      gridShape.lineTo( backgroundNode.width, viewGridY );
+      modelGridY += options.yGridSpacing;
     }
 
     var gridNode = new Path( gridShape, {
@@ -97,6 +102,73 @@ define( function( require ) {
     // y axis
     var yAxisNode = new ArrowNode( 0, 0, 0, backgroundNode.height, AXIS_OPTIONS );
     yAxisNode.centerX = viewOrigin.x;
+
+    // tick lines & labels
+    var tickLinesShape = new Shape();
+    var tickLabelsParent = new Node();
+
+    // hoist loop variables
+    var viewTickPosition;
+    var tickLabelNode;
+
+    // x tick marks
+    var xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
+    if ( xMinTick === options.xRange.min ) {
+      xMinTick = xMinTick + options.xTickSpacing;
+    }
+    for ( var modelTickX = xMinTick; modelTickX < options.xRange.max; ) {
+
+      if ( modelTickX !== 0 ) {
+
+        viewTickPosition = modelViewTransform.modelToViewXY( modelTickX, 0 );
+
+        // line
+        tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
+        tickLinesShape.lineTo( viewTickPosition.x, viewTickPosition.y + options.tickLength );
+
+        // label
+        tickLabelNode = new Text( modelTickX, {
+          font: options.tickFont,
+          centerX: viewTickPosition.x,
+          top: viewTickPosition.y + options.tickLength + options.tickLabelSpace
+        } );
+        tickLabelsParent.addChild( tickLabelNode );
+      }
+
+      modelTickX += options.xTickSpacing;
+    }
+
+    // y tick marks
+    var yMinTick = options.yRange.min - ( options.yRange.min % options.yTickSpacing );
+    if ( yMinTick === options.yRange.min ) {
+      yMinTick = yMinTick + options.yTickSpacing;
+    }
+    for ( var modelTickY = yMinTick; modelTickY < options.yRange.max; ) {
+
+      if ( modelTickY !== 0 ) {
+
+        viewTickPosition = modelViewTransform.modelToViewXY( 0, modelTickY );
+
+        // line
+        tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
+        tickLinesShape.lineTo( viewTickPosition.x - options.tickLength, viewTickPosition.y );
+
+        // label
+        tickLabelNode = new Text( modelTickY, {
+          font: options.tickFont,
+          right: viewTickPosition.x - options.tickLength - options.tickLabelSpace,
+          centerY: viewTickPosition.y
+        } );
+        tickLabelsParent.addChild( tickLabelNode );
+      }
+
+      modelTickY += options.yTickSpacing;
+    }
+
+    var tickLinesNode = new Path( tickLinesShape, {
+      stroke: 'black',
+      lineWidth: 2
+    } );
 
     //TODO temporary, demonstrate a few points
     var pointsParent = new Node();
@@ -115,7 +187,7 @@ define( function( require ) {
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, gridNode, xAxisNode, yAxisNode, pointsParent ];
+    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent, xAxisNode, yAxisNode, pointsParent ];
 
     Node.call( this, options );
   }
