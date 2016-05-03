@@ -244,7 +244,8 @@ define( function( require ) {
      * Gets the location (center) of a 'see inside' window.
      *
      * @param {number} windowNumber
-     * @returns {*}
+     * @returns {Vector2}
+     * @public
      */
     getWindowLocation: function( windowNumber ) {
       assert && assert( this.isValidWindowNumber( windowNumber ) );
@@ -257,6 +258,7 @@ define( function( require ) {
      *
      * @param {Vector2} location
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
+     * @public
      */
     getRightWindowNumber: function( location ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
@@ -273,6 +275,7 @@ define( function( require ) {
      *
      * @param {Vector2} location
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
+     * @public
      */
     getLeftWindowNumber: function( location ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {

@@ -84,7 +84,7 @@ define( function( require ) {
 
   return inherit( SceneNode, NumbersSceneNode, {
 
-    // @override
+    // @public @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
 

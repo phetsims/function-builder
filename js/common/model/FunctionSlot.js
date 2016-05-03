@@ -71,7 +71,7 @@ define( function( require ) {
     }
   }, {
 
-    // used to indicate the absence of a valid slot number
+    // @public @static used to indicate the absence of a valid slot number
     NO_SLOT_NUMBER: -1
   } );
 } );

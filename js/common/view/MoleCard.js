@@ -2,6 +2,7 @@
 
 /**
  * The 'mole under the carpet' view of a card while it's inside the builder.
+ * Shows the transparent outline of a card.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

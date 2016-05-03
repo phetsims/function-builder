@@ -92,7 +92,7 @@ define( function( require ) {
 
   return inherit( SceneNode, EquationsSceneNode, {
 
-    // @override
+    // @public @override
     reset: function() {
       SceneNode.prototype.reset.call( this );
 

@@ -30,6 +30,5 @@ define( function( require ) {
 
   functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
 
-
   return inherit( FunctionBackgroundNode, FunctionSlotNode );
 } );

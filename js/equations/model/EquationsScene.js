@@ -38,6 +38,7 @@ define( function( require ) {
      * Symbols on the input cards, in the order that they appear in the input carousel.
      * Symbols will be added to the carousel after numbers.
      * @type {*[]}
+     * @public (read-only)
      */
     this.cardSymbols = [ FBSymbols.X ];
 

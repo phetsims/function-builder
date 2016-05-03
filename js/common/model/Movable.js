@@ -75,6 +75,7 @@ define( function( require ) {
     /**
      * Is the Movable animating?
      * @returns {boolean}
+     * @public
      */
     isAnimating: function() {
       return !this.dragging && !this.locationProperty.get().equals( this.destination );

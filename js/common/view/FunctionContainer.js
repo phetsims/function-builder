@@ -63,7 +63,7 @@ define( function( require ) {
      * Creates the model element for a function.
      *
      * @param {Vector2} location - the function's initial location
-     * @returns {Card}
+     * @returns {AbstractFunction}
      * @protected
      * @abstract
      */
