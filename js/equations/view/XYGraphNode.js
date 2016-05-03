@@ -36,10 +36,11 @@ define( function( require ) {
   };
 
   /**
+   * @param {Builder} builder
    * @param {Object} [options]
    * @constructor
    */
-  function XYGraphNode( options ) {
+  function XYGraphNode( builder, options ) {
 
     options = _.extend( {
       size: FBConstants.GRAPH_DRAWER_SIZE,
@@ -171,28 +172,35 @@ define( function( require ) {
       lineWidth: 2
     } );
 
-    //TODO temporary, demonstrate the worst-case points
+    // @private parent for all points
     this.pointsParent = new Node();
-    var points = [];
-    for ( var x = -4; x < 7; x++ ) {
-      points.push( new Point( new Vector2( x, ( x + 3 ) * 3 * 3 ), 'red' ) );
-      points.push( new Point( new Vector2( x, ( x - 3 ) * 3 * 3 ), 'green' ) );
-      points.push( new Point( new Vector2( x, ( x + 3 ) / 3 / 3 ), 'blue' ) );
-      points.push( new Point( new Vector2( x, ( x - 3 ) / 3 / 3 ), 'orange' ) );
-    }
-    points.forEach( function( point ) {
-      thisNode.addPoint( point );
-    } );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent, xAxisNode, yAxisNode, this.pointsParent ];
 
     Node.call( this, options );
+
+    // @private
+    this.builder = builder;
+    this.builder.functionChangedEmitter.addListener( function() {
+       thisNode.updatePoints();
+    } );
+    this.updatePoints();
   }
 
   functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
   inherit( Node, XYGraphNode, {
+
+    //TODO temporary, demonstrate what it looks like with all points plotted
+    // @private
+    updatePoints: function() {
+      this.removeAllPoints();
+      for ( var x = -4; x < 7; x++ ) {
+        var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length );
+        this.addPoint( new Point( new Vector2( x, y.valueOf() ), 'black' ) );
+      }
+    },
 
     /**
      * Adds a point to the graph.
