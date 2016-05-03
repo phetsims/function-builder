@@ -16,6 +16,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -25,11 +26,17 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
+  // images
+  var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
+
   // strings
   var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
 
   // constants
-  var FUNCTION_ICON_SCALE = 0.35; // uniform scale for function icons on all controls
+  var RADIO_BUTTON_ICON_SCALE = 0.35;
+  var RADIO_BUTTON_ICON_LINE_WIDTH = 3;
+  var CHECK_BOX_ICON_SCALE = 0.45;
+  var CHECK_BOX_ICON_LINE_WIDTH = 3;
 
   var FBIconFactory = {
 
@@ -59,7 +66,7 @@ define( function( require ) {
       } );
 
       var iconNode = new Node( {
-        children: [ leftTopStar, rightTopStar,leftBottomStar, rightBottomStar ]
+        children: [ leftTopStar, rightTopStar, leftBottomStar, rightBottomStar ]
       } );
 
       return new ScreenIcon( iconNode, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
@@ -113,8 +120,8 @@ define( function( require ) {
     createSingleSceneIcon: function() {
       return new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
-        lineWidth: 3,
-        scale: FUNCTION_ICON_SCALE
+        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH,
+        scale: RADIO_BUTTON_ICON_SCALE
       } );
     },
 
@@ -124,48 +131,71 @@ define( function( require ) {
      */
     createComposedSceneIcon: function() {
 
-      var LINE_WIDTH = 3;
-
       var leftNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
-        lineWidth: LINE_WIDTH
+        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH
       } );
 
       var rightNode = new FunctionBackgroundNode( {
         fill: 'rgb( 205, 175, 230 )',
-        lineWidth: LINE_WIDTH,
-        left: leftNode.right - leftNode.xInset - ( 2 * LINE_WIDTH )
+        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH,
+        left: leftNode.right - leftNode.xInset - ( 2 * RADIO_BUTTON_ICON_LINE_WIDTH )
       } );
 
       return new Node( {
         children: [ leftNode, rightNode ],
-        scale: FUNCTION_ICON_SCALE
+        scale: RADIO_BUTTON_ICON_SCALE
       } );
     },
 
     /**
      * Creates the icon for the control that shows/hides the 'see inside' windows on the builder.
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createSeeInsideIcon: function() {
+    createSeeInsideIcon: function( options ) {
+
+      options = _.extend( {
+        iconType: 'number' // {string} whether to show a 'number' or 'image' on the card in the window
+      }, options );
+      assert && assert( options.iconType === 'number' || options.iconType === 'image' );
 
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
-        lineWidth: 3,
-        scale: FUNCTION_ICON_SCALE
+        lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
+        scale: CHECK_BOX_ICON_SCALE
       } );
 
-      var windowLength = 0.85 * functionNode.height;
+      var windowLength = 0.75 * functionNode.height;
       var windowNode = new Rectangle( 0, 0, windowLength, windowLength, {
-        cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
-        fill: 'black',
-        stroke: 'gray',
+        cornerRadius: 3,
+        fill: 'white',
+        stroke: 'black',
+        lineWidth: 1,
         centerX: functionNode.right - ( FBConstants.FUNCTION_X_INSET_FACTOR * functionNode.width ),
         centerY: functionNode.centerY
       } );
 
+      var contentNode = null;
+      if ( options.iconType === 'number' ) {
+
+        // number '2'
+        contentNode = new Text( '2', {
+          font: new FBFont( 20 ),
+          maxHeight: 0.85 * windowNode.height
+        } );
+      }
+      else {
+
+        // image
+        contentNode = new Image( triangleImage, {
+          maxWidth: 0.75 * windowNode.width
+        } );
+      }
+      contentNode.center = windowNode.center;
+
       return new Node( {
-        children: [ functionNode, windowNode ]
+        children: [ functionNode, windowNode, contentNode ]
       } );
     },
 
@@ -177,8 +207,8 @@ define( function( require ) {
 
       var functionNode = new FunctionBackgroundNode( {
         fill: FBColors.HIDDEN_FUNCTION,
-        lineWidth: 3,
-        scale: FUNCTION_ICON_SCALE
+        lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
+        scale: CHECK_BOX_ICON_SCALE
       } );
 
       var closedEyeNode = new FontAwesomeNode( 'eye_close', {

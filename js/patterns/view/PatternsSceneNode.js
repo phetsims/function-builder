@@ -22,6 +22,10 @@ define( function( require ) {
    * @constructor
    */
   function PatternsSceneNode( scene, layoutBounds, options ) {
+
+    options = options || {};
+    options.seeInsideIconType = 'image'; // see FBIconFactory.createSeeInsideIcon
+
     SceneNode.call( this, scene, layoutBounds, options );
   }
 

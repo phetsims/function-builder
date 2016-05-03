@@ -48,7 +48,8 @@ define( function( require ) {
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
       functionsPerPage: 3, // {number} functions per page in the functions carousel
       inputLabelNode: new Text( '' ), // {Node} label for the input carousel
-      outputLabelNode: new Text( '' ) // {Node} label for the output carousel
+      outputLabelNode: new Text( '' ), // {Node} label for the output carousel
+      seeInsideIconType: 'number' // {string} see FBIconFactory.createSeeInsideIcon
     }, options );
 
     var thisNode = this;
@@ -224,7 +225,7 @@ define( function( require ) {
 
     // 'See Inside' windows in builder
     var seeInsideCheckBox = new CheckBox(
-      FBIconFactory.createSeeInsideIcon(),
+      FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
       this.viewProperties.seeInsideProperty, {
         spacing: 8,
         left: hideFunctionsCheckBox.left,
