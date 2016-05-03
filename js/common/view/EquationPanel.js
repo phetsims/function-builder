@@ -40,11 +40,12 @@ define( function( require ) {
       fill: 'white'
     } );
 
+    //TODO temporary equation
     // Equation
     var equationNode = new SlopeInterceptEquationNode( -11, 9, FBSymbols.PLUS, 4, {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol
-    } ); //TODO temporary
+    } );
 
     // 'Simplify Equation' check box, at bottom center
     var simplifyEquationLabel = new Text( simplifyString, {
