@@ -197,8 +197,8 @@ define( function( require ) {
     updatePoints: function() {
       this.removeAllPoints();
       for ( var x = -4; x < 7; x++ ) {
-        var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length );
-        this.addPoint( new Point( new Vector2( x, y.valueOf() ), 'black' ) );
+        var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length ); // {BigRational}
+        this.addPoint( new Vector2( x, y.valueOf() ) );
       }
     },
 
@@ -209,18 +209,19 @@ define( function( require ) {
      * @public
      */
     addPoint: function( point ) {
+      assert && assert( point instanceof Vector2 );
       this.pointsParent.addChild( new PointNode( point, this.modelViewTransform ) );
     },
 
     /**
      * Removes the first occurrence of a point from the graph.
      *
-     * @param {Point} point
+     * @param {Vector2} point
      * @public
      */
     removePoint: function( point ) {
 
-      assert && assert( point instanceof Point );
+      assert && assert( point instanceof Vector2 );
 
       var removed = false;
       for ( var i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
@@ -246,26 +247,7 @@ define( function( require ) {
   } );
 
   /**
-   * @param {Vector2} location
-   * @param {Color|string} color
-   * @constructor
-   */
-  function Point( location, color ) {
-    this.location = location; // @public
-    this.color = color; // @public
-  }
-
-  functionBuilder.register( 'XYGraphNode.Point', Point, {
-
-    equals: function( point ) {
-      return this.location.equals( point.location ) && this.color.equals( point.color ); //TODO Color vs string
-    }
-  } );
-
-  inherit( Object, Point );
-
-  /**
-   * @param {Point} point
+   * @param {Vector2} point
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
@@ -273,11 +255,11 @@ define( function( require ) {
   function PointNode( point, modelViewTransform, options ) {
 
     options = _.extend( {
-      radius: 3
+      radius: 3,
+      fill: 'black'
     }, options );
 
-    options.center = modelViewTransform.modelToViewPosition( point.location );
-    options.fill = point.color;
+    options.center = modelViewTransform.modelToViewPosition( point );
 
     this.point = point;
 

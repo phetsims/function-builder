@@ -48,7 +48,7 @@ define( function( require ) {
     this.viewProperties.addProperty( 'simplifyEquation', false );
 
     // Graph
-``    var graphNode = new XYGraphNode( scene.builder );
+    var graphNode = new XYGraphNode( scene.builder );
 
     // @private Graph drawer
     this.graphDrawer = new Drawer( graphNode, {
