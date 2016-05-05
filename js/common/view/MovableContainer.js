@@ -101,6 +101,14 @@ define( function( require ) {
      */
     getContents: function() {
       return this.contentsParent.getChildren();
+    },
+
+    /**
+     * Is the container empty?
+     * @returns {boolean}
+     */
+    isEmpty: function() {
+      return ( this.contentsParent.getChildrenCount() === 0 );
     }
   } );
 } );
