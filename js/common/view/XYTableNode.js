@@ -90,7 +90,7 @@ define( function( require ) {
         centerY: backgroundNode.bottom - ROW_HEIGHT / 2
       } );
 
-      options.children.push( xValueNode, yValueNode )
+      options.children.push( xValueNode, yValueNode );
     }
 
     Node.call( this, options );
