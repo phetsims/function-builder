@@ -2,23 +2,6 @@ TODO list for function-builder
 
 ---
 
-QUESTIONS
-
-Mystery screen: design
-
-Table:
-- this feature seems redundant, input/output carousels are effectively a table, what is the table adding?
-- potentially confusing, due to different ordering than carousel?
-- relatively expensive to implement
-- Confirm the specification: Once an input enters the builder it appears in the table under “In”. After
-it exits the builder and flies to the output panel the output value will appear in the table under “Out”.
-- When is an entry removed from the table? When it's removed from the output carousel? Returned to the input carousel? Never?
-- When an entry is removed from the table, do all rows below it move up?
-- If an entry is remove when it’s card is removed from the output carousel, then clicking on a card and immediately releasing it will move the table row to the end of the table. That seems potentially confusing.
-- How important is highlighting by selecting rows in table? What happens when the corresponding item in the carousel is not visible? Does the corresponding point on graph also need to highlight? How does highlighting work for multi-touch?
-
----
-
 Remove card carousel labels
 
 Populate graph based on what's in the output carousel.
@@ -34,7 +17,7 @@ Graph
 - Point is added to graph when put in output carousel
 - Point is removed from graph when removed from output carousel
 
-Table?
+Table
 
 Better way to specify functions in NumbersScene and EquationsScene
 
