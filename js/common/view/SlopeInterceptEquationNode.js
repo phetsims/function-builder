@@ -29,8 +29,8 @@ define( function( require ) {
   function SlopeInterceptEquationNode( rise, run, operator, intercept, options ) {
 
     options = _.extend( {
-      xSymbol: FBSymbols.X,
-      ySymbol: FBSymbols.Y,
+      xSymbol: FBSymbols.X, // {string} symbol for input
+      ySymbol: FBSymbols.Y, // {string} symbol for ouptut
       font: new FBFont( 24 ), // {Font} font for non-slope components
       fractionFont: new FBFont( 18 ), // {Font} font for rise and run
       equalsXSpacing: 8, // {number} x space on both sides of equals
