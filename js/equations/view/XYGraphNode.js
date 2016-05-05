@@ -3,6 +3,10 @@
 /**
  * XY graph for the 'Equations' screen.
  *
+ * The graph has a fixed scale for the x & y axis; zoom in/out is not supported.
+ * By default (and after many design discussions) the axes have different scales.
+ * This was deemed preferable to the usability and implementation issues introduced by adding zoom support.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
