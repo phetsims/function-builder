@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-Remove card carousel labels
-
 Populate graph based on what's in the output carousel.
 
 Add line to graph, based on 2 points

@@ -15,12 +15,10 @@ define( function( require ) {
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
@@ -37,9 +35,7 @@ define( function( require ) {
 
     options = _.extend( {}, options, {
       cardCarouselDefaultPageNumber: 1,
-      functionsPerPage: 2,
-      inputLabelNode: new Text( FBSymbols.X, { font: FBConstants.EQUATIONS_CARD_CAROUSEL_LABEL_FONT } ),
-      outputLabelNode: new Text( FBSymbols.Y, { font: FBConstants.EQUATIONS_CARD_CAROUSEL_LABEL_FONT } )
+      functionsPerPage: 2
     } );
 
     SceneNode.call( this, scene, layoutBounds, options );

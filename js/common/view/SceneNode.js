@@ -25,7 +25,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
@@ -47,8 +46,6 @@ define( function( require ) {
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
       functionsPerPage: 3, // {number} functions per page in the functions carousel
-      inputLabelNode: new Text( '' ), // {Node} label for the input carousel
-      outputLabelNode: new Text( '' ), // {Node} label for the output carousel
       seeInsideIconType: 'number' // {string} see FBIconFactory.createSeeInsideIcon
     }, options );
 
@@ -108,10 +105,6 @@ define( function( require ) {
       top: layoutBounds.top + 50
     } );
 
-    // Label above the input carousel
-    options.inputLabelNode.centerX = inputCarousel.centerX;
-    options.inputLabelNode.bottom = inputCarousel.top - 10;
-
     // Page control for input carousel
     var inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
@@ -137,10 +130,6 @@ define( function( require ) {
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
     } );
-
-    // Label above the output carousel
-    options.outputLabelNode.centerX = outputCarousel.centerX;
-    options.outputLabelNode.bottom = outputCarousel.top - 10;
 
     // Page control for output carousel
     var outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
@@ -246,8 +235,8 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       this.controlsLayer,
-      inputCarousel, options.inputLabelNode, inputPageControl,
-      outputCarousel, options.outputLabelNode, outputPageControl,
+      inputCarousel, inputPageControl,
+      outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
       this.drawersLayer,
       builderLeftEndNode, builderRightEndNode,
