@@ -30,7 +30,7 @@ define( function( require ) {
       size: FBConstants.TABLE_DRAWER_SIZE,
       xString: FBSymbols.X,
       yString: FBSymbols.Y,
-      headingFont: new FBFont( 20 )
+      headingFont: new FBFont( 22 )
     }, options );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, { fill: 'white' } );
@@ -48,7 +48,7 @@ define( function( require ) {
     } );
 
     //TODO temporary grid
-    var NUMBER_OF_ROWS = Math.floor( backgroundNode.height / ( xNode.height + 8 ) );
+    var NUMBER_OF_ROWS = Math.floor( backgroundNode.height / ( xNode.height + 12 ) );
     var ROW_HEIGHT = backgroundNode.height / NUMBER_OF_ROWS;
     var gridShape = new Shape()
       .moveTo( backgroundNode.width / 2, 0 )
