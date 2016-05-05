@@ -35,7 +35,6 @@ define( function( require ) {
   };
 
   //TODO temporary constants for dev testing
-  var DEV_ABS_RANGE = 100;
   var DEV_INPUT_RANGE = new Range( -4, 6 );
 
   /**
@@ -49,25 +48,25 @@ define( function( require ) {
 
       size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
       background: 'white', // {Color|string} background color of the graph
-      xRange: new Range( -DEV_ABS_RANGE, DEV_ABS_RANGE ), // {Range} of the x axis, in model coordinates
-      yRange: new Range( -DEV_ABS_RANGE, DEV_ABS_RANGE ), // {Range} of the y axis, in model coordinates
+      xRange: new Range( -7, 7 ), // {Range} of the x axis, in model coordinates
+      yRange: new Range( -90, 90 ), // {Range} of the y axis, in model coordinates
 
       // grid
-      xGridSpacing: 10, // {number} spacing of vertical grid lines, in model coordinates
+      xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates
       yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
       gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
       gridLineWidth: 0.5, // {number} lineWidth of the grid
 
       // ticks
-      xTickSpacing: 50, // {number} spacing of x-axis tick marks, in model coordinates
-      yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
+      xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
+      yTickSpacing: 40, // {number} spacing of y-axis tick marks, in model coordinates
       tickLength: 5, // {number} length of tick lines, in view coordinates
       tickFont: new FBFont( 12 ), // {Font} font for tick labels
       tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
 
       // points
-      pointFill: 'black', // {Color|string} point color
-      pointRadius: 2 // {number} point radius, in view coordinates
+      pointFill: 'magenta', // {Color|string} point color
+      pointRadius: 3 // {number} point radius, in view coordinates
 
     }, options );
 
@@ -279,7 +278,9 @@ define( function( require ) {
 
     options = _.extend( {
       radius: 1,
-      fill: 'black'
+      fill: 'black',
+      stroke: 'black',
+      lineWidth: 0.25
     }, options );
 
     this.point = point;
