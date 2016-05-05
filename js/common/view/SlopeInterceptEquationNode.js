@@ -37,7 +37,8 @@ define( function( require ) {
       signXSpacing: 2, // x spacing between sign and slope
       operatorXSpacing: 8, // x space on both sides of operator
       slopeXSpacing: 4, // x space between slope and x
-      slopeYSpacing: 2  // y space above and below fraction line
+      slopeYSpacing: 2,  // y space above and below fraction line
+      showLeftHandSide: true // {boolean} whether to show left-hand side of the equation
     }, options);
 
     var negativeSlope = ( ( rise / run ) < 0 );
@@ -79,7 +80,7 @@ define( function( require ) {
     interceptNode.y = yNode.y;
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ yNode, equalsNode ];
+    options.children = options.showLeftHandSide ? [ yNode, equalsNode ] : [];
     if ( negativeSlope ) {
       options.children.push( negativeNode );
     }

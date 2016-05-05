@@ -18,6 +18,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -62,13 +63,29 @@ define( function( require ) {
       lineWidth: 0.5
     } );
 
+    // TODO temporary, put x in table
+    var xValueNode = new Text( FBSymbols.X, {
+      font: options.headingFont,
+      maxWidth: 0.4 * backgroundNode.width,
+      maxHeight: 0.85 * ROW_HEIGHT,
+      centerX: 0.25 * backgroundNode.width,
+      centerY: backgroundNode.bottom - ROW_HEIGHT / 2
+    } );
+    var yValueNode = new SlopeInterceptEquationNode( 2, 9, FBSymbols.PLUS, 10, {
+      showLeftHandSide: false,
+      maxWidth: 0.4 * backgroundNode.width,
+      maxHeight: 0.85 * ROW_HEIGHT,
+      centerX: 0.75 * backgroundNode.width,
+      centerY: backgroundNode.bottom - ROW_HEIGHT / 2
+    } );
+
     // heading background
     var headingBackgroundNode = new Rectangle( 0, 0, backgroundNode.width, ROW_HEIGHT, {
       fill: 'rgb( 144, 226, 252 )' // bright blue
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode ];
+    options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode, xValueNode, yValueNode ];
 
     Node.call( this, options );
   }
