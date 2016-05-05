@@ -229,6 +229,7 @@ define( function( require ) {
      */
     addPoint: function( point ) {
       assert && assert( point instanceof Vector2 );
+      //TODO verify that point is in range
       this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
         radius: this.pointRadius,
         fill: this.pointFill
