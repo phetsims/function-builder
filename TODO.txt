@@ -2,7 +2,8 @@ TODO list for function-builder
 
 ---
 
-Rework how graph is wired up to output containers, see EquationsSceneNode
+Rework how graph is wired up to output containers, see EquationsSceneNode. Either specify callbacks via options
+in Container constructor, or add an emitter to Container so that we can observe and modify graph accordingly
 
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
