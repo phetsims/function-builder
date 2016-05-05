@@ -56,7 +56,9 @@ define( function( require ) {
     this.drawersLayer.addChild( this.graphDrawer );
 
     // Table
-    var tableNode = new XYTableNode();
+    var tableNode = new XYTableNode( {
+      showEquationMockup: true //TODO temporary, delete this
+    } );
 
     // @private Table drawer
     this.tableDrawer = new Drawer( tableNode, {
