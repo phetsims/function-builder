@@ -10,11 +10,6 @@ Mystery screen mock up: 1 single function, 1 double function, 1 triple function,
 
 Equation (see equations-formats.md)
 
-Graph
-- start with fixed scale [-100,100], so we can understand the issues
-- Point is added to graph when put in output carousel
-- Point is removed from graph when removed from output carousel
-
 Table
 
 Better way to specify functions in NumbersScene and EquationsScene
