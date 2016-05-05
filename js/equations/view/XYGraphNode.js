@@ -67,6 +67,8 @@ define( function( require ) {
       tickLength: 5, // {number} length of tick lines, in view coordinates
       tickFont: new FBFont( 12 ), // {Font} font for tick labels
       tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
+      tickStroke: 'black', // {Color|string}
+      tickLineWidth: 1, // {number}
 
       // points
       pointFill: 'magenta', // {Color|string} point color
@@ -198,8 +200,8 @@ define( function( require ) {
     }
 
     var tickLinesNode = new Path( tickLinesShape, {
-      stroke: 'black',
-      lineWidth: 2
+      stroke: options.tickStroke,
+      lineWidth: options.tickLineWidth
     } );
 
     // @private parent for all points
