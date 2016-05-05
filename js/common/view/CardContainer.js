@@ -29,7 +29,7 @@ define( function( require ) {
     // @private
     this.value = value;
 
-    //TODO preferable to set this through options, since they are only assigned once
+    //TODO preferable to set these through options, since they are only assigned once
     // @public
     this.addFirstCallback = null; // {function(*)|null} called after the first card is added to an empty container
     this.removeLastCallback = null; // {function(*)|null} called after the last card is removed from a container
