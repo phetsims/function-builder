@@ -26,7 +26,13 @@ define( function( require ) {
       size: FBConstants.CARD_OPTIONS.size
     }, options );
 
-    this.value = value; // @private
+    // @private
+    this.value = value;
+
+    //TODO preferable to set this through options, since they are only assigned once
+    // @public
+    this.addFirstCallback = null; // {function(*)|null} called after the first card is added to an empty container
+    this.removeLastCallback = null; // {function(*)|null} called after the last card is removed from a container
 
     MovableContainer.call( this, options );
   }
@@ -34,6 +40,29 @@ define( function( require ) {
   functionBuilder.register( 'CardContainer', CardContainer );
 
   return inherit( MovableContainer, CardContainer, {
+
+    /**
+     * Adds a Node to the container.
+     * @param {Node} node
+     */
+    addNode: function( node ) {
+      var wasEmpty = this.isEmpty();
+      MovableContainer.prototype.addNode.call( this, node );
+      if ( this.addFirstCallback && wasEmpty ) {
+        this.addFirstCallback( this.value );
+      }
+    },
+
+    /**
+     * Removes a Node from the container.
+     * @param {Node} node
+     */
+    removeNode: function( node ) {
+      MovableContainer.prototype.removeNode.call( this, node );
+      if ( this.removeLastCallback && this.isEmpty() ) {
+        this.removeLastCallback( this.value );
+      }
+    },
 
     /**
      * Creates cards and puts them in the container.

@@ -2,7 +2,7 @@ TODO list for function-builder
 
 ---
 
-Populate graph based on what's in the output carousel.
+Rework how graph is wired up to output containers, see EquationsSceneNode
 
 Add line to graph, based on 2 points
 

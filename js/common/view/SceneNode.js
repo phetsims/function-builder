@@ -114,13 +114,14 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
-    // Containers in the output carousel
-    var outputContainers = this.createCardContainers( scene, {
+    //TODO preferable for this to be a local var, currently protected so that we can wire outputContainers to graph
+    // @protected Containers in the output carousel
+    this.outputContainers = this.createCardContainers( scene, {
       emptyNode: null // don't show anything in empty output containers
     } );
 
     // Output carousel, at right
-    var outputCarousel = new OutputCardsCarousel( outputContainers, {
+    var outputCarousel = new OutputCardsCarousel( this.outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -289,7 +290,7 @@ define( function( require ) {
 
       // cards
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      assert && assert( inputContainers.length === outputContainers.length );
+      assert && assert( inputContainers.length === this.outputContainers.length );
       for ( var i = 0; i < inputContainers.length; i++ ) {
 
         // input container's location
@@ -297,7 +298,7 @@ define( function( require ) {
         inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsDragLayer );
 
         // output container's location
-        var outputContainer = outputContainers[ i ];
+        var outputContainer = this.outputContainers[ i ];
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards

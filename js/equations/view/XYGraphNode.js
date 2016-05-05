@@ -27,9 +27,11 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
+  var createBigRational = bigRat; // global created by BigRational.js preload
   var AXIS_OPTIONS = {
     doubleHead: true,
     headWidth: 8,
@@ -38,9 +40,6 @@ define( function( require ) {
     fill: 'black',
     stroke: null
   };
-
-  //TODO temporary constants for dev testing
-  var DEV_INPUT_RANGE = new Range( -4, 6 );
 
   /**
    * @param {Builder} builder
@@ -84,8 +83,7 @@ define( function( require ) {
     this.yRange = options.yRange;
     this.pointFill = options.pointFill;
     this.pointRadius = options.pointRadius;
-    this.lineStroke = options.lineStroke;
-    this.lineWidth = options.lineWidth;
+    this.xCoordinates = []; // {number[]} x coordinates (inputs) that are plotted
 
     var thisNode = this;
 
@@ -101,7 +99,7 @@ define( function( require ) {
       fill: options.background
     } );
 
-    // grid
+    // grid, drawn using one Shape
     var gridShape = new Shape();
 
     // vertical lines
@@ -138,7 +136,7 @@ define( function( require ) {
     yAxisNode.centerX = viewOrigin.x;
 
     // tick lines & labels
-    var tickLinesShape = new Shape();
+    var tickLinesShape = new Shape(); // tick lines are drawn using one Shape
     var tickLabelsParent = new Node();
 
     // hoist loop variables
@@ -207,94 +205,127 @@ define( function( require ) {
     // @private parent for all points
     this.pointsParent = new Node();
 
+    // @private line that corresponds to the function in the builder
+    this.lineNode = new Line( 0, 0, 1, 0, {
+      stroke: options.lineStroke,
+      lineWidth: options.lineWidth,
+      visible: false
+    } );
+
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent, xAxisNode, yAxisNode, this.pointsParent ];
+    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent,
+      xAxisNode, yAxisNode, this.lineNode, this.pointsParent ];
 
     Node.call( this, options );
 
     // @private
     this.builder = builder;
     this.builder.functionChangedEmitter.addListener( function() {
-       thisNode.updatePoints();
+      thisNode.update();
     } );
-    this.updatePoints();
+    this.update();
   }
 
   functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
   inherit( Node, XYGraphNode, {
 
-    //TODO temporary, demonstrate what it looks like with all points and line plotted
-    // @private
-    updatePoints: function() {
-
-      this.removeAllPoints();
-
-      // points
-      for ( var x = DEV_INPUT_RANGE.min; x <= DEV_INPUT_RANGE.max; x++ ) {
-        var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length ); // {BigRational}
-        this.addPoint( new Vector2( x, y.valueOf() ) );
+    // @private updates plotted elements
+    update: function() {
+      this.updatePoints();
+      if ( this.lineNode.visible ) {
+        this.updateLine();
       }
+    },
 
-      // line
-      var yLeft = this.builder.applyFunctions( bigRat( this.xRange.min ), this.builder.slots.length );
-      var yRight = this.builder.applyFunctions( bigRat( this.xRange.max ), this.builder.slots.length );
-      this.pointsParent.addChild( new Line(
+    // @private updates points
+    updatePoints: function() {
+      var xCoordinates = this.xCoordinates.slice( 0 ); // copy
+      this.xCoordinates = [];
+      this.pointsParent.removeAllChildren();
+      for ( var i = 0; i < xCoordinates.length; i++ ) {
+        this.addPointAt( xCoordinates[ i ] );
+      }
+    },
+
+    // @private updates the line
+    updateLine: function() {
+      var yLeft = this.builder.applyFunctions( createBigRational( this.xRange.min ), this.builder.slots.length );
+      var yRight = this.builder.applyFunctions( createBigRational( this.xRange.max ), this.builder.slots.length );
+      this.lineNode.setLine(
         this.modelViewTransform.modelToViewX( this.xRange.min ),
         this.modelViewTransform.modelToViewY( yLeft ),
         this.modelViewTransform.modelToViewX( this.xRange.max ),
-        this.modelViewTransform.modelToViewY( yRight ), {
-          stroke: this.lineStroke,
-          lineWidth: this.lineWidth
-        }
-      ) );
+        this.modelViewTransform.modelToViewY( yRight ) );
     },
 
     /**
      * Adds a point to the graph.
      *
-     * @param {Vector2} point
+     * @param {number} x
      * @public
      */
-    addPoint: function( point ) {
-      assert && assert( point instanceof Vector2 );
-      //TODO verify that point is in range
-      this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
+    addPointAt: function( x ) {
+
+      assert && assert( Util.isInteger( x ), 'x is not an integer: ' + x );
+      assert && assert( this.xRange.contains( x ), 'x is out of range: ' + x );
+      assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
+
+      // add x to list
+      this.xCoordinates.push( x );
+
+      // compute y based on what is in the builder
+      var y = this.builder.applyFunctions( createBigRational( x ), this.builder.slots.length ).valueOf();
+
+      // create the PointNode
+      this.pointsParent.addChild( new PointNode( new Vector2( x, y ), this.modelViewTransform, {
         radius: this.pointRadius,
         fill: this.pointFill
       } ) );
     },
 
     /**
-     * Removes the first occurrence of a point from the graph.
+     * Removes a point from the graph.
      *
-     * @param {Vector2} point
+     * @param {number} x
      * @public
      */
-    removePoint: function( point ) {
+    removePointAt: function( x ) {
 
-      assert && assert( point instanceof Vector2 );
+      assert && assert( Util.isInteger( x ), 'x is not an integer: ' + x );
+      assert && assert( this.xCoordinates.indexOf( x ) !== -1, 'x is not plotted: ' + x );
 
+      // remove x from list
+      this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
+
+      // remove associated PointNode
       var removed = false;
       for ( var i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
 
         var pointNode = this.pointsParent.getChildAt( i );
         assert && assert( pointNode instanceof PointNode );
 
-        if ( pointNode.point.equals( point ) ) {
+        if ( pointNode.point.x === x ) {
           this.pointsParent.removeChild( pointNode );
           removed = true;
         }
       }
-      assert && assert( removed, 'point not found: ' + point );
+      assert && assert( removed, 'x not found: ' + x );
     },
 
     /**
-     * Removes all points from the graph.
+     * Shows the line that corresponds to the function in the builder.
+     * @param {boolean} visible
      * @public
      */
-    removeAllPoints: function() {
-      this.pointsParent.removeAllChildren();
+    setLineVisible: function( visible ) {
+
+      // update the line when it becomes visible
+      if ( visible && ( this.lineNode.visible !== visible ) ) {
+        this.updateLine();
+      }
+
+      this.lineNode.visible = visible;
     }
   } );
 

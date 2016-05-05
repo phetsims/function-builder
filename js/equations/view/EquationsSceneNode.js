@@ -84,6 +84,30 @@ define( function( require ) {
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
+
+    //TODO preferable to do this through options when outputContainers are instantiated
+    // wire up output containers to graph
+    this.outputContainers.forEach( function( outputContainer ) {
+      if ( outputContainer instanceof NumberCardContainer ) {
+
+        // When a number is added to the output carousel, add its corresponding point to the graph.
+        outputContainer.addFirstCallback = function( value ) { graphNode.addPointAt( value ); };
+
+        // When a number is removed from the output carousel, remove its corresponding point from the graph.
+        outputContainer.removeLastCallback = function( value ) { graphNode.removePointAt( value ); };
+      }
+      else if ( outputContainer instanceof EquationCardContainer ) {
+
+        // When an equation is added to the output carousel, add its corresponding line to the graph.
+        outputContainer.addFirstCallback = function( value ) { graphNode.setLineVisible( true ); };
+
+        // When an equation is removed from the output carousel, remove its corresponding line from the graph.
+        outputContainer.removeLastCallback = function( value ) { graphNode.setLineVisible( false ); };
+      }
+      else {
+        throw new Error( 'unexpected container type' );
+      }
+    } );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
