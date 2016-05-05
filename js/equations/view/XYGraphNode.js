@@ -16,6 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Range = require( 'DOT/Range' );
@@ -66,13 +67,21 @@ define( function( require ) {
 
       // points
       pointFill: 'magenta', // {Color|string} point color
-      pointRadius: 3 // {number} point radius, in view coordinates
+      pointRadius: 3, // {number} point radius, in view coordinates
+
+      // plotted line
+      lineStroke: 'magenta', // {Color|string} color of the plotted line
+      lineWidth: 1 // {number} lineWidth of the plotted line
 
     }, options );
 
     // @private
+    this.xRange = options.xRange;
+    this.yRange = options.yRange;
     this.pointFill = options.pointFill;
     this.pointRadius = options.pointRadius;
+    this.lineStroke = options.lineStroke;
+    this.lineWidth = options.lineWidth;
 
     var thisNode = this;
 
@@ -211,14 +220,30 @@ define( function( require ) {
 
   inherit( Node, XYGraphNode, {
 
-    //TODO temporary, demonstrate what it looks like with all points plotted
+    //TODO temporary, demonstrate what it looks like with all points and line plotted
     // @private
     updatePoints: function() {
+
       this.removeAllPoints();
+
+      // points
       for ( var x = DEV_INPUT_RANGE.min; x <= DEV_INPUT_RANGE.max; x++ ) {
         var y = this.builder.applyFunctions( bigRat( x ), this.builder.slots.length ); // {BigRational}
         this.addPoint( new Vector2( x, y.valueOf() ) );
       }
+
+      // line
+      var yLeft = this.builder.applyFunctions( bigRat( this.xRange.min ), this.builder.slots.length );
+      var yRight = this.builder.applyFunctions( bigRat( this.xRange.max ), this.builder.slots.length );
+      this.pointsParent.addChild( new Line(
+        this.modelViewTransform.modelToViewX( this.xRange.min ),
+        this.modelViewTransform.modelToViewY( yLeft ),
+        this.modelViewTransform.modelToViewX( this.xRange.max ),
+        this.modelViewTransform.modelToViewY( yRight ), {
+          stroke: this.lineStroke,
+          lineWidth: this.lineWidth
+        }
+      ) );
     },
 
     /**
@@ -279,7 +304,7 @@ define( function( require ) {
 
     options = _.extend( {
       radius: 1,
-      fill: 'black',
+      fill: 'white',
       stroke: 'black',
       lineWidth: 0.25
     }, options );
