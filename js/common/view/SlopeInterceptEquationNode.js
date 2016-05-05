@@ -31,13 +31,13 @@ define( function( require ) {
     options = _.extend( {
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
-      font: new FBFont( 24 ), // font for non-slope components
-      fractionFont: new FBFont( 18 ), // font for rise and run
-      equalsXSpacing: 8, // x space on both sides of equals
-      signXSpacing: 2, // x spacing between sign and slope
-      operatorXSpacing: 8, // x space on both sides of operator
-      slopeXSpacing: 4, // x space between slope and x
-      slopeYSpacing: 2,  // y space above and below fraction line
+      font: new FBFont( 24 ), // {Font} font for non-slope components
+      fractionFont: new FBFont( 18 ), // {Font} font for rise and run
+      equalsXSpacing: 8, // {number} x space on both sides of equals
+      signXSpacing: 2, // {number} x spacing between sign and slope
+      operatorXSpacing: 8, // {number} x space on both sides of operator
+      slopeXSpacing: 4, // {number} x space between slope and x
+      slopeYSpacing: 2,  // {number} y space above and below fraction line
       showLeftHandSide: true // {boolean} whether to show left-hand side of the equation
     }, options);
 
