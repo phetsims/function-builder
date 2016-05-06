@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * An input card with a number on it.
+ * An input card with a rational number on it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
