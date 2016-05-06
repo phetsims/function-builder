@@ -49,7 +49,7 @@ define( function( require ) {
       yString: outputString
     } );
 
-    // @private Table drawer
+    // @protected Table drawer
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO table drawer should be open by default
       handleLocation: 'top',

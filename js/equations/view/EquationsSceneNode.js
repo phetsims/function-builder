@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with NumbersSceneNode
 /**
  * Displays a scene in the 'Equations' screen.
  *
@@ -13,14 +12,11 @@ define( function( require ) {
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationCardContainer' );
   var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
-  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' ); //TODO from numbers package
-  var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
+  var NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
-  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
@@ -38,10 +34,14 @@ define( function( require ) {
       functionsPerPage: 2
     } );
 
-    SceneNode.call( this, scene, layoutBounds, options );
+    NumbersSceneNode.call( this, scene, layoutBounds, options );
 
     // add additional view-specific properties
     this.viewProperties.addProperty( 'simplifyEquation', false );
+
+    // relocate the table, to make room for the graph
+    this.tableDrawer.right = scene.builder.centerX - 10;
+    this.tableDrawer.bottom = scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP;
 
     // Graph
     var graphNode = new XYGraphNode( scene.builder );
@@ -54,36 +54,6 @@ define( function( require ) {
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.graphDrawer );
-
-    // Table
-    var tableNode = new XYTableNode( {
-      showEquationMockup: true //TODO temporary, delete this
-    } );
-
-    // @private Table drawer
-    this.tableDrawer = new Drawer( tableNode, {
-      open: false, //TODO should be true by default
-      handleLocation: 'top',
-      right: this.graphDrawer.left - 15,
-      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
-    } );
-    this.drawersLayer.addChild( this.tableDrawer );
-
-    // Equation and related controls
-    var equationPanel = new EquationPanel( this.viewProperties.simplifyEquationProperty, {
-      size: FBConstants.EQUATION_DRAWER_SIZE
-    } );
-
-    // @private Equation drawer
-    this.equationDrawer = new Drawer( equationPanel, {
-      open: false,
-      handleLocation: 'bottom',
-      xMargin: 30,
-      yMargin: 10,
-      centerX: scene.builder.centerX,
-      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
-    } );
-    this.drawersLayer.addChild( this.equationDrawer );
 
     //TODO preferable to do this through options when outputContainers are instantiated
     // wire up output containers to graph
@@ -112,16 +82,12 @@ define( function( require ) {
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
 
-  return inherit( SceneNode, EquationsSceneNode, {
+  return inherit( NumbersSceneNode, EquationsSceneNode, {
 
     // @public @override
     reset: function() {
-      SceneNode.prototype.reset.call( this );
-
-      // drawers
-      this.tableDrawer.reset( { animationEnabled: false } );
+      NumbersSceneNode.prototype.reset.call( this );
       this.graphDrawer.reset( { animationEnabled: false } );
-      this.equationDrawer.reset( { animationEnabled: false } );
     },
 
     /**
@@ -135,12 +101,8 @@ define( function( require ) {
      */
     createCardContainers: function( scene, containerOptions ) {
 
-      var containers = [];
-
       // numbers
-      scene.cardNumbers.forEach( function( value ) {
-        containers.push( new NumberCardContainer( value, containerOptions ) );
-      } );
+      var containers = NumbersSceneNode.prototype.createCardContainers.call( this, scene, containerOptions );
 
       // symbols, eg 'x'
       scene.cardSymbols.forEach( function( value ) {

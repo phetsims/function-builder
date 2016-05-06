@@ -11,8 +11,6 @@ Equation (see equations-formats.md)
 
 Table
 
-EquationsSceneNode extends NumbersSceneNode extends SceneNode
-
 Better way to specify functions in NumbersScene and EquationsScene
 
 ---
