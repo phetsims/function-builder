@@ -372,8 +372,9 @@ define( function( require ) {
 
     /**
      * Creates a 'ghost' card that appears in an empty carousel.
+     * The card has a dashed outline and its content is transparent.
      *
-     * @param {Node} contentNode
+     * @param {Node} contentNode - what appears on the card
      * @param {Object} [options]
      * @returns {Node}
      * @public

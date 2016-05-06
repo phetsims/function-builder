@@ -67,7 +67,8 @@ define( function( require ) {
 
     /**
      * Creates a 'ghost' card that appears in an empty carousel.
-     * @param {string} symbol
+     *
+     * @param {string} symbol - symbol that appears on the card
      * @param {Object} [options]
      * @return {Node}
      * @public

@@ -73,7 +73,8 @@ define( function( require ) {
 
     /**
      * Creates a 'ghost' card that appears in an empty carousel.
-     * @param {number} value
+     *
+     * @param {number} value - number that appears on the card
      * @param {Object} [options]
      * @return {Node}
      * @public
