@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays a {NumberCard}.
+ * Node that displays a card in the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays an {EquationCard}.
+ * Node that displays a card in the 'Equations' screen.
  * 
  * @author Chris Malley (PixelZoom, Inc.)
  */
