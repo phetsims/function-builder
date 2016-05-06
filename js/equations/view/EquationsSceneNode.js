@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' );
-  var XYGraphNode = require( 'FUNCTION_BUILDER/equations/view/XYGraphNode' );
+  var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
