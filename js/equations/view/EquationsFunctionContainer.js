@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for equation functions. This container is intended to be put in a carousel.
+ * Container for functions in the 'Equations' screen.
+ * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationFunctionNode = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionNode' );
+  var EquationsFunctionNode = require( 'FUNCTION_BUILDER/equations/view/EquationsFunctionNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -20,14 +21,14 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationFunctionContainer( functionData, options ) {
+  function EquationsFunctionContainer( functionData, options ) {
     this.functionData = functionData; // @private
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'EquationFunctionContainer', EquationFunctionContainer );
+  functionBuilder.register( 'EquationsFunctionContainer', EquationsFunctionContainer );
 
-  return inherit( FunctionContainer, EquationFunctionContainer, {
+  return inherit( FunctionContainer, EquationsFunctionContainer, {
 
     /***
      * Creates the model element for a function.
@@ -52,7 +53,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new EquationFunctionNode( functionInstance, container, builderNode, dragLayer );
+      return new EquationsFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );

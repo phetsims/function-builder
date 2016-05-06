@@ -20,13 +20,13 @@ define( function( require ) {
 
   /**
    * @param {MathFunction} functionInstance
-   * @param {EquationFunctionContainer} container - container in the function carousel
+   * @param {FunctionContainer} container - container in the function carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
    * @constructor
    */
-  function EquationFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
+  function EquationsFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -56,7 +56,7 @@ define( function( require ) {
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
-  functionBuilder.register( 'EquationFunctionNode', EquationFunctionNode );
+  functionBuilder.register( 'EquationsFunctionNode', EquationsFunctionNode );
 
-  return inherit( FunctionNode, EquationFunctionNode );
+  return inherit( FunctionNode, EquationsFunctionNode );
 } );

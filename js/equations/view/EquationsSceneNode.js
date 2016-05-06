@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationCardContainer' );
-  var EquationFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionContainer' );
+  var EquationsFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationsFunctionContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
@@ -116,7 +116,7 @@ define( function( require ) {
      * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see EquationFunctionContainer options
+     * @param {Object} [containerOptions] - see EquationsFunctionContainer options
      * @returns {FunctionContainer[]}
      * @protected
      * @override
@@ -124,7 +124,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionData.forEach( function( functionData ) {
-        functionContainers.push( new EquationFunctionContainer( functionData, containerOptions ) );
+        functionContainers.push( new EquationsFunctionContainer( functionData, containerOptions ) );
       } );
       return functionContainers;
     }

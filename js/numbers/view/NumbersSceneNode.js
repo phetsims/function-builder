@@ -15,7 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
-  var NumberFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionContainer' );
+  var NumbersFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumbersFunctionContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
@@ -111,7 +111,7 @@ define( function( require ) {
      * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumberFunctionContainer options
+     * @param {Object} [containerOptions] - see NumbersFunctionContainer options
      * @returns {FunctionContainer[]}
      * @protected
      * @override
@@ -119,7 +119,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionData.forEach( function( functionData ) {
-        functionContainers.push( new NumberFunctionContainer( functionData, containerOptions ) );
+        functionContainers.push( new NumbersFunctionContainer( functionData, containerOptions ) );
       } );
       return functionContainers;
     }

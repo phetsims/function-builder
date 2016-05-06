@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays a {NumberFunction}.
+ * Node that displays a function in the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,13 +19,13 @@ define( function( require ) {
 
   /**
    * @param {MathFunction} functionInstance
-   * @param {NumberFunctionContainer} container - container in the function carousel
+   * @param {FunctionContainer} container - container in the function carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
    * @constructor
    */
-  function NumberFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
+  function NumbersFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
@@ -39,7 +39,7 @@ define( function( require ) {
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
-  functionBuilder.register( 'NumberFunctionNode', NumberFunctionNode );
+  functionBuilder.register( 'NumbersFunctionNode', NumbersFunctionNode );
 
-  return inherit( FunctionNode, NumberFunctionNode );
+  return inherit( FunctionNode, NumbersFunctionNode );
 } );

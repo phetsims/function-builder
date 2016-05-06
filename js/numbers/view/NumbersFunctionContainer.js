@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for number functions. This container is intended to be put in a carousel.
+ * Container for functions in the 'Numbers' screen.
+ * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,21 +14,21 @@ define( function( require ) {
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
-  var NumberFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionNode' );
+  var NumbersFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersFunctionNode' );
 
   /**
    * @param {Object} functionData - data structure for creating NumberFunction instances
    * @param {Object} [options]
    * @constructor
    */
-  function NumberFunctionContainer( functionData, options ) {
+  function NumbersFunctionContainer( functionData, options ) {
     this.functionData = functionData; // @private
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'NumberFunctionContainer', NumberFunctionContainer );
+  functionBuilder.register( 'NumbersFunctionContainer', NumbersFunctionContainer );
 
-  return inherit( FunctionContainer, NumberFunctionContainer, {
+  return inherit( FunctionContainer, NumbersFunctionContainer, {
 
     /***
      * Creates the model element for a function.
@@ -52,7 +53,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new NumberFunctionNode( functionInstance, container, builderNode, dragLayer );
+      return new NumbersFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );
