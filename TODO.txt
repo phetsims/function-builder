@@ -2,6 +2,10 @@ TODO list for function-builder
 
 ---
 
+Combine NumbersFunctionNode and EquationsFunctionNode into MathFunctionNode with option.mutableOperand
+
+Combine NumbersFunctionContainer and EquationsFunctionContainer into MathFunctionContainer with option.mutableOperand
+
 Rework how graph is wired up to output containers, see EquationsSceneNode. Either specify callbacks via options
 in Container constructor, or add an emitter to Container so that we can observe and modify graph accordingly
 
