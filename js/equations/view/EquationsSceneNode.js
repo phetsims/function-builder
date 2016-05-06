@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationsCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationsCardContainer' );
+  var EquationCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationCardContainer' );
   var EquationsFunctionContainer = require( 'FUNCTION_BUILDER/equations/view/EquationsFunctionContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumbersCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumbersCardContainer' );
+  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
   var NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
 
@@ -58,7 +58,7 @@ define( function( require ) {
     //TODO preferable to do this through options when outputContainers are instantiated
     // wire up output containers to graph
     this.outputContainers.forEach( function( outputContainer ) {
-      if ( outputContainer instanceof NumbersCardContainer ) {
+      if ( outputContainer instanceof NumberCardContainer ) {
 
         // When a number is added to the output carousel, add its corresponding point to the graph.
         outputContainer.addFirstCallback = function( value ) { graphNode.addPointAt( value ); };
@@ -66,7 +66,7 @@ define( function( require ) {
         // When a number is removed from the output carousel, remove its corresponding point from the graph.
         outputContainer.removeLastCallback = function( value ) { graphNode.removePointAt( value ); };
       }
-      else if ( outputContainer instanceof EquationsCardContainer ) {
+      else if ( outputContainer instanceof EquationCardContainer ) {
 
         // When an equation is added to the output carousel, add its corresponding line to the graph.
         outputContainer.addFirstCallback = function( value ) { graphNode.setLineVisible( true ); };
@@ -94,7 +94,7 @@ define( function( require ) {
      * Creates the card containers that go in the card carousels.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumbersCardContainer and EquationsCardContainer options
+     * @param {Object} [containerOptions] - see NumberCardContainer and EquationCardContainer options
      * @returns {CardContainer[]}
      * @protected
      * @override
@@ -106,7 +106,7 @@ define( function( require ) {
 
       // symbols, eg 'x'
       scene.cardSymbols.forEach( function( value ) {
-        containers.push( new EquationsCardContainer( value, containerOptions ) );
+        containers.push( new EquationCardContainer( value, containerOptions ) );
       } );
 
       return containers;

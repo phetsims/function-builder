@@ -1,8 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO rename this to EquationCardNode, move to common
 /**
- * Node that displays a card in the 'Equations' screen.
+ * Node that displays an equation card.
  * 
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,14 +10,14 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SymbolCard = require( 'FUNCTION_BUILDER/common/model/SymbolCard' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
-   * @param {SymbolCard} card
+   * @param {EquationCard} card
    * @param {CardContainer} inputContainer - container in the input carousel
    * @param {CardContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
@@ -27,15 +26,15 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationsCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+  function EquationCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    assert && assert( card instanceof SymbolCard, 'unexpected type: ' + card.constructor.name );
+    assert && assert( card instanceof EquationCard, 'unexpected type: ' + card.constructor.name );
 
     options = options || {};
 
     //TODO temporary, this needs to be an equation in slope-intercept form
     // @private
-    this.textNode = new Text( card.symbol, {
+    this.textNode = new Text( card.equation, {
       font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT,
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
@@ -43,9 +42,9 @@ define( function( require ) {
     CardNode.call( this, card, this.textNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
-  functionBuilder.register( 'EquationsCardNode', EquationsCardNode );
+  functionBuilder.register( 'EquationCardNode', EquationCardNode );
 
-  return inherit( CardNode, EquationsCardNode, {
+  return inherit( CardNode, EquationCardNode, {
 
     /**
      * Updates the number (value) displayed on the card.
@@ -56,7 +55,7 @@ define( function( require ) {
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
       // {string} run the input value through the builder
-      var equation = builder.applyFunctions( this.card.symbol, numberOfFunctionsToApply );
+      var equation = builder.applyFunctions( this.card.equation, numberOfFunctionsToApply );
 
       // update the node
       this.textNode.text = equation;

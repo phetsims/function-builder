@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO rename this to NumberCard, move to common
+//TODO rename?
 /**
- * Node that displays a card in the 'Numbers' screen.
+ * Node that displays a number card.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function NumbersCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+  function NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
     assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
 
@@ -49,9 +49,9 @@ define( function( require ) {
     CardNode.call( this, card, this.bigRationalNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
-  functionBuilder.register( 'NumbersCardNode', NumbersCardNode );
+  functionBuilder.register( 'NumberCardNode', NumberCardNode );
 
-  return inherit( CardNode, NumbersCardNode, {
+  return inherit( CardNode, NumberCardNode, {
 
     /**
      * Updates the number (value) displayed on the card.

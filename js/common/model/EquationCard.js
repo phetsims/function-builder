@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * An input card with a mathematical symbol on it, e.g. 'x'.
+ * A card with a mathematical symbol or equation on it, e.g. 'x'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,16 +14,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} symbol
+   * @param {string} equation
    * @param {Object} [options]
    * @constructor
    */
-  function SymbolCard( symbol, options ) {
-    this.symbol = symbol; // @public (read-only)
+  function EquationCard( equation, options ) {
+    this.equation = equation; // @public (read-only)
     Card.call( this, options );
   }
 
-  functionBuilder.register( 'SymbolCard', SymbolCard );
+  functionBuilder.register( 'EquationCard', EquationCard );
 
-  return inherit( Card, SymbolCard );
+  return inherit( Card, EquationCard );
 } );

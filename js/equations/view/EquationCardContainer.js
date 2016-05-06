@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for number cards.
+ * Container for equation cards, eg 'x', '2x + 1'.
+ * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,31 +11,30 @@ define( function( require ) {
 
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var EquationCardNode = require( 'FUNCTION_BUILDER/equations/view/EquationCardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
-  var NumbersCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersCardNode' );
-  var Util = require( 'DOT/Util' );
 
   /**
-   * @param {number} value - number that appears on the card
+   * @param {string} symbol - symbol that appears on the card
    * @param {Object} [options]
    * @constructor
    */
-  function NumbersCardContainer( value, options ) {
+  function EquationCardContainer( symbol, options ) {
 
-    assert && assert( Util.isInteger( value ) );
+    assert && assert( typeof symbol === 'string' );
 
     options = _.extend( {
-      emptyNode: NumbersCardNode.createGhostNode( value ) // {Node} shown when the container is empty
+      emptyNode: EquationCardNode.createGhostNode( symbol ) // {Node} shown when the container is empty
     }, options );
 
-    CardContainer.call( this, value, options );
+    CardContainer.call( this, symbol, options );
   }
 
-  functionBuilder.register( 'NumbersCardContainer', NumbersCardContainer );
+  functionBuilder.register( 'EquationCardContainer', EquationCardContainer );
 
-  return inherit( CardContainer, NumbersCardContainer, {
+  return inherit( CardContainer, EquationCardContainer, {
 
     /**
      * Creates the model element for a card.
@@ -43,7 +43,7 @@ define( function( require ) {
      * @override
      */
     createCard: function( value, location ) {
-      return NumberCard.withInteger( value, { location: location } );
+      return new EquationCard( value, { location: location } );
     },
 
     /**
@@ -53,7 +53,7 @@ define( function( require ) {
      * @override
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
-      return new NumbersCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
+      return new EquationCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
     }
   } );
 } );

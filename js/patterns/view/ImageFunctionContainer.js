@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for image functions. This container is intended to be put in a carousel.
+ * Container for image functions.
+ * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

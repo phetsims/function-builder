@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays an {ImageCard}.
+ * Node that displays an image card.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
