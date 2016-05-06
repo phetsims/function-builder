@@ -13,7 +13,6 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
-  var ImageGhostCard = require( 'FUNCTION_BUILDER/patterns/view/ImageGhostCard' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
@@ -24,7 +23,7 @@ define( function( require ) {
   function ImageCardContainer( image, options ) {
 
     options = _.extend( {
-      emptyNode: new ImageGhostCard( image ) // {Node} shown when the container is empty
+      emptyNode: ImageCardNode.createGhostNode( image ) // {Node} shown when the container is empty
     }, options );
 
     CardContainer.call( this, image, options );

@@ -15,8 +15,6 @@ EquationsSceneNode extends NumbersSceneNode extends SceneNode
 
 Better way to specify functions in NumbersScene and EquationsScene
 
-Better pattern for ghost cards
-
 ---
 
 Reset All

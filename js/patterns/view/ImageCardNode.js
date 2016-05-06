@@ -63,5 +63,20 @@ define( function( require ) {
       this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
       this.imageNode.center = this.backgroundNode.center;
     }
+  }, {
+
+    /**
+     * Creates a 'ghost' card that appears in an empty carousel.
+     * @param {HTMLImageElement} image
+     * @param {Object} [options]
+     * @return {Node}
+     * @public
+     * @static
+     * @override
+     */
+    createGhostNode: function( image, options ) {
+      var contentNode = new Image( image, { scale: FBConstants.CARD_IMAGE_SCALE } );
+      return CardNode.createGhostNode( contentNode, options );
+    }
   } );
 } );

@@ -63,5 +63,21 @@ define( function( require ) {
       // center on the card
       this.textNode.center = this.backgroundNode.center;
     }
+  }, {
+
+    /**
+     * Creates a 'ghost' card that appears in an empty carousel.
+     * @param {string} symbol
+     * @param {Object} [options]
+     * @return {Node}
+     * @public
+     * @static
+     * @override
+     */
+    createGhostNode: function( symbol, options ) {
+      assert && assert( typeof symbol === 'string' );
+      var contentNode = new Text( symbol, { font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT } );
+      return CardNode.createGhostNode( contentNode, options );
+    }
   } );
 } );

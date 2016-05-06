@@ -14,7 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumberCardNode' );
-  var NumberGhostCard = require( 'FUNCTION_BUILDER/numbers/view/NumberGhostCard' );
   var Util = require( 'DOT/Util' );
 
   /**
@@ -27,7 +26,7 @@ define( function( require ) {
     assert && assert( Util.isInteger( value ) );
 
     options = _.extend( {
-      emptyNode: new NumberGhostCard( value ) // {Node} shown when the container is empty
+      emptyNode: NumberCardNode.createGhostNode( value ) // {Node} shown when the container is empty
     }, options );
 
     CardContainer.call( this, value, options );

@@ -16,6 +16,8 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {NumberCard} card
@@ -66,6 +68,22 @@ define( function( require ) {
 
       // center on the card
       this.bigRationalNode.center = this.backgroundNode.center;
+    }
+  }, {
+
+    /**
+     * Creates a 'ghost' card that appears in an empty carousel.
+     * @param {number} value
+     * @param {Object} [options]
+     * @return {Node}
+     * @public
+     * @static
+     * @override
+     */
+    createGhostNode: function( value, options ) {
+      assert && assert( Util.isInteger( value ) );
+      var contentNode = new Text( value, { font: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT } );
+      return CardNode.createGhostNode( contentNode, options );
     }
   } );
 } );

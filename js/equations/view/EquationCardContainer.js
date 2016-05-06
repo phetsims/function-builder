@@ -12,7 +12,6 @@ define( function( require ) {
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var EquationCard = require( 'FUNCTION_BUILDER/equations/model/EquationCard' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/equations/view/EquationCardNode' );
-  var EquationGhostCard = require( 'FUNCTION_BUILDER/equations/view/EquationGhostCard' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -26,7 +25,7 @@ define( function( require ) {
     assert && assert( typeof symbol === 'string' );
 
     options = _.extend( {
-      emptyNode: new EquationGhostCard( symbol ) // {Node} shown when the container is empty
+      emptyNode: EquationCardNode.createGhostNode( symbol ) // {Node} shown when the container is empty
     }, options );
 
     CardContainer.call( this, symbol, options );
