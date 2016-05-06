@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumberCardNode' );
+  var NumbersCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersCardNode' );
   var Util = require( 'DOT/Util' );
 
   /**
@@ -21,20 +21,20 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function NumberCardContainer( value, options ) {
+  function NumbersCardContainer( value, options ) {
 
     assert && assert( Util.isInteger( value ) );
 
     options = _.extend( {
-      emptyNode: NumberCardNode.createGhostNode( value ) // {Node} shown when the container is empty
+      emptyNode: NumbersCardNode.createGhostNode( value ) // {Node} shown when the container is empty
     }, options );
 
     CardContainer.call( this, value, options );
   }
 
-  functionBuilder.register( 'NumberCardContainer', NumberCardContainer );
+  functionBuilder.register( 'NumbersCardContainer', NumbersCardContainer );
 
-  return inherit( CardContainer, NumberCardContainer, {
+  return inherit( CardContainer, NumbersCardContainer, {
 
     /**
      * Creates the model element for a card.
@@ -53,7 +53,7 @@ define( function( require ) {
      * @override
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
-      return new NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
+      return new NumbersCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
     }
   } );
 } );

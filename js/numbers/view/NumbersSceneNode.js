@@ -14,7 +14,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
+  var NumbersCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumbersCardContainer' );
   var NumbersFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumbersFunctionContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
@@ -94,7 +94,7 @@ define( function( require ) {
      * Creates the card containers that go in the card carousels.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumberCardContainer option
+     * @param {Object} [containerOptions] - see NumbersCardContainer option
      * @returns {CardContainer[]}
      * @protected
      * @override
@@ -102,7 +102,7 @@ define( function( require ) {
     createCardContainers: function( scene, containerOptions ) {
       var containers = [];
       scene.cardNumbers.forEach( function( value ) {
-        containers.push( new NumberCardContainer( value, containerOptions ) );
+        containers.push( new NumbersCardContainer( value, containerOptions ) );
       } );
       return containers;
     },

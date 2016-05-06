@@ -21,15 +21,15 @@ define( function( require ) {
 
   /**
    * @param {NumberCard} card
-   * @param {NumberCardContainer} inputContainer - container in the input carousel
-   * @param {NumberCardContainer} outputContainer - container in the output carousel
+   * @param {CardContainer} inputContainer - container in the input carousel
+   * @param {CardContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
    * @param {Object} [options]
    * @constructor
    */
-  function NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+  function NumbersCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
     assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
 
@@ -48,9 +48,9 @@ define( function( require ) {
     CardNode.call( this, card, this.bigRationalNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
-  functionBuilder.register( 'NumberCardNode', NumberCardNode );
+  functionBuilder.register( 'NumbersCardNode', NumbersCardNode );
 
-  return inherit( CardNode, NumberCardNode, {
+  return inherit( CardNode, NumbersCardNode, {
 
     /**
      * Updates the number (value) displayed on the card.

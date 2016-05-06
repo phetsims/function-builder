@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var EquationCard = require( 'FUNCTION_BUILDER/equations/model/EquationCard' );
-  var EquationCardNode = require( 'FUNCTION_BUILDER/equations/view/EquationCardNode' );
+  var EquationsCardNode = require( 'FUNCTION_BUILDER/equations/view/EquationsCardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -20,20 +20,20 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationCardContainer( symbol, options ) {
+  function EquationsCardContainer( symbol, options ) {
 
     assert && assert( typeof symbol === 'string' );
 
     options = _.extend( {
-      emptyNode: EquationCardNode.createGhostNode( symbol ) // {Node} shown when the container is empty
+      emptyNode: EquationsCardNode.createGhostNode( symbol ) // {Node} shown when the container is empty
     }, options );
 
     CardContainer.call( this, symbol, options );
   }
 
-  functionBuilder.register( 'EquationCardContainer', EquationCardContainer );
+  functionBuilder.register( 'EquationsCardContainer', EquationsCardContainer );
 
-  return inherit( CardContainer, EquationCardContainer, {
+  return inherit( CardContainer, EquationsCardContainer, {
 
     /**
      * Creates the model element for a card.
@@ -52,7 +52,7 @@ define( function( require ) {
      * @override
      */
     createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
-      return new EquationCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
+      return new EquationsCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
     }
   } );
 } );
