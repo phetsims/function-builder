@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationFunction = require( 'FUNCTION_BUILDER/equations/model/EquationFunction' );
   var EquationFunctionNode = require( 'FUNCTION_BUILDER/equations/view/EquationFunctionNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
 
   /**
    * @param {Object} functionData - data structure for creating EquationFunction instances
@@ -37,7 +37,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      return new EquationFunction( this.functionData.operatorString, this.functionData.apply,
+      return new MathFunction( this.functionData.apply, this.functionData.operatorString,
         _.extend( {
           location: this.carouselLocation
         }, this.functionData.options )

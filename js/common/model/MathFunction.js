@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A numeric function for the 'Equations' screen, with dynamic operand.
+ * A mathematical function with dynamic operand.
  * Can be applied to either a rational number or a mathematical equation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,20 +17,22 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
 
   /**
-   * @param {string} operatorString - string representation of the operator
    * @param {function(number,number):number} apply - implementation of the apply function for numbers
+   * @param {string} operatorString - string representation of the operator
    * @param {Object} [options]
    * @constructor
    */
-  function EquationFunction( operatorString, apply, options ) {
+  function MathFunction( apply, operatorString, options ) {
 
     options = _.extend( {
-      operandRange: new Range( -3, 3, 1 ), // range of operandProperty
+      operand: 1, // {number} initial value of operandProperty
+      operandRange: new Range( -3, 3 ), // {Range} range of operandProperty
       zeroOperandValid: true, // {boolean} is zero a valid operand?
       isInvertibleWithOperand: null // {function:boolean|null} is this function invertible for specified operand?
     }, options );
 
-    assert && assert( !( options.operandRange.defaultValue === 0 && !options.zeroOperandValid ),
+    assert && assert( options.operandRange.contains( options.operand ) );
+    assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
 
     this.operatorString = operatorString; // @public (read-only)
@@ -40,7 +42,7 @@ define( function( require ) {
     this.isInvertibleWithOperand = options.isInvertibleWithOperand; // @private
 
     // @public
-    this.operandProperty = new Property( options.operandRange.defaultValue );
+    this.operandProperty = new Property( options.operand );
     this.operandProperty.link( function( operand ) {
 
       // validate operand
@@ -51,9 +53,9 @@ define( function( require ) {
     AbstractFunction.call( this, options );
   }
 
-  functionBuilder.register( 'EquationFunction', EquationFunction );
+  functionBuilder.register( 'MathFunction', MathFunction );
 
-  return inherit( AbstractFunction, EquationFunction, {
+  return inherit( AbstractFunction, MathFunction, {
 
     /**
      * Is this function invertible for the current value of its operand?

@@ -43,7 +43,7 @@ define( function( require ) {
     this.cardSymbols = [ FBSymbols.X ];
 
     /**
-     * Data structures for creating {EquationFunction} instances,
+     * Data structures for creating {MathFunction} instances,
      * in the order that they appear in the function carousel.
      * @type {Object[]}
      * @public (read-only)

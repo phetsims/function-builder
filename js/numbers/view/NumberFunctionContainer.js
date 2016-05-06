@@ -12,7 +12,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
+  var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
   var NumberFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumberFunctionNode' );
 
   /**
@@ -37,7 +37,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      return new NumberFunction( this.functionData.labelString, this.functionData.apply,
+      return new MathFunction( this.functionData.apply, this.functionData.operatorString,
         _.extend( {
           location: this.carouselLocation
         }, this.functionData.options )

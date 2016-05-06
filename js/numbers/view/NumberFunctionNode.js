@@ -13,11 +13,12 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberFunction = require( 'FUNCTION_BUILDER/numbers/model/NumberFunction' );
+  var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
-   * @param {NumberFunction} functionInstance
+   * @param {MathFunction} functionInstance
    * @param {NumberFunctionContainer} container - container in the function carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
@@ -26,9 +27,12 @@ define( function( require ) {
    */
   function NumberFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
-    assert && assert( functionInstance instanceof NumberFunction, 'unexpected type: ' + functionInstance.constructor.name );
+    assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
-    var contentNode = new Text( functionInstance.labelString, {
+    var labelString = StringUtils.format( '{0} {1}',
+      functionInstance.operatorString, functionInstance.operandProperty.get() );
+
+    var contentNode = new Text( labelString, {
       font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 
