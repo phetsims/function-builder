@@ -199,7 +199,6 @@ define( function( require ) {
 
     var iconNode = new Node( {
       children: [ functionInstance.iconNode ],
-      scale: 0.3,
       center: backgroundNode.center
     } );
 
