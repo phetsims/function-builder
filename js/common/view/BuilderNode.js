@@ -20,7 +20,7 @@ define( function( require ) {
   var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/FunctionSlotNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MoleCard = require( 'FUNCTION_BUILDER/common/view/MoleCard' );
+  var MoleCardNode = require( 'FUNCTION_BUILDER/common/view/MoleCardNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -267,7 +267,7 @@ define( function( require ) {
      * @public
      */
     addMole: function( card ) {
-      this.moleCardsLayer.addChild( new MoleCard( card, this.builder.location ) );
+      this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.location ) );
     }
   } );
 } );
