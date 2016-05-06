@@ -9,10 +9,8 @@
 define( function( require ) {
   'use strict';
 
-  // function-builder modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  // image function modules
   var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
@@ -24,6 +22,10 @@ define( function( require ) {
   var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
   var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
+
+  // other function-builder modules
+  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
   // common modules
   var Carousel = require( 'SUN/Carousel' );
