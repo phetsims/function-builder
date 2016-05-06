@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A card with a mathematical equation on it, e.g. 'x' or '2x + 1'.
+ * An input card with a mathematical symbol on it, e.g. 'x'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,16 +14,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} equation
+   * @param {string} symbol
    * @param {Object} [options]
    * @constructor
    */
-  function EquationCard( equation, options ) {
-    this.equation = equation; // @public (read-only)
+  function SymbolCard( symbol, options ) {
+    this.symbol = symbol; // @public (read-only)
     Card.call( this, options );
   }
 
-  functionBuilder.register( 'EquationCard', EquationCard );
+  functionBuilder.register( 'SymbolCard', SymbolCard );
 
-  return inherit( Card, EquationCard );
+  return inherit( Card, SymbolCard );
 } );

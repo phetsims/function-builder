@@ -12,7 +12,7 @@ define( function( require ) {
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
   var NumbersCardNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersCardNode' );
   var Util = require( 'DOT/Util' );
 

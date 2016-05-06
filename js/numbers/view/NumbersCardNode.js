@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO rename this to NumberCard, move to common
 /**
  * Node that displays a card in the 'Numbers' screen.
  *
@@ -15,7 +16,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCard = require( 'FUNCTION_BUILDER/numbers/model/NumberCard' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 

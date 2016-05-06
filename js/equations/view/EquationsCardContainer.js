@@ -10,10 +10,10 @@ define( function( require ) {
 
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
-  var EquationCard = require( 'FUNCTION_BUILDER/equations/model/EquationCard' );
   var EquationsCardNode = require( 'FUNCTION_BUILDER/equations/view/EquationsCardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var SymbolCard = require( 'FUNCTION_BUILDER/common/model/SymbolCard' );
 
   /**
    * @param {string} symbol - symbol that appears on the card
@@ -42,7 +42,7 @@ define( function( require ) {
      * @override
      */
     createCard: function( value, location ) {
-      return new EquationCard( value, { location: location } );
+      return new SymbolCard( value, { location: location } );
     },
 
     /**
