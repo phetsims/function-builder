@@ -13,7 +13,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // images

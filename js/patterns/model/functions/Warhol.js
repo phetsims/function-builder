@@ -25,7 +25,7 @@ define( function( require ) {
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
   var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/ImageFunction' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
 
