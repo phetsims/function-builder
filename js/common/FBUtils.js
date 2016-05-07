@@ -39,7 +39,10 @@ define( function( require ) {
       ] );
     },
 
-    // global created by BigRational.js preload, encapsulated here
+    /**
+     * Global created by BigRational.js preload, encapsulated here.
+     * Requires BigInteger and BigRational to be added to phet.preload in package.json.
+     */
     createBigRational: bigRat
   };
 
