@@ -21,7 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function NumberCard( value, options ) {
-    this.value = value; // @public (read-only)
+
+    // {BigRational} @public (read-only)
+    this.value = value;
+
     Card.call( this, options );
   }
 

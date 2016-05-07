@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function ImageCard( canvas, options ) {
 
-    // @public (read-only) do not modify this canvas' pixels or context
+    // {HTMLCanvasElement} @public (read-only) do not modify this canvas' pixels or context
     this.canvas = canvas;
 
     Card.call( this, options );

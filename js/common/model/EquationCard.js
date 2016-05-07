@@ -19,7 +19,10 @@ define( function( require ) {
    * @constructor
    */
   function EquationCard( equation, options ) {
-    this.equation = equation; // @public (read-only)
+
+    // {string} @public (read-only)
+    this.equation = equation;
+
     Card.call( this, options );
   }
 
