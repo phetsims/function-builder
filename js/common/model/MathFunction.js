@@ -74,17 +74,17 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {BigRational|string} value - rational number or mathematical equation
+     * @param {BigRational|string} input - rational number (see BigRational.js) or mathematical equation
      * @returns {BigRational|string}
      * @public
      * @override
      */
-    apply: function( value ) {
-      if ( typeof value === 'string' ) {
-        return value + ' ' + this.operatorString + this.operandProperty.get();
+    apply: function( input ) {
+      if ( typeof input === 'string' ) {
+        return input + ' ' + this.operatorString + this.operandProperty.get();
       }
       else {
-        return this._apply( value, this.operandProperty.get() );
+        return this._apply( input, this.operandProperty.get() );
       }
     }
   } );
