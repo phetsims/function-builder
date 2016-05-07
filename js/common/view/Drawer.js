@@ -200,6 +200,7 @@ define( function( require ) {
 
     /**
      * Determines whether animation is enabled for opening/closing drawer.
+     *
      * @param {boolean} animationEnabled
      * @public
      */
@@ -210,6 +211,7 @@ define( function( require ) {
 
     /**
      * Is animation enabled for for opening/closing drawer?
+     *
      * @returns {boolean}
      * @public
      */

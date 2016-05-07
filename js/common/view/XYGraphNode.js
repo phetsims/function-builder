@@ -317,6 +317,7 @@ define( function( require ) {
 
     /**
      * Shows the line that corresponds to the function in the builder.
+     *
      * @param {boolean} visible
      * @public
      */

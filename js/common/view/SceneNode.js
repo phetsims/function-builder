@@ -317,8 +317,8 @@ define( function( require ) {
   functionBuilder.register( 'SceneNode', SceneNode );
 
   /**
-   *  Move 1 of each card to the output carousel, for testing.
-   *  If the required query parameter isn't present, this is a no-op.
+   * Moves 1 of each card to the output carousel, for testing.
+   * If the required query parameter isn't present, this is a no-op.
    */
   var populateOutputCarousel = function( inputCarousel, outputCarousel ) {
 
@@ -355,6 +355,7 @@ define( function( require ) {
   /**
    * Has this Node been attached beneath a ScreenView?
    * This is a pre-requisite to calling populateCarousels.
+   *
    * @param {Node} node
    * @returns {boolean}
    */
@@ -378,6 +379,7 @@ define( function( require ) {
     /**
      * Populates the function and card carousels. This must be done after the view is created, because
      * we need to know the location of the containers in the carousels.
+     *
      * @public
      */
     populateCarousels: function() {

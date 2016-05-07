@@ -51,6 +51,7 @@ define( function( require ) {
     /**
      * Updates the image displayed on the card.
      * See supertype CardNode.updateContent for params.
+     *
      * @protected
      * @override
      */

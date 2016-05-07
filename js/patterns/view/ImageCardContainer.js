@@ -37,6 +37,8 @@ define( function( require ) {
     /**
      * Creates the model element for a card.
      * See supertype CardContainer.createCard for params.
+     *
+     * @returns {ImageCard}
      * @protected
      * @override
      */
@@ -47,6 +49,8 @@ define( function( require ) {
     /**
      * Creates the view element (Node) for a card.
      * See supertype CardContainer.createCardNode for params.
+     *
+     * @returns {ImageCardNode}
      * @protected
      * @override
      */

@@ -78,7 +78,7 @@ define( function( require ) {
      * @param {FunctionContainer} container
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
-     * @returns {Node}
+     * @returns {FunctionNode}
      * @protected
      * @abstract
      */

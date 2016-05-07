@@ -19,10 +19,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {ImageFunction} card
+   * @param {Card} card
    * @param {Node} contentNode - what appears on the card
-   * @param {ImageFunctionContainer} inputContainer - container in the input carousel
-   * @param {ImageFunctionContainer} outputContainer - container in the output carousel
+   * @param {FunctionContainer} inputContainer - container in the input carousel
+   * @param {FunctionContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
@@ -59,10 +59,10 @@ define( function( require ) {
     var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
     var BLOCKED_X_OFFSET = ( 0.4 * options.size.width ); // how far to move card to left of window for a non-invertible function
 
-    var dragDx = 0; // {number} most recent change in x while dragging
-    var blocked = false; // {boolean} was dragging to the left blocked by a non-invertible function?
-    var slopeLeft = 0; // {number} slope of the line connecting the input carousel and builder input slot
-    var slopeRight = 0; // {number} slope of the line connecting the ouptut carousel and builder input slot
+    var dragDx = 0; // most recent change in x while dragging
+    var blocked = false; // was dragging to the left blocked by a non-invertible function?
+    var slopeLeft = 0; // slope of the line connecting the input carousel and builder input slot
+    var slopeRight = 0; // slope of the line connecting the output carousel and builder input slot
 
     //-------------------------------------------------------------------------------
     // start a drag cycle
@@ -272,6 +272,7 @@ define( function( require ) {
 
     /**
      * Moves this card immediately to the input carousel, no animation.
+     *
      * @public
      */
     moveToInputCarousel: function() {

@@ -67,6 +67,7 @@ define( function( require ) {
 
     /**
      * Erases the output carousel by moving all cards to the input carousel immediately, no animation.
+     *
      * @public
      */
     erase: function() {

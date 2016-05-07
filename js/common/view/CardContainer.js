@@ -43,6 +43,7 @@ define( function( require ) {
 
     /**
      * Adds a Node to the container.
+     *
      * @param {Node} node
      */
     addNode: function( node ) {
@@ -55,6 +56,7 @@ define( function( require ) {
 
     /**
      * Removes a Node from the container.
+     *
      * @param {Node} node
      */
     removeNode: function( node ) {
@@ -126,7 +128,7 @@ define( function( require ) {
      * @param {BuilderNode} builderNode
      * @param {Node} dragLayer
      * @param {SeeInsideLayer} seeInsideProperty
-     * @returns {Node}
+     * @returns {CardNode}
      * @protected
      * @abstract
      */

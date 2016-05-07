@@ -169,7 +169,11 @@ define( function( require ) {
 
   return inherit( Node, BuilderNode, {
 
-    // @public returns all functions to the carousel immediately, no animation
+    /**
+     * Returns all functions to the carousel immediately, no animation.
+     *
+     * @public
+     */
     reset: function() {
       for ( var i = 0; i < this.functionNodes.length; i++ ) {
         var functionNode = this.functionNodes[ i ];

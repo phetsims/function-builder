@@ -44,6 +44,7 @@ define( function( require ) {
      * Creates the icon for the 'Patterns' screen, the Warhol function applied to a star shape.
      * To provide the quality needed for the icon, we're not actually using the Warhol function,
      * but we are using its color maps.
+     *
      * @returns {Node}
      */
     createPatternsScreenIcon: function() {
@@ -74,6 +75,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'Numbers' screen, a function piece with '+ 3' on it.
+     *
      * @returns {Node}
      */
     createNumbersScreenIcon: function() {
@@ -94,6 +96,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'Equations' screen, the equation y = 2x + 1
+     *
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
@@ -104,6 +107,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'Mystery' screen.
+     *
      * @returns {Node}
      */
     createMysteryScreenIcon: function() {
@@ -116,6 +120,7 @@ define( function( require ) {
     /**
      * Creates the icon for the 'single' scene radio button in the 'Patterns' screen.
      * The icons is a single function piece.
+     *
      * @returns {Node}
      */
     createSingleSceneIcon: function() {
@@ -129,6 +134,7 @@ define( function( require ) {
     /**
      * Creates the icon for the 'composed' scene radio button in the 'Patterns' screen.
      * The icon is 2 function pieces in series.
+     *
      * @returns {Node}
      */
     createComposedSceneIcon: function() {
@@ -152,6 +158,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'see inside' check box, which shows/hides windows in the builder.
+     *
      * @param {Object} [options]
      * @returns {Node}
      */
@@ -203,6 +210,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'hide functions' check box, which hides the identity of functions in the builder.
+     *
      * @returns {Node}
      */
     createHideFunctionsIcon: function() {

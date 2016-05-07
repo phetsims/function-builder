@@ -20,9 +20,9 @@ define( function( require ) {
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
 
   /**
-   * @param {ImageFunction} functionInstance - model element associated with this node
+   * @param {AbstractFunction} functionInstance - model element associated with this node
    * @param {Node} contentNode - content that appears on the function, specific to functionInstance
-   * @param {ImageFunctionContainer} container - container in the function carousel where this node originates
+   * @param {FunctionContainer} container - container in the function carousel where this node originates
    * @param {BuilderNode} builderNode - BuilderNode that may contain this node
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
@@ -132,6 +132,7 @@ define( function( require ) {
 
     /**
      * Animates this function to a slot in the builder.
+     *
      * @param {number} slotNumber - slot number that the function is animating to
      * @param {number} slotNumberRemovedFrom - slot number that the function was removed from
      * @private
@@ -175,6 +176,7 @@ define( function( require ) {
 
     /**
      * Animates this function to the carousel.
+     *
      * @private
      */
     animateToCarousel: function() {
@@ -189,6 +191,7 @@ define( function( require ) {
 
     /**
      * Moves this function immediately to the carousel, no animation.
+     *
      * @public
      */
     moveToCarousel: function() {
@@ -201,6 +204,7 @@ define( function( require ) {
 
     /**
      * Starts animation showing that a function is not invertible.
+     *
      * @public
      */
     startNotInvertibleAnimation: function() {
@@ -211,6 +215,7 @@ define( function( require ) {
     /**
      * Stops animation showing that a function is not invertible.
      * If no animation is in progress, this is a no-op.
+     *
      * @public
      */
     stopNotInvertibleAnimation: function() {
@@ -218,7 +223,9 @@ define( function( require ) {
     },
 
     /**
-     * Hides the identity of this function by changing its background to gray and replacing its content with 'eye close' icon.
+     * Hides the identity of this function by changing its background to gray and
+     * replacing its content with 'eye close' icon.
+     *
      * @param {boolean} hidden
      * @public
      */

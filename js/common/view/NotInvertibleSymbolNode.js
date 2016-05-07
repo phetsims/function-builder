@@ -60,6 +60,7 @@ define( function( require ) {
 
     /**
      * Starts animation.
+     *
      * @public
      */
     startAnimation: function() {
@@ -87,6 +88,7 @@ define( function( require ) {
 
     /**
      * Stops animation. If no animation is in progress, this is a no-op.
+     *
      * @public
      */
     stopAnimation: function() {

@@ -33,6 +33,7 @@ define( function( require ) {
     /***
      * Creates the model element for a function.
      * See supertype FunctionContainer.createFunctionInstance for params.
+     *
      * @returns {AbstractFunction}
      * @protected
      * @abstract
@@ -48,6 +49,7 @@ define( function( require ) {
     /**
      * Creates the view element (Node) for a function.
      * See supertype FunctionContainer.createFunctionNode for params.
+     *
      * @returns {Node}
      * @protected
      * @abstract

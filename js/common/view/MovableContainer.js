@@ -105,6 +105,7 @@ define( function( require ) {
 
     /**
      * Is the container empty?
+     *
      * @returns {boolean}
      */
     isEmpty: function() {

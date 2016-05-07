@@ -56,6 +56,7 @@ define( function( require ) {
     /**
      * Updates the number (value) displayed on the card.
      * See supertype CardNode.updateContent for params.
+     *
      * @protected
      * @override
      */
