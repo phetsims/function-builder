@@ -14,7 +14,7 @@ define( function( require ) {
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
-  var NumbersFunctionNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersFunctionNode' );
+  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
    * @param {Object} functionData - data structure for creating NumberFunction instances
@@ -50,12 +50,12 @@ define( function( require ) {
      * Creates the view element (Node) for a function.
      * See supertype FunctionContainer.createFunctionNode for params.
      *
-     * @returns {NumbersFunctionNode}
+     * @returns {MathFunctionNode}
      * @protected
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new NumbersFunctionNode( functionInstance, container, builderNode, dragLayer );
+      return new MathFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );
