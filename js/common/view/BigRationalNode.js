@@ -3,7 +3,7 @@
 //TODO migrate BigRationalNode to scenery-phet
 /**
  * Displays a rational number, as implemented by the BigRational 3rd-party library.
- * The number can be displayed as either a mixed number or improper fraction.
+ * The number can be displayed as either a mixed number or improper fraction (see options.mixedNumber).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,13 +20,13 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {BigRational} value - see BigRational.js (3rd-party library)
+   * @param {BigRational} bigRational - a rational number, see BigRational.js (3rd-party library)
    * @param {Object} [options]
    * @constructor
    */
-  function BigRationalNode( value, options ) {
+  function BigRationalNode( bigRational, options ) {
 
-    assert && assert( value.constructor.name === 'BigRational' );
+    assert && assert( bigRational.constructor.name === 'BigRational' );
 
     options = _.extend( {
       color: 'black', // {Color|string} color used for all sub-parts of this node
@@ -74,7 +74,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.setValue( value );
+    this.setValue( bigRational );
   }
   
   functionBuilder.register( 'BigRationalNode', BigRationalNode );
@@ -82,24 +82,26 @@ define( function( require ) {
   inherit( Node, BigRationalNode, {
 
     /**
-     * @param {BigRational} value - see BigRational.js
+     * Sets the value displayed by this node.
+     *
+     * @param {BigRational} bigRational - a rational number, see BigRational.js
      * @public
      */
-    setValue: function( value ) {
+    setValue: function( bigRational ) {
 
-      assert && assert( value.constructor.name === 'BigRational' );
+      assert && assert( bigRational.constructor.name === 'BigRational' );
 
       // set the sign
-      this.signNode.text = value.isNegative() ? this.negativeSymbol : this.positiveSymbol;
+      this.signNode.text = bigRational.isNegative() ? this.negativeSymbol : this.positiveSymbol;
 
       // display absolute value, since we have a separate node for sign
-      value = value.abs();
+      bigRational = bigRational.abs();
 
-      if ( value.denominator.equals( 1 ) ) { // integer
+      if ( bigRational.denominator.equals( 1 ) ) { // integer
 
         // whole number
         this.wholeNumberNode.visible = true;
-        this.wholeNumberNode.setValue( value.valueOf() );
+        this.wholeNumberNode.setValue( bigRational.valueOf() );
         this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
@@ -107,18 +109,18 @@ define( function( require ) {
         this.fractionNode.visible = false;
         this.fractionNode.center = this.wholeNumberNode.center;
       }
-      else if ( this.mixedNumber && value.gt( 1 ) ) { // mixed number
+      else if ( this.mixedNumber && bigRational.gt( 1 ) ) { // mixed number
 
         // whole number
         this.wholeNumberNode.visible = true;
-        var wholeNumber = value.floor();
-        this.wholeNumberNode.setValue( wholeNumber.valueOf() );
+        var wholeNumber = bigRational.floor(); // {BigRational}
+        this.wholeNumberNode.setValue( wholeNumber.bigRationalOf() );
         this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
         // fraction
         this.fractionNode.visible = true;
-        var fraction = value.minus( wholeNumber );
+        var fraction = bigRational.minus( wholeNumber ); // {BigRational}
         this.fractionNode.setValue( fraction.numerator.valueOf(), fraction.denominator.valueOf() );
         this.fractionNode.left = this.wholeNumberNode.right + this.fractionXSpace;
         this.fractionNode.centerY = this.wholeNumberNode.centerY;
@@ -127,7 +129,7 @@ define( function( require ) {
 
         // fraction
         this.fractionNode.visible = true;
-        this.fractionNode.setValue( value.numerator.valueOf(), value.denominator.valueOf() );
+        this.fractionNode.setValue( bigRational.numerator.valueOf(), bigRational.denominator.valueOf() );
         this.fractionNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.fractionNode.centerY = this.signNode.centerY;
 
@@ -139,6 +141,8 @@ define( function( require ) {
   } );
 
   /**
+   * Displays a whole number (integer).
+   *
    * @param {number} wholeNumber
    * @param {Object} options
    * @constructor
@@ -170,6 +174,8 @@ define( function( require ) {
   } );
 
   /**
+   * Displays a fraction.
+   *
    * @param {number} numerator
    * @param {number} denominator
    * @param {Object} [options]
