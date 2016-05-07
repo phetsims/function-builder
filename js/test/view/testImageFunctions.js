@@ -26,6 +26,7 @@ define( function( require ) {
   // other function-builder modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/ImageFunction' );
 
   // common modules
   var Carousel = require( 'SUN/Carousel' );
@@ -180,6 +181,8 @@ define( function( require ) {
    * @constructor
    */
   function TestFunctionNode( functionInstance, options ) {
+
+    assert && assert( functionInstance instanceof ImageFunction );
 
     options = options || {};
 
