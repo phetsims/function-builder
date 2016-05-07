@@ -16,7 +16,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {BigRational} value
+   * @param {BigRational} value - see BigRational.js (3rd-party library)
    * @param {Object} [options]
    * @constructor
    */
