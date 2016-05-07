@@ -20,9 +20,9 @@ define( function( require ) {
   function MathScene( options ) {
 
     options = _.extend( {
-      cardNumbers: null, // {number|null} numbers on cards
-      cardSymbols: null, // {string[]|null} symbols on cards
-      functionData: null // {*} data structures for creating MathFunction instances
+      cardNumbers: [], // {number[]} numbers on cards
+      cardSymbols: [], // {string[]} symbols on cards
+      functionData: [] // {*[]} data structures for creating MathFunction instances
     }, options );
 
     // @public (read-only)

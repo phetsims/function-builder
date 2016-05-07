@@ -24,7 +24,7 @@ define( function( require ) {
   function MathFunctionContainer( functionData, options ) {
 
     options = _.extend( {
-      operandMutable: false // {boolean} is the function operand mutable?
+      operandMutable: true // {boolean} is the function operand mutable?
     }, options );
 
     this.functionData = functionData; // @private

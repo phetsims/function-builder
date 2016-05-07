@@ -33,7 +33,7 @@ define( function( require ) {
     assert && assert( functionInstance instanceof MathFunction );
 
     options = _.extend( {
-      operandMutable: false // {boolean} is the function's operand mutable?
+      operandMutable: true // {boolean} is the function's operand mutable?
     }, options );
 
     assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );

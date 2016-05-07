@@ -29,8 +29,8 @@ define( function( require ) {
 
     options = _.extend( {
       size: FBConstants.TABLE_DRAWER_SIZE,
-      xString: FBSymbols.X,
-      yString: FBSymbols.Y,
+      xSymbol: FBSymbols.X,
+      ySymbol: FBSymbols.Y,
       headingFont: new FBFont( 22 ),
       showEquationMockup: false //TODO temporary, delete this
     }, options );
@@ -38,12 +38,12 @@ define( function( require ) {
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, { fill: 'white' } );
 
     // column headings
-    var xNode = new Text( options.xString, {
+    var xNode = new Text( options.xSymbol, {
       font: options.headingFont,
       centerX: 0.25 * backgroundNode.width,
       top: backgroundNode.top + 6
     } );
-    var yNode = new Text( options.yString, {
+    var yNode = new Text( options.ySymbol, {
       font: options.headingFont,
       centerX: 0.75 * backgroundNode.width,
       top: backgroundNode.top + 6

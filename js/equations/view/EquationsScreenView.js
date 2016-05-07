@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO much in common with EquationsScreenView
 /**
  * ScreenView for the 'Equations' screen.
  *
@@ -10,50 +9,27 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
+  var MathScreenView = require( 'FUNCTION_BUILDER/common/view/MathScreenView' );
 
   /**
-   * @param {NumbersModel} model
+   * @param {EquationsModel} model
    * @constructor
    */
   function EquationsScreenView( model ) {
 
-    var thisView = this;
-    ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
-
-    // Scene
-    var sceneNode = new EquationsSceneNode( model.scene, thisView.layoutBounds );
-
-    // Resets this screen
-    var resetAll = function() {
-      model.reset();
-      sceneNode.reset();
+    var sceneOptions = {
+      cardCarouselDefaultPageNumber: 1,
+      functionsPerPage: 2,
+      operandMutable: true, // functions have pickers for editing operand
+      hasGraph: true // this scene has a graph
     };
 
-    // Reset All button at bottom-right
-    var resetAllButton = new ResetAllButton( {
-      right: this.layoutBounds.maxX - 20,
-      bottom: this.layoutBounds.maxY - 20,
-      listener: resetAll
-    } );
-
-    // rendering order
-    this.addChild( resetAllButton );
-    this.addChild( sceneNode );
-
-    /**
-     * After the scene graph is fully constructed, populate parts of the model that
-     * depend on the location of things in the view.
-     */
-    sceneNode.populateCarousels();
+    MathScreenView.call( this, model, sceneOptions );
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( ScreenView, EquationsScreenView );
+  return inherit( MathScreenView, EquationsScreenView );
 } );
