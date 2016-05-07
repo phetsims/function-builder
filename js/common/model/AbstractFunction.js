@@ -52,6 +52,7 @@ define( function( require ) {
 
     /**
      * Is this function invertible?
+     *
      * @returns {boolean}
      * @public
      */

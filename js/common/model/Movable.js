@@ -74,6 +74,7 @@ define( function( require ) {
 
     /**
      * Is the Movable animating?
+     *
      * @returns {boolean}
      * @public
      */

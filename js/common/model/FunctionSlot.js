@@ -34,6 +34,7 @@ define( function( require ) {
 
     /**
      * Is this slot empty?
+     *
      * @returns {boolean}
      * @public
      */
@@ -43,6 +44,7 @@ define( function( require ) {
 
     /**
      * Clears the slot, makes it empty.
+     *
      * @public
      */
     clear: function() {
@@ -63,6 +65,7 @@ define( function( require ) {
 
     /**
      * Is the slot invertible? Meaning, can a card be dragged backwards through this slot?
+     *
      * @returns {boolean}
      * @public
      */

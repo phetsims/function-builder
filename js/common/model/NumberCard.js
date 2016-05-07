@@ -31,6 +31,7 @@ define( function( require ) {
 
     /**
      * Convenience function for creating a NumberCard from an integer.
+     *
      * @param {number} value
      * @param {Object} [options]
      * @returns {NumberCard}
