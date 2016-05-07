@@ -31,10 +31,10 @@ define( function( require ) {
     this.numberOfEachCard = options.numberOfEachCard;
     this.builder = options.builder;
 
-    // @public {ImageCard[]} all cards that exist
+    // @public {Card[]} all cards that exist
     this.cards = [];
 
-    // @public {ImageFunction[]} all function instances that exist
+    // @public {AbstractFunction[]} all function instances that exist
     this.functionInstances = [];
   }
 
