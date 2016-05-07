@@ -9,27 +9,50 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathScreenView = require( 'FUNCTION_BUILDER/common/view/MathScreenView' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
    * @param {EquationsModel} model
+   * @param {Object} [sceneOptions] - see EquationsSceneNode options
    * @constructor
    */
-  function EquationsScreenView( model ) {
+  function EquationsScreenView( model, sceneOptions ) {
 
-    var sceneOptions = {
-      cardCarouselDefaultPageNumber: 1,
-      functionsPerPage: 2,
-      operandMutable: true, // functions have pickers for editing operand
-      hasGraph: true // this scene has a graph
+    ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
+
+    // Scene
+    var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, sceneOptions );
+
+    // Resets this screen
+    var resetAll = function() {
+      model.reset();
+      sceneNode.reset();
     };
 
-    MathScreenView.call( this, model, sceneOptions );
+    // Reset All button at bottom-right
+    var resetAllButton = new ResetAllButton( {
+      right: this.layoutBounds.maxX - 20,
+      bottom: this.layoutBounds.maxY - 20,
+      listener: resetAll
+    } );
+
+    // rendering order
+    this.addChild( resetAllButton );
+    this.addChild( sceneNode );
+
+    /**
+     * After the scene graph is fully constructed, populate parts of the model that
+     * depend on the location of things in the view.
+     */
+    sceneNode.populateCarousels();
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( MathScreenView, EquationsScreenView );
+  return inherit( ScreenView, EquationsScreenView );
 } );

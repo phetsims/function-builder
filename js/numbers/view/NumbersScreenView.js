@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * ScreenView for the 'Numbers' screen.
+ * ScreenView for the 'Numbers' screen, a variation of the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathScreenView = require( 'FUNCTION_BUILDER/common/view/MathScreenView' );
 
   // strings
   var inputString = require( 'string!FUNCTION_BUILDER/input' );
@@ -23,18 +23,20 @@ define( function( require ) {
    */
   function NumbersScreenView( model ) {
 
+    // modifications to Equations screen
     var sceneOptions = {
       cardCarouselDefaultPageNumber: 1,
+      functionsPerPage: 3,
       operandMutable: false, // function operands are not editable
       hasGraph: false, // no graph in this scene
-      xSymbol: inputString,
-      ySymbol: outputString
+      xSymbol: inputString, // symbol used in place of x
+      ySymbol: outputString // symbol used in place of y
     };
 
-    MathScreenView.call( this, model, sceneOptions );
+    EquationsScreenView.call( this, model, sceneOptions );
   }
 
   functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
 
-  return inherit( MathScreenView, NumbersScreenView );
+  return inherit( EquationsScreenView, NumbersScreenView );
 } );

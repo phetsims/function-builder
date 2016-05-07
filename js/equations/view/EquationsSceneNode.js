@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Displays a math scene.
+ * Scene for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,6 +17,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
+  var MathScene = require( 'FUNCTION_BUILDER/common/model/MathScene' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
@@ -31,14 +32,23 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MathSceneNode( scene, layoutBounds, options ) {
+  function EquationsSceneNode( scene, layoutBounds, options ) {
 
+    assert && assert( scene instanceof MathScene );
+
+    // things that differ between the Equations and Numbers screens
     options = _.extend( {}, options, {
+
+      // options for supertype
       cardCarouselDefaultPageNumber: 1,
-      operandMutable: true,
-      hasGraph: true,
+      functionsPerPage: 2,
+
+      // options for this subtype
+      operandMutable: true, // show pickers on functions
+      hasGraph: true, // show XY graph
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y
+
     }, options );
 
     this.operandMutable = options.operandMutable; // @private
@@ -128,9 +138,9 @@ define( function( require ) {
     this.drawersLayer.addChild( this.equationDrawer );
   }
 
-  functionBuilder.register( 'MathSceneNode', MathSceneNode );
+  functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
 
-  return inherit( SceneNode, MathSceneNode, {
+  return inherit( SceneNode, EquationsSceneNode, {
 
     // @public @override
     reset: function() {
