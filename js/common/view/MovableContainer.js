@@ -2,7 +2,7 @@
 
 /**
  * Base type for Movable containers.
- * A MovableNode that is in a carousel is a descendant of this type of container.
+ * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

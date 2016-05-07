@@ -2,6 +2,7 @@
 
 /***
  * Carousel for 'output' cards, those cards that have been run through the builder.
+ * Extends Carousel by adding numberOfCardsProperty, used to disable 'eraser' button when carousel is empty.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +24,7 @@ define( function( require ) {
 
     Carousel.call( this, containers, options );
 
-    // @public (read-only) {number} of cards in the carousel, used to disable 'eraser' button when carousel is empty
+    // @public (read-only) {number} of cards in the carousel
     this.numberOfCardsProperty = new Property( getNumberOfCards( containers ) );
 
     // update numberOfCardsProperty as cards are added/removed
