@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-Combine NumbersFunctionContainer and EquationsFunctionContainer into MathFunctionContainer with option.mutableOperand
-
 Move responsibility for creating cards and functions out of containers.
 
 Rework how graph is wired up to output containers, see EquationsSceneNode. Either specify callbacks via options

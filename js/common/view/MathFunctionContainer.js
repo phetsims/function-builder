@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for functions in the 'Equations' screen.
+ * Container for mathematical functions.
  * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,24 +17,31 @@ define( function( require ) {
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {Object} functionData - data structure for creating EquationFunction instances
+   * @param {Object} functionData - data structure for creating MathFunction instances
    * @param {Object} [options]
    * @constructor
    */
-  function EquationsFunctionContainer( functionData, options ) {
+  function MathFunctionContainer( functionData, options ) {
+
+    options = _.extend( {
+      operandMutable: false // {boolean} is the function operand mutable?
+    }, options );
+
     this.functionData = functionData; // @private
+    this.operandMutable = options.operandMutable; // @private
+
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'EquationsFunctionContainer', EquationsFunctionContainer );
+  functionBuilder.register( 'MathFunctionContainer', MathFunctionContainer );
 
-  return inherit( FunctionContainer, EquationsFunctionContainer, {
+  return inherit( FunctionContainer, MathFunctionContainer, {
 
     /***
      * Creates the model element for a function.
      * See supertype FunctionContainer.createFunctionInstance for params.
      *
-     * @returns {AbstractFunction}
+     * @returns {MathFunction}
      * @protected
      * @abstract
      */
@@ -47,16 +54,16 @@ define( function( require ) {
     },
 
     /**
-     * Creates the view element (Node) for a function.
+     * Creates the view element for a function.
      * See supertype FunctionContainer.createFunctionNode for params.
      *
-     * @returns {Node}
+     * @returns {MathFunctionNode}
      * @protected
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
       return new MathFunctionNode( functionInstance, container, builderNode, dragLayer, {
-        operandMutable: true // include a picker for changing the operand
+        operandMutable: this.operandMutable
       } );
     }
   } );

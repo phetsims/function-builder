@@ -14,8 +14,8 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
-  var NumbersFunctionContainer = require( 'FUNCTION_BUILDER/numbers/view/NumbersFunctionContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
@@ -111,7 +111,7 @@ define( function( require ) {
      * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumbersFunctionContainer options
+     * @param {Object} [containerOptions] - see MathFunctionContainer options
      * @returns {FunctionContainer[]}
      * @protected
      * @override
@@ -119,7 +119,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionData.forEach( function( functionData ) {
-        functionContainers.push( new NumbersFunctionContainer( functionData, containerOptions ) );
+        functionContainers.push( new MathFunctionContainer( functionData, containerOptions ) );
       } );
       return functionContainers;
     }
