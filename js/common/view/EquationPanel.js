@@ -1,7 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Displays the equation and control for switching its format.
+ * Panel that contains:
+ * - equation that corresponds to the function in the builder
+ * - control for switching the equation's format
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
