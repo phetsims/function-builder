@@ -27,7 +27,7 @@ define( function( require ) {
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
 
   /**
-   * @param {NumbersScene} scene - model for this scene
+   * @param {MathScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
