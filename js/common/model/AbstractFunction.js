@@ -33,7 +33,7 @@ define( function( require ) {
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
       lineDash: null, // {number[]|null}
-      pickerColor: null // {Color|string|null}
+      pickerColor: 'white' // {Color|string}
 
     }, options );
 
