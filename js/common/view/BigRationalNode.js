@@ -5,7 +5,7 @@
  * Displays a rational number, as implemented by the BigRational 3rd-party library.
  * The number can be displayed as either a mixed number or improper fraction (see options.mixedNumber).
  *
- * Note: Requires BigInteger and BigRational to be added to phet.preload in package.json.
+ * Note: Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
