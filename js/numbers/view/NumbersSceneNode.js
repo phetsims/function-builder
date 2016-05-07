@@ -15,7 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
+  var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 

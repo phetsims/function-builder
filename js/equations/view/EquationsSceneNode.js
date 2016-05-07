@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationCardContainer = require( 'FUNCTION_BUILDER/equations/view/EquationCardContainer' );
+  var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/numbers/view/NumberCardContainer' );
+  var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
 
