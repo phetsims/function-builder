@@ -82,6 +82,7 @@ define( function( require ) {
 
     /**
      * Sets the RGBA components of a pixel.
+     * ImageData stores the 4 components (RGBA) of a pixel in consecutive locations.
      *
      * @param {ImageData} imageData - underlying pixel data of a Canvas
      * @param {number} pixelIndex - index of a specific pixel
@@ -92,11 +93,11 @@ define( function( require ) {
      */
     setPixelRGBA: function( imageData, pixelIndex, red, green, blue, alpha ) {
   
-      assert && assert( pixelIndex >= 0 && pixelIndex < imageData.data.length - 4 );
-      assert && assert( red >= 0 && red <= 255 );
-      assert && assert( green >= 0 && green <= 255 );
-      assert && assert( blue >= 0 && blue <= 255 );
-      assert && assert( alpha >=0 && alpha <= 255 );
+      assert && assert( pixelIndex >= 0 && pixelIndex < imageData.data.length - 4, 'pixelIndex out of range: ' + pixelIndex );
+      assert && assert( red >= 0 && red <= 255, 'red out of range: ' + red );
+      assert && assert( green >= 0 && green <= 255, 'green out of range: ' + green );
+      assert && assert( blue >= 0 && blue <= 255, 'blue out of range: ' + blue );
+      assert && assert( alpha >=0 && alpha <= 255, 'alpha out of range: ' + alpha );
   
       imageData.data[ pixelIndex ] = red;
       imageData.data[ pixelIndex + 1 ] = green;
