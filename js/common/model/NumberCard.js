@@ -10,12 +10,10 @@ define( function( require ) {
 
   // modules
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
-
-  // constants
-  var createBigRational = bigRat; // global created by BigRational.js preload
 
   /**
    * @param {BigRational} value
@@ -41,7 +39,7 @@ define( function( require ) {
      */
     withInteger: function( value, options ) {
       assert && assert( Util.isInteger( value ), 'value is not an integer: ' + value  );
-      return new NumberCard( createBigRational( value ), options );
+      return new NumberCard( FBUtils.createBigRational( value ), options );
     }
   } );
 } );

@@ -37,7 +37,10 @@ define( function( require ) {
         'bottom', // bottom color for vertical gradient
         'ends'    // color for builder ends
       ] );
-    }
+    },
+
+    // global created by BigRational.js preload, encapsulated here
+    createBigRational: bigRat
   };
 
   functionBuilder.register( 'FBUtils', FBUtils );

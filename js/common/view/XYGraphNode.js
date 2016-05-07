@@ -17,6 +17,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -31,7 +32,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var createBigRational = bigRat; // global created by BigRational.js preload
   var AXIS_OPTIONS = {
     doubleHead: true,
     headWidth: 8,
@@ -252,8 +252,8 @@ define( function( require ) {
 
     // @private updates the line
     updateLine: function() {
-      var yLeft = this.builder.applyFunctions( createBigRational( this.xRange.min ), this.builder.slots.length );
-      var yRight = this.builder.applyFunctions( createBigRational( this.xRange.max ), this.builder.slots.length );
+      var yLeft = this.builder.applyFunctions( FBUtils.createBigRational( this.xRange.min ), this.builder.slots.length );
+      var yRight = this.builder.applyFunctions( FBUtils.createBigRational( this.xRange.max ), this.builder.slots.length );
       this.lineNode.setLine(
         this.modelViewTransform.modelToViewX( this.xRange.min ),
         this.modelViewTransform.modelToViewY( yLeft ),
@@ -277,7 +277,7 @@ define( function( require ) {
       this.xCoordinates.push( x );
 
       // compute y based on what is in the builder
-      var y = this.builder.applyFunctions( createBigRational( x ), this.builder.slots.length ).valueOf();
+      var y = this.builder.applyFunctions( FBUtils.createBigRational( x ), this.builder.slots.length ).valueOf();
 
       // create the PointNode
       this.pointsParent.addChild( new PointNode( new Vector2( x, y ), this.modelViewTransform, {
