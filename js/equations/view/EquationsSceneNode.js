@@ -12,12 +12,12 @@ define( function( require ) {
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
+  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
-  var MathScene = require( 'FUNCTION_BUILDER/common/model/MathScene' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
@@ -27,14 +27,14 @@ define( function( require ) {
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
 
   /**
-   * @param {MathScene} scene - model for this scene
+   * @param {EquationsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
    */
   function EquationsSceneNode( scene, layoutBounds, options ) {
 
-    assert && assert( scene instanceof MathScene );
+    assert && assert( scene instanceof EquationsScene );
 
     // things that differ between the Equations and Numbers screens
     options = _.extend( {}, options, {

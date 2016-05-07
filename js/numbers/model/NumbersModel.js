@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
-  var MathScene = require( 'FUNCTION_BUILDER/common/model/MathScene' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -169,8 +169,8 @@ define( function( require ) {
       colorScheme: FBColors.BUILDER_BLUE
     } );
 
-    // @public this Screen has a single scene
-    this.scene = new MathScene( {
+    // @public this Screen has a single scene, a variation of the 'Equations' scene
+    this.scene = new EquationsScene( {
 
       // cards
       cardNumbers: cardNumbers,

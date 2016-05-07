@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A scene that involves mathematical functions.
+ * A scene in the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MathScene( options ) {
+  function EquationsScene( options ) {
 
     options = _.extend( {
       cardNumbers: [], // {number[]} numbers on cards
@@ -33,7 +33,7 @@ define( function( require ) {
     Scene.call( this, options );
   }
 
-  functionBuilder.register( 'MathScene', MathScene );
+  functionBuilder.register( 'EquationsScene', EquationsScene );
 
-  return inherit( Scene, MathScene );
+  return inherit( Scene, EquationsScene );
 } );
