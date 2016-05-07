@@ -15,7 +15,7 @@ Equation (see equations-formats.md)
 
 Table
 
-Better way to specify functions in NumbersScene and EquationsScene
+Better way to specify functions in NumbersModel and EquationsModel
 
 ---
 
