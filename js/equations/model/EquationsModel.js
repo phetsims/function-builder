@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationsBuilder = require( 'FUNCTION_BUILDER/equations/model/EquationsBuilder' );
   var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -30,7 +30,7 @@ define( function( require ) {
     this.scene = new EquationsScene( {
       numberOfEachCard: 1,
       numberOfEachFunction: 2,
-      builder: new EquationsBuilder( {
+      builder: new MathBuilder( {
         numberOfSlots: BUILDER_SLOTS,
         width: BUILDER_WIDTH,
         location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot

@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Extension of Builder for the 'Equations' screen, observes changes to function operands.
+ * Extension of Builder for the mathematical functions.
+ * Observes changes to function operands and notifies listeners.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +18,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function EquationsBuilder( options ) {
+  function MathBuilder( options ) {
 
     Builder.call( this, options );
 
@@ -28,9 +29,9 @@ define( function( require ) {
     };
   }
 
-  functionBuilder.register( 'EquationsBuilder', EquationsBuilder );
+  functionBuilder.register( 'MathBuilder', MathBuilder );
 
-  return inherit( Builder, EquationsBuilder, {
+  return inherit( Builder, MathBuilder, {
 
     /**
      * Puts a function instance into a slot.
