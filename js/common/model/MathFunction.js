@@ -74,6 +74,7 @@ define( function( require ) {
         return input + ' ' + this.operatorString + this.operandProperty.get();
       }
       else {
+        assert && assert( input.constructor.name === 'BigRational' );
         return this._apply( input, this.operandProperty.get() );
       }
     }
