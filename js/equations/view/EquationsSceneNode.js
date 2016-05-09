@@ -80,7 +80,7 @@ define( function( require ) {
     else {
 
       // table drawer at left top of builder
-      this.tableDrawer.right = scene.builder.centerX - 10;
+      this.tableDrawer.right = scene.builder.centerX - 20;
 
       // Graph
       var graphNode = new XYGraphNode( scene.builder );
