@@ -22,7 +22,7 @@ define( function( require ) {
     options = _.extend( {
       cardNumbers: [], // {number[]} numbers on cards
       cardSymbol: null, // {string|null} symbol on a card
-      functionCreators: [] // {*[]} function constructors and options
+      functionCreators: [] // {FunctionCreator[]} function creators
     }, options );
 
     // @public (read-only)

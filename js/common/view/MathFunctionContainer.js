@@ -16,7 +16,7 @@ define( function( require ) {
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {Object} functionCreator - function creator
+   * @param {FunctionCreator} functionCreator - function creator
    * @param {Object} [options]
    * @constructor
    */

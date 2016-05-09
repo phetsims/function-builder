@@ -61,8 +61,8 @@ define( function( require ) {
      */
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
-      scene.functionConstructors.forEach( function( FunctionConstructor ) {
-        functionContainers.push( new ImageFunctionContainer( FunctionConstructor, containerOptions ) );
+      scene.functionCreators.forEach( function( functionCreator ) {
+        functionContainers.push( new ImageFunctionContainer( functionCreator, containerOptions ) );
       } );
       return functionContainers;
     }

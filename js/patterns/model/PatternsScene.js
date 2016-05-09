@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
 
@@ -71,23 +72,23 @@ define( function( require ) {
     ];
 
     /**
-     * Constructors for {ImageFunction} types, in the order that they appear in the function carousel.
-     * @type {constructor[]}
+     * Function creators, in the order that functions appear in the function carousel.
+     * @type {FunctionCreator[]}
      * @public (read-only)
      */
-    this.functionConstructors = [
-      Mirror,
-      Rotate90,
-      Grayscale,
-      Rotate180,
-      Identity,
-      InvertRGB,
-      Erase,
-      Shrink,
-      Warhol,
-      MysteryA,
-      MysteryB,
-      MysteryC
+    this.functionCreators = [
+      new FunctionCreator( Mirror ),
+      new FunctionCreator( Rotate90 ),
+      new FunctionCreator( Grayscale ),
+      new FunctionCreator( Rotate180 ),
+      new FunctionCreator( Identity ),
+      new FunctionCreator( InvertRGB ),
+      new FunctionCreator( Erase ),
+      new FunctionCreator( Shrink ),
+      new FunctionCreator( Warhol ),
+      new FunctionCreator( MysteryA ),
+      new FunctionCreator( MysteryB ),
+      new FunctionCreator( MysteryC )
     ];
 
     Scene.call( this, options );

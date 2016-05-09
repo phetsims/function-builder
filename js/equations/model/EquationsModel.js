@@ -13,8 +13,8 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var MathFunctionCreator = require( 'FUNCTION_BUILDER/equations/model/functions/MathFunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
@@ -37,18 +37,18 @@ define( function( require ) {
    */
   function EquationsModel() {
 
-    // numeric cards
+    // {number[]} numeric cards
     var cardNumbers = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       cardNumbers.push( i );
     }
 
-    // function creators
+    // {FunctionCreator[]} function creators
     var functionCreators = [
-      new MathFunctionCreator( Plus ),
-      new MathFunctionCreator( Minus ),
-      new MathFunctionCreator( Times ),
-      new MathFunctionCreator( Divide )
+      new FunctionCreator( Plus ),
+      new FunctionCreator( Minus ),
+      new FunctionCreator( Times ),
+      new FunctionCreator( Divide )
     ];
 
     // builder

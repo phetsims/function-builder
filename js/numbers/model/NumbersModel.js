@@ -13,6 +13,7 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
@@ -20,7 +21,6 @@ define( function( require ) {
 
   // function modules
   var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
-  var MathFunctionCreator = require( 'FUNCTION_BUILDER/equations/model/functions/MathFunctionCreator' );
   var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
   var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
   var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
@@ -37,93 +37,93 @@ define( function( require ) {
    */
   function NumbersModel() {
 
-    // numeric cards
+    // {number[]} numeric cards
     var cardNumbers = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       cardNumbers.push( i );
     }
 
-    // function creators
+    // {FunctionCreator[]} function creators
     var functionCreators = [
 
       // +1
-      new MathFunctionCreator( Plus, {
+      new FunctionCreator( Plus, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 165, 209, 167 )'
       } ),
 
       // + 2
-      new MathFunctionCreator( Plus, {
+      new FunctionCreator( Plus, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 235, 191, 109 )'
       } ),
 
       // + 3
-      new MathFunctionCreator( Plus, {
+      new FunctionCreator( Plus, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 232, 169, 236 )'
       } ),
 
       // - 1
-      new MathFunctionCreator( Minus, {
+      new FunctionCreator( Minus, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 135, 196, 229 )'
       } ),
 
       // - 2
-      new MathFunctionCreator( Minus, {
+      new FunctionCreator( Minus, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 198, 231, 220 )'
       } ),
 
       // - 3
-      new MathFunctionCreator( Minus, {
+      new FunctionCreator( Minus, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 255, 246, 187 )'
       } ),
 
       // * 0
-      new MathFunctionCreator( Times, {
+      new FunctionCreator( Times, {
         operand: 0,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 208, 201, 225 )'
       } ),
 
       // * 1
-      new MathFunctionCreator( Times, {
+      new FunctionCreator( Times, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 255, 246, 187 )'
       } ),
 
       // * 2
-      new MathFunctionCreator( Times, {
+      new FunctionCreator( Times, {
         operand: 2,
         fill: 'rgb( 209, 151, 169 )'
       } ),
 
       // / 1
-      new MathFunctionCreator( Divide, {
+      new FunctionCreator( Divide, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 208, 201, 225 )'
       } ),
 
       // / 2
-      new MathFunctionCreator( Divide, {
+      new FunctionCreator( Divide, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 232, 169, 236 )'
       } ),
 
       // / 3
-      new MathFunctionCreator( Divide, {
+      new FunctionCreator( Divide, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 135, 196, 229 )'

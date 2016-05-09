@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Creates an instance of a MathFunction subtype.
+ * Creates a type of function instance with specific options.
  * Allows us to specify what we want to create in the model, but defer creation until after the view is created.
  * 
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,26 +14,26 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {constructor} functionConstructor - constructor for a subtype of {MathFunction}
+   * @param {constructor} functionConstructor - constructor for a function
    * @param {Object} [functionConstructorOptions] - options that will be passed to functionConstructor
    * @constructor
    */
-  function MathFunctionCreator( functionConstructor, functionConstructorOptions ) {
+  function FunctionCreator( functionConstructor, functionConstructorOptions ) {
 
     // @public (read-only)
     this.functionConstructor = functionConstructor;
     this.functionConstructorOptions = functionConstructorOptions;
   }
 
-  functionBuilder.register( 'MathFunctionCreator', MathFunctionCreator );
+  functionBuilder.register( 'FunctionCreator', FunctionCreator );
 
-  return inherit( Object, MathFunctionCreator, {
+  return inherit( Object, FunctionCreator, {
 
     /**
-     * Creates an instance.
+     * Creates a function instance.
      *
      * @param {Object} [options] - options passed to function constructor
-     * @returns {MathFunction}
+     * @returns {AbstractFunction}
      */
     createInstance: function( options ) {
       var FunctionConstructor = this.functionConstructor;

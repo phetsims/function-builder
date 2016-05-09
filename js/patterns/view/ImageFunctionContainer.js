@@ -16,12 +16,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {constructor} FunctionConstructor - constructor for a subtype of {ImageFunction}
+   * @param {FunctionCreator} functionCreator - creates function instances
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionContainer( FunctionConstructor, options ) {
-    this.FunctionConstructor = FunctionConstructor; // @private
+  function ImageFunctionContainer( functionCreator, options ) {
+    this.functionCreator = functionCreator; // @private
     FunctionContainer.call( this, options );
   }
 
@@ -38,7 +38,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      return new this.FunctionConstructor( { location: this.carouselLocation } );
+      return this.functionCreator.createInstance( { location: this.carouselLocation } );
     },
 
     /**
