@@ -19,6 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
+  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
@@ -91,24 +92,43 @@ define( function( require ) {
       } );
       this.drawersLayer.addChild( this.graphDrawer );
 
-      //TODO preferable to do this through options when outputContainers are instantiated
       // wire up output containers to graph
       this.outputContainers.forEach( function( outputContainer ) {
         if ( outputContainer instanceof NumberCardContainer ) {
 
-          // When a number is added to the output carousel, add its corresponding point to the graph.
-          outputContainer.addFirstCallback = function( value ) { graphNode.addPointAt( value ); };
+          // When a number is added to an empty container in the output carousel,
+          // add its corresponding point to the graph.
+          outputContainer.addEmitter.addListener( function( node ) {
+            if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+              assert && assert( node instanceof NumberCardNode );
+              graphNode.addPointAt( node.card.value.valueOf() );
+            }
+          } );
 
-          // When a number is removed from the output carousel, remove its corresponding point from the graph.
-          outputContainer.removeLastCallback = function( value ) { graphNode.removePointAt( value ); };
+          // When the last number is removed from a container in the output carousel,
+          // remove its corresponding point from the graph.
+          outputContainer.removeEmitter.addListener( function( node ) {
+            if ( outputContainer.isEmpty() ) {
+              assert && assert( node instanceof NumberCardNode );
+              graphNode.removePointAt( node.card.value.valueOf() );
+            }
+          } );
         }
         else if ( outputContainer instanceof EquationCardContainer ) {
 
-          // When an equation is added to the output carousel, add its corresponding line to the graph.
-          outputContainer.addFirstCallback = function( value ) { graphNode.setLineVisible( true ); };
+          // When the equation is added to a container in the output carousel,
+          // show the line on the graph.
+          outputContainer.addEmitter.addListener( function( node ) {
+            graphNode.setLineVisible( true );
+          } );
 
-          // When an equation is removed from the output carousel, remove its corresponding line from the graph.
-          outputContainer.removeLastCallback = function( value ) { graphNode.setLineVisible( false ); };
+          // When the last equation is removed from a container in the output carousel,
+          // hide the line on the graph.
+          outputContainer.removeEmitter.addListener( function( node ) {
+            if ( outputContainer.isEmpty() ) {
+              graphNode.setLineVisible( false );
+            }
+          } );
         }
         else {
           throw new Error( 'unexpected container type' );

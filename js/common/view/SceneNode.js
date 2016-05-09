@@ -114,7 +114,6 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
-    //TODO preferable for this to be a local var, currently protected so that we can wire outputContainers to graph
     // @protected Containers in the output carousel
     this.outputContainers = this.createCardContainers( scene, {
       emptyNode: null // don't show anything in empty output containers
