@@ -170,10 +170,10 @@ define( function( require ) {
         containers.push( new NumberCardContainer( value, containerOptions ) );
       } );
 
-      // symbols, eg 'x'
-      scene.cardSymbols.forEach( function( value ) {
-        containers.push( new EquationCardContainer( value, containerOptions ) );
-      } );
+      // symbol (eg 'x') is put in the carousel last
+      if ( scene.cardSymbol ) {
+        containers.push( new EquationCardContainer( scene.cardSymbol, containerOptions ) );
+      }
 
       return containers;
     },

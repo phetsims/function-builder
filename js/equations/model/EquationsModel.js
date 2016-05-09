@@ -36,9 +36,6 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // symbolic cards
-    var cardSymbols = [ FBSymbols.X ];
-
     // data structures for creating {MathFunction} instances,
     var functionData = [
 
@@ -107,7 +104,7 @@ define( function( require ) {
 
       // cards
       cardNumbers: cardNumbers,
-      cardSymbols: cardSymbols,
+      cardSymbol: FBSymbols.X,
       numberOfEachCard: 1,
 
       // functions
