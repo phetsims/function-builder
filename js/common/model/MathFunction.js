@@ -11,20 +11,21 @@ define( function( require ) {
 
   // modules
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
 
   /**
-   * @param {function(number,number):number} apply - implementation of the apply function for numbers
-   * @param {string} operatorString - string representation of the operator
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunction( apply, operatorString, options ) {
+  function MathFunction( options ) {
 
     options = _.extend( {
+      operatorString: FBSymbols.PLUS,
+      apply: function( input, operand ) { return input.plus( operand ); },
       operand: 1, // {number} initial value of operandProperty
       operandRange: new Range( -3, 3 ), // {Range} range of operandProperty
       zeroOperandValid: true, // {boolean} is zero a valid operand?
@@ -35,8 +36,8 @@ define( function( require ) {
     assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
 
-    this.operatorString = operatorString; // @public (read-only)
-    this._apply = apply; // @private
+    this.operatorString = options.operatorString; // @public (read-only)
+    this._apply = options.apply; // @private
     this.operandRange = options.operandRange; // @public (read-only)
     this.zeroOperandValid = options.zeroOperandValid; // @public (read-only)
     this.isInvertibleWithOperand = options.isInvertibleWithOperand; // @private

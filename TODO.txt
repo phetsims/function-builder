@@ -2,6 +2,8 @@ TODO list for function-builder
 
 ---
 
+Move operandMutable into MathFunction
+
 Move responsibility for creating cards and functions out of containers?
 
 A small bit of prototype duplication in EquationsModel and NumbersModel

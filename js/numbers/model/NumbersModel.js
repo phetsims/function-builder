@@ -36,128 +36,104 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // data structures for creating {MathFunction} instances
-    var functionData = [
+    // options for {MathFunction} constructors
+    var functionOptions = [
 
       // + 1
       {
-        apply: function( input ) { return input.plus( 1 ); },
         operatorString: FBSymbols.PLUS,
-        options: {
-          operand: 1,
-          fill: 'rgb( 165, 209, 167 )'
-        }
+        operand: 1,
+        apply: function( input, operand ) { return input.plus( operand ); },
+        fill: 'rgb( 165, 209, 167 )'
       },
 
       // + 2
       {
-        apply: function( input ) { return input.plus( 2 ); },
         operatorString: FBSymbols.PLUS,
-        options: {
-          operand: 2,
-          fill: 'rgb( 235, 191, 109 )'
-        }
+        operand: 2,
+        apply: function( input, operand ) { return input.plus( operand ); },
+        fill: 'rgb( 235, 191, 109 )'
       },
 
       // + 3
       {
-        apply: function( input ) { return input.plus( 3 ); },
         operatorString: FBSymbols.PLUS,
-        options: {
-          operand: 3,
-          fill: 'rgb( 232, 169, 236 )'
-        }
+        operand: 3,
+        apply: function( input, operand ) { return input.plus( operand ); },
+        fill: 'rgb( 232, 169, 236 )'
       },
 
       // - 1
       {
-        apply: function( input ) { return input.minus( 1 ); },
         operatorString: FBSymbols.MINUS,
-        options: {
-          operand: 1,
-          fill: 'rgb( 135, 196, 229 )'
-        }
+        operand: 1,
+        apply: function( input, operand ) { return input.minus( operand ); },
+        fill: 'rgb( 135, 196, 229 )'
       },
 
       // - 2
       {
-        apply: function( input ) { return input.minus( 2 ); },
         operatorString: FBSymbols.MINUS,
-        options: {
-          operand: 2,
-          fill: 'rgb( 198, 231, 220 )'
-        }
+        operand: 2,
+        apply: function( input, operand ) { return input.minus( operand ); },
+        fill: 'rgb( 198, 231, 220 )'
       },
 
       // - 3
       {
-        apply: function( input ) { return input.minus( 3 ); },
         operatorString: FBSymbols.MINUS,
-        options: {
-          operand: 3,
-          fill: 'rgb( 255, 246, 187 )'
-        }
+        operand: 3,
+        apply: function( input, operand ) { return input.minus( operand ); },
+        fill: 'rgb( 255, 246, 187 )'
       },
 
       // * 0
       {
-        apply: function( input ) { return input.times( 0 ); },
+        apply: function( input, operand ) { return input.times( operand ); },
+        operand: 0,
         operatorString: FBSymbols.TIMES,
-        options: {
-          operand: 0,
-          fill: 'rgb( 208, 201, 225 )',
-          invertible: false
-        }
+        fill: 'rgb( 208, 201, 225 )',
+        invertible: false // multiplication by zero is not invertible
       },
 
       // * 1
       {
-        apply: function( input ) { return input.times( 1 ); },
         operatorString: FBSymbols.TIMES,
-        options: {
-          operand: 1,
-          fill: 'rgb( 255, 246, 187 )'
-        }
+        operand: 1,
+        apply: function( input ) { return input.times( 1 ); },
+        fill: 'rgb( 255, 246, 187 )'
       },
 
       // * 2
       {
-        apply: function( input ) { return input.times( 2 ); },
         operatorString: FBSymbols.TIMES,
-        options: {
-          operand: 2,
-          fill: 'rgb( 209, 151, 169 )'
-        }
+        operand: 2,
+        apply: function( input ) { return input.times( 2 ); },
+        fill: 'rgb( 209, 151, 169 )'
       },
 
       // / 1
       {
-        apply: function( input ) { return input.divide( 1 ); },
         operatorString: FBSymbols.DIVIDE,
-        options: {
-          operand: 1,
-          fill: 'rgb( 208, 201, 225 )'
-        }
+        operand: 1,
+        apply: function( input ) { return input.divide( 1 ); },
+        fill: 'rgb( 208, 201, 225 )'
       },
 
       // / 2
       {
-        apply: function( input ) { return input.divide( 2 ); },
         operatorString: FBSymbols.DIVIDE,
-        options: {
-          operand: 2,
-          fill: 'rgb( 232, 169, 236 )'
-        }
+        operand: 2,
+        apply: function( input ) { return input.divide( 2 ); },
+        fill: 'rgb( 232, 169, 236 )'
       },
 
       // / 3
       {
-        apply: function( input ) { return input.divide( 3 ); },
         operatorString: FBSymbols.DIVIDE,
-        options: {
-          operand: 3,
-          fill: 'rgb( 135, 196, 229 )'
-        }
+        operand: 3,
+        apply: function( input ) { return input.divide( 3 ); },
+        fill: 'rgb( 135, 196, 229 )'
       }
     ];
 
@@ -177,7 +153,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionData: functionData,
+      functionOptions: functionOptions,
       numberOfEachFunction: 2,
 
       // builder

@@ -36,41 +36,35 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // data structures for creating {MathFunction} instances,
-    var functionData = [
+    // options for {MathFunction} constructors
+    var functionOptions = [
 
       // plus
       {
         operatorString: FBSymbols.PLUS,
         apply: function( input, operand ) { return input.plus( operand ); },
-        options: {
-          fill: 'rgb( 246, 203, 144 )',
-          pickerColor: 'rgb( 227, 114, 42 )'
-        }
+        fill: 'rgb( 246, 203, 144 )',
+        pickerColor: 'rgb( 227, 114, 42 )'
       },
 
       // minus
       {
         operatorString: FBSymbols.MINUS,
         apply: function( input, operand ) { return input.minus( operand ); },
-        options: {
-          fill: 'rgb( 152, 231, 156 )',
-          pickerColor: 'rgb( 25, 168, 52 )'
-        }
+        fill: 'rgb( 152, 231, 156 )',
+        pickerColor: 'rgb( 25, 168, 52 )'
       },
 
       // times
       {
         operatorString: FBSymbols.TIMES,
         apply: function( input, operand ) { return input.times( operand ); },
-        options: {
-          fill: 'rgb( 237, 165, 222 )',
-          pickerColor: 'rgb( 223, 17, 213 )',
+        fill: 'rgb( 237, 165, 222 )',
+        pickerColor: 'rgb( 223, 17, 213 )',
 
-          // multiplication by zero is not invertible
-          isInvertibleWithOperand: function( operand ) {
-            return ( operand !== 0 );
-          }
+        // multiplication by zero is not invertible
+        isInvertibleWithOperand: function( operand ) {
+          return ( operand !== 0 );
         }
       },
 
@@ -81,13 +75,9 @@ define( function( require ) {
           assert && assert( operand !== 0, 'attempt to divide by zero' );
           return input.divide( operand );
         },
-        options: {
-          fill: 'rgb( 183, 200, 249 )',
-          pickerColor: 'rgb( 14, 89, 218 )',
-
-          // zero is not a valid operand, since division by zero is undefined
-          zeroOperandValid: false
-        }
+        fill: 'rgb( 183, 200, 249 )',
+        pickerColor: 'rgb( 14, 89, 218 )',
+        zeroOperandValid: false // zero is not a valid operand, since division by zero is undefined
       }
     ];
 
@@ -108,7 +98,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionData: functionData,
+      functionOptions: functionOptions,
       numberOfEachFunction: 2,
 
       // builder

@@ -22,13 +22,13 @@ define( function( require ) {
     options = _.extend( {
       cardNumbers: [], // {number[]} numbers on cards
       cardSymbol: null, // {string|null} symbol on a card
-      functionData: [] // {*[]} data structures for creating MathFunction instances
+      functionOptions: [] // {*[]} options for MathFunction constructors
     }, options );
 
     // @public (read-only)
     this.cardNumbers = options.cardNumbers;
     this.cardSymbol = options.cardSymbol;
-    this.functionData = options.functionData;
+    this.functionOptions = options.functionOptions;
 
     Scene.call( this, options );
   }

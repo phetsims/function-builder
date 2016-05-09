@@ -194,8 +194,8 @@ define( function( require ) {
       containerOptions.operandMutable = this.operandMutable;
 
       var functionContainers = [];
-      scene.functionData.forEach( function( functionData ) {
-        functionContainers.push( new MathFunctionContainer( functionData, containerOptions ) );
+      scene.functionOptions.forEach( function( functionOptions ) {
+        functionContainers.push( new MathFunctionContainer( functionOptions, containerOptions ) );
       } );
       return functionContainers;
     }

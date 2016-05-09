@@ -17,17 +17,17 @@ define( function( require ) {
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {Object} functionData - data structure for creating MathFunction instances
+   * @param {Object} functionOptions - options for MathFunction constructors
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunctionContainer( functionData, options ) {
+  function MathFunctionContainer( functionOptions, options ) {
 
     options = _.extend( {
       operandMutable: true // {boolean} is the function operand mutable?
     }, options );
 
-    this.functionData = functionData; // @private
+    this.functionOptions = functionOptions; // @private
     this.operandMutable = options.operandMutable; // @private
 
     FunctionContainer.call( this, options );
@@ -46,10 +46,9 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      return new MathFunction( this.functionData.apply, this.functionData.operatorString,
-        _.extend( {
+      return new MathFunction( _.extend( {
           location: this.carouselLocation
-        }, this.functionData.options )
+        }, this.functionOptions )
       );
     },
 
