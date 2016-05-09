@@ -80,7 +80,7 @@ define( function( require ) {
     else {
 
       // table drawer at left top of builder
-      this.tableDrawer.right = scene.builder.centerX - 20;
+      this.tableDrawer.right = scene.builder.centerX - 20; // offset determined empirically
 
       // Graph
       var graphNode = new XYGraphNode( scene.builder );
@@ -89,7 +89,7 @@ define( function( require ) {
       this.graphDrawer = new Drawer( graphNode, {
         open: false,
         handleLocation: 'top',
-        left: scene.builder.centerX - 5,
+        left: scene.builder.centerX - 5, // offset determined empirically
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.graphDrawer );
