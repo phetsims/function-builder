@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Model for the 'Numbers' screen.
+ * Model for the 'Numbers' screen, a variation of the 'Equations' model.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
+  var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -138,39 +138,15 @@ define( function( require ) {
       colorScheme: FBColors.BUILDER_BLUE
     } );
 
-    // @public this Screen has a single scene, a variation of the 'Equations' scene
-    this.scene = new EquationsScene( {
-
-      // cards
+    EquationsModel.call( this, {
       cardNumbers: cardNumbers,
-      numberOfEachCard: 1,
-
-      // functions
+      cardSymbol: null, // no symbolic input card in this screen
       functionCreators: functionCreators,
-      numberOfEachFunction: 2,
-
-      // builder
       builder: builder
     } );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( Object, NumbersModel, {
-
-    // @public
-    reset: function() {
-      //TODO delete reset if there's ultimately nothing to do
-    },
-
-    /**
-     * Animates the model.
-     *
-     * @param {number} dt - time since the previous step, in seconds
-     * @public
-     */
-    step: function( dt ) {
-      this.scene.step( dt );
-    }
-  } );
+  return inherit( EquationsModel, NumbersModel );
 } );

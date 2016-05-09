@@ -33,47 +33,48 @@ define( function( require ) {
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
 
   /**
+   * @param {Object} [sceneOptions] - see EquationsScene constructor
    * @constructor
    */
-  function EquationsModel() {
+  function EquationsModel( sceneOptions ) {
+
+    // options for EquationsScene
+    sceneOptions = _.extend( {
+      numberOfEachCard: 1,
+      numberOfEachFunction: 2,
+      cardSymbol: FBSymbols.X
+    }, sceneOptions );
 
     // {number[]} numeric cards
-    var cardNumbers = [];
-    for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-      cardNumbers.push( i );
+    if ( !sceneOptions.cardNumbers ) {
+      sceneOptions.cardNumbers = [];
+      for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
+        sceneOptions.cardNumbers.push( i );
+      }
     }
 
     // {FunctionCreator[]} function creators
-    var functionCreators = [
-      new FunctionCreator( Plus ),
-      new FunctionCreator( Minus ),
-      new FunctionCreator( Times ),
-      new FunctionCreator( Divide )
-    ];
+    if ( !sceneOptions.functionCreators ) {
+      sceneOptions.functionCreators = [
+        new FunctionCreator( Plus ),
+        new FunctionCreator( Minus ),
+        new FunctionCreator( Times ),
+        new FunctionCreator( Divide )
+      ];
+    }
 
     // builder
-    var builder = new MathBuilder( {
-      numberOfSlots: BUILDER_SLOTS,
-      width: BUILDER_WIDTH,
-      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
-      colorScheme: FBColors.BUILDER_BLUE
-    } );
+    if ( !sceneOptions.builder ) {
+      sceneOptions.builder = new MathBuilder( {
+        numberOfSlots: BUILDER_SLOTS,
+        width: BUILDER_WIDTH,
+        location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
+        colorScheme: FBColors.BUILDER_BLUE
+      } );
+    }
 
     // @public this Screen has a single scene
-    this.scene = new EquationsScene( {
-
-      // cards
-      cardNumbers: cardNumbers,
-      cardSymbol: FBSymbols.X,
-      numberOfEachCard: 1,
-
-      // functions
-      functionCreators: functionCreators,
-      numberOfEachFunction: 2,
-
-      // builder
-      builder: builder
-    } );
+    this.scene = new EquationsScene( sceneOptions );
   }
 
   functionBuilder.register( 'EquationsModel', EquationsModel );
