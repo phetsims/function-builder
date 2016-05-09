@@ -8,8 +8,6 @@ Equation (see equations-formats.md), slope-intercept first
 
 Table
 
-Better way to specify functions in NumbersModel and EquationsModel
-
 ---
 
 Reset All
