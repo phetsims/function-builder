@@ -64,7 +64,7 @@ define( function( require ) {
 
       // axis labels
       axisLabelFont: new FBFont( 16 ),
-      axisLabelColor: 'gray',
+      axisLabelColor: 'rgb( 100, 100, 100 )',
 
       // ticks
       xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
