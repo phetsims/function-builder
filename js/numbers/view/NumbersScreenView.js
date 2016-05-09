@@ -27,7 +27,6 @@ define( function( require ) {
     var sceneOptions = {
       cardCarouselDefaultPageNumber: 1,
       functionsPerPage: 3,
-      operandMutable: false, // function operands are not editable
       hasGraph: false, // no graph in this scene
       xSymbol: inputString, // symbol used in place of x
       ySymbol: outputString // symbol used in place of y

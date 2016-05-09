@@ -23,12 +23,7 @@ define( function( require ) {
    */
   function MathFunctionContainer( functionOptions, options ) {
 
-    options = _.extend( {
-      operandMutable: true // {boolean} is the function operand mutable?
-    }, options );
-
     this.functionOptions = functionOptions; // @private
-    this.operandMutable = options.operandMutable; // @private
 
     FunctionContainer.call( this, options );
   }
@@ -61,9 +56,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new MathFunctionNode( functionInstance, container, builderNode, dragLayer, {
-        operandMutable: this.operandMutable
-      } );
+      return new MathFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );

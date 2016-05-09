@@ -44,14 +44,11 @@ define( function( require ) {
       functionsPerPage: 2,
 
       // options for this subtype
-      operandMutable: true, // show pickers on functions
       hasGraph: true, // show XY graph
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y
 
     }, options );
-
-    this.operandMutable = options.operandMutable; // @private
 
     SceneNode.call( this, scene, layoutBounds, options );
 
@@ -188,11 +185,6 @@ define( function( require ) {
      * @override
      */
     createFunctionContainers: function( scene, containerOptions ) {
-
-      // whether to show pickers on functions
-      containerOptions = containerOptions || {};
-      containerOptions.operandMutable = this.operandMutable;
-
       var functionContainers = [];
       scene.functionOptions.forEach( function( functionOptions ) {
         functionContainers.push( new MathFunctionContainer( functionOptions, containerOptions ) );

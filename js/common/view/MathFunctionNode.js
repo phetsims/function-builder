@@ -30,16 +30,10 @@ define( function( require ) {
    */
   function MathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
-    assert && assert( functionInstance instanceof MathFunction );
-
-    options = _.extend( {
-      operandMutable: true // {boolean} is the function's operand mutable?
-    }, options );
-
     assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );
 
     var contentNode = null;
-    if ( options.operandMutable ) {
+    if ( functionInstance.operandMutable ) {
 
       var operatorNode = new Text( functionInstance.operatorString, {
         font: FBConstants.EQUATIONS_FUNCTION_OPERATOR_FONT

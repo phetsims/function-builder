@@ -24,6 +24,7 @@ define( function( require ) {
   var BUILDER_WIDTH = ( BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 120;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
+  var OPERAND_MUTABLE = false;
 
   /**
    * @constructor
@@ -43,6 +44,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.PLUS,
         operand: 1,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.plus( operand ); },
         fill: 'rgb( 165, 209, 167 )'
       },
@@ -51,6 +53,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.PLUS,
         operand: 2,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.plus( operand ); },
         fill: 'rgb( 235, 191, 109 )'
       },
@@ -59,6 +62,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.PLUS,
         operand: 3,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.plus( operand ); },
         fill: 'rgb( 232, 169, 236 )'
       },
@@ -67,6 +71,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.MINUS,
         operand: 1,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.minus( operand ); },
         fill: 'rgb( 135, 196, 229 )'
       },
@@ -75,6 +80,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.MINUS,
         operand: 2,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.minus( operand ); },
         fill: 'rgb( 198, 231, 220 )'
       },
@@ -83,23 +89,26 @@ define( function( require ) {
       {
         operatorString: FBSymbols.MINUS,
         operand: 3,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input, operand ) { return input.minus( operand ); },
         fill: 'rgb( 255, 246, 187 )'
       },
 
       // * 0
       {
-        apply: function( input, operand ) { return input.times( operand ); },
-        operand: 0,
         operatorString: FBSymbols.TIMES,
+        operand: 0,
+        operandMutable: OPERAND_MUTABLE,
+        apply: function( input, operand ) { return input.times( operand ); },
         fill: 'rgb( 208, 201, 225 )',
-        invertible: false // multiplication by zero is not invertible
+        invertible: false // operand is not mutable, and multiplication by zero is not invertible
       },
 
       // * 1
       {
         operatorString: FBSymbols.TIMES,
         operand: 1,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input ) { return input.times( 1 ); },
         fill: 'rgb( 255, 246, 187 )'
       },
@@ -108,6 +117,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.TIMES,
         operand: 2,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input ) { return input.times( 2 ); },
         fill: 'rgb( 209, 151, 169 )'
       },
@@ -116,6 +126,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.DIVIDE,
         operand: 1,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input ) { return input.divide( 1 ); },
         fill: 'rgb( 208, 201, 225 )'
       },
@@ -124,6 +135,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.DIVIDE,
         operand: 2,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input ) { return input.divide( 2 ); },
         fill: 'rgb( 232, 169, 236 )'
       },
@@ -132,6 +144,7 @@ define( function( require ) {
       {
         operatorString: FBSymbols.DIVIDE,
         operand: 3,
+        operandMutable: OPERAND_MUTABLE,
         apply: function( input ) { return input.divide( 3 ); },
         fill: 'rgb( 135, 196, 229 )'
       }
