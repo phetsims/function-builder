@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
+  var Emitter = require( 'AXON/Emitter' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -46,6 +47,9 @@ define( function( require ) {
     // @public (read-only) number of items in the container
     this.numberOfItemsProperty = new Property( 0 );
 
+    this.addEmitter = new Emitter(); // emit1(Node) called after a Node is added
+    this.removeEmitter = new Emitter(); // emit1(Node) called after a Node is removed
+
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
     options.emptyNode && options.children.push( options.emptyNode );
@@ -76,10 +80,17 @@ define( function( require ) {
      * @public
      */
     addNode: function( node ) {
-      node.movable.moveTo( this.carouselLocation );
+
+      // add the node
       this.contentsParent.addChild( node );
+      node.movable.moveTo( this.carouselLocation );
       node.center = this.backgroundNode.center;
+
+      // update count
       this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
+
+      // notify observers
+      this.addEmitter.emit1( node );
     },
 
     /**
@@ -89,14 +100,21 @@ define( function( require ) {
      * @public
      */
     removeNode: function( node ) {
+
+      // remove the node
       this.contentsParent.removeChild( node );
+
+      // update count
       this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
+
+      // notify observers
+      this.removeEmitter.emit1( node );
     },
 
     /**
      * Gets the contents of the container.
      *
-     * @returns {MovableNode[]} a copy of the set of nodes in the container
+     * @returns {MovableNode[]} a copy of the set of Nodes in the container
      * @public
      */
     getContents: function() {
@@ -109,7 +127,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isEmpty: function() {
-      return ( this.contentsParent.getChildrenCount() === 0 );
+      return ( this.numberOfItemsProperty.get() === 0 );
     }
   } );
 } );
