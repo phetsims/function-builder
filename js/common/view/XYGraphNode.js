@@ -17,6 +17,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -60,6 +61,10 @@ define( function( require ) {
       yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
       gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
       gridLineWidth: 0.5, // {number} lineWidth of the grid
+
+      // axis labels
+      axisLabelFont: new FBFont( 16 ),
+      axisLabelColor: 'black',
 
       // ticks
       xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
@@ -133,9 +138,23 @@ define( function( require ) {
     var xAxisNode = new ArrowNode( 0, 0, backgroundNode.width, 0, AXIS_OPTIONS );
     xAxisNode.centerY = viewOrigin.y;
 
+    var xAxisLabelNode = new Text( FBSymbols.X, {
+      font: options.axisLabelFont,
+      fill: options.axisLabelColor,
+      right: xAxisNode.right - 4,
+      bottom: xAxisNode.top - 4
+    } );
+
     // y axis
     var yAxisNode = new ArrowNode( 0, 0, 0, backgroundNode.height, AXIS_OPTIONS );
     yAxisNode.centerX = viewOrigin.x;
+
+    var yAxisLabelNode = new Text( FBSymbols.Y, {
+      font: options.axisLabelFont,
+      fill: options.axisLabelColor,
+      left: yAxisNode.right + 6,
+      top: yAxisNode.top + 2
+    } );
 
     // tick lines & labels
     var tickLinesShape = new Shape(); // tick lines are drawn using one Shape
@@ -216,7 +235,7 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent,
-      xAxisNode, yAxisNode, this.lineNode, this.pointsParent ];
+      xAxisNode, xAxisLabelNode, yAxisNode, yAxisLabelNode, this.lineNode, this.pointsParent ];
 
     Node.call( this, options );
 
