@@ -14,6 +14,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var MathFunctionCreator = require( 'FUNCTION_BUILDER/equations/model/functions/MathFunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
@@ -21,8 +22,8 @@ define( function( require ) {
 
   // function modules
   var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
-  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
   var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
+  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
   var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
 
   // constants
@@ -42,12 +43,12 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // function constructors and their (optional) options
-    var functionData = [
-      { functionConstructor: Plus },
-      { functionConstructor: Minus },
-      { functionConstructor: Times },
-      { functionConstructor: Divide }
+    // function creators
+    var functionCreators = [
+      new MathFunctionCreator( Plus ),
+      new MathFunctionCreator( Minus ),
+      new MathFunctionCreator( Times ),
+      new MathFunctionCreator( Divide )
     ];
 
     // builder
@@ -67,7 +68,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionData: functionData,
+      functionCreators: functionCreators,
       numberOfEachFunction: 2,
 
       // builder

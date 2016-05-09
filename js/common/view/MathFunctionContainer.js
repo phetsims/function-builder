@@ -16,13 +16,13 @@ define( function( require ) {
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {Object} functionData - function constructors and options
+   * @param {Object} functionCreator - function creator
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunctionContainer( functionData, options ) {
+  function MathFunctionContainer( functionCreator, options ) {
 
-    this.functionData = functionData; // @private
+    this.functionCreator = functionCreator; // @private
 
     FunctionContainer.call( this, options );
   }
@@ -40,11 +40,7 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      var FunctionConstructor = this.functionData.functionConstructor;
-      return new FunctionConstructor( _.extend( {
-          location: this.carouselLocation
-        }, this.functionData.options )
-      );
+      return this.functionCreator.createInstance( { location: this.carouselLocation } );
     },
 
     /**

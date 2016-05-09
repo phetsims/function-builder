@@ -20,8 +20,9 @@ define( function( require ) {
 
   // function modules
   var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
-  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
+  var MathFunctionCreator = require( 'FUNCTION_BUILDER/equations/model/functions/MathFunctionCreator' );
   var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
+  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
   var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
 
   // constants
@@ -42,128 +43,91 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // function constructors and their (optional) options
-    var functionData = [
+    // function creators
+    var functionCreators = [
 
       // +1
-      {
-        functionConstructor: Plus,
-        options: {
-          operand: 1,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 165, 209, 167 )'
-        }
-      },
+      new MathFunctionCreator( Plus, {
+        operand: 1,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 165, 209, 167 )'
+      } ),
 
       // + 2
-      {
-        functionConstructor: Plus,
-        options: {
-          operand: 2,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 235, 191, 109 )'
-        }
-      },
+      new MathFunctionCreator( Plus, {
+        operand: 2,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 235, 191, 109 )'
+      } ),
 
       // + 3
-      {
-        functionConstructor: Plus,
-        options: {
-          operand: 3,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 232, 169, 236 )'
-        }
-      },
+      new MathFunctionCreator( Plus, {
+        operand: 3,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 232, 169, 236 )'
+      } ),
 
       // - 1
-      {
-        functionConstructor: Minus,
-        options: {
-          operand: 1,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 135, 196, 229 )'
-        }
-      },
+      new MathFunctionCreator( Minus, {
+        operand: 1,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 135, 196, 229 )'
+      } ),
 
       // - 2
-      {
-        functionConstructor: Minus,
-        options: {
-          operand: 2,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 198, 231, 220 )'
-        }
-      },
+      new MathFunctionCreator( Minus, {
+        operand: 2,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 198, 231, 220 )'
+      } ),
 
       // - 3
-      {
-        functionConstructor: Minus,
-        options: {
-          operand: 3,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 255, 246, 187 )'
-        }
-      },
+      new MathFunctionCreator( Minus, {
+        operand: 3,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 255, 246, 187 )'
+      } ),
 
       // * 0
-      {
-        functionConstructor: Times,
-        options: {
-          operand: 0,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 208, 201, 225 )'
-        }
-      },
+      new MathFunctionCreator( Times, {
+        operand: 0,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 208, 201, 225 )'
+      } ),
 
       // * 1
-      {
-        functionConstructor: Times,
-        options: {
-          operand: 1,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 255, 246, 187 )'
-        }
-      },
+      new MathFunctionCreator( Times, {
+        operand: 1,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 255, 246, 187 )'
+      } ),
 
       // * 2
-      {
-        functionConstructor: Times,
-        options: {
-          operand: 2,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 209, 151, 169 )'
-        }
-      },
+      new MathFunctionCreator( Times, {
+        operand: 2,
+        fill: 'rgb( 209, 151, 169 )'
+      } ),
 
       // / 1
-      {
-        functionConstructor: Divide,
-        options: {
-          operand: 1,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 208, 201, 225 )'
-        }
-      },
+      new MathFunctionCreator( Divide, {
+        operand: 1,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 208, 201, 225 )'
+      } ),
 
       // / 2
-      {
-        functionConstructor: Divide,
-        options: {
-          operand: 2,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 232, 169, 236 )'
-        }
-      },
+      new MathFunctionCreator( Divide, {
+        operand: 2,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 232, 169, 236 )'
+      } ),
 
       // / 3
-      {
-        functionConstructor: Divide,
-        options: {
-          operand: 3,
-          operandMutable: OPERAND_MUTABLE,
-          fill: 'rgb( 135, 196, 229 )'
-        }
-      }
+      new MathFunctionCreator( Divide, {
+        operand: 3,
+        operandMutable: OPERAND_MUTABLE,
+        fill: 'rgb( 135, 196, 229 )'
+      } )
     ];
 
     // builder
@@ -182,7 +146,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionData: functionData,
+      functionCreators: functionCreators,
       numberOfEachFunction: 2,
 
       // builder
