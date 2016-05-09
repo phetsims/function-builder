@@ -64,7 +64,7 @@ define( function( require ) {
 
       // axis labels
       axisLabelFont: new FBFont( 16 ),
-      axisLabelColor: 'black',
+      axisLabelColor: 'gray',
 
       // ticks
       xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
@@ -142,7 +142,7 @@ define( function( require ) {
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
       right: xAxisNode.right - 4,
-      bottom: xAxisNode.top - 4
+      bottom: xAxisNode.top - 2
     } );
 
     // y axis
@@ -152,8 +152,8 @@ define( function( require ) {
     var yAxisLabelNode = new Text( FBSymbols.Y, {
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
-      left: yAxisNode.right + 6,
-      top: yAxisNode.top + 2
+      left: yAxisNode.right + 2,
+      top: yAxisNode.top
     } );
 
     // tick lines & labels
