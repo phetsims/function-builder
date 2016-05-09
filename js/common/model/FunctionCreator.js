@@ -20,7 +20,7 @@ define( function( require ) {
    */
   function FunctionCreator( functionConstructor, functionConstructorOptions ) {
 
-    // @public (read-only)
+    // @private (read-only)
     this.functionConstructor = functionConstructor;
     this.functionConstructorOptions = functionConstructorOptions;
   }
