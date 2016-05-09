@@ -43,13 +43,13 @@ define( function( require ) {
   var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
 
   /**
-   * @param {Node} icon - icon that represents the scene
+   * @param {Node} iconNode - icon that represents the scene
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsScene( icon, options ) {
+  function PatternsScene( iconNode, options ) {
 
-    this.icon = icon; // @public (read-only)
+    this.iconNode = iconNode; // @public (read-only)
 
     /**
      * Images for the input cards, in the order that they appear in the input carousel.

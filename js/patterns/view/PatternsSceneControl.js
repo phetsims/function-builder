@@ -38,7 +38,7 @@ define( function( require ) {
     for ( var i = 0; i < scenes.length; i++ ) {
       content.push( {
         value: scenes[ i ],
-        node: scenes[ i ].icon
+        node: scenes[ i ].iconNode
       } );
     }
 
