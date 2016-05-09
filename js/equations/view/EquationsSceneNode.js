@@ -186,8 +186,8 @@ define( function( require ) {
      */
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
-      scene.functionOptions.forEach( function( functionOptions ) {
-        functionContainers.push( new MathFunctionContainer( functionOptions, containerOptions ) );
+      scene.functionData.forEach( function( functionData ) {
+        functionContainers.push( new MathFunctionContainer( functionData, containerOptions ) );
       } );
       return functionContainers;
     }

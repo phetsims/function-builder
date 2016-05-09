@@ -12,12 +12,17 @@ define( function( require ) {
   var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // function modules
+  var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
+  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
+  var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
+  var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
 
   // constants
   var BUILDER_SLOTS = 2;
@@ -37,116 +42,127 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // options for {MathFunction} constructors
-    var functionOptions = [
+    // function constructors and their (optional) options
+    var functionData = [
 
-      // + 1
+      // +1
       {
-        operatorString: FBSymbols.PLUS,
-        operand: 1,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.plus( operand ); },
-        fill: 'rgb( 165, 209, 167 )'
+        functionConstructor: Plus,
+        options: {
+          operand: 1,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 165, 209, 167 )'
+        }
       },
 
       // + 2
       {
-        operatorString: FBSymbols.PLUS,
-        operand: 2,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.plus( operand ); },
-        fill: 'rgb( 235, 191, 109 )'
+        functionConstructor: Plus,
+        options: {
+          operand: 2,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 235, 191, 109 )'
+        }
       },
 
       // + 3
       {
-        operatorString: FBSymbols.PLUS,
-        operand: 3,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.plus( operand ); },
-        fill: 'rgb( 232, 169, 236 )'
+        functionConstructor: Plus,
+        options: {
+          operand: 3,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 232, 169, 236 )'
+        }
       },
 
       // - 1
       {
-        operatorString: FBSymbols.MINUS,
-        operand: 1,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.minus( operand ); },
-        fill: 'rgb( 135, 196, 229 )'
+        functionConstructor: Minus,
+        options: {
+          operand: 1,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 135, 196, 229 )'
+        }
       },
 
       // - 2
       {
-        operatorString: FBSymbols.MINUS,
-        operand: 2,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.minus( operand ); },
-        fill: 'rgb( 198, 231, 220 )'
+        functionConstructor: Minus,
+        options: {
+          operand: 2,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 198, 231, 220 )'
+        }
       },
 
       // - 3
       {
-        operatorString: FBSymbols.MINUS,
-        operand: 3,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.minus( operand ); },
-        fill: 'rgb( 255, 246, 187 )'
+        functionConstructor: Minus,
+        options: {
+          operand: 3,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 255, 246, 187 )'
+        }
       },
 
       // * 0
       {
-        operatorString: FBSymbols.TIMES,
-        operand: 0,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input, operand ) { return input.times( operand ); },
-        fill: 'rgb( 208, 201, 225 )',
-        invertible: false // operand is not mutable, and multiplication by zero is not invertible
+        functionConstructor: Times,
+        options: {
+          operand: 0,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 208, 201, 225 )'
+        }
       },
 
       // * 1
       {
-        operatorString: FBSymbols.TIMES,
-        operand: 1,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input ) { return input.times( 1 ); },
-        fill: 'rgb( 255, 246, 187 )'
+        functionConstructor: Times,
+        options: {
+          operand: 1,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 255, 246, 187 )'
+        }
       },
 
       // * 2
       {
-        operatorString: FBSymbols.TIMES,
-        operand: 2,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input ) { return input.times( 2 ); },
-        fill: 'rgb( 209, 151, 169 )'
+        functionConstructor: Times,
+        options: {
+          operand: 2,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 209, 151, 169 )'
+        }
       },
 
       // / 1
       {
-        operatorString: FBSymbols.DIVIDE,
-        operand: 1,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input ) { return input.divide( 1 ); },
-        fill: 'rgb( 208, 201, 225 )'
+        functionConstructor: Divide,
+        options: {
+          operand: 1,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 208, 201, 225 )'
+        }
       },
 
       // / 2
       {
-        operatorString: FBSymbols.DIVIDE,
-        operand: 2,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input ) { return input.divide( 2 ); },
-        fill: 'rgb( 232, 169, 236 )'
+        functionConstructor: Divide,
+        options: {
+          operand: 2,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 232, 169, 236 )'
+        }
       },
 
       // / 3
       {
-        operatorString: FBSymbols.DIVIDE,
-        operand: 3,
-        operandMutable: OPERAND_MUTABLE,
-        apply: function( input ) { return input.divide( 3 ); },
-        fill: 'rgb( 135, 196, 229 )'
+        functionConstructor: Divide,
+        options: {
+          operand: 3,
+          operandMutable: OPERAND_MUTABLE,
+          fill: 'rgb( 135, 196, 229 )'
+        }
       }
     ];
 
@@ -166,7 +182,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionOptions: functionOptions,
+      functionData: functionData,
       numberOfEachFunction: 2,
 
       // builder

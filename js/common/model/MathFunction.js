@@ -11,26 +11,24 @@ define( function( require ) {
 
   // modules
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
 
   /**
+   * @param {string} operatorString - string representation of the operator
+   * @param {function(number,number):number} apply - implementation of the apply function for numbers
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunction( options ) {
+  function MathFunction( operatorString, apply, options ) {
 
     options = _.extend( {
-      operatorString: FBSymbols.PLUS,
-      apply: function( input, operand ) { return input.plus( operand ); },
       operand: 1, // {number} initial value of operandProperty
       operandMutable: true, // {boolean} is the operand mutable?
       operandRange: new Range( -3, 3 ), // {Range} range of operandProperty
-      zeroOperandValid: true, // {boolean} is zero a valid operand?
-      isInvertibleWithOperand: null // {function:boolean|null} is this function invertible for specified operand?
+      zeroOperandValid: true // {boolean} is zero a valid operand?
     }, options );
 
     assert && assert( options.operandRange.contains( options.operand ) );
@@ -38,14 +36,13 @@ define( function( require ) {
       'default value zero is not a valid operand' );
 
     // @public (read-only)
-    this.operatorString = options.operatorString;
+    this.operatorString = operatorString;
     this.operandMutable = options.operandMutable;
     this.operandRange = options.operandRange;
     this.zeroOperandValid = options.zeroOperandValid;
 
     // @private
-    this._apply = options.apply;
-    this.isInvertibleWithOperand = options.isInvertibleWithOperand;
+    this._apply = apply;
 
     // @public
     this.operandProperty = new Property( options.operand );
@@ -63,20 +60,6 @@ define( function( require ) {
   functionBuilder.register( 'MathFunction', MathFunction );
 
   return inherit( AbstractFunction, MathFunction, {
-
-    /**
-     * Is this function invertible for the current value of its operand?
-     * @public
-     * @override
-     */
-    getInvertible: function() {
-      if ( this.isInvertibleWithOperand ) {
-        return this.isInvertibleWithOperand( this.operandProperty.get() );
-      }
-      else {
-        return AbstractFunction.prototype.getInvertible.call( this );
-      }
-    },
 
     /**
      * Applies this function.

@@ -19,6 +19,12 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // function modules
+  var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
+  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
+  var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
+  var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
+
   // constants
   var BUILDER_SLOTS = 3;
   var BUILDER_WIDTH = ( BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
@@ -36,49 +42,12 @@ define( function( require ) {
       cardNumbers.push( i );
     }
 
-    // options for {MathFunction} constructors
-    var functionOptions = [
-
-      // plus
-      {
-        operatorString: FBSymbols.PLUS,
-        apply: function( input, operand ) { return input.plus( operand ); },
-        fill: 'rgb( 246, 203, 144 )',
-        pickerColor: 'rgb( 227, 114, 42 )'
-      },
-
-      // minus
-      {
-        operatorString: FBSymbols.MINUS,
-        apply: function( input, operand ) { return input.minus( operand ); },
-        fill: 'rgb( 152, 231, 156 )',
-        pickerColor: 'rgb( 25, 168, 52 )'
-      },
-
-      // times
-      {
-        operatorString: FBSymbols.TIMES,
-        apply: function( input, operand ) { return input.times( operand ); },
-        fill: 'rgb( 237, 165, 222 )',
-        pickerColor: 'rgb( 223, 17, 213 )',
-
-        // multiplication by zero is not invertible
-        isInvertibleWithOperand: function( operand ) {
-          return ( operand !== 0 );
-        }
-      },
-
-      // divide
-      {
-        operatorString: FBSymbols.DIVIDE,
-        apply: function( input, operand ) {
-          assert && assert( operand !== 0, 'attempt to divide by zero' );
-          return input.divide( operand );
-        },
-        fill: 'rgb( 183, 200, 249 )',
-        pickerColor: 'rgb( 14, 89, 218 )',
-        zeroOperandValid: false // zero is not a valid operand, since division by zero is undefined
-      }
+    // function constructors and their (optional) options
+    var functionData = [
+      { functionConstructor: Plus },
+      { functionConstructor: Minus },
+      { functionConstructor: Times },
+      { functionConstructor: Divide }
     ];
 
     // builder
@@ -98,7 +67,7 @@ define( function( require ) {
       numberOfEachCard: 1,
 
       // functions
-      functionOptions: functionOptions,
+      functionData: functionData,
       numberOfEachFunction: 2,
 
       // builder

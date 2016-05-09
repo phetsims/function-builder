@@ -13,17 +13,16 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {Object} functionOptions - options for MathFunction constructors
+   * @param {Object} functionData - function constructors and options
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunctionContainer( functionOptions, options ) {
+  function MathFunctionContainer( functionData, options ) {
 
-    this.functionOptions = functionOptions; // @private
+    this.functionData = functionData; // @private
 
     FunctionContainer.call( this, options );
   }
@@ -41,9 +40,10 @@ define( function( require ) {
      * @abstract
      */
     createFunctionInstance: function( location ) {
-      return new MathFunction( _.extend( {
+      var FunctionConstructor = this.functionData.functionConstructor;
+      return new FunctionConstructor( _.extend( {
           location: this.carouselLocation
-        }, this.functionOptions )
+        }, this.functionData.options )
       );
     },
 
