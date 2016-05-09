@@ -11,7 +11,7 @@ in Container constructor, or add an emitter to Container so that we can observe 
 
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
-Equation (see equations-formats.md)
+Equation (see equations-formats.md), slope-intercept first
 
 Table
 
