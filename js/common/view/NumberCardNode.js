@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO rename?
 /**
  * Node that displays a number card.
  *
