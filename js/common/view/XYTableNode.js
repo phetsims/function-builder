@@ -44,6 +44,11 @@ define( function( require ) {
 
     }, options );
 
+    var thisNode = this;
+
+    // @private {RationalNumber[]} x coordinates (inputs) in the order that they appear in the table
+    this.xCoordinates = [];
+
     // table background
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
       fill: options.cellColor,
@@ -100,11 +105,51 @@ define( function( require ) {
 
     // no need to removeListener, this instance exists for the lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
-       //TODO update table when builder function changes
+       thisNode.update();
     } );
   }
 
-  functionBuilder.register( 'XYTableNode', XYTableNode );
+  functionBuilder.register( 'XYTableNode', XYTableNode, {
+
+    // @private updates the y values that are visible in the table
+    update: function() {
+      //TODO implement update
+    },
+
+    /**
+     * Appends a row to the table. The table scrolls to show this as the last row.
+     * This happens when a card is removed from the input carousel.
+     *
+     * @param {RationalNumber} x
+     * @public
+     */
+    addEntry: function( x ) {
+      //TODO implement addEntry
+    },
+
+    /**
+     * Removes the corresponding entry from the table.
+     * If the entry is visible, results in rows below it moving up.
+     * This happens when a card is returned to the input carousel.
+     *
+     * @param {RationalNumber} x
+     */
+    removeEntry: function( x ) {
+      //TODO implement removeEntry
+    },
+
+    /**
+     * Makes the corresponding y value visible.
+     * This is called with true when a card is put in the output carousel.
+     * This is called with false when a card is removed from the output carousel.
+     *
+     * @param {RationalNumber} x
+     * @param {boolean} visible
+     */
+    setYVisible: function( x, visible ) {
+      //TODO implement setYVisible
+    }
+  } );
 
   return inherit( Node, XYTableNode );
 } );
