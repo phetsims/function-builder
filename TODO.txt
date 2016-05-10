@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-Equations extends Numbers, instead of the other way around?
-
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
 Equation (see equations-formats.md), slope-intercept first
@@ -24,5 +22,3 @@ Reset All
 - doesn't handle functions that are being dragged or animating
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode for some window sizes
-
-Replace BigRational with custom type
