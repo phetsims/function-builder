@@ -22,11 +22,15 @@ define( function( require ) {
   function Scene( cardContent, functionCreators, builder, options ) {
 
     options = _.extend( {
-      iconNode: null, // {Node} icon that represents the scene
+      iconNode: null, // {Node|null} icon that represents the scene
       cardSymbol: null, // {string|null} symbolic input card, e.g. 'x'
       numberOfEachCard: 1, // {number} number of instances of each card type
       numberOfEachFunction: 1 // {number} number of instances of each function type
     }, options );
+
+    // validate options
+    assert && assert( options.numberOfEachCard > 0 );
+    assert && assert( options.numberOfEachFunction > 0 );
 
     // @public (read-only)
     this.iconNode = options.iconNode;
