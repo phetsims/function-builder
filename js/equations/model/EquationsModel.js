@@ -12,6 +12,7 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -37,10 +38,10 @@ define( function( require ) {
    */
   function EquationsModel() {
 
-    // {number[]} numeric cards, in the order that they appear in the carousel
+    // {BigRational[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-      cardContent.push( i );
+      cardContent.push( FBUtils.createBigRational( i ) );
     }
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel

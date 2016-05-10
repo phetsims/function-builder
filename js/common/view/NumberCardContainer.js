@@ -18,19 +18,19 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {number} value - number that appears on the card
+   * @param {BigRational} bigRational - see BigRational.js (3rd-party library)
    * @param {Object} [options]
    * @constructor
    */
-  function NumberCardContainer( value, options ) {
+  function NumberCardContainer( bigRational, options ) {
 
-    assert && assert( Util.isInteger( value ) );
+    assert && assert( bigRational.constructor.name === 'BigRational' );
 
     options = _.extend( {
-      emptyNode: NumberCardNode.createGhostNode( value ) // {Node} shown when the container is empty
+      emptyNode: NumberCardNode.createGhostNode( bigRational ) // {Node} shown when the container is empty
     }, options );
 
-    CardContainer.call( this, value, options );
+    CardContainer.call( this, bigRational, options );
   }
 
   functionBuilder.register( 'NumberCardContainer', NumberCardContainer );
@@ -46,7 +46,7 @@ define( function( require ) {
      * @override
      */
     createCard: function( value, location ) {
-      return NumberCard.withInteger( value, { location: location } );
+      return new NumberCard( value, { location: location } );
     },
 
     /**

@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -37,10 +38,10 @@ define( function( require ) {
    */
   function NumbersModel() {
 
-    // {number[]} numeric cards, in the order that they appear in the carousel
+    // {BigRational[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-      cardContent.push( i );
+      cardContent.push( FBUtils.createBigRational( i ) );
     }
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel

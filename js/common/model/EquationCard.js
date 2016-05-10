@@ -20,6 +20,8 @@ define( function( require ) {
    */
   function EquationCard( equation, options ) {
 
+    assert && assert( typeof equation === 'string' );
+
     // {string} @public (read-only)
     this.equation = equation;
 

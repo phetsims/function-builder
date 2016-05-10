@@ -98,7 +98,7 @@ define( function( require ) {
           outputContainer.addEmitter.addListener( function( node ) {
             if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
               assert && assert( node instanceof NumberCardNode );
-              graphNode.addPointAt( node.card.value.valueOf() );
+              graphNode.addPointAt( node.card.bigRational.valueOf() );
             }
           } );
 
@@ -107,7 +107,7 @@ define( function( require ) {
           outputContainer.removeEmitter.addListener( function( node ) {
             if ( outputContainer.isEmpty() ) {
               assert && assert( node instanceof NumberCardNode );
-              graphNode.removePointAt( node.card.value.valueOf() );
+              graphNode.removePointAt( node.card.bigRational.valueOf() );
             }
           } );
         }

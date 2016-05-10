@@ -37,7 +37,7 @@ define( function( require ) {
     options = options || {};
 
     // @private
-    this.bigRationalNode = new BigRationalNode( card.value, {
+    this.bigRationalNode = new BigRationalNode( card.bigRational, {
       mixedNumber: false, // display as improper fraction
       negativeSymbol: FBSymbols.MINUS,
       signFont: FBConstants.NUMBERS_CARD_SIGN_FONT,
@@ -63,7 +63,7 @@ define( function( require ) {
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
       // {BigRational} run the input value through the builder
-      var value = builder.applyFunctions( this.card.value, numberOfFunctionsToApply );
+      var value = builder.applyFunctions( this.card.bigRational, numberOfFunctionsToApply );
 
       // update the node
       this.bigRationalNode.setValue( value );
@@ -76,16 +76,17 @@ define( function( require ) {
     /**
      * Creates a 'ghost' card that appears in an empty carousel.
      *
-     * @param {number} value - number that appears on the card
+     * @param {BigRational} bigRational - rational number that appears on the card
      * @param {Object} [options]
      * @return {Node}
      * @public
      * @static
      * @override
      */
-    createGhostNode: function( value, options ) {
-      assert && assert( Util.isInteger( value ) );
-      var contentNode = new Text( value, { font: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT } );
+    createGhostNode: function( bigRational, options ) {
+      var contentNode = new Text( bigRational.valueOf(), {
+        font: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT
+      } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );
