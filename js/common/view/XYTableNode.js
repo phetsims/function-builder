@@ -18,7 +18,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -28,70 +27,55 @@ define( function( require ) {
   function XYTableNode( options ) {
 
     options = _.extend( {
+
       size: FBConstants.TABLE_DRAWER_SIZE,
+      numberOfRows: 3,
+      cellColor: 'white',
+
+      // column headings
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
-      headingFont: new FBFont( 22 ),
-      showEquationMockup: false //TODO temporary, delete this
+      headingFont: new FBFont( 18 ),
+      headingYMargin: 2,
+      headingBackground: 'rgb( 144, 226, 252 )'
+
     }, options );
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, { fill: 'white' } );
+    // table background
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      fill: options.cellColor
+    } );
 
     // column headings
-    var xNode = new Text( options.xSymbol, {
-      font: options.headingFont,
-      centerX: 0.25 * backgroundNode.width,
-      top: backgroundNode.top + 6
+    var xNode = new Text( options.xSymbol, { font: options.headingFont } );
+    var yNode = new Text( options.ySymbol, { font: options.headingFont } );
+    var headingHeight = Math.max( xNode.height, yNode.height ) + ( 2 * options.headingYMargin );
+    var headingBackgroundNode = new Rectangle( 0, 0, options.size.width, headingHeight, {
+      fill: options.headingBackground
     } );
-    var yNode = new Text( options.ySymbol, {
-      font: options.headingFont,
-      centerX: 0.75 * backgroundNode.width,
-      top: backgroundNode.top + 6
-    } );
+    xNode.centerX = 0.25 * headingBackgroundNode.width;
+    xNode.centerY = headingBackgroundNode.centerY;
+    yNode.centerX = 0.75 * headingBackgroundNode.width;
+    yNode.centerY = headingBackgroundNode.centerY;
 
-    //TODO temporary grid
-    var NUMBER_OF_ROWS = Math.floor( backgroundNode.height / ( xNode.height + 12 ) );
-    var ROW_HEIGHT = backgroundNode.height / NUMBER_OF_ROWS;
+    // grid, to delineate rows and columns
+    var ROW_HEIGHT = ( backgroundNode.height - headingBackgroundNode.height ) / options.numberOfRows;
+    var columnX = backgroundNode.width / 2;
     var gridShape = new Shape()
-      .moveTo( backgroundNode.width / 2, 0 )
-      .lineTo( backgroundNode.width / 2, backgroundNode.height );
-    for ( var row = 1; row < NUMBER_OF_ROWS; row++ ) {
-      gridShape.moveTo( 0, row * ROW_HEIGHT );
-      gridShape.lineTo( backgroundNode.width, row * ROW_HEIGHT );
+      .moveTo( columnX, 0 )
+      .lineTo( columnX, backgroundNode.height );
+    for ( var row = 0; row < options.numberOfRows; row++ ) {
+      var rowY = headingBackgroundNode.height + ( row * ROW_HEIGHT );
+      gridShape.moveTo( 0, rowY );
+      gridShape.lineTo( backgroundNode.width, rowY );
     }
     var gridNode = new Path( gridShape, {
       stroke: 'black',
       lineWidth: 0.5
     } );
 
-    // heading background
-    var headingBackgroundNode = new Rectangle( 0, 0, backgroundNode.width, ROW_HEIGHT, {
-      fill: 'rgb( 144, 226, 252 )' // bright blue
-    } );
-
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode ];
-
-    // TODO temporary, put x in table
-    if ( options.showEquationMockup ) {
-
-      var xValueNode = new Text( FBSymbols.X, {
-        font: options.headingFont,
-        maxWidth: 0.4 * backgroundNode.width,
-        maxHeight: 0.85 * ROW_HEIGHT,
-        centerX: 0.25 * backgroundNode.width,
-        centerY: backgroundNode.bottom - ROW_HEIGHT / 2
-      } );
-      var yValueNode = new SlopeInterceptEquationNode( 2, 9, FBSymbols.PLUS, 10, {
-        showLeftHandSide: false,
-        maxWidth: 0.4 * backgroundNode.width,
-        maxHeight: 0.85 * ROW_HEIGHT,
-        centerX: 0.75 * backgroundNode.width,
-        centerY: backgroundNode.bottom - ROW_HEIGHT / 2
-      } );
-
-      options.children.push( xValueNode, yValueNode );
-    }
 
     Node.call( this, options );
   }
