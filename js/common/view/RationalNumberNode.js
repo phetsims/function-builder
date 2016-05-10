@@ -1,11 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO migrate BigRationalNode to scenery-phet
 /**
- * Displays a rational number, as implemented by the BigRational 3rd-party library.
+ * Displays a rational number.
  * The number can be displayed as either a mixed number or improper fraction (see options.mixedNumber).
- *
- * Note: Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,23 +10,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {BigRational} bigRational - a rational number, see BigRational.js
+   * @param {RationalNumber} rationalNumber
    * @param {Object} [options]
    * @constructor
    */
-  function BigRationalNode( bigRational, options ) {
+  function RationalNumberNode( rationalNumber, options ) {
 
-    assert && FBUtils.instanceofBigRational( bigRational );
+    assert && assert( rationalNumber instanceof RationalNumber );
 
     options = _.extend( {
       color: 'black', // {Color|string} color used for all sub-parts of this node
@@ -77,34 +74,34 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    this.setValue( bigRational );
+    this.setValue( rationalNumber );
   }
   
-  functionBuilder.register( 'BigRationalNode', BigRationalNode );
+  functionBuilder.register( 'RationalNumberNode', RationalNumberNode );
 
-  inherit( Node, BigRationalNode, {
+  inherit( Node, RationalNumberNode, {
 
     /**
      * Sets the value displayed by this node.
      *
-     * @param {BigRational} bigRational - a rational number, see BigRational.js
+     * @param {RationalNumber} rationalNumber
      * @public
      */
-    setValue: function( bigRational ) {
+    setValue: function( rationalNumber ) {
 
-      assert && FBUtils.instanceofBigRational( bigRational );
+      assert && assert( rationalNumber instanceof RationalNumber );
 
       // set the sign
-      this.signNode.text = bigRational.isNegative() ? this.negativeSymbol : this.positiveSymbol;
+      this.signNode.text = ( rationalNumber.valueOf() < 0 ) ? this.negativeSymbol : this.positiveSymbol;
 
       // display absolute value, since we have a separate node for sign
-      bigRational = bigRational.abs();
+      rationalNumber = rationalNumber.abs();
 
-      if ( bigRational.denominator.equals( 1 ) ) { // integer
+      if ( rationalNumber.isInteger() ) { // integer
 
         // whole number
         this.wholeNumberNode.visible = true;
-        this.wholeNumberNode.setValue( bigRational.valueOf() );
+        this.wholeNumberNode.setValue( rationalNumber.quotient() );
         this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
@@ -112,19 +109,18 @@ define( function( require ) {
         this.fractionNode.visible = false;
         this.fractionNode.center = this.wholeNumberNode.center;
       }
-      else if ( this.mixedNumber && bigRational.gt( 1 ) ) { // mixed number
+      else if ( this.mixedNumber && rationalNumber.valueOf() > 1 ) { // mixed number
 
         // whole number
         this.wholeNumberNode.visible = true;
-        var wholeNumber = bigRational.floor(); // {BigRational}
-        this.wholeNumberNode.setValue( wholeNumber.bigRationalOf() );
+        this.wholeNumberNode.setValue( rationalNumber.quotient() );
         this.wholeNumberNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.wholeNumberNode.centerY = this.signNode.centerY;
 
         // fraction
         this.fractionNode.visible = true;
-        var fraction = bigRational.minus( wholeNumber ); // {BigRational}
-        this.fractionNode.setValue( fraction.numerator.valueOf(), fraction.denominator.valueOf() );
+        var fraction = rationalNumber.remainder(); // {RationalNumber}
+        this.fractionNode.setValue( fraction.numerator, fraction.denominator );
         this.fractionNode.left = this.wholeNumberNode.right + this.fractionXSpace;
         this.fractionNode.centerY = this.wholeNumberNode.centerY;
       }
@@ -132,7 +128,7 @@ define( function( require ) {
 
         // fraction
         this.fractionNode.visible = true;
-        this.fractionNode.setValue( bigRational.numerator.valueOf(), bigRational.denominator.valueOf() );
+        this.fractionNode.setValue( rationalNumber.numerator, rationalNumber.denominator );
         this.fractionNode.left = ( this.signNode.width > 0 ) ? ( this.signNode.right + this.signXSpace ) : 0;
         this.fractionNode.centerY = this.signNode.centerY;
 
@@ -162,7 +158,7 @@ define( function( require ) {
     this.setValue( wholeNumber );
   }
   
-  functionBuilder.register( 'BigRationalNode.WholeNumberNode', WholeNumberNode );
+  functionBuilder.register( 'RationalNumberNode.WholeNumberNode', WholeNumberNode );
 
   inherit( Text, WholeNumberNode, {
 
@@ -219,7 +215,7 @@ define( function( require ) {
     this.setValue( numerator, denominator );
   }
   
-  functionBuilder.register( 'BigRationalNode.FractionNode', FractionNode );
+  functionBuilder.register( 'RationalNumberNode.FractionNode', FractionNode );
 
   inherit( Node, FractionNode, {
 
@@ -246,5 +242,5 @@ define( function( require ) {
     }
   } );
 
-  return BigRationalNode;
+  return RationalNumberNode;
 } );

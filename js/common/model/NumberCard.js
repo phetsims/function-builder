@@ -10,21 +10,21 @@ define( function( require ) {
 
   // modules
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
-   * @param {BigRational} bigRational - a rational number, see BigRational.js
+   * @param {RationalNumber} rationalNumber
    * @param {Object} [options]
    * @constructor
    */
-  function NumberCard( bigRational, options ) {
+  function NumberCard( rationalNumber, options ) {
 
-    assert && FBUtils.instanceofBigRational( bigRational );
+    assert && assert( rationalNumber instanceof RationalNumber );
 
-    // {BigRational} @public (read-only)
-    this.bigRational = bigRational;
+    // {RationalNumber} @public (read-only)
+    this.rationalNumber = rationalNumber;
 
     Card.call( this, options );
   }

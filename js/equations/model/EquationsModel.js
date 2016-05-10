@@ -12,12 +12,12 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -38,10 +38,10 @@ define( function( require ) {
    */
   function EquationsModel() {
 
-    // {BigRational[]} rational number cards, in the order that they appear in the carousel
+    // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-      cardContent.push( FBUtils.createBigRational( i ) );
+      cardContent.push( RationalNumber.withInteger( i ) );
     }
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel

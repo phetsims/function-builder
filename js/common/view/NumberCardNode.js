@@ -9,13 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BigRationalNode = require( 'FUNCTION_BUILDER/common/view/BigRationalNode' );
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -35,7 +36,7 @@ define( function( require ) {
     options = options || {};
 
     // @private
-    this.bigRationalNode = new BigRationalNode( card.bigRational, {
+    this.rationalNumberNode = new RationalNumberNode( card.rationalNumber, {
       mixedNumber: false, // display as improper fraction
       negativeSymbol: FBSymbols.MINUS,
       signFont: FBConstants.NUMBERS_CARD_SIGN_FONT,
@@ -44,7 +45,7 @@ define( function( require ) {
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 
-    CardNode.call( this, card, this.bigRationalNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, this.rationalNumberNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'NumberCardNode', NumberCardNode );
@@ -60,29 +61,31 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // {BigRational} run the input value through the builder
-      var value = builder.applyFunctions( this.card.bigRational, numberOfFunctionsToApply );
+      // {RationalNumber} run the input value through the builder
+      var value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
+      assert && assert( value instanceof RationalNumber );
 
       // update the node
-      this.bigRationalNode.setValue( value );
+      this.rationalNumberNode.setValue( value );
 
       // center on the card
-      this.bigRationalNode.center = this.backgroundNode.center;
+      this.rationalNumberNode.center = this.backgroundNode.center;
     }
   }, {
 
     /**
      * Creates a 'ghost' card that appears in an empty carousel.
      *
-     * @param {BigRational} bigRational - rational number that appears on the card
+     * @param {RationalNumber} rationalNumber
      * @param {Object} [options]
      * @return {Node}
      * @public
      * @static
      * @override
      */
-    createGhostNode: function( bigRational, options ) {
-      var contentNode = new Text( bigRational.valueOf(), {
+    createGhostNode: function( rationalNumber, options ) {
+      assert && assert( rationalNumber instanceof RationalNumber );
+      var contentNode = new Text( rationalNumber.valueOf(), {
         font: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT
       } );
       return CardNode.createGhostNode( contentNode, options );

@@ -18,7 +18,6 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -26,10 +25,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Range = require( 'DOT/Range' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -90,7 +89,7 @@ define( function( require ) {
     this.yRange = options.yRange;
     this.pointFill = options.pointFill;
     this.pointRadius = options.pointRadius;
-    this.xCoordinates = []; // {number[]} x coordinates (inputs) that are plotted
+    this.xCoordinates = []; // {RationalNumber[]} x coordinates (inputs) that are plotted
 
     var thisNode = this;
 
@@ -271,8 +270,8 @@ define( function( require ) {
 
     // @private updates the line
     updateLine: function() {
-      var yLeft = this.builder.applyFunctions( FBUtils.createBigRational( this.xRange.min ), this.builder.slots.length );
-      var yRight = this.builder.applyFunctions( FBUtils.createBigRational( this.xRange.max ), this.builder.slots.length );
+      var yLeft = this.builder.applyFunctions( RationalNumber.withInteger( this.xRange.min ), this.builder.slots.length );
+      var yRight = this.builder.applyFunctions( RationalNumber.withInteger( this.xRange.max ), this.builder.slots.length );
       this.lineNode.setLine(
         this.modelViewTransform.modelToViewX( this.xRange.min ),
         this.modelViewTransform.modelToViewY( yLeft ),
@@ -283,23 +282,23 @@ define( function( require ) {
     /**
      * Adds a point to the graph.
      *
-     * @param {number} x
+     * @param {RationalNumber} x
      * @public
      */
     addPointAt: function( x ) {
 
-      assert && assert( Util.isInteger( x ), 'x is not an integer: ' + x );
-      assert && assert( this.xRange.contains( x ), 'x is out of range: ' + x );
+      assert && assert( x instanceof RationalNumber, 'x is not a RationalNumber' );
+      assert && assert( this.xRange.contains( x.valueOf() ), 'x is out of range: ' + x.valueOf() );
       assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
 
       // add x to list
       this.xCoordinates.push( x );
 
-      // compute y based on what is in the builder
-      var y = this.builder.applyFunctions( FBUtils.createBigRational( x ), this.builder.slots.length ).valueOf();
+      // {RationalNumber} compute y based on what is in the builder
+      var y = this.builder.applyFunctions( x, this.builder.slots.length ).valueOf();
 
       // create the PointNode
-      this.pointsParent.addChild( new PointNode( new Vector2( x, y ), this.modelViewTransform, {
+      this.pointsParent.addChild( new PointNode( new Vector2( x.valueOf(), y.valueOf() ), this.modelViewTransform, {
         radius: this.pointRadius,
         fill: this.pointFill
       } ) );
@@ -308,12 +307,12 @@ define( function( require ) {
     /**
      * Removes a point from the graph.
      *
-     * @param {number} x
+     * @param {RationalNumber} x
      * @public
      */
     removePointAt: function( x ) {
 
-      assert && assert( Util.isInteger( x ), 'x is not an integer: ' + x );
+      assert && assert( x instanceof RationalNumber, 'x is not a RationalNumber' );
       assert && assert( this.xCoordinates.indexOf( x ) !== -1, 'x is not plotted: ' + x );
 
       // remove x from list
@@ -326,12 +325,12 @@ define( function( require ) {
         var pointNode = this.pointsParent.getChildAt( i );
         assert && assert( pointNode instanceof PointNode );
 
-        if ( pointNode.point.x === x ) {
+        if ( pointNode.point.x.valueOf() === x.valueOf() ) {
           this.pointsParent.removeChild( pointNode );
           removed = true;
         }
       }
-      assert && assert( removed, 'x not found: ' + x );
+      assert && assert( removed, 'x not found: ' + x.valueOf() );
     },
 
     /**

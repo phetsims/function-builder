@@ -11,11 +11,11 @@ define( function( require ) {
 
   // modules
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
    * @param {string} operatorString - string representation of the operator
@@ -65,8 +65,8 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {BigRational|string} input - rational number or mathematical equation
-     * @returns {BigRational|string} output, of same type as input
+     * @param {RationalNumber|string} input - rational number or mathematical equation
+     * @returns {RationalNumber|string} output, of same type as input
      * @public
      * @override
      */
@@ -75,7 +75,7 @@ define( function( require ) {
         return input + ' ' + this.operatorString + this.operandProperty.get();
       }
       else {
-        assert && FBUtils.instanceofBigRational( input );
+        assert && assert( input instanceof RationalNumber );
         return this._apply( input, this.operandProperty.get() );
       }
     }
