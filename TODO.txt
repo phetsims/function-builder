@@ -2,6 +2,8 @@ TODO list for function-builder
 
 ---
 
+Equations extends Numbers, instead of the other way around?
+
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
 Equation (see equations-formats.md), slope-intercept first
