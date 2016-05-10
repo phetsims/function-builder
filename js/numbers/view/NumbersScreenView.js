@@ -23,8 +23,8 @@ define( function( require ) {
    */
   function NumbersScreenView( model ) {
 
-    // modifications to Equations screen
-    var sceneOptions = {
+    // modifications to Equations screen, see EquationsSceneNode options
+    var sceneNodeOptions = {
       cardCarouselDefaultPageNumber: 1,
       functionsPerPage: 3,
       hasGraph: false, // no graph in this scene
@@ -32,7 +32,7 @@ define( function( require ) {
       ySymbol: outputString // symbol used in place of y
     };
 
-    EquationsScreenView.call( this, model, sceneOptions );
+    EquationsScreenView.call( this, model, sceneNodeOptions );
   }
 
   functionBuilder.register( 'NumbersScreenView', NumbersScreenView );

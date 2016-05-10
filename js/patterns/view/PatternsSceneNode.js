@@ -16,7 +16,7 @@ define( function( require ) {
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
 
   /**
-   * @param {PatternsScene} scene - model for this scene
+   * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
@@ -44,7 +44,7 @@ define( function( require ) {
      */
     createCardContainers: function( scene, containerOptions ) {
       var containers = [];
-      scene.cardImages.forEach( function( cardImage ) {
+      scene.cardContent.forEach( function( cardImage ) {
         containers.push( new ImageCardContainer( cardImage, containerOptions ) );
       } );
       return containers;

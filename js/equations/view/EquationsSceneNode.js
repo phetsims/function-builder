@@ -12,7 +12,6 @@ define( function( require ) {
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
-  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -28,14 +27,12 @@ define( function( require ) {
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
 
   /**
-   * @param {EquationsScene} scene - model for this scene
+   * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor
    */
   function EquationsSceneNode( scene, layoutBounds, options ) {
-
-    assert && assert( scene instanceof EquationsScene );
 
     // things that differ between the Equations and Numbers screens
     options = _.extend( {}, options, {
@@ -183,7 +180,7 @@ define( function( require ) {
       var containers = [];
 
       // numbers
-      scene.cardNumbers.forEach( function( value ) {
+      scene.cardContent.forEach( function( value ) {
         containers.push( new NumberCardContainer( value, containerOptions ) );
       } );
 

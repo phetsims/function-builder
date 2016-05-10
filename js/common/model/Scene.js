@@ -1,7 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for scenes.
  * A scene is a particular configuration of functions, cards, and a builder.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -10,26 +9,33 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
+   * @param {*[]} cardContent - content of the cards, type determined by client
+   * @param {FunctionCreator[]} functionCreators
+   * @param {Builder} builder
    * @param {Object} [options]
    * @constructor
    */
-  function Scene( options ) {
+  function Scene( cardContent, functionCreators, builder, options ) {
 
     options = _.extend( {
+      iconNode: null, // {Node} icon that represents the scene
+      cardSymbol: null, // {string|null} symbolic input, e.g. 'x'
       numberOfEachCard: 1, // {number} number of instances of each card type
-      numberOfEachFunction: 1, // {number} number of instances of each function type
-      builder: new Builder()
+      numberOfEachFunction: 1 // {number} number of instances of each function type
     }, options );
 
     // @public (read-only)
-    this.numberOfEachFunction = options.numberOfEachFunction;
+    this.iconNode = options.iconNode;
+    this.cardContent = cardContent;
+    this.cardSymbol = options.cardSymbol;
     this.numberOfEachCard = options.numberOfEachCard;
-    this.builder = options.builder;
+    this.functionCreators = functionCreators;
+    this.numberOfEachFunction = options.numberOfEachFunction;
+    this.builder = builder;
 
     // @public {Card[]} all cards that exist
     this.cards = [];

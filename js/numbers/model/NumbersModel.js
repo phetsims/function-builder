@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -17,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Range = require( 'DOT/Range' );
+  var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
@@ -37,13 +37,13 @@ define( function( require ) {
    */
   function NumbersModel() {
 
-    // {number[]} numeric cards
-    var cardNumbers = [];
+    // {number[]} numeric cards, in the order that they appear in the carousel
+    var cardContent = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-      cardNumbers.push( i );
+      cardContent.push( i );
     }
 
-    // {FunctionCreator[]} function creators
+    // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
     var functionCreators = [
 
       // +1
@@ -134,19 +134,34 @@ define( function( require ) {
     var builder = new MathBuilder( {
       numberOfSlots: BUILDER_SLOTS,
       width: BUILDER_WIDTH,
-      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ), // center of input slot
+      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ),
       colorScheme: FBColors.BUILDER_BLUE
     } );
 
-    EquationsModel.call( this, {
-      cardNumbers: cardNumbers,
-      cardSymbol: null, // no symbolic input card in this screen
-      functionCreators: functionCreators,
-      builder: builder
+    // @public This screen has a single scene.
+    this.scene = new Scene( cardContent, functionCreators, builder, {
+      numberOfEachCard: 1,
+      numberOfEachFunction: 2
     } );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( EquationsModel, NumbersModel );
+  return inherit( Object, NumbersModel, {
+
+    // @public
+    reset: function() {
+      //TODO delete reset if there's ultimately nothing to do
+    },
+
+    /**
+     * Animates the model.
+     *
+     * @param {number} dt - time since the previous step, in seconds
+     * @public
+     */
+    step: function( dt ) {
+      this.scene.step( dt );
+    }
+  } );
 } );

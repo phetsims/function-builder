@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {Property} selectedSceneProperty
-   * @param {PatternsScene[]} scenes
+   * @param {Scene[]} scenes
    * @param {Object} [options]
    * @constructor
    */
@@ -35,12 +35,13 @@ define( function( require ) {
     options.touchAreaYDilation = 5;
 
     var content = [];
-    for ( var i = 0; i < scenes.length; i++ ) {
+    scenes.forEach( function( scene ) {
+      assert && assert( scene.iconNode, 'expected iconNode for scene' );
       content.push( {
-        value: scenes[ i ],
-        node: scenes[ i ].iconNode
+        value: scene,
+        node: scene.iconNode
       } );
-    }
+    } );
 
     RadioButtonGroup.call( this, selectedSceneProperty, content, options );
   }

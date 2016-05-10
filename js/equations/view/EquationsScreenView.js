@@ -17,16 +17,20 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
-   * @param {EquationsModel} model
-   * @param {Object} [sceneOptions] - see EquationsSceneNode options
+   * @param {*} model - model type is determined by client
+   * @param {Object} [sceneNodeOptions] - see EquationsSceneNode options
    * @constructor
    */
-  function EquationsScreenView( model, sceneOptions ) {
+  function EquationsScreenView( model, sceneNodeOptions ) {
+
+    // model duck typing
+    assert && assert( !!model.scene, 'model must have a scene' );
+    assert && assert( !!model.reset, 'model must have a reset function' );
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
     // Scene
-    var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, sceneOptions );
+    var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, sceneNodeOptions );
 
     // Resets this screen
     var resetAll = function() {
