@@ -16,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
-  var Util = require( 'DOT/Util' );
 
   /**
    * @param {BigRational} bigRational - a rational number, see BigRational.js
