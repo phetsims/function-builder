@@ -62,6 +62,12 @@ define( function( require ) {
 
   return inherit( AbstractFunction, MathFunction, {
 
+    // @public
+    reset: function() {
+      MathFunction.prototype.reset.call( this );
+      this.operandProperty.reset();
+    },
+
     /**
      * Applies this function.
      *
