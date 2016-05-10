@@ -47,6 +47,13 @@ define( function( require ) {
 
   return inherit( Object, Movable, {
 
+    // @public
+    reset: function() {
+
+      // call moveTo instead of locationProperty.set, so that any animation in progress is cancelled
+      this.moveTo( this.locationProperty.initialValue );
+    },
+
     /**
      * Moves immediately to the specified location, without animation.
      *
