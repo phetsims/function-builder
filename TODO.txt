@@ -17,4 +17,4 @@ Reset All
 
 ---
 
-Vertical seam visible at left or right edge of clipArea for BuilderNode for some window sizes
+Vertical seam visible at left or right edge of BuilderNode clipArea for some window sizes
