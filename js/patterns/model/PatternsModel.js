@@ -139,7 +139,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO delete reset if there's ultimately nothing to do
+      //TODO implement PatternsModel.reset
     },
 
     /**
