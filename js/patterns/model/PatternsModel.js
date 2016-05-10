@@ -137,6 +137,11 @@ define( function( require ) {
 
   return inherit( Object, PatternsModel, {
 
+    // @public
+    reset: function() {
+      //TODO delete reset if there's ultimately nothing to do
+    },
+
     /**
      * Animates the model.
      *
