@@ -7,6 +7,13 @@ Mystery screen mock up: 1 single function, 1 double function, 1 triple function,
 Equation (see equations-formats.md), slope-intercept first
 
 Table
+- column headers always at top?
+- scroll control options?
+- empty rows in the table - when? how many? as rows are removed?
+- does adding a row auto-scroll the table?
+- does removing an output auto-scroll the table?
+- does removing a row auto-scroll the table?
+- if there were 2 instances of each input card, would there be duplicate rows?
 
 ---
 
