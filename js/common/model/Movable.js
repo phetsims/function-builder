@@ -14,7 +14,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -29,9 +29,8 @@ define( function( require ) {
       animationSpeed: 100 // {number} distance/second when animating
     }, options );
 
-    PropertySet.call( this, {
-      location: options.location // @public (read-only) {Vector2} DO NOT set this directly! Use moveTo or animateTo.
-    } );
+    // @public (read-only) {Vector2} DO NOT set this directly! Use moveTo or animateTo.
+    this.locationProperty = new Property( options.location );
 
     // @public
     this.animationSpeed = options.animationSpeed;
@@ -46,7 +45,7 @@ define( function( require ) {
 
   functionBuilder.register( 'Movable', Movable );
 
-  return inherit( PropertySet, Movable, {
+  return inherit( Object, Movable, {
 
     /**
      * Moves immediately to the specified location, without animation.

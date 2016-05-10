@@ -224,10 +224,10 @@ define( function( require ) {
       var slotNumber =  this.functionNodes.indexOf( functionNode );
       assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
 
-      // remove from view
+      // remove from view, restore location in model coordinate frame
       this.functionNodes[ slotNumber ] = null;
       this.functionsParent.removeChild( functionNode );
-      functionNode.center = functionNode.functionInstance.location; // restore location in model coordinate frame
+      functionNode.center = functionNode.functionInstance.locationProperty.get();
 
       // remove from model
       this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
