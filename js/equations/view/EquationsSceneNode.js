@@ -55,7 +55,7 @@ define( function( require ) {
     this.viewProperties.addProperty( 'simplifyEquation', false );
 
     // Table
-    var tableNode = new XYTableNode( {
+    var tableNode = new XYTableNode( scene.builder, {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       cornerRadius: TABLE_CORNER_RADIUS

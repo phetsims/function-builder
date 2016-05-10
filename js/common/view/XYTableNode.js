@@ -22,10 +22,11 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
+   * @param {Builder} builder
    * @param {Object} options
    * @constructor
    */
-  function XYTableNode( options ) {
+  function XYTableNode( builder, options ) {
 
     options = _.extend( {
 
@@ -96,6 +97,11 @@ define( function( require ) {
     options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode, upButton, downButton ];
 
     Node.call( this, options );
+
+    // no need to removeListener, this instance exists for the lifetime of the sim
+    builder.functionChangedEmitter.addListener( function() {
+       //TODO update table when builder function changes
+    } );
   }
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
