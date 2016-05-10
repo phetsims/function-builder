@@ -13,10 +13,8 @@ Table
 - auto-scroll the table whenever a user action modifies the table
 - rows in table are unique (no duplicates)
 
----
-
 Reset All
-- doesn't handle cards that are being dragged, animating or paused in 'see inside' windows
-- doesn't handle functions that are being dragged or animating
+
+---
 
 Vertical seam visible at left or right edge of clipArea for BuilderNode for some window sizes
