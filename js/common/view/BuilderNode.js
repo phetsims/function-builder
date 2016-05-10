@@ -7,6 +7,8 @@
  * Functions appear from left to right, in the order that they are applied.
  * This node is the ancestor for function nodes when they are in the builder.
  *
+ * Origin is at the center of the input slot.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
