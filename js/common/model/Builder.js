@@ -87,7 +87,7 @@ define( function( require ) {
       this.slots.push( new FunctionSlot( slotLocation ) );
     }
 
-    // @public emit when any function changes
+    // @public emit is called when any function changes
     this.functionChangedEmitter = new Emitter();
 
     // @public for layout convenience
