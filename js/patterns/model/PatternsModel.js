@@ -16,7 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -129,14 +129,13 @@ define( function( require ) {
       } )
     ];
 
-    PropertySet.call( this, {
-      selectedScene: this.scenes[ 0 ] // @public {Property.<Scene>} the selected scene
-    } );
+    // @public {Property.<Scene>} the selected scene
+    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );
 
-  return inherit( PropertySet, PatternsModel, {
+  return inherit( Object, PatternsModel, {
 
     /**
      * Animates the model.
