@@ -25,7 +25,7 @@ define( function( require ) {
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
-  var TABLE_CORNER_RADIUS = 5;
+  var TABLE_CORNER_RADIUS = 4;
 
   /**
    * @param {Scene} scene - model for this scene
