@@ -25,6 +25,7 @@ define( function( require ) {
 
   // constants
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
+  var TABLE_CORNER_RADIUS = 5;
 
   /**
    * @param {Scene} scene - model for this scene
@@ -56,13 +57,15 @@ define( function( require ) {
     // Table
     var tableNode = new XYTableNode( {
       xSymbol: options.xSymbol,
-      ySymbol: options.ySymbol
+      ySymbol: options.ySymbol,
+      cornerRadius: TABLE_CORNER_RADIUS
     } );
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
       open: true,
       handleLocation: 'top',
+      cornerRadius: TABLE_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );

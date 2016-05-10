@@ -41,6 +41,7 @@ define( function( require ) {
 
     options = _.extend( {
       size: null, // {Dimension2|null} !null: contents sized to fit in container, null: container sized to fit contents
+      cornerRadius: 0,
       handleLocation: 'top', // {string} 'top'|'bottom'
       xMargin: 0,
       yMargin: 0,
@@ -64,12 +65,14 @@ define( function( require ) {
 
     // background
     var backgroundNode = new Rectangle( 0, 0, CONTAINER_WIDTH, CONTAINER_HEIGHT, {
-      fill: 'white'
+      fill: 'white',
+      cornerRadius: options.cornerRadius
     } );
 
     // border
     var borderNode = new Rectangle( 0, 0, CONTAINER_WIDTH, CONTAINER_HEIGHT, {
-      stroke: 'black'
+      stroke: 'black',
+      cornerRadius: options.cornerRadius
     } );
 
     // scale contents to fit the container
