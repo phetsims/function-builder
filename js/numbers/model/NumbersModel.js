@@ -153,7 +153,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO implement NumbersModel.reset
+      this.scene.reset();
     },
 
     /**

@@ -52,6 +52,11 @@ define( function( require ) {
 
   return inherit( Object, Scene, {
 
+    // @public
+    reset: function() {
+      //TODO implement Scene.reset
+    },
+
     /**
      * Animates the scene.
      *

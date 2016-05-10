@@ -139,7 +139,10 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO implement PatternsModel.reset
+      this.selectedSceneProperty.reset();
+      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+        this.scenes[ sceneIndex ].reset();
+      }
     },
 
     /**

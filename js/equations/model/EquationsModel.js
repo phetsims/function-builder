@@ -74,7 +74,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO implement EquationsModel.reset
+      this.scene.reset();
     },
 
     /**
