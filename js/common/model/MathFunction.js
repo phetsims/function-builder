@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/AbstractFunction' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
@@ -64,8 +65,8 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {BigRational|string} input - rational number (see BigRational.js) or mathematical equation
-     * @returns {BigRational|string}
+     * @param {BigRational|string} input - rational number or mathematical equation
+     * @returns {BigRational|string} output, of same type as input
      * @public
      * @override
      */
@@ -74,7 +75,7 @@ define( function( require ) {
         return input + ' ' + this.operatorString + this.operandProperty.get();
       }
       else {
-        assert && assert( input.constructor.name === 'BigRational' );
+        assert && FBUtils.instanceofBigRational( input );
         return this._apply( input, this.operandProperty.get() );
       }
     }

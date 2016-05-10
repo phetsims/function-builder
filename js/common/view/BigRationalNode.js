@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -22,13 +23,13 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {BigRational} bigRational - a rational number, see BigRational.js (3rd-party library)
+   * @param {BigRational} bigRational - a rational number, see BigRational.js
    * @param {Object} [options]
    * @constructor
    */
   function BigRationalNode( bigRational, options ) {
 
-    assert && assert( bigRational.constructor.name === 'BigRational' );
+    assert && FBUtils.instanceofBigRational( bigRational );
 
     options = _.extend( {
       color: 'black', // {Color|string} color used for all sub-parts of this node
@@ -91,7 +92,7 @@ define( function( require ) {
      */
     setValue: function( bigRational ) {
 
-      assert && assert( bigRational.constructor.name === 'BigRational' );
+      assert && FBUtils.instanceofBigRational( bigRational );
 
       // set the sign
       this.signNode.text = bigRational.isNegative() ? this.negativeSymbol : this.positiveSymbol;

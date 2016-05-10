@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
+  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
@@ -18,13 +19,13 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {BigRational} bigRational - see BigRational.js (3rd-party library)
+   * @param {BigRational} bigRational - a rational number, see BigRational.js
    * @param {Object} [options]
    * @constructor
    */
   function NumberCardContainer( bigRational, options ) {
 
-    assert && assert( bigRational.constructor.name === 'BigRational' );
+    assert && FBUtils.instanceofBigRational( bigRational );
 
     options = _.extend( {
       emptyNode: NumberCardNode.createGhostNode( bigRational ) // {Node} shown when the container is empty

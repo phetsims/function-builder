@@ -43,7 +43,19 @@ define( function( require ) {
      * Global created by BigRational.js preload, encapsulated here.
      * Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.
      */
-    createBigRational: bigRat
+    createBigRational: bigRat,
+
+    /**
+     * BigRational.js doesn't export the BigRational type, so this is the only means available
+     * for validating objects of this type.  This will work only in non-minified situations,
+     * so precede this call with assert, eg: assert && instanceOfBigRational( someObject );
+     *
+     * @param {*} object
+     * @returns {boolean}
+     */
+    instanceofBigRational: function( object ) {
+      return ( object.constructor.name === 'BigRational' );
+    }
   };
 
   functionBuilder.register( 'FBUtils', FBUtils );
