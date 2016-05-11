@@ -32,7 +32,6 @@ define( function( require ) {
 
       size: FBConstants.TABLE_DRAWER_SIZE,
       numberOfRows: 3,
-      cellColor: 'white',
       cornerRadius: 0,
 
       // column headings
@@ -40,7 +39,13 @@ define( function( require ) {
       ySymbol: FBSymbols.Y,
       headingFont: new FBFont( 18 ),
       headingYMargin: 2,
-      headingBackground: 'rgb( 144, 226, 252 )'
+      headingBackground: 'rgb( 144, 226, 252 )',
+
+      // cells
+      cellFont: new FBFont( 24 ),
+      cellColor: 'white',
+      cellXMargin: 3,
+      cellYMargin: 3
 
     }, options );
 
@@ -48,6 +53,10 @@ define( function( require ) {
 
     // @private {RationalNumber[]} x coordinates (inputs) in the order that they appear in the table
     this.xCoordinates = [];
+
+    // @private {number} maximum dimensions of cell content, used to set Node maxWidth property
+    this.cellContentMaxWidth = ( options.size.width - 2 * options.cellXMargin ) / 2;
+    this.cellContentMaxHeight = ( options.size.height - 2 * options.cellYMargin ) / 2;
 
     // table background
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -69,8 +78,12 @@ define( function( require ) {
     } );
 
     // column headings
-    var xNode = new Text( options.xSymbol, { font: options.headingFont } );
-    var yNode = new Text( options.ySymbol, { font: options.headingFont } );
+    var headingOptions = {
+      font: options.headingFont,
+      maxWidth: 0.4 * backgroundNode
+    };
+    var xNode = new Text( options.xSymbol, headingOptions );
+    var yNode = new Text( options.ySymbol, headingOptions );
     var headingHeight = Math.max( xNode.height, yNode.height ) + ( 2 * options.headingYMargin );
     var headingBackgroundNode = new Rectangle( 0, 0, options.size.width, headingHeight, {
       fill: options.headingBackground,
