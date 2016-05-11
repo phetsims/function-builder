@@ -134,16 +134,29 @@ define( function( require ) {
         // dragging to the left, check to see if blocked by a non-invertible function
         if ( dragDx < 0 ) {
           for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
+
             var slot = builder.slots[ i ];
-            if ( card.locationProperty.get().x > slot.location.x ) { // only slots to the left
+
+            // if slot is to the left of where the card currently is ...
+            if ( card.locationProperty.get().x > slot.location.x ) {
+
               var windowLocation = builder.getWindowLocation( i );
 
-              // block when left edge of card is slightly past left edge of 'see inside' window for a non-invertible function
-              var blockedX = windowLocation.x - BLOCKED_X_OFFSET;
-              if ( !slot.isInvertible() && location.x < blockedX ) {
+              // card has hit a non-invertible function
+              if ( !slot.isInvertible() && location.x < windowLocation.x ) {
+
                 blocked = true;
-                card.moveTo( new Vector2( blockedX, builder.location.y ) );
                 thisNode.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
+
+                // allow left edge of card to be dragged slightly past left edge of 'see inside' window
+                var blockedX = windowLocation.x - BLOCKED_X_OFFSET;
+                if ( location.x > blockedX ) {
+                  card.moveTo( new Vector2( location.x, builder.location.y ) );
+
+                }
+                else {
+                  card.moveTo( new Vector2( blockedX, builder.location.y ) );
+                }
               }
             }
           }
