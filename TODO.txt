@@ -7,7 +7,6 @@ Mystery screen mock up: 1 single function, 1 double function, 1 triple function,
 Equation (see equations-formats.md), slope-intercept first
 
 Table
-- show empty rows in the table
 - auto-scroll the table whenever a user action modifies the table
 - rows in table are unique (no duplicates)
 
