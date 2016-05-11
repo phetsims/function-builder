@@ -119,13 +119,13 @@ define( function( require ) {
 
       if ( location.x < INPUT_SLOT_X ) {
 
-        // to the left of the builder, drag along the line between input carousel and builder input slot
+        // card is to the left of the builder, drag along the line between input carousel and builder input slot
         y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         card.moveTo( new Vector2( location.x, y ) );
       }
       else if ( location.x > OUTPUT_SLOT_X ) {
 
-        // to the right of the builder, drag along the line between output carousel and builder output
+        // card is to the right of the builder, drag along the line between output carousel and builder output
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         card.moveTo( new Vector2( location.x, y ) );
       }
