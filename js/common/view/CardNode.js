@@ -117,13 +117,19 @@ define( function( require ) {
 
       var y = 0;
 
-      if ( location.x > OUTPUT_SLOT_X ) {
+      if ( location.x < INPUT_SLOT_X ) {
+
+        // to the left of the builder, drag along the line between input carousel and builder input slot
+        y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
+        card.moveTo( new Vector2( location.x, y ) );
+      }
+      else if ( location.x > OUTPUT_SLOT_X ) {
 
         // to the right of the builder, drag along the line between output carousel and builder output
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         card.moveTo( new Vector2( location.x, y ) );
       }
-      else { // to left of builder's output slot
+      else { // card is in the builder
 
         // dragging to the left, check to see if blocked by a non-invertible function
         if ( dragDx < 0 ) {
@@ -144,18 +150,7 @@ define( function( require ) {
         }
 
         if ( !blocked ) {
-
-          if ( location.x < INPUT_SLOT_X ) {
-
-            // to the left of the builder, drag along the line between input carousel and builder input slot
-            y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
-            card.moveTo( new Vector2( location.x, y ) );
-          }
-          else {
-
-            // in the builder, dragging horizontally
-            card.moveTo( new Vector2( location.x, builder.location.y ) );
-          }
+          card.moveTo( new Vector2( location.x, builder.location.y ) );
         }
       }
     };
