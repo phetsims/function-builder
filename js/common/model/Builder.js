@@ -127,10 +127,14 @@ define( function( require ) {
      * @public
      */
     addFunctionInstance: function( functionInstance, slotNumber ) {
+
       assert && assert( functionInstance );
       assert && assert( this.isValidSlotNumber( slotNumber ) );
+      assert && assert( !this.containsFunctionInstance( functionInstance ), 'function is already in builder' );
+
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
+
       slot.functionInstance = functionInstance;
       this.functionChangedEmitter.emit();
     },
@@ -143,10 +147,13 @@ define( function( require ) {
      * @public
      */
     removeFunctionInstance: function( functionInstance, slotNumber ) {
+
       assert && assert( functionInstance );
       assert && assert( this.isValidSlotNumber( slotNumber ) );
+
       var slot = this.slots[ slotNumber ];
       assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
+
       slot.clear();
       this.functionChangedEmitter.emit();
     },

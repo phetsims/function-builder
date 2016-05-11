@@ -197,6 +197,7 @@ define( function( require ) {
 
       assert && assert( functionNode instanceof FunctionNode );
       assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
+      assert && assert( !this.containsFunctionNode( functionNode ), 'function is already in builder' );
       assert && assert( !this.functionNodes[ slotNumber ], 'slot ' + slotNumber + ' is occupied' );
 
       // add to view
