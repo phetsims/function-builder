@@ -104,7 +104,7 @@ define( function( require ) {
      * Applies functions to an input.
      *
      * @param {*} input - input, type is specific to the functions
-     * @param {number} numberOfFunctionsToApply - how many functions to apply (empty slot is identity)
+     * @param {number} numberOfFunctionsToApply - how many functions to apply (empty slots are effectively identity functions)
      * @returns {*} output, with same type as input
      */
     applyFunctions: function( input, numberOfFunctionsToApply ) {
