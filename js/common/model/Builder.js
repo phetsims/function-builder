@@ -254,16 +254,16 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window that is immediately to the right of a location.
+     * Gets the number of the window that is immediately to the right of some x coordinate.
      *
-     * @param {Vector2} location
+     * @param {number} x
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
      * @public
      */
-    getRightWindowNumber: function( location ) {
+    getRightWindowNumber: function( x ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( location.x < windowLocation.x ) {
+        if ( windowLocation.x > x ) {
           return i;
         }
       }
@@ -271,16 +271,16 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window that is immediately to the left of a location.
+     * Gets the number of the window that is immediately to the left of some x coordinate.
      *
-     * @param {Vector2} location
+     * @param {number} x
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
      * @public
      */
-    getLeftWindowNumber: function( location ) {
+    getLeftWindowNumber: function( x ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x < location.x ) {
+        if ( windowLocation.x < x ) {
           return i;
         }
       }

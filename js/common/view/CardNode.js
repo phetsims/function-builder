@@ -290,7 +290,7 @@ define( function( require ) {
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
-      var windowNumber = builder.getRightWindowNumber( thisNode.card.locationProperty.get() );
+      var windowNumber = builder.getRightWindowNumber( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -329,7 +329,7 @@ define( function( require ) {
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
-      var windowNumber = builder.getLeftWindowNumber( thisNode.card.locationProperty.get() );
+      var windowNumber = builder.getLeftWindowNumber( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
