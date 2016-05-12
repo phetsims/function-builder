@@ -17,6 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -139,7 +140,17 @@ define( function( require ) {
      * @public
      */
     addEntry: function( x ) {
+
+      assert && assert( x instanceof RationalNumber );
+      assert && assert( !this.containsEntry( x ) );
+
+      // add to list
+      this.xCoordinates.push( x );
+
       //TODO implement addEntry
+      //update some info that tells update which entries should be visible
+
+      this.update();
     },
 
     /**
@@ -150,7 +161,28 @@ define( function( require ) {
      * @param {RationalNumber} x
      */
     removeEntry: function( x ) {
+
+      assert && assert( x instanceof RationalNumber );
+      assert && assert( this.containsEntry( x ) );
+
+      // remove from list
+      this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
+
       //TODO implement removeEntry
+      //update some info that tells update which entries should be visible
+
+      this.update();
+    },
+
+    /**
+     * Does the table contain an entry for the specified input?
+     *
+     * @param {RationalNumber} x
+     * @returns {boolean}
+     */
+    containsEntry: function( x ) {
+      assert && assert( x instanceof RationalNumber );
+      return ( this.xCoordinates.indexOf( x ) !== -1 );
     },
 
     /**
@@ -162,7 +194,13 @@ define( function( require ) {
      * @param {boolean} visible
      */
     setYVisible: function( x, visible ) {
+
+      assert && assert( x instanceof RationalNumber );
+      assert && assert( this.containsEntry( x ) );
+
       //TODO implement setYVisible
+      // make corresponding y node visible, or create it
+      // scroll table to make x visible
     }
   } );
 } );
