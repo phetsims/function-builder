@@ -94,7 +94,7 @@ define( function( require ) {
           assert && assert( node instanceof NumberCardNode );
           //TODO tableNode.removeEntry only if the corresponding output container is empty
           var rationalNumber = node.card.rationalNumber;
-          if ( tableNode.containsEntry( rationalNumber ) ) {
+          if ( tableNode.containsEntry( rationalNumber ) ) { //TODO containsEntry required to avoid startup problem
             tableNode.removeEntry( rationalNumber );
           }
         } );
@@ -115,7 +115,7 @@ define( function( require ) {
           assert && assert( node instanceof EquationCardNode );
           //TODO tableNode.removeEntry only if the corresponding output container is empty
           var equation = node.card.equation;
-          if ( tableNode.containsEntry( equation ) ) {
+          if ( tableNode.containsEntry( equation ) ) { //TODO containsEntry required to avoid startup problem
             tableNode.removeEntry( equation );
           }
         } );
