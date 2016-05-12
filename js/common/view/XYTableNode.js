@@ -118,11 +118,13 @@ define( function( require ) {
 
     // no need to removeListener, this instance exists for the lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
-       thisNode.update();
+      thisNode.update();
     } );
   }
 
-  functionBuilder.register( 'XYTableNode', XYTableNode, {
+  functionBuilder.register( 'XYTableNode', XYTableNode );
+
+  return inherit( Node, XYTableNode, {
 
     // @private updates the y values that are visible in the table
     update: function() {
@@ -163,6 +165,4 @@ define( function( require ) {
       //TODO implement setYVisible
     }
   } );
-
-  return inherit( Node, XYTableNode );
 } );
