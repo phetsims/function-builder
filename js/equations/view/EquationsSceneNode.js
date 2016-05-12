@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
+  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
@@ -70,6 +71,105 @@ define( function( require ) {
     } );
     this.drawersLayer.addChild( this.tableDrawer );
 
+    //TODO duplicate code in here, should we pass Card to table functions?
+    // wire up input containers to table
+    this.inputContainers.forEach( function( inputContainer ) {
+
+      if ( inputContainer instanceof NumberCardContainer ) {
+
+        // when card is removed from input container, add it to table, or scroll to show it in table
+        inputContainer.removeEmitter.addListener( function( node ) {
+          assert && assert( node instanceof NumberCardNode );
+          var rationalNumber = node.card.rationalNumber;
+          if ( tableNode.containsEntry( rationalNumber ) ) {
+            tableNode.scrollToEntry( rationalNumber );
+          }
+          else {
+            tableNode.addEntry( rationalNumber );
+          }
+        } );
+
+        // when card is returned to input container, remove it from table if the corresponding output container is empty
+        inputContainer.addEmitter.addListener( function( node ) {
+          assert && assert( node instanceof NumberCardNode );
+          //TODO tableNode.removeEntry only if the corresponding output container is empty
+          var rationalNumber = node.card.rationalNumber;
+          if ( tableNode.containsEntry( rationalNumber ) ) {
+            tableNode.removeEntry( rationalNumber );
+          }
+        } );
+      }
+      else if ( inputContainer instanceof EquationCardContainer ) {
+
+        // when card is removed from input container, add it to table, or scroll to show it in table
+        inputContainer.removeEmitter.addListener( function( node ) {
+          assert && assert( node instanceof EquationCardNode );
+          var equation = node.card.equation;
+          if ( !tableNode.containsEntry( equation ) ) {
+            tableNode.addEntry( equation );
+          }
+        } );
+
+        // when card is returned to input container, remove it from table if the corresponding output container is empty
+        inputContainer.addEmitter.addListener( function( node ) {
+          assert && assert( node instanceof EquationCardNode );
+          //TODO tableNode.removeEntry only if the corresponding output container is empty
+          var equation = node.card.equation;
+          if ( tableNode.containsEntry( equation ) ) {
+            tableNode.removeEntry( equation );
+          }
+        } );
+      }
+      else {
+        throw new Error( 'unexpected container type' );
+      }
+    } );
+
+    //TODO duplicate code in here, should we pass Card to table functions?
+    // wire up output containers to table
+    this.outputContainers.forEach( function( outputContainer ) {
+
+      if ( outputContainer instanceof NumberCardContainer ) {
+
+        // when card is added to the output container, show its output in the table
+        outputContainer.addEmitter.addListener( function( node ) {
+          assert && assert( node instanceof NumberCardNode );
+          tableNode.setOutputVisible( node.card.rationalNumber, true );
+        } );
+
+        // when card is removed from output container, hide output in the table if the output container is empty
+        outputContainer.removeEmitter.addListener( function( node ) {
+          assert && assert( node instanceof NumberCardNode );
+          var rationalNumber = node.card.rationalNumber;
+          tableNode.scrollToEntry( rationalNumber );
+          if ( outputContainer.isEmpty() ) {
+            tableNode.setOutputVisible( rationalNumber, false );
+          }
+        } );
+      }
+      else if ( outputContainer instanceof EquationCardContainer ) {
+
+        // when card is added to the output container, show its output in the table
+        outputContainer.addEmitter.addListener( function( node ) {
+          assert && assert( node instanceof EquationCardNode );
+          tableNode.setOutputVisible( node.card.equation, true );
+        } );
+
+        // when card is removed from output container, hide output in the table if the output container is empty
+        outputContainer.removeEmitter.addListener( function( node ) {
+          assert && assert( node instanceof EquationCardNode );
+          var equation = node.card.equation;
+          tableNode.scrollToEntry( equation );
+          if ( outputContainer.isEmpty() ) {
+            tableNode.setOutputVisible( equation, false );
+          }
+        } );
+      }
+      else {
+        throw new Error( 'unexpected container type' );
+      }
+    } );
+
     if ( !options.hasGraph ) {
 
       // table draw at center top of builder
@@ -92,6 +192,7 @@ define( function( require ) {
       } );
       this.drawersLayer.addChild( this.graphDrawer );
 
+      //TODO duplicate code in here, should we pass Card to graph functions?
       // wire up output containers to graph
       this.outputContainers.forEach( function( outputContainer ) {
         if ( outputContainer instanceof NumberCardContainer ) {
@@ -99,8 +200,8 @@ define( function( require ) {
           // When a number is added to an empty container in the output carousel,
           // add its corresponding point to the graph.
           outputContainer.addEmitter.addListener( function( node ) {
+            assert && assert( node instanceof NumberCardNode );
             if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
-              assert && assert( node instanceof NumberCardNode );
               graphNode.addPointAt( node.card.rationalNumber );
             }
           } );
@@ -108,8 +209,8 @@ define( function( require ) {
           // When the last number is removed from a container in the output carousel,
           // remove its corresponding point from the graph.
           outputContainer.removeEmitter.addListener( function( node ) {
+            assert && assert( node instanceof NumberCardNode );
             if ( outputContainer.isEmpty() ) {
-              assert && assert( node instanceof NumberCardNode );
               graphNode.removePointAt( node.card.rationalNumber );
             }
           } );
@@ -119,12 +220,14 @@ define( function( require ) {
           // When the equation is added to a container in the output carousel,
           // show the line on the graph.
           outputContainer.addEmitter.addListener( function( node ) {
+            assert && assert( node instanceof EquationCardNode );
             graphNode.setLineVisible( true );
           } );
 
           // When the last equation is removed from a container in the output carousel,
           // hide the line on the graph.
           outputContainer.removeEmitter.addListener( function( node ) {
+            assert && assert( node instanceof EquationCardNode );
             if ( outputContainer.isEmpty() ) {
               graphNode.setLineVisible( false );
             }

@@ -52,8 +52,8 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @private {RationalNumber[]} x coordinates (inputs) in the order that they appear in the table
-    this.xCoordinates = [];
+    // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
+    this.inputs = [];
 
     // @private {number} maximum dimensions of cell content, used to set Node maxWidth property
     this.cellContentMaxWidth = ( options.size.width - 2 * options.cellXMargin ) / 2;
@@ -129,6 +129,7 @@ define( function( require ) {
 
     // @private updates the y values that are visible in the table
     update: function() {
+      functionBuilder.log( 'XYTableNode.update' );
       //TODO implement update
     },
 
@@ -136,21 +137,26 @@ define( function( require ) {
      * Appends a row to the table. The table scrolls to show this as the last row.
      * This happens when a card is removed from the input carousel.
      *
-     * @param {RationalNumber} x
+     * @param {RationalNumber|string} input
      * @public
      */
-    addEntry: function( x ) {
+    addEntry: function( input ) {
 
-      assert && assert( x instanceof RationalNumber );
-      assert && assert( !this.containsEntry( x ) );
+      functionBuilder.log( 'XYTableNode.addEntry ' + input );
+
+      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
+      assert && assert( !this.containsEntry( input ) );
 
       // add to list
-      this.xCoordinates.push( x );
+      this.inputs.push( input );
 
       //TODO implement addEntry
       //update some info that tells update which entries should be visible
 
       this.update();
+
+      // scroll table to make corresponding row visible
+      this.scrollToEntry( input );
     },
 
     /**
@@ -158,15 +164,18 @@ define( function( require ) {
      * If the entry is visible, results in rows below it moving up.
      * This happens when a card is returned to the input carousel.
      *
-     * @param {RationalNumber} x
+     * @param {RationalNumber|string} input
+     * @public
      */
-    removeEntry: function( x ) {
+    removeEntry: function( input ) {
 
-      assert && assert( x instanceof RationalNumber );
-      assert && assert( this.containsEntry( x ) );
+      functionBuilder.log( 'XYTableNode.removeEntry ' + input );
+
+      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
+      assert && assert( this.containsEntry( input ) );
 
       // remove from list
-      this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
+      this.inputs.splice( this.inputs.indexOf( input ), 1 );
 
       //TODO implement removeEntry
       //update some info that tells update which entries should be visible
@@ -177,30 +186,48 @@ define( function( require ) {
     /**
      * Does the table contain an entry for the specified input?
      *
-     * @param {RationalNumber} x
+     * @param {RationalNumber|string} input
      * @returns {boolean}
+     * @public
      */
-    containsEntry: function( x ) {
-      assert && assert( x instanceof RationalNumber );
-      return ( this.xCoordinates.indexOf( x ) !== -1 );
+    containsEntry: function( input ) {
+      functionBuilder.log( 'XYTableNode.containsEntry ' + input );
+      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
+      return ( this.inputs.indexOf( input ) !== -1 );
     },
 
     /**
-     * Makes the corresponding y value visible.
+     * Makes the corresponding output value visible.
      * This is called with true when a card is put in the output carousel.
      * This is called with false when a card is removed from the output carousel.
      *
-     * @param {RationalNumber} x
+     * @param {RationalNumber|string} input
      * @param {boolean} visible
+     * @public
      */
-    setYVisible: function( x, visible ) {
+    setOutputVisible: function( input, visible ) {
 
-      assert && assert( x instanceof RationalNumber );
-      assert && assert( this.containsEntry( x ) );
+      functionBuilder.log( 'XYTableNode.setOutputVisible ' + input  + ', visible=' + visible );
+
+      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
+      assert && assert( this.containsEntry( input ) );
 
       //TODO implement setYVisible
-      // make corresponding y node visible, or create it
-      // scroll table to make x visible
+      // make corresponding output node visible, or create it
+
+      // scroll table to make corresponding row visible
+      this.scrollToEntry( input );
+    },
+
+    /**
+     * Scrolls the table to make the corresponding entry visible.
+     *
+     * @param {RationalNumber|string} input
+     * @public
+     */
+    scrollToEntry: function( input ) {
+      functionBuilder.log( 'XYTableNode.scrollToEntry ' + input );
+      //TODO implement scrollToEntry
     }
   } );
 } );

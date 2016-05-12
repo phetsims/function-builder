@@ -90,11 +90,11 @@ define( function( require ) {
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
-    // Containers in the input carousel
-    var inputContainers = this.createCardContainers( scene );
+    // @private Containers in the input carousel
+    this.inputContainers = this.createCardContainers( scene );
 
     // Input carousel, at left
-    var inputCarousel = new Carousel( inputContainers, {
+    var inputCarousel = new Carousel( this.inputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -289,11 +289,11 @@ define( function( require ) {
 
       // cards
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      assert && assert( inputContainers.length === this.outputContainers.length );
-      for ( var i = 0; i < inputContainers.length; i++ ) {
+      assert && assert( this.inputContainers.length === this.outputContainers.length );
+      for ( var i = 0; i < this.inputContainers.length; i++ ) {
 
         // input container's location
-        var inputContainer = inputContainers[ i ];
+        var inputContainer = this.inputContainers[ i ];
         inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsDragLayer );
 
         // output container's location
