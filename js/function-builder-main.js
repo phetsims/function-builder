@@ -25,7 +25,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Amanda McGarry',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-      team: 'Karina K. R. Hensberry, Ariel Paul, Kathy Perkins,\nSam Reid, Beth Stade, David Webb'
+      team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul,\nKathy Perkins, Sam Reid, Beth Stade, David Webb'
     }
   };
 
