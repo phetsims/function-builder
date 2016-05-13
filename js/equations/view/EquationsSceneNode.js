@@ -64,7 +64,7 @@ define( function( require ) {
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
-      open: true,
+      open: false, //TODO table drawer should be initially open
       handleLocation: 'top',
       cornerRadius: TABLE_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
