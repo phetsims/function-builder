@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.27 Wed May 11 2016 17:15:10 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.28 Fri May 13 2016 16:26:59 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "b2328a77547b8868bd046ee036ddff35c979999b",
+    "sha": "115e05a2a07465db2ede1e16a29a9836d77b3443",
     "branch": "master"
   },
   "joist": {
-    "sha": "48836bcfa7976b246802b0b6ec3f1fedd23c889e",
+    "sha": "3931eb7696b29a1697219826728325b403ac72f6",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "66532c1483d1e9f9ea2655aa2827adbe567afa3a",
+    "sha": "204093556dd415cb4a2796e1374dccdd04b4bcaa",
     "branch": "master"
   },
   "scenery-phet": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "9f2d40d5ba8cc0f11c9852300e0d7ba59eb06495",
+    "sha": "6f66368fd9cee088af7e481377ed91dbf2ba82dc",
     "branch": "master"
   },
   "tandem": {
