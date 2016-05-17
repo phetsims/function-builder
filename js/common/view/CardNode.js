@@ -117,19 +117,13 @@ define( function( require ) {
 
       var y = 0;
 
-      if ( location.x < INPUT_SLOT_X ) {
-
-        // card is to the left of the builder, drag along the line between input carousel and builder input slot
-        y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
-        card.moveTo( new Vector2( location.x, y ) );
-      }
-      else if ( location.x > OUTPUT_SLOT_X ) {
+      if ( location.x > OUTPUT_SLOT_X ) {
 
         // card is to the right of the builder, drag along the line between output carousel and builder output
         y = slopeRight * ( location.x - OUTPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
         card.moveTo( new Vector2( location.x, y ) );
       }
-      else { // card is in the builder
+      else { // to left of builder's output slot
 
         // dragging to the left, check to see if blocked by a non-invertible function
         if ( dragDx < 0 ) {
@@ -163,7 +157,17 @@ define( function( require ) {
         }
 
         if ( !blocked ) {
-          card.moveTo( new Vector2( location.x, builder.location.y ) );
+          if ( location.x < INPUT_SLOT_X ) {
+
+            // card is to the left of the builder, drag along the line between input carousel and builder input slot
+            y = slopeLeft * ( location.x - INPUT_SLOT_X ) + builder.location.y; // y = m(x-x1) + y1
+            card.moveTo( new Vector2( location.x, y ) );
+          }
+          else {
+
+            // card is in the builder, dragging horizontally
+            card.moveTo( new Vector2( location.x, builder.location.y ) );
+          }
         }
       }
     };
@@ -240,9 +244,9 @@ define( function( require ) {
     // When 'See Inside' is turned off, flush out any cards that are stopped in windows.
     // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.lazyLink( function( seeInside ) {
-       if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
-         thisNode.animateLeftToRight( OUTPUT_SLOT_X );
-       }
+      if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
+        thisNode.animateLeftToRight( OUTPUT_SLOT_X );
+      }
     } );
   }
 
