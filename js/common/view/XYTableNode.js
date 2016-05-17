@@ -15,6 +15,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
@@ -38,7 +39,7 @@ define( function( require ) {
       // column headings
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
-      headingFont: new FBFont( 18 ),
+      headingFont: new MathSymbolFont( 18 ),
       headingYMargin: 2,
       headingBackground: 'rgb( 144, 226, 252 )',
 

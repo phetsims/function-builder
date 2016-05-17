@@ -20,6 +20,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -62,7 +63,7 @@ define( function( require ) {
       gridLineWidth: 0.5, // {number} lineWidth of the grid
 
       // axis labels
-      axisLabelFont: new FBFont( 16 ),
+      axisLabelFont: new MathSymbolFont( 16 ),
       axisLabelColor: 'rgb( 100, 100, 100 )',
 
       // ticks

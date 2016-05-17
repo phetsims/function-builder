@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -30,7 +31,8 @@ define( function( require ) {
 
     options = _.extend( {
       xSymbol: FBSymbols.X, // {string} symbol for input
-      ySymbol: FBSymbols.Y, // {string} symbol for ouptut
+      ySymbol: FBSymbols.Y, // {string} symbol for output
+      xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
       font: new FBFont( 24 ), // {Font} font for non-slope components
       fractionFont: new FBFont( 18 ), // {Font} font for rise and run
       equalsXSpacing: 8, // {number} x space on both sides of equals
@@ -43,9 +45,11 @@ define( function( require ) {
 
     var negativeSlope = ( ( rise / run ) < 0 );
 
-    // components of the equation
+    var XY_OPTIONS = { font: options.xyFont };
     var TEXT_OPTIONS = { font: options.font };
-    var yNode = new Text( options.ySymbol, TEXT_OPTIONS );
+
+    // components of the equation
+    var yNode = new Text( options.ySymbol, XY_OPTIONS );
     var equalsNode = new Text( FBSymbols.EQUALS, TEXT_OPTIONS );
     var negativeNode = new Text( FBSymbols.MINUS, { font: options.fractionFont } );
     var riseNode = new Text( Math.abs( rise ), { font: options.fractionFont } );
@@ -53,7 +57,7 @@ define( function( require ) {
     var fractionLineNode = new Line( 0, 0, Math.max( riseNode.width, runNode.width ), 0, {
       stroke: 'black'
     } );
-    var xNode = new Text( options.xSymbol, TEXT_OPTIONS );
+    var xNode = new Text( options.xSymbol, XY_OPTIONS );
     var operatorNode = new Text( operator, TEXT_OPTIONS );
     var interceptNode = new Text( intercept, TEXT_OPTIONS );
 

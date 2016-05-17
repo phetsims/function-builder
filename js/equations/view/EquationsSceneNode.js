@@ -59,6 +59,7 @@ define( function( require ) {
     var tableNode = new XYTableNode( scene.builder, {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
+      tableHeadingFont: options.tableHeadingFont,
       cornerRadius: TABLE_CORNER_RADIUS
     } );
 

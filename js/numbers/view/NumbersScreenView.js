@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -29,7 +30,8 @@ define( function( require ) {
       functionsPerPage: 3,
       hasGraph: false, // no graph in this scene
       xSymbol: inputString, // symbol used in place of x
-      ySymbol: outputString // symbol used in place of y
+      ySymbol: outputString, // symbol used in place of y
+      tableHeadingFont: new FBFont( 18 )
     };
 
     EquationsScreenView.call( this, model, sceneNodeOptions );
