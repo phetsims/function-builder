@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.28 Fri May 13 2016 16:42:13 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.29 Tue May 17 2016 16:58:45 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "2c6804e028d542f7e53042db50a094d43e91392c",
+    "sha": "2413d31037a2f6cf72b019e770ca91a2205c1dc1",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "6b4afaf497f00b45131b736213929dba571b91d4",
+    "sha": "344a1979d42fedeffe16cc5d193b64303d332b6c",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "d8d9611154e5a7d7f7be408493b890abb2b985fc",
+    "sha": "b77dc7e1d530bccd543541766f01534d87683d70",
     "branch": "master"
   },
   "sherpa": {
