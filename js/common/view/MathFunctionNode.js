@@ -49,7 +49,7 @@ define( function( require ) {
 
       // prevent clicking on the picker from starting a drag sequence for the function node
       picker.addInputListener( {
-        down: function( event, trail ) {
+        down: function( event ) {
           event.handle(); // don't propagate event to parent
         }
       } );
