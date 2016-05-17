@@ -9,14 +9,19 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  var SHOW_CENTER = FBQueryParameters.DEV;
 
   /**
    * @param {Card} card
@@ -51,6 +56,14 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode, contentNode ];
+
+    // add a red dot at the center of the card
+    if ( SHOW_CENTER ) {
+      options.children.push( new Circle( 2, {
+        fill: 'red',
+        center: this.backgroundNode.center
+      } ) );
+    }
 
     var builder = builderNode.builder;
 
