@@ -17,6 +17,7 @@ define( function( require ) {
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -101,7 +102,7 @@ define( function( require ) {
      */
     createEquationsScreenIcon: function() {
       var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
-      var iconNode = new Text( equationString, { font: new FBFont( 80 ) } );
+      var iconNode = new Text( equationString, { font: new MathSymbolFont( 80 ) } );
       return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
     },
 
