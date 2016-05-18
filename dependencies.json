@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.29 Tue May 17 2016 16:58:45 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.31 Wed May 18 2016 12:40:37 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "344a1979d42fedeffe16cc5d193b64303d332b6c",
+    "sha": "142d301a692a8f406aba3f6a427a46a0f2361580",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "b77dc7e1d530bccd543541766f01534d87683d70",
+    "sha": "775e0441fe52dec115c92dadde5d947102f694f8",
     "branch": "master"
   },
   "sherpa": {
