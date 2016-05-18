@@ -15,7 +15,7 @@ define( function( require ) {
   var Font = require( 'SCENERY/util/Font' );
 
   /**
-   * @param {object|number} [options]
+   * @param {Object|number} [options]
    * @constructor
    */
   function MathSymbolFont( options ) {
