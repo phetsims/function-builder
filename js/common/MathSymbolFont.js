@@ -19,7 +19,7 @@ define( function( require ) {
    */
   function MathSymbolFont( size ) {
     PhetFont.call( this, {
-      family: '"Time New Roman", Times, serif',
+      family: '"Times New Roman", Times, serif',
       style: 'italic',
       size: size
     } );
