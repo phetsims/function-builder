@@ -1,7 +1,15 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * XY table. Rows in the table are unique, duplicates are not allowed.
+ * XY table.  Summary of use and behavior:
+ *
+ * Each row consists of input (x) and output (y) cells.
+ * Rows in the table are unique, duplicates are not allowed.
+ * When a row is added, or it's output cell is made visible, the table scrolls to make that row visible.
+ * When a row is deleted, rows below it move up.
+ * When a card is removed from the input carousel, a row is added to the end of the table and its input cell is filled in.
+ * When a card is returned to the input carousel, its row is removed from the table.
+ * When a card is added to the output carousel, the output cell in its row is made visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
