@@ -113,6 +113,9 @@ define( function( require ) {
       }
       assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' );
 
+      // the card most recently grabbed is in the front
+      thisNode.moveToFront();
+
       // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
       slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - INPUT_SLOT_X );
 
