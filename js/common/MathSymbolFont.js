@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Font = require( 'SCENERY/util/Font' );
 
   /**
    * @param {object|number} [options]
@@ -31,10 +31,10 @@ define( function( require ) {
       style: 'italic'
     }, options );
 
-    PhetFont.call( this, options );
+    Font.call( this, options );
   }
 
   functionBuilder.register( 'MathSymbolFont', MathSymbolFont );
 
-  return inherit( PhetFont, MathSymbolFont );
+  return inherit( Font, MathSymbolFont );
 } );
