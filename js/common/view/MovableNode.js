@@ -23,6 +23,8 @@ define( function( require ) {
   function MovableNode( movable, options ) {
 
     options = _.extend( {
+
+      allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up
       cursor: 'pointer',
       startDrag: null, // {function|null} Called at the start of each drag sequence
       endDrag: null, // {function|null} Called at the end of each drag sequence
@@ -53,8 +55,7 @@ define( function( require ) {
 
     this.addInputListener( new SimpleDragHandler( {
 
-      // allow touch swipes across this Node to pick it up
-      allowTouchSnag: true,
+      allowTouchSnag: options.allowTouchSnag,
 
       start: function( event, trail ) {
 
