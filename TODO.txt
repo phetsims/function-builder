@@ -2,6 +2,10 @@ TODO list for function-builder
 
 ---
 
+Equation (see equations-formats.md), slope-intercept first
+
+Reset All
+
 Table
 - auto-scroll the table whenever a user action modifies the table
 - rows in table are unique (no duplicates)
@@ -9,10 +13,6 @@ Table
 - when a card is added to the input carousel, call XYTableNode.removeEntry(x)
 - when a card is added to the output carousel, call XYTableNode.setYVisible(x,true)
 - when a card is removed from the output carousel, call XYTableNode.setYVisible(x,false)
-
-Equation (see equations-formats.md), slope-intercept first
-
-Reset All
 
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
