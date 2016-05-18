@@ -20,7 +20,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
+  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );

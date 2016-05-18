@@ -15,7 +15,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
+  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );

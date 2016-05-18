@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var MathSymbolFont = require( 'FUNCTION_BUILDER/common/MathSymbolFont' );
+  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
