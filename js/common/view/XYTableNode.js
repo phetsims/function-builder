@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * XY table
+ * XY table. Rows in the table are unique, duplicates are not allowed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
