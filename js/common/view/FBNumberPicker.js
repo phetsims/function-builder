@@ -23,6 +23,7 @@ define( function( require ) {
   function FBNumberPicker( valueProperty, valueRange, options ) {
 
     options = _.extend( {
+      touchAreaXDilation: 0, // so that it's easier to grab the function's background
       xMargin: 6,
       skipZero: false // {boolean} whether to skip zero value
     }, options );
