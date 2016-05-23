@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
+  //TODO where should inputSymbol live? It's currently in multiple places.
   /**
    * @param {string} inputSymbol - symbol for the input, typically 'x'
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
