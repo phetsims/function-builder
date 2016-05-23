@@ -15,6 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -33,14 +34,17 @@ define( function( require ) {
 
     options = options || {};
 
-    //TODO temporary, this needs to be an equation in slope-intercept form
+    // @private constrain equation to card
+    this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
+
     // @private
-    this.textNode = new Text( card.equation, {
+    this.equationNode = new SlopeInterceptEquationNode( new SlopeInterceptEquation( card.inputSymbol, [] ), {
+      inputSymbol: card.inputSymbol,
       font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT,
-      maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
+      maxWidth: this.equationMaxWidth
     } );
 
-    CardNode.call( this, card, this.textNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, this.equationNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'EquationCardNode', EquationCardNode );
@@ -56,16 +60,21 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
+      // remove old equation
+      this.removeChild( this.equationNode );
+
       // {MathFunction[]} get an array of the functions involved in the equation
       var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
-      //TODO convert MathFunction[] to slope-intercept form and display on card
-      // update the node
-      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.equation, mathFunctions );
-      this.textNode.text = slopeInterceptEquation.toString();
-
-      // center on the card
-      this.textNode.center = this.backgroundNode.center;
+      // update the equation
+      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.inputSymbol, mathFunctions );
+      this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
+        showLeftHandSide: false,
+        inputSymbol: this.card.inputSymbol,
+        maxWidth: this.equationMaxWidth, // constrain to card
+        center: this.backgroundNode.center // center on the card
+      } );
+      this.addChild( this.equationNode );
     }
   }, {
 

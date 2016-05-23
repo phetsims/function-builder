@@ -15,11 +15,11 @@ define( function( require ) {
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
-   * @param {string} xSymbol - symbol for the input, typically 'x'
+   * @param {string} inputSymbol - symbol for the input, typically 'x'
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
    * @constructor
    */
-  function SlopeInterceptEquation( xSymbol, mathFunctions ) {
+  function SlopeInterceptEquation( inputSymbol, mathFunctions ) {
 
     var slope = new RationalNumber( 1, 1 );
     var intercept = new RationalNumber( 0, 1 );
@@ -48,7 +48,7 @@ define( function( require ) {
     }
 
     // @public (read-only)
-    this.xSymbol = xSymbol; // {string}
+    this.inputSymbol = inputSymbol; // {string}
     this.slope = slope; // {RationalNumber}
     this.intercept = intercept; // {RationalNumber}
   }
@@ -68,13 +68,13 @@ define( function( require ) {
       // slope
       if ( this.slope.valueOf() !== 0 ) {
         if ( this.slope.valueOf() === 1 ) {
-          equation = this.xSymbol;
+          equation = this.inputSymbol;
         }
         else if ( this.slope.isInteger() ) {
-          equation = this.slope.valueOf() + this.xSymbol;
+          equation = this.slope.valueOf() + this.inputSymbol;
         }
         else {
-          equation = '(' + this.slope.numerator + '/' + this.slope.denominator + ')' + this.xSymbol;
+          equation = '(' + this.slope.numerator + '/' + this.slope.denominator + ')' + this.inputSymbol;
         }
       }
 

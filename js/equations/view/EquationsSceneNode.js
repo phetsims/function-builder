@@ -105,9 +105,9 @@ define( function( require ) {
         // when card is removed from input container, add it to table, or scroll to show it in table
         inputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          var equation = node.card.equation;
-          if ( !tableNode.containsEntry( equation ) ) {
-            tableNode.addEntry( equation );
+          var inputSymbol = node.card.inputSymbol;
+          if ( !tableNode.containsEntry( inputSymbol ) ) {
+            tableNode.addEntry( inputSymbol );
           }
         } );
 
@@ -115,9 +115,9 @@ define( function( require ) {
         inputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
           //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var equation = node.card.equation;
-          if ( tableNode.containsEntry( equation ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( equation );
+          var inputSymbol = node.card.inputSymbol;
+          if ( tableNode.containsEntry( inputSymbol ) ) { //TODO containsEntry required to avoid startup problem
+            tableNode.removeEntry( inputSymbol );
           }
         } );
       }
@@ -153,16 +153,16 @@ define( function( require ) {
         // when card is added to the output container, show its output in the table
         outputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          tableNode.setOutputVisible( node.card.equation, true );
+          tableNode.setOutputVisible( node.card.inputSymbol, true );
         } );
 
         // when card is removed from output container, hide output in the table if the output container is empty
         outputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          var equation = node.card.equation;
-          tableNode.scrollToEntry( equation );
+          var inputSymbol = node.card.inputSymbol;
+          tableNode.scrollToEntry( inputSymbol );
           if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( equation, false );
+            tableNode.setOutputVisible( inputSymbol, false );
           }
         } );
       }
