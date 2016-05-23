@@ -138,7 +138,7 @@ define( function( require ) {
       signLeft = operatorLeft;
     }
 
-
+    // intercept
     if ( intercept.valueOf() !== 0 ) {
 
       if ( slope.valueOf() !== 0 ) {
