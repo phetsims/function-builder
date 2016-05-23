@@ -27,25 +27,25 @@ define( function( require ) {
   function SlopeInterceptEquationNode( slopeInterceptEquation, options ) {
 
     options = _.extend( {
-      
+
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
       xSymbol: slopeInterceptEquation.xSymbol, // {string} symbol for input
       ySymbol: FBSymbols.Y, // {string} symbol for output
-      
+
       // fonts
       xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
       operatorFont: new FBFont( 24 ), // {Font} font for operator, equals, negative sign
       integerFont: new FBFont( 24 ), // {Font} font for integer components
       fractionFont: new FBFont( 18 ), // {Font} font for fraction numerator and denominator
-      
+
       // spacing
       equalsXSpacing: 8, // {number} x space on both sides of equals
       signXSpacing: 4, // {number} x spacing between sign and slope
       operatorXSpacing: 8, // {number} x space on both sides of operator
       slopeXSpacing: 6, // {number} x space between slope and x
       fractionYSpacing: 2  // {number} y space above and below fraction line
-      
-    }, options);
+
+    }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
@@ -71,20 +71,32 @@ define( function( require ) {
       options.children.push( yNode, equalsNode );
     }
 
-    // layout positions, adjusted as the equation is built
-    var slopeLeft = equalsNode.right + options.equalsXSpacing;
-    var inputLeft = slopeLeft;
-    var interceptLeft = equalsNode.right + options.equalsXSpacing;
+    // horizontal layout positions, adjusted as the equation is built
+    var signLeft = equalsNode.right + options.equalsXSpacing;
+    var slopeLeft = signLeft;
+    var inputLeft = 0;
+    var operatorLeft = 0;
+    var interceptLeft = 0;
 
     // slope
     if ( slope.valueOf() !== 0 ) {
 
       if ( slope.valueOf() !== 1 ) { // omit slope if value is 1, so we have 'x' instead of '1x'
-        
+
+        // slope is negative, handle sign as a separate node
+        if ( slope.valueOf() < 0 ) {
+          var slopeSignNode = new Text( FBSymbols.MINUS, {
+            font: options.operatorFont,
+            left: signLeft
+          } );
+          options.children.push( slopeSignNode );
+          slopeLeft = slopeSignNode.right + options.signXSpacing;
+        }
+
         if ( slope.isInteger() ) {
 
-          // slope is an integer, handle its value and sign here
-          var slopeAndSignNode = new Text( slope.valueOf(), {
+          // slope is an integer
+          var slopeAndSignNode = new Text( Math.abs( slope.valueOf() ), {
             font: options.integerFont,
             left: slopeLeft
           } );
@@ -93,16 +105,7 @@ define( function( require ) {
         }
         else {
 
-          // slope is a fraction, handle its sign, rise and run as separate components
-          if ( slope.valueOf() < 0 ) {
-            var slopeSignNode = new Text( FBSymbols.MINUS, {
-              font: options.operatorFont,
-              left: slopeLeft
-            } );
-            options.children.push( slopeSignNode );
-            slopeLeft = slopeSignNode.right + options.signXSpacing;
-          }
-
+          // slope is a fraction
           var riseNode = new Text( Math.abs( slope.numerator ), { font: options.fractionFont } );
           var runNode = new Text( Math.abs( slope.denominator ), { font: options.fractionFont } );
           var slopeLineNode = new Line( 0, 0, Math.max( riseNode.width, runNode.width ), 0, {
@@ -115,9 +118,14 @@ define( function( require ) {
           riseNode.bottom = slopeLineNode.top - options.fractionYSpacing;
           runNode.centerX = slopeLineNode.centerX;
           runNode.top = slopeLineNode.bottom + options.fractionYSpacing;
-          
+
           inputLeft = slopeLineNode.right + options.slopeXSpacing;
         }
+      }
+      else {
+
+        // slope is 1, we don't display it
+        inputLeft = equalsNode.right + options.equalsXSpacing;
       }
 
       // x
@@ -126,63 +134,53 @@ define( function( require ) {
         left: inputLeft
       } );
       options.children.push( xNode );
-      interceptLeft = xNode.right + options.operatorXSpacing;
+      operatorLeft = xNode.right + options.operatorXSpacing;
+      signLeft = operatorLeft;
     }
-    
-    // intercept
-    var interceptIsFraction = false;
+
+
     if ( intercept.valueOf() !== 0 ) {
 
-      if ( slope.valueOf() === 0 ) {
+      if ( slope.valueOf() !== 0 ) {
 
-        // no slope, intercept only
-        if ( intercept.isInteger() ) {
-          
-          // intercept is an integer, handle sign with value 
-          var interceptAndSignNode = new Text( intercept.valueOf(), {
-            font: options.integerFont,
-            left: interceptLeft
-          } );
-          options.children.push( interceptAndSignNode );
-        }
-        else if ( intercept.valueOf() < 0 ) {
-          
-          // intercept is a fraction, handle its sign separately
-          var interceptSignNode = new Text( FBSymbols.MINUS, { font: options.operatorFont } );
-          options.children.push( interceptSignNode );
-          interceptIsFraction = true;
-          interceptLeft = interceptSignNode.right + options.signXSpacing;
-        }
-      }
-      else {
-        
         // operator
         var operator = ( intercept.valueOf() > 0 ) ? FBSymbols.PLUS : FBSymbols.MINUS;
-        var operatorNode = new Text( operator, { 
+        var operatorNode = new Text( operator, {
           font: options.operatorFont,
-          left: interceptLeft
+          left: operatorLeft
         } );
         options.children.push( operatorNode );
         interceptLeft = operatorNode.right + options.operatorXSpacing;
+      }
+      else if ( intercept.valueOf() < 0 ) {
 
-        if ( intercept.isInteger() ) {
+        // intercept negative sign
+        var interceptSignNode = new Text( FBSymbols.MINUS, {
+          font: options.operatorFont,
+          left: signLeft
+        } );
+        options.children.push( interceptSignNode );
+        interceptLeft = interceptSignNode.right + options.signXSpacing;
+      }
+      else {
 
-          // intercept is an integer
-          var interceptNode = new Text( Math.abs( intercept.valueOf() ), {
-            font: options.integerFont,
-            left: interceptLeft
-          } );
-          options.children.push( interceptNode );
-        }
-        else {
-
-          // intercept is a fraction
-          interceptIsFraction = true;
-        }
+        // intercept is positive, so we don't render its sign
+        interceptLeft = equalsNode.right + options.equalsXSpacing;
       }
 
-      // fractional intercept
-      if ( interceptIsFraction ) {
+      // intercept
+      if ( intercept.isInteger() ) {
+
+        // intercept is an integer
+        var interceptAndSignNode = new Text( Math.abs( intercept.valueOf() ), {
+          font: options.integerFont,
+          left: interceptLeft
+        } );
+        options.children.push( interceptAndSignNode );
+      }
+      else {
+
+        // intercept is a fraction
         var numeratorNode = new Text( Math.abs( intercept.numerator ), { font: options.fractionFont } );
         var denominatorNode = new Text( Math.abs( intercept.denominator ), { font: options.fractionFont } );
         var interceptLineNode = new Line( 0, 0, Math.max( numeratorNode.width, denominatorNode.width ), 0, {
@@ -202,7 +200,7 @@ define( function( require ) {
     if ( slope.valueOf() === 0 && intercept.valueOf() === 0 ) {
       var zeroNode = new Text( '0', {
         font: options.integerFont,
-        left: slopeLeft
+        left: equalsNode.right + options.equalsXSpacing
       } );
       options.children.push( zeroNode );
     }
