@@ -14,16 +14,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} inputSymbol
+   * @param {string} xSymbol - the input symbol, typically 'x'
    * @param {Object} [options]
    * @constructor
    */
-  function EquationCard( inputSymbol, options ) {
+  function EquationCard( xSymbol, options ) {
 
-    assert && assert( typeof inputSymbol === 'string' );
+    assert && assert( typeof xSymbol === 'string' );
 
     // {string} @public (read-only)
-    this.inputSymbol = inputSymbol;
+    this.xSymbol = xSymbol;
 
     Card.call( this, options );
   }

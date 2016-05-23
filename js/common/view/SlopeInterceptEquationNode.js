@@ -29,8 +29,8 @@ define( function( require ) {
     options = _.extend( {
       
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
-      inputSymbol: slopeInterceptEquation.inputSymbol, // {string} symbol for input
-      outputSymbol: FBSymbols.Y, // {string} symbol for output
+      xSymbol: slopeInterceptEquation.xSymbol, // {string} symbol for input
+      ySymnbol: FBSymbols.Y, // {string} symbol for output
       
       // fonts
       xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
@@ -56,18 +56,18 @@ define( function( require ) {
     assert && assert( intercept instanceof RationalNumber );
 
     // y
-    var outputNode = new Text( options.outputSymbol, {
+    var yNode = new Text( options.ySymnbol, {
       font: options.xyFont
     } );
 
     // =
     var equalsNode = new Text( FBSymbols.EQUALS, {
       font: options.font,
-      left: outputNode.right + options.equalsXSpacing
+      left: yNode.right + options.equalsXSpacing
     } );
 
     if ( options.showLeftHandSide ) {
-      options.children.push( outputNode, equalsNode );
+      options.children.push( yNode, equalsNode );
     }
 
     // layout positions, adjusted as the equation is built
@@ -120,12 +120,12 @@ define( function( require ) {
       }
 
       // x
-      var inputNode = new Text( options.inputSymbol, {
+      var xNode = new Text( options.xSymbol, {
         font: options.xyFont,
         left: inputLeft
       } );
-      options.children.push( inputNode );
-      interceptLeft = inputNode.right + options.operatorXSpacing;
+      options.children.push( xNode );
+      interceptLeft = xNode.right + options.operatorXSpacing;
     }
     
     // intercept

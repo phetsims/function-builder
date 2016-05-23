@@ -105,9 +105,9 @@ define( function( require ) {
         // when card is removed from input container, add it to table, or scroll to show it in table
         inputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          var inputSymbol = node.card.inputSymbol;
-          if ( !tableNode.containsEntry( inputSymbol ) ) {
-            tableNode.addEntry( inputSymbol );
+          var xSymbol = node.card.xSymbol;
+          if ( !tableNode.containsEntry( xSymbol ) ) {
+            tableNode.addEntry( xSymbol );
           }
         } );
 
@@ -115,9 +115,9 @@ define( function( require ) {
         inputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
           //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var inputSymbol = node.card.inputSymbol;
-          if ( tableNode.containsEntry( inputSymbol ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( inputSymbol );
+          var xSymbol = node.card.xSymbol;
+          if ( tableNode.containsEntry( xSymbol ) ) { //TODO containsEntry required to avoid startup problem
+            tableNode.removeEntry( xSymbol );
           }
         } );
       }
@@ -153,16 +153,16 @@ define( function( require ) {
         // when card is added to the output container, show its output in the table
         outputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          tableNode.setOutputVisible( node.card.inputSymbol, true );
+          tableNode.setOutputVisible( node.card.xSymbol, true );
         } );
 
         // when card is removed from output container, hide output in the table if the output container is empty
         outputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof EquationCardNode );
-          var inputSymbol = node.card.inputSymbol;
-          tableNode.scrollToEntry( inputSymbol );
+          var xSymbol = node.card.xSymbol;
+          tableNode.scrollToEntry( xSymbol );
           if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( inputSymbol, false );
+            tableNode.setOutputVisible( xSymbol, false );
           }
         } );
       }

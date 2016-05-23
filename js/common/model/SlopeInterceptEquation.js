@@ -14,13 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
-  //TODO where should inputSymbol live? It's currently in multiple places.
+  //TODO where should xSymbol live? It's currently in multiple places.
   /**
-   * @param {string} inputSymbol - symbol for the input, typically 'x'
+   * @param {string} xSymbol - symbol for the input, typically 'x'
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
    * @constructor
    */
-  function SlopeInterceptEquation( inputSymbol, mathFunctions ) {
+  function SlopeInterceptEquation( xSymbol, mathFunctions ) {
 
     var slope = new RationalNumber( 1, 1 );
     var intercept = new RationalNumber( 0, 1 );
@@ -49,7 +49,7 @@ define( function( require ) {
     }
 
     // @public (read-only)
-    this.inputSymbol = inputSymbol; // {string}
+    this.xSymbol = xSymbol; // {string}
     this.slope = slope; // {RationalNumber}
     this.intercept = intercept; // {RationalNumber}
   }
@@ -69,13 +69,13 @@ define( function( require ) {
       // slope
       if ( this.slope.valueOf() !== 0 ) {
         if ( this.slope.valueOf() === 1 ) {
-          equation = this.inputSymbol;
+          equation = this.xSymbol;
         }
         else if ( this.slope.isInteger() ) {
-          equation = this.slope.valueOf() + this.inputSymbol;
+          equation = this.slope.valueOf() + this.xSymbol;
         }
         else {
-          equation = '(' + this.slope.numerator + '/' + this.slope.denominator + ')' + this.inputSymbol;
+          equation = '(' + this.slope.numerator + '/' + this.slope.denominator + ')' + this.xSymbol;
         }
       }
 

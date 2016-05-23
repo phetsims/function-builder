@@ -38,8 +38,8 @@ define( function( require ) {
     this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
 
     // @private
-    this.equationNode = new SlopeInterceptEquationNode( new SlopeInterceptEquation( card.inputSymbol, [] ), {
-      inputSymbol: card.inputSymbol,
+    this.equationNode = new SlopeInterceptEquationNode( new SlopeInterceptEquation( card.xSymbol, [] ), {
+      xSymbol: card.xSymbol,
       font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT,
       maxWidth: this.equationMaxWidth
     } );
@@ -67,10 +67,10 @@ define( function( require ) {
       var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
       // update the equation
-      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.inputSymbol, mathFunctions );
+      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.xSymbol, mathFunctions );
       this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
         showLeftHandSide: false,
-        inputSymbol: this.card.inputSymbol,
+        xSymbol: this.card.xSymbol,
         maxWidth: this.equationMaxWidth, // constrain to card
         center: this.backgroundNode.center // center on the card
       } );
