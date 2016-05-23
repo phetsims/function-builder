@@ -37,6 +37,7 @@ define( function( require ) {
     // @private constrain equation to card
     this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
 
+    //TODO this initialization is a little obtuse
     // @private
     this.equationNode = new SlopeInterceptEquationNode( new SlopeInterceptEquation( card.xSymbol, [] ), {
       xSymbol: card.xSymbol,

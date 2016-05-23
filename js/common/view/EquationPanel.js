@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO performance: update only what's visible in EquationPanel
 /**
  * Panel that contains:
  * - equation that corresponds to the function in the builder
