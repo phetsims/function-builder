@@ -5,11 +5,13 @@ TODO list for function-builder
 Cards (model elements) should have more responsibilities. They current only describe the input. Consider
 making them responsible for what is displayed on the card: updating as location changes, notifying listeners, etc.
 
-Equation (see equations-formats.md), slope-intercept first
+Unsimplified equation
 
 Reset All
 
 Table
+
+Performance
 
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
