@@ -55,10 +55,15 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // {string} run the input value through the builder
-      var equation = builder.applyFunctions( this.card.equation, numberOfFunctionsToApply );
+      // {MathFunction[]} get an array of the functions involved in the equation
+      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
+      //TODO convert MathFunction[] to slope-intercept form and display on card
       // update the node
+      var equation = this.card.equation;
+      for ( var i = 0; i < mathFunctions.length; i++ ) {
+        equation += ' ' + mathFunctions[i].operatorString + ' ' + mathFunctions[i].operandProperty.get();
+      }
       this.textNode.text = equation;
 
       // center on the card

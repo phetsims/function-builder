@@ -71,18 +71,21 @@ define( function( require ) {
     /**
      * Applies this function.
      *
-     * @param {RationalNumber|string} input - rational number or mathematical equation
-     * @returns {RationalNumber|string} output, of same type as input
+     * @param {RationalNumber|MathFunction[]} input - rational number or array of MathFunction
+     * @returns {RationalNumber|MathFunction[]} output, of same type as input
      * @public
      * @override
      */
     apply: function( input ) {
-      if ( typeof input === 'string' ) {
-        return input + ' ' + this.operatorString + this.operandProperty.get();
+      if ( input instanceof RationalNumber ) {
+        return this._apply( input, this.operandProperty.get() );
+      }
+      else if ( Array.isArray( input ) ) {
+        input.push( this );
+        return input;
       }
       else {
-        assert && assert( input instanceof RationalNumber );
-        return this._apply( input, this.operandProperty.get() );
+        throw new Error( 'unsupported input type' );
       }
     }
   } );
