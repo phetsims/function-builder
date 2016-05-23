@@ -115,7 +115,8 @@ define( function( require ) {
           var runNode = new Text( Math.abs( slope.denominator ), { font: options.fractionFont } );
           var slopeLineNode = new Line( 0, 0, Math.max( riseNode.width, runNode.width ), 0, {
             stroke: 'black',
-            left: slopeLeft
+            left: slopeLeft,
+            centerY: equalsNode.centerY
           } );
           options.children.push( riseNode, runNode, slopeLineNode );
 
@@ -185,7 +186,8 @@ define( function( require ) {
         var denominatorNode = new Text( Math.abs( intercept.denominator ), { font: options.fractionFont } );
         var interceptLineNode = new Line( 0, 0, Math.max( numeratorNode.width, denominatorNode.width ), 0, {
           stroke: 'black',
-          left: interceptLeft
+          left: interceptLeft,
+          centerY: equalsNode.centerY
         } );
         options.children.push( numeratorNode, denominatorNode, interceptLineNode );
 
