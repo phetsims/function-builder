@@ -198,6 +198,15 @@ define( function( require ) {
       }
     }
 
+    // y = 0
+    if ( slope.valueOf() === 0 && intercept.valueOf() === 0 ) {
+      var zeroNode = new Text( '0', {
+        font: options.integerFont,
+        left: slopeLeft
+      } );
+      options.children.push( zeroNode );
+    }
+
     Node.call( this, options );
   }
 
