@@ -14,6 +14,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -60,11 +61,8 @@ define( function( require ) {
 
       //TODO convert MathFunction[] to slope-intercept form and display on card
       // update the node
-      var equation = this.card.equation;
-      for ( var i = 0; i < mathFunctions.length; i++ ) {
-        equation += ' ' + mathFunctions[i].operatorString + ' ' + mathFunctions[i].operandProperty.get();
-      }
-      this.textNode.text = equation;
+      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.equation, mathFunctions );
+      this.textNode.text = slopeInterceptEquation.toString();
 
       // center on the card
       this.textNode.center = this.backgroundNode.center;
