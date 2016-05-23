@@ -34,8 +34,8 @@ define( function( require ) {
 
       // fonts
       xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
-      operatorFont: new FBFont( 24 ), // {Font} font for operator, equals, negative sign
-      integerFont: new FBFont( 24 ), // {Font} font for integer components
+      symbolFont: new FBFont( 24 ), // {Font} font for math symbols (equals, plus, minus, negative sign)
+      integerFont: new FBFont( 24 ), // {Font} font for integer values
       fractionFont: new FBFont( 18 ), // {Font} font for fraction numerator and denominator
 
       // spacing
@@ -64,7 +64,7 @@ define( function( require ) {
 
     // =
     var equalsNode = new Text( FBSymbols.EQUALS, {
-      font: options.operatorFont,
+      font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing
     } );
 
@@ -92,7 +92,7 @@ define( function( require ) {
         // slope is negative, handle sign as a separate node
         if ( slope.valueOf() < 0 ) {
           var slopeSignNode = new Text( FBSymbols.MINUS, {
-            font: options.operatorFont,
+            font: options.symbolFont,
             left: signLeft
           } );
           options.children.push( slopeSignNode );
@@ -148,7 +148,7 @@ define( function( require ) {
         // operator
         var operator = ( intercept.valueOf() > 0 ) ? FBSymbols.PLUS : FBSymbols.MINUS;
         var operatorNode = new Text( operator, {
-          font: options.operatorFont,
+          font: options.symbolFont,
           left: operatorLeft
         } );
         options.children.push( operatorNode );
@@ -158,7 +158,7 @@ define( function( require ) {
 
         // intercept negative sign
         var interceptSignNode = new Text( FBSymbols.MINUS, {
-          font: options.operatorFont,
+          font: options.symbolFont,
           left: signLeft
         } );
         options.children.push( interceptSignNode );
