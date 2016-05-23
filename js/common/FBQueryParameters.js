@@ -16,13 +16,16 @@ define( function( require ) {
   var FBQueryParameters = {
 
     // enables developer-only features
-    DEV: getQueryParameter( 'dev' ) || false,
+    DEV: !!getQueryParameter( 'dev' ),
 
     // populates the output carousel with 1 card of each type
-    POPULATE_OUTPUT: getQueryParameter( 'populateOutput' ) || false,
+    POPULATE_OUTPUT: !!getQueryParameter( 'populateOutput' ),
 
     // makes all animation run slowly, so that things are easier to grab while they're animating
-    SLOW: getQueryParameter( 'slow' ) || false
+    SLOW: !!getQueryParameter( 'slow' ),
+
+    // puts a red stroke around containers in the carousels, so that empty containers are visible
+    SHOW_CONTAINERS: !!getQueryParameter( 'showContainers' )
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );

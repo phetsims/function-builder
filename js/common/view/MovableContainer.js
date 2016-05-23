@@ -19,9 +19,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  // constants
-  var STROKE_BACKGROUND = FBQueryParameters.DEV; // {boolean} stroke the background, so we can see an empty container
-
   /**
    * @param {Object} [options]
    * @constructor
@@ -38,7 +35,7 @@ define( function( require ) {
 
     // @private invisible background, so that an empty container has dimensions
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      stroke: STROKE_BACKGROUND ? 'red' : null
+      stroke: FBQueryParameters.SHOW_CONTAINERS ? 'red' : null
     } );
 
     // @private parent for contents of the container
