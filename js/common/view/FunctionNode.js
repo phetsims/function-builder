@@ -31,7 +31,9 @@ define( function( require ) {
   function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
 
     options = _.extend( {
-      allowTouchSnag: false //TODO see https://github.com/phetsims/function-builder/issues/49
+
+      //TODO remove this workaround someday, see https://github.com/phetsims/function-builder/issues/49
+      allowTouchSnag: false
     }, options );
 
     var thisNode = this;
