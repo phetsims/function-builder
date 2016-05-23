@@ -241,7 +241,7 @@ define( function( require ) {
     }
 
     // Equation and related controls
-    var equationPanel = new EquationPanel( this.viewProperties.simplifyEquationProperty, {
+    var equationPanel = new EquationPanel( scene.builder, this.viewProperties.simplifyEquationProperty, {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol

@@ -30,7 +30,7 @@ define( function( require ) {
       
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
       xSymbol: slopeInterceptEquation.xSymbol, // {string} symbol for input
-      ySymnbol: FBSymbols.Y, // {string} symbol for output
+      ySymbol: FBSymbols.Y, // {string} symbol for output
       
       // fonts
       xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
@@ -56,7 +56,7 @@ define( function( require ) {
     assert && assert( intercept instanceof RationalNumber );
 
     // y
-    var yNode = new Text( options.ySymnbol, {
+    var yNode = new Text( options.ySymbol, {
       font: options.xyFont
     } );
 
