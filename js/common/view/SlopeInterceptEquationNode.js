@@ -124,7 +124,7 @@ define( function( require ) {
       }
       else {
 
-        // slope is 1, we don't display it
+        // slope is 1, so we don't display it
         inputLeft = equalsNode.right + options.equalsXSpacing;
       }
 
