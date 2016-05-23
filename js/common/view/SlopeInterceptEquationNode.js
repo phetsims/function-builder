@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Equation in slope-intercept form.
+ * Equation in slope-intercept form (e.g. y = 2x + 3)
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
