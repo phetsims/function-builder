@@ -81,7 +81,12 @@ define( function( require ) {
     // slope
     if ( slope.valueOf() !== 0 ) {
 
-      if ( slope.valueOf() !== 1 ) { // omit slope if value is 1, so we have 'x' instead of '1x'
+      if ( slope.valueOf() === 1 ) {
+
+        // omit slope if value is 1, so we have 'x' instead of '1x'
+        inputLeft = equalsNode.right + options.equalsXSpacing;
+      }
+      else {
 
         // slope is negative, handle sign as a separate node
         if ( slope.valueOf() < 0 ) {
@@ -121,11 +126,6 @@ define( function( require ) {
 
           inputLeft = slopeLineNode.right + options.slopeXSpacing;
         }
-      }
-      else {
-
-        // slope is 1, so we don't display it
-        inputLeft = equalsNode.right + options.equalsXSpacing;
       }
 
       // x
