@@ -39,10 +39,11 @@ define( function( require ) {
       fractionFont: new FBFont( 18 ), // {Font} font for fraction numerator and denominator
 
       // spacing
-      equalsXSpacing: 8, // {number} x space on both sides of equals
-      signXSpacing: 4, // {number} x spacing between sign and slope
-      operatorXSpacing: 8, // {number} x space on both sides of operator
-      slopeXSpacing: 6, // {number} x space between slope and x
+      equalsXSpacing: 8, // {number} x space on both sides of equals sign
+      signXSpacing: 4, // {number} x spacing between a negative sign and the number that follows it
+      operatorXSpacing: 8, // {number} x space on both sides of an operator
+      integerSlopeXSpacing: 3, // {number} x space between integer slope and x
+      fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
       fractionYSpacing: 2  // {number} y space above and below fraction line
 
     }, options );
@@ -106,7 +107,7 @@ define( function( require ) {
             left: slopeLeft
           } );
           options.children.push( slopeAndSignNode );
-          inputLeft = slopeAndSignNode.right + options.slopeXSpacing;
+          inputLeft = slopeAndSignNode.right + options.integerSlopeXSpacing;
         }
         else {
 
@@ -125,7 +126,7 @@ define( function( require ) {
           runNode.centerX = slopeLineNode.centerX;
           runNode.top = slopeLineNode.bottom + options.fractionYSpacing;
 
-          inputLeft = slopeLineNode.right + options.slopeXSpacing;
+          inputLeft = slopeLineNode.right + options.fractionSlopeXSpacing;
         }
       }
 
