@@ -2,12 +2,12 @@ TODO list for function-builder
 
 ---
 
-Cards (model elements) should have more responsibilities. They current only describe the input. Consider
-making them responsible for what is displayed on the card: updating as location changes, notifying listeners, etc.
-
 Unsimplified equation
 
 Reset All
+
+Cards (model elements) should have more responsibilities. They current only describe the input. Consider
+making them responsible for what is displayed on the card: updating as location changes, notifying listeners, etc.
 
 Table
 
