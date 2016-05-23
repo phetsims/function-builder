@@ -60,6 +60,7 @@ define( function( require ) {
 
     /**
      * String representation, for debugging use only, do not rely on this format.
+     *
      * @returns {string}
      */
     toString: function() {
