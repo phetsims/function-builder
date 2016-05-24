@@ -99,9 +99,6 @@ define( function( require ) {
     //--------------------------------------------------------------------------------------------------------
     // Other
 
-    // font for check boxes
-    CHECK_BOX_FONT: new FBFont( 18 ),
-
     // font for equations
     EQUATION_FONT: new FBFont( 20 ),
 

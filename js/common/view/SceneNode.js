@@ -14,7 +14,6 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -196,11 +195,10 @@ define( function( require ) {
 
     // Misc controls ----------------------------------------------------------------------------------------------------
 
-    // hHide function icons in the builder
+    // hide function icons in the builder
     var hideFunctionsCheckBox = new CheckBox(
       FBIconFactory.createHideFunctionsIcon(),
       this.viewProperties.hideFunctionsProperty, {
-        font: FBConstants.CHECK_BOX_FONT,
         spacing: 8,
         left: inputCarousel.left,
         top: functionCarousel.top

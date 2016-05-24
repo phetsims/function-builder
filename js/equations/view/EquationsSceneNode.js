@@ -53,7 +53,7 @@ define( function( require ) {
     SceneNode.call( this, scene, layoutBounds, options );
 
     // add additional view-specific properties
-    this.viewProperties.addProperty( 'simplifyEquation', false );
+    this.viewProperties.addProperty( 'slopeIntercept', false ); // @public whether slope-intercept form is displayed
 
     // Table
     var tableNode = new XYTableNode( scene.builder, {
@@ -241,7 +241,7 @@ define( function( require ) {
     }
 
     // Equation and related controls
-    var equationPanel = new EquationPanel( scene.builder, this.viewProperties.simplifyEquationProperty, {
+    var equationPanel = new EquationPanel( scene.builder, this.viewProperties.slopeInterceptProperty, {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol

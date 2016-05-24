@@ -26,15 +26,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var simplifyString = require( 'string!FUNCTION_BUILDER/simplify' );
+  var slopeInterceptString = require( 'string!FUNCTION_BUILDER/slopeIntercept' );
 
   /**
    * @param {Builder} builder
-   * @param {Property.<boolean>} simplifyEquationProperty
+   * @param {Property.<boolean>} slopeInterceptProperty
    * @param {Object} [options]
    * @constructor
    */
-  function EquationPanel( builder, simplifyEquationProperty, options ) {
+  function EquationPanel( builder, slopeInterceptProperty, options ) {
 
     options = _.extend( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
@@ -44,7 +44,7 @@ define( function( require ) {
 
     // @private
     this.builder = builder;
-    this.simplifyEquationProperty = simplifyEquationProperty;
+    this.slopeInterceptProperty = slopeInterceptProperty;
     this.xSymbol = options.xSymbol;
     this.ySymbol = options.ySymbol;
 
@@ -55,23 +55,23 @@ define( function( require ) {
       fill: 'white'
     } );
 
-    // 'Simplify Equation' check box, at bottom center
-    var simplifyEquationLabel = new Text( simplifyString, {
-      font: FBConstants.CHECK_BOX_FONT,
+    // 'slope-intercept' check box, at bottom center
+    var slopeInterceptLabel = new Text( slopeInterceptString, {
+      font: new FBFont( 16 ),
       maxWidth: 0.9 * options.size.width
     } );
-    var simplifyEquationCheckBox = new CheckBox( simplifyEquationLabel, simplifyEquationProperty, {
+    var slopeInterceptCheckBox = new CheckBox( slopeInterceptLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
       bottom: this.backgroundNode.bottom - 5
     } );
-    simplifyEquationCheckBox.touchArea = simplifyEquationCheckBox.localBounds.dilatedXY( 10, 10 );
+    slopeInterceptCheckBox.touchArea = slopeInterceptCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // @private initialized by updateEquations
-    this.simplifiedEquationNode = null;
-    this.unsimplifiedEquationNode = null;
+    this.slopeInterceptEquationNode = null;
+    this.phetEquationNode = null; //TODO what to name this?
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, simplifyEquationCheckBox ];
+    options.children = [ this.backgroundNode, slopeInterceptCheckBox ];
 
     Node.call( this, options );
 
@@ -81,12 +81,12 @@ define( function( require ) {
     // @private center of space available for equations
     this.equationCenter = new Vector2(
       this.backgroundNode.centerX,
-      this.backgroundNode.top + ( simplifyEquationCheckBox.top - this.backgroundNode.top ) / 2
+      this.backgroundNode.top + ( slopeInterceptCheckBox.top - this.backgroundNode.top ) / 2
     );
 
-    simplifyEquationProperty.lazyLink( function( simplifyEquation ) {
-      thisNode.simplifiedEquationNode.visible = simplifyEquation;
-      thisNode.unsimplifiedEquationNode.visible = !simplifyEquation;
+    slopeInterceptProperty.lazyLink( function( slopeIntercept ) {
+      thisNode.slopeInterceptEquationNode.visible = slopeIntercept;
+      thisNode.phetEquationNode.visible = !slopeIntercept;
     } );
 
     builder.functionChangedEmitter.addListener( function() {
@@ -102,34 +102,36 @@ define( function( require ) {
 
     updateEquations: function() {
 
-      // unsimplified (PhET-specific) form
-      if ( this.unsimplifiedEquationNode ) {
-        this.removeChild( this.unsimplifiedEquationNode );
+      // apply all functions in the builder
+      var mathFunctions = this.builder.applyFunctions( [], this.builder.slots.length );
+      
+      // PhET-specific form
+      if ( this.phetEquationNode ) {
+        this.removeChild( this.phetEquationNode );
       }
-      //TODO temporary unsimplifiedEquationNode
-      this.unsimplifiedEquationNode = new Text( 'unsimplified', {
+      //TODO temporary phetEquationNode
+      this.phetEquationNode = new Text( 'PhET-specific equation', {
         font: new FBFont( 20 ),
         maxWidth: this.equationMaxWidth,
         center: this.equationCenter,
-        visible: !this.simplifyEquationProperty.get()
+        visible: !this.slopeInterceptProperty.get()
       } );
-      this.addChild( this.unsimplifiedEquationNode );
+      this.addChild( this.phetEquationNode );
 
-      // simplified (slope-intercept) form
-      if ( this.simplifiedEquationNode ) {
-        this.removeChild( this.simplifiedEquationNode );
+      // slope-intercept form
+      if ( this.slopeInterceptEquationNode ) {
+        this.removeChild( this.slopeInterceptEquationNode );
       }
-      var mathFunctions = this.builder.applyFunctions( [], this.builder.slots.length );
       var slopeInterceptEquation = new SlopeInterceptEquation( this.xSymbol, mathFunctions );
-      this.simplifiedEquationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
+      this.slopeInterceptEquationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
         showLeftHandSide: true,
         xSymbol: this.xSymbol,
         ySymbol: this.ySymbol,
         maxWidth: this.equationMaxWidth,
         center: this.equationCenter,
-        visible: this.simplifyEquationProperty.get()
+        visible: this.slopeInterceptProperty.get()
       } );
-      this.addChild( this.simplifiedEquationNode );
+      this.addChild( this.slopeInterceptEquationNode );
     }
   } );
 } );
