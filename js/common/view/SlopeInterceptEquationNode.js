@@ -112,8 +112,8 @@ define( function( require ) {
 
           var slopeNode = new RationalNumberNode( slope, {
             mixedNumber: false,
-            fractionYSpace: options.fractionYSpacing,
-            signXSpace: options.signXSpacing,
+            fractionYSpacing: options.fractionYSpacing,
+            signXSpacing: options.signXSpacing,
             signFont: options.signFont,
             wholeNumberFont: options.wholeNumberFont,
             fractionFont: options.fractionFont,
@@ -158,8 +158,8 @@ define( function( require ) {
       if ( intercept.valueOf() !== 0 ) {
         var interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
           mixedNumber: false,
-          fractionYSpace: options.fractionYSpacing,
-          signXSpace: options.signXSpacing,
+          fractionYSpacing: options.fractionYSpacing,
+          signXSpacing: options.signXSpacing,
           signFont: options.signFont,
           wholeNumberFont: options.wholeNumberFont,
           fractionFont: options.fractionFont,

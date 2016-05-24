@@ -28,19 +28,29 @@ define( function( require ) {
     assert && assert( rationalNumber instanceof RationalNumber );
 
     options = _.extend( {
+      
+      mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
       color: 'black', // {Color|string} color used for all sub-parts of this node
+      fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
+      
+      // sign
       negativeSymbol: '\u2212', // {string} symbol used for negative sign
       positiveSymbol: '\u002b', // {string} symbol used for positive sign
       showPositiveSign: false, // {boolean} show sign on positive numbers?
+      
+      // fonts
       signFont: new PhetFont( 22 ),
       wholeNumberFont: new PhetFont( 30 ),
       fractionFont: new PhetFont( 20 ),
-      fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
-      signXSpace: 3, // {number} space to right of sign
-      fractionXSpace: 3, // {number} horizontal space between whole number and fraction
-      fractionYSpace: 2, // {number} vertical space in fraction
-      mixedNumber: false // {boolean} true: display as mixed number, false: display as improper fraction
+      
+      // spacing
+      signXSpacing: 3, // {number} space to right of sign
+      fractionXSpacing: 3, // {number} space between whole number and fraction
+      fractionYSpacing: 2 // {number} space above and below fraction line
+      
     }, options );
+
+    assert && assert( !options.children, 'decoration is not supported' );
 
     // @private options used by setValue
     this.options = options;
@@ -52,11 +62,11 @@ define( function( require ) {
 
   functionBuilder.register( 'RationalNumberNode', RationalNumberNode );
 
-  inherit( Node, RationalNumberNode, {
+  return inherit( Node, RationalNumberNode, {
 
     /**
      * Sets the value displayed by this node.
-     * Note that calling this is relatively expensive, because it rebuilds then node.
+     * This is relatively expensive, because it rebuilds then node.
      *
      * @param {RationalNumber} rationalNumber
      * @public
@@ -81,7 +91,7 @@ define( function( require ) {
         this.addChild( signNode );
 
         // position of next node
-        left = signNode.right + this.options.signXSpace;
+        left = signNode.right + this.options.signXSpacing;
         centerY = signNode.centerY;
       }
 
@@ -103,7 +113,7 @@ define( function( require ) {
         this.addChild( wholeNumberNode );
 
         // position of next node
-        left = wholeNumberNode.right + this.options.fractionXSpace;
+        left = wholeNumberNode.right + this.options.fractionXSpacing;
         centerY = wholeNumberNode.centerY;
       }
 
@@ -131,12 +141,10 @@ define( function( require ) {
 
         // layout
         numeratorNode.centerX = lineNode.centerX;
-        numeratorNode.bottom = lineNode.top - this.options.fractionYSpace;
+        numeratorNode.bottom = lineNode.top - this.options.fractionYSpacing;
         denominatorNode.centerX = lineNode.centerX;
-        denominatorNode.top = lineNode.bottom + this.options.fractionYSpace;
+        denominatorNode.top = lineNode.bottom + this.options.fractionYSpacing;
       }
     }
   } );
-
-  return RationalNumberNode;
 } );
