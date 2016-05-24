@@ -19,6 +19,8 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PhetEquation = require( 'FUNCTION_BUILDER/common/model/PhetEquation' );
+  var PhetEquationNode = require( 'FUNCTION_BUILDER/common/view/PhetEquationNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
@@ -111,9 +113,8 @@ define( function( require ) {
       if ( this.phetEquationNode ) {
         this.removeChild( this.phetEquationNode );
       }
-      //TODO temporary phetEquationNode
-      this.phetEquationNode = new Text( 'PhET-specific equation', {
-        font: new FBFont( 20 ),
+      var phetEquation = new PhetEquation( this.xSymbol, mathFunctions );
+      this.phetEquationNode = new PhetEquationNode( phetEquation, {
         maxWidth: this.equationMaxWidth,
         center: this.equationCenter,
         visible: !this.slopeInterceptProperty.get()
