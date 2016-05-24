@@ -156,7 +156,7 @@ define( function( require ) {
       else {
 
         // no operator, intercept follows equals sign
-        interceptLeft = equalsNode.right + options.equalsXSpacing
+        interceptLeft = equalsNode.right + options.equalsXSpacing;
       }
 
       // intercept
