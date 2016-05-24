@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO performance: update only when XYGraphNode is visible
 /**
  * XY graph for the 'Equations' screen.
  *

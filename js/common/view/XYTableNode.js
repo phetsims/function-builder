@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO performance: update only when XYTableNode is visible
 /**
  * XY table.  Summary of use and behavior:
  *
