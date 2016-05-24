@@ -2,7 +2,7 @@ TODO list for function-builder
 
 ---
 
-Unsimplified equation
+PhetEquation, PhetEquationNode
 
 Reset All
 
