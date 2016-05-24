@@ -153,6 +153,11 @@ define( function( require ) {
         options.children.push( operatorNode );
         interceptLeft = operatorNode.right + options.operatorXSpacing;
       }
+      else {
+
+        // no operator, intercept follows equals sign
+        interceptLeft = equalsNode.right + options.equalsXSpacing
+      }
 
       // intercept
       if ( intercept.valueOf() !== 0 ) {
