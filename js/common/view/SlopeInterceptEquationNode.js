@@ -33,11 +33,11 @@ define( function( require ) {
       ySymbol: FBSymbols.Y, // {string} symbol for output
 
       // fonts
-      xyFont: FBConstants.NUMBERS_CARD_XY_FONT, // {Font} font for x & y symbols
-      symbolFont: FBConstants.NUMBERS_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
-      integerFont: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT, // {Font} font for integer values
-      fractionFont: FBConstants.NUMBERS_CARD_FRACTION_FONT, // {Font} font for fraction numerator and denominator
-      signFont: FBConstants.NUMBERS_CARD_SIGN_FONT, // {Font} font for negative sign
+      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} font for x & y symbols
+      symbolFont: FBConstants.EQUATION_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
+      integerFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for integer values
+      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT, // {Font} font for fraction numerator and denominator
+      signFont: FBConstants.EQUATION_CARD_SIGN_FONT, // {Font} font for negative sign
 
       // x spacing
       equalsXSpacing: 8, // {number} x space on both sides of equals sign

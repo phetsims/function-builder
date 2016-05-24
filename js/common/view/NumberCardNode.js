@@ -39,9 +39,9 @@ define( function( require ) {
     this.rationalNumberNode = new RationalNumberNode( card.rationalNumber, {
       mixedNumber: false, // display as improper fraction
       negativeSymbol: FBSymbols.MINUS,
-      signFont: FBConstants.NUMBERS_CARD_SIGN_FONT,
-      wholeNumberFont: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT,
-      fractionFont: FBConstants.NUMBERS_CARD_FRACTION_FONT,
+      signFont: FBConstants.EQUATION_CARD_SIGN_FONT,
+      wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
+      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT,
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 
@@ -86,7 +86,7 @@ define( function( require ) {
     createGhostNode: function( rationalNumber, options ) {
       assert && assert( rationalNumber instanceof RationalNumber );
       var contentNode = new Text( rationalNumber.valueOf(), {
-        font: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT
+        font: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT
       } );
       return CardNode.createGhostNode( contentNode, options );
     }

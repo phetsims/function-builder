@@ -54,12 +54,12 @@ define( function( require ) {
     // scale for the images on cards
     CARD_IMAGE_SCALE: 0.4,
 
-    // fonts for cards in the Numbers screen
-    NUMBERS_CARD_XY_FONT: new MathSymbolFont( 30 ),
-    NUMBERS_CARD_SYMBOL_FONT: new FBFont( 30 ), // eg, +, -, =
-    NUMBERS_CARD_SIGN_FONT: new FBFont( 22 ),
-    NUMBERS_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
-    NUMBERS_CARD_FRACTION_FONT: new FBFont( 20 ),
+    // fonts for cards that display an equation or number
+    EQUATION_CARD_XY_FONT: new MathSymbolFont( 30 ),
+    EQUATION_CARD_SYMBOL_FONT: new FBFont( 30 ), // eg, +, -, =
+    EQUATION_CARD_SIGN_FONT: new FBFont( 22 ),
+    EQUATION_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
+    EQUATION_CARD_FRACTION_FONT: new FBFont( 20 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
@@ -90,7 +90,7 @@ define( function( require ) {
 
     // fonts for functions in Equations screen
     EQUATIONS_FUNCTION_PICKER_FONT: new FBFont( 30 ),
-    EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 26 ),
+    EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 30 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Other

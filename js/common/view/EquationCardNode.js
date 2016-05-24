@@ -87,7 +87,7 @@ define( function( require ) {
      */
     createGhostNode: function( symbol, options ) {
       assert && assert( typeof symbol === 'string' );
-      var contentNode = new Text( symbol, { font: FBConstants.NUMBERS_CARD_XY_FONT } );
+      var contentNode = new Text( symbol, { font: FBConstants.EQUATION_CARD_XY_FONT } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );
