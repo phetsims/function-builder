@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -33,14 +33,15 @@ define( function( require ) {
       ySymbol: FBSymbols.Y, // {string} symbol for output
 
       // fonts
-      xyFont: new MathSymbolFont( 24 ), // {Font} font for x & y symbols
-      symbolFont: new FBFont( 24 ), // {Font} font for math symbols (equals, plus, minus, negative sign)
-      integerFont: new FBFont( 24 ), // {Font} font for integer values
-      fractionFont: new FBFont( 18 ), // {Font} font for fraction numerator and denominator
+      xyFont: FBConstants.NUMBERS_CARD_XY_FONT, // {Font} font for x & y symbols
+      symbolFont: FBConstants.NUMBERS_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
+      integerFont: FBConstants.NUMBERS_CARD_WHOLE_NUMBER_FONT, // {Font} font for integer values
+      fractionFont: FBConstants.NUMBERS_CARD_FRACTION_FONT, // {Font} font for fraction numerator and denominator
+      signFont: FBConstants.NUMBERS_CARD_SIGN_FONT, // {Font} font for negative sign
 
       // x spacing
       equalsXSpacing: 8, // {number} x space on both sides of equals sign
-      signXSpacing: 4, // {number} x spacing between a negative sign and the number that follows it
+      signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
       operatorXSpacing: 8, // {number} x space on both sides of an operator
       integerSlopeXSpacing: 3, // {number} x space between integer slope and x
       fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
@@ -103,9 +104,9 @@ define( function( require ) {
         // slope is negative, handle sign as a separate node
         if ( slope.valueOf() < 0 ) {
           var slopeSignNode = new Text( FBSymbols.MINUS, {
-            font: options.symbolFont,
+            font: options.signFont,
             left: signLeft,
-            y: options.signYOffset
+            centerY: equalsNode.centerY + options.signYOffset
           } );
           options.children.push( slopeSignNode );
           slopeLeft = slopeSignNode.right + options.signXSpacing;
@@ -117,7 +118,7 @@ define( function( require ) {
           var slopeAndSignNode = new Text( Math.abs( slope.valueOf() ), {
             font: options.integerFont,
             left: slopeLeft,
-            y: options.integerYOffset
+            centerY: equalsNode.centerY + options.integerYOffset
           } );
           options.children.push( slopeAndSignNode );
           inputLeft = slopeAndSignNode.right + options.integerSlopeXSpacing;
@@ -147,7 +148,7 @@ define( function( require ) {
       var xNode = new Text( options.xSymbol, {
         font: options.xyFont,
         left: inputLeft,
-        y: options.xyYOffset
+        centerY: equalsNode.centerY + options.xyYOffset
       } );
       options.children.push( xNode );
       operatorLeft = xNode.right + options.operatorXSpacing;
@@ -164,7 +165,7 @@ define( function( require ) {
         var operatorNode = new Text( operator, {
           font: options.symbolFont,
           left: operatorLeft,
-          y: options.operatorYOffset
+          centerY: equalsNode.centerY + options.operatorYOffset
         } );
         options.children.push( operatorNode );
         interceptLeft = operatorNode.right + options.operatorXSpacing;
@@ -173,9 +174,9 @@ define( function( require ) {
 
         // intercept negative sign
         var interceptSignNode = new Text( FBSymbols.MINUS, {
-          font: options.symbolFont,
+          font: options.signFont,
           left: signLeft,
-          y: options.signYOffset
+          centerY: equalsNode.centerY + options.signYOffset
         } );
         options.children.push( interceptSignNode );
         interceptLeft = interceptSignNode.right + options.signXSpacing;
@@ -190,12 +191,12 @@ define( function( require ) {
       if ( intercept.isInteger() ) {
 
         // intercept is an integer
-        var interceptAndSignNode = new Text( Math.abs( intercept.valueOf() ), {
+        var interceptNode = new Text( Math.abs( intercept.valueOf() ), {
           font: options.integerFont,
           left: interceptLeft,
-          y: options.integerYOffset
+          centerY: equalsNode.centerY + options.integerYOffset
         } );
-        options.children.push( interceptAndSignNode );
+        options.children.push( interceptNode );
       }
       else {
 

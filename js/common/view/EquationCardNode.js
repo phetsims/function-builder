@@ -14,6 +14,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -37,13 +38,8 @@ define( function( require ) {
     // @private constrain equation to card
     this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
 
-    //TODO this initialization is a little obtuse
-    // @private
-    this.equationNode = new SlopeInterceptEquationNode( new SlopeInterceptEquation( card.xSymbol, [] ), {
-      xSymbol: card.xSymbol,
-      font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT,
-      maxWidth: this.equationMaxWidth
-    } );
+    // @private will be updated properly by updateContent
+    this.equationNode = new Rectangle( 0, 0, 1, 1 );
 
     CardNode.call( this, card, this.equationNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -91,7 +87,7 @@ define( function( require ) {
      */
     createGhostNode: function( symbol, options ) {
       assert && assert( typeof symbol === 'string' );
-      var contentNode = new Text( symbol, { font: FBConstants.EQUATIONS_CARD_SYMBOL_FONT } );
+      var contentNode = new Text( symbol, { font: FBConstants.NUMBERS_CARD_XY_FONT } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );

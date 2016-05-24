@@ -14,6 +14,7 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants that are used to compute other constants
@@ -54,12 +55,11 @@ define( function( require ) {
     CARD_IMAGE_SCALE: 0.4,
 
     // fonts for cards in the Numbers screen
+    NUMBERS_CARD_XY_FONT: new MathSymbolFont( 30 ),
+    NUMBERS_CARD_SYMBOL_FONT: new FBFont( 30 ), // eg, +, -, =
     NUMBERS_CARD_SIGN_FONT: new FBFont( 22 ),
     NUMBERS_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
     NUMBERS_CARD_FRACTION_FONT: new FBFont( 20 ),
-
-    // fonts for symbols cards in the Equations screen
-    EQUATIONS_CARD_SYMBOL_FONT: new FBFont( 30 ),
 
     // fonts for carousel labels
     NUMBERS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 20 ),
