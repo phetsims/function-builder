@@ -20,7 +20,7 @@ define( function( require ) {
 
   /**
    * @param {SlopeInterceptEquation} slopeInterceptEquation
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function SlopeInterceptEquationNode( slopeInterceptEquation, options ) {
