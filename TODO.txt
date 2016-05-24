@@ -2,9 +2,7 @@ TODO list for function-builder
 
 ---
 
-'x' card is using wrong font in input carousel
-
-'x' output has a different font than other cards (eg x 0 - 2)
+Use RationalNumberNode to implement SlopeInterceptEquationNode
 
 Unsimplified equation
 
