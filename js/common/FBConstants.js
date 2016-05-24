@@ -61,10 +61,6 @@ define( function( require ) {
     NUMBERS_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
     NUMBERS_CARD_FRACTION_FONT: new FBFont( 20 ),
 
-    // fonts for carousel labels
-    NUMBERS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 20 ),
-    EQUATIONS_CARD_CAROUSEL_LABEL_FONT: new FBFont( 30 ),
-
     //--------------------------------------------------------------------------------------------------------
     // Functions
 
