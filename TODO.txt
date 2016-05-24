@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-Use RationalNumberNode to implement SlopeInterceptEquationNode
-
 Unsimplified equation
 
 Reset All
