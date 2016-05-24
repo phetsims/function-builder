@@ -25,8 +25,8 @@ define( function( require ) {
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   // constants
+  var DRAWER_CORNER_RADIUS = 4;
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
-  var TABLE_CORNER_RADIUS = 4;
 
   /**
    * @param {Scene} scene - model for this scene
@@ -60,14 +60,14 @@ define( function( require ) {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       tableHeadingFont: options.tableHeadingFont,
-      cornerRadius: TABLE_CORNER_RADIUS
+      cornerRadius: DRAWER_CORNER_RADIUS
     } );
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO table drawer should be initially open
       handleLocation: 'top',
-      cornerRadius: TABLE_CORNER_RADIUS,
+      cornerRadius: DRAWER_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );
@@ -182,11 +182,14 @@ define( function( require ) {
       this.tableDrawer.right = scene.builder.centerX - 20; // offset determined empirically
 
       // Graph
-      var graphNode = new XYGraphNode( scene.builder );
+      var graphNode = new XYGraphNode( scene.builder, {
+        cornerRadius: DRAWER_CORNER_RADIUS
+      } );
 
       // @private Graph drawer
       this.graphDrawer = new Drawer( graphNode, {
         open: false,
+        cornerRadius: DRAWER_CORNER_RADIUS,
         handleLocation: 'top',
         left: scene.builder.centerX - 5, // offset determined empirically
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
@@ -243,6 +246,7 @@ define( function( require ) {
     // Equation and related controls
     var equationPanel = new EquationPanel( scene.builder, this.viewProperties.slopeInterceptProperty, {
       size: FBConstants.EQUATION_DRAWER_SIZE,
+      cornerRadius: DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol
     } );
@@ -250,9 +254,8 @@ define( function( require ) {
     // @private Equation drawer
     this.equationDrawer = new Drawer( equationPanel, {
       open: false,
+      cornerRadius: DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
-      xMargin: 30,
-      yMargin: 10,
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );

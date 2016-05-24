@@ -52,6 +52,7 @@ define( function( require ) {
     options = _.extend( {
 
       size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
+      cornerRadius: 0,
       background: 'white', // {Color|string} background color of the graph
       xRange: new Range( -7, 7 ), // {Range} of the x axis, in model coordinates
       yRange: new Range( -90, 90 ), // {Range} of the y axis, in model coordinates
@@ -103,6 +104,7 @@ define( function( require ) {
     this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      cornerRadius: options.cornerRadius,
       fill: options.background
     } );
 

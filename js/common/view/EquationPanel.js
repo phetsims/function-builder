@@ -38,6 +38,7 @@ define( function( require ) {
 
     options = _.extend( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
+      cornerRadius: 0,
       xSymbol: FBSymbols.X, // {string} symbol for x, the input
       ySymbol: FBSymbols.Y // {string} symbol for y, the output
     }, options );
@@ -52,6 +53,7 @@ define( function( require ) {
 
     // @private background
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      cornerRadius: options.cornerRadius,
       fill: 'white'
     } );
 
@@ -62,7 +64,7 @@ define( function( require ) {
     } );
     var slopeInterceptCheckBox = new CheckBox( slopeInterceptLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
-      bottom: this.backgroundNode.bottom - 5
+      bottom: this.backgroundNode.bottom - 10
     } );
     slopeInterceptCheckBox.touchArea = slopeInterceptCheckBox.localBounds.dilatedXY( 10, 10 );
 
