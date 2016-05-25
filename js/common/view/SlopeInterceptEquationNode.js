@@ -31,6 +31,11 @@ define( function( require ) {
       xSymbol: slopeInterceptEquation.xSymbol, // {string} symbol for input
       ySymbol: FBSymbols.Y, // {string} symbol for output
 
+      // colors
+      xColor: 'black', // {Color|string} for x
+      yColor: 'black', // {Color|string} for y
+      color: 'black', // {Color|string} for everything else
+
       // fonts
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} font for x & y symbols
       symbolFont: FBConstants.EQUATION_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
@@ -67,12 +72,14 @@ define( function( require ) {
 
     // y
     var yNode = new Text( options.ySymbol, {
+      fill: options.yColor,
       font: options.xyFont,
       y: options.xyYOffset
     } );
 
     // =
     var equalsNode = new Text( FBSymbols.EQUALS, {
+      fill: options.color,
       font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing
     } );
@@ -86,6 +93,7 @@ define( function( require ) {
 
       // y = 0
       var zeroNode = new Text( '0', {
+        fill: options.yColor,
         font: options.wholeNumberFont,
         left: equalsNode.right + options.equalsXSpacing
       } );
@@ -112,6 +120,7 @@ define( function( require ) {
 
           // omit 1 if value is -1, so we have '-x' instead of '-1x'
           var signNode = new Text( FBSymbols.MINUS, {
+            fill: options.color,
             font: options.signFont,
             left: equalsNode.right + options.equalsXSpacing,
             centerY: equalsNode.centerY
@@ -124,6 +133,7 @@ define( function( require ) {
 
           // whole number or fractional slope
           var slopeNode = new RationalNumberNode( slope, {
+            fill: options.color,
             mixedNumber: false, // display as an improper fraction
             fractionYSpacing: options.fractionYSpacing,
             signXSpacing: options.signXSpacing,
@@ -147,6 +157,7 @@ define( function( require ) {
       // x
       if ( slope.valueOf() !== 0 ) {
         var xNode = new Text( options.xSymbol, {
+          fill: options.xColor,
           font: options.xyFont,
           left: xLeft,
           centerY: equalsNode.centerY + options.xyYOffset
@@ -159,6 +170,7 @@ define( function( require ) {
       if ( ( intercept.valueOf() !== 0 ) && ( slope.valueOf() !== 0 ) ) {
         var operator = ( intercept.valueOf() > 0 ) ? FBSymbols.PLUS : FBSymbols.MINUS;
         var operatorNode = new Text( operator, {
+          fill: options.color,
           font: options.symbolFont,
           left: operatorLeft,
           centerY: equalsNode.centerY + options.operatorYOffset
@@ -175,6 +187,7 @@ define( function( require ) {
       // intercept
       if ( intercept.valueOf() !== 0 ) {
         var interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
+          fill: options.color,
           mixedNumber: false, // display as an improper fraction
           fractionYSpacing: options.fractionYSpacing,
           signXSpacing: options.signXSpacing,
