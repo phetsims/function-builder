@@ -124,7 +124,7 @@ define( function( require ) {
 
           // whole number or fractional slope
           var slopeNode = new RationalNumberNode( slope, {
-            mixedNumber: false,
+            mixedNumber: false, // display as an improper fraction
             fractionYSpacing: options.fractionYSpacing,
             signXSpacing: options.signXSpacing,
             signFont: options.signFont,
@@ -175,7 +175,7 @@ define( function( require ) {
       // intercept
       if ( intercept.valueOf() !== 0 ) {
         var interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
-          mixedNumber: false,
+          mixedNumber: false, // display as an improper fraction
           fractionYSpacing: options.fractionYSpacing,
           signXSpacing: options.signXSpacing,
           signFont: options.signFont,
