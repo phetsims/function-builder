@@ -110,7 +110,7 @@ define( function( require ) {
         }
         else if ( slope.valueOf() === -1 ) {
 
-          // omit slope if value is -1, so we have '-x' instead of '-1x'
+          // omit 1 if value is -1, so we have '-x' instead of '-1x'
           var signNode = new Text( FBSymbols.MINUS, {
             font: options.signFont,
             left: equalsNode.right + options.equalsXSpacing,
