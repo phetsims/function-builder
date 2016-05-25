@@ -32,8 +32,8 @@ define( function( require ) {
       ySymbol: FBSymbols.Y, // {string} symbol for output
 
       // colors
-      xColor: 'black', // {Color|string} for x
-      yColor: 'black', // {Color|string} for y
+      xColor: 'black', // {Color|string} for x symbol
+      yColor: 'black', // {Color|string} for y symbol
       color: 'black', // {Color|string} for everything else
 
       // fonts
