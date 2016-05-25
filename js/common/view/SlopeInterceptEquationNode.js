@@ -122,6 +122,7 @@ define( function( require ) {
         }
         else {
 
+          // whole number or fractional slope
           var slopeNode = new RationalNumberNode( slope, {
             mixedNumber: false,
             fractionYSpacing: options.fractionYSpacing,
