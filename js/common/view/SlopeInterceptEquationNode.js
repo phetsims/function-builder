@@ -108,6 +108,18 @@ define( function( require ) {
           // omit slope if value is 1, so we have 'x' instead of '1x'
           xLeft = equalsNode.right + options.equalsXSpacing;
         }
+        else if ( slope.valueOf() === -1 ) {
+
+          // omit slope if value is -1, so we have '-x' instead of '-1x'
+          var signNode = new Text( FBSymbols.MINUS, {
+            font: options.signFont,
+            left: equalsNode.right + options.equalsXSpacing,
+            centerY: equalsNode.centerY
+          } );
+          options.children.push( signNode );
+
+          xLeft = signNode.right + options.signXSpacing;
+        }
         else {
 
           var slopeNode = new RationalNumberNode( slope, {
