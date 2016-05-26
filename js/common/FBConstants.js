@@ -83,7 +83,7 @@ define( function( require ) {
     PATTERNS_FUNCTION_ICON_SCALE: 0.3,
 
     // font for functions in Patterns screen
-    PATTERNS_FUNCTION_FONT: new FBFont( 25, { weight: 'bold' } ),
+    PATTERNS_FUNCTION_FONT: new FBFont( 44 ),
 
     // font for functions in Numbers screen
     NUMBERS_FUNCTION_FONT: new FBFont( 30 ),

@@ -12,33 +12,22 @@ define( function( require ) {
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
 
   // strings
-  var aString = require( 'string!FUNCTION_BUILDER/A' );
-
-  // images
-  var mysteryAImage = require( 'mipmap!FUNCTION_BUILDER/functions/mysteryA.png' );
+  var mysteryAString = require( 'string!FUNCTION_BUILDER/mysteryA' );
 
   /**
    * @constructor
    */
   function MysteryA() {
 
-    var imageNode = new Image( mysteryAImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
-
-    var textNode = new Text( aString, {
+    var iconNode = new SubSupText( mysteryAString, {
+      subScale: 0.4,
       font: FBConstants.PATTERNS_FUNCTION_FONT,
-      maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width,
-      center: imageNode.center
-    } );
-
-    var iconNode = new Node( {
-      children: [ imageNode, textNode ]
+      maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width
     } );
 
     ImageFunction.call( this, iconNode, {

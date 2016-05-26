@@ -29,14 +29,14 @@
   "y": {
     "value": "y"
   },
-  "A": {
-    "value": "A"
+  "mysteryA": {
+    "value": "?<sub>A</sub>"
   },
-  "B": {
-    "value": "B"
+  "mysteryB": {
+    "value": "?<sub>B</sub>"
   },
-  "C": {
-    "value": "C"
+  "mysteryC": {
+    "value": "?<sub>C</sub>"
   },
   "mysteryCharacter": {
     "value": "?"
