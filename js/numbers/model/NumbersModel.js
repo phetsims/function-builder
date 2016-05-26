@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );

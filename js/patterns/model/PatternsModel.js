@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
