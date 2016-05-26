@@ -64,7 +64,7 @@ define( function( require ) {
       new FunctionCreator( Plus, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 255, 93, 93 )'
+        fill: 'rgb( 255, 120, 120 )'
       } ),
 
       // - 1
