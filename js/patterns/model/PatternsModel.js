@@ -99,16 +99,14 @@ define( function( require ) {
     var singleBuilder = new Builder( {
       numberOfSlots: SINGLE_BUILDER_SLOTS,
       width: SINGLE_BUILDER_WIDTH,
-      location: new Vector2( SINGLE_BUILDER_X, FBConstants.BUILDER_Y ),
-      colorScheme: FBColors.BUILDER_MAROON
+      location: new Vector2( SINGLE_BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
     // builder for 'composed' scene
     var composedBuilder = new Builder( {
       numberOfSlots: COMPOSED_BUILDER_SLOTS,
       width: COMPOSED_BUILDER_WIDTH,
-      location: new Vector2( COMPOSED_BUILDER_X, FBConstants.BUILDER_Y ),
-      colorScheme: FBColors.BUILDER_BLUE
+      location: new Vector2( COMPOSED_BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
     // @public (read-only)

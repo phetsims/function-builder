@@ -54,7 +54,7 @@ define( function( require ) {
       location: new Vector2( 0, 0 ),
 
       // {Object} color scheme, see FBUtils.isaBuilderColorScheme
-      colorScheme: FBColors.BUILDER_MAROON
+      colorScheme: FBColors.BUILDER_BLUE
     }, options );
 
     // verify duck typing of colorScheme

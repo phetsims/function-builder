@@ -136,8 +136,7 @@ define( function( require ) {
     var builder = new MathBuilder( {
       numberOfSlots: BUILDER_SLOTS,
       width: BUILDER_WIDTH,
-      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y ),
-      colorScheme: FBColors.BUILDER_BLUE
+      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
     // @public This screen has a single scene.

@@ -23,14 +23,6 @@ define( function( require ) {
     HIDDEN_FUNCTION: 'rgb( 220, 220, 220 )',
 
     // a builder color scheme, see FBUtils.isaBuilderColorScheme
-    BUILDER_MAROON: {
-      top: 'rgb( 200, 182, 188 )',
-      middle: 'rgb( 130, 62, 85 )',
-      bottom: 'black',
-      ends: 'rgb( 200, 186, 190 )'
-    },
-
-    // a builder color scheme, see FBUtils.isaBuilderColorScheme
     BUILDER_BLUE: {
       top: 'rgb( 168, 198, 216 )',
       middle: 'rgb( 6, 114, 180 )',
