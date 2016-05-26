@@ -113,8 +113,12 @@ define( function( require ) {
       if ( this.phetEquationNode ) {
         this.removeChild( this.phetEquationNode );
       }
-      var phetEquation = new PhetEquation( this.xSymbol, mathFunctions );
+      var phetEquation = new PhetEquation( mathFunctions, {
+        xSymbol: this.xSymbol
+      } );
       this.phetEquationNode = new PhetEquationNode( phetEquation, {
+        xSymbol: this.xSymbol,
+        ySymbol: this.ySymbol,
         maxWidth: this.equationMaxWidth,
         center: this.equationCenter,
         visible: !this.slopeInterceptProperty.get()

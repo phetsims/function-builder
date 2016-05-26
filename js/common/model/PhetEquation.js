@@ -11,23 +11,39 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {string} xSymbol - symbol for the input, typically 'x'
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
+   * @param {Object} [options]
    * @constructor
    */
-  function PhetEquation( xSymbol, mathFunctions ) {
+  function PhetEquation( mathFunctions, options ) {
+
+    options = _.extend( {
+      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
+    }, options );
 
     //TODO
 
     // @public (read-only)
-    this.xSymbol = xSymbol; // {string}
+    this.xSymbol = options.xSymbol; // {string}
   }
 
   functionBuilder.register( 'PhetEquation', PhetEquation );
 
-  return inherit( Object, PhetEquation );
+  return inherit( Object, PhetEquation, {
+
+    /**
+     * String representation, for debugging and PhET-iO.
+     *
+     * @returns {string}
+     */
+    toString: function() {
+      //TODO
+      return '?';
+    }
+  } );
 } );

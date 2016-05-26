@@ -62,7 +62,7 @@ define( function( require ) {
   return inherit( Object, SlopeInterceptEquation, {
 
     /**
-     * String representation, for debugging use only, do not rely on this format.
+     * String representation, for debugging and PhET-iO.
      *
      * @returns {string}
      */

@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,7 +25,15 @@ define( function( require ) {
   function PhetEquationNode( equation, options ) {
 
     options = _.extend( {
-      //TODO
+
+      xSymbol: FBSymbols.X, // {string} symbol for input
+      ySymbol: FBSymbols.Y, // {string} symbol for output
+
+      // colors
+      xColor: 'black', // {Color|string} for x symbol
+      yColor: 'black', // {Color|string} for y symbol
+      color: 'black' // {Color|string} for everything else
+
     }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
