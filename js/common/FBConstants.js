@@ -93,9 +93,13 @@ define( function( require ) {
     EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 30 ),
 
     //--------------------------------------------------------------------------------------------------------
-    // Other
+    // Drawers
 
-    // size of drawers
+    DRAWER_CORNER_RADIUS: 4,
+    DRAWER_Y_OVERLAP: 1, // how much drawers overlap the builder
+    DRAWER_TOUCH_AREA_X_DILATION: 25, // x dilation of the drawer's handle
+    DRAWER_TOUCH_AREA_Y_DILATION: 5, // y dilation of the drawer's handle
+
     TABLE_DRAWER_SIZE: new Dimension2( 175, 200 ),
     GRAPH_DRAWER_SIZE: new Dimension2( 200, 200 ),
     EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 )

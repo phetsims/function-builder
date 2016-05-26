@@ -21,6 +21,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  //TODO convert these to options before moving to scenery-phet
   // constants
   var HANDLE_SIZE = new Dimension2( 70, 20 );
   var HANDLE_CORNER_RADIUS = 5;

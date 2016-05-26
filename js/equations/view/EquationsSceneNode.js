@@ -24,12 +24,6 @@ define( function( require ) {
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
-  // constants
-  var DRAWER_CORNER_RADIUS = 4;
-  var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
-  var DRAWER_TOUCH_AREA_X_DILATION = 25;
-  var DRAWER_TOUCH_AREA_Y_DILATION = 5;
-
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
@@ -62,17 +56,17 @@ define( function( require ) {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       tableHeadingFont: options.tableHeadingFont,
-      cornerRadius: DRAWER_CORNER_RADIUS
+      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
     } );
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO table drawer should be initially open
       handleLocation: 'top',
-      touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
-      touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
-      cornerRadius: DRAWER_CORNER_RADIUS,
-      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
+      touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+      touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
+      bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );
 
@@ -187,18 +181,18 @@ define( function( require ) {
 
       // Graph
       var graphNode = new XYGraphNode( scene.builder, {
-        cornerRadius: DRAWER_CORNER_RADIUS
+        cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
       } );
 
       // @private Graph drawer
       this.graphDrawer = new Drawer( graphNode, {
         open: false,
-        cornerRadius: DRAWER_CORNER_RADIUS,
+        cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
         handleLocation: 'top',
-        touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
-        touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
+        touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+        touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
         left: scene.builder.centerX - 5, // offset determined empirically
-        bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
+        bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.graphDrawer );
 
@@ -252,7 +246,7 @@ define( function( require ) {
     // Equation and related controls
     var equationPanel = new EquationPanel( scene.builder, this.viewProperties.slopeInterceptProperty, {
       size: FBConstants.EQUATION_DRAWER_SIZE,
-      cornerRadius: DRAWER_CORNER_RADIUS,
+      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol
     } );
@@ -260,12 +254,12 @@ define( function( require ) {
     // @private Equation drawer
     this.equationDrawer = new Drawer( equationPanel, {
       open: false,
-      cornerRadius: DRAWER_CORNER_RADIUS,
+      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
-      touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
-      touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
+      touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+      touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       centerX: scene.builder.centerX,
-      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
+      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
   }
