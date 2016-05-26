@@ -63,8 +63,8 @@ define( function( require ) {
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO table drawer should be initially open
       handleLocation: 'top',
-      touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
     } );
@@ -189,8 +189,8 @@ define( function( require ) {
         open: false,
         cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
         handleLocation: 'top',
-        touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-        touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+        handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+        handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
         left: scene.builder.centerX - 5, // offset determined empirically
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
@@ -256,8 +256,8 @@ define( function( require ) {
       open: false,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
-      touchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      touchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
+      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
     } );

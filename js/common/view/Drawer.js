@@ -21,18 +21,6 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //TODO convert these to options before moving to scenery-phet
-  // constants
-  var HANDLE_SIZE = new Dimension2( 70, 20 );
-  var HANDLE_CORNER_RADIUS = 5;
-  var HANDLE_FILL = 'rgb( 230, 230, 230 )';
-  var GRIPPY_DOT_RADIUS = 1;
-  var GRIPPY_DOT_COLOR = 'black';
-  var GRIPPY_DOT_ROWS = 2;
-  var GRIPPY_DOT_COLUMNS = 4;
-  var GRIPPY_DOT_X_SPACING = 9;
-  var GRIPPY_DOT_Y_SPACING = 5;
-
   /**
    * @param {Node} contentsNode
    * @param {Object} [options]
@@ -41,17 +29,32 @@ define( function( require ) {
   function Drawer( contentsNode, options ) {
 
     options = _.extend( {
+      
       size: null, // {Dimension2|null} !null: contents sized to fit in container, null: container sized to fit contents
       cornerRadius: 0,
-      handleLocation: 'top', // {string} 'top'|'bottom'
       xMargin: 0,
       yMargin: 0,
       open: true, // {boolean} is the drawer initially open?
       animationEnabled: true, // {boolean} is animation enabled when opening/closing the drawer?
-      touchAreaXDilation: 0, // {number} touchArea for the drawer's handle
-      touchAreaYDilation: 0, // {number} touchArea for the drawer's handle
-      mouseAreaXDilation: 0, // {number} touchArea for the drawer's handle
-      mouseAreaYDilation: 0 // {number} touchArea for the drawer's handle
+      
+      // handle
+      handleLocation: 'top', // {string} 'top'|'bottom'
+      handleSize: new Dimension2( 70, 20 ),
+      handleCornerRadius: 5,
+      handleFill: 'rgb( 230, 230, 230 )', // {Color|string}
+      handleTouchAreaXDilation: 0, // {number} touchArea for the drawer's handle
+      handleTouchAreaYDilation: 0, // {number} touchArea for the drawer's handle
+      handleMouseAreaXDilation: 0, // {number} touchArea for the drawer's handle
+      handleMouseAreaYDilation: 0, // {number} touchArea for the drawer's handle
+      
+      // grippy dots on handle
+      grippyDotRadius: 1,
+      grippyDotColor: 'black', // {Color|string}
+      grippyDotRows: 2,
+      grippyDotColumns: 4,
+      grippyDotXSpacing: 9,
+      grippyDotYSpacing: 5
+      
     }, options );
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
@@ -88,16 +91,16 @@ define( function( require ) {
 
     // handle, rectangle with top or bottom corners rounded, the other corners square
     var HANDLE_RADII = ( options.handleLocation === 'top' ) ? {
-      topLeft: HANDLE_CORNER_RADIUS,
-      topRight: HANDLE_CORNER_RADIUS
+      topLeft: options.handleCornerRadius,
+      topRight: options.handleCornerRadius
     } : {
-      bottomLeft: HANDLE_CORNER_RADIUS,
-      bottomRight: HANDLE_CORNER_RADIUS
+      bottomLeft: options.handleCornerRadius,
+      bottomRight: options.handleCornerRadius
     };
-    var handleShape = Shape.roundedRectangleWithRadii( 0, 0, HANDLE_SIZE.width, HANDLE_SIZE.height, HANDLE_RADII );
+    var handleShape = Shape.roundedRectangleWithRadii( 0, 0, options.handleSize.width, options.handleSize.height, HANDLE_RADII );
     var handleNode = new Path( handleShape, {
       cursor: 'pointer',
-      fill: HANDLE_FILL,
+      fill: options.handleFill,
       stroke: 'black'
     } );
 
@@ -105,28 +108,28 @@ define( function( require ) {
     var grippyDotsShape = new Shape();
     var grippyX = 0;
     var grippyY = 0;
-    for ( var row = 0; row < GRIPPY_DOT_ROWS; row++ ) {
-      for ( var column = 0; column < GRIPPY_DOT_COLUMNS; column++ ) {
-        grippyX = column * GRIPPY_DOT_X_SPACING;
-        grippyY = row * GRIPPY_DOT_Y_SPACING;
+    for ( var row = 0; row < options.grippyDotRows; row++ ) {
+      for ( var column = 0; column < options.grippyDotColumns; column++ ) {
+        grippyX = column * options.grippyDotXSpacing;
+        grippyY = row * options.grippyDotYSpacing;
         grippyDotsShape.moveTo( grippyX, grippyY );
-        grippyDotsShape.arc( grippyX, grippyY, GRIPPY_DOT_RADIUS, 0, 2 * Math.PI );
+        grippyDotsShape.arc( grippyX, grippyY, options.grippyDotRadius, 0, 2 * Math.PI );
       }
     }
     var grippyDotsNode = new Path( grippyDotsShape, {
-      fill: GRIPPY_DOT_COLOR,
+      fill: options.grippyDotColor,
       center: handleNode.center
     } );
     handleNode.addChild( grippyDotsNode );
 
     // handle pointerArea
-    if ( options.touchAreaXDilation !== 0 || options.touchAreaYDilation !== 0 ) {
-      var touchAreaShiftY = ( options.handleLocation === 'top' ) ? -options.touchAreaYDilation : options.touchAreaYDilation;
-      handleNode.touchArea = handleNode.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation ).shiftedY( touchAreaShiftY );
+    if ( options.handleTouchAreaXDilation !== 0 || options.handleTouchAreaYDilation !== 0 ) {
+      var touchAreaShiftY = ( options.handleLocation === 'top' ) ? -options.handleTouchAreaYDilation : options.handleTouchAreaYDilation;
+      handleNode.touchArea = handleNode.localBounds.dilatedXY( options.handleTouchAreaXDilation, options.handleTouchAreaYDilation ).shiftedY( touchAreaShiftY );
     }
-    if ( options.mouseAreaXDilation !== 0 || options.mouseAreaYDilation !== 0 ) {
-      var mouseAreaShiftY = ( options.handleLocation === 'top' ) ? -options.mouseAreaYDilation : options.mouseAreaYDilation;
-      handleNode.mouseArea = handleNode.localBounds.dilatedXY( options.mouseAreaXDilation, options.mouseAreaYDilation ).shiftedY( mouseAreaShiftY );
+    if ( options.handleMouseAreaXDilation !== 0 || options.handleMouseAreaYDilation !== 0 ) {
+      var mouseAreaShiftY = ( options.handleLocation === 'top' ) ? -options.handleMouseAreaYDilation : options.handleMouseAreaYDilation;
+      handleNode.mouseArea = handleNode.localBounds.dilatedXY( options.handleMouseAreaXDilation, options.handleMouseAreaYDilation ).shiftedY( mouseAreaShiftY );
     }
 
     // layout, position the handle at center-top or center-bottom
@@ -221,6 +224,7 @@ define( function( require ) {
      *
      * @param {boolean} animationEnabled
      * @public
+     *
      */
     setAnimationEnabled: function( animationEnabled ) {
       this._animationEnabled = animationEnabled;
