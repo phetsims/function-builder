@@ -274,8 +274,8 @@ define( function( require ) {
 
     // @private updates the line
     updateLine: function() {
-      var yLeft = this.builder.applyFunctions( RationalNumber.withInteger( this.xRange.min ), this.builder.slots.length );
-      var yRight = this.builder.applyFunctions( RationalNumber.withInteger( this.xRange.max ), this.builder.slots.length );
+      var yLeft = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.min ) );
+      var yRight = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.max ) );
       this.lineNode.setLine(
         this.modelViewTransform.modelToViewX( this.xRange.min ),
         this.modelViewTransform.modelToViewY( yLeft ),
@@ -299,7 +299,7 @@ define( function( require ) {
       this.xCoordinates.push( x );
 
       // {RationalNumber} compute y based on what is in the builder
-      var y = this.builder.applyFunctions( x, this.builder.slots.length ).valueOf();
+      var y = this.builder.applyAllFunctions( x ).valueOf();
 
       // create the PointNode
       this.pointsParent.addChild( new PointNode( new Vector2( x.valueOf(), y.valueOf() ), this.modelViewTransform, {

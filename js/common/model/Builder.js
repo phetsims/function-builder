@@ -120,6 +120,16 @@ define( function( require ) {
     },
 
     /**
+     * Applies all functions that are in the builder.
+     *
+     * @param {*} input - input, type is specific to the functions
+     * @returns {*} output, with same type as input
+     */
+    applyAllFunctions: function( input ) {
+      return  this.applyFunctions( input, this.slots.length );
+    },
+
+    /**
      * Puts a function instance into a slot.
      *
      * @param {AbstractFunction} functionInstance

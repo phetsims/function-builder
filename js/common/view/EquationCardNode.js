@@ -60,8 +60,8 @@ define( function( require ) {
       // remove old equation
       this.removeChild( this.equationNode );
 
-      // {MathFunction[]} get an array of the functions involved in the equation
-      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
+      // {MathFunction[]} apply functions
+      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply ); //TODO [] arg is kind of obtuse
 
       // update the equation
       var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );

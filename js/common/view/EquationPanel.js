@@ -106,8 +106,8 @@ define( function( require ) {
 
     updateEquations: function() {
 
-      // apply all functions in the builder
-      var mathFunctions = this.builder.applyFunctions( [], this.builder.slots.length );
+      // {MathFunction[]} apply all functions in the builder
+      var mathFunctions = this.builder.applyAllFunctions( [] ); //TODO [] arg is kind of obtuse
 
       // PhET-specific form
       if ( this.phetEquationNode ) {
