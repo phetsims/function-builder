@@ -22,7 +22,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {Node} contentsNode
+   * @param {Node} contentsNode - contents of the drawer
    * @param {Object} [options]
    * @constructor
    */
