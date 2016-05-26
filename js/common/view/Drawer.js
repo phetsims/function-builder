@@ -120,10 +120,14 @@ define( function( require ) {
     handleNode.addChild( grippyDotsNode );
 
     // handle pointerArea
-    var touchAreaShiftY = ( options.handleLocation === 'top' ) ? -options.touchAreaYDilation : options.touchAreaYDilation;
-    handleNode.touchArea = handleNode.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation ).shiftedY( touchAreaShiftY );
-    var mouseAreaShiftY = ( options.handleLocation === 'top' ) ? -options.mouseAreaYDilation : options.mouseAreaYDilation;
-    handleNode.mouseArea = handleNode.localBounds.dilatedXY( options.mouseAreaXDilation, options.mouseAreaYDilation ).shiftedY( mouseAreaShiftY );
+    if ( options.touchAreaXDilation !== 0 || options.touchAreaYDilation !== 0 ) {
+      var touchAreaShiftY = ( options.handleLocation === 'top' ) ? -options.touchAreaYDilation : options.touchAreaYDilation;
+      handleNode.touchArea = handleNode.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation ).shiftedY( touchAreaShiftY );
+    }
+    if ( options.mouseAreaXDilation !== 0 || options.mouseAreaYDilation !== 0 ) {
+      var mouseAreaShiftY = ( options.handleLocation === 'top' ) ? -options.mouseAreaYDilation : options.mouseAreaYDilation;
+      handleNode.mouseArea = handleNode.localBounds.dilatedXY( options.mouseAreaXDilation, options.mouseAreaYDilation ).shiftedY( mouseAreaShiftY );
+    }
 
     // layout, position the handle at center-top or center-bottom
     backgroundNode.x = 0;
