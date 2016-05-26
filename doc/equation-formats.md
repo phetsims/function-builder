@@ -5,13 +5,13 @@ Function Builder - equation formats
 
 Square brackets [] will not be rendered, they are used to indicate a numerator.
 
-The simplified format is equivalent to slope-intercept.
+The "PhET-specific" format was arrived at via consensus at design meetings. It doesn't correspond to an standard mathematical format. The intent is to create a clear association to the functions that are in the builder.
 
-Cards always show the righthand side of the simplified (slope-intercept) equation.
+Cards always show the righthand side of the slope-intercept equation.
 
 **Examples**
 
-| Builder | Unsimplified | Simplified |
+| Builder | PhET-specific | Slope-intercept |
 | ------------- | ------------- | ------------- |
 - 3 - 2	| y = x - 5 | y = x - 5 |
 + 1 - 2	| y = x - 1	| y = x - 1 |
