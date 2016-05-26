@@ -3,7 +3,9 @@ Function Builder - equation formats
 
 **Notes**
 
-Square brackets [] will not be rendered, they are used to indicate a numerator.
+'[]' shown in format will not be rendered, they are used to indicate a numerator.
+
+'/' shown in the formats will be rendered as a horizontal line separating numerator and denominator.
 
 The "PhET-specific" format was arrived at via consensus at design meetings. It doesn't correspond to an standard mathematical format. The intent is to create a clear association to the functions that are in the builder.
 
