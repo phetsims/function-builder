@@ -27,6 +27,8 @@ define( function( require ) {
   // constants
   var DRAWER_CORNER_RADIUS = 4;
   var DRAWER_Y_OVERLAP = 1; // how much drawers overlap the builder
+  var DRAWER_TOUCH_AREA_X_DILATION = 25;
+  var DRAWER_TOUCH_AREA_Y_DILATION = 5;
 
   /**
    * @param {Scene} scene - model for this scene
@@ -67,6 +69,8 @@ define( function( require ) {
     this.tableDrawer = new Drawer( tableNode, {
       open: false, //TODO table drawer should be initially open
       handleLocation: 'top',
+      touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
+      touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
       cornerRadius: DRAWER_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
     } );
@@ -191,6 +195,8 @@ define( function( require ) {
         open: false,
         cornerRadius: DRAWER_CORNER_RADIUS,
         handleLocation: 'top',
+        touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
+        touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
         left: scene.builder.centerX - 5, // offset determined empirically
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + DRAWER_Y_OVERLAP
       } );
@@ -256,6 +262,8 @@ define( function( require ) {
       open: false,
       cornerRadius: DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
+      touchAreaXDilation: DRAWER_TOUCH_AREA_X_DILATION,
+      touchAreaYDilation: DRAWER_TOUCH_AREA_Y_DILATION,
       centerX: scene.builder.centerX,
       top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - DRAWER_Y_OVERLAP
     } );

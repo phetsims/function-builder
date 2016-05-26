@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-touchArea for drawer handles
-
 PhetEquation, PhetEquationNode
 
 Reset All

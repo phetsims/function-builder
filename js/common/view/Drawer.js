@@ -46,7 +46,11 @@ define( function( require ) {
       xMargin: 0,
       yMargin: 0,
       open: true, // {boolean} is the drawer initially open?
-      animationEnabled: true // {boolean} is animation enabled when opening/closing the drawer?
+      animationEnabled: true, // {boolean} is animation enabled when opening/closing the drawer?
+      touchAreaXDilation: 0, // {number} touchArea for the drawer's handle
+      touchAreaYDilation: 0, // {number} touchArea for the drawer's handle
+      mouseAreaXDilation: 0, // {number} touchArea for the drawer's handle
+      mouseAreaYDilation: 0 // {number} touchArea for the drawer's handle
     }, options );
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
@@ -105,7 +109,7 @@ define( function( require ) {
         grippyX = column * GRIPPY_DOT_X_SPACING;
         grippyY = row * GRIPPY_DOT_Y_SPACING;
         grippyDotsShape.moveTo( grippyX, grippyY );
-        grippyDotsShape.arc(  grippyX, grippyY, GRIPPY_DOT_RADIUS, 0, 2 * Math.PI );
+        grippyDotsShape.arc( grippyX, grippyY, GRIPPY_DOT_RADIUS, 0, 2 * Math.PI );
       }
     }
     var grippyDotsNode = new Path( grippyDotsShape, {
@@ -113,6 +117,12 @@ define( function( require ) {
       center: handleNode.center
     } );
     handleNode.addChild( grippyDotsNode );
+
+    // handle pointerArea
+    var touchAreaShiftY = ( options.handleLocation === 'top' ) ? -options.touchAreaYDilation : options.touchAreaYDilation;
+    handleNode.touchArea = handleNode.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation ).shiftedY( touchAreaShiftY );
+    var mouseAreaShiftY = ( options.handleLocation === 'top' ) ? -options.mouseAreaYDilation : options.mouseAreaYDilation;
+    handleNode.mouseArea = handleNode.localBounds.dilatedXY( options.mouseAreaXDilation, options.mouseAreaYDilation ).shiftedY( mouseAreaShiftY );
 
     // layout, position the handle at center-top or center-bottom
     backgroundNode.x = 0;
@@ -140,7 +150,7 @@ define( function( require ) {
     Node.call( this, options );
 
     var openLocation = new Vector2( drawerNode.x, 0 );
-    var closeLocation = new Vector2( drawerNode.x,  ( options.handleLocation === 'top' ) ? backgroundNode.height : -backgroundNode.height );
+    var closeLocation = new Vector2( drawerNode.x, ( options.handleLocation === 'top' ) ? backgroundNode.height : -backgroundNode.height );
     drawerNode.translation = options.open ? openLocation : closeLocation;
 
     // click on the handle to toggle between open and closed
