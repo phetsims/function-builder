@@ -28,7 +28,7 @@ define( function( require ) {
 
     //TODO
 
-    // @public (read-only)
+    // @private
     this.xSymbol = options.xSymbol; // {string}
   }
 

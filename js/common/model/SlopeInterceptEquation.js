@@ -51,8 +51,10 @@ define( function( require ) {
       }
     }
 
+    // @private
+    this.xSymbol = options.xSymbol;
+
     // @public (read-only)
-    this.xSymbol = options.xSymbol; // {string}
     this.slope = slope; // {RationalNumber}
     this.intercept = intercept; // {RationalNumber}
   }
