@@ -51,35 +51,35 @@ define( function( require ) {
       new FunctionCreator( Plus, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 165, 209, 167 )'
+        fill: 'rgb( 128, 197, 237 )'
       } ),
 
       // + 2
       new FunctionCreator( Plus, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 235, 191, 109 )'
+        fill: 'rgb( 147, 231, 128 )'
       } ),
 
       // + 3
       new FunctionCreator( Plus, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 232, 169, 236 )'
+        fill: 'rgb( 255, 93, 93 )'
       } ),
 
       // - 1
       new FunctionCreator( Minus, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 135, 196, 229 )'
+        fill: 'rgb( 147, 231, 128 )'
       } ),
 
       // - 2
       new FunctionCreator( Minus, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 198, 231, 220 )'
+        fill: 'rgb( 255, 161, 43 )'
       } ),
 
       // - 3
@@ -93,42 +93,42 @@ define( function( require ) {
       new FunctionCreator( Times, {
         operand: 0,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 208, 201, 225 )'
+        fill: 'rgb( 0, 222, 224 )'
       } ),
 
       // * 1
       new FunctionCreator( Times, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 255, 246, 187 )'
+        fill: 'rgb( 246, 164, 255 )'
       } ),
 
       // * 2
       new FunctionCreator( Times, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 209, 151, 169 )'
+        fill: 'rgb( 250, 186, 75 )'
       } ),
 
       // / 1
       new FunctionCreator( Divide, {
         operand: 1,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 208, 201, 225 )'
+        fill: 'rgb( 127, 225, 173 )'
       } ),
 
       // / 2
       new FunctionCreator( Divide, {
         operand: 2,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 232, 169, 236 )'
+        fill: 'rgb( 249, 144, 99 )'
       } ),
 
       // / 3
       new FunctionCreator( Divide, {
         operand: 3,
         operandMutable: OPERAND_MUTABLE,
-        fill: 'rgb( 135, 196, 229 )'
+        fill: 'rgb( 222, 186, 247 )'
       } )
     ];
 
