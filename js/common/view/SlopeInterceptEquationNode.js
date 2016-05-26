@@ -19,16 +19,20 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
-   * @param {SlopeInterceptEquation} slopeInterceptEquation
+   * @param {RationalNumber} slope
+   * @param {RationalNumber} intercept
    * @param {Object} [options]
    * @constructor
    */
-  function SlopeInterceptEquationNode( slopeInterceptEquation, options ) {
+  function SlopeInterceptEquationNode( slope, intercept, options ) {
+
+    assert && assert( slope instanceof RationalNumber );
+    assert && assert( intercept instanceof RationalNumber );
 
     options = _.extend( {
 
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
-      xSymbol: slopeInterceptEquation.xSymbol, // {string} symbol for input
+      xSymbol: FBSymbols.X, // {string} symbol for input
       ySymbol: FBSymbols.Y, // {string} symbol for output
 
       // colors
@@ -63,12 +67,6 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
-
-    // to improve readability
-    var slope = slopeInterceptEquation.slope; // {RationalNumber}
-    assert && assert( slope instanceof RationalNumber );
-    var intercept = slopeInterceptEquation.intercept; // {RationalNumber}
-    assert && assert( intercept instanceof RationalNumber );
 
     // y
     var yNode = new Text( options.ySymbol, {

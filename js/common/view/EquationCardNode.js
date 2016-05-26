@@ -2,7 +2,7 @@
 
 /**
  * Node that displays an equation card.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -64,13 +64,14 @@ define( function( require ) {
       var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
       // update the equation
-      var slopeInterceptEquation = new SlopeInterceptEquation( this.card.xSymbol, mathFunctions );
-      this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
-        showLeftHandSide: false,
-        xSymbol: this.card.xSymbol,
-        maxWidth: this.equationMaxWidth, // constrain to card
-        center: this.backgroundNode.center // center on the card
-      } );
+      var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
+      this.equationNode = new SlopeInterceptEquationNode(
+        slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
+          showLeftHandSide: false, // hide 'y =' part of equation
+          xSymbol: this.card.xSymbol,
+          maxWidth: this.equationMaxWidth, // constrain to card
+          center: this.backgroundNode.center // center on the card
+        } );
       this.addChild( this.equationNode );
     }
   }, {

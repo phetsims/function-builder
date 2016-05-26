@@ -14,13 +14,16 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
-  //TODO where should xSymbol live? It's currently in multiple places.
   /**
-   * @param {string} xSymbol - symbol for the input, typically 'x'
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
+   * @param {Object} [options]
    * @constructor
    */
-  function SlopeInterceptEquation( xSymbol, mathFunctions ) {
+  function SlopeInterceptEquation( mathFunctions, options ) {
+
+    options = _.extend( {
+      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
+    }, options );
 
     var slope = new RationalNumber( 1, 1 );
     var intercept = new RationalNumber( 0, 1 );
@@ -49,7 +52,7 @@ define( function( require ) {
     }
 
     // @public (read-only)
-    this.xSymbol = xSymbol; // {string}
+    this.xSymbol = options.xSymbol; // {string}
     this.slope = slope; // {RationalNumber}
     this.intercept = intercept; // {RationalNumber}
   }

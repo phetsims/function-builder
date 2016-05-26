@@ -108,7 +108,7 @@ define( function( require ) {
 
       // apply all functions in the builder
       var mathFunctions = this.builder.applyFunctions( [], this.builder.slots.length );
-      
+
       // PhET-specific form
       if ( this.phetEquationNode ) {
         this.removeChild( this.phetEquationNode );
@@ -125,15 +125,18 @@ define( function( require ) {
       if ( this.slopeInterceptEquationNode ) {
         this.removeChild( this.slopeInterceptEquationNode );
       }
-      var slopeInterceptEquation = new SlopeInterceptEquation( this.xSymbol, mathFunctions );
-      this.slopeInterceptEquationNode = new SlopeInterceptEquationNode( slopeInterceptEquation, {
-        showLeftHandSide: true,
-        xSymbol: this.xSymbol,
-        ySymbol: this.ySymbol,
-        maxWidth: this.equationMaxWidth,
-        center: this.equationCenter,
-        visible: this.slopeInterceptProperty.get()
+      var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions, {
+        xSymbol: this.xSymbol
       } );
+      this.slopeInterceptEquationNode = new SlopeInterceptEquationNode(
+        slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
+          showLeftHandSide: true, // show 'y =' part of equation
+          xSymbol: this.xSymbol,
+          ySymbol: this.ySymbol,
+          maxWidth: this.equationMaxWidth,
+          center: this.equationCenter,
+          visible: this.slopeInterceptProperty.get()
+        } );
       this.addChild( this.slopeInterceptEquationNode );
     }
   } );
