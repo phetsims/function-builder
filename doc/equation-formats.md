@@ -3,7 +3,7 @@ Function Builder - equation formats
 
 **Notes**
 
-'[ ]' shown in formats will not be rendered, they are used to indicate a numerator in this specification.
+'[ ]' shown in the formats will not be rendered, they are used to indicate a numerator in this specification.
 
 '/' shown in the formats will be rendered as a horizontal line separating numerator and denominator.
 
