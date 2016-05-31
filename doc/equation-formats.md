@@ -50,23 +50,23 @@ Cards show the righthand side of the slope-intercept equation. Eg, if the slope-
 
 Rules for generating PhET-specific format:
 
-(1) Adjacent addition and subtraction is collapsed, eg: `+ 3 - 2 → x + 1`.  If it collapses to zero, it is dropped entirely, eg: * 2 + 3 - 3 → 2x
+(1) Adjacent addition and subtraction is collapsed, eg: `+ 3 - 2 → x + 1`.  If it collapses to zero, it is dropped entirely, eg: `* 2 + 3 - 3 → 2x`
 
-(2) Adjacent multiplication is collapsed, eg: * 2 * 3 → 6x.
+(2) Adjacent multiplication is collapsed, eg: `* 2 * 3 → 6x`.
 
-(3) Multiplication by 1 is shown, eg: + 2 * 1  → 1(x + 2)
+(3) Multiplication by 1 is shown, eg: `+ 2 * 1 → 1(x + 2)`
 
-(4) Multiplication by zero results in a constant, eg: * 0 + 2 * 2 → 4
+(4) Multiplication by zero results in a constant, eg: `* 0 + 2 * 2 → 4`
 
-(5) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
+(5) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: `- 3 * 2 → 2(x-3)`
 
-(6) Adjacent division is collapsed, eg: / 3 / 2 → x/6
+(6) Adjacent division is collapsed, eg: `/ 3 / 2 → x/6`
 
-(7) Division by 1 is shown, eg: * 2 / 1 → [2x]/1
+(7) Division by 1 is shown, eg: `* 2 / 1 → [2x]/1`
 
-(8) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
+(8) The fragment preceding division is treated as a numerator, eg: `+ 1 / 3 → [x + 1]/3`
 
-(9) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3.  There is one exception: adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: / 3 * 3 → x
+(9) Adjacent multiplication and division is NOT collapsed, eg: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: `/ 3 * 3 → x`
 
 
 
