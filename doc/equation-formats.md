@@ -56,7 +56,7 @@ Rules for generating PhET-specific format:
 
 (3) Multiplication by 1 is shown, eg: `+ 2 * 1 → 1(x + 2)`
 
-(4) Multiplication by zero results in a constant, eg: `* 0 + 2 * 2 → 4`
+(4) Multiplication by 0 results in a constant, eg: `* 0 + 2 * 2 → 4`
 
 (5) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: `- 3 * 2 → 2(x-3)`
 
@@ -64,9 +64,11 @@ Rules for generating PhET-specific format:
 
 (7) Division by 1 is shown, eg: `* 2 / 1 → [2x]/1`
 
-(8) The portion of the equation preceding division is treated as a numerator, eg: `+ 1 / 3 → [x + 1]/3`
+(8) Division by 0 is not allowed.
 
-(9) Adjacent multiplication and division operations are NOT collapsed, eg: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division operations that evaluates to 1 are collapsed and hidden, eg: `/ 3 * 3 → x`
+(9) The portion of the equation preceding division is treated as a numerator, eg: `+ 1 / 3 → [x + 1]/3`
+
+(10) Adjacent multiplication and division operations are NOT collapsed, eg: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division operations that evaluates to 1 are collapsed and hidden, eg: `/ 3 * 3 → x`
 
 
 
