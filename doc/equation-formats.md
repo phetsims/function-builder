@@ -65,12 +65,8 @@ Rules for generating unsimplified format:
 
 (4) Adjacent division is collapsed, eg: / 3 / 2 → x/6
 
-(5) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3
+(5) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3.  There is one exception: adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: / 3 * 3 → x
 
 (6) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
 
 (7) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
-
-Exceptions to the above rules:
-
-(8) Adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: / 3 * 3 → x
