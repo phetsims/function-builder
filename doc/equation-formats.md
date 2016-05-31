@@ -52,7 +52,7 @@ Rules for generating PhET-specific format:
 
 (1) Adjacent addition and subtraction operations are collapsed, e.g.: `+ 3 - 2 → x + 1`.  If they collapse to zero, then the operations are dropped entirely, e.g.: `* 2 + 3 - 3 → 2x`
 
-(2) Adjacent multiplication operations are collapsed, eg: `* 2 * 3 → 6x`.
+(2) Adjacent multiplication operations are collapsed, e.g.: `* 2 * 3 → 6x`.
 
 (3) Multiplication by 1 is shown, e.g.: `* 1 → 1x`, `+ 2 * 1 → 1(x + 2)`
 
