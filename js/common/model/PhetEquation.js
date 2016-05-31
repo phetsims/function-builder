@@ -180,7 +180,16 @@ define( function( require ) {
         for ( i = 0; i < this.mathFunctions.length; i++ ) {
           value = this.mathFunctions[ i ].apply( value );
         }
-        equation = '' + value.valueOf();
+        if ( value.isInteger() ) {
+
+          // whole number
+          equation = '' + value.valueOf();
+        }
+        else {
+
+          // fraction
+          equation = value.numerator + '/' + value.denominator;
+        }
       }
       else {
 
