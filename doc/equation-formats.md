@@ -3,7 +3,7 @@ Function Builder - equation formats
 
 **Notes**
 
-Square brackets '[ ]' shown in the example will not be rendered, they are used to indicate a numerator in this specification.
+Square brackets '[ ]' shown in the examples will not be rendered. They are used to indicate a numerator in this specification.
 
 The forward slash '/' shown in the examples will be rendered as a horizontal line separating numerator and denominator.
 
