@@ -71,6 +71,9 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
+    // hoist vars that will be reused
+    var i = 0;
+
     // y
     var yNode = new Text( options.ySymbol, {
       fill: options.yColor,
@@ -101,12 +104,11 @@ define( function( require ) {
       } );
       options.children.push( xNode );
     }
-    else if ( mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
-              mathFunctions[ 0 ].operandProperty.get().valueOf() === 0 ) {
+    else if ( equation.evaluatesToConstant() ) {
 
       // constant
       var value = ZERO;
-      for ( var i = 0; i < mathFunctions.length; i++ ) {
+      for ( i = 0; i < mathFunctions.length; i++ ) {
         value = mathFunctions[ i ].apply( value );
       }
 
@@ -125,12 +127,19 @@ define( function( require ) {
     }
     else {
 
+      // parent node for right-hand side (rhs) of the equation
+      var rhsNode = new Node();
+      options.children.push( rhsNode );
+
       //TODO temporary
-      var rhsSideNode = new Text( equation.toString(), {
-        font: options.wholeNumberFont,
-        left: equalsNode.right + options.equalsXSpacing
+      var tempNode = new Text( equation.toString(), {
+        font: options.wholeNumberFont
       } );
-      options.children.push( rhsSideNode );
+      rhsNode.addChild( tempNode );
+
+      // layout
+      rhsNode.left = equalsNode.right + options.equalsXSpacing;
+      rhsNode.centerY = equalsNode.centerY;
     }
 
     Node.call( this, options );

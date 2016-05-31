@@ -158,6 +158,17 @@ define( function( require ) {
   return inherit( Object, PhetEquation, {
 
     /**
+     * Does the equation evaluate to a constant?
+     *
+     * @returns {boolean}
+     */
+    evaluatesToConstant: function() {
+      return ( this.mathFunctions.length !== 0 &&
+               this.mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
+               this.mathFunctions[ 0 ].operandProperty.get() === 0 );
+    },
+
+    /**
      * String representation, for debugging and PhET-iO.
      *
      * @returns {string}
@@ -172,8 +183,7 @@ define( function( require ) {
         // x
         equation = this.xSymbol;
       }
-      else if ( this.mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
-                this.mathFunctions[ 0 ].operandProperty.get().valueOf() === 0 ) {
+      else if ( this.evaluatesToConstant() ) {
 
         // constant
         var value = ZERO;
