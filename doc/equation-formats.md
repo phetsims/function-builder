@@ -50,7 +50,7 @@ Cards show the righthand side of the slope-intercept equation. Eg, if the slope-
 
 Rules for generating PhET-specific format:
 
-(1) Adjacent addition and subtraction operations are collapsed, eg: `+ 3 - 2 → x + 1`.  If they collapses to zero, then the operation are dropped entirely, eg: `* 2 + 3 - 3 → 2x`
+(1) Adjacent addition and subtraction operations are collapsed, eg: `+ 3 - 2 → x + 1`.  If they collapse to zero, then the operations are dropped entirely, eg: `* 2 + 3 - 3 → 2x`
 
 (2) Adjacent multiplication operations are collapsed, eg: `* 2 * 3 → 6x`.
 
