@@ -3,6 +3,7 @@
 //TODO better name for PhetEquationNode
 /**
  * PhET-specific format of the equation that corresponds to functions in the builder.
+ * Note that the logic used to create this node is similar to PhetEquation.toString.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

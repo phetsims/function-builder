@@ -170,6 +170,7 @@ define( function( require ) {
 
     /**
      * String representation, for debugging and PhET-iO.
+     * Note that the logic herein is similar to PhetEquationNode's constructor.
      *
      * @returns {string}
      */
