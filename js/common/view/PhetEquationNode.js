@@ -139,7 +139,6 @@ define( function( require ) {
       var operandNode = null; // {Node}
       var nextLeft = 0; // {number} left position of next Node added to equation
       var nextCenterY = 0; // {number} centerY position of next Node added to equation
-      var addParenthesis = false; // {boolean} add parenthesis around term before adding multiplier?
 
       // parent node for right-hand side (rhs) of the equation
       var rhsNode = new Node();
@@ -164,8 +163,6 @@ define( function( require ) {
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
 
-          addParenthesis = true;
-
           // eg: x + 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
             font: options.symbolFont,
@@ -188,8 +185,6 @@ define( function( require ) {
           assert && assert(
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
-
-          addParenthesis = true;
 
           // eg: x - 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
@@ -215,7 +210,7 @@ define( function( require ) {
             'adjacent times should have been collapsed' );
 
           // parentheses around term, eg: 2(x + 2)
-          if ( addParenthesis ) {
+          if ( i !== 0 ) {
 
             var leftParenthesisNode = new Text( '(', {
               font: options.symbolFont,
