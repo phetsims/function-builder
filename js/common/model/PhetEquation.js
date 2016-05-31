@@ -184,6 +184,7 @@ define( function( require ) {
       }
       else {
 
+        // local vars to improve readability
         var currentFunction = null; // {MathFunction}
         var currentOperator = null; // {string}
         var currentOperand = null; // {number}
