@@ -58,7 +58,7 @@ Rules for generating PhET-specific format:
 
 (4) Multiplication by 0 results in a constant, eg: `* 0 + 2 * 2 → 4`
 
-(5) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: `- 3 * 2 → 2(x-3)`
+(5) If the portion of the equation preceding multiplication contains one or more operators, then it is wrapped in parentheses, eg: `- 3 * 2 → 2(x-3)`
 
 (6) Adjacent division operations are collapsed, eg: `/ 3 / 2 → x/6`
 
