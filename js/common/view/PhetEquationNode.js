@@ -4,6 +4,7 @@
 /**
  * PhET-specific format of the equation that corresponds to functions in the builder.
  * Note that the logic used to create this node is similar to PhetEquation.toString.
+ * See format specification in function-builder/doc/equation-formats.md
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,6 +16,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -55,10 +57,8 @@ define( function( require ) {
       equalsXSpacing: 8, // {number} x space on both sides of equals sign
       signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
       operatorXSpacing: 8, // {number} x space on both sides of an operator
-      integerSlopeXSpacing: 3, // {number} x space between integer slope and x
-      fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
       multiplierXSpacing: 3, // {number} x space following multiplier
-      parenthesisXSpacing: 2, // {number} x space inside of parentheses
+      parenthesisXSpacing: 3, // {number} x space inside of parentheses
 
       // y spacing
       fractionYSpacing: 2, // {number} y space above and below fraction line
@@ -82,6 +82,7 @@ define( function( require ) {
     var leftParenthesisNode = null; // {Node}
     var rightParenthesisNode = null; // {Node}
     var nextLeft = 0; // {number} left position of next Node added to equation
+    var nextCenterY = 0; // {number} centerY position of next Node added to equation
 
     // y
     var yNode = new Text( options.ySymbol, {
@@ -138,26 +139,21 @@ define( function( require ) {
 
       // parent node for right-hand side (rhs) of the equation
       var rhsNode = new Node();
-      options.children.push( rhsNode );
 
       // local vars to improve readability
       var currentFunction = null; // {MathFunction}
       var currentOperator = null; // {string}
       var currentOperand = null; // {number}
       var previousOperator = null; // {string}
-      var fragmentNode = null; // {Node}
       var numberOfOperatorsInFragment = 0;
-
-      // the current fragment that we're building
-      fragmentNode = new Node();
-      rhsNode.addChild( fragmentNode );
 
       // x
       xNode = new Text( options.xSymbol, {
         font: options.xyFont
       } );
-      fragmentNode.addChild( xNode );
+      rhsNode.addChild( xNode );
       nextLeft = xNode.right + options.operatorXSpacing;
+      nextCenterY = equalsNode.centerY;
 
       for ( i = 0; i < mathFunctions.length; i++ ) {
 
@@ -175,17 +171,20 @@ define( function( require ) {
           // eg: x + 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
             font: options.symbolFont,
-            left: nextLeft
+            left: nextLeft,
+            centerY: nextCenterY
           } );
-          nextLeft = operatorNode.right + options.operatorXSpacing;
-          fragmentNode.addChild( operatorNode );
+          rhsNode.addChild( operatorNode );
 
           operandNode = new Text( Math.abs( currentOperand ), {
             font: options.wholeNumberFont,
-            left: nextLeft
+            left: operatorNode.right + options.operatorXSpacing,
+            centerY: operatorNode.centerY
           } );
+          rhsNode.addChild( operandNode );
+
           nextLeft = operandNode.right + options.operatorXSpacing;
-          fragmentNode.addChild( operandNode );
+          nextCenterY = operandNode.centerY;
         }
         else if ( currentOperator === FBSymbols.MINUS ) {
           assert && assert(
@@ -197,59 +196,89 @@ define( function( require ) {
           // eg: x - 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
             font: options.symbolFont,
-            left: nextLeft
+            left: nextLeft,
+            centerY: nextCenterY
           } );
-          nextLeft = operatorNode.right + options.operatorXSpacing;
-          fragmentNode.addChild( operatorNode );
+          rhsNode.addChild( operatorNode );
 
           operandNode = new Text( Math.abs( currentOperand ), {
             font: options.wholeNumberFont,
-            left: nextLeft
+            left: operatorNode.right + options.operatorXSpacing,
+            centerY: operatorNode.centerY
           } );
+          rhsNode.addChild( operandNode );
+
           nextLeft = operandNode.right + options.operatorXSpacing;
-          fragmentNode.addChild( operandNode );
+          nextCenterY = operandNode.centerY;
         }
         else if ( currentOperator === FBSymbols.TIMES ) {
           assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
             'adjacent times should have been collapsed' );
 
-          // put parentheses around term, eg: 2(x + 2)
+          // parentheses around term, eg: 2(x + 2)
           if ( numberOfOperatorsInFragment !== 0 ) {
 
             leftParenthesisNode = new Text( '(', {
               font: options.symbolFont,
-              right: fragmentNode.left - options.parenthesisXSpacing
+              right: rhsNode.left - options.parenthesisXSpacing,
+              centerY: nextCenterY
             } );
-            fragmentNode.addChild( leftParenthesisNode );
+            rhsNode.addChild( leftParenthesisNode );
 
             rightParenthesisNode = new Text( ')', {
               font: options.symbolFont,
-              left: fragmentNode.right + options.parenthesisXSpacing
+              left: rhsNode.right + options.parenthesisXSpacing,
+              centerY: leftParenthesisNode.centerY
             } );
-            fragmentNode.addChild( rightParenthesisNode );
+            rhsNode.addChild( rightParenthesisNode );
 
             nextLeft = rightParenthesisNode.right + options.operatorXSpacing;
+            nextCenterY = rightParenthesisNode.centerY;
           }
 
           // multiplier in front of term, eg: 2x or 2(x + 2)
           operandNode = new Text( Math.abs( currentOperand ), {
             font: options.wholeNumberFont,
-            right: fragmentNode.left - options.multiplierXSpacing
+            right: rhsNode.left - options.multiplierXSpacing,
+            centerY: leftParenthesisNode.centerY
           } );
-          fragmentNode.addChild( operandNode );
+          rhsNode.addChild( operandNode );
         }
         else if ( currentOperator === FBSymbols.DIVIDE ) {
           assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
             'adjacent divide should have been collapsed' );
 
-          //if ( equation !== '0' ) {
-          //
-          //  // eq: [2x + 1]/3
-          //  // square brackets denote a numerator
-          //  equation = StringUtils.format( '[{0}]/{1}', equation, currentOperand );
-          //}
+          // what we've built so far becomes the numerator
+          var numeratorNode = rhsNode;
+
+          // line dividing numerator and denominator
+          var fractionLineNode = new Line( 0, 0, rhsNode.width, 0, {
+            stroke: options.color,
+            centerX: rhsNode.centerX,
+            top: numeratorNode.bottom + options.fractionYSpacing
+          } );
+
+          // denominator
+          var denominatorNode = new Text( currentOperand, {
+            font: options.wholeNumberFont,
+            centerX: fractionLineNode.centerX,
+            top: fractionLineNode.bottom + options.fractionYSpacing
+          } );
+
+          // fraction
+          var fractionNode = new Node( {
+            children: [ numeratorNode, fractionLineNode, denominatorNode ],
+            scale: options.fractionScale
+          } );
+
+          // new right-hand side
+          rhsNode = new Node( {
+            children: [ fractionNode ]
+          } );
+          nextLeft = rhsNode.right + options.operatorXSpacing;
+          nextCenterY = rhsNode.centerY;
         }
         else {
           throw new Error( 'invalid operator: ' + currentOperator );
@@ -258,7 +287,7 @@ define( function( require ) {
         previousOperator = currentOperator;
       }
 
-      // layout
+      options.children.push( rhsNode );
       rhsNode.left = equalsNode.right + options.equalsXSpacing;
       rhsNode.centerY = equalsNode.centerY;
     }
