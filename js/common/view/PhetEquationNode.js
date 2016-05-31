@@ -57,6 +57,8 @@ define( function( require ) {
       operatorXSpacing: 8, // {number} x space on both sides of an operator
       integerSlopeXSpacing: 3, // {number} x space between integer slope and x
       fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
+      multiplierXSpacing: 3, // {number} x space following multiplier
+      parenthesisXSpacing: 2, // {number} x space inside of parentheses
 
       // y spacing
       fractionYSpacing: 2, // {number} y space above and below fraction line
@@ -74,6 +76,12 @@ define( function( require ) {
 
     // hoist vars that will be reused
     var i = 0;
+    var xNode = null; // {Node}
+    var operatorNode = null; // {Node}
+    var operandNode = null; // {Node}
+    var leftParenthesisNode = null; // {Node}
+    var rightParenthesisNode = null; // {Node}
+    var nextLeft = 0; // {number} left position of next Node added to equation
 
     // y
     var yNode = new Text( options.ySymbol, {
@@ -99,7 +107,7 @@ define( function( require ) {
     if ( mathFunctions.length === 0 ) {
 
       // y = x
-      var xNode = new Text( options.xSymbol, {
+      xNode = new Text( options.xSymbol, {
         font: options.xyFont,
         left: equalsNode.right + options.equalsXSpacing
       } );
@@ -132,11 +140,123 @@ define( function( require ) {
       var rhsNode = new Node();
       options.children.push( rhsNode );
 
-      //TODO temporary
-      var tempNode = new Text( equation.toString(), {
-        font: options.wholeNumberFont
+      // local vars to improve readability
+      var currentFunction = null; // {MathFunction}
+      var currentOperator = null; // {string}
+      var currentOperand = null; // {number}
+      var previousOperator = null; // {string}
+      var fragmentNode = null; // {Node}
+      var numberOfOperatorsInFragment = 0;
+
+      // the current fragment that we're building
+      fragmentNode = new Node();
+      rhsNode.addChild( fragmentNode );
+
+      // x
+      xNode = new Text( options.xSymbol, {
+        font: options.xyFont
       } );
-      rhsNode.addChild( tempNode );
+      fragmentNode.addChild( xNode );
+      nextLeft = xNode.right + options.operatorXSpacing;
+
+      for ( i = 0; i < mathFunctions.length; i++ ) {
+
+        currentFunction = mathFunctions[ i ];
+        currentOperator = currentFunction.operatorString;
+        currentOperand = currentFunction.operandProperty.get().valueOf();
+
+        if ( currentOperator === FBSymbols.PLUS ) {
+          assert && assert(
+            !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+            'adjacent plus and minus should have been collapsed' );
+
+          numberOfOperatorsInFragment++;
+
+          // eg: x + 3
+          operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
+            font: options.symbolFont,
+            left: nextLeft
+          } );
+          nextLeft = operatorNode.right + options.operatorXSpacing;
+          fragmentNode.addChild( operatorNode );
+
+          operandNode = new Text( Math.abs( currentOperand ), {
+            font: options.wholeNumberFont,
+            left: nextLeft
+          } );
+          nextLeft = operandNode.right + options.operatorXSpacing;
+          fragmentNode.addChild( operandNode );
+        }
+        else if ( currentOperator === FBSymbols.MINUS ) {
+          assert && assert(
+            !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+            'adjacent plus and minus should have been collapsed' );
+
+          numberOfOperatorsInFragment++;
+
+          // eg: x - 3
+          operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
+            font: options.symbolFont,
+            left: nextLeft
+          } );
+          nextLeft = operatorNode.right + options.operatorXSpacing;
+          fragmentNode.addChild( operatorNode );
+
+          operandNode = new Text( Math.abs( currentOperand ), {
+            font: options.wholeNumberFont,
+            left: nextLeft
+          } );
+          nextLeft = operandNode.right + options.operatorXSpacing;
+          fragmentNode.addChild( operandNode );
+        }
+        else if ( currentOperator === FBSymbols.TIMES ) {
+          assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
+          assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
+            'adjacent times should have been collapsed' );
+
+          // put parentheses around term, eg: 2(x + 2)
+          if ( numberOfOperatorsInFragment !== 0 ) {
+
+            leftParenthesisNode = new Text( '(', {
+              font: options.symbolFont,
+              right: fragmentNode.left - options.parenthesisXSpacing
+            } );
+            fragmentNode.addChild( leftParenthesisNode );
+
+            rightParenthesisNode = new Text( ')', {
+              font: options.symbolFont,
+              left: fragmentNode.right + options.parenthesisXSpacing
+            } );
+            fragmentNode.addChild( rightParenthesisNode );
+
+            nextLeft = rightParenthesisNode.right + options.operatorXSpacing;
+          }
+
+          // multiplier in front of term, eg: 2x or 2(x + 2)
+          operandNode = new Text( Math.abs( currentOperand ), {
+            font: options.wholeNumberFont,
+            right: fragmentNode.left - options.multiplierXSpacing
+          } );
+          fragmentNode.addChild( operandNode );
+        }
+        else if ( currentOperator === FBSymbols.DIVIDE ) {
+          assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
+          assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
+            'adjacent divide should have been collapsed' );
+
+          //if ( equation !== '0' ) {
+          //
+          //  // eq: [2x + 1]/3
+          //  // square brackets denote a numerator
+          //  equation = StringUtils.format( '[{0}]/{1}', equation, currentOperand );
+          //}
+        }
+        else {
+          throw new Error( 'invalid operator: ' + currentOperator );
+        }
+
+        previousOperator = currentOperator;
+      }
 
       // layout
       rhsNode.left = equalsNode.right + options.equalsXSpacing;
