@@ -24,8 +24,8 @@ Cards always show the righthand side of the slope-intercept equation.
 + 2 / 3 | y = [x + 2]/3 | y = 1/3 x + 2/3 |
 / 3 * 3 | y = x | y = x |
 / 3 * 0 | y = 0 | y = 0 |
-/ 3 * 1 | y = [1x]/3 | y = 1/3 x |
-/ 3 * 2 | y = [2x]/3 | y = 2/3 x |
+/ 3 * 1 | y = 1(x/3) | y = 1/3 x |
+/ 3 * 2 | y = 2(x/3) | y = 2/3 x |
 / 1 + 2 | y = x/1 + 2 | y = x + 2 |
 * 0 / 3 | y = 0 | y = 0 |
 * 1 / 3 | y = [1x]/3 | y = 1/3 x |
