@@ -50,25 +50,25 @@ Cards show the righthand side of the slope-intercept equation. Eg, if the slope-
 
 Rules for generating PhET-specific format:
 
-(1) Adjacent addition and subtraction operations are collapsed, eg: `+ 3 - 2 → x + 1`.  If they collapse to zero, then the operations are dropped entirely, eg: `* 2 + 3 - 3 → 2x`
+(1) Adjacent addition and subtraction operations are collapsed, e.g.: `+ 3 - 2 → x + 1`.  If they collapse to zero, then the operations are dropped entirely, e.g.: `* 2 + 3 - 3 → 2x`
 
 (2) Adjacent multiplication operations are collapsed, eg: `* 2 * 3 → 6x`.
 
-(3) Multiplication by 1 is shown, eg: `* 1 → 1x`, `+ 2 * 1 → 1(x + 2)`
+(3) Multiplication by 1 is shown, e.g.: `* 1 → 1x`, `+ 2 * 1 → 1(x + 2)`
 
-(4) Multiplication by 0 results in a constant, eg: `* 0 + 2 * 2 → 4`
+(4) Multiplication by 0 results in a constant, e.g.: `* 0 + 2 * 2 → 4`
 
-(5) If the portion of the equation preceding multiplication contains one or more operators, then it is wrapped in parentheses, eg: `- 3 * 2 → 2(x-3)`
+(5) If the portion of the equation preceding multiplication contains one or more operators, then it is wrapped in parentheses, e.g.: `- 3 * 2 → 2(x-3)`
 
-(6) Adjacent division operations are collapsed, eg: `/ 3 / 2 → x/6`
+(6) Adjacent division operations are collapsed, e.g.: `/ 3 / 2 → x/6`
 
-(7) Division by 1 is shown, eg: `/ 1 → x/1`, `* 2 / 1 → [2x]/1`
+(7) Division by 1 is shown, e.g.: `/ 1 → x/1`, `* 2 / 1 → [2x]/1`
 
 (8) Division by 0 is not allowed.
 
-(9) The portion of the equation preceding division is treated as a numerator, eg: `+ 1 / 3 → [x + 1]/3`
+(9) The portion of the equation preceding division is treated as a numerator, e.g.: `+ 1 / 3 → [x + 1]/3`
 
-(10) Adjacent multiplication and division operations are NOT collapsed, eg: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division operations that evaluates to 1 are collapsed and hidden, eg: `/ 3 * 3 → x`
+(10) Adjacent multiplication and division operations are NOT collapsed, e.g.: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division operations that evaluates to 1 are collapsed and hidden, e.g.: `/ 3 * 3 → x`
 
 
 
