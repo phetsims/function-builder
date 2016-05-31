@@ -2,7 +2,7 @@ TODO list for function-builder
 
 ---
 
-PhetEquation, PhetEquationNode
+Optional card rectangle around xSymbol and ySymbol in equations
 
 Reset All
 
