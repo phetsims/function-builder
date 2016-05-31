@@ -3,13 +3,13 @@ Function Builder - equation formats
 
 **Notes**
 
-'[ ]' shown in the formats will not be rendered, they are used to indicate a numerator in this specification.
+Square brackets '[ ]' shown in the example will not be rendered, they are used to indicate a numerator in this specification.
 
-'/' shown in the formats will be rendered as a horizontal line separating numerator and denominator.
+The forward slash '/' shown in the examples will be rendered as a horizontal line separating numerator and denominator.
 
-The "PhET-specific" format was arrived at via consensus at design meetings. It doesn't correspond to an standard mathematical format. The intent is to create a clear association to the functions that are in the builder.
+The "PhET-specific" format was arrived at via consensus at design meetings. It does not correspond to a standard mathematical format. The intent is to create a clear association with the functions that are in the builder.
 
-Cards always show the righthand side of the slope-intercept equation.
+Cards show the righthand side of the slope-intercept equation. Eg, if the slope-intercept form is "y = 2x + 2", then the "x" card in the input carousel will show "2x + 2" in the output carousel. 
 
 **Examples**
 
