@@ -28,11 +28,11 @@ define( function( require ) {
     options = _.extend( {
       operand: 1, // {number} initial value of operandProperty
       operandMutable: true, // {boolean} is the operand mutable?
-      operandRange: new Range( -3, 3 ), // {Range} range of operandProperty
+      operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
       zeroOperandValid: true // {boolean} is zero a valid operand?
     }, options );
 
-    assert && assert( options.operandRange.contains( options.operand ) );
+    assert && assert( !options.operandRange || options.operandRange.contains( options.operand ) );
     assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
 
@@ -51,7 +51,7 @@ define( function( require ) {
 
       // validate operand
       assert && assert( options.operandMutable, 'operand is not mutable' );
-      assert && assert( options.operandRange.contains( operand ), 'operand out of range: ' + operand );
+      assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
       assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
     } );
 

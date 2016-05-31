@@ -40,7 +40,7 @@ define( function( require ) {
     options.children = [];
 
     //TODO temporary
-    var textNode = new Text( 'PhET-specific equation', {
+    var textNode = new Text( FBSymbols.Y + ' = ' + equation.toString(), {
       font: new FBFont( 20 )
     } );
     options.children.push( textNode );
