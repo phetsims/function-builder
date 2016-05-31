@@ -54,7 +54,7 @@ Rules for generating PhET-specific format:
 
 (2) Adjacent multiplication operations are collapsed, eg: `* 2 * 3 → 6x`.
 
-(3) Multiplication by 1 is shown, eg: `+ 2 * 1 → 1(x + 2)`
+(3) Multiplication by 1 is shown, eg: `* 1 → 1x`, `+ 2 * 1 → 1(x + 2)`
 
 (4) Multiplication by 0 results in a constant, eg: `* 0 + 2 * 2 → 4`
 
@@ -62,7 +62,7 @@ Rules for generating PhET-specific format:
 
 (6) Adjacent division operations are collapsed, eg: `/ 3 / 2 → x/6`
 
-(7) Division by 1 is shown, eg: `* 2 / 1 → [2x]/1`
+(7) Division by 1 is shown, eg: `/ 1 → x/1`, `* 2 / 1 → [2x]/1`
 
 (8) Division by 0 is not allowed.
 
