@@ -109,6 +109,7 @@ define( function( require ) {
 
       // y = x
       xNode = new Text( options.xSymbol, {
+        fill: options.xColor,
         font: options.xyFont,
         left: equalsNode.right + options.equalsXSpacing
       } );
@@ -149,6 +150,7 @@ define( function( require ) {
 
       // x
       xNode = new Text( options.xSymbol, {
+        fill: options.xColor,
         font: options.xyFont
       } );
       rhsNode.addChild( xNode );
