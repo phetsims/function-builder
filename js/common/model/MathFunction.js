@@ -46,7 +46,7 @@ define( function( require ) {
     this._apply = apply;
 
     // @public
-    this.operandProperty = new Property( options.operand );
+    this.operandProperty = new Property( options.operand ); // {Property.<number>}
     this.operandProperty.lazyLink( function( operand ) {
 
       // validate operand
