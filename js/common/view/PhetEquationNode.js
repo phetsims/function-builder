@@ -241,7 +241,7 @@ define( function( require ) {
           operandNode = new Text( Math.abs( currentOperand ), {
             font: options.wholeNumberFont,
             right: rhsNode.left - options.multiplierXSpacing,
-            centerY: leftParenthesisNode.centerY
+            centerY: nextCenterY
           } );
           rhsNode.addChild( operandNode );
         }
