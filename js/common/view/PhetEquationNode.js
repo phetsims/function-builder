@@ -15,7 +15,12 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Text = require( 'SCENERY/nodes/Text' );
+
+  // constants
+  var ZERO = RationalNumber.withInteger( 0 );
 
   /**
    * @param {PhetEquation} equation
@@ -38,7 +43,8 @@ define( function( require ) {
       // fonts
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} font for x & y symbols
       symbolFont: FBConstants.EQUATION_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
-      numberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for numbers
+      wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for whole number
+      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT, // {Font} font for fractions
       signFont: FBConstants.EQUATION_CARD_SIGN_FONT, // {Font} font for negative sign
 
       // fractions
@@ -95,11 +101,33 @@ define( function( require ) {
       } );
       options.children.push( xNode );
     }
+    else if ( mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
+              mathFunctions[ 0 ].operandProperty.get().valueOf() === 0 ) {
+
+      // constant
+      var value = ZERO;
+      for ( var i = 0; i < mathFunctions.length; i++ ) {
+        value = mathFunctions[ i ].apply( value );
+      }
+
+      var constantNode = new RationalNumberNode( value, {
+        fill: options.color,
+        mixedNumber: false, // display as an improper fraction
+        fractionYSpacing: options.fractionYSpacing,
+        signXSpacing: options.signXSpacing,
+        signFont: options.signFont,
+        wholeNumberFont: options.wholeNumberFont,
+        fractionFont: options.fractionFont,
+        left: equalsNode.right + options.equalsXSpacing,
+        centerY: equalsNode.centerY + options.slopeYOffset
+      } );
+      options.children.push( constantNode );
+    }
     else {
 
       //TODO temporary
       var rhsSideNode = new Text( equation.toString(), {
-        font: options.numberFont,
+        font: options.wholeNumberFont,
         left: equalsNode.right + options.equalsXSpacing
       } );
       options.children.push( rhsSideNode );
