@@ -21,7 +21,7 @@ define( function( require ) {
   var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
 
   // constants
-  var ZERO = new RationalNumber( 0, 1 );
+  var ZERO = RationalNumber.withInteger( 0 );
 
   /**
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
