@@ -239,6 +239,7 @@ define( function( require ) {
             if ( equation !== '0' ) {
 
               // eq: [2x + 1]/3
+              // square brackets denote a numerator
               equation = StringUtils.format( '[{0}]/{1}', equation, currentOperand );
             }
           }
