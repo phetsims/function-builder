@@ -46,27 +46,28 @@ Cards always show the righthand side of the slope-intercept equation.
 + 1 * 2 / 3 | y = [2(x + 1)]/3 | y = 2/3 x + 2/3 |
 / 3 + 3 / 2 | y = [x/3 + 3]/2 | y = 1/6 x + 3/2 |
 
-Variations suggested by AP:
-
-| Builder  | Unsimplified | Simplified |
-| ------------- | ------------- | ------------- |
-/ 1 * 2 + 1 | y = [2x]/1 + 1 | y = 2x + 1 |
-/ 3 * 2 + 1 | y = [2x]/3 + 1 | y = 2/3 x + 1 |
-
 **Rules**
 
-Rules for generating unsimplified format:
+Rules for generating PhET-specific format:
 
-(1) Adjacent addition and subtraction is collapsed, eg: + 3 - 2 → x + 1
+(1) Adjacent addition and subtraction is collapsed, eg: + 3 - 2 → x + 1.  If it collapses to zero, it is dropped entirely, eg: * 2 + 3 - 3 → 2x
 
-(2) Adjacent multiplication is collapsed, eg: * 2 * 3 → 6x
+(2) Adjacent multiplication is collapsed, eg: * 2 * 3 → 6x.
 
-(3) Multiplication by zero is collapsed to 0, eg: + 2 * 0 → 0
+(3) Multiplication by 1 is shown, eg: + 2 * 1  → 1(x + 2)
 
-(4) Adjacent division is collapsed, eg: / 3 / 2 → x/6
+(4) Multiplication by zero results in a constant, eg: * 0 + 2 * 2 → 4
 
-(5) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3.  There is one exception: adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: / 3 * 3 → x
+(5) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
 
-(6) If the fragment preceding multiplication contains one or more operators, the fragment is wrapped in parentheses, eg: - 3 * 2 → 2(x-3)
+(6) Adjacent division is collapsed, eg: / 3 / 2 → x/6
 
-(7) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
+(7) Division by 1 is shown, eg: * 2 / 1 → [2x]/1
+
+(8) The fragment preceding division is treated as a numerator, eg: + 1 / 3 → [x + 1]/3
+
+(9) Adjacent multiplication and division is NOT collapsed, eg: * 2 / 3 → [2x]/3.  There is one exception: adjacent multiplication and division that evaluates to 1 is collapsed and hidden, eg: / 3 * 3 → x
+
+
+
+
