@@ -74,15 +74,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
-    // hoist vars that will be reused
-    var i = 0;
-    var xNode = null; // {Node}
-    var operatorNode = null; // {Node}
-    var operandNode = null; // {Node}
-    var leftParenthesisNode = null; // {Node}
-    var rightParenthesisNode = null; // {Node}
-    var nextLeft = 0; // {number} left position of next Node added to equation
-    var nextCenterY = 0; // {number} centerY position of next Node added to equation
+    var i = 0; // {number} for loop index
 
     // y
     var yNode = new Text( options.ySymbol, {
@@ -108,12 +100,11 @@ define( function( require ) {
     if ( mathFunctions.length === 0 ) {
 
       // y = x
-      xNode = new Text( options.xSymbol, {
+      options.children.push( new Text( options.xSymbol, {
         fill: options.xColor,
         font: options.xyFont,
         left: equalsNode.right + options.equalsXSpacing
-      } );
-      options.children.push( xNode );
+      } ) );
     }
     else if ( equation.evaluatesToConstant() ) {
 
@@ -138,18 +129,23 @@ define( function( require ) {
     }
     else {
 
-      // parent node for right-hand side (rhs) of the equation
-      var rhsNode = new Node();
-
       // local vars to improve readability
       var currentFunction = null; // {MathFunction}
       var currentOperator = null; // {string}
       var currentOperand = null; // {number}
       var previousOperator = null; // {string}
-      var numberOfOperatorsInFragment = 0;
+
+      var operatorNode = null; // {Node}
+      var operandNode = null; // {Node}
+      var nextLeft = 0; // {number} left position of next Node added to equation
+      var nextCenterY = 0; // {number} centerY position of next Node added to equation
+      var addParenthesis = false; // {boolean} add parenthesis around term before adding multiplier?
+
+      // parent node for right-hand side (rhs) of the equation
+      var rhsNode = new Node();
 
       // x
-      xNode = new Text( options.xSymbol, {
+      var xNode = new Text( options.xSymbol, {
         fill: options.xColor,
         font: options.xyFont
       } );
@@ -168,7 +164,7 @@ define( function( require ) {
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
 
-          numberOfOperatorsInFragment++;
+          addParenthesis = true;
 
           // eg: x + 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
@@ -193,7 +189,7 @@ define( function( require ) {
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
 
-          numberOfOperatorsInFragment++;
+          addParenthesis = true;
 
           // eg: x - 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
@@ -219,16 +215,16 @@ define( function( require ) {
             'adjacent times should have been collapsed' );
 
           // parentheses around term, eg: 2(x + 2)
-          if ( numberOfOperatorsInFragment !== 0 ) {
+          if ( addParenthesis ) {
 
-            leftParenthesisNode = new Text( '(', {
+            var leftParenthesisNode = new Text( '(', {
               font: options.symbolFont,
               right: rhsNode.left - options.parenthesisXSpacing,
               centerY: nextCenterY
             } );
             rhsNode.addChild( leftParenthesisNode );
 
-            rightParenthesisNode = new Text( ')', {
+            var rightParenthesisNode = new Text( ')', {
               font: options.symbolFont,
               left: rhsNode.right + options.parenthesisXSpacing,
               centerY: leftParenthesisNode.centerY
