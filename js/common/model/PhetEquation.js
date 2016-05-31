@@ -38,30 +38,33 @@ define( function( require ) {
 
     // local vars to improve readability
     var currentFunction = null; // {MathFunction}
-    var previousFunction = null; // {MathFunction}
     var currentOperator = null; // {string}
+    var currentOperand = null; // {number}
+    var previousFunction = null; // {MathFunction}
     var previousOperator = null; // {string}
-    var value = 0; // {number}
+    var previousOperand = null; // {number}
+    var rationalNumber = ZERO; // {RationalNumber}
 
     for ( var i = 0; i < mathFunctions.length; i++ ) {
 
       currentFunction = mathFunctions[ i ];
       currentOperator = currentFunction.operatorString;
+      currentOperand = currentFunction.operandProperty.get();
 
       if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
 
-        if ( currentFunction.operandProperty.get() === 0 ) {
+        if ( currentOperand === 0 ) {
           // ignore plus or minus zero
         }
-        else if ( stack.length !== 0 && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
+        else if ( ( stack.length !== 0 ) && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
 
           // collapse adjacent plus and minus
           stack.pop();
 
-          value = currentFunction.apply( previousFunction.apply( ZERO ) ); // {RandomNumber}
-          if ( value.valueOf() !== 0 ) {
+          rationalNumber = currentFunction.apply( previousFunction.apply( ZERO ) ); // {RandomNumber}
+          if ( rationalNumber.valueOf() !== 0 ) {
             stack.push( new Plus( {
-              operand: value,
+              operand: rationalNumber.valueOf(),
               operandRange: null
             } ) );
           }
@@ -72,7 +75,7 @@ define( function( require ) {
       }
       else if ( currentOperator === FBSymbols.TIMES ) {
 
-        if ( currentFunction.operandProperty.get() === 0 ) {
+        if ( currentOperand === 0 ) {
 
           // times zero clears the stack
           stack = [];
@@ -90,11 +93,11 @@ define( function( require ) {
           // collapse adjacent times
           stack.pop();
           stack.push( new Times( {
-            operand: previousFunction.operandProperty.get() * currentFunction.operandProperty.get(),
+            operand: previousOperand * currentOperand,
             operandRange: null
           } ) );
         }
-        else if ( previousOperator === FBSymbols.DIVIDE && ( previousFunction.operandProperty.get() === currentFunction.operandProperty.get() ) ) {
+        else if ( ( previousOperator === FBSymbols.DIVIDE ) && ( previousOperand === currentOperand ) ) {
 
           // adjacent times and divide that evaluates to 1
           stack.pop();
@@ -104,7 +107,7 @@ define( function( require ) {
         }
       }
       else if ( currentOperator === FBSymbols.DIVIDE ) {
-        assert && assert( currentFunction.operandProperty.get() !== 0, 'division by zero is not supported' );
+        assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
 
         if ( stack.length === 0 ) {
           stack.push( currentFunction );
@@ -114,11 +117,11 @@ define( function( require ) {
           // collapse adjacent divide
           stack.pop();
           stack.push( new Divide( {
-            operand: previousFunction.operandProperty.get() * currentFunction.operandProperty.get(),
+            operand: previousOperand * currentOperand,
             operandRange: null
           } ) );
         }
-        else if ( previousOperator === FBSymbols.TIMES && ( previousFunction.operandProperty.get() === currentFunction.operandProperty.get() ) ) {
+        else if ( ( previousOperator === FBSymbols.TIMES ) && ( previousOperand === currentOperand ) ) {
 
           // adjacent times and divide that evaluates to 1
           stack.pop();
@@ -134,10 +137,12 @@ define( function( require ) {
       if ( stack.length > 0 ) {
         previousFunction = stack[ stack.length - 1 ];
         previousOperator = currentOperator;
+        previousOperand = previousFunction.operandProperty.get();
       }
       else {
         previousFunction = null;
         previousOperator = null;
+        previousOperand = null;
       }
     }
 
@@ -168,7 +173,7 @@ define( function( require ) {
         equation = this.xSymbol;
       }
       else if ( this.mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
-                this.mathFunctions[ 0 ].operandProperty.get() === 0 ) {
+                this.mathFunctions[ 0 ].operandProperty.get().valueOf() === 0 ) {
 
         // constant
         var value = ZERO;
@@ -182,6 +187,7 @@ define( function( require ) {
         var currentFunction = null; // {MathFunction}
         var currentOperator = null; // {string}
         var currentOperand = null; // {number}
+        var previousOperator = null; // {string}
 
         equation = this.xSymbol;
 
@@ -189,22 +195,31 @@ define( function( require ) {
 
           currentFunction = this.mathFunctions[ i ];
           currentOperator = currentFunction.operatorString;
-          currentOperand = currentFunction.operandProperty.get();
+          currentOperand = currentFunction.operandProperty.get().valueOf();
 
           if ( currentOperator === FBSymbols.PLUS ) {
+            assert && assert(
+              !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+              'adjacent plus and minus should have been collapsed' );
 
-              // eg: 2x + 3
-              equation = StringUtils.format( '{0} {1} {2}', equation,
-                ( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS ), currentOperand );
+            // eg: 2x + 3
+            equation = StringUtils.format( '{0} {1} {2}', equation,
+              ( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS ), Math.abs( currentOperand ) );
           }
           else if ( currentOperator === FBSymbols.MINUS ) {
+            assert && assert(
+              !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+              'adjacent plus and minus should have been collapsed' );
 
-              // eg: 2x - 3
-              equation = StringUtils.format( '{0} {1} {2}', equation,
-                ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), currentOperand );
+            // eg: 2x - 3
+            equation = StringUtils.format( '{0} {1} {2}', equation,
+              ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), Math.abs( currentOperand ) );
           }
           else if ( currentOperator === FBSymbols.TIMES ) {
-            assert && assert( currentOperand !== 0, 'times zero should have been factored out in constructor' );
+            assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
+            assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
+              'adjacent times should have been collapsed' );
+
             if ( equation === this.xSymbol ) {
 
               // eg: 3x
@@ -217,6 +232,10 @@ define( function( require ) {
             }
           }
           else if ( currentOperator === FBSymbols.DIVIDE ) {
+            assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
+            assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
+              'adjacent divide should have been collapsed' );
+
             if ( equation !== '0' ) {
 
               // eq: [2x + 1]/3
@@ -226,6 +245,8 @@ define( function( require ) {
           else {
             throw new Error( 'invalid operator: ' + currentOperator );
           }
+
+          previousOperator = currentOperator;
         }
       }
 
