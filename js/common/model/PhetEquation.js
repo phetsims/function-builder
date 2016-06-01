@@ -97,11 +97,6 @@ define( function( require ) {
             operandRange: null
           } ) );
         }
-        else if ( ( previousOperator === FBSymbols.DIVIDE ) && ( previousOperand === currentOperand ) ) {
-
-          // adjacent times and divide that evaluates to 1
-          stack.pop();
-        }
         else {
           stack.push( currentFunction );
         }
@@ -120,11 +115,6 @@ define( function( require ) {
             operand: previousOperand * currentOperand,
             operandRange: null
           } ) );
-        }
-        else if ( ( previousOperator === FBSymbols.TIMES ) && ( previousOperand === currentOperand ) ) {
-
-          // adjacent times and divide that evaluates to 1
-          stack.pop();
         }
         else {
           stack.push( currentFunction );
