@@ -277,9 +277,10 @@ define( function( require ) {
       SceneNode.prototype.reset.call( this );
 
       // drawers
-      this.equationDrawer.reset( { animationEnabled: false } );
-      this.tableDrawer.reset( { animationEnabled: false } );
-      this.graphDrawer && this.graphDrawer.reset( { animationEnabled: false } );
+      var drawerResetOptions = { animationEnabled: false };
+      this.equationDrawer.reset( drawerResetOptions );
+      this.tableDrawer.reset( drawerResetOptions );
+      this.graphDrawer && this.graphDrawer.reset( drawerResetOptions );
     },
 
     /**
