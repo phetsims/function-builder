@@ -287,15 +287,23 @@ define( function( require ) {
 
     /**
      * Moves this card immediately to the input carousel, no animation.
+     * If the card is already in the input carousel, this is a no-op.
      *
      * @public
      */
     moveToInputCarousel: function() {
-      assert && assert( !this.inputContainer.containsNode( this ) );
+
       if ( this.dragLayer.hasChild( this ) ) {
+        this.cancelDrag();
         this.dragLayer.removeChild( this );
       }
-      this.inputContainer.addNode( this );
+      else if ( this.outputContainer.containsNode( this ) ) {
+        this.outputContainer.removeNode( this );
+      }
+
+      if ( !this.inputContainer.containsNode( this ) ) {
+        this.inputContainer.addNode( this );
+      }
     },
 
     /**
