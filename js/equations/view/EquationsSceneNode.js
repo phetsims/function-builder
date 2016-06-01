@@ -65,7 +65,7 @@ define( function( require ) {
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
-      open: false, //TODO table drawer should be initially open
+      open: true,
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
