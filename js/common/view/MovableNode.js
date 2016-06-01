@@ -92,10 +92,13 @@ define( function( require ) {
     //TODO Replace when general support is added to scenery, see https://github.com/phetsims/scenery/issues/218.
     /**
      * Cancels a drag that is in progress.
+     * If no drag is in progress, this is a no-op.
      * @public
      */
     cancelDrag: function() {
-      this.dragHandler.endDrag( null /* event */ );
+      if ( this.movable.dragging ) {
+        this.dragHandler.endDrag( null /* event */ );
+      }
     }
   } );
 } );
