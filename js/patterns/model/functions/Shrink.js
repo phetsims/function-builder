@@ -28,13 +28,14 @@ define( function( require ) {
     options = _.extend( {
       scale: 0.75
     }, options );
+    options.fill = 'rgb( 246, 164, 255 )';
     
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 
-    ImageFunction.call( this, new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 246, 164, 255 )'
-    } );
+    var iconNode = new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Shrink', Shrink );

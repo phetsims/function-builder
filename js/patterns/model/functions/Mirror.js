@@ -20,12 +20,17 @@ define( function( require ) {
   var mirrorImage = require( 'mipmap!FUNCTION_BUILDER/functions/mirror.png' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function Mirror() {
-    ImageFunction.call( this, new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 128, 197, 237 )'
-    } );
+  function Mirror( options ) {
+
+    options = options || {};
+    options.fill = 'rgb( 128, 197, 237 )';
+
+    var iconNode = new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Mirror', Mirror );

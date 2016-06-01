@@ -20,9 +20,13 @@ define( function( require ) {
   var mysteryAString = require( 'string!FUNCTION_BUILDER/mysteryA' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function MysteryA() {
+  function MysteryA( options ) {
+
+    options = options || {};
+    options.fill = 'rgb( 127, 225, 173 )';
 
     var iconNode = new SubSupText( mysteryAString, {
       subScale: 0.4,
@@ -30,9 +34,7 @@ define( function( require ) {
       maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width
     } );
 
-    ImageFunction.call( this, iconNode, {
-      fill: 'rgb( 127, 225, 173 )'
-    } );
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'MysteryA', MysteryA );

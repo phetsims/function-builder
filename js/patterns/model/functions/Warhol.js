@@ -54,18 +54,23 @@ define( function( require ) {
   var BACKGROUND = new Color( 255, 255, 255, 255 );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function Warhol() {
+  function Warhol( options ) {
 
+    options = options || {};
+    options.fill = 'rgb( 250, 186, 75 )';
+    options.invertible = false; // grayscale conversion and intensity mapping are both lossy
+
+    // @private
     this.shrink = new Shrink( { scale: 0.5 } );
-    this.grayscale = new Grayscale(); // @private
-    this.identity = new Identity(); // @private
+    this.grayscale = new Grayscale();
+    this.identity = new Identity();
 
-    ImageFunction.call( this, new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 250, 186, 75 )',
-      invertible: false // grayscale conversion and intensity mapping are both lossy
-    } );
+    var iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Warhol', Warhol );

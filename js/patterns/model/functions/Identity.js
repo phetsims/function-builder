@@ -20,12 +20,17 @@ define( function( require ) {
   var identityImage = require( 'mipmap!FUNCTION_BUILDER/functions/identity.png' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function Identity() {
-    ImageFunction.call( this, new Image( identityImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 255, 161, 43 )'
-    } );
+  function Identity( options ) {
+
+    options = options || {};
+    options.fill = 'rgb( 255, 161, 43 )';
+
+    var iconNode = new Image( identityImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Identity', Identity );

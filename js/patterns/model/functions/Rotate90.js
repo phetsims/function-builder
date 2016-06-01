@@ -20,12 +20,17 @@ define( function( require ) {
   var rotate90Image = require( 'mipmap!FUNCTION_BUILDER/functions/rotate90.png' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function Rotate90() {
-    ImageFunction.call( this, new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 147, 231, 128 )'
-    } );
+  function Rotate90( options ) {
+
+    options = options || {};
+    options.fill = 'rgb( 147, 231, 128 )';
+
+    var iconNode = new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Rotate90', Rotate90 );

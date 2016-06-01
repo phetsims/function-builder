@@ -20,13 +20,18 @@ define( function( require ) {
   var grayScaleImage = require( 'mipmap!FUNCTION_BUILDER/functions/grayscale.png' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function Grayscale() {
-    ImageFunction.call( this, new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } ), {
-      fill: 'rgb( 232, 232, 232 )',
-      invertible: false // converting to grayscale is lossy
-    } );
+  function Grayscale( options ) {
+
+    options = options || {};
+    options.fill = 'rgb( 232, 232, 232 )';
+    options.invertible = false; // converting to grayscale is lossy
+
+    var iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+    ImageFunction.call( this, iconNode, options );
   }
 
   functionBuilder.register( 'Grayscale', Grayscale );
