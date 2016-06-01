@@ -231,7 +231,7 @@ define( function( require ) {
           }
 
           // multiplier in front of term, eg: 2x or 2(x + 2)
-          operandNode = new Text( Math.abs( currentOperand ), {
+          operandNode = new Text( currentOperand, {
             font: options.wholeNumberFont,
             right: rhsNode.left - options.multiplierXSpacing,
             centerY: nextCenterY
