@@ -52,6 +52,7 @@ define( function( require ) {
       wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for whole number
       fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT, // {Font} font for fractions
       signFont: FBConstants.EQUATION_CARD_SIGN_FONT, // {Font} font for negative sign
+      parenthesesFont: FBConstants.EQUATION_CARD_PARENTHESES_FONT, // {Font} font for parentheses
 
       // fractions
       fractionScale: 0.67, // {number} how much to scale fractions
@@ -61,7 +62,7 @@ define( function( require ) {
       signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
       operatorXSpacing: 8, // {number} x space on both sides of an operator
       multiplierXSpacing: 3, // {number} x space following multiplier
-      parenthesisXSpacing: 3, // {number} x space inside of parentheses
+      parenthesesXSpacing: 3, // {number} x space inside of parentheses
 
       // y spacing
       fractionYSpacing: 6 // {number} y space above and below fraction line
@@ -226,17 +227,23 @@ define( function( require ) {
           if ( i !== 0 ) {
 
             var leftParenthesisNode = new Text( '(', {
-              font: options.symbolFont,
-              right: rhsNode.left - options.parenthesisXSpacing,
+              font: options.parenthesesFont,
+              right: rhsNode.left - options.parenthesesXSpacing,
               centerY: nextCenterY
             } );
-            rhsNode.addChild( leftParenthesisNode );
 
             var rightParenthesisNode = new Text( ')', {
-              font: options.symbolFont,
-              left: rhsNode.right + options.parenthesisXSpacing,
+              font: options.parenthesesFont,
+              left: rhsNode.right + options.parenthesesXSpacing,
               centerY: leftParenthesisNode.centerY
             } );
+
+            // scale to fit around term
+            var parenthesesScale = rhsNode.height / leftParenthesisNode.height;
+            leftParenthesisNode.setScaleMagnitude( parenthesesScale );
+            rightParenthesisNode.setScaleMagnitude( parenthesesScale );
+
+            rhsNode.addChild( leftParenthesisNode );
             rhsNode.addChild( rightParenthesisNode );
 
             nextLeft = rightParenthesisNode.right + options.operatorXSpacing;
@@ -259,19 +266,24 @@ define( function( require ) {
           // what we've built so far becomes the numerator
           var numeratorNode = rhsNode;
 
+          // denominator
+          var denominatorNode = new Text( currentOperand, {
+            font: options.wholeNumberFont
+          } );
+
           // line dividing numerator and denominator
-          var fractionLineNode = new Line( 0, 0, rhsNode.width, 0, {
+          var fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
+          var fractionLineNode = new Line( 0, 0, fractionLineLength, 0, {
             stroke: options.color,
             centerX: rhsNode.centerX,
             top: numeratorNode.bottom + options.fractionYSpacing
           } );
 
-          // denominator
-          var denominatorNode = new Text( currentOperand, {
-            font: options.wholeNumberFont,
-            centerX: fractionLineNode.centerX,
-            top: fractionLineNode.bottom + options.fractionYSpacing
-          } );
+          // fraction layout
+          numeratorNode.centerX = fractionLineNode.centerX;
+          numeratorNode.bottom = fractionLineNode.top - options.fractionYSpacing;
+          denominatorNode.centerX = fractionLineNode.centerX;
+          denominatorNode.top = fractionLineNode.bottom + options.fractionYSpacing;
 
           // fraction
           var fractionNode = new Node( {

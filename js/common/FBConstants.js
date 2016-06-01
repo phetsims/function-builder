@@ -61,6 +61,7 @@ define( function( require ) {
     EQUATION_CARD_SIGN_FONT: new FBFont( 22 ),
     EQUATION_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
     EQUATION_CARD_FRACTION_FONT: new FBFont( 20 ),
+    EQUATION_CARD_PARENTHESES_FONT: new FBFont( 30 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
