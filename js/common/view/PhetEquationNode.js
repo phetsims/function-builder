@@ -238,10 +238,11 @@ define( function( require ) {
               centerY: leftParenthesisNode.centerY
             } );
 
-            // scale to fit around term
-            var parenthesesScale = rhsNode.height / leftParenthesisNode.height;
-            leftParenthesisNode.setScaleMagnitude( parenthesesScale );
-            rightParenthesisNode.setScaleMagnitude( parenthesesScale );
+            // scale to fit around term, handling x & y dimensions independently so that parenthesis don't get too heavy
+            var parenthesesScaleX = 0.7;
+            var parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
+            leftParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
+            rightParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
 
             rhsNode.addChild( leftParenthesisNode );
             rhsNode.addChild( rightParenthesisNode );
