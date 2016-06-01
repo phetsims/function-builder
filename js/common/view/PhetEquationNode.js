@@ -72,6 +72,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
+    var mathFunctions = equation.mathFunctions; // {MathFunction[]}
     var i = 0; // {number} for loop index
     var xNode = null; // {Node}
 
@@ -97,8 +98,6 @@ define( function( require ) {
     if ( options.showLeftHandSide ) {
       options.children.push( yNode, equalsNode );
     }
-
-    var mathFunctions = equation.mathFunctions; // {MathFunction[]}
 
     if ( mathFunctions.length === 0 ) {
 
@@ -173,6 +172,9 @@ define( function( require ) {
         currentOperand = currentFunction.operandProperty.get().valueOf();
 
         if ( currentOperator === FBSymbols.PLUS ) {
+
+          // PLUS ----------------------------------------------------------------------------
+
           assert && assert(
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
@@ -196,6 +198,9 @@ define( function( require ) {
           nextCenterY = operandNode.centerY;
         }
         else if ( currentOperator === FBSymbols.MINUS ) {
+
+          // MINUS ----------------------------------------------------------------------------
+
           assert && assert(
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
             'adjacent plus and minus should have been collapsed' );
@@ -219,6 +224,9 @@ define( function( require ) {
           nextCenterY = operandNode.centerY;
         }
         else if ( currentOperator === FBSymbols.TIMES ) {
+
+          // TIMES ----------------------------------------------------------------------------
+
           assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
             'adjacent times should have been collapsed' );
@@ -260,6 +268,9 @@ define( function( require ) {
           rhsNode.addChild( operandNode );
         }
         else if ( currentOperator === FBSymbols.DIVIDE ) {
+
+          // DIVIDE ----------------------------------------------------------------------------
+
           assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
             'adjacent divide should have been collapsed' );
@@ -300,6 +311,9 @@ define( function( require ) {
           nextCenterY = rhsNode.centerY;
         }
         else {
+
+          // oops! ----------------------------------------------------------------------------
+
           throw new Error( 'invalid operator: ' + currentOperator );
         }
 
