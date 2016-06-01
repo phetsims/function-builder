@@ -202,14 +202,19 @@ define( function( require ) {
     moveToCarousel: function() {
 
       if ( this.dragLayer.hasChild( this ) ) {
+
+        // remove from drag layer
         this.cancelDrag();
         this.dragLayer.removeChild( this );
       }
       else if ( this.builderNode.containsFunctionNode( this ) ) {
+
+        // remove from builder
         this.stopNotInvertibleAnimation();
         this.builderNode.removeFunctionNode( this );
       }
 
+      // move to function carousel
       if ( !this.container.containsNode( this ) ) {
         this.container.addNode( this );
       }

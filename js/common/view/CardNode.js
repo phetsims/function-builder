@@ -294,13 +294,18 @@ define( function( require ) {
     moveToInputCarousel: function() {
 
       if ( this.dragLayer.hasChild( this ) ) {
+
+        // remove from drag layer
         this.cancelDrag();
         this.dragLayer.removeChild( this );
       }
       else if ( this.outputContainer.containsNode( this ) ) {
+
+        // remove from output carousel
         this.outputContainer.removeNode( this );
       }
 
+      // move to input carousel
       if ( !this.inputContainer.containsNode( this ) ) {
         this.inputContainer.addNode( this );
       }
