@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-Optional card rectangle around xSymbol and ySymbol in equations
-
 Reset All
 
 Cards (model elements) should have more responsibilities. They current only describe the input. Consider
