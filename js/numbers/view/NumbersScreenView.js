@@ -31,6 +31,7 @@ define( function( require ) {
       hasGraph: false, // no graph in this scene
       xSymbol: inputString, // symbol used in place of x
       ySymbol: outputString, // symbol used in place of y
+      xyAsCardsInEquations: true, // {boolean} make x & y symbols look like a card in equations
       tableHeadingFont: new FBFont( 18 )
     };
 

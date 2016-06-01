@@ -42,7 +42,8 @@ define( function( require ) {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: 0,
       xSymbol: FBSymbols.X, // {string} symbol for x, the input
-      ySymbol: FBSymbols.Y // {string} symbol for y, the output
+      ySymbol: FBSymbols.Y, // {string} symbol for y, the output
+      xyAsCards: false // {boolean} put x & y symbols on a rectangle background, like a card?
     }, options );
 
     // @private
@@ -50,6 +51,7 @@ define( function( require ) {
     this.slopeInterceptProperty = slopeInterceptProperty;
     this.xSymbol = options.xSymbol;
     this.ySymbol = options.ySymbol;
+    this.xyAsCards = options.xyAsCards;
 
     var thisNode = this;
 
@@ -119,6 +121,7 @@ define( function( require ) {
       this.phetEquationNode = new PhetEquationNode( phetEquation, {
         xSymbol: this.xSymbol,
         ySymbol: this.ySymbol,
+        xyAsCards: this.xyAsCards,
         maxWidth: this.equationMaxWidth,
         center: this.equationCenter,
         visible: !this.slopeInterceptProperty.get()
@@ -137,6 +140,7 @@ define( function( require ) {
           showLeftHandSide: true, // show 'y =' part of equation
           xSymbol: this.xSymbol,
           ySymbol: this.ySymbol,
+          xyAsCards: this.xyAsCards,
           maxWidth: this.equationMaxWidth,
           center: this.equationCenter,
           visible: this.slopeInterceptProperty.get()

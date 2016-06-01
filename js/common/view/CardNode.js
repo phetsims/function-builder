@@ -412,6 +412,36 @@ define( function( require ) {
       options.children = [ backgroundNode, contentNode ];
 
       return new Node( options );
+    },
+
+    /**
+     * Creates a card-like icon for x or y symbol, for use in equations.
+     *
+     * @param {Node} xyNode
+     * @param {Object} [options]
+     * @returns {Node}
+     */
+    createEquationXYNode: function( xyNode, options ) {
+
+      options = _.extend( {
+        xMargin: 20,
+        yMargin: 10,
+        minHeight: 35
+      }, FBConstants.CARD_OPTIONS, options );
+
+      var backgroundHeight = Math.max( options.minHeight, xyNode.height + options.yMargin );
+      var backgroundWidth = Math.max( xyNode.width + options.xMargin, backgroundHeight );
+
+      var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight,
+        _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
+
+      // center content on background
+      xyNode.center = backgroundNode.center;
+
+      assert && assert( !options.children, 'decoration not supported' );
+      options.children = [ backgroundNode, xyNode ];
+
+      return new Node( options );
     }
   } );
 } );

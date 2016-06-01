@@ -42,7 +42,8 @@ define( function( require ) {
       // options for this subtype
       hasGraph: true, // show XY graph
       xSymbol: FBSymbols.X,
-      ySymbol: FBSymbols.Y
+      ySymbol: FBSymbols.Y,
+      xyAsCardsInEquations: false // {boolean} put x & y symbols on a rectangle background in equations, like a card?
 
     }, options );
 
@@ -248,7 +249,8 @@ define( function( require ) {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
-      ySymbol: options.ySymbol
+      ySymbol: options.ySymbol,
+      xyAsCards: options.xyAsCardsInEquations
     } );
 
     // @private Equation drawer

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -34,6 +35,8 @@ define( function( require ) {
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
       xSymbol: FBSymbols.X, // {string} symbol for input
       ySymbol: FBSymbols.Y, // {string} symbol for output
+      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
+      xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
 
       // colors
       xColor: 'black', // {Color|string} for x symbol
@@ -72,14 +75,19 @@ define( function( require ) {
     var yNode = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
-      y: options.xyYOffset
+      maxWidth: options.xyMaxWidth
     } );
+    if ( options.xyAsCards ) {
+      yNode = CardNode.createEquationXYNode( yNode );
+    }
+    yNode.y = options.xyYOffset;
 
     // =
     var equalsNode = new Text( FBSymbols.EQUALS, {
       fill: options.color,
       font: options.symbolFont,
-      left: yNode.right + options.equalsXSpacing
+      left: yNode.right + options.equalsXSpacing,
+      centerY: yNode.centerY
     } );
 
     // Create the left-hand side nodes to simplify layout, but add them only if requested
@@ -154,12 +162,18 @@ define( function( require ) {
 
       // x
       if ( slope.valueOf() !== 0 ) {
+
         var xNode = new Text( options.xSymbol, {
           fill: options.xColor,
           font: options.xyFont,
-          left: xLeft,
-          centerY: equalsNode.centerY + options.xyYOffset
+          maxWidth: options.xyMaxWidth
         } );
+        if ( options.xyAsCards ) {
+          xNode = CardNode.createEquationXYNode( xNode );
+        }
+        xNode.left = xLeft;
+        xNode.centerY = equalsNode.centerY + options.xyYOffset;
+
         options.children.push( xNode );
         operatorLeft = xNode.right + options.operatorXSpacing;
       }

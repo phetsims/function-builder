@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -37,6 +38,8 @@ define( function( require ) {
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
       xSymbol: FBSymbols.X, // {string} symbol for input
       ySymbol: FBSymbols.Y, // {string} symbol for output
+      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
+      xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
 
       // colors
       xColor: 'black', // {Color|string} for x symbol
@@ -61,13 +64,7 @@ define( function( require ) {
       parenthesisXSpacing: 3, // {number} x space inside of parentheses
 
       // y spacing
-      fractionYSpacing: 2, // {number} y space above and below fraction line
-
-      // y offsets, positive is down, everything is relative to the equals sign
-      xyYOffset: 0, // {number} vertical offset of x & y symbols
-      slopeYOffset: 0, // {number} vertical offset of slope
-      interceptYOffset: 0, // {number} vertical offset of intercept
-      operatorYOffset: 0 // {number} vertical offset of operators (plus, minus)
+      fractionYSpacing: 6 // {number} y space above and below fraction line
 
     }, options );
 
@@ -75,19 +72,24 @@ define( function( require ) {
     options.children = [];
 
     var i = 0; // {number} for loop index
+    var xNode = null; // {Node}
 
     // y
     var yNode = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
-      y: options.xyYOffset
+      maxWidth: options.xyMaxWidth
     } );
+    if ( options.xyAsCards ) {
+      yNode = CardNode.createEquationXYNode( yNode );
+    }
 
     // =
     var equalsNode = new Text( FBSymbols.EQUALS, {
       fill: options.color,
       font: options.symbolFont,
-      left: yNode.right + options.equalsXSpacing
+      left: yNode.right + options.equalsXSpacing,
+      centerY: yNode.centerY
     } );
 
     // Create the left-hand side nodes to simplify layout, but add them only if requested
@@ -100,11 +102,18 @@ define( function( require ) {
     if ( mathFunctions.length === 0 ) {
 
       // y = x
-      options.children.push( new Text( options.xSymbol, {
+      xNode = new Text( options.xSymbol, {
         fill: options.xColor,
         font: options.xyFont,
+        maxWidth: options.xyMaxWidth,
         left: equalsNode.right + options.equalsXSpacing
-      } ) );
+      } );
+      if ( options.xyAsCards ) {
+        xNode = CardNode.createEquationXYNode( xNode );
+      }
+      xNode.left = equalsNode.right + options.equalsXSpacing;
+      xNode.centerY = equalsNode.centerY;
+      options.children.push( xNode );
     }
     else if ( equation.evaluatesToConstant() ) {
 
@@ -123,7 +132,7 @@ define( function( require ) {
         wholeNumberFont: options.wholeNumberFont,
         fractionFont: options.fractionFont,
         left: equalsNode.right + options.equalsXSpacing,
-        centerY: equalsNode.centerY + options.slopeYOffset
+        centerY: equalsNode.centerY
       } );
       options.children.push( constantNode );
     }
@@ -144,10 +153,14 @@ define( function( require ) {
       var rhsNode = new Node();
 
       // x
-      var xNode = new Text( options.xSymbol, {
+      xNode = new Text( options.xSymbol, {
         fill: options.xColor,
-        font: options.xyFont
+        font: options.xyFont,
+        maxWidth: options.xyMaxWidth
       } );
+      if ( options.xyAsCards ) {
+        xNode = CardNode.createEquationXYNode( xNode );
+      }
       rhsNode.addChild( xNode );
       nextLeft = xNode.right + options.operatorXSpacing;
       nextCenterY = equalsNode.centerY;
