@@ -18,6 +18,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
+  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
@@ -44,7 +45,8 @@ define( function( require ) {
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
-      xyAsCardsInEquations: false // {boolean} put x & y symbols on a rectangle background in equations, like a card?
+      xyAsCardsInEquations: false, // {boolean} put x & y symbols on a rectangle background in equations, like a card?
+      tableHeadingFont: new MathSymbolFont( 18 )
 
     }, options );
 
@@ -57,7 +59,7 @@ define( function( require ) {
     var tableNode = new XYTableNode( scene.builder, {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
-      tableHeadingFont: options.tableHeadingFont,
+      headingFont: options.tableHeadingFont,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
     } );
 
