@@ -64,7 +64,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      MathFunction.prototype.reset.call( this );
+      AbstractFunction.prototype.reset.call( this );
       this.operandProperty.reset();
     },
 
