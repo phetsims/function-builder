@@ -261,9 +261,6 @@ define( function( require ) {
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
       builderNode.reset();
-
-      // move 1 of each card to the output carousel, for testing
-      populateOutputCarousel( inputCarousel, outputCarousel );
     };
 
     // @private Populates the carousels, while we scroll them with animation disabled.
@@ -307,31 +304,28 @@ define( function( require ) {
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
       // move 1 of each card to the output carousel, for testing
-      populateOutputCarousel( inputCarousel, outputCarousel );
+      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+        populateOutputCarousel( inputCarousel, outputCarousel );
+      }
     };
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );
 
-  /**
-   * Moves 1 of each card to the output carousel, for testing.
-   * If the required query parameter isn't present, this is a no-op.
-   */
+  // Moves 1 of each card to the output carousel, used for testing.
   var populateOutputCarousel = function( inputCarousel, outputCarousel ) {
 
     assert && assert( inputCarousel.items.length === outputCarousel.items.length,
       'input and output carousels must have the same number of items' );
 
-    if ( FBQueryParameters.POPULATE_OUTPUT ) {
-      for ( var i = 0; i < inputCarousel.items.length; i++ ) {
+    for ( var i = 0; i < inputCarousel.items.length; i++ ) {
 
-        var inputContainer = inputCarousel.items[ i ];
-        var outputContainer = outputCarousel.items[ i ];
+      var inputContainer = inputCarousel.items[ i ];
+      var outputContainer = outputCarousel.items[ i ];
 
-        var cardNode = inputContainer.getContents()[ 0 ];
-        inputContainer.removeNode( cardNode );
-        outputContainer.addNode( cardNode );
-      }
+      var cardNode = inputContainer.getContents()[ 0 ];
+      inputContainer.removeNode( cardNode );
+      outputContainer.addNode( cardNode );
     }
   };
 
