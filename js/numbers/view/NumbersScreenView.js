@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -31,6 +32,7 @@ define( function( require ) {
       hasGraph: false, // no graph in this scene
       xSymbol: inputString, // symbol used in place of x
       ySymbol: outputString, // symbol used in place of y
+      xyFont: FBConstants.EQUATION_CARD_INPUT_OUTPUT_FONT, // {Font} for x & y symbols
       xyAsCardsInEquations: true, // {boolean} make x & y symbols look like a card in equations
       tableHeadingFont: new FBFont( 18 )
     };

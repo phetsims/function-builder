@@ -43,6 +43,7 @@ define( function( require ) {
       hasGraph: true, // show XY graph
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
+      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
       xyAsCardsInEquations: false // {boolean} put x & y symbols on a rectangle background in equations, like a card?
 
     }, options );
@@ -250,6 +251,7 @@ define( function( require ) {
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
+      xyFont: options.xyFont,
       xyAsCards: options.xyAsCardsInEquations
     } );
 

@@ -424,8 +424,8 @@ define( function( require ) {
     createEquationXYNode: function( xyNode, options ) {
 
       options = _.extend( {
-        xMargin: 20,
-        yMargin: 10,
+        xMargin: 30,
+        yMargin: 15,
         minHeight: 35
       }, FBConstants.CARD_OPTIONS, options );
 

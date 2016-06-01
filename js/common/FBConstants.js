@@ -56,6 +56,7 @@ define( function( require ) {
 
     // fonts for cards that display an equation or number
     EQUATION_CARD_XY_FONT: new MathSymbolFont( 30 ),
+    EQUATION_CARD_INPUT_OUTPUT_FONT: new FBFont( 24 ),
     EQUATION_CARD_SYMBOL_FONT: new FBFont( 30 ), // eg, +, -, =
     EQUATION_CARD_SIGN_FONT: new FBFont( 22 ),
     EQUATION_CARD_WHOLE_NUMBER_FONT: new FBFont( 30 ),
