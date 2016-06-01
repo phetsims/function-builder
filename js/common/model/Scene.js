@@ -54,7 +54,16 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      //TODO implement Scene.reset
+
+      // function instances
+      for ( var functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
+        this.functionInstances[ functionIndex ].reset();
+      }
+
+      // cards
+      for ( var cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
+        this.cards[ cardIndex ].reset();
+      }
     },
 
     /**
