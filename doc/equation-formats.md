@@ -68,8 +68,6 @@ Rules for generating PhET-specific format:
 
 (9) The portion of the equation preceding division is treated as a numerator, e.g.: `+ 1 / 3 → [x + 1]/3`
 
-(10) Adjacent multiplication and division operations are NOT collapsed, e.g.: `* 2 / 3 → [2x]/3`.  There is one exception: adjacent multiplication and division operations that evaluates to 1 are collapsed and hidden, e.g.: `/ 3 * 3 → x`
-
 
 
 
