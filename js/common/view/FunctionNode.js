@@ -195,15 +195,24 @@ define( function( require ) {
 
     /**
      * Moves this function immediately to the carousel, no animation.
+     * If the function is already in the carousel, this is a no-op.
      *
      * @public
      */
     moveToCarousel: function() {
-      assert && assert( !this.container.containsNode( this ) );
+
       if ( this.dragLayer.hasChild( this ) ) {
+        this.cancelDrag();
         this.dragLayer.removeChild( this );
       }
-      this.container.addNode( this );
+      else if ( this.builderNode.containsFunctionNode( this ) ) {
+        this.stopNotInvertibleAnimation();
+        this.builderNode.removeFunctionNode( this );
+      }
+
+      if ( !this.container.containsNode( this ) ) {
+        this.container.addNode( this );
+      }
     },
 
     /**
