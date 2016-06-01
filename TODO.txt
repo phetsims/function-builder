@@ -2,6 +2,8 @@ TODO list for function-builder
 
 ---
 
+Input & Output in normal font in table
+
 Reset All
 
 Performance (responsiveness)
