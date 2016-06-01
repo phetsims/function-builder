@@ -239,7 +239,7 @@ define( function( require ) {
             } );
 
             // scale to fit around term, handling x & y dimensions independently so that parenthesis don't get too heavy
-            var parenthesesScaleX = 0.7;
+            var parenthesesScaleX = 1;
             var parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
             leftParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
             rightParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
