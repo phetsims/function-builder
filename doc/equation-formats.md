@@ -22,7 +22,8 @@ Cards show the righthand side of the slope-intercept equation. Eg, if the slope-
 * 0 * 2	| y = 0|  y = 0 |
 / 3 + 2 | y = x/3 + 2| y = 1/3 x + 2 |
 + 2 / 3 | y = [x + 2]/3 | y = 1/3 x + 2/3 |
-/ 3 * 3 | y = x | y = x |
+/ 3 * 3 | y = 3(x/3) | y = x |
+/ -3 * 3 | y = 3(x/-3) | y = -x |
 / 3 * 0 | y = 0 | y = 0 |
 / 3 * 1 | y = 1(x/3) | y = 1/3 x |
 / 3 * 2 | y = 2(x/3) | y = 2/3 x |
