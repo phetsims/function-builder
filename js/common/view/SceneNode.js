@@ -246,6 +246,10 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    // @private populated by populateCarousels, needed by reset
+    this.functionNodes = []; // {FunctionNode[]}
+    this.cardNodes = []; // {CardNode[]}
+
     // @private Resets this node
     this._reset = function() {
 
@@ -261,6 +265,16 @@ define( function( require ) {
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
 
       builderNode.reset();
+
+      // Return all functions to the carousel
+      thisNode.functionNodes.forEach( function( functionNode ) {
+        functionNode.moveToCarousel();
+      } );
+
+      // Return all cards to the input carousel
+      thisNode.cardNodes.forEach( function( cardNode ) {
+        cardNode.moveToInputCarousel();
+      } );
     };
 
     // @private Populates the carousels, while we scroll them with animation disabled.
@@ -278,6 +292,9 @@ define( function( require ) {
 
         // populate the container with functions
         functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer );
+
+        // get the functions that were added, needed for reset
+        thisNode.functionNodes = thisNode.functionNodes.concat( functionContainer.getContents() );
       } );
       functionCarousel.pageNumberProperty.reset();
       functionCarousel.animationEnabled = true;
@@ -298,6 +315,9 @@ define( function( require ) {
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, thisNode.viewProperties.seeInsideProperty );
+
+        // get the cards that were added, needed for reset
+        thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
       }
       inputCarousel.pageNumberProperty.reset();
       outputCarousel.pageNumberProperty.reset();
