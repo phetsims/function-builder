@@ -257,7 +257,7 @@ define( function( require ) {
 
     // @private Equation drawer
     this.equationDrawer = new Drawer( equationPanel, {
-      open: true, //TODO equation drawer should be closed initially
+      open: false,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
