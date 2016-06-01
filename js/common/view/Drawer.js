@@ -213,6 +213,7 @@ define( function( require ) {
         animationEnabled: this.animationEnabled
       }, options );
 
+      // set the drawer to it's initial open/closed state, with or without animation
       var saveAnimationEnabled = this.animationEnabled;
       this.animationEnabled = options.animationEnabled;
       this.openProperty.reset();
