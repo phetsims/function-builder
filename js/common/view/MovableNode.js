@@ -53,7 +53,8 @@ define( function( require ) {
 
     var startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
 
-    this.addInputListener( new SimpleDragHandler( {
+    // @private
+    this.dragHandler = new SimpleDragHandler( {
 
       allowTouchSnag: options.allowTouchSnag,
 
@@ -80,10 +81,21 @@ define( function( require ) {
         movable.dragging = false;
         options.endDrag && options.endDrag();
       }
-    } ) );
+    } );
+    this.addInputListener( this.dragHandler );
   }
 
   functionBuilder.register( 'MovableNode', MovableNode );
 
-  return inherit( Node, MovableNode );
+  return inherit( Node, MovableNode, {
+
+    //TODO Replace when general support is added to scenery, see https://github.com/phetsims/scenery/issues/218.
+    /**
+     * Cancels a drag that is in progress.
+     * @public
+     */
+    cancelDrag: function() {
+      this.dragHandler.endDrag( null /* event */ );
+    }
+  } );
 } );
