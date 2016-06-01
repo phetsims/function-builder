@@ -48,13 +48,11 @@ define( function( require ) {
     // Resets this screen
     var resetAll = function() {
 
-      // model
-      model.reset();
-
-      // view
+      // reset view before model, or odd things will happen
       for ( var sceneIndex = 0; sceneIndex < sceneNodes.length; sceneIndex++ ) {
         sceneNodes[ sceneIndex ].reset();
       }
+      model.reset();
     };
 
     // Reset All button at bottom-right

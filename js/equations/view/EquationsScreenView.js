@@ -34,8 +34,10 @@ define( function( require ) {
 
     // Resets this screen
     var resetAll = function() {
-      model.reset();
+
+      // reset view before model, or odd things will happen
       sceneNode.reset();
+      model.reset();
     };
 
     // Reset All button at bottom-right
