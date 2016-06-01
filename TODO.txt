@@ -2,9 +2,9 @@ TODO list for function-builder
 
 ---
 
-Performance (responsiveness)
-
 Table
+
+Performance (responsiveness)
 
 Performance (startup time)
 
