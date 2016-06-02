@@ -66,7 +66,7 @@ define( function( require ) {
     // 'slope-intercept' check box, at bottom center
     var slopeInterceptLabel = new Text( slopeInterceptString, {
       font: new FBFont( 16 ),
-      maxWidth: 0.9 * options.size.width
+      maxWidth: 0.9 * this.backgroundNode.width
     } );
     var slopeInterceptCheckBox = new CheckBox( slopeInterceptLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
@@ -83,8 +83,9 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // @private constrain equation width to panel
+    // @private constrain equation to available space in panel
     this.equationMaxWidth = 0.85 * this.backgroundNode.width;
+    this.equationMaxHeight = 0.9 * ( slopeInterceptCheckBox.top - this.backgroundNode.top );
 
     // @private center of space available for equations
     this.equationCenter = new Vector2(
@@ -126,6 +127,7 @@ define( function( require ) {
         xyFont: this.xyFont,
         xyAsCards: this.xyAsCards,
         maxWidth: this.equationMaxWidth,
+        maxHeight: this.equationMaxHeight,
         center: this.equationCenter,
         visible: !this.slopeInterceptProperty.get()
       } );

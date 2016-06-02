@@ -2,8 +2,6 @@ TODO list for function-builder
 
 ---
 
-maxHeight for equations in drawer
-
 Table
 
 Performance (responsiveness)
