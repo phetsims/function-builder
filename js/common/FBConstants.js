@@ -26,6 +26,9 @@ define( function( require ) {
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
+    // whether to initialize ScreenViews on demand
+    INITIALIZE_SCREEN_VIEWS_ON_DEMAND: FBQueryParameters.INIT_ON_DEMAND,
+
     //--------------------------------------------------------------------------------------------------------
     // Builder
 

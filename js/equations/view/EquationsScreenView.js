@@ -27,38 +27,75 @@ define( function( require ) {
     assert && assert( !!model.scene, 'model must have a scene' );
     assert && assert( !!model.reset, 'model must have a reset function' );
 
+    // @private
+    this.model = model;
+    this.sceneNodeOptions = sceneNodeOptions;
+    this.initialized = false;
+
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    // Scene
-    var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, sceneNodeOptions );
-
-    // Resets this screen
-    var resetAll = function() {
-
-      // reset view before model, or odd things will happen
-      sceneNode.reset();
-      model.reset();
-    };
-
-    // Reset All button at bottom-right
-    var resetAllButton = new ResetAllButton( {
-      right: this.layoutBounds.maxX - 20,
-      bottom: this.layoutBounds.maxY - 20,
-      listener: resetAll
-    } );
-
-    // rendering order
-    this.addChild( resetAllButton );
-    this.addChild( sceneNode );
-
-    /**
-     * After the scene graph is fully constructed, populate parts of the model that
-     * depend on the location of things in the view.
-     */
-    sceneNode.populateCarousels();
+    if ( !FBConstants.INITIALIZE_SCREEN_VIEWS_ON_DEMAND ) {
+      this.initialize();
+    }
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( ScreenView, EquationsScreenView );
+  return inherit( ScreenView, EquationsScreenView, {
+
+    /**
+     * Called when the simulation clock ticks.
+     *
+     * @param {number} dt - clock time change, in seconds
+     * @public
+     */
+    step: function( dt ) {
+      if ( !this.initialized ) {
+        this.initialize();
+      }
+    },
+
+    /**
+     * Deferred initialization, to improve startup time. Called from step.
+     *
+     * @private
+     */
+    initialize: function() {
+
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
+
+      assert && assert( !this.initialized );
+      this.initialized = true;
+
+      var model = this.model;
+
+      // Scene
+      var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, this.sceneNodeOptions );
+
+      // Resets this screen
+      var resetAll = function() {
+
+        // reset view before model, or odd things will happen
+        sceneNode.reset();
+        model.reset();
+      };
+
+      // Reset All button at bottom-right
+      var resetAllButton = new ResetAllButton( {
+        right: this.layoutBounds.maxX - 20,
+        bottom: this.layoutBounds.maxY - 20,
+        listener: resetAll
+      } );
+
+      // rendering order
+      this.addChild( resetAllButton );
+      this.addChild( sceneNode );
+
+      /**
+       * After the scene graph is fully constructed, populate parts of the model that
+       * depend on the location of things in the view.
+       */
+      sceneNode.populateCarousels();
+    }
+  } );
 } );

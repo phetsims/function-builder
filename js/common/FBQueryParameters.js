@@ -25,7 +25,10 @@ define( function( require ) {
     SLOW: !!getQueryParameter( 'slow' ),
 
     // puts a red stroke around containers in the carousels, so that empty containers are visible
-    SHOW_CONTAINERS: !!getQueryParameter( 'showContainers' )
+    SHOW_CONTAINERS: !!getQueryParameter( 'showContainers' ),
+
+    // whether to initialize screens on demand or at startup (default)
+    INIT_ON_DEMAND: !!getQueryParameter( 'initOnDemand' )
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
