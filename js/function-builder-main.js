@@ -38,7 +38,7 @@ define( function( require ) {
       new MysteryScreen()
     ];
 
-    if ( FBQueryParameters.DEV ) {
+    if ( FBQueryParameters.TEST_SCREEN ) {
       screens.push( new TestScreen() );
     }
 

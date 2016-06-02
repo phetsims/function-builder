@@ -18,6 +18,9 @@ define( function( require ) {
     // enables developer-only features
     DEV: !!getQueryParameter( 'dev' ),
 
+    // adds the 'Test' screen
+    TEST_SCREEN: !!getQueryParameter( 'testScreen' ),
+
     // populates the output carousel with 1 card of each type
     POPULATE_OUTPUT: !!getQueryParameter( 'populateOutput' ),
 
