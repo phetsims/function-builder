@@ -148,6 +148,7 @@ define( function( require ) {
           xyFont: this.xyFont,
           xyAsCards: this.xyAsCards,
           maxWidth: this.equationMaxWidth,
+          maxHeight: this.equationMaxHeight,
           center: this.equationCenter,
           visible: this.slopeInterceptProperty.get()
         } );
