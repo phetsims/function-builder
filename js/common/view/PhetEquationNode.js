@@ -99,6 +99,16 @@ define( function( require ) {
       options.children.push( yNode, equalsNode );
     }
 
+    var RATIONAL_NUMBER_OPTIONS = {
+      fill: options.color,
+      mixedNumber: false, // display as an improper fraction
+      fractionYSpacing: options.fractionYSpacing,
+      signXSpacing: options.signXSpacing,
+      signFont: options.signFont,
+      wholeNumberFont: options.wholeNumberFont,
+      fractionFont: options.fractionFont
+    };
+
     if ( mathFunctions.length === 0 ) {
 
       // y = x
@@ -123,17 +133,11 @@ define( function( require ) {
         value = mathFunctions[ i ].apply( value );
       }
 
-      var constantNode = new RationalNumberNode( value, {
-        fill: options.color,
-        mixedNumber: false, // display as an improper fraction
-        fractionYSpacing: options.fractionYSpacing,
-        signXSpacing: options.signXSpacing,
-        signFont: options.signFont,
-        wholeNumberFont: options.wholeNumberFont,
-        fractionFont: options.fractionFont,
-        left: equalsNode.right + options.equalsXSpacing,
-        centerY: equalsNode.centerY
-      } );
+      var constantNode = new RationalNumberNode( value,
+        _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
+          left: equalsNode.right + options.equalsXSpacing,
+          centerY: equalsNode.centerY
+        } ) );
       options.children.push( constantNode );
     }
     else {
@@ -259,12 +263,12 @@ define( function( require ) {
             nextCenterY = rightParenthesisNode.centerY;
           }
 
-          // multiplier in front of term, eg: 2x or 2(x + 2)
-          operandNode = new Text( currentOperand, {
-            font: options.wholeNumberFont,
-            right: rhsNode.left - options.multiplierXSpacing,
-            centerY: nextCenterY
-          } );
+          // multiplier in front of term, eg: 2x or 2(x + 2), use RationalNumberNode so that sign is rendered consistently
+          operandNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
+            _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
+              right: rhsNode.left - options.multiplierXSpacing,
+              centerY: nextCenterY
+            } ) );
           rhsNode.addChild( operandNode );
         }
         else if ( currentOperator === FBSymbols.DIVIDE ) {
@@ -278,10 +282,11 @@ define( function( require ) {
           // what we've built so far becomes the numerator
           var numeratorNode = rhsNode;
 
-          // denominator
-          var denominatorNode = new Text( currentOperand, {
-            font: options.wholeNumberFont
-          } );
+          // denominator, use RationalNumberNode so that sign is rendered consistently
+          var denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
+            _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
+              font: options.wholeNumberFont
+            } ) );
 
           // line dividing numerator and denominator
           var fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
