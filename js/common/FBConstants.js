@@ -107,7 +107,10 @@ define( function( require ) {
 
     TABLE_DRAWER_SIZE: new Dimension2( 175, 200 ),
     GRAPH_DRAWER_SIZE: new Dimension2( 200, 200 ),
-    EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 )
+    EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 ),
+
+    TABLE_XY_HEADING_FONT: new MathSymbolFont( 18 ),
+    TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );
