@@ -22,6 +22,7 @@ define( function( require ) {
 
     // @private
     this.model = model;
+    this.initialized = false;
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
@@ -54,6 +55,9 @@ define( function( require ) {
     initialize: function() {
 
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
+
+      assert && assert( !this.initialized );
+      this.initialized = true;
 
       //TODO implement initialize
     }
