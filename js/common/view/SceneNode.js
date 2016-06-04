@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for displaying things that are common to all scenes.
+ * Abstract base type for displaying things that are common to all scenes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
