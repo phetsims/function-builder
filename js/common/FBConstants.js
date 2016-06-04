@@ -109,6 +109,11 @@ define( function( require ) {
     GRAPH_DRAWER_SIZE: new Dimension2( 200, 200 ),
     EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 ),
 
+    // initial state of the drawers
+    TABLE_DRAWER_OPEN: false,
+    GRAPH_DRAWER_OPEN: false,
+    EQUATION_DRAWER_OPEN: false,
+
     TABLE_XY_HEADING_FONT: new MathSymbolFont( 18 ),
     TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 )
   };

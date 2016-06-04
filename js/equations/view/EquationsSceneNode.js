@@ -56,6 +56,7 @@ define( function( require ) {
 
     // Table
     var tableNode = new XYTableNode( scene.builder, {
+      visible: FBConstants.TABLE_DRAWER_OPEN,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       headingFont: options.tableHeadingFont,
@@ -64,7 +65,9 @@ define( function( require ) {
 
     // @private
     this.tableDrawer = new Drawer( tableNode, {
-      open: true,
+      open: FBConstants.TABLE_DRAWER_OPEN,
+      openedCallback: function() { tableNode.visible = true; },
+      closedCallback: function() { tableNode.visible = false; },
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
@@ -184,16 +187,19 @@ define( function( require ) {
 
       // Graph
       var graphNode = new XYGraphNode( scene.builder, {
+        visible: FBConstants.GRAPH_DRAWER_OPEN,
         cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
       } );
 
       // @private Graph drawer
       this.graphDrawer = new Drawer( graphNode, {
-        open: false,
-        cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
+        open: FBConstants.GRAPH_DRAWER_OPEN,
+        openedCallback: function() { graphNode.visible = true; },
+        closedCallback: function() { graphNode.visible = false; },
         handleLocation: 'top',
         handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
         handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+        cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
         left: scene.builder.centerX - 5, // offset determined empirically
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
@@ -248,7 +254,7 @@ define( function( require ) {
 
     // Equation and related controls
     var equationPanel = new EquationPanel( scene.builder, this.viewProperties.slopeInterceptProperty, {
-      visible: false,
+      visible: FBConstants.EQUATION_DRAWER_OPEN,
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
@@ -259,15 +265,15 @@ define( function( require ) {
 
     // @private Equation drawer
     this.equationDrawer = new Drawer( equationPanel, {
-      open: false,
+      open: FBConstants.EQUATION_DRAWER_OPEN,
+      openedCallback: function() { equationPanel.visible = true; },
+      closedCallback: function() { equationPanel.visible = false; },
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       centerX: scene.builder.centerX,
-      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP,
-      openedCallback: function() { equationPanel.visible = true; },
-      closedCallback: function() { equationPanel.visible = false; }
+      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.equationDrawer );
   }
