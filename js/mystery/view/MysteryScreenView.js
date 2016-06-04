@@ -20,12 +20,42 @@ define( function( require ) {
    */
   function MysteryScreenView( model ) {
 
+    // @private
+    this.model = model;
+
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    //TODO implement constructor
+    if ( !FBConstants.INITIALIZE_SCREEN_VIEWS_ON_DEMAND ) {
+      this.initialize();
+    }
   }
 
   functionBuilder.register( 'MysteryScreenView', MysteryScreenView );
 
-  return inherit( ScreenView, MysteryScreenView );
+  return inherit( ScreenView, MysteryScreenView, {
+
+    /**
+     * Called when the simulation clock ticks.
+     *
+     * @param {number} dt - clock time change, in seconds
+     * @public
+     */
+    step: function( dt ) {
+      if ( !this.initialized ) {
+        this.initialize();
+      }
+    },
+
+    /**
+     * Deferred initialization, to improve startup time. Called from step.
+     *
+     * @private
+     */
+    initialize: function() {
+
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
+
+      //TODO implement initialize
+    }
+  } );
 } );
