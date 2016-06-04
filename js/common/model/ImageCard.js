@@ -15,33 +15,37 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {HTMLCanvasElement} canvas - image data, stored as a canvas so that it can be easily transformed
+   * @param {HTMLImageElement} image
    * @param {Object} [options]
    * @constructor
    */
-  function ImageCard( canvas, options ) {
+  function ImageCard( image, options ) {
 
-    // {HTMLCanvasElement} @public (read-only) do not modify this canvas' pixels or context
-    this.canvas = canvas;
+    // {HTMLCanvasElement} @public (read-only)
+    this.image = image;
+
+    // @private created on demand by getCanvas
+    this._canvas = null;
 
     Card.call( this, options );
   }
 
   functionBuilder.register( 'ImageCard', ImageCard );
 
-  return inherit( Card, ImageCard, {}, {
+  return inherit( Card, ImageCard, {
 
     /**
-     * Creates an ImageCard from an HTMLImageElement.
+     * Gets the card's image as a canvas, so that it can be transformed by image functions.
+     * The canvas is created on demand.
      *
-     * @param {HTMLImageElement} image
-     * @param {Object} [options] - options to ImageCard constructor
-     * @returns {ImageCard}
-     * @public
-     * @static
+     * @returns {HTMLCanvasElement}
      */
-    withImage: function( image, options ) {
-      return new ImageCard( CanvasUtils.createCanvasWithImage( image ), options );
-    }
+    getCanvas: function() {
+      if ( !this._canvas ) {
+        this._canvas = CanvasUtils.createCanvasWithImage( this.image );
+      }
+      return this._canvas;
+    },
+    get canvas() { return this.getCanvas(); }
   } );
 } );

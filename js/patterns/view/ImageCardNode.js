@@ -35,9 +35,7 @@ define( function( require ) {
     }, options );
 
     // @private
-    this.imageNode = new Image( card.canvas.toDataURL(), {
-      initialWidth: card.canvas.width,
-      initialHeight: card.canvas.height,
+    this.imageNode = new Image( card.image, {
       scale: options.imageScale
     } );
 
@@ -57,11 +55,19 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // {HTMLCanvasElement} run the input image through the builder
-      var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
+      if ( numberOfFunctionsToApply === 0 ) {
 
-      // display the output image
-      this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+        // performance optimization
+        this.imageNode.image = this.card.image;
+      }
+      else {
+
+        // {HTMLCanvasElement} run the input image through the builder
+        var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
+
+        // display the output image
+        this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+      }
       this.imageNode.center = this.backgroundNode.center;
     }
   }, {

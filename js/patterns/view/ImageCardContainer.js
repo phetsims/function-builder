@@ -44,7 +44,7 @@ define( function( require ) {
      * @override
      */
     createCard: function( value, location ) {
-      return ImageCard.withImage( value, { location: location } );
+      return new ImageCard( value, { location: location } );
     },
 
     /**
