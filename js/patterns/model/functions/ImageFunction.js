@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for all image-processing functions.
+ * Abstract base type for all image-processing functions.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
