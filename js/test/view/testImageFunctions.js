@@ -26,7 +26,7 @@ define( function( require ) {
   // other function-builder modules
   var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/ImageFunction' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/ImageFunction' );
 
   // common modules
   var Carousel = require( 'SUN/Carousel' );
