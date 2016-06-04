@@ -248,6 +248,7 @@ define( function( require ) {
 
     // Equation and related controls
     var equationPanel = new EquationPanel( scene.builder, this.viewProperties.slopeInterceptProperty, {
+      visible: false,
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       xSymbol: options.xSymbol,
@@ -264,7 +265,9 @@ define( function( require ) {
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       centerX: scene.builder.centerX,
-      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
+      top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP,
+      openedCallback: function() { equationPanel.visible = true; },
+      closedCallback: function() { equationPanel.visible = false; }
     } );
     this.drawersLayer.addChild( this.equationDrawer );
   }

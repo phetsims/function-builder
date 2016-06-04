@@ -1,10 +1,11 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO performance: update only what's visible in EquationPanel
 /**
  * Panel that contains:
  * - equation that corresponds to the function in the builder
  * - control for switching the equation's format
+ *
+ * Since changing the equation is relatively expensive, this node only updates when it's visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -99,16 +100,41 @@ define( function( require ) {
     } );
 
     builder.functionChangedEmitter.addListener( function() {
-      thisNode.updateEquations();
+      if ( thisNode.visible ) {
+        thisNode.updateEquations();
+      }
     } );
 
-    this.updateEquations();
+    if ( thisNode.visible ) {
+      this.updateEquations();
+    }
   }
 
   functionBuilder.register( 'EquationPanel', EquationPanel );
 
   return inherit( Node, EquationPanel, {
 
+    /**
+     * Equations are not updated while this node is invisible.
+     * This override updates the equations when the node becomes visible.
+     *
+     * @param {boolean} visible
+     * @public
+     * @override
+     */
+    setVisible: function( visible ) {
+      if ( !this.visible && visible ) {
+        this.updateEquations();
+      }
+      Node.prototype.setVisible.call( this, visible );
+    },
+
+    /**
+     * Updates both equations. Calling this is relatively expensive, since it completely rebuilds the equations
+     * and changes the scene graph.
+     *
+     * @private
+     */
     updateEquations: function() {
 
       // {MathFunction[]} apply all functions in the builder

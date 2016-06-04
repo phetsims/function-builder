@@ -53,7 +53,11 @@ define( function( require ) {
       grippyDotRows: 2,
       grippyDotColumns: 4,
       grippyDotXSpacing: 9,
-      grippyDotYSpacing: 5
+      grippyDotYSpacing: 5,
+
+      // callbacks
+      openedCallback: null, // {function} called when the draw has been opened
+      closedCallback: null // {function} called when the draw has been closed
       
     }, options );
 
@@ -195,6 +199,14 @@ define( function( require ) {
 
         // animation disabled, move immediately to new state
         drawerNode.translation = open ? openLocation : closeLocation;
+      }
+
+      // callbacks
+      if ( open ) {
+        options.openedCallback && options.openedCallback();
+      }
+      else {
+        options.closedCallback && options.closedCallback();
       }
     } );
   }
