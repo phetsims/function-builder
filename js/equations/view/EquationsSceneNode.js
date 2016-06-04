@@ -22,7 +22,7 @@ define( function( require ) {
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
-  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
+  var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/XYTableDrawer' );
 
   /**
    * @param {Scene} scene - model for this scene
@@ -54,126 +54,14 @@ define( function( require ) {
     // add additional view-specific properties
     this.viewProperties.addProperty( 'slopeIntercept', false ); // @public whether slope-intercept form is displayed
 
-    // Table
-    var tableNode = new XYTableNode( scene.builder, {
-      visible: FBConstants.TABLE_DRAWER_OPEN,
+    // @private
+    this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       headingFont: options.tableHeadingFont,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
-    } );
-
-    // @private
-    this.tableDrawer = new Drawer( tableNode, {
-      open: FBConstants.TABLE_DRAWER_OPEN,
-      openedCallback: function() { tableNode.visible = true; },
-      closedCallback: function() { tableNode.visible = false; },
-      handleLocation: 'top',
-      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.tableDrawer );
-
-    //TODO duplicate code in here, should we pass Card to table functions?
-    // wire up input containers to table
-    this.inputContainers.forEach( function( inputContainer ) {
-
-      if ( inputContainer instanceof NumberCardContainer ) {
-
-        // when card is removed from input container, add it to table, or scroll to show it in table
-        inputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          var rationalNumber = node.card.rationalNumber;
-          if ( tableNode.containsEntry( rationalNumber ) ) {
-            tableNode.scrollToEntry( rationalNumber );
-          }
-          else {
-            tableNode.addEntry( rationalNumber );
-          }
-        } );
-
-        // when card is returned to input container, remove it from table if the corresponding output container is empty
-        inputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var rationalNumber = node.card.rationalNumber;
-          if ( tableNode.containsEntry( rationalNumber ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( rationalNumber );
-          }
-        } );
-      }
-      else if ( inputContainer instanceof EquationCardContainer ) {
-
-        // when card is removed from input container, add it to table, or scroll to show it in table
-        inputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          var xSymbol = node.card.xSymbol;
-          if ( !tableNode.containsEntry( xSymbol ) ) {
-            tableNode.addEntry( xSymbol );
-          }
-        } );
-
-        // when card is returned to input container, remove it from table if the corresponding output container is empty
-        inputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var xSymbol = node.card.xSymbol;
-          if ( tableNode.containsEntry( xSymbol ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( xSymbol );
-          }
-        } );
-      }
-      else {
-        throw new Error( 'unexpected container type' );
-      }
-    } );
-
-    //TODO duplicate code in here, should we pass Card to table functions?
-    // wire up output containers to table
-    this.outputContainers.forEach( function( outputContainer ) {
-
-      if ( outputContainer instanceof NumberCardContainer ) {
-
-        // when card is added to the output container, show its output in the table
-        outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          tableNode.setOutputVisible( node.card.rationalNumber, true );
-        } );
-
-        // when card is removed from output container, hide output in the table if the output container is empty
-        outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          var rationalNumber = node.card.rationalNumber;
-          tableNode.scrollToEntry( rationalNumber );
-          if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( rationalNumber, false );
-          }
-        } );
-      }
-      else if ( outputContainer instanceof EquationCardContainer ) {
-
-        // when card is added to the output container, show its output in the table
-        outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          tableNode.setOutputVisible( node.card.xSymbol, true );
-        } );
-
-        // when card is removed from output container, hide output in the table if the output container is empty
-        outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          var xSymbol = node.card.xSymbol;
-          tableNode.scrollToEntry( xSymbol );
-          if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( xSymbol, false );
-          }
-        } );
-      }
-      else {
-        throw new Error( 'unexpected container type' );
-      }
-    } );
 
     if ( !options.hasGraph ) {
 
