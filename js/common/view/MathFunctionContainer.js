@@ -33,8 +33,8 @@ define( function( require ) {
 
     /***
      * Creates the model element for a function.
-     * See supertype FunctionContainer.createFunctionInstance for params.
      *
+     * @param {Vector2} location
      * @returns {MathFunction}
      * @protected
      * @abstract

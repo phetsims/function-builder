@@ -36,8 +36,9 @@ define( function( require ) {
 
     /**
      * Creates the model element for a card.
-     * See supertype CardContainer.createCard for params.
      *
+     * @param {HTMLImageElement} value
+     * @param {Vector2} location
      * @returns {ImageCard}
      * @protected
      * @override
@@ -47,7 +48,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the view element (Node) for a card.
+     * Creates the node for an {ImageCard} card.
      * See supertype CardContainer.createCardNode for params.
      *
      * @returns {ImageCardNode}
