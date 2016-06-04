@@ -29,6 +29,9 @@ define( function( require ) {
     // whether to initialize ScreenViews on demand
     INITIALIZE_SCREEN_VIEWS_ON_DEMAND: FBQueryParameters.INIT_ON_DEMAND,
 
+    // offset of the Reset All button from the lower-right corner of the screen
+    RESET_ALL_BUTTON_OFFSET: new Vector2( -20, -20 ),
+
     //--------------------------------------------------------------------------------------------------------
     // Builder
 

@@ -82,8 +82,8 @@ define( function( require ) {
 
       // Reset All button at bottom-right
       var resetAllButton = new ResetAllButton( {
-        right: this.layoutBounds.maxX - 20,
-        bottom: this.layoutBounds.maxY - 20,
+        right: this.layoutBounds.maxX + FBConstants.RESET_ALL_BUTTON_OFFSET.x,
+        bottom: this.layoutBounds.maxY + FBConstants.RESET_ALL_BUTTON_OFFSET.y,
         listener: resetAll
       } );
 
