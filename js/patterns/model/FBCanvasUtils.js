@@ -49,7 +49,7 @@ define( function( require ) {
      * @returns {HTMLCanvasElement}
      */
     createCanvasWithImageData: function( imageData ) {
-      var canvas = CanvasUtils.createCanvas( imageData.width, imageData.height );
+      var canvas = FBCanvasUtils.createCanvas( imageData.width, imageData.height );
       canvas.getContext( '2d' ).putImageData( imageData, 0, 0 );
       return canvas;
     },
@@ -71,7 +71,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isBlank: function( canvas ) {
-      var imageData = CanvasUtils.getImageData( canvas );
+      var imageData = FBCanvasUtils.getImageData( canvas );
       for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
         if ( imageData.data[ i + 3 ] !== 0 ) {
           return false; // we're done when we find one non-transparent pixel
