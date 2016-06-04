@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -48,8 +48,8 @@ define( function( require ) {
     apply: function( inputCanvas ) {
 
       // copy the input data to the output canvas
-      var imageData = CanvasUtils.getImageData( inputCanvas );
-      return CanvasUtils.createCanvasWithImageData( imageData );
+      var imageData = FBCanvasUtils.getImageData( inputCanvas );
+      return FBCanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

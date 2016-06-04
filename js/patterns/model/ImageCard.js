@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -42,7 +42,7 @@ define( function( require ) {
      */
     getCanvas: function() {
       if ( !this._canvas ) {
-        this._canvas = CanvasUtils.createCanvasWithImage( this.image );
+        this._canvas = FBCanvasUtils.createCanvasWithImage( this.image );
       }
       return this._canvas;
     },

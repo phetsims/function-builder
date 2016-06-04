@@ -1,7 +1,7 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
- * Utility functions for Canvas operations.
+ * Canvas utility functions, used by image processing functions in the Patterns screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var CanvasUtils = {
+  var FBCanvasUtils = {
 
     /**
      * Creates a canvas with the specified dimensions.
@@ -106,7 +106,7 @@ define( function( require ) {
     }
   };
 
-  functionBuilder.register( 'CanvasUtils', CanvasUtils );
+  functionBuilder.register( 'FBCanvasUtils', FBCanvasUtils );
 
-  return CanvasUtils;
+  return FBCanvasUtils;
 } );

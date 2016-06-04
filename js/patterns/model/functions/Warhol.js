@@ -18,7 +18,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -100,7 +100,7 @@ define( function( require ) {
 
       // apply the color map
       var color = colorMap[ colorIndex ];
-      CanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
+      FBCanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
     }
     return outputData;
   };
@@ -119,7 +119,7 @@ define( function( require ) {
 
       var outputCanvas = null;
 
-      if ( CanvasUtils.isBlank( inputCanvas ) ) {
+      if ( FBCanvasUtils.isBlank( inputCanvas ) ) {
 
         // The input canvas is blank, apply Identity instead of Warhol.
         outputCanvas = this.identity.apply( inputCanvas );
@@ -132,20 +132,20 @@ define( function( require ) {
 
         // Convert the scaled image to grayscale
         var grayscaleCanvas = this.grayscale.apply( halfCanvas );
-        var grayscaleData = CanvasUtils.getImageData( grayscaleCanvas );
+        var grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
 
         // Put image on an optional background, by changing transparent pixels to the background color
         if ( BACKGROUND ) {
           for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
             if ( grayscaleData.data[ i + 3 ] === 0 ) {
-              CanvasUtils.setPixelRGBA( grayscaleData, i,
+              FBCanvasUtils.setPixelRGBA( grayscaleData, i,
                 BACKGROUND.red, BACKGROUND.green, BACKGROUND.blue, BACKGROUND.alpha * 255 );
             }
           }
         }
 
         // Create the output canvas, with same dimensions as inputCanvas
-        outputCanvas = CanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+        outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
         var outputContext = outputCanvas.getContext( '2d' );
 
         // Create a 'scratch' ImageData that will hold the result of mapping grayscale to colors.

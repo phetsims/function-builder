@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -50,7 +50,7 @@ define( function( require ) {
 
       // blank image data (transparent black pixels), same dimensions as input
       var imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
-      return CanvasUtils.createCanvasWithImageData( imageData );
+      return FBCanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

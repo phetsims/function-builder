@@ -24,7 +24,7 @@ define( function( require ) {
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // other function-builder modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/ImageFunction' );
 
@@ -61,18 +61,18 @@ define( function( require ) {
 
     // a canvas for each input image
     var canvases = [
-      CanvasUtils.createCanvasWithImage( feetImage ),
-      CanvasUtils.createCanvasWithImage( snowflakeImage ),
-      CanvasUtils.createCanvasWithImage( butterflyImage ),
-      CanvasUtils.createCanvasWithImage( stickFigureImage ),
-      CanvasUtils.createCanvasWithImage( planetImage ),
-      CanvasUtils.createCanvasWithImage( sunImage ),
-      CanvasUtils.createCanvasWithImage( beakerImage ),
-      CanvasUtils.createCanvasWithImage( cherriesImage ),
-      CanvasUtils.createCanvasWithImage( rectangleImage ),
-      CanvasUtils.createCanvasWithImage( circleImage ),
-      CanvasUtils.createCanvasWithImage( triangleImage ),
-      CanvasUtils.createCanvasWithImage( starImage )
+      FBCanvasUtils.createCanvasWithImage( feetImage ),
+      FBCanvasUtils.createCanvasWithImage( snowflakeImage ),
+      FBCanvasUtils.createCanvasWithImage( butterflyImage ),
+      FBCanvasUtils.createCanvasWithImage( stickFigureImage ),
+      FBCanvasUtils.createCanvasWithImage( planetImage ),
+      FBCanvasUtils.createCanvasWithImage( sunImage ),
+      FBCanvasUtils.createCanvasWithImage( beakerImage ),
+      FBCanvasUtils.createCanvasWithImage( cherriesImage ),
+      FBCanvasUtils.createCanvasWithImage( rectangleImage ),
+      FBCanvasUtils.createCanvasWithImage( circleImage ),
+      FBCanvasUtils.createCanvasWithImage( triangleImage ),
+      FBCanvasUtils.createCanvasWithImage( starImage )
     ];
 
     // functions to be applied to the images

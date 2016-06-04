@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -48,7 +48,7 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      var imageData = CanvasUtils.getImageData( inputCanvas );
+      var imageData = FBCanvasUtils.getImageData( inputCanvas );
 
       // Average the red, green and blue values of each pixel. This drains the color from the image.
       var data = imageData.data;
@@ -59,7 +59,7 @@ define( function( require ) {
         data[ i + 2 ] = average;
       }
 
-      return CanvasUtils.createCanvasWithImageData( imageData );
+      return FBCanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

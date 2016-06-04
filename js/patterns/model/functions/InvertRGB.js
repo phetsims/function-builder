@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -47,7 +47,7 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      var imageData = CanvasUtils.getImageData( inputCanvas );
+      var imageData = FBCanvasUtils.getImageData( inputCanvas );
 
       // invert colors for non-transparent pixels
       var data = imageData.data;
@@ -60,7 +60,7 @@ define( function( require ) {
         }
       }
 
-      return CanvasUtils.createCanvasWithImageData( imageData );
+      return FBCanvasUtils.createCanvasWithImageData( imageData );
     }
   } );
 } );

@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasUtils = require( 'FUNCTION_BUILDER/common/model/CanvasUtils' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -53,7 +53,7 @@ define( function( require ) {
     apply: function( inputCanvas ) {
 
       // scale by drawing into a smaller canvas
-      var outputCanvas = CanvasUtils.createCanvas( this.scale * inputCanvas.width, this.scale * inputCanvas.height );
+      var outputCanvas = FBCanvasUtils.createCanvas( this.scale * inputCanvas.width, this.scale * inputCanvas.height );
       outputCanvas.getContext( '2d' ).drawImage( inputCanvas, 0, 0, outputCanvas.width, outputCanvas.height );
       return outputCanvas;
     }
