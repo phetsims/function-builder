@@ -138,7 +138,7 @@ define( function( require ) {
 
     // @private updates the y values that are visible in the table
     update: function() {
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.update' );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.update' );
       //TODO implement update
     },
 
@@ -151,7 +151,7 @@ define( function( require ) {
      */
     addEntry: function( input ) {
 
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.addEntry ' + input );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.addEntry ' + input );
 
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       assert && assert( !this.containsEntry( input ) );
@@ -178,7 +178,7 @@ define( function( require ) {
      */
     removeEntry: function( input ) {
 
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.removeEntry ' + input );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.removeEntry ' + input );
 
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       assert && assert( this.containsEntry( input ) );
@@ -200,7 +200,7 @@ define( function( require ) {
      * @public
      */
     containsEntry: function( input ) {
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.containsEntry ' + input );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.containsEntry ' + input );
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       return ( this.inputs.indexOf( input ) !== -1 );
     },
@@ -216,7 +216,7 @@ define( function( require ) {
      */
     setOutputVisible: function( input, visible ) {
 
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.setOutputVisible ' + input  + ', visible=' + visible );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.setOutputVisible ' + input  + ', visible=' + visible );
 
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       assert && assert( this.containsEntry( input ) );
@@ -235,7 +235,7 @@ define( function( require ) {
      * @public
      */
     scrollToEntry: function( input ) {
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToEntry ' + input );
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToEntry ' + input );
       //TODO implement scrollToEntry
     }
   } );
