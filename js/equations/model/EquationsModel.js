@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/FunctionCreator' );
+  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
@@ -21,10 +21,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
-  var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
-  var Minus = require( 'FUNCTION_BUILDER/equations/model/functions/Minus' );
-  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
-  var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
+  var Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
+  var Minus = require( 'FUNCTION_BUILDER/common/model/functions/Minus' );
+  var Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
+  var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
   var BUILDER_SLOTS = 3;

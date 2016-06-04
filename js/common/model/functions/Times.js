@@ -12,7 +12,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunction = require( 'FUNCTION_BUILDER/common/model/MathFunction' );
+  var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
 
   /**
    * @param {Object} options

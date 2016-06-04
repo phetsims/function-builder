@@ -11,14 +11,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Divide = require( 'FUNCTION_BUILDER/equations/model/functions/Divide' );
+  var Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Plus = require( 'FUNCTION_BUILDER/equations/model/functions/Plus' );
+  var Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Times = require( 'FUNCTION_BUILDER/equations/model/functions/Times' );
+  var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
   var ZERO = RationalNumber.withInteger( 0 );
