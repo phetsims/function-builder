@@ -22,8 +22,8 @@ define( function( require ) {
 
   /**
    * @param {Builder} builder
-   * @param {CardContainer[]} inputContainers
-   * @param {CardContainer[]} outputContainers
+   * @param {CardContainer[]} inputContainers - card containers in the input carousel
+   * @param {CardContainer[]} outputContainers - card containers in the output carousel
    * @param {Object} [options]
    * @constructor
    */
