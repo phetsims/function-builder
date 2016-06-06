@@ -77,7 +77,7 @@ define( function( require ) {
 
     // @private initialized by updateEquations
     this.slopeInterceptEquationNode = null;
-    this.helpfulEquationNode = null; //TODO what to name this?
+    this.helpfulEquationNode = null;
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode, slopeInterceptCheckBox ];
