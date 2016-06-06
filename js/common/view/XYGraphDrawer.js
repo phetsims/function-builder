@@ -2,6 +2,8 @@
 
 /**
  * Drawer that contains the XY graph.
+ * The drawer is also responsible for adding/removing things from the graph as cards
+ * are added/removed from the output carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -43,8 +45,6 @@ define( function( require ) {
 
     Drawer.call( this, graphNode, options );
 
-    //TODO move this logic into XYGraphNode?
-    //TODO duplicate code in here, should we pass Card to graph functions?
     // wire up output containers to graph
     outputContainers.forEach( function( outputContainer ) {
       if ( outputContainer instanceof NumberCardContainer ) {
