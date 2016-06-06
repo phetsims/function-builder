@@ -7,13 +7,13 @@ Square brackets '[ ]' shown in the examples will not be rendered. They are used 
 
 The forward slash '/' shown in the examples will be rendered as a horizontal line separating numerator and denominator.
 
-The "PhET-specific" format was arrived at via consensus at design meetings. It does not correspond to a standard mathematical format. The intent is to create a clear association with the functions that are in the builder.
+The "helpful" format was arrived at via consensus at design meetings. It is PhET-specific, and does not correspond to a standard mathematical format. The intent is to create a clear association with the functions that are in the builder, and provide a "bridge" to the slope-intercept format.
 
-Cards show the righthand side of the slope-intercept equation. Eg, if the slope-intercept form is "y = 2x + 2", then the "x" card in the input carousel will show "2x + 2" in the output carousel. 
+Cards show the right-hand side of the slope-intercept equation. Eg, if the slope-intercept form is "y = 2x + 2", then the "x" card in the input carousel will show "2x + 2" in the output carousel.
 
 **Examples**
 
-| Builder | PhET-specific | Slope-intercept |
+| Builder | Helpful | Slope-intercept |
 | ------------- | ------------- | ------------- |
 - 3 - 2	| y = x - 5 | y = x - 5 |
 + 1 - 2	| y = x - 1	| y = x - 1 |
@@ -49,7 +49,7 @@ Cards show the righthand side of the slope-intercept equation. Eg, if the slope-
 
 **Rules**
 
-Rules for generating PhET-specific format:
+Rules for generating "helpful" format:
 
 (1) Adjacent addition and subtraction operations are collapsed, e.g.: `+ 3 - 2 → x + 1`.  If they collapse to zero, then the operations are dropped entirely, e.g.: `* 2 + 3 - 3 → 2x`
 

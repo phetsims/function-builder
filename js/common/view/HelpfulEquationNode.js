@@ -1,10 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO better name for PhetEquationNode
 /**
- * PhET-specific format of the equation that corresponds to functions in the builder.
- * Note that the logic used to create this node is similar to PhetEquation.toString.
- * See format specification in function-builder/doc/equation-formats.md
+ * For lack of a better name, this equation format was referred to as the "helpful" format in design meetings.
+ * It is a PhET-specific format that corresponds to functions in the builder.
+ * For details, see the format specification in function-builder/doc/equation-formats.md
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,6 +15,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/HelpfulEquation' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -27,11 +27,13 @@ define( function( require ) {
   var ZERO = RationalNumber.withInteger( 0 );
 
   /**
-   * @param {PhetEquation} equation
+   * @param {HelpfulEquation} equation
    * @param {Object} [options]
    * @constructor
    */
-  function PhetEquationNode( equation, options ) {
+  function HelpfulEquationNode( equation, options ) {
+
+    assert && assert( equation instanceof HelpfulEquation );
 
     options = _.extend( {
 
@@ -333,7 +335,7 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'PhetEquationNode', PhetEquationNode );
+  functionBuilder.register( 'HelpfulEquationNode', HelpfulEquationNode );
 
-  return inherit( Node, PhetEquationNode );
+  return inherit( Node, HelpfulEquationNode );
 } );

@@ -18,10 +18,10 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/HelpfulEquation' );
+  var HelpfulEquationNode = require( 'FUNCTION_BUILDER/common/view/HelpfulEquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PhetEquation = require( 'FUNCTION_BUILDER/common/model/PhetEquation' );
-  var PhetEquationNode = require( 'FUNCTION_BUILDER/common/view/PhetEquationNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
@@ -77,7 +77,7 @@ define( function( require ) {
 
     // @private initialized by updateEquations
     this.slopeInterceptEquationNode = null;
-    this.phetEquationNode = null; //TODO what to name this?
+    this.helpfulEquationNode = null; //TODO what to name this?
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode, slopeInterceptCheckBox ];
@@ -96,7 +96,7 @@ define( function( require ) {
 
     slopeInterceptProperty.lazyLink( function( slopeIntercept ) {
       thisNode.slopeInterceptEquationNode.visible = slopeIntercept;
-      thisNode.phetEquationNode.visible = !slopeIntercept;
+      thisNode.helpfulEquationNode.visible = !slopeIntercept;
     } );
 
     builder.functionChangedEmitter.addListener( function() {
@@ -144,13 +144,13 @@ define( function( require ) {
       var mathFunctions = this.builder.applyAllFunctions( [] );
 
       // PhET-specific form
-      if ( this.phetEquationNode ) {
-        this.removeChild( this.phetEquationNode );
+      if ( this.helpfulEquationNode ) {
+        this.removeChild( this.helpfulEquationNode );
       }
-      var phetEquation = new PhetEquation( mathFunctions, {
+      var helpfulEquation = new HelpfulEquation( mathFunctions, {
         xSymbol: this.xSymbol
       } );
-      this.phetEquationNode = new PhetEquationNode( phetEquation, {
+      this.helpfulEquationNode = new HelpfulEquationNode( helpfulEquation, {
         xSymbol: this.xSymbol,
         ySymbol: this.ySymbol,
         xyFont: this.xyFont,
@@ -160,7 +160,7 @@ define( function( require ) {
         center: this.equationCenter,
         visible: !this.slopeInterceptProperty.get()
       } );
-      this.addChild( this.phetEquationNode );
+      this.addChild( this.helpfulEquationNode );
 
       // slope-intercept form
       if ( this.slopeInterceptEquationNode ) {

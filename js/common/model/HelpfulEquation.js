@@ -1,9 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO better name for PhetEquation
 /**
- * PhET-specific format of the equation that corresponds to functions in the builder.
- * See format specification in function-builder/doc/equation-formats.md
+ * For lack of a better name, this equation format was referred to as the "helpful" format in design meetings.
+ * It is a PhET-specific format that corresponds to functions in the builder.
+ * For details, see the format specification in function-builder/doc/equation-formats.md
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PhetEquation( mathFunctions, options ) {
+  function HelpfulEquation( mathFunctions, options ) {
 
     options = _.extend( {
       xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
@@ -143,9 +143,9 @@ define( function( require ) {
     this.mathFunctions = stack; // {MathFunction[]}
   }
 
-  functionBuilder.register( 'PhetEquation', PhetEquation );
+  functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
 
-  return inherit( Object, PhetEquation, {
+  return inherit( Object, HelpfulEquation, {
 
     /**
      * Does the equation evaluate to a constant?
@@ -160,7 +160,7 @@ define( function( require ) {
 
     /**
      * String representation, for debugging and PhET-iO.
-     * Note that the logic herein is similar to PhetEquationNode's constructor.
+     * Note that the logic herein is similar to HelpfulEquationNode's constructor.
      *
      * @returns {string}
      */
