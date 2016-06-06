@@ -3,7 +3,7 @@ Function Builder - equation formats
 
 **Notes**
 
-This specification is referenced in the documentation of `HelpfulEquation`, `HelpfulEquationNode`, `SlopeInterceptEquation` and `SlopeInterceptEquationNode`. 
+This specification is referenced in the documentation of `HelpfulEquation`, `HelpfulEquationNode`, `SlopeInterceptEquation` and `SlopeInterceptEquationNode`. To understand those types, you'll want to be familar with this specification.
 
 The "helpful" format was arrived at via consensus at design meetings. It is PhET-specific, and does not correspond to a standard mathematical format. The intent is to create a clear association with the functions that are in the builder, and provide a "bridge" to the slope-intercept format.  The term "helpful" is (thankfully) never shown to the sim user.
 
