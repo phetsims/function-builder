@@ -33,8 +33,6 @@ define( function( require ) {
 
       // Drawer
       open: FBConstants.TABLE_DRAWER_OPEN,
-      beforeOpen: function() { tableNode.visible = true; },
-      afterClose: function() { tableNode.visible = false; },
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,

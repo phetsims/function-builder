@@ -56,8 +56,8 @@ define( function( require ) {
       grippyDotYSpacing: 5,
 
       // callbacks
-      beforeOpen: null, // {function} called immediately before the drawer is opened 
-      afterClose: null // {function} called immediately after the drawer is closed
+      beforeOpen: function() { contentsNode.visible = true; }, // {function} called immediately before the drawer is opened
+      afterClose: function() { contentsNode.visible = false; } // {function} called immediately after the drawer is closed
       
     }, options );
 
