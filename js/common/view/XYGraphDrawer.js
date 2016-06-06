@@ -2,8 +2,13 @@
 
 /**
  * Drawer that contains the XY graph.
- * The drawer is also responsible for adding/removing things from the graph as cards
- * are added/removed from the output carousel.
+ *
+ * The drawer is responsible for adding/removing things from the graph as cards are added/removed
+ * from the output carousel, subject to the following requirements:
+ *  - A point or line is added to the graph when the *first* instance of its corresponding card
+ *   is added to the output container.
+ * - A point or line is removed from the graph when the *last* instance of its corresponding card
+ *   is removed from the output container.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
