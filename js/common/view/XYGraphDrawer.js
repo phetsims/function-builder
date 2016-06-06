@@ -17,12 +17,10 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
 
@@ -52,47 +50,36 @@ define( function( require ) {
 
     // wire up output containers to graph
     outputContainers.forEach( function( outputContainer ) {
-      if ( outputContainer instanceof NumberCardContainer ) {
 
-        // When a number is added to an empty container in the output carousel,
-        // add its corresponding point to the graph.
-        outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+      // When a card is added to an empty container in the output carousel, add its corresponding point or line to the graph.
+      outputContainer.addEmitter.addListener( function( node ) {
+        if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+          if ( node instanceof NumberCardNode ) {
             graphNode.addPointAt( node.card.rationalNumber );
           }
-        } );
+          else if ( node instanceof EquationCardNode ) {
+            graphNode.setLineVisible( true );
+          }
+          else {
+            throw new Error( 'invalid node type' );
+          }
+        }
+      } );
 
-        // When the last number is removed from a container in the output carousel,
-        // remove its corresponding point from the graph.
-        outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          if ( outputContainer.isEmpty() ) {
+      // When the card is removed from a container in the output carousel, remove its corresponding point or line from the graph.
+      outputContainer.removeEmitter.addListener( function( node ) {
+        if ( outputContainer.isEmpty() ) {
+          if ( node instanceof NumberCardNode ) {
             graphNode.removePointAt( node.card.rationalNumber );
           }
-        } );
-      }
-      else if ( outputContainer instanceof EquationCardContainer ) {
-
-        // When the equation is added to a container in the output carousel,
-        // show the line on the graph.
-        outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          graphNode.setLineVisible( true );
-        } );
-
-        // When the last equation is removed from a container in the output carousel,
-        // hide the line on the graph.
-        outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          if ( outputContainer.isEmpty() ) {
+          else if ( node instanceof EquationCardNode ) {
             graphNode.setLineVisible( false );
           }
-        } );
-      }
-      else {
-        throw new Error( 'unexpected container type' );
-      }
+          else {
+            throw new Error( 'invalid node type' );
+          }
+        }
+      } );
     } );
   }
 
