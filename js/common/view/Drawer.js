@@ -158,7 +158,7 @@ define( function( require ) {
     // wrap the drawer with a clipping area, to show/hide the container
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ drawerNode ];
-    options.clipArea = Shape.rect( 0, 0, drawerNode.width, drawerNode.height );
+    options.clipArea = Shape.bounds( drawerNode.bounds );
     Node.call( this, options );
 
     var openLocation = new Vector2( drawerNode.x, 0 );
