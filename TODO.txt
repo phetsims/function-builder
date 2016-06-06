@@ -1,7 +1,5 @@
 TODO list for function-builder
 
----
-
 Table
 
 Performance (responsiveness)
@@ -11,7 +9,3 @@ Performance (startup time)
 Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
 
 Code review
-
----
-
-Vertical seam visible at left or right edge of BuilderNode clipArea for some window sizes
