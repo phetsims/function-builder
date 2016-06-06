@@ -7,7 +7,7 @@ The "helpful" format was arrived at via consensus at design meetings. It is PhET
 
 The "slope-intercept" format is the standard `y = mx + b` format, where `m = rise/run` and `b` is the y intercept.
 
-Cards show the right-hand side of the slope-intercept equation. Eg, if the slope-intercept form is "y = 2x + 2", then the "x" card in the input carousel will show "2x + 2" in the output carousel.
+Cards show the right-hand side of the slope-intercept equation. Eg, if the slope-intercept form is `y = 2x + 2`, then the "x" card in the input carousel will show `2x + 2` in the output carousel.
 
 Square brackets '[ ]' shown in the examples will not be rendered. They are used to indicate a numerator in this specification.
 
