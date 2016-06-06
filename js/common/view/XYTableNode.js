@@ -24,7 +24,9 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @param {Builder} builder
@@ -72,11 +74,13 @@ define( function( require ) {
     // up/down buttons
     var upButton = new CarouselButton( {
       arrowDirection: 'up',
+      fireOnHold: true,
       minWidth: options.size.width,
       cornerRadius: options.cornerRadius
     } );
     var downButton = new CarouselButton( {
       arrowDirection: 'down',
+      fireOnHold: true,
       minWidth: options.size.width,
       cornerRadius: options.cornerRadius,
       bottom: backgroundNode.bottom
@@ -90,10 +94,18 @@ define( function( require ) {
       top: upButton.bottom
     } );
 
-    //TODO scrolling area for cells, with clipArea
+    // parent for all rows
+    var rowsParent = new VBox();
+
+    // window that rows scroll in
+    var scrollingRegion = new Rectangle( 0, 0, options.size.width, backgroundNode.height - headingNode.height - upButton.height - downButton.height, {
+      top: headingNode.bottom
+    } );
+    scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
+    scrollingRegion.addChild( rowsParent ); // add after setting clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, headingNode, upButton, downButton ];
+    options.children = [ backgroundNode, scrollingRegion, headingNode, upButton, downButton ];
 
     Node.call( this, options );
 
@@ -101,6 +113,20 @@ define( function( require ) {
     builder.functionChangedEmitter.addListener( function() {
       thisNode.updateOutputCells();
     } );
+
+    //XXX test scrolling window
+    {
+      rowsParent.addChild( new Text( 'scroll me!', {
+        font: new FBFont( 30 ),
+        centerX: scrollingRegion.width / 2
+      } ) );
+      upButton.addListener( function() {
+        rowsParent.y = rowsParent.y + 5;
+      } );
+      downButton.addListener( function() {
+        rowsParent.y = rowsParent.y - 5;
+      } );
+    }
   }
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
