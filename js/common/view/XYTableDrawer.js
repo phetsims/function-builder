@@ -3,6 +3,9 @@
 /**
  * Drawer that contains the XY table.
  *
+ * The drawer is responsible for adding/removing rows from the table, and/or scrolling the table,
+ * as cards are added/removed from the input and output carousel.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -10,13 +13,11 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/EquationCardContainer' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
@@ -55,106 +56,55 @@ define( function( require ) {
 
     Drawer.call( this, tableNode, options );
 
-    //TODO move this logic into XYTableNode?
+    // wire up input and output containers to table
+    for ( var i = 0; i < inputContainers.length; i++ ) {
 
-    //TODO duplicate code in here, should we pass Card to table functions?
-    // wire up input containers to table
-    inputContainers.forEach( function( inputContainer ) {
+      // create a closure using IIFE
+      (function() {
 
-      if ( inputContainer instanceof NumberCardContainer ) {
+        // closure vars, used in listeners
+        var inputContainer = inputContainers[ i ];
+        var outputContainer = outputContainers[ i ];
 
-        // when card is removed from input container, add it to table, or scroll to show it in table
+        // when card is removed from input container, add row to table, or scroll to show existing row in table
         inputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          var rationalNumber = node.card.rationalNumber;
-          if ( tableNode.containsEntry( rationalNumber ) ) {
-            tableNode.scrollToEntry( rationalNumber );
+          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
+          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
+          if ( !tableNode.containsEntry( xValue ) ) {
+            tableNode.addEntry( xValue );
           }
-          else {
-            tableNode.addEntry( rationalNumber );
-          }
+          tableNode.scrollToEntry( xValue );
         } );
 
-        // when card is returned to input container, remove it from table if the corresponding output container is empty
+        // when card is returned to input container, remove row from table if the corresponding output container is empty
         inputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var rationalNumber = node.card.rationalNumber;
-          if ( tableNode.containsEntry( rationalNumber ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( rationalNumber );
+          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
+          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
+          if ( tableNode.containsEntry( xValue ) && outputContainer.isEmpty() ) {
+            tableNode.removeEntry( xValue );
           }
         } );
-      }
-      else if ( inputContainer instanceof EquationCardContainer ) {
-
-        // when card is removed from input container, add it to table, or scroll to show it in table
-        inputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          var xSymbol = node.card.xSymbol;
-          if ( !tableNode.containsEntry( xSymbol ) ) {
-            tableNode.addEntry( xSymbol );
-          }
-        } );
-
-        // when card is returned to input container, remove it from table if the corresponding output container is empty
-        inputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          //TODO tableNode.removeEntry only if the corresponding output container is empty
-          var xSymbol = node.card.xSymbol;
-          if ( tableNode.containsEntry( xSymbol ) ) { //TODO containsEntry required to avoid startup problem
-            tableNode.removeEntry( xSymbol );
-          }
-        } );
-      }
-      else {
-        throw new Error( 'unexpected container type' );
-      }
-    } );
-
-    //TODO duplicate code in here, should we pass Card to table functions?
-    // wire up output containers to table
-    outputContainers.forEach( function( outputContainer ) {
-
-      if ( outputContainer instanceof NumberCardContainer ) {
 
         // when card is added to the output container, show its output in the table
         outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          tableNode.setOutputVisible( node.card.rationalNumber, true );
+          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
+          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
+          tableNode.setOutputVisible( xValue, true );
+          tableNode.scrollToEntry( xValue );
         } );
 
-        // when card is removed from output container, hide output in the table if the output container is empty
+        // when card is removed from output container, hide its output in the table if the output container is empty
         outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode );
-          var rationalNumber = node.card.rationalNumber;
-          tableNode.scrollToEntry( rationalNumber );
+          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
+          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
+          tableNode.scrollToEntry( xValue );
           if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( rationalNumber, false );
+            tableNode.setOutputVisible( xValue, false );
           }
+          tableNode.scrollToEntry( xValue );
         } );
-      }
-      else if ( outputContainer instanceof EquationCardContainer ) {
-
-        // when card is added to the output container, show its output in the table
-        outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          tableNode.setOutputVisible( node.card.xSymbol, true );
-        } );
-
-        // when card is removed from output container, hide output in the table if the output container is empty
-        outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof EquationCardNode );
-          var xSymbol = node.card.xSymbol;
-          tableNode.scrollToEntry( xSymbol );
-          if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( xSymbol, false );
-          }
-        } );
-      }
-      else {
-        throw new Error( 'unexpected container type' );
-      }
-    } );
+      })();
+    }
   }
 
   functionBuilder.register( 'XYTableDrawer', XYTableDrawer );
