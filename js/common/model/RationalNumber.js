@@ -50,6 +50,17 @@ define( function( require ) {
     getDenominator: function() { return this.bigRational.denominator.valueOf(); },
     get denominator() { return this.getDenominator(); },
 
+    /**
+     * Two rational numbers are equal if their values are equal.
+     * E.g. they can have different numerators and denominators, but still represent the same number.
+     *
+     * @param {RationalNumber} rationalNumber
+     * @returns {boolean}
+     */
+    equals: function( rationalNumber ) {
+      return ( rationalNumber.valueOf() === this.valueOf() );
+    },
+
     valueOf: function() { return this.bigRational.valueOf(); },
 
     toString: function() { return this.bigRational.toString(); },
