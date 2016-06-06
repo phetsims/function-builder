@@ -123,21 +123,18 @@ define( function( require ) {
       }
       else {
 
-        // Shrink the input by 50%.
+        // Shrink the image by 50%.
         // Do this first so that we're processing fewer pixels in subsequent operations.
         var halfCanvas = this.shrink.apply( inputCanvas );
 
-        // Convert the scaled image to grayscale
-        var grayscaleCanvas = this.grayscale.apply( halfCanvas );
-        var grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
+        // Put the image on an opaque background, so we have no transparent pixels.
+        var opaqueCanvas = FBCanvasUtils.createCanvasWithImage( halfCanvas, {
+          fillStyle: 'white'
+        } );
 
-        //TODO performance: may be more efficient to create a canvas with background color, then draw image onto it
-        // Put image on an optional background, by changing transparent pixels to the background color
-        for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
-          if ( grayscaleData.data[ i + 3 ] === 0 ) {
-            FBCanvasUtils.setPixelRGBA( grayscaleData, i, 255, 255, 255, 255 );
-          }
-        }
+        // Convert the image to grayscale
+        var grayscaleCanvas = this.grayscale.apply( opaqueCanvas );
+        var grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
 
         // Create the output canvas, with same dimensions as inputCanvas
         outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );

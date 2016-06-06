@@ -30,14 +30,26 @@ define( function( require ) {
     /**
      * Creates a canvas sized for the specified image, draws the image into the canvas.
      *
-     * @param {HTMLImageElement} image
+     * @param {HTMLImageElement|HTMLCanvasElement} image
+     * @param {Object} [options]
      * @returns {HTMLCanvasElement}
      */
-    createCanvasWithImage: function( image ) {
+    createCanvasWithImage: function( image, options ) {
+
+      options = _.extend( {
+        fillStyle: null  // {string|null} canvas will be filled with this color before drawing the image
+      }, options );
+
       var canvas = document.createElement( 'canvas' );
       canvas.width = image.width;
       canvas.height = image.height;
       var context = canvas.getContext( '2d' );
+
+      if ( options.fillStyle ) {
+        context.fillStyle = options.fillStyle;
+        context.fillRect( 0, 0, canvas.width, canvas.height );
+      }
+
       context.drawImage( image, 0, 0 );
       return canvas;
     },
