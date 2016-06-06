@@ -55,7 +55,10 @@ define( function( require ) {
       grippyDotXSpacing: 9,
       grippyDotYSpacing: 5,
 
-      // callbacks
+      /**
+       * Callbacks. The default behavior is to make contentNode visible only while the drawer is open.
+       * This can provide performance gains if your contentNode updates only while visible.
+       */
       beforeOpen: function() { contentsNode.visible = true; }, // {function} called immediately before the drawer is opened
       afterClose: function() { contentsNode.visible = false; } // {function} called immediately after the drawer is closed
       
