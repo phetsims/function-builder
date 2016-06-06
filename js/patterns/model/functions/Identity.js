@@ -47,9 +47,8 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      // copy the input data to the output canvas
-      var imageData = FBCanvasUtils.getImageData( inputCanvas );
-      return FBCanvasUtils.createCanvasWithImageData( imageData );
+      // copy the input canvas to the output canvas
+      return FBCanvasUtils.createCanvasWithImage( inputCanvas );
     }
   } );
 } );
