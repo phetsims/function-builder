@@ -131,6 +131,7 @@ define( function( require ) {
         var grayscaleCanvas = this.grayscale.apply( halfCanvas );
         var grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
 
+        //TODO performance: may be more efficient to create a canvas with background color, then draw image onto it
         // Put image on an optional background, by changing transparent pixels to the background color
         for ( var i = 0; i < grayscaleData.data.length - 4; i += 4 ) {
           if ( grayscaleData.data[ i + 3 ] === 0 ) {
