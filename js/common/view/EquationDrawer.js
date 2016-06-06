@@ -28,8 +28,8 @@ define( function( require ) {
 
       // Drawer
       open: FBConstants.EQUATION_DRAWER_OPEN,
-      openedCallback: function() { equationPanel.visible = true; },
-      closedCallback: function() { equationPanel.visible = false; },
+      beforeOpen: function() { equationPanel.visible = true; },
+      afterClose: function() { equationPanel.visible = false; },
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,

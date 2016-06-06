@@ -29,8 +29,8 @@ define( function( require ) {
 
     options = _.extend( {
       open: FBConstants.GRAPH_DRAWER_OPEN,
-      openedCallback: function() { graphNode.visible = true; },
-      closedCallback: function() { graphNode.visible = false; },
+      beforeOpen: function() { graphNode.visible = true; },
+      afterClose: function() { graphNode.visible = false; },
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,

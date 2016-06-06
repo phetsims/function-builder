@@ -56,8 +56,8 @@ define( function( require ) {
       grippyDotYSpacing: 5,
 
       // callbacks
-      openedCallback: null, // {function} called when the draw has been opened
-      closedCallback: null // {function} called when the draw has been closed
+      beforeOpen: null, // {function} called immediately before the drawer is opened 
+      afterClose: null // {function} called immediately after the drawer is closed
       
     }, options );
 
@@ -182,6 +182,8 @@ define( function( require ) {
 
       // stop any animation that's in progress
       animation && animation.stop();
+      
+      open && options.beforeOpen && options.beforeOpen();
 
       if ( thisNode._animationEnabled ) {
 
@@ -191,22 +193,16 @@ define( function( require ) {
           duration: 500,  // ms
           onComplete: function() {
             animation = null;
+            !open && options.afterClose && options.afterClose();
           }
         } );
         animation.start();
       }
       else {
-
+        
         // animation disabled, move immediately to new state
         drawerNode.translation = open ? openLocation : closeLocation;
-      }
-
-      // callbacks
-      if ( open ) {
-        options.openedCallback && options.openedCallback();
-      }
-      else {
-        options.closedCallback && options.closedCallback();
+        !open && options.afterClose && options.afterClose();
       }
     } );
   }
