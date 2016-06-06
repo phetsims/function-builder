@@ -51,7 +51,8 @@ define( function( require ) {
     // wire up output containers to graph
     outputContainers.forEach( function( outputContainer ) {
 
-      // When a card is added to an empty container in the output carousel, add its corresponding point or line to the graph.
+      // When adding a card to an empty container in the output carousel,
+      // add its corresponding point or line to the graph.
       outputContainer.addEmitter.addListener( function( node ) {
         if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
           if ( node instanceof NumberCardNode ) {
@@ -66,7 +67,8 @@ define( function( require ) {
         }
       } );
 
-      // When the card is removed from a container in the output carousel, remove its corresponding point or line from the graph.
+      // When removing a card from the output carousel makes its output container empty,
+      // remove its corresponding point or line from the graph.
       outputContainer.removeEmitter.addListener( function( node ) {
         if ( outputContainer.isEmpty() ) {
           if ( node instanceof NumberCardNode ) {
