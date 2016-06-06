@@ -14,16 +14,16 @@ define( function( require ) {
 
   // modules
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -83,41 +83,17 @@ define( function( require ) {
     } );
 
     // column headings
-    var headingOptions = {
+    var headingNode = new HeadingNode( options.xSymbol, options.ySymbol, {
+      size: new Dimension2( options.size.width, 30 ),
       font: options.headingFont,
-      maxWidth: 0.4 * backgroundNode
-    };
-    var xNode = new Text( options.xSymbol, headingOptions );
-    var yNode = new Text( options.ySymbol, headingOptions );
-    var headingHeight = Math.max( xNode.height, yNode.height ) + ( 2 * options.headingYMargin );
-    var headingBackgroundNode = new Rectangle( 0, 0, options.size.width, headingHeight, {
       fill: options.headingBackground,
       top: upButton.bottom
     } );
-    xNode.centerX = 0.25 * headingBackgroundNode.width;
-    xNode.centerY = headingBackgroundNode.centerY;
-    yNode.centerX = 0.75 * headingBackgroundNode.width;
-    yNode.centerY = headingBackgroundNode.centerY;
 
-    // grid, to delineate rows and columns
-    var heightForCells = backgroundNode.height - headingBackgroundNode.height - upButton.height - downButton.height;
-    var rowHeight = heightForCells / options.numberOfRows;
-    var columnX = backgroundNode.width / 2;
-    var gridShape = new Shape()
-      .moveTo( columnX, upButton.bottom )
-      .lineTo( columnX, downButton.top );
-    for ( var row = 0; row < options.numberOfRows; row++ ) {
-      var rowY = upButton.height + headingBackgroundNode.height + ( row * rowHeight );
-      gridShape.moveTo( 0, rowY );
-      gridShape.lineTo( backgroundNode.width, rowY );
-    }
-    var gridNode = new Path( gridShape, {
-      stroke: 'black',
-      lineWidth: 0.5
-    } );
+    //TODO scrolling area for cells, with clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, headingBackgroundNode, gridNode, xNode, yNode, upButton, downButton ];
+    options.children = [ backgroundNode, headingNode, upButton, downButton ];
 
     Node.call( this, options );
 
@@ -129,7 +105,7 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
 
-  return inherit( Node, XYTableNode, {
+  inherit( Node, XYTableNode, {
 
     // @private updates the output cells in the table
     updateOutputCells: function() {
@@ -220,4 +196,64 @@ define( function( require ) {
       //TODO implement scrollToEntry
     }
   } );
+
+  /**
+   * @param {string} xSymbol
+   * @param {string} ySymbol
+   * @param {Object} [options]
+   * @constructor
+   */
+  function HeadingNode( xSymbol, ySymbol, options ) {
+
+    options = _.extend( {
+      size: new Dimension2( 100, 25 ),
+      font: FBConstants.TABLE_XY_HEADING_FONT,
+      xMargin: 5,
+      yMargin: 2,
+      fill: 'rgb( 144, 226, 252 )'
+    }, options );
+
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      stroke: 'black',
+      lineWidth: 0.5,
+      fill: options.fill
+    } );
+
+    // constrain column labels to fit in cells
+    var xyMaxWidth = ( backgroundNode.width / 2 ) - ( 2 * options.xMargin );
+    var xyMaxHeight = backgroundNode.height - ( 2 * options.yMargin );
+
+    var xNode = new Text( xSymbol, {
+      font: options.font,
+      maxWidth: xyMaxWidth,
+      maxHeight: xyMaxHeight,
+      centerX: 0.25 * backgroundNode.width,
+      centerY: backgroundNode.centerY
+    } );
+
+    var yNode = new Text( ySymbol, {
+      font: options.font,
+      maxWidth: xyMaxWidth,
+      maxHeight: xyMaxHeight,
+      centerX: 0.75 * backgroundNode.width,
+      centerY: backgroundNode.centerY
+    } );
+
+    var verticalLine = new Line( 0, 0, 0, options.size.height, {
+      stroke: 'black',
+      lineWidth: 0.5,
+      center: backgroundNode.center
+    } );
+
+    assert && assert( !options.children );
+    options.children = [ backgroundNode, verticalLine, xNode, yNode ];
+
+    Node.call( this, options );
+  }
+
+  functionBuilder.register( 'XYTableNode.HeadingNode', HeadingNode );
+
+  inherit( Node, HeadingNode );
+
+  return XYTableNode;
 } );
