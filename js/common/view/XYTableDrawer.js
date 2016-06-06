@@ -3,8 +3,10 @@
 /**
  * Drawer that contains the XY table.
  *
- * The drawer is responsible for adding/removing rows from the table, and/or scrolling the table,
- * as cards are added/removed from the input and output carousel.
+ * As cards are added/removed from the input and output carousels, the drawer is responsible for:
+ * - adding/removing rows from the table
+ * - showing/hiding the output cells
+ * - scrolling the table to show a specific row
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
