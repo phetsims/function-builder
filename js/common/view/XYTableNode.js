@@ -4,7 +4,6 @@
 /**
  * XY table.
  * Each row consists of input (x) and output (y) cells.
- * Rows in the table are unique, duplicates are not allowed.
  * When a row is added, it is added to the end of the table, it's input cell is visible, it's output cell is invisible.
  * When a row is deleted, rows below it move up.
  *
@@ -124,7 +123,7 @@ define( function( require ) {
 
     // no need to removeListener, this instance exists for the lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
-      thisNode.update();
+      thisNode.updateOutputCells();
     } );
   }
 
@@ -132,15 +131,14 @@ define( function( require ) {
 
   return inherit( Node, XYTableNode, {
 
-    // @private updates the y values that are visible in the table
-    update: function() {
+    // @private updates the output cells in the table
+    updateOutputCells: function() {
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.update' );
-      //TODO implement update
+      //TODO implement updateOutputs
     },
 
     /**
-     * Appends a row to the table. The table scrolls to show this as the last row.
-     * This happens when a card is removed from the input carousel.
+     * Appends a row to the table.
      *
      * @param {RationalNumber|string} input
      * @public
@@ -155,13 +153,7 @@ define( function( require ) {
       // add to list
       this.inputs.push( input );
 
-      //TODO implement addEntry
-      //update some info that tells update which entries should be visible
-
-      this.update();
-
-      // scroll table to make corresponding row visible
-      this.scrollToEntry( input );
+      //TODO add row with input cell visible, output cell invisible
     },
 
     /**
@@ -182,10 +174,7 @@ define( function( require ) {
       // remove from list
       this.inputs.splice( this.inputs.indexOf( input ), 1 );
 
-      //TODO implement removeEntry
-      //update some info that tells update which entries should be visible
-
-      this.update();
+      //TODO remove row, move rows below it up
     },
 
     /**
@@ -202,7 +191,7 @@ define( function( require ) {
     },
 
     /**
-     * Makes the corresponding output value visible.
+     * Makes the corresponding output cell visible.
      * This is called with true when a card is put in the output carousel.
      * This is called with false when a card is removed from the output carousel.
      *
@@ -210,18 +199,14 @@ define( function( require ) {
      * @param {boolean} visible
      * @public
      */
-    setOutputVisible: function( input, visible ) {
+    setOutputCellVisible: function( input, visible ) {
 
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.setOutputVisible ' + input  + ', visible=' + visible );
 
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       assert && assert( this.containsEntry( input ) );
 
-      //TODO implement setYVisible
-      // make corresponding output node visible, or create it
-
-      // scroll table to make corresponding row visible
-      this.scrollToEntry( input );
+      //TODO make corresponding output cell visible
     },
 
     /**

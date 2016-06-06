@@ -91,7 +91,7 @@ define( function( require ) {
         outputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          tableNode.setOutputVisible( xValue, true );
+          tableNode.setOutputCellVisible( xValue, true );
           tableNode.scrollToEntry( xValue );
         } );
 
@@ -101,7 +101,7 @@ define( function( require ) {
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
           tableNode.scrollToEntry( xValue );
           if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputVisible( xValue, false );
+            tableNode.setOutputCellVisible( xValue, false );
           }
           tableNode.scrollToEntry( xValue );
         } );
