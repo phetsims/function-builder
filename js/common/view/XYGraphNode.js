@@ -1,12 +1,15 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO performance: update only when XYGraphNode is visible
 /**
  * XY graph for the 'Equations' screen.
  *
  * The graph has a fixed scale for the x & y axis; zoom in/out is not supported.
  * By default (and after many design discussions) the axes have different scales.
  * This was deemed preferable to the usability and implementation issues introduced by adding zoom support.
+ *
+ * Since changing the graph is relatively inexpensive, this node updates even when it's not visible.
+ * Updating only while visible doesn't have significant performance gains, and is not worth the additional
+ * code complexity.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
