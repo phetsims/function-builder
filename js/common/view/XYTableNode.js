@@ -61,53 +61,49 @@ define( function( require ) {
     // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
     this.inputs = [];
 
+    //TODO move these to RowNode
     // @private {number} maximum dimensions of cell content, used to set Node maxWidth property
     this.cellContentMaxWidth = ( options.size.width - 2 * options.cellXMargin ) / 2;
     this.cellContentMaxHeight = ( options.size.height - 2 * options.cellYMargin ) / 2;
 
-    // table background
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      fill: options.cellColor,
+    // options for scroll buttons
+    var BUTTON_OPTIONS = {
+      fireOnHold: true,
+      minWidth: options.size.width,
       cornerRadius: options.cornerRadius
-    } );
+    };
 
-    // up/down buttons
-    var upButton = new CarouselButton( {
-      arrowDirection: 'up',
-      fireOnHold: true,
-      minWidth: options.size.width,
-      cornerRadius: options.cornerRadius
-    } );
-    var downButton = new CarouselButton( {
-      arrowDirection: 'down',
-      fireOnHold: true,
-      minWidth: options.size.width,
-      cornerRadius: options.cornerRadius,
-      bottom: backgroundNode.bottom
-    } );
+    // up button
+    var upButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+      arrowDirection: 'up'
+    } ) );
+
+    // down button
+    var downButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+      arrowDirection: 'down'
+    } ) );
 
     // column headings
     var headingNode = new HeadingNode( options.xSymbol, options.ySymbol, {
       size: new Dimension2( options.size.width, 30 ),
       font: options.headingFont,
-      fill: options.headingBackground,
-      top: upButton.bottom
+      fill: options.headingBackground
     } );
 
     // parent for all rows
     var rowsParent = new VBox();
 
     // window that rows scroll in
-    var scrollingRegion = new Rectangle( 0, 0, options.size.width, backgroundNode.height - headingNode.height - upButton.height - downButton.height, {
-      top: headingNode.bottom
+    var scrollingRegion = new Rectangle( 0, 0, options.size.width, options.size.height - headingNode.height - upButton.height - downButton.height, {
+      fill: options.cellColor
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
     scrollingRegion.addChild( rowsParent ); // add after setting clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, scrollingRegion, headingNode, upButton, downButton ];
+    options.children = [ upButton, headingNode, scrollingRegion, downButton ];
 
-    Node.call( this, options );
+    VBox.call( this, options );
 
     // no need to removeListener, this instance exists for the lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
@@ -131,7 +127,7 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
 
-  inherit( Node, XYTableNode, {
+  inherit( VBox, XYTableNode, {
 
     // @private updates the output cells in the table
     updateOutputCells: function() {
@@ -249,21 +245,21 @@ define( function( require ) {
     var xyMaxWidth = ( backgroundNode.width / 2 ) - ( 2 * options.xMargin );
     var xyMaxHeight = backgroundNode.height - ( 2 * options.yMargin );
 
-    var xNode = new Text( xSymbol, {
+    var LABEL_OPTIONS = {
       font: options.font,
       maxWidth: xyMaxWidth,
-      maxHeight: xyMaxHeight,
+      maxHeight: xyMaxHeight
+    };
+
+    var xLabelNode = new Text( xSymbol, _.extend( {}, LABEL_OPTIONS, {
       centerX: 0.25 * backgroundNode.width,
       centerY: backgroundNode.centerY
-    } );
+    } ) );
 
-    var yNode = new Text( ySymbol, {
-      font: options.font,
-      maxWidth: xyMaxWidth,
-      maxHeight: xyMaxHeight,
+    var yLabelNode = new Text( ySymbol, _.extend( {}, LABEL_OPTIONS, {
       centerX: 0.75 * backgroundNode.width,
       centerY: backgroundNode.centerY
-    } );
+    } ) );
 
     var verticalLine = new Line( 0, 0, 0, options.size.height, {
       stroke: 'black',
@@ -272,7 +268,7 @@ define( function( require ) {
     } );
 
     assert && assert( !options.children );
-    options.children = [ backgroundNode, verticalLine, xNode, yNode ];
+    options.children = [ backgroundNode, verticalLine, xLabelNode, yLabelNode ];
 
     Node.call( this, options );
   }
