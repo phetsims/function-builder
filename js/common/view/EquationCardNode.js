@@ -61,8 +61,11 @@ define( function( require ) {
       // remove old equation
       this.removeChild( this.equationNode );
 
-      // {MathFunction[]} apply functions
-      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply ); //TODO [] arg is kind of obtuse
+      /*
+       * Apply functions in the builder. Pass in an empty array, because the functions in the builder
+       * return MathFunction[], and the input is required to be of the same type as the output.
+       */
+      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
       // update the equation
       var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );

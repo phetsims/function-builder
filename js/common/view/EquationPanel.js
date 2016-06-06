@@ -137,8 +137,11 @@ define( function( require ) {
      */
     updateEquations: function() {
 
-      // {MathFunction[]} apply all functions in the builder
-      var mathFunctions = this.builder.applyAllFunctions( [] ); //TODO [] arg is kind of obtuse
+      /*
+       * Apply all functions in the builder. Pass in an empty array, because the functions in the builder
+       * return MathFunction[], and the input is required to be of the same type as the output.
+       */
+      var mathFunctions = this.builder.applyAllFunctions( [] );
 
       // PhET-specific form
       if ( this.phetEquationNode ) {
