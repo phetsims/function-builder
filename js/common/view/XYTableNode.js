@@ -110,7 +110,7 @@ define( function( require ) {
       thisNode.updateOutputCells();
     } );
 
-    //XXX test scrolling window
+    //XXX test scrolling window, delete this
     {
       rowsParent.addChild( new Text( 'scroll me!', {
         font: new FBFont( 30 ),
