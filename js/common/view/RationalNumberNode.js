@@ -64,7 +64,6 @@ define( function( require ) {
 
   return inherit( Node, RationalNumberNode, {
 
-    //TODO performance: RationalNumberNode.setValue changes the scenegraph
     /**
      * Sets the value displayed by this node.
      * This is relatively expensive, because it rebuilds then node.
