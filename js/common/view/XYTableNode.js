@@ -336,8 +336,14 @@ define( function( require ) {
       centerY: backgroundNode.centerY
     } ) );
 
+    var verticalLine = new Line( 0, 0, 0, options.size.height, {
+      stroke: 'black',
+      lineWidth: 0.5,
+      center: backgroundNode.center
+    } );
+
     assert && assert( !options.children );
-    options.children = [ backgroundNode, xLabelNode, yLabelNode ];
+    options.children = [ backgroundNode, verticalLine, xLabelNode, yLabelNode ];
 
     Node.call( this, options );
   }
@@ -397,13 +403,6 @@ define( function( require ) {
     // don't stroke the cell, grid is handled by XYTableNode
     var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
-
-    var verticalLine = new Line( 0, 0, 0, options.size.height, {
-      stroke: 'black',
-      lineWidth: 0.5,
-      center: rowNode.center
-    } );
-    this.addChild( verticalLine );
 
     //TODO this is ugly
     var actualInput = null;
