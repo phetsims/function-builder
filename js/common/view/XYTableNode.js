@@ -22,6 +22,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -60,14 +62,14 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @private
-    this.builder = builder;
+    this.builder = builder; // @private
+    this.numberOfRows = options.numberOfRows; // @private
 
     // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
     this.inputs = [];
 
     // @private {RowNode} rows, in the same order as inputs[]
-    this.rowNodes = [];
+    this.rowNodes = new ObservableArray( [] );
 
     // options for scroll buttons
     var BUTTON_OPTIONS = {
@@ -110,17 +112,34 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
-    options.children = [ upButton, headingNode, scrollingRegion, downButton ];
+    options.children = [ headingNode, upButton, scrollingRegion, downButton ];
 
     VBox.call( this, options );
 
-    //TODO animate scrolling
+    // private the row number that appears at the top of the table
+    this.rowNumberAtTopProperty = new Property( 0 );
+
+    var updateScrollingRegion = function() {
+
+      var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
+      var numberOfRows = thisNode.rowNodes.lengthProperty.get();
+
+      upButton.enabled = ( rowNumberAtTop !== 0 );
+      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRows;
+
+      //TODO animate scrolling
+      thisNode.rowsParent.y = -( rowNumberAtTop * thisNode.rowOptions.size.height );
+    };
+    this.rowNumberAtTopProperty.link( updateScrollingRegion );
+    this.rowNodes.addItemAddedListener( updateScrollingRegion );
+    this.rowNodes.addItemRemovedListener( updateScrollingRegion );
+
     upButton.addListener( function() {
-      thisNode.rowsParent.y = thisNode.rowsParent.y + thisNode.rowOptions.size.height;
+      thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() - 1 );
     } );
 
     downButton.addListener( function() {
-      thisNode.rowsParent.y = thisNode.rowsParent.y - thisNode.rowOptions.size.height;
+      thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() + 1 );
     } );
   }
 
@@ -146,7 +165,7 @@ define( function( require ) {
 
       // add row
       var rowNode = new RowNode( input, this.builder, this.rowOptions );
-      this.rowNodes.push( rowNode );
+      this.rowNodes.add( rowNode );
       this.rowsParent.addChild( rowNode );
     },
 
@@ -168,11 +187,12 @@ define( function( require ) {
       // remove input value
       this.inputs.splice( inputIndex, 1 );
 
+      //TODO should rows below animate up?
       // remove row, rows below it move up automatically since rowsParent is a VBox
-      var rowNode = this.rowNodes[ inputIndex ];
+      var rowNode = this.rowNodes.get( inputIndex );
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
-      this.rowNodes.splice( inputIndex, 1 );
+      this.rowNodes.remove( rowNode );
     },
 
     /**
@@ -199,18 +219,32 @@ define( function( require ) {
     setOutputCellVisible: function( input, visible ) {
       var inputIndex = this.inputs.indexOf( input );
       assert && assert( inputIndex !== -1 );
-      this.rowNodes[ inputIndex ].setOutputCellVisible( visible );
+      var rowNode = this.rowNodes.get( inputIndex );
+      rowNode.setOutputCellVisible( visible );
     },
 
     /**
-     * Scrolls the table to make the corresponding entry visible.
+     * Scrolls the table to make the corresponding row visible.
      *
-     * @param {RationalNumber|string} input
+     * @param {RationalNumber|string} input - value in the row's input cell
      * @public
      */
     scrollToRow: function( input ) {
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToRow ' + input );
-      //TODO implement scrollToRow
+
+      var inputIndex = this.inputs.indexOf( input );
+      assert && assert( inputIndex !== -1 );
+
+      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
+
+      if ( inputIndex < rowNumberAtTop ) {
+        this.rowNumberAtTopProperty.set( inputIndex );
+      }
+      else if ( inputIndex > rowNumberAtTop + this.numberOfRows - 1 ) {
+        this.rowNumberAtTopProperty.set( inputIndex - this.numberOfRows + 1 );
+      }
+      else {
+        // row is already visible
+      }
     }
   } );
 
