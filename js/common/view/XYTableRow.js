@@ -48,7 +48,7 @@ define( function( require ) {
 
     // input value, static
     var inputValueNode = createCellValueNode( card, builder, {
-      numberOfFunctions: 0,
+      numberOfFunctions: 0, // apply no functions for the input value
       maxWidth: valueMaxWidth,
       maxHeight: valueMaxHeight,
       centerX: 0.25 * options.size.width,
@@ -71,7 +71,7 @@ define( function( require ) {
 
       // add new node
       thisNode.outputValueNode = createCellValueNode( card, builder, {
-        numberOfFunctions: builder.slots.length,
+        numberOfFunctions: builder.slots.length, // apply all functions for the output value
         visible: outputValueNodeWasVisible,
         maxWidth: valueMaxWidth,
         maxHeight: valueMaxHeight,
