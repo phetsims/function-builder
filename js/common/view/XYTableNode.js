@@ -187,7 +187,7 @@ define( function( require ) {
   return inherit( VBox, XYTableNode, {
 
     /**
-     * Updates the grid that delineates rows and columns.  This grid is drawn separately from cells,
+     * Updates the grid that delineates rows and columns. This grid is drawn separately from cells,
      * so that we don't have to deal with issues related to overlapping strokes around cells.
      *
      * @private
@@ -235,9 +235,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes a row from the table.
-     * If the entry is visible, results in rows below it moving up.
-     * This happens when a card is returned to the input carousel.
+     * Removes a row from the table. Rows below it move up.
      *
      * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @public
@@ -276,9 +274,7 @@ define( function( require ) {
     },
 
     /**
-     * Makes the corresponding output cell visible.
-     * This is called with true when a card is put in the output carousel.
-     * This is called with false when a card is removed from the output carousel.
+     * Sets the visibility of the corresponding output cell.
      *
      * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @param {boolean} visible
