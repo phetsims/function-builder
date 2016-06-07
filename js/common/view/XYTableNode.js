@@ -328,7 +328,7 @@ define( function( require ) {
     options = _.extend( {
       size: new Dimension2( 100, 25 ),
       font: FBConstants.TABLE_XY_HEADING_FONT,
-      xMargin: 6,
+      xMargin: 10,
       yMargin: 4,
       fill: 'rgb( 144, 226, 252 )'
     }, options );
