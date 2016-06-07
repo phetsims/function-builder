@@ -193,7 +193,7 @@ define( function( require ) {
     /**
      * Updates the grid that delineates rows and columns. This grid is drawn separately from cells,
      * so that we don't have to deal with issues related to overlapping strokes around cells.
-     * Draw one extra (empty) row so that we don't see a gap when animating after removing a row.
+     * Draw one extra (empty) row so that we don't see a gap when animating after removing the last row.
      *
      * @private
      */
