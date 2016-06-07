@@ -101,6 +101,7 @@ define( function( require ) {
     scrollingRegion.addChild( rowsParent ); // add after setting clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
+    //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
     options.children = [ upButton, headingNode, scrollingRegion, downButton ];
 
     VBox.call( this, options );
