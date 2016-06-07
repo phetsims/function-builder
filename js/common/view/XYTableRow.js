@@ -95,6 +95,7 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableRow', XYTableRow );
 
+  //TODO investigate how to get ride of instanceof tests herein
   /**
    * Creates the cell representation for a specified card.
    *
@@ -111,7 +112,6 @@ define( function( require ) {
     }, options );
     assert && assert( options.numberOfFunctions <= builder.slots.length );
 
-    //TODO remove type testing by making this a responsibility of card?
     var valueNode = null;
     if ( card instanceof NumberCard ) {
       var rationalNumber = builder.applyFunctions( card.rationalNumber, options.numberOfFunctions );
