@@ -232,7 +232,7 @@ define( function( require ) {
       this.rowsParent.removeChild( rowNode );
       this.rowNodes.remove( rowNode );
 
-      // scroll table if removing the row left empty rows at the bottom
+      // scroll if there is an empty row at the bottom of the table
       var numberOfRows = this.rowNodes.lengthProperty.get();
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
