@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO add ability to set cornerRadius for specific corners
 /**
  * Column heading for the XY table.
  *
