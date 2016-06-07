@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -32,7 +33,8 @@ define( function( require ) {
 
     options = _.extend( {
       size: new Dimension2( 100, 10 ),
-      cellFont: new FBFont( 24 ),
+      xSymbol: FBSymbols.X,
+      ySymbol: FBSymbols.Y,
       cellXMargin: 6,
       cellYMargin: 3
     }, options );
@@ -41,29 +43,34 @@ define( function( require ) {
 
     // @private
     this.size = options.size;
-    this.cellMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
-    this.cellMaxHeight = options.size.height - ( 2 * options.cellYMargin );
+    this.valueMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
+    this.valueMaxHeight = options.size.height - ( 2 * options.cellYMargin );
 
     // don't stroke the cell, grid is drawn by XYTableNode
     var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
 
     //TODO this is ugly
-    var actualInput = null;
+    var inputValue = null;
     if ( input instanceof RationalNumber ) {
-      actualInput = input;
+      inputValue = input;
     }
     else {
-      actualInput = new SlopeInterceptEquation( [] ); //TODO this is obtuse
+      inputValue = new SlopeInterceptEquation( [] ); //TODO this is obtuse
     }
 
+    var valueOptions = {
+      xSymbol: options.xSymbol,
+      ySymbol: options.ySymbol,
+      maxWidth: this.valueMaxWidth,
+      maxHeight: this.valueMaxHeight
+    };
+
     // input value, static
-    var inputValueNode = createCellValueNode( actualInput, {
-      maxWidth: this.cellMaxWidth,
-      maxHeight: this.cellMaxHeight,
+    var inputValueNode = createCellValueNode( inputValue, _.extend( {}, valueOptions, {
       centerX: 0.25 * options.size.width,
       centerY: options.size.height / 2
-    } );
+    } ) );
     this.addChild( inputValueNode );
 
     // @private output value, set by updateOutputCell
@@ -81,22 +88,20 @@ define( function( require ) {
       }
 
       // compute new output value
-      var output = null;
+      var outputValue = null;
       if ( input instanceof RationalNumber ) {
-        output = builder.applyAllFunctions( input ); // {RationalNumber}
+        outputValue = builder.applyAllFunctions( input ); // {RationalNumber}
       }
       else {
-        output = new SlopeInterceptEquation( builder.applyAllFunctions( [] ) ); //TODO this is obtuse
+        outputValue = new SlopeInterceptEquation( builder.applyAllFunctions( [] ) ); //TODO this is obtuse
       }
 
       // add new node
-      thisNode.outputValueNode = createCellValueNode( output, {
-        maxWidth: thisNode.cellMaxWidth,
-        maxHeight: thisNode.cellMaxHeight,
+      thisNode.outputValueNode = createCellValueNode( outputValue, _.extend( {}, valueOptions, {
         visible: outputValueNodeWasVisible,
         centerX: 0.75 * options.size.width,
         centerY: options.size.height / 2
-      } );
+      } ) );
       thisNode.addChild( thisNode.outputValueNode );
     };
 
@@ -133,7 +138,7 @@ define( function( require ) {
       cellNode = new SlopeInterceptEquationNode( value.slope, value.intercept, options );
     }
     else {
-      throw new Error( 'invalid output type' );
+      throw new Error( 'invalid value type' );
     }
     return cellNode;
   };

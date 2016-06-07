@@ -47,6 +47,7 @@ define( function( require ) {
       size: FBConstants.TABLE_DRAWER_SIZE,
       numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
       cornerRadius: 0,
+      scrollingRegionFill: 'white',
 
       // column headings
       xSymbol: FBSymbols.X,
@@ -56,7 +57,6 @@ define( function( require ) {
       headingBackground: 'rgb( 144, 226, 252 )',
 
       // cells
-      cellColor: 'white',
       cellXMargin: 3,
       cellYMargin: 3
 
@@ -105,12 +105,12 @@ define( function( require ) {
     // window that rows scroll in
     var scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
     var scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
-      fill: options.cellColor
+      fill: options.scrollingRegionFill
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
 
-    // @private
-    this.rowOptions = _.pick( options, 'cellXMargin', 'cellYMargin' );
+    // @private cherry pick options that are related to XYTableRow
+    this.rowOptions = _.pick( options, 'xSymbol', 'ySymbol', 'cellXMargin', 'cellYMargin' );
     this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
 
     // @private parent for all rows
