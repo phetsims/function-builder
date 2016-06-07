@@ -23,7 +23,6 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -35,9 +34,9 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
+  var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/XYTableHeading' );
 
   /**
    * @param {Builder} builder
@@ -100,7 +99,7 @@ define( function( require ) {
     downButton.touchArea = downButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
 
     // column headings
-    var headingNode = new HeadingNode( options.xSymbol, options.ySymbol, {
+    var headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
       size: new Dimension2( options.size.width, 30 ),
       font: options.headingFont,
       fill: options.headingBackground
@@ -328,64 +327,6 @@ define( function( require ) {
       }
     }
   } );
-
-  /**
-   * @param {string} xSymbol
-   * @param {string} ySymbol
-   * @param {Object} [options]
-   * @constructor
-   */
-  function HeadingNode( xSymbol, ySymbol, options ) {
-
-    options = _.extend( {
-      size: new Dimension2( 100, 25 ),
-      font: FBConstants.TABLE_XY_HEADING_FONT,
-      xMargin: 10,
-      yMargin: 4,
-      fill: 'rgb( 144, 226, 252 )'
-    }, options );
-
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      stroke: 'black',
-      lineWidth: 0.5,
-      fill: options.fill
-    } );
-
-    // constrain column labels to fit in cells
-    var xyMaxWidth = ( backgroundNode.width / 2 ) - ( 2 * options.xMargin );
-    var xyMaxHeight = backgroundNode.height - ( 2 * options.yMargin );
-
-    var LABEL_OPTIONS = {
-      font: options.font,
-      maxWidth: xyMaxWidth,
-      maxHeight: xyMaxHeight
-    };
-
-    var xLabelNode = new Text( xSymbol, _.extend( {}, LABEL_OPTIONS, {
-      centerX: 0.25 * backgroundNode.width,
-      centerY: backgroundNode.centerY
-    } ) );
-
-    var yLabelNode = new Text( ySymbol, _.extend( {}, LABEL_OPTIONS, {
-      centerX: 0.75 * backgroundNode.width,
-      centerY: backgroundNode.centerY
-    } ) );
-
-    var verticalLine = new Line( 0, 0, 0, options.size.height, {
-      stroke: 'black',
-      lineWidth: 0.5,
-      center: backgroundNode.center
-    } );
-
-    assert && assert( !options.children );
-    options.children = [ backgroundNode, verticalLine, xLabelNode, yLabelNode ];
-
-    Node.call( this, options );
-  }
-
-  functionBuilder.register( 'XYTableNode.HeadingNode', HeadingNode );
-
-  inherit( Node, HeadingNode );
 
   /**
    * @param {RationalNumber|SlopeInterceptEquation} value - value in the cell
