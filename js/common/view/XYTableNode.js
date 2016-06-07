@@ -118,6 +118,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 0.5
     } );
+    this.updateGrid();
 
     // contents of the scrolling region
     var scrollingContents = new Node( {
@@ -135,23 +136,13 @@ define( function( require ) {
 
     var animation = null; // {MoveTo} animation that scrolls the rows
 
-    var updateScrollingRegion = function() {
-
-      var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
-      var numberOfRows = thisNode.rowNodes.lengthProperty.get();
-
-      // scrolling button states
-      upButton.enabled = ( rowNumberAtTop !== 0 );
-      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
-
-      //TODO this should only be done when number of rows changes, not when scrolling
-      //TODO sometimes this needs to be done at end of animation so we don't see row disappear
-      thisNode.updateGrid();
+    // scroll
+    this.rowNumberAtTopProperty.link( function() {
 
       // stop any animation that's in progress
       animation && animation.stop();
 
-      var scrollY = -( rowNumberAtTop * thisNode.rowSize.height );
+      var scrollY = -( thisNode.rowNumberAtTopProperty.get() * thisNode.rowSize.height );
       if ( thisNode.visible ) {
 
         // animate scrolling
@@ -170,10 +161,21 @@ define( function( require ) {
         // move immediately, no animation
         scrollingContents.y = scrollY;
       }
+    } );
+
+    // button state is dependent on number of rows and which rows are visible
+    var updateButtonState = function() {
+
+      var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
+      var numberOfRows = thisNode.rowNodes.lengthProperty.get();
+
+      // scrolling button states
+      upButton.enabled = ( rowNumberAtTop !== 0 );
+      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
     };
-    this.rowNumberAtTopProperty.link( updateScrollingRegion );
-    this.rowNodes.addItemAddedListener( updateScrollingRegion );
-    this.rowNodes.addItemRemovedListener( updateScrollingRegion );
+    this.rowNumberAtTopProperty.link( updateButtonState );
+    this.rowNodes.addItemAddedListener( updateButtonState );
+    this.rowNodes.addItemRemovedListener( updateButtonState );
 
     upButton.addListener( function() {
       thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() - 1 );
@@ -191,6 +193,7 @@ define( function( require ) {
     /**
      * Updates the grid that delineates rows and columns. This grid is drawn separately from cells,
      * so that we don't have to deal with issues related to overlapping strokes around cells.
+     * Draw one extra (empty) row so that we don't see a gap when animating after removing a row.
      *
      * @private
      */
@@ -202,14 +205,14 @@ define( function( require ) {
       var gridShape = new Shape();
 
       // horizontal lines between rows
-      for ( var i = 1; i < numberOfRows; i++ ) {
+      for ( var i = 1; i < numberOfRows + 1; i++ ) {
         var y = i * this.rowSize.height;
         gridShape.moveTo( 0, y ).lineTo( this.rowSize.width, y );
       }
 
       // vertical line between columns
       var centerX = this.rowSize.width / 2;
-      gridShape.moveTo( centerX, 0 ).lineTo( centerX, numberOfRows * this.rowSize.height );
+      gridShape.moveTo( centerX, 0 ).lineTo( centerX, ( numberOfRows + 1 ) * this.rowSize.height );
 
       this.gridNode.shape = gridShape;
     },
@@ -234,6 +237,9 @@ define( function( require ) {
       } );
       this.rowNodes.add( rowNode );
       this.rowsParent.addChild( rowNode );
+
+      // update the grid
+      this.updateGrid();
     },
 
     /**
@@ -256,11 +262,14 @@ define( function( require ) {
       this.rowsParent.removeChild( rowNode );
       this.rowNodes.remove( rowNode );
 
+      // update the grid
+      this.updateGrid();
+
       // scroll if there is an empty row at the bottom of the table
       var numberOfRows = this.rowNodes.lengthProperty.get();
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
-         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
+        this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
       }
     },
 
