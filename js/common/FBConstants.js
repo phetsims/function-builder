@@ -113,7 +113,7 @@ define( function( require ) {
     EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 ),
 
     // initial state of the drawers
-    TABLE_DRAWER_OPEN: false,
+    TABLE_DRAWER_OPEN: true, //TODO should be false
     GRAPH_DRAWER_OPEN: false,
     EQUATION_DRAWER_OPEN: false,
 
