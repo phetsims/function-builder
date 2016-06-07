@@ -49,7 +49,7 @@ define( function( require ) {
     Drawer.call( this, graphNode, options );
 
     //TODO investigate how to get rid of instanceof tests herein
-    // wire up output containers to graph
+    // wire up graph to output containers
     outputContainers.forEach( function( outputContainer ) {
 
       // When adding a card to an empty container in the output carousel,
