@@ -3,7 +3,8 @@
 //TODO performance: update only when XYTableNode is visible
 //TODO if there are multiple instances of input cards, rows are not unique
 //TODO disable animation on Reset All
-//TODO should scrolling occur while the drawer is closed? should that be handled in XYTableNode?
+//TODO scrolling continues when drawer is closed, will that be confusing?
+//TODO when a row is deleted, animate the movement of rows to close the gap
 /**
  * XY table.
  * Each row consists of input (x) and output (y) cells.
@@ -125,7 +126,6 @@ define( function( require ) {
     scrollingRegion.addChild( scrollingContents ); // add after setting clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
-    //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
     options.children = [ headingNode, upButton, scrollingRegion, downButton ];
 
     VBox.call( this, options );
@@ -250,7 +250,6 @@ define( function( require ) {
       // remove card
       this.cards.splice( cardIndex, 1 );
 
-      //TODO should rows below animate up?
       // remove row, rows below it move up automatically since rowsParent is a VBox
       var rowNode = this.rowNodes.get( cardIndex );
       rowNode.dispose();
