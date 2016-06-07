@@ -56,46 +56,42 @@ define( function( require ) {
 
     Drawer.call( this, tableNode, options );
 
-    // wire up input and output containers to table
-    for ( var i = 0; i < inputContainers.length; i++ ) {
+    // wire up input containers to table
+    inputContainers.forEach( function( inputContainer ) {
 
-      // create a closure using IIFE
-      (function() {
+      // when card is removed from input container, add row to table
+      inputContainer.removeEmitter.addListener( function( node ) {
+        var card = node.card;
+        tableNode.addRow( card );
+        tableNode.scrollToRow( card );
+      } );
 
-        // closure vars, used in listeners
-        var inputContainer = inputContainers[ i ];
-        var outputContainer = outputContainers[ i ];
+      // when card is returned to input container, remove row from table
+      inputContainer.addEmitter.addListener( function( node ) {
+        var card = node.card;
+        if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
+          tableNode.removeRow( card );
+        }
+      } );
+    } );
 
-        // when card is removed from input container, add row to table
-        inputContainer.removeEmitter.addListener( function( node ) {
-          var card = node.card;
-          tableNode.addRow( card );
-          tableNode.scrollToRow( card );
-        } );
+    // wire up output containers to table
+    outputContainers.forEach( function( outputContainer ) {
 
-        // when card is returned to input container, remove row from table
-        inputContainer.addEmitter.addListener( function( node ) {
-          var card = node.card;
-          if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
-            tableNode.removeRow( card );
-          }
-        } );
+      // when card is added to the output container, show its output in the table
+      outputContainer.addEmitter.addListener( function( node ) {
+        var card = node.card;
+        tableNode.setOutputCellVisible( card, true );
+        tableNode.scrollToRow( card );
+      } );
 
-        // when card is added to the output container, show its output in the table
-        outputContainer.addEmitter.addListener( function( node ) {
-          var card = node.card;
-          tableNode.setOutputCellVisible( card, true );
-          tableNode.scrollToRow( card );
-        } );
-
-        // when card is removed from output container, hide its output in the table
-        outputContainer.removeEmitter.addListener( function( node ) {
-          var card = node.card;
-          tableNode.setOutputCellVisible( card, false );
-          tableNode.scrollToRow( card );
-        } );
-      })();
-    }
+      // when card is removed from output container, hide its output in the table
+      outputContainer.removeEmitter.addListener( function( node ) {
+        var card = node.card;
+        tableNode.setOutputCellVisible( card, false );
+        tableNode.scrollToRow( card );
+      } );
+    } );
   }
 
   functionBuilder.register( 'XYTableDrawer', XYTableDrawer );
