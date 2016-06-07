@@ -72,18 +72,18 @@ define( function( require ) {
         inputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          if ( !tableNode.containsEntry( xValue ) ) {
-            tableNode.addEntry( xValue );
+          if ( !tableNode.containsRow( xValue ) ) {
+            tableNode.addRow( xValue );
           }
-          tableNode.scrollToEntry( xValue );
+          tableNode.scrollToRow( xValue );
         } );
 
         // when card is returned to input container, remove row from table if the corresponding output container is empty
         inputContainer.addEmitter.addListener( function( node ) {
           assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          if ( tableNode.containsEntry( xValue ) && outputContainer.isEmpty() ) {
-            tableNode.removeEntry( xValue );
+          if ( tableNode.containsRow( xValue ) && outputContainer.isEmpty() ) {
+            tableNode.removeRow( xValue );
           }
         } );
 
@@ -92,18 +92,18 @@ define( function( require ) {
           assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
           tableNode.setOutputCellVisible( xValue, true );
-          tableNode.scrollToEntry( xValue );
+          tableNode.scrollToRow( xValue );
         } );
 
         // when card is removed from output container, hide its output in the table if the output container is empty
         outputContainer.removeEmitter.addListener( function( node ) {
           assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
           var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          tableNode.scrollToEntry( xValue );
+          tableNode.scrollToRow( xValue );
           if ( outputContainer.isEmpty() ) {
             tableNode.setOutputCellVisible( xValue, false );
           }
-          tableNode.scrollToEntry( xValue );
+          tableNode.scrollToRow( xValue );
         } );
       })();
     }

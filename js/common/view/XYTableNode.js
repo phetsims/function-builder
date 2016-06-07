@@ -90,15 +90,20 @@ define( function( require ) {
       fill: options.headingBackground
     } );
 
-    // parent for all rows
-    var rowsParent = new VBox();
-
     // window that rows scroll in
-    var scrollingRegion = new Rectangle( 0, 0, options.size.width, options.size.height - headingNode.height - upButton.height - downButton.height, {
+    var scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
+    var scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
       fill: options.cellColor
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
+
+    // parent for all rows
+    var rowsParent = new VBox();
     scrollingRegion.addChild( rowsParent ); // add after setting clipArea
+
+    // @private
+    this.rowWidth =  options.size.width - ( 2 * options.cellXMargin );
+    this.rowHeight = scrollingRegionHeight / options.numberOfRows;
 
     assert && assert( !options.children, 'decoration not supported' );
     //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
@@ -139,10 +144,10 @@ define( function( require ) {
     /**
      * Appends a row to the table.
      *
-     * @param {RationalNumber|string} input
+     * @param {RationalNumber|string} input - value in the row's input cell
      * @public
      */
-    addEntry: function( input ) {
+    addRow: function( input ) {
 
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.addEntry ' + input );
 
@@ -156,14 +161,14 @@ define( function( require ) {
     },
 
     /**
-     * Removes the corresponding entry from the table.
+     * Removes a row from the table.
      * If the entry is visible, results in rows below it moving up.
      * This happens when a card is returned to the input carousel.
      *
-     * @param {RationalNumber|string} input
+     * @param {RationalNumber|string} input - value in the row's input cell
      * @public
      */
-    removeEntry: function( input ) {
+    removeRow: function( input ) {
 
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.removeEntry ' + input );
 
@@ -179,11 +184,11 @@ define( function( require ) {
     /**
      * Does the table contain an entry for the specified input?
      *
-     * @param {RationalNumber|string} input
+     * @param {RationalNumber|string} input - value in the row's input cell
      * @returns {boolean}
      * @public
      */
-    containsEntry: function( input ) {
+    containsRow: function( input ) {
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.containsEntry ' + input );
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       return ( this.inputs.indexOf( input ) !== -1 );
@@ -194,7 +199,7 @@ define( function( require ) {
      * This is called with true when a card is put in the output carousel.
      * This is called with false when a card is removed from the output carousel.
      *
-     * @param {RationalNumber|string} input
+     * @param {RationalNumber|string} input - value in the row's input cell
      * @param {boolean} visible
      * @public
      */
@@ -214,7 +219,7 @@ define( function( require ) {
      * @param {RationalNumber|string} input
      * @public
      */
-    scrollToEntry: function( input ) {
+    scrollToRow: function( input ) {
       //functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToEntry ' + input );
       //TODO implement scrollToEntry
     }
