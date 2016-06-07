@@ -22,6 +22,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -34,6 +35,7 @@ define( function( require ) {
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Builder} builder
@@ -109,20 +111,24 @@ define( function( require ) {
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
 
+    // @private
+    this.rowOptions = _.pick( options, 'cellXMargin', 'cellYMargin' );
+    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
+
     // @private parent for all rows
     this.rowsParent = new VBox();
-    scrollingRegion.addChild( this.rowsParent ); // add after setting clipArea
 
     // @private grid is drawn separately so we don't have weirdness with cell strokes overlapping
     this.gridNode = new Path( null, {
       stroke: 'black',
       lineWidth: 0.5
     } );
-    scrollingRegion.addChild( this.gridNode );
 
-    // @private
-    this.rowOptions = _.pick( options, 'cellXMargin', 'cellYMargin' );
-    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
+    // contents of the scrolling region
+    var scrollingContents = new Node( {
+      children: [ this.rowsParent, this.gridNode ]
+    } );
+    scrollingRegion.addChild( scrollingContents ); // add after setting clipArea
 
     assert && assert( !options.children, 'decoration not supported' );
     //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
@@ -133,6 +139,8 @@ define( function( require ) {
     // private the row number that appears at the top of the table
     this.rowNumberAtTopProperty = new Property( 0 );
 
+    var animation = null; // {MoveTo} animation that scrolls the rows
+
     var updateScrollingRegion = function() {
 
       var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
@@ -141,11 +149,21 @@ define( function( require ) {
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
 
-      thisNode.updateGrid();
+      thisNode.updateGrid(); //TODO sometimes this needs to be done at end of animation so we don't see row disappear
 
-      //TODO animate scrolling
-      thisNode.rowsParent.y = -( rowNumberAtTop * thisNode.rowOptions.size.height );
-      thisNode.gridNode.y = thisNode.rowsParent.y;
+      // stop any animation that's in progress
+      animation && animation.stop();
+
+      // animate scrolling
+      var destination = new Vector2( 0, -( rowNumberAtTop * thisNode.rowOptions.size.height ) );
+      animation = new MoveTo( scrollingContents, destination, {
+        constantSpeed: false,
+        duration: 500, // ms
+        onComplete: function() {
+          animation = null;
+        }
+      } );
+      animation.start();
     };
     this.rowNumberAtTopProperty.link( updateScrollingRegion );
     this.rowNodes.addItemAddedListener( updateScrollingRegion );
