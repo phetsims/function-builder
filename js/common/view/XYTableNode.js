@@ -24,6 +24,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -44,7 +45,7 @@ define( function( require ) {
     options = _.extend( {
 
       size: FBConstants.TABLE_DRAWER_SIZE,
-      numberOfRows: 3,
+      numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
       cornerRadius: 0,
 
       // column headings
@@ -64,7 +65,7 @@ define( function( require ) {
     var thisNode = this;
 
     this.builder = builder; // @private
-    this.numberOfRows = options.numberOfRows; // @private
+    this.numberOfRowsVisible = options.numberOfRowsVisible; // @private
 
     // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
     this.inputs = [];
@@ -107,9 +108,16 @@ define( function( require ) {
     this.rowsParent = new VBox();
     scrollingRegion.addChild( this.rowsParent ); // add after setting clipArea
 
+    // @private grid is drawn separately so we don't have weirdness with cell strokes overlapping
+    this.gridNode = new Path( null, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
+    scrollingRegion.addChild( this.gridNode );
+
     // @private
     this.rowOptions = _.pick( options, 'cellXMargin', 'cellYMargin' );
-    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRows );
+    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
 
     assert && assert( !options.children, 'decoration not supported' );
     //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
@@ -126,10 +134,13 @@ define( function( require ) {
       var numberOfRows = thisNode.rowNodes.lengthProperty.get();
 
       upButton.enabled = ( rowNumberAtTop !== 0 );
-      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRows;
+      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
+
+      thisNode.updateGrid();
 
       //TODO animate scrolling
       thisNode.rowsParent.y = -( rowNumberAtTop * thisNode.rowOptions.size.height );
+      thisNode.gridNode.y = thisNode.rowsParent.y;
     };
     this.rowNumberAtTopProperty.link( updateScrollingRegion );
     this.rowNodes.addItemAddedListener( updateScrollingRegion );
@@ -147,6 +158,32 @@ define( function( require ) {
   functionBuilder.register( 'XYTableNode', XYTableNode );
 
   inherit( VBox, XYTableNode, {
+
+    /**
+     * Updates the grid that delineates rows and columns.  This grid is drawn separately from cells,
+     * so that we don't have to deal with issues related to overlapping strokes around cells.
+     *
+     * @private
+     */
+    updateGrid: function() {
+
+      // always show 1 page of cells, even if some are empty
+      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.lengthProperty.get() );
+
+      var gridShape = new Shape();
+
+      // horizontal lines between rows
+      for ( var i = 1; i < numberOfRows; i++ ) {
+        var y = i * this.rowOptions.size.height;
+        gridShape.moveTo( 0, y ).lineTo( this.rowOptions.size.width, y );
+      }
+
+      // vertical line between columns
+      var centerX = this.rowOptions.size.width / 2;
+      gridShape.moveTo( centerX, 0 ).lineTo( centerX, numberOfRows * this.rowOptions.size.height );
+
+      this.gridNode.shape = gridShape;
+    },
 
     /**
      * Appends a row to the table.
@@ -194,6 +231,13 @@ define( function( require ) {
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
       this.rowNodes.remove( rowNode );
+
+      // scroll table if removing the row left empty rows at the bottom
+      var numberOfRows = this.rowNodes.lengthProperty.get();
+      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
+      if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
+         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
+      }
     },
 
     /**
@@ -226,6 +270,7 @@ define( function( require ) {
 
     /**
      * Scrolls the table to make the corresponding row visible.
+     * Does the minimal amount of scrolling necessary for the row to be visible.
      *
      * @param {RationalNumber|string} input - value in the row's input cell
      * @public
@@ -240,8 +285,8 @@ define( function( require ) {
       if ( inputIndex < rowNumberAtTop ) {
         this.rowNumberAtTopProperty.set( inputIndex );
       }
-      else if ( inputIndex > rowNumberAtTop + this.numberOfRows - 1 ) {
-        this.rowNumberAtTopProperty.set( inputIndex - this.numberOfRows + 1 );
+      else if ( inputIndex > rowNumberAtTop + this.numberOfRowsVisible - 1 ) {
+        this.rowNumberAtTopProperty.set( inputIndex - this.numberOfRowsVisible + 1 );
       }
       else {
         // row is already visible
@@ -291,14 +336,8 @@ define( function( require ) {
       centerY: backgroundNode.centerY
     } ) );
 
-    var verticalLine = new Line( 0, 0, 0, options.size.height, {
-      stroke: 'black',
-      lineWidth: 0.5,
-      center: backgroundNode.center
-    } );
-
     assert && assert( !options.children );
-    options.children = [ backgroundNode, verticalLine, xLabelNode, yLabelNode ];
+    options.children = [ backgroundNode, xLabelNode, yLabelNode ];
 
     Node.call( this, options );
   }
@@ -355,10 +394,8 @@ define( function( require ) {
     this.cellMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
     this.cellMaxHeight = options.size.height - ( 2 * options.cellYMargin );
 
-    var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      stroke: 'black',
-      lineWidth: 0.5
-    } );
+    // don't stroke the cell, grid is handled by XYTableNode
+    var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
 
     var verticalLine = new Line( 0, 0, 0, options.size.height, {
