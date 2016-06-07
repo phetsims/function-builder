@@ -76,17 +76,18 @@ define( function( require ) {
     // options for scroll buttons
     var BUTTON_OPTIONS = {
       fireOnHold: false, // because scrolling is animated
-      minWidth: options.size.width,
-      cornerRadius: options.cornerRadius
+      minWidth: options.size.width
     };
 
     // up button
     var upButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+      cornerRadius: 0,
       arrowDirection: 'up'
     } ) );
 
     // down button
     var downButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+      cornerRadius: options.cornerRadius,
       arrowDirection: 'down'
     } ) );
 
