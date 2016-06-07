@@ -2,7 +2,7 @@
 
 //TODO performance: update only when XYTableNode is visible
 //TODO if there are multiple instances of input cards, rows are not unique
-//TODO disable animation on Reset All (not strictly necessary, if default drawer state is closed)
+//TODO disable animation on Reset All and 'erase' button
 //TODO scrolling continues when drawer is closed, will that be confusing?
 //TODO when a row is deleted, animate the movement of rows to close the gap (difficult)
 /**
