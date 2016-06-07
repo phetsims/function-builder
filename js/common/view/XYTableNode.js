@@ -3,6 +3,7 @@
 //TODO performance: update only when XYTableNode is visible
 //TODO if there are multiple instances of input cards, rows are not unique
 //TODO disable animation on Reset All
+//TODO should scrolling occur while the drawer is closed? should that be handled in XYTableNode?
 /**
  * XY table.
  * Each row consists of input (x) and output (y) cells.
