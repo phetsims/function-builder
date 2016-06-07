@@ -19,7 +19,6 @@ define( function( require ) {
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -29,14 +28,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/XYTableHeading' );
+  var XYTableRow = require( 'FUNCTION_BUILDER/common/view/XYTableRow' );
 
   /**
    * @param {Builder} builder
@@ -73,7 +70,7 @@ define( function( require ) {
     // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
     this.inputs = [];
 
-    // @private {RowNode} rows, in the same order as inputs[]
+    // @private {XYTableRow} rows, in the same order as inputs[]
     this.rowNodes = new ObservableArray( [] );
 
     // options for scroll buttons
@@ -191,7 +188,7 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
 
-  inherit( VBox, XYTableNode, {
+  return inherit( VBox, XYTableNode, {
 
     /**
      * Updates the grid that delineates rows and columns.  This grid is drawn separately from cells,
@@ -236,7 +233,7 @@ define( function( require ) {
       this.inputs.push( input );
 
       // add row
-      var rowNode = new RowNode( input, this.builder, this.rowOptions );
+      var rowNode = new XYTableRow( input, this.builder, this.rowOptions );
       this.rowNodes.add( rowNode );
       this.rowsParent.addChild( rowNode );
     },
@@ -327,140 +324,4 @@ define( function( require ) {
       }
     }
   } );
-
-  /**
-   * @param {RationalNumber|SlopeInterceptEquation} value - value in the cell
-   * @param {Object} [options]
-   * @returns {Node}
-   */
-  var createCellValueNode = function( value, options ) {
-
-    options = _.extend( {
-      showLeftHandSide: false // don't show the left-hand side (y =) of equations
-    }, options );
-
-    var cellNode = null;
-    if ( value instanceof RationalNumber ) {
-      cellNode = new RationalNumberNode( value, options );
-    }
-    else if ( value instanceof SlopeInterceptEquation ) {
-      cellNode = new SlopeInterceptEquationNode( value.slope, value.intercept, options );
-    }
-    else {
-      throw new Error( 'invalid output type' );
-    }
-    return cellNode;
-  };
-
-  /**
-   * @param {RationalNumber|string} input - value in the row's input cell
-   * @param {Builder} builder
-   * @param options
-   * @constructor
-   */
-  function RowNode( input, builder, options ) {
-
-    assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-
-    options = _.extend( {
-      size: new Dimension2( 100, 10 ),
-      cellFont: new FBFont( 24 ),
-      cellXMargin: 6,
-      cellYMargin: 3
-    }, options );
-
-    Node.call( this );
-
-    // @private
-    this.size = options.size;
-    this.cellMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
-    this.cellMaxHeight = options.size.height - ( 2 * options.cellYMargin );
-
-    // don't stroke the cell, grid is handled by XYTableNode
-    var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
-    this.addChild( rowNode );
-
-    //TODO this is ugly
-    var actualInput = null;
-    if ( input instanceof RationalNumber ) {
-      actualInput = input;
-    }
-    else {
-      actualInput = new SlopeInterceptEquation( [] ); //TODO this is obtuse
-    }
-
-    // input value, static
-    var inputValueNode = createCellValueNode( actualInput, {
-      maxWidth: this.cellMaxWidth,
-      maxHeight: this.cellMaxHeight,
-      centerX: 0.25 * options.size.width,
-      centerY: options.size.height / 2
-    } );
-    this.addChild( inputValueNode );
-
-    // @private output value, set by updateOutputCell
-    this.outputValueNode = null;
-
-    var thisNode = this;
-    var updateOutputCell = function() {
-
-      var outputValueNodeWasVisible = false;
-
-      // remove previous node
-      if ( thisNode.outputValueNode ) {
-        outputValueNodeWasVisible = thisNode.outputValueNode.visible;
-        thisNode.removeChild( thisNode.outputValueNode );
-      }
-
-      // compute new output value
-      var output = null;
-      if ( input instanceof RationalNumber ) {
-        output = builder.applyAllFunctions( input ); // {RationalNumber}
-      }
-      else {
-        output = new SlopeInterceptEquation( builder.applyAllFunctions( [] ) ); //TODO this is obtuse
-      }
-
-      // add new node
-      thisNode.outputValueNode = createCellValueNode( output, {
-        maxWidth: thisNode.cellMaxWidth,
-        maxHeight: thisNode.cellMaxHeight,
-        visible: outputValueNodeWasVisible,
-        centerX: 0.75 * options.size.width,
-        centerY: options.size.height / 2
-      } );
-      thisNode.addChild( thisNode.outputValueNode );
-    };
-
-    builder.functionChangedEmitter.addListener( updateOutputCell );
-    updateOutputCell();
-
-    this.mutate( options );
-
-    // @private
-    this.disposeRowNode = function() {
-      builder.functionChangedEmitter.removeListener( updateOutputCell );
-      builder = null; // so things fail if we try to use this instance after dispose is called
-    };
-  }
-
-  functionBuilder.register( 'XYTableNode.RowNode', RowNode );
-
-  inherit( Node, RowNode, {
-
-    // @public
-    dispose: function() {
-       this.disposeRowNode();
-    },
-
-    /**
-     * @param visible
-     * @public
-     */
-    setOutputCellVisible: function( visible ) {
-      this.outputValueNode.visible = visible;
-    }
-  } );
-
-  return XYTableNode;
 } );
