@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function ImageFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
-    assert && assert( functionInstance instanceof ImageFunction, 'unexpected type: ' + functionInstance.constructor.name );
+    assert && assert( functionInstance instanceof ImageFunction );
 
     FunctionNode.call( this, functionInstance, functionInstance.iconNode, container, builderNode, dragLayer, options );
   }

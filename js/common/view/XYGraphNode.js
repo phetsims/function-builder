@@ -294,7 +294,7 @@ define( function( require ) {
      */
     addPointAt: function( x ) {
 
-      assert && assert( x instanceof RationalNumber, 'x is not a RationalNumber' );
+      assert && assert( x instanceof RationalNumber );
       assert && assert( this.xRange.contains( x.valueOf() ), 'x is out of range: ' + x.valueOf() );
       assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
 
@@ -319,7 +319,7 @@ define( function( require ) {
      */
     removePointAt: function( x ) {
 
-      assert && assert( x instanceof RationalNumber, 'x is not a RationalNumber' );
+      assert && assert( x instanceof RationalNumber );
       assert && assert( this.xCoordinates.indexOf( x ) !== -1, 'x is not plotted: ' + x );
 
       // remove x from list

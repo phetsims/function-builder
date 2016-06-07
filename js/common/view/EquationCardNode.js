@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function EquationCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    assert && assert( card instanceof EquationCard, 'unexpected type: ' + card.constructor.name );
+    assert && assert( card instanceof EquationCard );
 
     options = options || {};
 

@@ -30,7 +30,7 @@ define( function( require ) {
    */
   function MathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
-    assert && assert( functionInstance instanceof MathFunction, 'unexpected type: ' + functionInstance.constructor.name );
+    assert && assert( functionInstance instanceof MathFunction );
 
     var contentNode = null;
     if ( functionInstance.operandMutable ) {

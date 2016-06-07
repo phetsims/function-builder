@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    assert && assert( card instanceof NumberCard, 'unexpected type: ' + card.constructor.name );
+    assert && assert( card instanceof NumberCard );
 
     options = options || {};
 
@@ -64,7 +64,6 @@ define( function( require ) {
 
       // {RationalNumber} run the input value through the builder
       var value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
-      assert && assert( value instanceof RationalNumber );
 
       // update the node
       this.rationalNumberNode.setValue( value );

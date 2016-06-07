@@ -28,7 +28,7 @@ define( function( require ) {
    */
   function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    assert && assert( card instanceof ImageCard, 'unexpected type: ' + card.constructor.name );
+    assert && assert( card instanceof ImageCard );
 
     options = _.extend( {
       imageScale: FBConstants.CARD_IMAGE_SCALE
