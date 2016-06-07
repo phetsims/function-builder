@@ -95,7 +95,7 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableRow', XYTableRow );
 
-  //TODO investigate how to get ride of instanceof tests herein
+  //TODO investigate how to get rid of instanceof tests herein
   /**
    * Creates the cell representation for a specified card.
    *

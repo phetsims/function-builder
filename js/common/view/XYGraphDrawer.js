@@ -48,7 +48,7 @@ define( function( require ) {
 
     Drawer.call( this, graphNode, options );
 
-    //TODO investigate how to get ride of instanceof tests herein
+    //TODO investigate how to get rid of instanceof tests herein
     // wire up output containers to graph
     outputContainers.forEach( function( outputContainer ) {
 
