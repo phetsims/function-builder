@@ -144,7 +144,7 @@ define( function( require ) {
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
 
-      //TODO this should only be done when nmber of rows changes, not when scrolling
+      //TODO this should only be done when number of rows changes, not when scrolling
       //TODO sometimes this needs to be done at end of animation so we don't see row disappear
       thisNode.updateGrid();
 
