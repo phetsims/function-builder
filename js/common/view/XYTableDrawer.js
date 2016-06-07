@@ -56,7 +56,7 @@ define( function( require ) {
 
     Drawer.call( this, tableNode, options );
 
-    // wire up input containers to table
+    // wire up table to input containers
     inputContainers.forEach( function( inputContainer ) {
 
       // when card is removed from input container, add row to table
@@ -75,7 +75,7 @@ define( function( require ) {
       } );
     } );
 
-    // wire up output containers to table
+    // wire up table to output containers
     outputContainers.forEach( function( outputContainer ) {
 
       // when card is added to the output container, show its output in the table
