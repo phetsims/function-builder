@@ -44,7 +44,7 @@ define( function( require ) {
     this.cellMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
     this.cellMaxHeight = options.size.height - ( 2 * options.cellYMargin );
 
-    // don't stroke the cell, grid is handled by XYTableNode
+    // don't stroke the cell, grid is drawn by XYTableNode
     var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
 
