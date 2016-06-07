@@ -2,6 +2,7 @@
 
 //TODO performance: update only when XYTableNode is visible
 //TODO if there are multiple instances of input cards, rows are not unique
+//TODO disable animation on Reset All
 /**
  * XY table.
  * Each row consists of input (x) and output (y) cells.
@@ -146,6 +147,7 @@ define( function( require ) {
       var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
       var numberOfRows = thisNode.rowNodes.lengthProperty.get();
 
+      // scrolling button states
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
 
@@ -154,16 +156,25 @@ define( function( require ) {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      // animate scrolling
-      var destination = new Vector2( 0, -( rowNumberAtTop * thisNode.rowOptions.size.height ) );
-      animation = new MoveTo( scrollingContents, destination, {
-        constantSpeed: false,
-        duration: 500, // ms
-        onComplete: function() {
-          animation = null;
-        }
-      } );
-      animation.start();
+      var scrollY = -( rowNumberAtTop * thisNode.rowOptions.size.height );
+      if ( thisNode.visible ) {
+
+        // animate scrolling
+        var destination = new Vector2( scrollingContents.x, scrollY );
+        animation = new MoveTo( scrollingContents, destination, {
+          constantSpeed: false,
+          duration: 500, // ms
+          onComplete: function() {
+            animation = null;
+          }
+        } );
+        animation.start();
+      }
+      else {
+
+        // move immediately, no animation
+        scrollingContents.y = scrollY;
+      }
     };
     this.rowNumberAtTopProperty.link( updateScrollingRegion );
     this.rowNodes.addItemAddedListener( updateScrollingRegion );
