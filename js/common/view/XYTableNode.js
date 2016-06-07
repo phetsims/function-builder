@@ -1,6 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 //TODO performance: update only when XYTableNode is visible
+//TODO if there are multiple instances of input cards, rows are not unique
 /**
  * XY table.
  * Each row consists of input (x) and output (y) cells.
