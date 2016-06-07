@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for card nodes.
+ * Abstract base type for card nodes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
