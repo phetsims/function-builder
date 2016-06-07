@@ -32,7 +32,7 @@ define( function( require ) {
 
     options = _.extend( {
       size: new Dimension2( 100, 10 ),
-      cellXMargin: 10,
+      cellXMargin: 15,
       cellYMargin: 3
     }, options );
 
