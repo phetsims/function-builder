@@ -23,8 +23,11 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -49,7 +52,6 @@ define( function( require ) {
       headingBackground: 'rgb( 144, 226, 252 )',
 
       // cells
-      cellFont: new FBFont( 24 ),
       cellColor: 'white',
       cellXMargin: 3,
       cellYMargin: 3
@@ -58,17 +60,18 @@ define( function( require ) {
 
     var thisNode = this;
 
+    // @private
+    this.builder = builder;
+
     // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
     this.inputs = [];
 
-    //TODO move these to RowNode
-    // @private {number} maximum dimensions of cell content, used to set Node maxWidth property
-    this.cellContentMaxWidth = ( options.size.width - 2 * options.cellXMargin ) / 2;
-    this.cellContentMaxHeight = ( options.size.height - 2 * options.cellYMargin ) / 2;
+    // @private {RowNode} rows, in the same order as inputs[]
+    this.rowNodes = [];
 
     // options for scroll buttons
     var BUTTON_OPTIONS = {
-      fireOnHold: true,
+      fireOnHold: false, // because scrolling is animated
       minWidth: options.size.width,
       cornerRadius: options.cornerRadius
     };
@@ -97,13 +100,13 @@ define( function( require ) {
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
 
-    // parent for all rows
-    var rowsParent = new VBox();
-    scrollingRegion.addChild( rowsParent ); // add after setting clipArea
+    // @private parent for all rows
+    this.rowsParent = new VBox();
+    scrollingRegion.addChild( this.rowsParent ); // add after setting clipArea
 
     // @private
-    this.rowWidth =  options.size.width - ( 2 * options.cellXMargin );
-    this.rowHeight = scrollingRegionHeight / options.numberOfRows;
+    this.rowOptions = _.pick( options, 'cellXMargin', 'cellYMargin' );
+    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRows );
 
     assert && assert( !options.children, 'decoration not supported' );
     //TODO consider putting upButton below headingNode, so that user doesn't accidentally close drawer
@@ -111,35 +114,19 @@ define( function( require ) {
 
     VBox.call( this, options );
 
-    // no need to removeListener, this instance exists for the lifetime of the sim
-    builder.functionChangedEmitter.addListener( function() {
-      thisNode.updateOutputCells();
+    //TODO animate scrolling
+    upButton.addListener( function() {
+      thisNode.rowsParent.y = thisNode.rowsParent.y + thisNode.rowOptions.size.height;
     } );
 
-    //XXX test scrolling window, delete this
-    {
-      rowsParent.addChild( new Text( 'scroll me!', {
-        font: new FBFont( 30 ),
-        centerX: scrollingRegion.width / 2
-      } ) );
-      upButton.addListener( function() {
-        rowsParent.y = rowsParent.y + 5;
-      } );
-      downButton.addListener( function() {
-        rowsParent.y = rowsParent.y - 5;
-      } );
-    }
+    downButton.addListener( function() {
+      thisNode.rowsParent.y = thisNode.rowsParent.y - thisNode.rowOptions.size.height;
+    } );
   }
 
   functionBuilder.register( 'XYTableNode', XYTableNode );
 
   inherit( VBox, XYTableNode, {
-
-    // @private updates the output cells in the table
-    updateOutputCells: function() {
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.update' );
-      //TODO implement updateOutputs
-    },
 
     /**
      * Appends a row to the table.
@@ -149,15 +136,18 @@ define( function( require ) {
      */
     addRow: function( input ) {
 
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.addEntry ' + input );
+      functionBuilder.log && functionBuilder.log( 'XYTableNode.addRow ' + input );
 
+      assert && assert( !this.containsRow( input ) );
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-      assert && assert( !this.containsEntry( input ) );
 
-      // add to list
+      // add input value
       this.inputs.push( input );
 
-      //TODO add row with input cell visible, output cell invisible
+      // add row
+      var rowNode = new RowNode( input, this.builder, this.rowOptions );
+      this.rowNodes.push( rowNode );
+      this.rowsParent.addChild( rowNode );
     },
 
     /**
@@ -170,15 +160,19 @@ define( function( require ) {
      */
     removeRow: function( input ) {
 
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.removeEntry ' + input );
+      functionBuilder.log && functionBuilder.log( 'XYTableNode.removeRow ' + input );
 
-      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-      assert && assert( this.containsEntry( input ) );
+      var inputIndex = this.inputs.indexOf( input );
+      assert && assert( inputIndex !== -1 );
 
-      // remove from list
-      this.inputs.splice( this.inputs.indexOf( input ), 1 );
+      // remove input value
+      this.inputs.splice( inputIndex, 1 );
 
-      //TODO remove row, move rows below it up
+      // remove row, rows below it move up automatically since rowsParent is a VBox
+      var rowNode = this.rowNodes[ inputIndex ];
+      rowNode.dispose();
+      this.rowsParent.removeChild( rowNode );
+      this.rowNodes.splice( inputIndex, 1 );
     },
 
     /**
@@ -189,7 +183,6 @@ define( function( require ) {
      * @public
      */
     containsRow: function( input ) {
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.containsEntry ' + input );
       assert && assert( input instanceof RationalNumber || typeof input === 'string' );
       return ( this.inputs.indexOf( input ) !== -1 );
     },
@@ -204,13 +197,9 @@ define( function( require ) {
      * @public
      */
     setOutputCellVisible: function( input, visible ) {
-
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.setOutputVisible ' + input  + ', visible=' + visible );
-
-      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-      assert && assert( this.containsEntry( input ) );
-
-      //TODO make corresponding output cell visible
+      var inputIndex = this.inputs.indexOf( input );
+      assert && assert( inputIndex !== -1 );
+      this.rowNodes[ inputIndex ].setOutputCellVisible( visible );
     },
 
     /**
@@ -220,8 +209,8 @@ define( function( require ) {
      * @public
      */
     scrollToRow: function( input ) {
-      //functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToEntry ' + input );
-      //TODO implement scrollToEntry
+      //functionBuilder.log && functionBuilder.log( 'XYTableNode.scrollToRow ' + input );
+      //TODO implement scrollToRow
     }
   } );
 
@@ -236,8 +225,8 @@ define( function( require ) {
     options = _.extend( {
       size: new Dimension2( 100, 25 ),
       font: FBConstants.TABLE_XY_HEADING_FONT,
-      xMargin: 5,
-      yMargin: 2,
+      xMargin: 6,
+      yMargin: 4,
       fill: 'rgb( 144, 226, 252 )'
     }, options );
 
@@ -282,6 +271,149 @@ define( function( require ) {
   functionBuilder.register( 'XYTableNode.HeadingNode', HeadingNode );
 
   inherit( Node, HeadingNode );
+
+  /**
+   * @param {RationalNumber|SlopeInterceptEquation} value - value in the cell
+   * @param {Object} [options]
+   * @returns {Node}
+   */
+  var createCellValueNode = function( value, options ) {
+
+    options = _.extend( {
+      showLeftHandSide: false // don't show the left-hand side (y =) of equations
+    }, options );
+
+    var cellNode = null;
+    if ( value instanceof RationalNumber ) {
+      cellNode = new RationalNumberNode( value, options );
+    }
+    else if ( value instanceof SlopeInterceptEquation ) {
+      cellNode = new SlopeInterceptEquationNode( value.slope, value.intercept, options );
+    }
+    else {
+      throw new Error( 'invalid output type' );
+    }
+    return cellNode;
+  };
+
+  /**
+   * @param {RationalNumber|string} input - value in the row's input cell
+   * @param {Builder} builder
+   * @param options
+   * @constructor
+   */
+  function RowNode( input, builder, options ) {
+
+    assert && assert( input instanceof RationalNumber || typeof input === 'string' );
+
+    options = _.extend( {
+      size: new Dimension2( 100, 10 ),
+      cellFont: new FBFont( 24 ),
+      cellXMargin: 6,
+      cellYMargin: 3
+    }, options );
+
+    Node.call( this );
+
+    // @private
+    this.size = options.size;
+    this.cellMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
+    this.cellMaxHeight = options.size.height - ( 2 * options.cellYMargin );
+
+    var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
+    this.addChild( rowNode );
+
+    var verticalLine = new Line( 0, 0, 0, options.size.height, {
+      stroke: 'black',
+      lineWidth: 0.5,
+      center: rowNode.center
+    } );
+    this.addChild( verticalLine );
+
+    //TODO this is ugly
+    var actualInput = null;
+    if ( input instanceof RationalNumber ) {
+      actualInput = input;
+    }
+    else {
+      actualInput = new SlopeInterceptEquation( [] ); //TODO this is obtuse
+    }
+
+    // input value, static
+    var inputValueNode = createCellValueNode( actualInput, {
+      maxWidth: this.cellMaxWidth,
+      maxHeight: this.cellMaxHeight,
+      centerX: 0.25 * options.size.width,
+      centerY: options.size.height / 2
+    } );
+    this.addChild( inputValueNode );
+
+    // @private output value, set by updateOutputCell
+    this.outputValueNode = null;
+
+    var thisNode = this;
+    var updateOutputCell = function() {
+
+      var outputValueNodeWasVisible = false;
+
+      // remove previous node
+      if ( thisNode.outputValueNode ) {
+        outputValueNodeWasVisible = thisNode.outputValueNode.visible;
+        thisNode.removeChild( thisNode.outputValueNode );
+      }
+
+      // compute new output value
+      var output = null;
+      if ( input instanceof RationalNumber ) {
+        output = builder.applyAllFunctions( input ); // {RationalNumber}
+      }
+      else {
+        output = new SlopeInterceptEquation( builder.applyAllFunctions( [] ) ); //TODO this is obtuse
+      }
+
+      // add new node
+      thisNode.outputValueNode = createCellValueNode( output, {
+        maxWidth: thisNode.cellMaxWidth,
+        maxHeight: thisNode.cellMaxHeight,
+        visible: outputValueNodeWasVisible,
+        centerX: 0.75 * options.size.width,
+        centerY: options.size.height / 2
+      } );
+      thisNode.addChild( thisNode.outputValueNode );
+    };
+
+    builder.functionChangedEmitter.addListener( updateOutputCell );
+    updateOutputCell();
+
+    this.mutate( options );
+
+    // @private
+    this.disposeRowNode = function() {
+      builder.functionChangedEmitter.removeListener( updateOutputCell );
+      builder = null; // so things fail if we try to use this instance after dispose is called
+    };
+  }
+
+  functionBuilder.register( 'XYTableNode.RowNode', RowNode );
+
+  inherit( Node, RowNode, {
+
+    // @public
+    dispose: function() {
+       this.disposeRowNode();
+    },
+
+    /**
+     * @param visible
+     * @public
+     */
+    setOutputCellVisible: function( visible ) {
+      this.outputValueNode.visible = visible;
+    }
+  } );
 
   return XYTableNode;
 } );
