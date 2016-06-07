@@ -91,6 +91,10 @@ define( function( require ) {
       arrowDirection: 'down'
     } ) );
 
+    // button touchAreas
+    upButton.touchArea = upButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
+    downButton.touchArea = downButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
+
     // column headings
     var headingNode = new HeadingNode( options.xSymbol, options.ySymbol, {
       size: new Dimension2( options.size.width, 30 ),
