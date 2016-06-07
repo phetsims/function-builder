@@ -18,16 +18,17 @@ define( function( require ) {
   // modules
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -54,11 +55,7 @@ define( function( require ) {
       ySymbol: FBSymbols.Y,
       headingFont: FBConstants.TABLE_XY_HEADING_FONT,
       headingYMargin: 2,
-      headingBackground: 'rgb( 144, 226, 252 )',
-
-      // cells
-      cellXMargin: 3,
-      cellYMargin: 3
+      headingBackground: 'rgb( 144, 226, 252 )'
 
     }, options );
 
@@ -67,10 +64,10 @@ define( function( require ) {
     this.builder = builder; // @private
     this.numberOfRowsVisible = options.numberOfRowsVisible; // @private
 
-    // @private {RationalNumber[]|string} inputs, in the order that they appear in the table
-    this.inputs = [];
+    // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
+    this.cards = [];
 
-    // @private {XYTableRow} rows, in the same order as inputs[]
+    // @private {XYTableRow} rows, in the same order as cards[]
     this.rowNodes = new ObservableArray( [] );
 
     // options for scroll buttons
@@ -109,9 +106,8 @@ define( function( require ) {
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
 
-    // @private cherry pick options that are related to XYTableRow
-    this.rowOptions = _.pick( options, 'xSymbol', 'ySymbol', 'cellXMargin', 'cellYMargin' );
-    this.rowOptions.size = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
+    // @private
+    this.rowSize = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
 
     // @private parent for all rows
     this.rowsParent = new VBox();
@@ -153,7 +149,7 @@ define( function( require ) {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      var scrollY = -( rowNumberAtTop * thisNode.rowOptions.size.height );
+      var scrollY = -( rowNumberAtTop * thisNode.rowSize.height );
       if ( thisNode.visible ) {
 
         // animate scrolling
@@ -205,13 +201,13 @@ define( function( require ) {
 
       // horizontal lines between rows
       for ( var i = 1; i < numberOfRows; i++ ) {
-        var y = i * this.rowOptions.size.height;
-        gridShape.moveTo( 0, y ).lineTo( this.rowOptions.size.width, y );
+        var y = i * this.rowSize.height;
+        gridShape.moveTo( 0, y ).lineTo( this.rowSize.width, y );
       }
 
       // vertical line between columns
-      var centerX = this.rowOptions.size.width / 2;
-      gridShape.moveTo( centerX, 0 ).lineTo( centerX, numberOfRows * this.rowOptions.size.height );
+      var centerX = this.rowSize.width / 2;
+      gridShape.moveTo( centerX, 0 ).lineTo( centerX, numberOfRows * this.rowSize.height );
 
       this.gridNode.shape = gridShape;
     },
@@ -219,21 +215,21 @@ define( function( require ) {
     /**
      * Appends a row to the table.
      *
-     * @param {RationalNumber|string} input - value in the row's input cell
+     * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @public
      */
-    addRow: function( input ) {
+    addRow: function( card ) {
 
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.addRow ' + input );
+      assert && assert( !this.containsRow( card ) );
+      assert && assert( card instanceof NumberCard || card instanceof EquationCard );
 
-      assert && assert( !this.containsRow( input ) );
-      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-
-      // add input value
-      this.inputs.push( input );
+      // add card
+      this.cards.push( card );
 
       // add row
-      var rowNode = new XYTableRow( input, this.builder, this.rowOptions );
+      var rowNode = new XYTableRow( card, this.builder, {
+        size: this.rowSize
+      } );
       this.rowNodes.add( rowNode );
       this.rowsParent.addChild( rowNode );
     },
@@ -243,22 +239,20 @@ define( function( require ) {
      * If the entry is visible, results in rows below it moving up.
      * This happens when a card is returned to the input carousel.
      *
-     * @param {RationalNumber|string} input - value in the row's input cell
+     * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @public
      */
-    removeRow: function( input ) {
+    removeRow: function( card ) {
 
-      functionBuilder.log && functionBuilder.log( 'XYTableNode.removeRow ' + input );
+      var cardIndex = this.cards.indexOf( card );
+      assert && assert( cardIndex !== -1 );
 
-      var inputIndex = this.inputs.indexOf( input );
-      assert && assert( inputIndex !== -1 );
-
-      // remove input value
-      this.inputs.splice( inputIndex, 1 );
+      // remove card
+      this.cards.splice( cardIndex, 1 );
 
       //TODO should rows below animate up?
       // remove row, rows below it move up automatically since rowsParent is a VBox
-      var rowNode = this.rowNodes.get( inputIndex );
+      var rowNode = this.rowNodes.get( cardIndex );
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
       this.rowNodes.remove( rowNode );
@@ -272,15 +266,14 @@ define( function( require ) {
     },
 
     /**
-     * Does the table contain an entry for the specified input?
+     * Does the table contain a row for the specified card?
      *
-     * @param {RationalNumber|string} input - value in the row's input cell
+     * @param {Card} card
      * @returns {boolean}
      * @public
      */
-    containsRow: function( input ) {
-      assert && assert( input instanceof RationalNumber || typeof input === 'string' );
-      return ( this.inputs.indexOf( input ) !== -1 );
+    containsRow: function( card ) {
+      return ( this.cards.indexOf( card ) !== -1 );
     },
 
     /**
@@ -288,14 +281,16 @@ define( function( require ) {
      * This is called with true when a card is put in the output carousel.
      * This is called with false when a card is removed from the output carousel.
      *
-     * @param {RationalNumber|string} input - value in the row's input cell
+     * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @param {boolean} visible
      * @public
      */
-    setOutputCellVisible: function( input, visible ) {
-      var inputIndex = this.inputs.indexOf( input );
-      assert && assert( inputIndex !== -1 );
-      var rowNode = this.rowNodes.get( inputIndex );
+    setOutputCellVisible: function( card, visible ) {
+
+      var cardIndex = this.cards.indexOf( card );
+      assert && assert( cardIndex !== -1 );
+
+      var rowNode = this.rowNodes.get( cardIndex );
       rowNode.setOutputCellVisible( visible );
     },
 
@@ -303,21 +298,21 @@ define( function( require ) {
      * Scrolls the table to make the corresponding row visible.
      * Does the minimal amount of scrolling necessary for the row to be visible.
      *
-     * @param {RationalNumber|string} input - value in the row's input cell
+     * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @public
      */
-    scrollToRow: function( input ) {
+    scrollToRow: function( card ) {
 
-      var inputIndex = this.inputs.indexOf( input );
-      assert && assert( inputIndex !== -1 );
+      var cardIndex = this.cards.indexOf( card );
+      assert && assert( cardIndex !== -1 );
 
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
 
-      if ( inputIndex < rowNumberAtTop ) {
-        this.rowNumberAtTopProperty.set( inputIndex );
+      if ( cardIndex < rowNumberAtTop ) {
+        this.rowNumberAtTopProperty.set( cardIndex );
       }
-      else if ( inputIndex > rowNumberAtTop + this.numberOfRowsVisible - 1 ) {
-        this.rowNumberAtTopProperty.set( inputIndex - this.numberOfRowsVisible + 1 );
+      else if ( cardIndex > rowNumberAtTop + this.numberOfRowsVisible - 1 ) {
+        this.rowNumberAtTopProperty.set( cardIndex - this.numberOfRowsVisible + 1 );
       }
       else {
         // row is already visible

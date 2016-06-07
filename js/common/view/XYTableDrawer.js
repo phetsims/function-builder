@@ -15,12 +15,10 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
 
   /**
@@ -68,42 +66,33 @@ define( function( require ) {
         var inputContainer = inputContainers[ i ];
         var outputContainer = outputContainers[ i ];
 
-        // when card is removed from input container, add row to table, or scroll to show existing row in table
+        // when card is removed from input container, add row to table
         inputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
-          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          if ( !tableNode.containsRow( xValue ) ) {
-            tableNode.addRow( xValue );
-          }
-          tableNode.scrollToRow( xValue );
+          var card = node.card;
+          tableNode.addRow( card );
+          tableNode.scrollToRow( card );
         } );
 
-        // when card is returned to input container, remove row from table if the corresponding output container is empty
+        // when card is returned to input container, remove row from table
         inputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
-          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          if ( tableNode.containsRow( xValue ) && outputContainer.isEmpty() ) {
-            tableNode.removeRow( xValue );
+          var card = node.card;
+          if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
+            tableNode.removeRow( card );
           }
         } );
 
         // when card is added to the output container, show its output in the table
         outputContainer.addEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
-          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          tableNode.setOutputCellVisible( xValue, true );
-          tableNode.scrollToRow( xValue );
+          var card = node.card;
+          tableNode.setOutputCellVisible( card, true );
+          tableNode.scrollToRow( card );
         } );
 
-        // when card is removed from output container, hide its output in the table if the output container is empty
+        // when card is removed from output container, hide its output in the table
         outputContainer.removeEmitter.addListener( function( node ) {
-          assert && assert( node instanceof NumberCardNode || node instanceof EquationCardNode );
-          var xValue = ( node instanceof NumberCardNode ) ? node.card.rationalNumber : node.card.xSymbol;
-          tableNode.scrollToRow( xValue );
-          if ( outputContainer.isEmpty() ) {
-            tableNode.setOutputCellVisible( xValue, false );
-          }
-          tableNode.scrollToRow( xValue );
+          var card = node.card;
+          tableNode.setOutputCellVisible( card, false );
+          tableNode.scrollToRow( card );
         } );
       })();
     }
