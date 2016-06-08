@@ -1,10 +1,15 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * XY table.
+ * XY table, showing the mapping between input and output values for the functions in the builder.
+ *
+ * Requirements:
  * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
- * When a row is added, it is added to the end of the table, it's input cell is visible, it's output cell is invisible.
+ * Rows for number cards are inserted in ascending numerical order.
+ * Rows for symbolic cards (eg 'x') are appended to the table.
+ * When a row is added, it's input cell is visible, it's output cell is invisible.
  * When a row is deleted, rows below it move up (handled automatically by using VBox).
+ * There are no empty rows in the table.
  * The values in the output cells reflect the functions in the builder.
  *
  * Performance is optimized so that the table synchronizes with the model only while updatesEnabled is true.
@@ -20,6 +25,7 @@ define( function( require ) {
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var Emitter = require( 'AXON/Emitter' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -27,7 +33,6 @@ define( function( require ) {
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -70,11 +75,15 @@ define( function( require ) {
     this._updateEnabled = options.updateEnabled;
     this.gridDirty = true; // {boolean} does the grid need to be updated?
 
-    // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
+    // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
     this.cards = [];
 
-    // @private {XYTableRow} rows, in the same order as cards[]
-    this.rowNodes = new ObservableArray( [] );
+    //TODO get rid of this, use this.rowsParent.children
+    // @private {XYTableRow[]} rows, in the same order as this.cards
+    this.rowNodes = [];
+
+    // @private fires when a row is added or removed
+    this.tableChangedEmitter = new Emitter();
 
     // options for scroll buttons
     var BUTTON_OPTIONS = {
@@ -176,17 +185,13 @@ define( function( require ) {
 
     // button state is dependent on number of rows and which rows are visible
     var updateButtonState = function() {
-
       var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
-      var numberOfRows = thisNode.rowNodes.lengthProperty.get();
-
-      // scrolling button states
+      var numberOfRows = thisNode.rowNodes.length;
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
     };
     this.rowNumberAtTopProperty.link( updateButtonState );
-    this.rowNodes.addItemAddedListener( updateButtonState );
-    this.rowNodes.addItemRemovedListener( updateButtonState );
+    this.tableChangedEmitter.addListener( updateButtonState );
 
     upButton.addListener( function() {
       thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() - 1 );
@@ -213,7 +218,7 @@ define( function( require ) {
       assert && assert( this.updateEnabled && this.gridDirty );
 
       // always show 1 page of cells, even if some are empty
-      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.lengthProperty.get() );
+      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.length );
 
       var gridShape = new Shape();
 
@@ -233,7 +238,9 @@ define( function( require ) {
     },
 
     /**
-     * Appends a row to the table.
+     * Adds a row to the table.
+     * For NumberCard, cards are in ascending numeric order.
+     * For EquationCard, cards are added to the end.
      *
      * @param {NumberCard|EquationCard} card - card that's associated with the row
      * @public
@@ -243,22 +250,49 @@ define( function( require ) {
       assert && assert( !this.containsRow( card ) );
       assert && assert( card instanceof NumberCard || card instanceof EquationCard );
 
-      // add card
-      this.cards.push( card );
-
-      // add row
+      // create the row
       var rowNode = new XYTableRow( card, this.builder, {
         size: this.rowSize,
         updateEnabled: this.updateEnabled
       } );
-      this.rowNodes.add( rowNode );
-      this.rowsParent.addChild( rowNode );
+
+      if ( card instanceof NumberCard ) {
+
+        // insert number cards in ascending numerical order
+        var insertIndex = this.cards.length;
+        for ( var i = 0; i < this.cards.length; i++ ) {
+          var someCard = this.cards[ i ];
+          if ( someCard instanceof EquationCard ) {
+            insertIndex = i; // we encountered an EquationCard, which is always at the end, so stop here
+            break;
+          }
+          else if ( card.rationalNumber.valueOf() < someCard.rationalNumber.valueOf() ) {
+            insertIndex = i; // we encountered a card with a larger number, stop here
+            break;
+          }
+        }
+        this.cards.splice( insertIndex, 0, card );
+        this.rowNodes.splice( insertIndex, 0, rowNode );
+        this.rowsParent.insertChild( insertIndex, rowNode );
+      }
+      else if ( card instanceof EquationCard ) {
+
+        // add 'x' card to end
+        this.cards.push( card );
+        this.rowNodes.push( rowNode );
+        this.rowsParent.addChild( rowNode );
+      }
+      else {
+        throw new Error( 'invalid card type' );
+      }
 
       // update the grid
       this.gridDirty = true;
       if ( this.updateEnabled ) {
         this.updateGrid();
       }
+
+      this.tableChangedEmitter.emit();
     },
 
     /**
@@ -278,7 +312,7 @@ define( function( require ) {
       // If the last row is visible at the bottom of the table, disable scrolling animation.
       // This prevents a situation that looks a little odd: rows will move up to reveal an empty
       // row at the bottom, then rows will scroll down.
-      var numberOfRows = this.rowNodes.lengthProperty.get();
+      var numberOfRows = this.rowNodes.length;
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       var wasAnimationEnabled = this.animationEnabled;
       if ( rowNumberAtTop === numberOfRows - this.numberOfRowsVisible ) {
@@ -286,10 +320,10 @@ define( function( require ) {
       }
 
       // remove row, rows below it move up automatically since rowsParent is a VBox
-      var rowNode = this.rowNodes.get( cardIndex );
+      var rowNode = this.rowNodes[ cardIndex ];
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
-      this.rowNodes.remove( rowNode );
+      this.rowNodes.splice( cardIndex, 1 );
 
       // update the grid
       this.gridDirty = true;
@@ -298,13 +332,15 @@ define( function( require ) {
       }
 
       // empty row at the bottom of the table, move all rows down
-      numberOfRows = this.rowNodes.lengthProperty.get();
+      numberOfRows = this.rowNodes.length;
       rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
       }
 
       this.animationEnabled = wasAnimationEnabled;
+
+      this.tableChangedEmitter.emit();
     },
 
     /**
@@ -330,7 +366,7 @@ define( function( require ) {
       var cardIndex = this.cards.indexOf( card );
       assert && assert( cardIndex !== -1 );
 
-      var rowNode = this.rowNodes.get( cardIndex );
+      var rowNode = this.rowNodes[ cardIndex ];
       rowNode.setOutputCellVisible( visible );
     },
 
