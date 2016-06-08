@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Table
-
 Performance (responsiveness)
 
 Performance (startup time)
