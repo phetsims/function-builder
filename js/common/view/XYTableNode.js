@@ -181,10 +181,8 @@ define( function( require ) {
 
     // button state is dependent on number of rows and which rows are visible
     var updateButtonState = function() {
-      var numberOfRows = thisNode.numberOfRowsProperty.get();
-      var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
-      upButton.enabled = ( rowNumberAtTop !== 0 );
-      downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
+      upButton.enabled = ( thisNode.rowNumberAtTopProperty.get() !== 0 );
+      downButton.enabled = ( thisNode.numberOfRowsProperty.get() - thisNode.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
     };
     this.numberOfRowsProperty.link( updateButtonState );
     this.rowNumberAtTopProperty.link( updateButtonState );
@@ -310,6 +308,7 @@ define( function( require ) {
 
       // remove row, rows below it move up automatically since rowsParent is a VBox
       var rowNode = this.rowsParent.getChildAt( cardIndex );
+      assert && assert( rowNode instanceof XYTableRow );
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
       this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() - 1 );
@@ -356,6 +355,7 @@ define( function( require ) {
       assert && assert( cardIndex !== -1 );
 
       var rowNode = this.rowsParent.getChildAt( cardIndex );
+      assert && assert( rowNode instanceof XYTableRow );
       rowNode.setOutputCellVisible( visible );
     },
 
