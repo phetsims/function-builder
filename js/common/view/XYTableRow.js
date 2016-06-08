@@ -43,6 +43,7 @@ define( function( require ) {
     this.builder = builder;
     this.size = options.size;
     this._updateEnabled = options.updateEnabled;
+    this.dirty = true; // {boolean} does this node need to be updated?
 
     Node.call( this );
 
@@ -70,6 +71,7 @@ define( function( require ) {
     // Update the output value when functions change
     var thisNode = this;
     var functionChangedListener = function() {
+      thisNode.dirty = true;
       if ( thisNode.updateEnabled ) {
         thisNode.updateOutputValue();
       }
@@ -144,7 +146,7 @@ define( function( require ) {
      */
     updateOutputValue: function() {
 
-      assert && assert( this.updateEnabled );
+      assert && assert( this.updateEnabled && this.dirty );
 
       // remove previous node
       var outputValueNodeWasVisible = false;
@@ -163,6 +165,8 @@ define( function( require ) {
         centerY: this.size.height / 2
       } );
       this.addChild( this.outputValueNode );
+
+      this.dirty = false;
     },
 
     /**
@@ -183,7 +187,7 @@ define( function( require ) {
     setUpdateEnabled: function( updateEnabled ) {
       var wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
-      if ( !wasUpdateEnabled && updateEnabled ) {
+      if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
         this.updateOutputValue();
       }
     },

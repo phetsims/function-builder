@@ -63,6 +63,7 @@ define( function( require ) {
     this.numberOfRowsVisible = options.numberOfRowsVisible;
     this._animationEnabled = options.animationEnabled;
     this._updateEnabled = options.updateEnabled;
+    this.gridDirty = true; // {boolean} does this grid need to be updated?
 
     // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
     this.cards = [];
@@ -204,7 +205,7 @@ define( function( require ) {
      */
     updateGrid: function() {
 
-      assert && assert( this.updateEnabled );
+      assert && assert( this.updateEnabled && this.gridDirty );
 
       // always show 1 page of cells, even if some are empty
       var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.lengthProperty.get() );
@@ -222,6 +223,8 @@ define( function( require ) {
       gridShape.moveTo( centerX, 0 ).lineTo( centerX, ( numberOfRows + 1 ) * this.rowSize.height );
 
       this.gridNode.shape = gridShape;
+
+      this.gridDirty = false;
     },
 
     /**
@@ -247,6 +250,7 @@ define( function( require ) {
       this.rowsParent.addChild( rowNode );
 
       // update the grid
+      this.gridDirty = true;
       if ( this.updateEnabled ) {
         this.updateGrid();
       }
@@ -283,6 +287,7 @@ define( function( require ) {
       this.rowNodes.remove( rowNode );
 
       // update the grid
+      this.gridDirty = true;
       if ( this.updateEnabled ) {
         this.updateGrid();
       }
@@ -392,7 +397,7 @@ define( function( require ) {
       } );
 
       // update things specific to this node
-      if ( !wasUpdateEnabled && updateEnabled ) {
+      if ( this.gridDirty && !wasUpdateEnabled && updateEnabled ) {
         this.updateGrid();
       }
     },
