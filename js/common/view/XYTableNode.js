@@ -9,7 +9,7 @@
  * Rows for symbolic cards (eg 'x') are appended to the table.
  * When a row is added, it's input cell is visible, it's output cell is invisible.
  * When a row is deleted, rows below it move up (handled automatically by using VBox).
- * There are no empty rows in the table.
+ * The first 'page' in the table contains empty rows, otherwise there are no empty rows.
  * The values in the output cells reflect the functions in the builder.
  *
  * Performance is optimized so that the table synchronizes with the model only while updatesEnabled is true.
