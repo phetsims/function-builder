@@ -45,7 +45,8 @@ define( function( require ) {
       xSymbol: FBSymbols.X, // {string} symbol for x, the input
       ySymbol: FBSymbols.Y, // {string} symbol for y, the output
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
-      xyAsCards: false // {boolean} put x & y symbols on a rectangle background, like a card?
+      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
+      updateEnabled: true // {boolean} is updating of this node enabled?
     }, options );
 
     // @private
@@ -55,6 +56,7 @@ define( function( require ) {
     this.ySymbol = options.ySymbol;
     this.xyFont = options.xyFont;
     this.xyAsCards = options.xyAsCards;
+    this._updateEnabled = options.updateEnabled;
 
     var thisNode = this;
 
@@ -100,12 +102,12 @@ define( function( require ) {
     } );
 
     builder.functionChangedEmitter.addListener( function() {
-      if ( thisNode.visible ) {
+      if ( thisNode.updateEnabled ) {
         thisNode.updateEquations();
       }
     } );
 
-    if ( thisNode.visible ) {
+    if ( thisNode.updateEnabled ) {
       this.updateEquations();
     }
   }
@@ -115,27 +117,15 @@ define( function( require ) {
   return inherit( Node, EquationPanel, {
 
     /**
-     * Equations are not updated while this node is invisible.
-     * This override updates the equations when the node becomes visible.
-     *
-     * @param {boolean} visible
-     * @public
-     * @override
-     */
-    setVisible: function( visible ) {
-      if ( !this.visible && visible ) {
-        this.updateEquations();
-      }
-      Node.prototype.setVisible.call( this, visible );
-    },
-
-    /**
      * Updates both equations. Calling this is relatively expensive, since it completely rebuilds the equations
      * and changes the scene graph.
      *
      * @private
      */
     updateEquations: function() {
+
+      console.log( 'updateEquations' );//XXX
+      assert && assert( this.updateEnabled );
 
       /*
        * Apply all functions in the builder. Pass in an empty array, because the functions in the builder
@@ -182,6 +172,33 @@ define( function( require ) {
           visible: this.slopeInterceptProperty.get()
         } );
       this.addChild( this.slopeInterceptEquationNode );
-    }
+    },
+
+    /**
+     * Determines whether updating of this node is enabled.
+     *
+     * @param {boolean} updateEnabled
+     * @public
+     *
+     */
+    setUpdateEnabled: function( updateEnabled ) {
+      var wasUpdateEnabled = this._updateEnabled;
+      this._updateEnabled = updateEnabled;
+      if ( !wasUpdateEnabled && updateEnabled ) {
+        this.updateEquations();
+      }
+    },
+    set updateEnabled( value ) { this.setUpdateEnabled( value ); },
+
+    /**
+     * Is updating of this node enabled?
+     *
+     * @returns {boolean}
+     * @public
+     */
+    getUpdateEnabled: function() {
+      return this._updateEnabled;
+    },
+    get updateEnabled() { return this.getUpdateEnabled(); }
   } );
 } );

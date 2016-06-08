@@ -32,6 +32,8 @@ define( function( require ) {
       handleLocation: 'bottom',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+      beforeOpen: function() { equationPanel.updateEnabled = true; },
+      afterClose: function() { equationPanel.updateEnabled = false; },
 
       // EquationPanel
       xSymbol: FBSymbols.X,
@@ -42,13 +44,13 @@ define( function( require ) {
     }, options );
 
     var equationPanel = new EquationPanel( builder, slopeInterceptProperty, {
-      visible: options.open,
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: options.cornerRadius,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       xyFont: options.xyFont,
-      xyAsCards: options.xyAsCards
+      xyAsCards: options.xyAsCards,
+      updateEnabled: options.open
     } );
 
     Drawer.call( this, equationPanel, options );
