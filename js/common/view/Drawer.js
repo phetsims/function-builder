@@ -66,6 +66,7 @@ define( function( require ) {
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
 
+    this.contentsNode = contentsNode; // @public (read-only)
     this._animationEnabled = options.animationEnabled; // @private
 
     var thisNode = this;
