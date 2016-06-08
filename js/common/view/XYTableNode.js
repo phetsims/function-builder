@@ -1,13 +1,11 @@
 // Copyright 2016, University of Colorado Boulder
 
 //TODO performance: update only when XYTableNode is visible
-//TODO if there are multiple instances of input cards, rows are not unique
 //TODO disable animation on Reset All and 'erase' button
-//TODO scrolling continues when drawer is closed, will that be confusing?
 //TODO when a row is deleted, animate the movement of rows to close the gap (difficult)
 /**
  * XY table.
- * Each row consists of input (x) and output (y) cells.
+ * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
  * When a row is added, it is added to the end of the table, it's input cell is visible, it's output cell is invisible.
  * When a row is deleted, rows below it move up.
  *
@@ -50,6 +48,7 @@ define( function( require ) {
       numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
       cornerRadius: 0,
       scrollingRegionFill: 'white',
+      animationEnabled: true, // {boolean} is animation of scrolling enabled?
 
       // column headings
       xSymbol: FBSymbols.X,
@@ -62,8 +61,10 @@ define( function( require ) {
 
     var thisNode = this;
 
-    this.builder = builder; // @private
-    this.numberOfRowsVisible = options.numberOfRowsVisible; // @private
+    // @private
+    this.builder = builder;
+    this.numberOfRowsVisible = options.numberOfRowsVisible;
+    this._animationEnabled = options.animationEnabled;
 
     // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
     this.cards = [];
@@ -143,7 +144,7 @@ define( function( require ) {
       animation && animation.stop();
 
       var scrollY = -( thisNode.rowNumberAtTopProperty.get() * thisNode.rowSize.height );
-      if ( thisNode.visible ) {
+      if ( thisNode.visible && thisNode.animationEnabled ) {
 
         // animate scrolling
         var destination = new Vector2( scrollingContents.x, scrollY );
@@ -323,6 +324,29 @@ define( function( require ) {
       else {
         // row is already visible
       }
-    }
+    },
+
+    /**
+     * Determines whether animation is enabled for scrolling.
+     *
+     * @param {boolean} animationEnabled
+     * @public
+     *
+     */
+    setAnimationEnabled: function( animationEnabled ) {
+      this._animationEnabled = animationEnabled;
+    },
+    set animationEnabled( value ) { this.setAnimationEnabled( value ); },
+
+    /**
+     * Is animation enabled for scrolling?
+     *
+     * @returns {boolean}
+     * @public
+     */
+    getAnimationEnabled: function() {
+      return this._animationEnabled;
+    },
+    get animationEnabled() { return this.getAnimationEnabled(); }
   } );
 } );
