@@ -244,7 +244,7 @@ define( function( require ) {
     set animationEnabled( value ) { this.setAnimationEnabled( value ); },
 
     /**
-     * Is animation enabled for for opening/closing drawer?
+     * Is animation enabled for opening/closing drawer?
      *
      * @returns {boolean}
      * @public
