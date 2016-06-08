@@ -120,7 +120,7 @@ define( function( require ) {
 
     /**
      * Creates the icon for the 'single' scene radio button in the 'Patterns' screen.
-     * The icons is a single function piece.
+     * The icon is a single function piece.
      *
      * @returns {Node}
      */
