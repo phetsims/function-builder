@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
@@ -246,19 +247,31 @@ define( function( require ) {
 
     assert && assert( colorMap.length === 4 );
 
-    options = options || {};
+    options = _.extend( {
+       lineWidth: 1
+    }, options );
 
     var starNode = new Path( new StarShape(), {
       fill: colorMap[ 2 ],  // assumes that star.png is filled with yellow
-      stroke: colorMap[ 0 ] // assumes that star.png is stroked with black
+      stroke: colorMap[ 0 ], // assumes that star.png is stroked with black
+      lineWidth: options.lineWidth
     } );
 
-    var backgroundNode = new Rectangle( 0, 0, starNode.width, starNode.height, {
+    var circleNode = new Circle( ( starNode.width / 2 ) + ( options.lineWidth / 2 ), {
+      stroke: colorMap[ 0 ], // assumes that star.png is stroked with black
+      lineWidth: options.lineWidth,
+      centerX: starNode.centerX,
+      top: starNode.top
+    } );
+
+    var backgroundNode = new Rectangle( 0, 0, circleNode.width, circleNode.height, {
       fill: colorMap[ 3 ],  // assumes that transparent pixels in star.png are converted to opaque white
-      center: starNode.center
+      center: circleNode.center
     } );
 
-    options.children = [ backgroundNode, starNode ];
+    assert && assert( !options.children );
+    options.children = [ backgroundNode, starNode, circleNode ];
+
     return new Node( options );
   };
 
