@@ -5,7 +5,7 @@
  * XY table.
  * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
  * When a row is added, it is added to the end of the table, it's input cell is visible, it's output cell is invisible.
- * When a row is deleted, rows below it move up.
+ * When a row is deleted, rows below it move up (handled automatically by using VBox).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
