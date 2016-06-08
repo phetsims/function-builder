@@ -107,7 +107,7 @@ define( function( require ) {
       }
     } );
 
-    if ( thisNode.updateEnabled ) {
+    if ( this.updateEnabled ) {
       this.updateEquations();
     }
   }
@@ -124,7 +124,6 @@ define( function( require ) {
      */
     updateEquations: function() {
 
-      console.log( 'updateEquations' );//XXX
       assert && assert( this.updateEnabled );
 
       /*
