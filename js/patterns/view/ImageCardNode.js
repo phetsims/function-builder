@@ -59,7 +59,7 @@ define( function( require ) {
       if ( numberOfFunctionsToApply === 0 ) {
 
         // performance optimization
-        this.imageNode.image = this.card.image;
+        this.imageNode.setImageWithSize( this.card.image, this.card.image.width, this.card.image.height );
       }
       else {
 
