@@ -78,9 +78,9 @@ define( function( require ) {
     // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
     this.cards = [];
 
-    //TODO get rid of this, use this.rowsParent.children
-    // @private {XYTableRow[]} rows, in the same order as this.cards
-    this.rowNodes = [];
+    // @private parent for all {XYTableRow} rows, children in the same order as this.cards
+    // Do not add anything that is not a XYTableRow to this node!
+    this.rowsParent = new VBox();
 
     // @private fires when a row is added or removed
     this.tableChangedEmitter = new Emitter();
@@ -127,9 +127,6 @@ define( function( require ) {
 
     // @private
     this.rowSize = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
-
-    // @private parent for all rows
-    this.rowsParent = new VBox();
 
     // @private grid is drawn separately so we don't have weirdness with cell strokes overlapping
     this.gridNode = new Path( null, {
@@ -186,7 +183,7 @@ define( function( require ) {
     // button state is dependent on number of rows and which rows are visible
     var updateButtonState = function() {
       var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
-      var numberOfRows = thisNode.rowNodes.length;
+      var numberOfRows = thisNode.rowsParent.getChildrenCount();
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
     };
@@ -218,7 +215,7 @@ define( function( require ) {
       assert && assert( this.updateEnabled && this.gridDirty );
 
       // always show 1 page of cells, even if some are empty
-      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.length );
+      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowsParent.getChildrenCount() );
 
       var gridShape = new Shape();
 
@@ -272,14 +269,12 @@ define( function( require ) {
           }
         }
         this.cards.splice( insertIndex, 0, card );
-        this.rowNodes.splice( insertIndex, 0, rowNode );
         this.rowsParent.insertChild( insertIndex, rowNode );
       }
       else if ( card instanceof EquationCard ) {
 
         // add 'x' card to end
         this.cards.push( card );
-        this.rowNodes.push( rowNode );
         this.rowsParent.addChild( rowNode );
       }
       else {
@@ -312,7 +307,7 @@ define( function( require ) {
       // If the last row is visible at the bottom of the table, disable scrolling animation.
       // This prevents a situation that looks a little odd: rows will move up to reveal an empty
       // row at the bottom, then rows will scroll down.
-      var numberOfRows = this.rowNodes.length;
+      var numberOfRows = this.rowsParent.getChildrenCount();
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       var wasAnimationEnabled = this.animationEnabled;
       if ( rowNumberAtTop === numberOfRows - this.numberOfRowsVisible ) {
@@ -320,10 +315,9 @@ define( function( require ) {
       }
 
       // remove row, rows below it move up automatically since rowsParent is a VBox
-      var rowNode = this.rowNodes[ cardIndex ];
+      var rowNode = this.rowsParent.getChildAt( cardIndex );
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
-      this.rowNodes.splice( cardIndex, 1 );
 
       // update the grid
       this.gridDirty = true;
@@ -332,7 +326,7 @@ define( function( require ) {
       }
 
       // empty row at the bottom of the table, move all rows down
-      numberOfRows = this.rowNodes.length;
+      numberOfRows = this.rowsParent.getChildrenCount();
       rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
@@ -366,7 +360,7 @@ define( function( require ) {
       var cardIndex = this.cards.indexOf( card );
       assert && assert( cardIndex !== -1 );
 
-      var rowNode = this.rowNodes[ cardIndex ];
+      var rowNode = this.rowsParent.getChildAt( cardIndex );
       rowNode.setOutputCellVisible( visible );
     },
 
@@ -433,7 +427,8 @@ define( function( require ) {
       this._updateEnabled = updateEnabled;
 
       // set updateEnabled for rows
-      this.rowNodes.forEach( function( rowNode ) {
+      this.rowsParent.getChildren().forEach( function( rowNode ) {
+        assert && assert( rowNode instanceof XYTableRow, 'did you add something to this.rowsParent that you should not have?' );
         rowNode.updateEnabled = updateEnabled;
       } );
 
