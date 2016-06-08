@@ -181,6 +181,7 @@ define( function( require ) {
      *
      */
     setUpdateEnabled: function( updateEnabled ) {
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
       var wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
       if ( !wasUpdateEnabled && updateEnabled ) {
