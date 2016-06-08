@@ -303,10 +303,8 @@ define( function( require ) {
       // If the last row is visible at the bottom of the table, disable scrolling animation.
       // This prevents a situation that looks a little odd: rows will move up to reveal an empty
       // row at the bottom, then rows will scroll down.
-      var numberOfRows = this.numberOfRowsProperty.get();
-      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       var wasAnimationEnabled = this.animationEnabled;
-      if ( rowNumberAtTop === numberOfRows - this.numberOfRowsVisible ) {
+      if ( this.rowNumberAtTopProperty.get() === this.numberOfRowsProperty.get() - this.numberOfRowsVisible ) {
         this.animationEnabled = false;
       }
 
@@ -322,11 +320,13 @@ define( function( require ) {
         this.updateGrid();
       }
 
-      // empty row at the bottom of the table, move all rows down
-      numberOfRows = this.numberOfRowsProperty.get();
-      rowNumberAtTop = this.rowNumberAtTopProperty.get();
-      if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
-        this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
+      // if we're not on the first page, which allows empty rows...
+      if ( this.rowNumberAtTopProperty.get() !== 0 ) {
+
+        // if there's an empty row at the bottom of the table, move all rows down
+        if ( this.numberOfRowsProperty.get() - this.numberOfRowsVisible < this.rowNumberAtTopProperty.get() ) {
+          this.rowNumberAtTopProperty.set( this.numberOfRowsProperty.get() - this.numberOfRowsVisible );
+        }
       }
 
       this.animationEnabled = wasAnimationEnabled;
