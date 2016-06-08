@@ -34,8 +34,15 @@ define( function( require ) {
     options = _.extend( {
       size: new Dimension2( 100, 10 ),
       cellXMargin: 15,
-      cellYMargin: 3
+      cellYMargin: 3,
+      updateEnabled: true // {boolean} does this node update when the model changes?
     }, options );
+
+    // @private
+    this.card = card;
+    this.builder = builder;
+    this.size = options.size;
+    this._updateEnabled = options.updateEnabled;
 
     Node.call( this );
 
@@ -43,53 +50,47 @@ define( function( require ) {
     var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
 
-    // constrain values to cells
-    var valueMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
-    var valueMaxHeight = options.size.height - ( 2 * options.cellYMargin );
+    // @private constrain values to cells
+    this.valueMaxWidth = ( options.size.width / 2 ) - ( 2 * options.cellXMargin );
+    this.valueMaxHeight = options.size.height - ( 2 * options.cellYMargin );
 
     // input value, static
     var inputValueNode = createCellValueNode( card, builder, {
       numberOfFunctions: 0, // apply no functions for the input value
-      maxWidth: valueMaxWidth,
-      maxHeight: valueMaxHeight,
+      maxWidth: this.valueMaxWidth,
+      maxHeight: this.valueMaxHeight,
       centerX: 0.25 * options.size.width,
       centerY: options.size.height / 2
     } );
     this.addChild( inputValueNode );
 
-    // @private output value, set by updateOutputCell
+    // @private output value, correct node is created by updateOutputValue
     this.outputValueNode = null;
 
+    // Update the output value when functions change
     var thisNode = this;
-    var updateOutputCell = function() {
-
-      // remove previous node
-      var outputValueNodeWasVisible = false;
-      if ( thisNode.outputValueNode ) {
-        outputValueNodeWasVisible = thisNode.outputValueNode.visible;
-        thisNode.removeChild( thisNode.outputValueNode );
+    var functionChangedListener = function() {
+      if ( thisNode.updateEnabled ) {
+        thisNode.updateOutputValue();
       }
-
-      // add new node
-      thisNode.outputValueNode = createCellValueNode( card, builder, {
-        numberOfFunctions: builder.slots.length, // apply all functions for the output value
-        visible: outputValueNodeWasVisible,
-        maxWidth: valueMaxWidth,
-        maxHeight: valueMaxHeight,
-        centerX: 0.75 * options.size.width,
-        centerY: options.size.height / 2
-      } );
-      thisNode.addChild( thisNode.outputValueNode );
     };
+    builder.functionChangedEmitter.addListener( functionChangedListener );
 
-    builder.functionChangedEmitter.addListener( updateOutputCell );
-    updateOutputCell();
+    // initial state of output cell
+    if ( this.updateEnabled ) {
+      this.updateOutputValue();
+    }
+    else {
+      // non-null placeholder for output value
+      this.outputValueNode = new Rectangle( 0, 0, 1, 1 );
+      this.addChild( this.outputValueNode );
+    }
 
     this.mutate( options );
 
     // @private
     this.disposeXYTableRow = function() {
-      builder.functionChangedEmitter.removeListener( updateOutputCell );
+      builder.functionChangedEmitter.removeListener( functionChangedListener );
       builder = null; // so things fail if we try to use this instance after dispose is called
     };
   }
@@ -98,7 +99,7 @@ define( function( require ) {
 
   //TODO investigate how to get rid of instanceof tests herein
   /**
-   * Creates the cell representation for a specified card.
+   * Creates the value for a specified card.
    *
    * @param {NumberCard|EquationCard} card
    * @param {Builder} builder
@@ -137,11 +138,66 @@ define( function( require ) {
     },
 
     /**
+     * Updates the value in the output cell.
+     * 
+     * @private
+     */
+    updateOutputValue: function() {
+
+      assert && assert( this.updateEnabled );
+
+      // remove previous node
+      var outputValueNodeWasVisible = false;
+      if ( this.outputValueNode ) {
+        outputValueNodeWasVisible = this.outputValueNode.visible;
+        this.removeChild( this.outputValueNode );
+      }
+
+      // add new node
+      this.outputValueNode = createCellValueNode( this.card, this.builder, {
+        numberOfFunctions: this.builder.slots.length, // apply all functions for the output value
+        visible: outputValueNodeWasVisible,
+        maxWidth: this.valueMaxWidth,
+        maxHeight: this.valueMaxHeight,
+        centerX: 0.75 * this.size.width,
+        centerY: this.size.height / 2
+      } );
+      this.addChild( this.outputValueNode );
+    },
+
+    /**
      * @param visible
      * @public
      */
     setOutputCellVisible: function( visible ) {
       this.outputValueNode.visible = visible;
-    }
+    },
+
+    /**
+     * Determines whether updating of this node is enabled.
+     *
+     * @param {boolean} updateEnabled
+     * @public
+     *
+     */
+    setUpdateEnabled: function( updateEnabled ) {
+      var wasUpdateEnabled = this._updateEnabled;
+      this._updateEnabled = updateEnabled;
+      if ( !wasUpdateEnabled && updateEnabled ) {
+        this.updateOutputValue();
+      }
+    },
+    set updateEnabled( value ) { this.setUpdateEnabled( value ); },
+
+    /**
+     * Is updating of this node enabled?
+     *
+     * @returns {boolean}
+     * @public
+     */
+    getUpdateEnabled: function() {
+      return this._updateEnabled;
+    },
+    get updateEnabled() { return this.getUpdateEnabled(); }
   } );
 } );

@@ -38,6 +38,8 @@ define( function( require ) {
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
+      beforeOpen: function() { tableNode.updateEnabled = true; },
+      afterClose: function() { tableNode.updateEnabled = false; },
 
       // XYTableNode
       xSymbol: FBSymbols.X,
@@ -47,7 +49,7 @@ define( function( require ) {
     }, options );
 
     var tableNode = new XYTableNode( builder, {
-      visible: options.open,
+      updateEnabled: options.open,
       xSymbol: options.xSymbol,
       ySymbol: options.ySymbol,
       headingFont: options.headingFont,

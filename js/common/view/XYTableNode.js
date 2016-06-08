@@ -63,6 +63,7 @@ define( function( require ) {
     this.builder = builder;
     this.numberOfRowsVisible = options.numberOfRowsVisible;
     this._animationEnabled = options.animationEnabled;
+    this._updateEnabled = options.updateEnabled;
 
     // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
     this.cards = [];
@@ -117,7 +118,9 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 0.5
     } );
-    this.updateGrid();
+    if ( options.updateEnabled ) {
+      this.updateGrid();
+    }
 
     // contents of the scrolling region
     var scrollingContents = new Node( {
@@ -198,6 +201,8 @@ define( function( require ) {
      */
     updateGrid: function() {
 
+      assert && assert( this.updateEnabled );
+
       // always show 1 page of cells, even if some are empty
       var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowNodes.lengthProperty.get() );
 
@@ -232,13 +237,16 @@ define( function( require ) {
 
       // add row
       var rowNode = new XYTableRow( card, this.builder, {
-        size: this.rowSize
+        size: this.rowSize,
+        updateEnabled: this.updateEnabled
       } );
       this.rowNodes.add( rowNode );
       this.rowsParent.addChild( rowNode );
 
       // update the grid
-      this.updateGrid();
+      if ( this.updateEnabled ) {
+        this.updateGrid();
+      }
     },
 
     /**
@@ -272,7 +280,9 @@ define( function( require ) {
       this.rowNodes.remove( rowNode );
 
       // update the grid
-      this.updateGrid();
+      if ( this.updateEnabled ) {
+        this.updateGrid();
+      }
 
       // empty row at the bottom of the table, move all rows down
       numberOfRows = this.rowNodes.lengthProperty.get();
@@ -357,6 +367,43 @@ define( function( require ) {
     getAnimationEnabled: function() {
       return this._animationEnabled;
     },
-    get animationEnabled() { return this.getAnimationEnabled(); }
+    get animationEnabled() { return this.getAnimationEnabled(); },
+
+    /**
+     * Determines whether updating of this node is enabled.
+     *
+     * @param {boolean} updateEnabled
+     * @public
+     *
+     */
+    setUpdateEnabled: function( updateEnabled ) {
+
+      functionBuilder.log && functionBuilder.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
+
+      var wasUpdateEnabled = this._updateEnabled;
+      this._updateEnabled = updateEnabled;
+
+      // set updateEnabled for rows
+      this.rowNodes.forEach( function( rowNode ) {
+        rowNode.updateEnabled = updateEnabled;
+      } );
+
+      // update things specific to this node
+      if ( !wasUpdateEnabled && updateEnabled ) {
+        this.updateGrid();
+      }
+    },
+    set updateEnabled( value ) { this.setUpdateEnabled( value ); },
+
+    /**
+     * Is updating of this node enabled?
+     *
+     * @returns {boolean}
+     * @public
+     */
+    getUpdateEnabled: function() {
+      return this._updateEnabled;
+    },
+    get updateEnabled() { return this.getUpdateEnabled(); }
   } );
 } );
