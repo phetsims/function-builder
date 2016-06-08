@@ -5,7 +5,9 @@
  * - equation that corresponds to the function in the builder
  * - control for switching the equation's format
  *
- * Since changing the equation is relatively expensive, this node only updates when it's visible.
+ * Performance is optimized so that the panel synchonizes with the model only while updatesEnabled is true.
+ * When updatesEnabled is changed from false to true, anything that is 'dirty' is updated.
+ * See updatesEnabled and dirty flags.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

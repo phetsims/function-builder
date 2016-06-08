@@ -6,6 +6,10 @@
  * When a row is added, it is added to the end of the table, it's input cell is visible, it's output cell is invisible.
  * When a row is deleted, rows below it move up (handled automatically by using VBox).
  *
+ * Performance is optimized so that the table synchonizes with the model only while updatesEnabled is true.
+ * When updatesEnabled is changed from false to true, anything that is 'dirty' is updated.
+ * See updatesEnabled and gridDirty flags.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
