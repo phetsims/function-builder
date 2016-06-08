@@ -254,16 +254,13 @@ define( function( require ) {
 
       if ( card instanceof NumberCard ) {
 
-        // insert number cards in ascending numerical order
+        // Insert number cards in ascending numerical order. Determine insertion index by looking at cards in order,
+        // until we encounter a symbolic card (eg, 'x', which is always at the end) or a card with a larger number.
         var insertIndex = this.cards.length;
         for ( var i = 0; i < this.cards.length; i++ ) {
           var someCard = this.cards[ i ];
-          if ( someCard instanceof EquationCard ) {
-            insertIndex = i; // we encountered an EquationCard, which is always at the end, so stop here
-            break;
-          }
-          else if ( card.rationalNumber.valueOf() < someCard.rationalNumber.valueOf() ) {
-            insertIndex = i; // we encountered a card with a larger number, stop here
+          if ( ( someCard instanceof EquationCard ) || ( card.rationalNumber.valueOf() < someCard.rationalNumber.valueOf() ) ) {
+            insertIndex = i;
             break;
           }
         }
