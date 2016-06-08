@@ -46,7 +46,7 @@ define( function( require ) {
       ySymbol: FBSymbols.Y, // {string} symbol for y, the output
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
       xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-      updateEnabled: true // {boolean} is updating of this node enabled?
+      updateEnabled: true // {boolean} does this node update when the model changes?
     }, options );
 
     // @private
