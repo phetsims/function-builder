@@ -96,7 +96,11 @@ define( function( require ) {
     var headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
       size: new Dimension2( options.size.width, 30 ),
       font: options.headingFont,
-      fill: options.headingBackground
+      fill: options.headingBackground,
+      cornerRadii: {
+        topLeft: options.cornerRadius,
+        topRight: options.cornerRadius
+      }
     } );
 
     // window that rows scroll in

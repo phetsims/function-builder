@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO add ability to set cornerRadius for specific corners
 /**
  * Column heading for the XY table.
  *
@@ -16,7 +15,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -32,10 +32,12 @@ define( function( require ) {
       font: FBConstants.TABLE_XY_HEADING_FONT,
       xMargin: 10,
       yMargin: 4,
-      fill: 'rgb( 144, 226, 252 )'
+      fill: 'rgb( 144, 226, 252 )',
+      cornerRadii: null // {Object} see Shape.roundedRectangleWithRadii
     }, options );
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+    var backgroundShape = Shape.roundedRectangleWithRadii( 0, 0, options.size.width, options.size.height, options.cornerRadii );
+    var backgroundNode = new Path( backgroundShape, {
       stroke: 'black',
       lineWidth: 0.5,
       fill: options.fill
