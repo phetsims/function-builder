@@ -1,7 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
 //TODO performance: update only when XYTableNode is visible, if that seems significant
-//TODO when last row in table is visible and deleting a visible row above it, disable animation
 /**
  * XY table.
  * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
@@ -256,6 +255,16 @@ define( function( require ) {
       // remove card
       this.cards.splice( cardIndex, 1 );
 
+      // If the last row is visible at the bottom of the table, disable scrolling animation.
+      // This prevents a situation that looks a little odd: rows will move up to reveal an empty
+      // row at the bottom, then rows will scroll down.
+      var numberOfRows = this.rowNodes.lengthProperty.get();
+      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
+      var wasAnimationEnabled = this.animationEnabled;
+      if ( rowNumberAtTop === numberOfRows - this.numberOfRowsVisible ) {
+        this.animationEnabled = false;
+      }
+
       // remove row, rows below it move up automatically since rowsParent is a VBox
       var rowNode = this.rowNodes.get( cardIndex );
       rowNode.dispose();
@@ -265,12 +274,14 @@ define( function( require ) {
       // update the grid
       this.updateGrid();
 
-      // scroll if there is an empty row at the bottom of the table
-      var numberOfRows = this.rowNodes.lengthProperty.get();
-      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
+      // empty row at the bottom of the table, move all rows down
+      numberOfRows = this.rowNodes.lengthProperty.get();
+      rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
       }
+
+      this.animationEnabled = wasAnimationEnabled;
     },
 
     /**
