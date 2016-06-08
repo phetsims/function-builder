@@ -96,13 +96,29 @@ define( function( require ) {
 
     // @public @override
     reset: function() {
-      SceneNode.prototype.reset.call( this );
 
-      // drawers
+      // disable scrolling animation for the table
+      this.tableDrawer.contentsNode.animationEnabled = false;
+      SceneNode.prototype.reset.call( this );
+      this.tableDrawer.contentsNode.animationEnabled = true;
+
+      // reset drawers with animation disabled
       var drawerResetOptions = { animationEnabled: false };
       this.equationDrawer.reset( drawerResetOptions );
       this.tableDrawer.reset( drawerResetOptions );
       this.graphDrawer && this.graphDrawer.reset( drawerResetOptions );
+    },
+
+    /**
+     * When the eraser button is pressed, disable scrolling animation for the table.
+     *
+     * @protected
+     * @override
+     */
+    erase: function() {
+      this.tableDrawer.contentsNode.animationEnabled = false;
+      SceneNode.prototype.erase.call( this );
+      this.tableDrawer.contentsNode.animationEnabled = true;
     },
 
     /**

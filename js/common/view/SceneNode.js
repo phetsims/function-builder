@@ -50,8 +50,8 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @protected view-specific properties
-    this.viewProperties = new PropertySet( {
+    // view-specific properties
+    var viewProperties = new PropertySet( {
       seeInside: false, // {boolean} show/hide windows that allow you to 'see inside' the builder
       hideFunctions: false // {boolean} should the identity of functions in the builder be hidden?
     } );
@@ -62,11 +62,11 @@ define( function( require ) {
     // functions are in this layer while they are draggable
     var functionsDragLayer = new Node();
 
-    // @protected basic UI controls get added to this layer
-    this.controlsLayer = new Node();
+    // basic UI controls get added to this layer
+    var controlsLayer = new Node();
 
-    // @protected drawers get added to this layer by subtypes
-    this.drawersLayer = new Node();
+    // drawers get added to this layer by subtypes
+    var drawersLayer = new Node();
 
     // Builder
     var builder = scene.builder;
@@ -82,18 +82,18 @@ define( function( require ) {
     var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
       centerX: builder.right
     } ) );
-    var builderNode = new BuilderNode( builder, this.viewProperties.hideFunctionsProperty, {
+    var builderNode = new BuilderNode( builder, viewProperties.hideFunctionsProperty, {
       endRadiusX: BUILDER_END_OPTIONS.radiusX,
       slotFill: null
     } );
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
-    // @private Containers in the input carousel
-    this.inputContainers = this.createCardContainers( scene );
+    // Containers in the input carousel
+    var inputContainers = this.createCardContainers( scene );
 
     // Input carousel, at left
-    var inputCarousel = new Carousel( this.inputContainers, {
+    var inputCarousel = new Carousel( inputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -113,13 +113,13 @@ define( function( require ) {
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
-    // @protected Containers in the output carousel
-    this.outputContainers = this.createCardContainers( scene, {
+    // Containers in the output carousel
+    var outputContainers = this.createCardContainers( scene, {
       emptyNode: null // don't show anything in empty output containers
     } );
 
     // Output carousel, at right
-    var outputCarousel = new OutputCardsCarousel( this.outputContainers, {
+    var outputCarousel = new OutputCardsCarousel( outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -139,14 +139,12 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousel
     var eraserButton = new EraserButton( {
-      listener: function() {
-        outputCarousel.erase();
-      },
+      listener: function() { thisNode.erase(); },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 25
     } );
-    this.controlsLayer.addChild( eraserButton );
+    controlsLayer.addChild( eraserButton );
     eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
 
     // Disable the eraser button when the output carousel is empty.
@@ -198,31 +196,31 @@ define( function( require ) {
     // hide function icons in the builder
     var hideFunctionsCheckBox = new CheckBox(
       FBIconFactory.createHideFunctionsIcon(),
-      this.viewProperties.hideFunctionsProperty, {
+      viewProperties.hideFunctionsProperty, {
         spacing: 8,
         left: inputCarousel.left,
         top: functionCarousel.top
       } );
-    this.controlsLayer.addChild( hideFunctionsCheckBox );
+    controlsLayer.addChild( hideFunctionsCheckBox );
     hideFunctionsCheckBox.touchArea = hideFunctionsCheckBox.localBounds.dilatedXY( 10, 10 );
 
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
-      visible: this.viewProperties.seeInsideProperty.get()
+      visible: viewProperties.seeInsideProperty.get()
     } );
 
     // 'See Inside' windows in builder
     var seeInsideCheckBox = new CheckBox(
       FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
-      this.viewProperties.seeInsideProperty, {
+      viewProperties.seeInsideProperty, {
         spacing: 8,
         left: hideFunctionsCheckBox.left,
         top: hideFunctionsCheckBox.bottom + 25
       } );
-    this.controlsLayer.addChild( seeInsideCheckBox );
+    controlsLayer.addChild( seeInsideCheckBox );
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    this.viewProperties.seeInsideProperty.link( function( seeInside ) {
+    viewProperties.seeInsideProperty.link( function( seeInside ) {
       seeInsideLayer.visible = seeInside;
     } );
     seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
@@ -232,11 +230,11 @@ define( function( require ) {
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
-      this.controlsLayer,
+      controlsLayer,
       inputCarousel, inputPageControl,
       outputCarousel, outputPageControl,
       functionCarousel, functionPageControl,
-      this.drawersLayer,
+      drawersLayer,
       builderLeftEndNode, builderRightEndNode,
       cardsDragLayer,
       builderNode,
@@ -253,7 +251,7 @@ define( function( require ) {
     // @private Resets this node
     this._reset = function() {
 
-      thisNode.viewProperties.reset();
+      viewProperties.reset();
 
       // Reset carousels without animation
       functionCarousel.reset( { animationEnabled: false } );
@@ -301,20 +299,20 @@ define( function( require ) {
 
       // cards
       inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      assert && assert( this.inputContainers.length === this.outputContainers.length );
-      for ( var i = 0; i < this.inputContainers.length; i++ ) {
+      assert && assert( inputContainers.length === outputContainers.length );
+      for ( var i = 0; i < inputContainers.length; i++ ) {
 
         // input container's location
-        var inputContainer = this.inputContainers[ i ];
+        var inputContainer = inputContainers[ i ];
         inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsDragLayer );
 
         // output container's location
-        var outputContainer = this.outputContainers[ i ];
+        var outputContainer = outputContainers[ i ];
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
         inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
-          cardsDragLayer, seeInsideLayer, thisNode.viewProperties.seeInsideProperty );
+          cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
 
         // get the cards that were added, needed for reset
         thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
@@ -328,6 +326,15 @@ define( function( require ) {
         populateOutputCarousel( inputCarousel, outputCarousel );
       }
     };
+
+    // @private needed by prototype functions
+    this.outputCarousel = outputCarousel;
+
+    // @protected needed by subtypes
+    this.viewProperties = viewProperties;
+    this.drawersLayer = drawersLayer;
+    this.inputContainers = inputContainers;
+    this.outputContainers = outputContainers;
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );
@@ -385,6 +392,11 @@ define( function( require ) {
     // @public
     reset: function() {
       this._reset();
+    },
+
+    // @protected called when the 'eraser' button is pressed
+    erase: function() {
+      this.outputCarousel.erase();
     },
 
     /**

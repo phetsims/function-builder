@@ -1,7 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
 //TODO performance: update only when XYTableNode is visible
-//TODO disable animation on Reset All and 'erase' button
 //TODO when a row is deleted, animate the movement of rows to close the gap (difficult)
 /**
  * XY table.
