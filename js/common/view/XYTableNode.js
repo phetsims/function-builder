@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO performance: update only when XYTableNode is visible, if that seems significant
 /**
  * XY table.
  * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
