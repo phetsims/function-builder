@@ -4,6 +4,16 @@ Performance (responsiveness)
 
 Performance (startup time)
 
-Mystery screen mock up: 1 single function, 1 double function, 1 triple function, random generators for single/double/triple
+Mystery screen:
+- static functions: 1 single, 1 double, 1 triple,
+- function generators: single, double, triple
+- cards: [-4,6], 'x'
+- eraser button
+- Reset All
+- table drawer
+- graph drawer
+- equation drawer
+- reuse 3 instances of each math function
+- custom builder with variable number of slots (model and view?)
 
 Code review
