@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Consider rolling back https://github.com/phetsims/function-builder/commit/47d2fbe1d168978ec32f92c153beb2e35c519026
+
 Table
 
 Performance (responsiveness)
