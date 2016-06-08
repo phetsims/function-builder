@@ -4,6 +4,8 @@ Performance (responsiveness)
 
 Performance (startup time)
 
+Change requests
+
 Mystery screen:
 - static functions: 1 single, 1 double, 1 triple,
 - function generators: single, double, triple
