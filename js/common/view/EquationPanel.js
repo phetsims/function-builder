@@ -5,7 +5,7 @@
  * - equation that corresponds to the function in the builder
  * - control for switching the equation's format
  *
- * Performance is optimized so that the panel synchonizes with the model only while updatesEnabled is true.
+ * Performance is optimized so that the panel synchronizes with the model only while updatesEnabled is true.
  * When updatesEnabled is changed from false to true, anything that is 'dirty' is updated.
  * See updatesEnabled and dirty flags.
  *
