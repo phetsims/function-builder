@@ -2,6 +2,7 @@
 
 /**
  * A row in the XY table.
+ * Each row is associated with an instance of a card, and contains an input and output cell.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
