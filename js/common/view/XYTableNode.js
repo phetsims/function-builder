@@ -25,7 +25,6 @@ define( function( require ) {
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
-  var Emitter = require( 'AXON/Emitter' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -75,15 +74,15 @@ define( function( require ) {
     this._updateEnabled = options.updateEnabled;
     this.gridDirty = true; // {boolean} does the grid need to be updated?
 
+    // @private number of rows in the table
+    this.numberOfRowsProperty = new Property( 0 );
+
     // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
     this.cards = [];
 
     // @private parent for all {XYTableRow} rows, children in the same order as this.cards
     // Do not add anything that is not a XYTableRow to this node!
     this.rowsParent = new VBox();
-
-    // @private fires when a row is added or removed
-    this.tableChangedEmitter = new Emitter();
 
     // options for scroll buttons
     var BUTTON_OPTIONS = {
@@ -182,13 +181,13 @@ define( function( require ) {
 
     // button state is dependent on number of rows and which rows are visible
     var updateButtonState = function() {
+      var numberOfRows = thisNode.numberOfRowsProperty.get();
       var rowNumberAtTop = thisNode.rowNumberAtTopProperty.get();
-      var numberOfRows = thisNode.rowsParent.getChildrenCount();
       upButton.enabled = ( rowNumberAtTop !== 0 );
       downButton.enabled = ( numberOfRows - rowNumberAtTop ) > options.numberOfRowsVisible;
     };
+    this.numberOfRowsProperty.link( updateButtonState );
     this.rowNumberAtTopProperty.link( updateButtonState );
-    this.tableChangedEmitter.addListener( updateButtonState );
 
     upButton.addListener( function() {
       thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() - 1 );
@@ -215,7 +214,7 @@ define( function( require ) {
       assert && assert( this.updateEnabled && this.gridDirty );
 
       // always show 1 page of cells, even if some are empty
-      var numberOfRows = Math.max( this.numberOfRowsVisible, this.rowsParent.getChildrenCount() );
+      var numberOfRows = Math.max( this.numberOfRowsVisible, this.numberOfRowsProperty.get() );
 
       var gridShape = new Shape();
 
@@ -281,13 +280,13 @@ define( function( require ) {
         throw new Error( 'invalid card type' );
       }
 
+      this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() + 1 );
+
       // update the grid
       this.gridDirty = true;
       if ( this.updateEnabled ) {
         this.updateGrid();
       }
-
-      this.tableChangedEmitter.emit();
     },
 
     /**
@@ -307,7 +306,7 @@ define( function( require ) {
       // If the last row is visible at the bottom of the table, disable scrolling animation.
       // This prevents a situation that looks a little odd: rows will move up to reveal an empty
       // row at the bottom, then rows will scroll down.
-      var numberOfRows = this.rowsParent.getChildrenCount();
+      var numberOfRows = this.numberOfRowsProperty.get();
       var rowNumberAtTop = this.rowNumberAtTopProperty.get();
       var wasAnimationEnabled = this.animationEnabled;
       if ( rowNumberAtTop === numberOfRows - this.numberOfRowsVisible ) {
@@ -318,6 +317,7 @@ define( function( require ) {
       var rowNode = this.rowsParent.getChildAt( cardIndex );
       rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
+      this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() - 1 );
 
       // update the grid
       this.gridDirty = true;
@@ -326,15 +326,13 @@ define( function( require ) {
       }
 
       // empty row at the bottom of the table, move all rows down
-      numberOfRows = this.rowsParent.getChildrenCount();
+      numberOfRows = this.numberOfRowsProperty.get();
       rowNumberAtTop = this.rowNumberAtTopProperty.get();
       if ( rowNumberAtTop !== 0 && ( numberOfRows - this.numberOfRowsVisible < rowNumberAtTop ) ) {
         this.rowNumberAtTopProperty.set( numberOfRows - this.numberOfRowsVisible );
       }
 
       this.animationEnabled = wasAnimationEnabled;
-
-      this.tableChangedEmitter.emit();
     },
 
     /**
