@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO performance: update only when XYTableNode is visible
-//TODO when a row is deleted, animate the movement of rows to close the gap (difficult)
+//TODO performance: update only when XYTableNode is visible, if that seems significant
+//TODO when last row in table is visible and deleting a visible row above it, disable animation
 /**
  * XY table.
  * Each row is associated with an instance of a Card, and consists of input (x) and output (y) cells.
