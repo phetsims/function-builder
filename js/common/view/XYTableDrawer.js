@@ -32,16 +32,17 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // Drawer
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
+
+      // improve performance by disabling updates while the drawer is closed
       beforeOpen: function() { tableNode.updateEnabled = true; },
       afterClose: function() { tableNode.updateEnabled = false; },
 
-      // XYTableNode
+      // XYTableNode options
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
       headingFont: FBConstants.TABLE_XY_HEADING_FONT

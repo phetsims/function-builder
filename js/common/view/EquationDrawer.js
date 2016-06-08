@@ -26,16 +26,17 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // Drawer
       open: FBConstants.EQUATION_DRAWER_OPEN,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
+
+      // improve performance by disabling updates while the drawer is closed
       beforeOpen: function() { equationPanel.updateEnabled = true; },
       afterClose: function() { equationPanel.updateEnabled = false; },
 
-      // EquationPanel
+      // EquationPanel options
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
