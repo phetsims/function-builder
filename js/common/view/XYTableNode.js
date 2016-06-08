@@ -63,7 +63,7 @@ define( function( require ) {
     this.numberOfRowsVisible = options.numberOfRowsVisible;
     this._animationEnabled = options.animationEnabled;
     this._updateEnabled = options.updateEnabled;
-    this.gridDirty = true; // {boolean} does this grid need to be updated?
+    this.gridDirty = true; // {boolean} does the grid need to be updated?
 
     // @private {NumberCard|EquationCard} cards, in the order that they appear in the table
     this.cards = [];
