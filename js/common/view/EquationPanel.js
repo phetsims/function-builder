@@ -57,6 +57,7 @@ define( function( require ) {
     this.xyFont = options.xyFont;
     this.xyAsCards = options.xyAsCards;
     this._updateEnabled = options.updateEnabled;
+    this.dirty = true; // {boolean} does this node need to be updated?
 
     var thisNode = this;
 
@@ -102,6 +103,7 @@ define( function( require ) {
     } );
 
     builder.functionChangedEmitter.addListener( function() {
+      thisNode.dirty = true;
       if ( thisNode.updateEnabled ) {
         thisNode.updateEquations();
       }
@@ -124,7 +126,7 @@ define( function( require ) {
      */
     updateEquations: function() {
 
-      assert && assert( this.updateEnabled );
+      assert && assert( this.updateEnabled && this.dirty );
 
       /*
        * Apply all functions in the builder. Pass in an empty array, because the functions in the builder
@@ -171,6 +173,8 @@ define( function( require ) {
           visible: this.slopeInterceptProperty.get()
         } );
       this.addChild( this.slopeInterceptEquationNode );
+
+      this.dirty = false;
     },
 
     /**
@@ -184,7 +188,7 @@ define( function( require ) {
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
       var wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
-      if ( !wasUpdateEnabled && updateEnabled ) {
+      if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
         this.updateEquations();
       }
     },
