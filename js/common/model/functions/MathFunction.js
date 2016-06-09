@@ -19,11 +19,11 @@ define( function( require ) {
 
   /**
    * @param {string} operatorString - string representation of the operator
-   * @param {function(number,number):number} apply - implementation of the apply function for numbers
+   * @param {function(RationalNumber,RationalNumber):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunction( operatorString, apply, options ) {
+  function MathFunction( operatorString, applyRationalNumber, options ) {
 
     options = _.extend( {
       operand: 1, // {number} initial value of operandProperty
@@ -43,7 +43,7 @@ define( function( require ) {
     this.zeroOperandValid = options.zeroOperandValid;
 
     // @private
-    this._apply = apply;
+    this.applyRationalNumber = applyRationalNumber;
 
     // @public
     this.operandProperty = new Property( options.operand ); // {Property.<number>}
@@ -78,7 +78,7 @@ define( function( require ) {
      */
     apply: function( input ) {
       if ( input instanceof RationalNumber ) {
-        return this._apply( input, this.operandProperty.get() );
+        return this.applyRationalNumber( input, this.operandProperty.get() );
       }
       else if ( Array.isArray( input ) ) {
         return input.concat( this );
