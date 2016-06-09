@@ -81,8 +81,7 @@ define( function( require ) {
         return this._apply( input, this.operandProperty.get() );
       }
       else if ( Array.isArray( input ) ) {
-        input.push( this );
-        return input;
+        return input.concat( this );
       }
       else {
         throw new Error( 'unsupported input type' );
