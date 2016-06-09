@@ -32,7 +32,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
+      showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation (y =)
       xSymbol: FBSymbols.X, // {string} symbol for x (input)
       ySymbol: FBSymbols.Y, // {string} symbol for y (output)
       xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
