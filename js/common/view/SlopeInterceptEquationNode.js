@@ -101,7 +101,8 @@ define( function( require ) {
       var zeroNode = new Text( '0', {
         fill: options.yColor,
         font: options.wholeNumberFont,
-        left: equalsNode.right + options.equalsXSpacing
+        left: equalsNode.right + options.equalsXSpacing,
+        centerY: yNode.centerY
       } );
       options.children.push( zeroNode );
     }
