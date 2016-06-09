@@ -62,7 +62,7 @@ define( function( require ) {
     /**
      * Applies the function to the input, produces the output.
      *
-     * @param {*} input
+     * @param {*} input - the input, which should not be modified
      * @returns {*} output, of the same type as input
      * @public
      * @abstract
