@@ -16,7 +16,6 @@ Mystery screen:
 - Reset All
 - table drawer
 - graph drawer
-- equation drawer
 - reuse 3 instances of each math function
 - custom builder with variable number of slots (model and view?)
 
