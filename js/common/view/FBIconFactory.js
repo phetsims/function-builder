@@ -18,11 +18,11 @@ define( function( require ) {
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ScreenIcon = require( 'JOIST/ScreenIcon' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
@@ -87,9 +87,14 @@ define( function( require ) {
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-      var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
-      var iconNode = new Text( equationString, { font: new MathSymbolFont( 80 ) } );
-      return new ScreenIcon( iconNode, { fill: FBColors.EQUATIONS_SCREEN_BACKGROUND } );
+
+      var iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
+      //var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
+      //var iconNode = new Text( equationString, { font: new MathSymbolFont( 80 ) } );
+      return new ScreenIcon( iconNode, {
+        fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
+        maxIconWidthProportion: 0.75
+      } );
     },
 
     /**
