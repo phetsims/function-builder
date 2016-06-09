@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * @param {string} operatorString - string representation of the operator
-   * @param {function(RationalNumber,RationalNumber):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
+   * @param {function(RationalNumber,number):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
    * @param {Object} [options]
    * @constructor
    */
