@@ -33,8 +33,8 @@ define( function( require ) {
     options = _.extend( {
 
       showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
-      xSymbol: FBSymbols.X, // {string} symbol for input
-      ySymbol: FBSymbols.Y, // {string} symbol for output
+      xSymbol: FBSymbols.X, // {string} symbol for x (input)
+      ySymbol: FBSymbols.Y, // {string} symbol for y (output)
       xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
       xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
 
