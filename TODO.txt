@@ -9,14 +9,15 @@ Performance (startup time)
 Change requests
 
 Mystery screen:
-- static functions: 1 single, 1 double, 1 triple,
-- function generators: single, double, triple
-- cards: [-4,6], 'x'
+- pool of predefined function combinations
+- radio buttons to select number of functions: single, double, triple,
+- "generate" button to select random combination from pool
+- assign function colors randomly
+- cards: [-4,6], blank spot where 'x' would be
 - eraser button
 - Reset All
+- "Show functions" button
 - table drawer
 - graph drawer
-- reuse 3 instances of each math function
-- custom builder with variable number of slots (model and view?)
 
 Code review
