@@ -17,6 +17,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
@@ -69,14 +70,31 @@ define( function( require ) {
         fill: 'rgb( 255, 120, 120 )'
       } );
 
-      var textNode = new Text( FBSymbols.PLUS + ' 3', {
+      // handle operator separately, so we can control spacing
+      var operatorNode = new Text( FBSymbols.PLUS, {
         font: new FBFont( 80 ),
         maxWidth: 0.5 * functionNode.width,
         maxHeight: 0.95 * functionNode.height,
         center: functionNode.center
       } );
 
-      var iconNode = new Node( { children: [ functionNode, textNode ] } );
+      var operandNode = new Text( '3', {
+        font: new FBFont( 80 ),
+        maxWidth: 0.5 * functionNode.width,
+        maxHeight: 0.95 * functionNode.height,
+        center: functionNode.center
+      } );
+
+      // operator & operand
+      var parentNode = new HBox( {
+        children: [ operatorNode, operandNode ],
+        spacing: 6,
+        maxWidth: 0.5 * functionNode.width,
+        maxHeight: 0.95 * functionNode.height,
+        center: functionNode.center
+      } );
+
+      var iconNode = new Node( { children: [ functionNode, parentNode ] } );
 
       return new ScreenIcon( iconNode, { fill: FBColors.NUMBERS_SCREEN_BACKGROUND } );
     },
