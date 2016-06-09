@@ -43,12 +43,7 @@ define( function( require ) {
      * @override
      */
     getInvertible: function() {
-      if ( this.operandProperty.get() === 0 ) {
-        return false;
-      }
-      else {
-        return MathFunction.prototype.getInvertible.call( this );
-      }
+      return ( this.operandProperty.get() !== 0 );
     }
   } );
 } );
