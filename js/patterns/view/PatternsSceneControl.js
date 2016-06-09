@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var platform = require( 'PHET_CORE/platform' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
@@ -29,6 +30,11 @@ define( function( require ) {
       buttonContentXMargin: 10,
       buttonContentYMargin: 16
     }, options );
+
+    // Hack workaround for https://github.com/phetsims/function-builder/issues/35, seems to fix this.
+    if ( platform.mobileSafari ) {
+      options.renderer = 'canvas';
+    }
 
     // touchArea optimized for spacing
     options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
