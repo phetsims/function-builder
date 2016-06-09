@@ -1,8 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A mathematical function with dynamic operand.
- * Can be applied to either a rational number or a mathematical equation.
+ * A mathematical function with (optionally) dynamic operand.
+ * Can be applied to either a rational number or a MathFunction[].
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
