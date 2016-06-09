@@ -1,11 +1,11 @@
 {
-  "comment": "# function-builder 1.0.0-dev.46 Wed Jun 08 2016 16:56:39 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.47 Thu Jun 09 2016 13:03:41 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "1f8073474acc627fb24ff7766cb837928cfb374c",
+    "sha": "b71cc337f6748ee080e97b50497f05972b498de0",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "1586048b377e990902b405d0e0016e7cc5149dd8",
+    "sha": "4c679115b7041b1514679091d3a1fa1e410845df",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "4317bd5a49f7e0b0902e202341471a448776883f",
+    "sha": "5acec4d23add6cf3b6234d1e5d2a0d403ab7e91e",
     "branch": "master"
   },
   "joist": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "00bd89f45956aa5202d0647bd0026d7edf9d8d8d",
+    "sha": "768bf4537826a6bbda1ad6fc548883bc8b905179",
     "branch": "master"
   },
   "scenery-phet": {
