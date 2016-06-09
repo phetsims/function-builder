@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Circle = require( 'SCENERY/nodes/Circle' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
@@ -20,15 +20,14 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ScreenIcon = require( 'JOIST/ScreenIcon' );
-  var StarShape = require( 'SCENERY_PHET/StarShape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // images
+  var butterflyHiRes = require( 'image!FUNCTION_BUILDER/inputs/butterfly-hires.png' );
   var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
 
   // strings
@@ -43,34 +42,18 @@ define( function( require ) {
   var FBIconFactory = {
 
     /**
-     * Creates the icon for the 'Patterns' screen, the Warhol function applied to a star shape.
-     * To provide the quality needed for the icon, we're not actually using the Warhol function,
-     * but we are using its color maps.
+     * Creates the icon for the 'Patterns' screen, the Warhol function applied to an image.
+     * Be sure to use a higher resolution version of the image or it will look lousy at the
+     * size of the home screen icon.
      *
      * @returns {Node}
      */
     createPatternsScreenIcon: function() {
 
-      var leftTopStar = createWarholStar( Warhol.LEFT_TOP_COLOR_MAP );
-
-      var rightTopStar = createWarholStar( Warhol.RIGHT_TOP_COLOR_MAP, {
-        left: leftTopStar.right,
-        top: leftTopStar.top
-      } );
-
-      var leftBottomStar = createWarholStar( Warhol.LEFT_BOTTOM_COLOR_MAP, {
-        left: leftTopStar.left,
-        top: leftTopStar.bottom
-      } );
-
-      var rightBottomStar = createWarholStar( Warhol.RIGHT_BOTTOM_COLOR_MAP, {
-        left: leftBottomStar.right,
-        top: leftTopStar.bottom
-      } );
-
-      var iconNode = new Node( {
-        children: [ leftTopStar, rightTopStar, leftBottomStar, rightBottomStar ]
-      } );
+      var warhol = new Warhol();
+      var inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
+      var outputCanvas = warhol.apply( inputCanvas );
+      var iconNode = new Image( outputCanvas.toDataURL() );
 
       return new ScreenIcon( iconNode, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
     },
@@ -235,45 +218,6 @@ define( function( require ) {
   };
 
   functionBuilder.register( 'FBIconFactory', FBIconFactory );
-
-  /**
-   * Creates a star on a background rectangle.
-   *
-   * @param {Color[]} colorMap
-   * @param {Object} [options]
-   * @returns {Node}
-   */
-  var createWarholStar = function( colorMap, options ) {
-
-    assert && assert( colorMap.length === 4 );
-
-    options = _.extend( {
-       lineWidth: 1
-    }, options );
-
-    var starNode = new Path( new StarShape(), {
-      fill: colorMap[ 2 ],  // assumes that star.png is filled with yellow
-      stroke: colorMap[ 0 ], // assumes that star.png is stroked with black
-      lineWidth: options.lineWidth
-    } );
-
-    var circleNode = new Circle( ( starNode.width / 2 ) + ( options.lineWidth / 2 ), {
-      stroke: colorMap[ 0 ], // assumes that star.png is stroked with black
-      lineWidth: options.lineWidth,
-      centerX: starNode.centerX,
-      top: starNode.top
-    } );
-
-    var backgroundNode = new Rectangle( 0, 0, circleNode.width, circleNode.height, {
-      fill: colorMap[ 3 ],  // assumes that transparent pixels in star.png are converted to opaque white
-      center: circleNode.center
-    } );
-
-    assert && assert( !options.children );
-    options.children = [ backgroundNode, starNode, circleNode ];
-
-    return new Node( options );
-  };
 
   return FBIconFactory;
 } );
