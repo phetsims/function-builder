@@ -2,8 +2,6 @@ TODO list for function-builder
 
 Limit to 1 "parked" card in builder
 
-Patterns screen icon
-
 Performance (responsiveness)
 
 Performance (startup time)
