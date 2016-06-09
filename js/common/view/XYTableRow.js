@@ -84,7 +84,9 @@ define( function( require ) {
     }
     else {
       // non-null placeholder for output value
-      this.outputValueNode = new Rectangle( 0, 0, 1, 1 );
+      this.outputValueNode = new Rectangle( 0, 0, 1, 1, {
+        visible: options.updateEnabled
+      } );
       this.addChild( this.outputValueNode );
     }
 
