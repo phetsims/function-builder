@@ -66,11 +66,13 @@ define( function( require ) {
     createNumbersScreenIcon: function() {
 
       var functionNode = new FunctionBackgroundNode( {
-        fill: 'rgb( 255, 246, 187 )'
+        fill: 'rgb( 255, 120, 120 )'
       } );
 
       var textNode = new Text( FBSymbols.PLUS + ' 3', {
         font: new FBFont( 36 ),
+        maxWidth: 0.7 * functionNode.width,
+        maxHeight: 0.85 * functionNode.height,
         center: functionNode.center
       } );
 
@@ -96,9 +98,20 @@ define( function( require ) {
      * @returns {Node}
      */
     createMysteryScreenIcon: function() {
-      var iconNode = new Text( mysteryCharacterString, {
-        font: new FBFont( 30 )
+
+      var functionNode = new FunctionBackgroundNode( {
+        fill: 'rgb( 147, 231, 128 )'
       } );
+
+      var textNode = new Text( mysteryCharacterString, {
+        font: new FBFont( 80 ),
+        maxWidth: 0.7 * functionNode.width,
+        maxHeight: 0.95 * functionNode.height,
+        center: functionNode.center
+      } );
+
+      var iconNode = new Node( { children: [ functionNode, textNode ] } );
+
       return new ScreenIcon( iconNode, { fill: FBColors.MYSTERY_SCREEN_BACKGROUND } );
     },
 
