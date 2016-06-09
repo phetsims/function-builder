@@ -65,7 +65,7 @@ define( function( require ) {
           if ( rationalNumber.valueOf() !== 0 ) {
             stack.push( new Plus( {
               operand: rationalNumber.valueOf(),
-              operandRange: null
+              operandRange: null // disable range checking
             } ) );
           }
         }
