@@ -54,7 +54,12 @@ define( function( require ) {
       var warhol = new Warhol();
       var inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
       var outputCanvas = warhol.apply( inputCanvas );
-      var iconNode = new Image( outputCanvas.toDataURL() );
+      var iconNode = new Image( outputCanvas.toDataURL(), {
+
+        // Workaround for https://github.com/phetsims/function-builder/issues/66
+        initialWidth: outputCanvas.width,
+        initialHeight: outputCanvas.height
+      } );
 
       return new ScreenIcon( iconNode, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
     },
