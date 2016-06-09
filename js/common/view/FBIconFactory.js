@@ -70,9 +70,9 @@ define( function( require ) {
       } );
 
       var textNode = new Text( FBSymbols.PLUS + ' 3', {
-        font: new FBFont( 36 ),
-        maxWidth: 0.7 * functionNode.width,
-        maxHeight: 0.85 * functionNode.height,
+        font: new FBFont( 80 ),
+        maxWidth: 0.5 * functionNode.width,
+        maxHeight: 0.95 * functionNode.height,
         center: functionNode.center
       } );
 
@@ -87,10 +87,7 @@ define( function( require ) {
      * @returns {Node}
      */
     createEquationsScreenIcon: function() {
-
       var iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
-      //var equationString = StringUtils.format( '{0} {1} 2{2} {3} 1', FBSymbols.Y, FBSymbols.EQUALS, FBSymbols.X, FBSymbols.PLUS );
-      //var iconNode = new Text( equationString, { font: new MathSymbolFont( 80 ) } );
       return new ScreenIcon( iconNode, {
         fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
         maxIconWidthProportion: 0.75
