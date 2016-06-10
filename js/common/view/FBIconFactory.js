@@ -51,9 +51,12 @@ define( function( require ) {
      */
     createPatternsScreenIcon: function() {
 
+      // apply Warhol to the image
       var warhol = new Warhol();
       var inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
       var outputCanvas = warhol.apply( inputCanvas );
+
+      // create the icon
       var iconNode = new Image( outputCanvas.toDataURL(), {
 
         // Workaround for https://github.com/phetsims/function-builder/issues/66
