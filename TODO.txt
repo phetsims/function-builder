@@ -4,17 +4,21 @@ Refine query parameter for screen initialization strategy (onStartup vs onDemand
 
 Add query parameter for scene initialization strategy (onStartup vs onDemand)
 
-Limit to 1 "parked" card in builder
+Card stuck in builder #50
 
-Performance (responsiveness)
+Stranded functions #40
 
-Performance (startup time)
+Limit to 1 "parked" card in builder #44
+
+Responsiveness
+
+Startup time #37
 
 Change requests
 
 Mystery screen:
 - pool of predefined function combinations
-- radio buttons to select number of functions: single, double, triple,
+- radio buttons to select scene: single, double, triple,
 - "generate" button to select random combination from pool
 - assign function colors randomly
 - cards: [-4,6], blank spot where 'x' would be
@@ -23,5 +27,6 @@ Mystery screen:
 - "Show functions" button
 - table drawer
 - graph drawer
+- 'See Inside' layer (available, no control)
 
 Code review
