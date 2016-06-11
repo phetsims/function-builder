@@ -1,5 +1,9 @@
 TODO list for function-builder
 
+Refine query parameter for screen initialization strategy (onStartup vs onDemand)
+
+Add query parameter for scene initialization strategy (onStartup vs onDemand)
+
 Limit to 1 "parked" card in builder
 
 Performance (responsiveness)
