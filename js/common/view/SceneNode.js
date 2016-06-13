@@ -33,9 +33,6 @@ define( function( require ) {
     dotMouseAreaDilation: 4
   };
 
-  //TODO revisit in the future. Enables workaround for https://github.com/phetsims/function-builder/issues/35.
-  var WORKAROUND_35_ENABLED = true;
-
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
@@ -314,11 +311,8 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        var numberOfEachCard = scene.numberOfEachCard;
-        WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++; // create an extra instance of the first card
-        inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
+        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
-        WORKAROUND_35_ENABLED && ( i === 0 ) && workaround35( inputCarousel, outputCarousel ); // move to output
 
         // get the cards that were added, needed for reset
         thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
@@ -334,7 +328,6 @@ define( function( require ) {
     };
 
     // @private needed by prototype functions
-    this.inputCarousel = inputCarousel;
     this.outputCarousel = outputCarousel;
 
     // @protected needed by subtypes
@@ -361,22 +354,6 @@ define( function( require ) {
       inputContainer.removeNode( cardNode );
       outputContainer.addNode( cardNode );
     }
-  };
-
-  /**
-   * Workaround for https://github.com/phetsims/function-builder/issues/35.
-   * An extra instance of the first card is created in this._populateCarousels.
-   * That extra instance is moved to the output carousel here, and made invisible.
-   * No idea why this workaround works, or what the root cause of the problem is.
-   */
-  var workaround35 = function( inputCarousel, outputCarousel ) {
-    var inputContainer = inputCarousel.items[ 0 ];
-    var outputContainer = outputCarousel.items[ 0 ];
-    var cardNodes = inputContainer.getContents();
-    var cardNode = cardNodes[ cardNodes.length - 1 ]; // top card
-    inputContainer.removeNode( cardNode );
-    cardNode.visible = false;
-    outputContainer.addNode( cardNode );
   };
 
   /**
@@ -415,13 +392,11 @@ define( function( require ) {
     // @public
     reset: function() {
       this._reset();
-      WORKAROUND_35_ENABLED && workaround35( this.inputCarousel, this.outputCarousel ); // reapply workaround
     },
 
     // @protected called when the 'eraser' button is pressed
     erase: function() {
       this.outputCarousel.erase();
-      WORKAROUND_35_ENABLED && workaround35( this.inputCarousel, this.outputCarousel ); // reapply workaround
     },
 
     /**
