@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var platform = require( 'PHET_CORE/platform' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
