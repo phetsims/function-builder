@@ -31,6 +31,11 @@ define( function( require ) {
       buttonContentYMargin: 16
     }, options );
 
+    // Hack workaround for https://github.com/phetsims/function-builder/issues/35, seems to fix this.
+    if ( platform.mobileSafari ) {
+      options.renderer = 'canvas';
+    }
+
     // touchArea optimized for spacing
     options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
     options.touchAreaYDilation = 5;

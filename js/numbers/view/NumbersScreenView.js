@@ -13,6 +13,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Workaround35 = require( 'FUNCTION_BUILDER/common/view/Workaround35' );
 
   // strings
   var inputString = require( 'string!FUNCTION_BUILDER/input' );
@@ -37,6 +38,8 @@ define( function( require ) {
     };
 
     EquationsScreenView.call( this, model, sceneNodeOptions );
+
+    this.addChild( new Workaround35( this.layoutBounds ) );
   }
 
   functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
