@@ -21,6 +21,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   var PageControl = require( 'SUN/PageControl' );
+  var platform = require( 'PHET_CORE/platform' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
@@ -65,7 +66,8 @@ define( function( require ) {
     var functionsDragLayer = new Node();
 
     // basic UI controls get added to this layer
-    var controlsLayer = new Node();
+    var WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
+    var controlsLayer = new Node( WORKAROUND_35_OPTIONS );
 
     // drawers get added to this layer by subtypes
     var drawersLayer = new Node();
