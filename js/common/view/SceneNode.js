@@ -233,14 +233,18 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
       controlsLayer,
-      inputCarousel, inputPageControl,
-      outputCarousel, outputPageControl,
-      functionCarousel, functionPageControl,
-      drawersLayer,
-      builderLeftEndNode, builderRightEndNode,
+      inputCarousel, // 1 clipArea
+      inputPageControl,
+      outputCarousel, // 1 clipArea
+      outputPageControl,
+      functionCarousel, // 1 clipArea
+      functionPageControl,
+      drawersLayer, // table: 2 clipAreas, graph: 1 clipArea, equations: 1 clipArea
+      builderLeftEndNode,
+      builderRightEndNode,
       cardsDragLayer,
-      builderNode,
-      seeInsideLayer,
+      builderNode, // 1 clipArea
+      seeInsideLayer, // 1 clipArea
       functionsDragLayer
     ];
 
