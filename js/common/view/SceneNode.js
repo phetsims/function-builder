@@ -112,6 +112,7 @@ define( function( require ) {
       right: inputCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputCarousel.centerY
     }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( inputPageControl );
 
     // Output carousel ------------------------------------------------------------------------------------------------
 
@@ -138,6 +139,7 @@ define( function( require ) {
       left: outputCarousel.right + PAGE_CONTROL_SPACING,
       centerY: outputCarousel.centerY
     }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( outputPageControl );
 
     // Eraser button, centered below the output carousel
     var eraserButton = new EraserButton( {
@@ -177,6 +179,7 @@ define( function( require ) {
       centerX: functionCarousel.centerX,
       top: functionCarousel.bottom + PAGE_CONTROL_SPACING
     }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( functionPageControl );
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -232,19 +235,16 @@ define( function( require ) {
     // rendering order
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [
+      controlsLayer,
       inputCarousel, // 1 clipArea
       outputCarousel, // 1 clipArea
       functionCarousel, // 1 clipArea
-      drawersLayer, // table: 2 clipAreas, graph: 1 clipArea, equations: 1 clipArea
+      drawersLayer, // table drawer: 2 clipAreas; graph drawer: 1 clipArea; equation drawer: 1 clipArea
       builderLeftEndNode,
       builderRightEndNode,
-      cardsDragLayer,
+      cardsDragLayer, // must be between the builder ends and the builder
       builderNode, // 1 clipArea
       seeInsideLayer, // 1 clipArea
-      controlsLayer,
-      inputPageControl,
-      outputPageControl,
-      functionPageControl,
       functionsDragLayer
     ];
 
