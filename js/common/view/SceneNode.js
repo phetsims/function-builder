@@ -313,7 +313,7 @@ define( function( require ) {
 
         // populate the input container with cards
         var numberOfEachCard = scene.numberOfEachCard;
-        WORKAROUND_35_ENABLED && numberOfEachCard++;
+        WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++;
         inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
 
@@ -363,24 +363,16 @@ define( function( require ) {
 
   /**
    * Workaround for https://github.com/phetsims/function-builder/issues/35.
-   * An extra instance of each card is created in this._populateCarousels.
+   * An extra instance of the first card is created in this._populateCarousels.
    * That extra instance is moved to the output carousel here, and made invisible.
    */
   var workaround35 = function( inputCarousel, outputCarousel ) {
-
-    assert && assert( inputCarousel.items.length === outputCarousel.items.length,
-      'input and output carousels must have the same number of items' );
-
-    for ( var i = 0; i < inputCarousel.items.length; i++ ) {
-
-      var inputContainer = inputCarousel.items[ i ];
-      var outputContainer = outputCarousel.items[ i ];
-
-      var cardNode = inputContainer.getContents()[ 0 ];
-      inputContainer.removeNode( cardNode );
-      cardNode.visible = false;
-      outputContainer.addNode( cardNode );
-    }
+    var inputContainer = inputCarousel.items[ 0 ];
+    var outputContainer = outputCarousel.items[ 0 ];
+    var cardNode = inputContainer.getContents()[ 0 ];
+    inputContainer.removeNode( cardNode );
+    cardNode.visible = false;
+    outputContainer.addNode( cardNode );
   };
 
   /**
