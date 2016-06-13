@@ -318,6 +318,7 @@ define( function( require ) {
         WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++; // create an extra instance of the first card
         inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
+        WORKAROUND_35_ENABLED && ( i === 0 ) && workaround35( inputCarousel, outputCarousel ); // move to output
 
         // get the cards that were added, needed for reset
         thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
@@ -330,9 +331,6 @@ define( function( require ) {
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
         populateOutputCarousel( inputCarousel, outputCarousel );
       }
-
-      // move the extra instance of the first card to the output carousel, and make it invisible
-      WORKAROUND_35_ENABLED && workaround35( inputCarousel, outputCarousel );
     };
 
     // @private needed by prototype functions
@@ -374,7 +372,8 @@ define( function( require ) {
   var workaround35 = function( inputCarousel, outputCarousel ) {
     var inputContainer = inputCarousel.items[ 0 ];
     var outputContainer = outputCarousel.items[ 0 ];
-    var cardNode = inputContainer.getContents()[ 0 ];
+    var cardNodes = inputContainer.getContents();
+    var cardNode = cardNodes[ cardNodes.length - 1 ]; // top card
     inputContainer.removeNode( cardNode );
     cardNode.visible = false;
     outputContainer.addNode( cardNode );
