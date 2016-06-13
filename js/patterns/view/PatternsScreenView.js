@@ -72,10 +72,19 @@ define( function( require ) {
 
       // Scene Nodes
       var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
-      model.scenes.forEach( function( scene ) {// create the scene Node
-        var sceneNode = new PatternsSceneNode( scene, layoutBounds );
-        sceneNodes.push( sceneNode );
-        scenesParent.addChild( sceneNode );
+      model.scenes.forEach( function( scene ) {
+        if ( FBConstants.INIT_SCENES_ON_START ) {
+
+          // create scene node on start
+          var sceneNode = new PatternsSceneNode( scene, layoutBounds, { visible: false } );
+          sceneNodes.push( sceneNode );
+          scenesParent.addChild( sceneNode );
+        }
+        else {
+
+          // scene node will be created on demand
+          sceneNodes.push( null );
+        }
       } );
 
       // Control for switching between scenes
@@ -87,10 +96,10 @@ define( function( require ) {
       // Resets this screen
       var resetAll = function() {
 
-        // reset view before model, or odd things will happen
-        for ( var sceneIndex = 0; sceneIndex < sceneNodes.length; sceneIndex++ ) {
-          sceneNodes[ sceneIndex ].reset();
-        }
+        // reset view before model, or we'll see animation that's not desired
+        sceneNodes.forEach( function( sceneNode ) {
+          sceneNode && sceneNode.reset();
+        } );
         model.reset();
       };
 
@@ -111,8 +120,7 @@ define( function( require ) {
        * depend on the location of things in the view.
        */
       sceneNodes.forEach( function( sceneNode ) {
-        sceneNode.populateCarousels();
-        sceneNode.visible = false;
+        sceneNode && sceneNode.populateCarousels();
       } );
 
       // Fade between scenes
@@ -129,15 +137,22 @@ define( function( require ) {
         // Get the Node that corresponds to the old scene
         var oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
 
-        // Get the Node that corresponds to the scene, create it on demand
+        // Get the Node that corresponds to the scene, or create it on demand
         var sceneIndex = model.scenes.indexOf( scene );
         var sceneNode = sceneNodes[ sceneIndex ];
+        if ( !sceneNode ) {
+          sceneNode = new PatternsSceneNode( scene, layoutBounds, { visible: false } );
+          sceneNodes[ sceneIndex ] = sceneNode;
+          scenesParent.addChild( sceneNode );
+          sceneNode.populateCarousels(); // after adding to scene graph!
+        }
 
         // Fade scenes in/out as selection changes
         if ( oldScene ) {
 
           // fades in the new scene
           newFadeIn = new OpacityTo( sceneNode, {
+            startOpacity: 0,
             endOpacity: 1
           } );
 
@@ -156,6 +171,7 @@ define( function( require ) {
           oldFadeOut.start();
         }
         else {
+
           // No animation for the initial selection
           sceneNode.visible = true;
         }

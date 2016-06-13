@@ -41,6 +41,8 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, options ) {
 
+    functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
+
     options = _.extend( {
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
