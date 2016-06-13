@@ -34,6 +34,9 @@ define( function( require ) {
     dotMouseAreaDilation: 4
   };
 
+  //TODO revisit in the future, workaround for https://github.com/phetsims/function-builder/issues/35
+  var WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
+
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
@@ -66,7 +69,6 @@ define( function( require ) {
     var functionsDragLayer = new Node();
 
     // basic UI controls get added to this layer
-    var WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
     var controlsLayer = new Node( WORKAROUND_35_OPTIONS );
 
     // drawers get added to this layer by subtypes
