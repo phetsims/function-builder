@@ -32,6 +32,7 @@ define( function( require ) {
     dotTouchAreaDilation: 4,
     dotMouseAreaDilation: 4
   };
+  var WORKAROUND_35_ENABLED = true; // enables workaround for https://github.com/phetsims/function-builder/issues/35
 
   /**
    * @param {Scene} scene - model for this scene
@@ -311,7 +312,9 @@ define( function( require ) {
         outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
+        var numberOfEachCard = scene.numberOfEachCard;
+        WORKAROUND_35_ENABLED && numberOfEachCard++;
+        inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
 
         // get the cards that were added, needed for reset
@@ -325,6 +328,8 @@ define( function( require ) {
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
         populateOutputCarousel( inputCarousel, outputCarousel );
       }
+
+      WORKAROUND_35_ENABLED && workaround35( inputCarousel, outputCarousel );
     };
 
     // @private needed by prototype functions
@@ -352,6 +357,28 @@ define( function( require ) {
 
       var cardNode = inputContainer.getContents()[ 0 ];
       inputContainer.removeNode( cardNode );
+      outputContainer.addNode( cardNode );
+    }
+  };
+
+  /**
+   * Workaround for https://github.com/phetsims/function-builder/issues/35.
+   * An extra instance of each card is created in this._populateCarousels.
+   * That extra instance is moved to the output carousel here, and made invisible.
+   */
+  var workaround35 = function( inputCarousel, outputCarousel ) {
+
+    assert && assert( inputCarousel.items.length === outputCarousel.items.length,
+      'input and output carousels must have the same number of items' );
+
+    for ( var i = 0; i < inputCarousel.items.length; i++ ) {
+
+      var inputContainer = inputCarousel.items[ i ];
+      var outputContainer = outputCarousel.items[ i ];
+
+      var cardNode = inputContainer.getContents()[ 0 ];
+      inputContainer.removeNode( cardNode );
+      cardNode.visible = false;
       outputContainer.addNode( cardNode );
     }
   };
