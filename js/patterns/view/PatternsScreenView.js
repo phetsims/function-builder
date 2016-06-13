@@ -31,7 +31,7 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
 
-    if ( FBConstants.INITIALIZE_SCREEN_VIEWS_ON_START ) {
+    if ( FBConstants.INIT_SCREEN_VIEWS_ON_START ) {
       this.initialize();
     }
   }

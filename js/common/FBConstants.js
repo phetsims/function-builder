@@ -27,7 +27,10 @@ define( function( require ) {
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
 
     // whether to initialize ScreenViews on start
-    INITIALIZE_SCREEN_VIEWS_ON_START: FBQueryParameters.INIT_SCREEN_VIEWS === 'onStart',
+    INIT_SCREEN_VIEWS_ON_START: ( FBQueryParameters.INIT_SCREEN_VIEWS === 'onStart' ),
+
+    // whether to initialize Scenes on start
+    INIT_SCENES_ON_START: ( FBQueryParameters.INIT_SCENES === 'onStart' ),
 
     // offset of the Reset All button from the lower-right corner of the screen
     RESET_ALL_BUTTON_OFFSET: new Vector2( -20, -20 ),

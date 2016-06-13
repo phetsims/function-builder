@@ -30,8 +30,11 @@ define( function( require ) {
     // puts a red stroke around containers in the carousels, so that empty containers are visible
     SHOW_CONTAINERS: !!getQueryParameter( 'showContainers' ),
 
-    // whether to initialize screen views on demand ('onDemand') or on startup ('onStart', default)
-    INIT_SCREEN_VIEWS: getQueryParameter( 'initScreenViews' ) || 'onStart'
+    // when to initialize screen views: 'onDemand'|'onStart'
+    INIT_SCREEN_VIEWS: getQueryParameter( 'initScreenViews' ) || 'onStart',
+
+    // when to initialize scenes: 'onDemand'|'onStart'
+    INIT_SCENES: getQueryParameter( 'initScenes' ) || 'onStart'
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
