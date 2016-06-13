@@ -32,7 +32,9 @@ define( function( require ) {
     dotTouchAreaDilation: 4,
     dotMouseAreaDilation: 4
   };
-  var WORKAROUND_35_ENABLED = true; // enables workaround for https://github.com/phetsims/function-builder/issues/35
+
+  //TODO revisit in the future. Enables workaround for https://github.com/phetsims/function-builder/issues/35.
+  var WORKAROUND_35_ENABLED = true;
 
   /**
    * @param {Scene} scene - model for this scene
@@ -313,7 +315,7 @@ define( function( require ) {
 
         // populate the input container with cards
         var numberOfEachCard = scene.numberOfEachCard;
-        WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++;
+        WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++; // create an extra instance of the first card
         inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
 
@@ -329,6 +331,7 @@ define( function( require ) {
         populateOutputCarousel( inputCarousel, outputCarousel );
       }
 
+      // move the extra instance of the first card to the output carousel, and make it invisible
       WORKAROUND_35_ENABLED && workaround35( inputCarousel, outputCarousel );
     };
 
@@ -365,6 +368,7 @@ define( function( require ) {
    * Workaround for https://github.com/phetsims/function-builder/issues/35.
    * An extra instance of the first card is created in this._populateCarousels.
    * That extra instance is moved to the output carousel here, and made invisible.
+   * No idea why this workaround works, or what the root cause of the problem is.
    */
   var workaround35 = function( inputCarousel, outputCarousel ) {
     var inputContainer = inputCarousel.items[ 0 ];
