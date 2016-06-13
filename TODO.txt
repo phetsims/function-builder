@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+[iOS] white path trailing card drag #35
+
 Card stuck in builder #50
 
 Stranded functions #40
