@@ -315,6 +315,7 @@ define( function( require ) {
 
         // populate the input container with cards
         var numberOfEachCard = scene.numberOfEachCard;
+        WORKAROUND_35_ENABLED && ( i === 0 ) && numberOfEachCard++; // create an extra instance of the first card
         inputContainer.createCards( numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
           cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
 
@@ -329,13 +330,13 @@ define( function( require ) {
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
         populateOutputCarousel( inputCarousel, outputCarousel );
       }
-      else if ( WORKAROUND_35_ENABLED ) {
-        populateOutputCarousel( inputCarousel, outputCarousel );
-        outputCarousel.erase();
-      }
+
+      // move the extra instance of the first card to the output carousel, and make it invisible
+      WORKAROUND_35_ENABLED && workaround35( inputCarousel, outputCarousel );
     };
 
     // @private needed by prototype functions
+    this.inputCarousel = inputCarousel;
     this.outputCarousel = outputCarousel;
 
     // @protected needed by subtypes
@@ -362,6 +363,21 @@ define( function( require ) {
       inputContainer.removeNode( cardNode );
       outputContainer.addNode( cardNode );
     }
+  };
+
+  /**
+   * Workaround for https://github.com/phetsims/function-builder/issues/35.
+   * An extra instance of the first card is created in this._populateCarousels.
+   * That extra instance is moved to the output carousel here, and made invisible.
+   * No idea why this workaround works, or what the root cause of the problem is.
+   */
+  var workaround35 = function( inputCarousel, outputCarousel ) {
+    var inputContainer = inputCarousel.items[ 0 ];
+    var outputContainer = outputCarousel.items[ 0 ];
+    var cardNode = inputContainer.getContents()[ 0 ];
+    inputContainer.removeNode( cardNode );
+    cardNode.visible = false;
+    outputContainer.addNode( cardNode );
   };
 
   /**
@@ -400,11 +416,13 @@ define( function( require ) {
     // @public
     reset: function() {
       this._reset();
+      WORKAROUND_35_ENABLED && workaround35( this.inputCarousel, this.outputCarousel ); // reapply workaround
     },
 
     // @protected called when the 'eraser' button is pressed
     erase: function() {
       this.outputCarousel.erase();
+      WORKAROUND_35_ENABLED && workaround35( this.inputCarousel, this.outputCarousel ); // reapply workaround
     },
 
     /**
