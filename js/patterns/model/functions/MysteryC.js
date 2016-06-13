@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Chops the image into 4 quadrants and shifts them clockwise.
+ * Divides the image into 4 quadrants and shifts them clockwise.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
