@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-Refine query parameter for screen initialization strategy (onStartup vs onDemand)
-
 Add query parameter for scene initialization strategy (onStartup vs onDemand)
 
 Card stuck in builder #50
