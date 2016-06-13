@@ -85,7 +85,7 @@ define( function( require ) {
      * @public
      */
     isAnimating: function() {
-      return !this.dragging && !this.locationProperty.get().equals( this.destination );
+      return !this.dragging && ( !this.locationProperty.get().equals( this.destination ) || this.animationCompletedCallback );
     },
 
     /**
@@ -103,7 +103,7 @@ define( function( require ) {
         // distance to move on this step
         var stepDistance = this.animationSpeed * dt;
 
-        if ( totalDistance < stepDistance ) {
+        if ( totalDistance <= stepDistance ) {
 
           // move directly to the destination
           this.locationProperty.set( this.destination );
