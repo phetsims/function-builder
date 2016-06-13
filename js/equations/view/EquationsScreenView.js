@@ -75,7 +75,7 @@ define( function( require ) {
       // Resets this screen
       var resetAll = function() {
 
-        // reset view before model, or odd things will happen
+        // reset view before model, or we'll see animation that's not desired
         sceneNode.reset();
         model.reset();
       };
