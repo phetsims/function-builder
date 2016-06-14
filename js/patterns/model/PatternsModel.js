@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
+  var Builder = require( 'FUNCTION_BUILDER/common/model/builders/Builder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );

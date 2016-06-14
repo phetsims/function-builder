@@ -11,14 +11,14 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
+  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
 
   /**

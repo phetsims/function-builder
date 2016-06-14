@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/SlopeInterceptEquation' );
+  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 

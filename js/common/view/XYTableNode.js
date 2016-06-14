@@ -24,14 +24,14 @@ define( function( require ) {
   // modules
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/NumberCard' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );

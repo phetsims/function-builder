@@ -15,7 +15,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/FunctionSlot' );
+  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builders/FunctionSlot' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );

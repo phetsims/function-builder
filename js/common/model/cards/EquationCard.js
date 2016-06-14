@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Card = require( 'FUNCTION_BUILDER/common/model/Card' );
+  var Card = require( 'FUNCTION_BUILDER/common/model/cards/Card' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 

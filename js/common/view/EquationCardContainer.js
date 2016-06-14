@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/EquationCard' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );

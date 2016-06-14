@@ -15,7 +15,7 @@ define( function( require ) {
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
+  var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builders/MathBuilder' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
