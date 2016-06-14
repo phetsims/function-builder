@@ -32,7 +32,6 @@ define( function( require ) {
   var BUILDER_WIDTH = ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
-  var NUMBER_OF_EACH_CARD = 1;
 
   /**
    * @constructor
@@ -80,21 +79,21 @@ define( function( require ) {
       // 1 function scene
       new Scene( cardContent, functionCreators, builder1, {
         iconNode: FBIconFactory.createSceneIcon( 1 ),
-        numberOfEachCard: NUMBER_OF_EACH_CARD,
+        numberOfEachCard: 1,
         numberOfEachFunction: 1
       } ),
 
       // 2 functions scene
       new Scene( cardContent, functionCreators, builder2, {
         iconNode: FBIconFactory.createSceneIcon( 2 ),
-        numberOfEachCard: NUMBER_OF_EACH_CARD,
+        numberOfEachCard: 1,
         numberOfEachFunction: 2 //TODO adjust this when I see the actual pool of challenges
       } ),
 
       // 3 functions scene
       new Scene( cardContent, functionCreators, builder3, {
         iconNode: FBIconFactory.createSceneIcon( 3 ),
-        numberOfEachCard: NUMBER_OF_EACH_CARD,
+        numberOfEachCard: 1,
         numberOfEachFunction: 3 //TODO adjust this when I see the actual pool of challenges
       } )
     ];
