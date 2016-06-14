@@ -12,6 +12,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
@@ -32,6 +33,7 @@ define( function( require ) {
   var BUILDER_WIDTH = ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
+  var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
   /**
    * @constructor
@@ -73,12 +75,15 @@ define( function( require ) {
       location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
+    var cardSymbol = INCLUDE_X_CARD ? FBSymbols.X : null;
+
     // @public (read-only)
     this.scenes = [
 
       // 1 function scene
       new Scene( cardContent, functionCreators, builder1, {
         iconNode: FBIconFactory.createSceneIcon( 1 ),
+        cardSymbol: cardSymbol,
         numberOfEachCard: 1,
         numberOfEachFunction: 1
       } ),
@@ -86,6 +91,7 @@ define( function( require ) {
       // 2 functions scene
       new Scene( cardContent, functionCreators, builder2, {
         iconNode: FBIconFactory.createSceneIcon( 2 ),
+        cardSymbol: cardSymbol,
         numberOfEachCard: 1,
         numberOfEachFunction: 2 //TODO adjust this when I see the actual pool of challenges
       } ),
@@ -93,6 +99,7 @@ define( function( require ) {
       // 3 functions scene
       new Scene( cardContent, functionCreators, builder3, {
         iconNode: FBIconFactory.createSceneIcon( 3 ),
+        cardSymbol: cardSymbol,
         numberOfEachCard: 1,
         numberOfEachFunction: 3 //TODO adjust this when I see the actual pool of challenges
       } )
