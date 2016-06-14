@@ -30,7 +30,8 @@ define( function( require ) {
       operand: 1, // {number} initial value of operandProperty, an integer
       operandMutable: true, // {boolean} is the operand mutable?
       operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
-      zeroOperandValid: true // {boolean} is zero a valid operand?
+      zeroOperandValid: true, // {boolean} is zero a valid operand?
+      pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
     }, options );
 
     assert && assert( Util.isInteger( options.operand ) );
@@ -59,6 +60,8 @@ define( function( require ) {
     } );
 
     AbstractFunction.call( this, options );
+
+    this.viewOptions.pickerColor = options.pickerColor;
   }
 
   functionBuilder.register( 'MathFunction', MathFunction );
