@@ -77,9 +77,9 @@ define( function( require ) {
         // clear functions from the function builder
         thisNode.builderNode.reset();
 
-        console.log( 'randomly select a challenge' ); //TODO
-        console.log( 'get functions from carousel, configure them' ); //TODO
-        console.log( 'put functions into builder' ); //TODO
+        //TODO randomly select a challenge
+        //TODO get functions from carousel, configure them
+        //TODO put functions into builder
       },
       iconWidth: 34,
       xMargin: 16,
