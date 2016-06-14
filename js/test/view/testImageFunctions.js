@@ -26,7 +26,7 @@ define( function( require ) {
   // other function-builder modules
   var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/ImageFunction' );
+  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
 
   // common modules
   var Carousel = require( 'SUN/Carousel' );

@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCard = require( 'FUNCTION_BUILDER/patterns/model/ImageCard' );
+  var ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
   var ImageCardNode = require( 'FUNCTION_BUILDER/patterns/view/ImageCardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
 
