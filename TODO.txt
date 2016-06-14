@@ -15,6 +15,7 @@ Mystery screen:
 - assign function colors randomly
 - "See Inside" check box enabled when all cards have been dragged to output carousel?
 - "Show functions" button?
+- MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
 
 Do we really want negative operands for the plus and minus operators?
 
