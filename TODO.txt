@@ -10,7 +10,7 @@ Change requests
 
 Mystery screen:
 - pool of predefined function combinations
-- SceneNode customizations (no function carousel, no hideFunctionsCheckBox, enabled/disable seeInsideCheckBox)
+- SceneNode customizations (hidden function carousel, no hideFunctionsCheckBox, enabled/disable seeInsideCheckBox)
 - implement "generate" button listener
 - assign function colors randomly
 - "See Inside" check box enabled when all cards have been dragged to output carousel?
