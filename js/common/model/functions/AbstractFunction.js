@@ -28,7 +28,7 @@ define( function( require ) {
       // {number} distance/second when animating
       animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
-      // properties related to visual representation, in the model for convenience
+      // properties of associated FunctionNode, in the model for convenience
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
@@ -39,7 +39,7 @@ define( function( require ) {
     // @private
     this._invertible = options.invertible;
 
-    // @public properties related to visual representation, in the model for convenience
+    // @public properties of FunctionNode, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
     Movable.call( this, options );
