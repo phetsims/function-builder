@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node that displays an {ImageFunction}.
+ * Node that displays a image processing function.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
