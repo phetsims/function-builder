@@ -2,7 +2,7 @@
 
 /**
  * Container for equation cards, eg 'x', '2x + 1'.
- * This container is intended to be put in a carousel.
+ * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
