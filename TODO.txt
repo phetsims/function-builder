@@ -9,12 +9,10 @@ Startup time #37
 Change requests
 
 Mystery screen:
-- pool of predefined function combinations
-- SceneNode customizations (hidden function carousel, no hideFunctionsCheckBox, enabled/disable seeInsideCheckBox)
+- pool of predefined function combinations (operator, operand)
 - implement "generate" button listener
 - assign function colors randomly
-- "See Inside" check box enabled when all cards have been dragged to output carousel?
-- "Show functions" button?
+- enable "See Inside" and "Hide Functions" check boxes when all cards have been dragged to output carousel
 - MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
 
 Code review
