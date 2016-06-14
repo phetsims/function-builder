@@ -44,9 +44,10 @@ define( function( require ) {
     options = _.extend( {
       functionsPerChallenge: 1, // {number} number of functions in each challenge
       numberOfEachCard: 1,
-      numberOfEachFunction: 3, //TODO revisit this value, after pools are specified
       cardSymbol: INCLUDE_X_CARD ? FBSymbols.X : null
     }, options );
+
+    options.numberOfEachFunction = options.functionsPerChallenge; //TODO revisit this value, after pools are specified
 
     // {Node} scene selection icon
     assert && assert( !options.iconNode );
