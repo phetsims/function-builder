@@ -36,7 +36,11 @@ define( function( require ) {
       // 'Hide Functions' check box should initially be checked, so that answers are not revealed
       hideFunctions: true,
 
-      // Mystery screen has a hidden function carousel, which is where we get functions for composing challenges
+      /*
+       * Mystery screen has a hidden function carousel, which is where we get functions for composing challenges.
+       * This approach was necessary because the Mystery screen was added late in the development process, and
+       * the existence of the function carousel was (by that point) required by too many things.
+       */
       functionCarouselVisible: false
 
     }, options );
