@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO lots in common with EquationsSceneNode
 /**
  * Scene for the 'Mystery' screen.
  *
@@ -28,7 +29,6 @@ define( function( require ) {
    */
   function MysterySceneNode( scene, layoutBounds, options ) {
 
-    // things that differ between the Equations and Numbers screens
     options = _.extend( {}, options, {
 
       cardCarouselDefaultPageNumber: 1,
