@@ -17,13 +17,18 @@ define( function( require ) {
    * @param {Scene[]} scenes
    * @constructor
    */
-  function FBModel( scenes ) {
+  function FBModel( scenes, options ) {
+
+    options = _.extend( {
+      defaultScene: scenes[ 0 ]
+    }, options );
+    assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );
 
     // @public (read-only)
     this.scenes = scenes;
 
     // @public {Property.<Scene>} the selected scene
-    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+    this.selectedSceneProperty = new Property( options.defaultScene );
   }
 
   functionBuilder.register( 'FBModel', FBModel );
