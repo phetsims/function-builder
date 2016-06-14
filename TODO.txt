@@ -15,6 +15,10 @@ Mystery screen:
 - enable "See Inside" and "Hide Functions" check boxes when all cards have been dragged to output carousel
 - MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
 
+Write model.md
+
+Write implementation-notes.md
+
 Code review
 
 
