@@ -2,7 +2,7 @@
 
 /**
  * A builder produces an output by running an input through a set of functions.
- * The functions occupy a set of slots in what is conceptually a serial pipeline.
+ * The functions occupy a set of slots in what is conceptually a series pipeline.
  * Each slot contains 0 or 1 function instance.
  * An empty slot is equivalent to the identity function.
  * Each slot has an associated window, through which a card can be seen when passing through the builder
