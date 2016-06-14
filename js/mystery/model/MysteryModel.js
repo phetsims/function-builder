@@ -33,7 +33,6 @@ define( function( require ) {
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var NUMBER_OF_EACH_CARD = 1;
-  var NUMBER_OF_EACH_FUNCTION = 1;
 
   /**
    * @constructor
