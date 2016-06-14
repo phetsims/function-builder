@@ -13,8 +13,6 @@ Mystery screen:
 - implement "generate" button listener
 - assign function colors randomly
 - MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
-- make generator button part of scene view
-- make pool part of scene model
 
 Write model.md
 
