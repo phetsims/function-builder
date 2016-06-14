@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
-  var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
@@ -139,39 +139,18 @@ define( function( require ) {
       location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
-    // @public (read-only)
-    this.scenes = [
+    // this screen has 1 scene
+    var scenes = [
       new Scene( cardContent, functionCreators, builder, {
         numberOfEachCard: 1,
         numberOfEachFunction: 2
       } )
     ];
 
-    // @public {Property.<Scene>} the selected scene
-    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+    FBModel.call( this, scenes );
   }
 
   functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( Object, NumbersModel, {
-
-    // @public
-    reset: function() {
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].reset();
-      }
-    },
-
-    /**
-     * Animates the model.
-     *
-     * @param {number} dt - time since the previous step, in seconds
-     * @public
-     */
-    step: function( dt ) {
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].step( dt );
-      }
-    }
-  } );
+  return inherit( FBModel, NumbersModel );
 } );

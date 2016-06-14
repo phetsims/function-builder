@@ -12,10 +12,10 @@ define( function( require ) {
   var Builder = require( 'FUNCTION_BUILDER/common/model/Builder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -108,8 +108,7 @@ define( function( require ) {
       location: new Vector2( COMPOSED_BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
-    // @public (read-only)
-    this.scenes = [
+    var scenes = [
 
       // single: builder with 1 slot, for exploring application of 1 function
       new Scene( cardContent, functionCreators, singleBuilder, {
@@ -126,32 +125,10 @@ define( function( require ) {
       } )
     ];
 
-    // @public {Property.<Scene>} the selected scene
-    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+    FBModel.call( this, scenes );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );
 
-  return inherit( Object, PatternsModel, {
-
-    // @public
-    reset: function() {
-      this.selectedSceneProperty.reset();
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].reset();
-      }
-    },
-
-    /**
-     * Animates the model.
-     *
-     * @param {number} dt - time since the previous step, in seconds
-     * @public
-     */
-    step: function( dt ) {
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].step( dt );
-      }
-    }
-  } );
+  return inherit( FBModel, PatternsModel );
 } );

@@ -9,49 +9,26 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
-  var Property = require( 'AXON/Property' );
 
   /**
    * @constructor
    */
   function MysteryModel() {
 
-    // @public (read-only)
-    this.scenes = [
+    var scenes = [
       new MysteryScene( [], { functionsPerChallenge: 1 } ),
       new MysteryScene( [], { functionsPerChallenge: 2 } ),
       new MysteryScene( [], { functionsPerChallenge: 3 } )
     ];
 
-    // @public {Property.<Scene>} the selected scene
-    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+    FBModel.call( this, scenes );
   }
 
   functionBuilder.register( 'MysteryModel', MysteryModel );
 
-  return inherit( Object, MysteryModel, {
-
-    // @public
-    reset: function() {
-      this.selectedSceneProperty.reset();
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].reset();
-      }
-    },
-
-    /**
-     * Animates the model.
-     *
-     * @param {number} dt - time since the previous step, in seconds
-     * @public
-     */
-    step: function( dt ) {
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].step( dt );
-      }
-    }
-  } );
+  return inherit( FBModel, MysteryModel );
 } );
