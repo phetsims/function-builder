@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * The 'Test' screen.
+ * The 'Test' screen.  See FBQueryParameters for instructions on how to enabled this screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
