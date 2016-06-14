@@ -24,7 +24,6 @@ define( function( require ) {
    * @constructor
    */
   function PatternsScreen() {
-
     Screen.call( this,
       screenPatternsString,
       FBIconFactory.createPatternsScreenIcon(),

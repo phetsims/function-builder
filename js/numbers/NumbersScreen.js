@@ -24,7 +24,6 @@ define( function( require ) {
    * @constructor
    */
   function NumbersScreen() {
-
     Screen.call( this,
       screenNumbersString,
       FBIconFactory.createNumbersScreenIcon(),

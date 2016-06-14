@@ -24,7 +24,6 @@ define( function( require ) {
    * @constructor
    */
   function MysteryScreen() {
-
     Screen.call( this,
       screenMysteryString,
       FBIconFactory.createMysteryScreenIcon(),

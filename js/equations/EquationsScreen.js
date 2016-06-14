@@ -24,7 +24,6 @@ define( function( require ) {
    * @constructor
    */
   function EquationsScreen() {
-
     Screen.call( this,
       screenEquationsString,
       FBIconFactory.createEquationsScreenIcon(),
