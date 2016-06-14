@@ -103,6 +103,11 @@ define( function( require ) {
       var generateButton = new RefreshButton( {
         listener: function() {
           console.log( 'generate challenge' ); //TODO
+
+          // erase output carousel for selected scene
+          var sceneIndex = model.scenes.indexOf( model.selectedSceneProperty.get() );
+          var sceneNode = sceneNodes[ sceneIndex ];
+          sceneNode.erase();
         },
         iconWidth: 34,
         xMargin: 16,
