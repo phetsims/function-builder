@@ -78,7 +78,7 @@ define( function( require ) {
         thisNode.builderNode.reset();
 
         //TODO randomly select a challenge
-        //TODO get functions from carousel, configure them
+        //TODO get functions from carousel, configure them (operand, color)
         //TODO put functions into builder
       },
       iconWidth: 34,
