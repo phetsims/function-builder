@@ -1,7 +1,7 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Model for the 'Numbers' screen, a variation of the 'Equations' model.
+ * Model for the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
