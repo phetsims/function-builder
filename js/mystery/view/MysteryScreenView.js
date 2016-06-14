@@ -108,7 +108,9 @@ define( function( require ) {
           var sceneNode = sceneNodes[ sceneIndex ];
           sceneNode.erase();
 
-          console.log( 'generate challenge' ); //TODO
+          console.log( 'clear functions from builder' ); //TODO
+          console.log( 'randomly select challenge' ); //TODO
+          console.log( 'put functions into builder' ); //TODO
         },
         iconWidth: 34,
         xMargin: 16,
