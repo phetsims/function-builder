@@ -28,26 +28,26 @@ define( function( require ) {
     assert && assert( rationalNumber instanceof RationalNumber );
 
     options = _.extend( {
-      
+
       mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
       color: 'black', // {Color|string} color used for all sub-parts of this node
       fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
-      
+
       // sign
       negativeSymbol: '\u2212', // {string} symbol used for negative sign
       positiveSymbol: '\u002b', // {string} symbol used for positive sign
       showPositiveSign: false, // {boolean} show sign on positive numbers?
-      
+
       // fonts
       signFont: new PhetFont( 22 ),
       wholeNumberFont: new PhetFont( 30 ),
       fractionFont: new PhetFont( 20 ),
-      
+
       // spacing
       signXSpacing: 3, // {number} space to right of sign
       fractionXSpacing: 3, // {number} space between whole number and fraction
       fractionYSpacing: 2 // {number} space above and below fraction line
-      
+
     }, options );
 
     assert && assert( !options.children, 'decoration is not supported' );

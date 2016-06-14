@@ -27,7 +27,7 @@ define( function( require ) {
   function BuilderEndNode( faces, options ) {
 
     options = _.extend( {
-      
+
       // ellipse
       radiusX: 15,
       radiusY: 30,
@@ -39,10 +39,10 @@ define( function( require ) {
       slotFill: 'white',
       slotStroke: 'black',
       slotLineWidth: 2
-      
+
     }, options );
-    
-    assert && assert( faces === 'left' || faces === 'right', 'invalid value for faces: '  + faces );
+
+    assert && assert( faces === 'left' || faces === 'right', 'invalid value for faces: ' + faces );
 
     // ellipse
     var ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {

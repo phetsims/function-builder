@@ -126,7 +126,7 @@ define( function( require ) {
      * @returns {*} output, with same type as input
      */
     applyAllFunctions: function( input ) {
-      return  this.applyFunctions( input, this.slots.length );
+      return this.applyFunctions( input, this.slots.length );
     },
 
     /**
@@ -210,16 +210,16 @@ define( function( require ) {
     },
 
     /**
-      * Gets the location of the specified slot.
-      *
-      * @param {number} slotNumber
-      * @returns {Vector2} location in the model coordinate frame
-      * @public
-      */
-     getSlotLocation: function( slotNumber ) {
-       assert && assert( this.isValidSlotNumber( slotNumber ) );
-       return this.slots[ slotNumber ].location;
-     },
+     * Gets the location of the specified slot.
+     *
+     * @param {number} slotNumber
+     * @returns {Vector2} location in the model coordinate frame
+     * @public
+     */
+    getSlotLocation: function( slotNumber ) {
+      assert && assert( this.isValidSlotNumber( slotNumber ) );
+      return this.slots[ slotNumber ].location;
+    },
 
     /**
      * Gets the slot that is closest to the specified location.

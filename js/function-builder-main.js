@@ -32,7 +32,7 @@ define( function( require ) {
   SimLauncher.launch( function() {
 
     var screens = [
-      new PatternsScreen(), 
+      new PatternsScreen(),
       new NumbersScreen(),
       new EquationsScreen(),
       new MysteryScreen()

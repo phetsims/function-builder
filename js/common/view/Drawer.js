@@ -29,14 +29,14 @@ define( function( require ) {
   function Drawer( contentsNode, options ) {
 
     options = _.extend( {
-      
+
       size: null, // {Dimension2|null} !null: contents sized to fit in container, null: container sized to fit contents
       cornerRadius: 0,
       xMargin: 0,
       yMargin: 0,
       open: true, // {boolean} is the drawer initially open?
       animationEnabled: true, // {boolean} is animation enabled when opening/closing the drawer?
-      
+
       // handle
       handleLocation: 'top', // {string} 'top'|'bottom'
       handleSize: new Dimension2( 70, 20 ),
@@ -46,7 +46,7 @@ define( function( require ) {
       handleTouchAreaYDilation: 0, // {number} touchArea for the drawer's handle
       handleMouseAreaXDilation: 0, // {number} touchArea for the drawer's handle
       handleMouseAreaYDilation: 0, // {number} touchArea for the drawer's handle
-      
+
       // grippy dots on handle
       grippyDotRadius: 1,
       grippyDotColor: 'black', // {Color|string}
@@ -61,7 +61,7 @@ define( function( require ) {
        */
       beforeOpen: function() { contentsNode.visible = true; }, // {function} called immediately before the drawer is opened
       afterClose: function() { contentsNode.visible = false; } // {function} called immediately after the drawer is closed
-      
+
     }, options );
 
     assert && assert( options.handleLocation === 'top' || options.handleLocation === 'bottom' );
@@ -186,7 +186,7 @@ define( function( require ) {
 
       // stop any animation that's in progress
       animation && animation.stop();
-      
+
       open && options.beforeOpen && options.beforeOpen();
 
       if ( thisNode._animationEnabled ) {
@@ -203,7 +203,7 @@ define( function( require ) {
         animation.start();
       }
       else {
-        
+
         // animation disabled, move immediately to new state
         drawerNode.translation = open ? openLocation : closeLocation;
         !open && options.afterClose && options.afterClose();

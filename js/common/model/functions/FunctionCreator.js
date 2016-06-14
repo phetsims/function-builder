@@ -3,7 +3,7 @@
 /**
  * Creates a type of function instance with specific options.
  * Allows us to specify what we want to create in the model, but defer creation until after the view is created.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {

@@ -29,7 +29,7 @@ define( function( require ) {
       scale: 0.75
     }, options );
     options.fill = 'rgb( 246, 164, 255 )';
-    
+
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 

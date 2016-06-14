@@ -224,7 +224,7 @@ define( function( require ) {
 
       assert && assert( functionNode instanceof FunctionNode );
 
-      var slotNumber =  this.functionNodes.indexOf( functionNode );
+      var slotNumber = this.functionNodes.indexOf( functionNode );
       assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
 
       // remove from view, restore location in model coordinate frame

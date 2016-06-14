@@ -21,9 +21,9 @@ define( function( require ) {
    */
   function MysteryScreenView( model, options ) {
 
-    options = _.extend({
+    options = _.extend( {
       sceneControlYOffset: 515 // offset of scene control from top of screen
-    },options);
+    }, options );
 
     FBScreenView.call( this, model, options );
   }

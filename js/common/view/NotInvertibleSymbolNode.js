@@ -47,7 +47,7 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ circleNode, slashNode ];
-    
+
     // @private {OpacityTo} animation that fades this node out
     this.animation = null;
 

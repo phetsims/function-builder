@@ -143,7 +143,7 @@ define( function( require ) {
 
     /**
      * Updates the value in the output cell.
-     * 
+     *
      * @private
      */
     updateOutputValue: function() {
