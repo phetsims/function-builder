@@ -25,3 +25,5 @@ View stuff (locationProperty, slots, animation,...) in the model for convenience
 Card model elements are only responsible for this location and what is displayed on the input card.
 The view (CardNode) is responsible for what is displayed on the card based on the card's location.
 
+Mystery screen reuses 'scene' architecture, each scene has a hidden function carousel, programmatically
+get functions from the carousel to construct challenges.
