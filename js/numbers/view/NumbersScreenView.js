@@ -52,6 +52,7 @@ define( function( require ) {
      * @param {Object} options - options to SceneNode constructor
      * @returns {SceneNode}
      * @protected
+     * @override
      */
     createSceneNode: function( scene, layoutBounds, options ) {
       return new EquationsSceneNode( scene, layoutBounds, _.extend( {}, SCENE_NODE_OPTIONS, options ) );

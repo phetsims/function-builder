@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {HTMLImageElement} image
+   * @param {HTMLImageElement} image - the input image
    * @param {Object} [options]
    * @constructor
    */

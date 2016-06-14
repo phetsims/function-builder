@@ -15,7 +15,7 @@ define( function( require ) {
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
-   * @param {RationalNumber} rationalNumber
+   * @param {RationalNumber} rationalNumber - the input number
    * @param {Object} [options]
    * @constructor
    */

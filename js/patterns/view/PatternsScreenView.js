@@ -35,6 +35,7 @@ define( function( require ) {
      * @param {Object} options - options to SceneNode constructor
      * @returns {SceneNode}
      * @protected
+     * @override
      */
     createSceneNode: function( scene, layoutBounds, options ) {
       return new PatternsSceneNode( scene, layoutBounds, options );

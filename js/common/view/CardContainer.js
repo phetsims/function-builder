@@ -2,7 +2,7 @@
 
 /**
  * Base type for card containers.
- * This container is intended to be put in a carousel.
+ * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
