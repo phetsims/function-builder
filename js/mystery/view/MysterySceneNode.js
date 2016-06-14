@@ -71,7 +71,7 @@ define( function( require ) {
     var generateButton = new RefreshButton( {
       listener: function() {
 
-        // erase output carousel for selected scene
+        // erase output carousel
         thisNode.erase();
 
         // clear functions from the function builder
