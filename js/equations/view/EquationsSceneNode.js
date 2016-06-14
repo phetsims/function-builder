@@ -19,7 +19,7 @@ define( function( require ) {
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/XYGraphDrawer' );
-  var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/XYTableDrawer' );
+  var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
 
   /**
    * @param {Scene} scene - model for this scene

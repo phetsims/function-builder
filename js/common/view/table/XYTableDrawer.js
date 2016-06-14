@@ -19,7 +19,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/XYTableNode' );
+  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
 
   /**
    * @param {Builder} builder

@@ -38,8 +38,8 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/XYTableHeading' );
-  var XYTableRow = require( 'FUNCTION_BUILDER/common/view/XYTableRow' );
+  var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/table/XYTableHeading' );
+  var XYTableRow = require( 'FUNCTION_BUILDER/common/view/table/XYTableRow' );
 
   /**
    * @param {Builder} builder
