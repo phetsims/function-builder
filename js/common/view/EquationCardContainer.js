@@ -50,7 +50,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the node for am {EquationCard} card.
+     * Creates the node for a card.
      * See supertype CardContainer.createCardNode for params.
      *
      * @returns {EquationCardNode}

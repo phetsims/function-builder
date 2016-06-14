@@ -51,7 +51,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the node for a {NumberCard} card.
+     * Creates the node for a card.
      * See supertype CardContainer.createCardNode for params.
      *
      * @returns {NumberCardNode}
