@@ -53,7 +53,7 @@ define( function( require ) {
       }
     },
 
-    //TOD almost identical to PatternsScreenView.initialize
+    //TODO much in common with PatternsScreenView.initialize
     /**
      * Deferred initialization, to improve startup time. Called from step.
      *
