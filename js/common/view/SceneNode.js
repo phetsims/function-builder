@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
-  var BuilderNode = require( 'FUNCTION_BUILDER/common/view/BuilderNode' );
+  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
+  var BuilderNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
   var CheckBox = require( 'SUN/CheckBox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );

@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
  * Visual representation of a Builder.
@@ -15,14 +15,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/BuilderEndNode' );
+  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
   var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
-  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/FunctionSlotNode' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/builder/FunctionSlotNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MoleCardNode = require( 'FUNCTION_BUILDER/common/view/MoleCardNode' );
+  var MoleCardNode = require( 'FUNCTION_BUILDER/common/view/cards/MoleCardNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );

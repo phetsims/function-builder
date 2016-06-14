@@ -14,7 +14,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
+  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**

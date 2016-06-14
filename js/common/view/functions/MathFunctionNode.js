@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBNumberPicker = require( 'FUNCTION_BUILDER/common/view/FBNumberPicker' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/FunctionNode' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );

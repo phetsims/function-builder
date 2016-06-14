@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/CardNode' );
+  var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );

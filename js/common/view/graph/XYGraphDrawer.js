@@ -17,11 +17,11 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
+  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
+  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
   var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
 
   /**
