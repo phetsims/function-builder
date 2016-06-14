@@ -14,6 +14,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
+   * @param {Scene[]} scenes
    * @constructor
    */
   function FBModel( scenes ) {
