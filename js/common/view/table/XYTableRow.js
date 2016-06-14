@@ -19,7 +19,7 @@ define( function( require ) {
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/SlopeInterceptEquationNode' );
+  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
 
   /**
    * @param {NumberCard|EquationCard} card - card that's associated with the row

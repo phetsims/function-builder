@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
-  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/EquationPanel' );
+  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/equations/EquationPanel' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
