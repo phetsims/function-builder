@@ -15,7 +15,6 @@ define( function( require ) {
   var MysterySceneNode = require( 'FUNCTION_BUILDER/mystery/view/MysterySceneNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OpacityTo = require( 'TWIXT/OpacityTo' );
-  var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -41,6 +40,7 @@ define( function( require ) {
 
   return inherit( ScreenView, MysteryScreenView, {
 
+    //TODO identical in all subtypes of ScreenView, factor out FBScreenView?
     /**
      * Called when the simulation clock ticks.
      *
@@ -53,7 +53,7 @@ define( function( require ) {
       }
     },
 
-    //TODO much in common with PatternsScreenView.initialize
+    //TODO mostly identical to PatternsScreenView.initialize
     /**
      * Deferred initialization, to improve startup time. Called from step.
      *
@@ -95,29 +95,6 @@ define( function( require ) {
         bottom: this.layoutBounds.bottom - 30
       } );
 
-      // Button for generating a new challenge
-      var generateButton = new RefreshButton( {
-        listener: function() {
-
-          // erase output carousel for selected scene
-          var scene = model.selectedSceneProperty.get();
-          var sceneIndex = model.scenes.indexOf( scene );
-          var sceneNode = sceneNodes[ sceneIndex ];
-          sceneNode.erase();
-
-          // clear functions from the function builder
-          sceneNode.builderNode.reset();
-
-          console.log( 'randomly select challenge' ); //TODO
-          console.log( 'put functions into builder' ); //TODO
-        },
-        iconWidth: 34,
-        xMargin: 16,
-        yMargin: 8,
-        centerX: sceneControl.centerX,
-        top: this.layoutBounds.centerY + 50
-      } );
-
       // Resets this screen
       var resetAll = function() {
 
@@ -138,7 +115,6 @@ define( function( require ) {
       // rendering order
       this.addChild( scenesParent );
       this.addChild( sceneControl );
-      this.addChild( generateButton );
       this.addChild( resetAllButton );
 
       /**

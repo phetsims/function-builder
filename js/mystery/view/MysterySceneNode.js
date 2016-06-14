@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
+  var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/XYTableDrawer' );
@@ -65,6 +66,27 @@ define( function( require ) {
       bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
     } );
     this.drawersLayer.addChild( this.graphDrawer );
+
+    // Button for generating a new challenge
+    var generateButton = new RefreshButton( {
+      listener: function() {
+
+        // erase output carousel for selected scene
+        thisNode.erase();
+
+        // clear functions from the function builder
+        thisNode.builderNode.reset();
+
+        console.log( 'randomly select challenge' ); //TODO
+        console.log( 'put functions into builder' ); //TODO
+      },
+      iconWidth: 34,
+      xMargin: 16,
+      yMargin: 8,
+      centerX: this.builderNode.centerX,
+      top: this.builderNode.bottom + 10
+    } );
+    this.addChild( generateButton );
   }
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
