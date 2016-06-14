@@ -22,7 +22,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/NumberCardNode' );
-  var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/XYGraphNode' );
+  var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
 
   /**
    * @param {Builder} builder

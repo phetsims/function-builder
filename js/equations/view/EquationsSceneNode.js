@@ -18,7 +18,7 @@ define( function( require ) {
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/MathFunctionContainer' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
-  var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/XYGraphDrawer' );
+  var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
 
   /**
