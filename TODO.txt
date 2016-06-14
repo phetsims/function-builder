@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-[iOS] white path trailing card drag #35
-
 Limit to 1 "parked" card in builder #44
 
 Responsiveness
@@ -17,5 +15,7 @@ Mystery screen:
 - assign function colors randomly
 - "See Inside" check box enabled when all cards have been dragged to output carousel?
 - "Show functions" button?
+
+Do we really want negative operands for the plus and minus operators?
 
 Code review
