@@ -12,17 +12,10 @@ Change requests
 
 Mystery screen:
 - pool of predefined function combinations
-- radio buttons to select scene: single, double, triple,
-- each scene has its own input carousel, output carousel, builder, etc.
-- fade between scenes, as in Patterns screen
-- "generate" button to select random combination from pool
+- SceneNode customizations (no function carousel, no hideFunctionsCheckBox, enabled/disable seeInsideCheckBox)
+- implement "generate" button listener
 - assign function colors randomly
-- cards: [-4,6], blank spot where 'x' would be
-- eraser button
-- Reset All
-- "Show functions" button
-- table drawer
-- graph drawer
-- 'See Inside' layer (available, no control)
+- "See Inside" check box enabled when all cards have been dragged through?
+- "Show functions" button?
 
 Code review
