@@ -345,6 +345,8 @@ define( function( require ) {
     this.drawersLayer = drawersLayer;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
+
+    this.builderNode = builderNode; //TODO temporary for Mystery screen
     this.functionCarousel = functionCarousel; //TODO temporary for Mystery screen
     this.functionPageControl = functionPageControl; //TODO temporary for Mystery screen
     this.hideFunctionsCheckBox = hideFunctionsCheckBox; //TODO temporary for Mystery screen

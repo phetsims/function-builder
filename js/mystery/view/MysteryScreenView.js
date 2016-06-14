@@ -105,11 +105,14 @@ define( function( require ) {
         listener: function() {
 
           // erase output carousel for selected scene
-          var sceneIndex = model.scenes.indexOf( model.selectedSceneProperty.get() );
+          var scene = model.selectedSceneProperty.get();
+          var sceneIndex = model.scenes.indexOf( scene );
           var sceneNode = sceneNodes[ sceneIndex ];
           sceneNode.erase();
 
-          console.log( 'clear functions from builder' ); //TODO
+          // clear functions from the function builder
+          sceneNode.builderNode.reset();
+
           console.log( 'randomly select challenge' ); //TODO
           console.log( 'put functions into builder' ); //TODO
         },
