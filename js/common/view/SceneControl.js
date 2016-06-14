@@ -1,7 +1,7 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
- * Scene control for the 'Patterns' screen.
+ * Control for selecting a scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PatternsSceneControl( selectedSceneProperty, scenes, options ) {
+  function SceneControl( selectedSceneProperty, scenes, options ) {
 
     options = _.extend( {
       orientation: 'horizontal',
@@ -46,7 +46,7 @@ define( function( require ) {
     RadioButtonGroup.call( this, selectedSceneProperty, content, options );
   }
 
-  functionBuilder.register( 'PatternsSceneControl', PatternsSceneControl );
+  functionBuilder.register( 'SceneControl', SceneControl );
 
-  return inherit( RadioButtonGroup, PatternsSceneControl );
+  return inherit( RadioButtonGroup, SceneControl );
 } );

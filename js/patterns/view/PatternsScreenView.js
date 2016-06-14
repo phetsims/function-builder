@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OpacityTo = require( 'TWIXT/OpacityTo' );
-  var PatternsSceneControl = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneControl' );
+  var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
   var PatternsSceneNode = require( 'FUNCTION_BUILDER/patterns/view/PatternsSceneNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -88,7 +88,7 @@ define( function( require ) {
       } );
 
       // Control for switching between scenes
-      var sceneControl = new PatternsSceneControl( model.selectedSceneProperty, model.scenes, {
+      var sceneControl = new SceneControl( model.selectedSceneProperty, model.scenes, {
         centerX: this.layoutBounds.centerX,
         top: this.layoutBounds.top + 20
       } );
