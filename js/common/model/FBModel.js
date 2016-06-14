@@ -15,6 +15,7 @@ define( function( require ) {
 
   /**
    * @param {Scene[]} scenes
+   * @param {Object} [options]
    * @constructor
    */
   function FBModel( scenes, options ) {
