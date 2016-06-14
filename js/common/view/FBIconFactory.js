@@ -144,42 +144,39 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'single' scene radio button in the 'Patterns' screen.
-     * The icon is a single function piece.
+     * Creates the icon for a scene selection radio button.
+     * It consists of N functions in series.
      *
+     * @param {number} numberOfFunctions
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createSingleSceneIcon: function() {
-      return new FunctionBackgroundNode( {
-        fill: 'rgb( 147, 231, 129 )',
-        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH,
-        scale: RADIO_BUTTON_ICON_SCALE
-      } );
-    },
+    createSceneIcon: function( numberOfFunctions, options ) {
 
-    /**
-     * Creates the icon for the 'composed' scene radio button in the 'Patterns' screen.
-     * The icon is 2 function pieces in series.
-     *
-     * @returns {Node}
-     */
-    createComposedSceneIcon: function() {
-
-      var leftNode = new FunctionBackgroundNode( {
-        fill: 'rgb( 147, 231, 129 )',
+      options = _.extend( {
+        colors: [ 'rgb( 147, 231, 129 )', 'rgb( 205, 175, 230 )', 'rgb( 255, 120, 120 )' ],
+        scale: RADIO_BUTTON_ICON_SCALE,
         lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH
-      } );
+      }, options );
+      assert && assert( options.colors.length >= numberOfFunctions );
 
-      var rightNode = new FunctionBackgroundNode( {
-        fill: 'rgb( 205, 175, 230 )',
-        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH,
-        left: leftNode.right - leftNode.xInset - ( 2 * RADIO_BUTTON_ICON_LINE_WIDTH )
-      } );
+      assert && assert( !options.children );
+      options.children = [];
+      var previousFunctionNode = null;
 
-      return new Node( {
-        children: [ leftNode, rightNode ],
-        scale: RADIO_BUTTON_ICON_SCALE
-      } );
+      for ( var i = 0; i < numberOfFunctions; i++ ) {
+        var functionNode = new FunctionBackgroundNode( {
+          fill: options.colors[ i ],
+          lineWidth: options.lineWidth
+        } );
+        if ( previousFunctionNode ) {
+          functionNode.left = previousFunctionNode.right - previousFunctionNode.xInset - ( 2 * RADIO_BUTTON_ICON_LINE_WIDTH );
+        }
+        options.children.push( functionNode );
+        previousFunctionNode = functionNode;
+      }
+
+      return new Node( options );
     },
 
     /**

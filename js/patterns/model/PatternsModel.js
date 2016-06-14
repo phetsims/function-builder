@@ -113,14 +113,14 @@ define( function( require ) {
 
       // single: builder with 1 slot, for exploring application of 1 function
       new Scene( cardContent, functionCreators, singleBuilder, {
-        iconNode: FBIconFactory.createSingleSceneIcon(),
+        iconNode: FBIconFactory.createSceneIcon( 1 ),
         numberOfEachCard: 2,
         numberOfEachFunction: 1
       } ),
 
       // composed: builder with 3 slots, for exploring function composition
       new Scene( cardContent, functionCreators, composedBuilder, {
-        iconNode: FBIconFactory.createComposedSceneIcon(),
+        iconNode: FBIconFactory.createSceneIcon( 2 ),
         numberOfEachCard: 2,
         numberOfEachFunction: 2
       } )
