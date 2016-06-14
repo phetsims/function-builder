@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for mathematical functions.
+ * Container for image functions.
  * This container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -11,31 +11,29 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/FunctionContainer' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/MathFunctionNode' );
 
   /**
-   * @param {FunctionCreator} functionCreator - function creator
+   * @param {FunctionCreator} functionCreator - creates function instances
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunctionContainer( functionCreator, options ) {
-
+  function ImageFunctionContainer( functionCreator, options ) {
     this.functionCreator = functionCreator; // @private
-
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'MathFunctionContainer', MathFunctionContainer );
+  functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
 
-  return inherit( FunctionContainer, MathFunctionContainer, {
+  return inherit( FunctionContainer, ImageFunctionContainer, {
 
     /***
      * Creates the model element for a function.
+     * See supertype FunctionContainer.createFunctionInstance for params.
      *
-     * @param {Vector2} location
-     * @returns {MathFunction}
+     * @returns {AbstractFunction}
      * @protected
      * @abstract
      */
@@ -44,15 +42,15 @@ define( function( require ) {
     },
 
     /**
-     * Creates the view element for a function.
+     * Creates the view element (Node) for a function.
      * See supertype FunctionContainer.createFunctionNode for params.
      *
-     * @returns {MathFunctionNode}
+     * @returns {ImageFunctionNode}
      * @protected
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new MathFunctionNode( functionInstance, container, builderNode, dragLayer );
+      return new ImageFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );

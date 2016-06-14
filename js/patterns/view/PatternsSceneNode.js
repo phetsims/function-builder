@@ -10,8 +10,8 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCardContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageCardContainer' );
-  var ImageFunctionContainer = require( 'FUNCTION_BUILDER/patterns/view/ImageFunctionContainer' );
+  var ImageCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageCardContainer' );
+  var ImageFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageFunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
 

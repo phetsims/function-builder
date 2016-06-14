@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
+  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/EquationCardNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );

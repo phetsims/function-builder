@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CardContainer = require( 'FUNCTION_BUILDER/common/view/CardContainer' );
+  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );

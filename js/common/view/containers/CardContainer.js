@@ -13,7 +13,7 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/MovableContainer' );
+  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
    * @param {*} value - value of the card, type determined by subtype
