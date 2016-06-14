@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
   var Property = require( 'AXON/Property' );
+  var Random = require( 'DOT/Random' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
@@ -81,26 +82,75 @@ define( function( require ) {
       new Scene( cardContent, functionCreators, builder1, {
         iconNode: FBIconFactory.createSceneIcon( 1 ),
         numberOfEachCard: NUMBER_OF_EACH_CARD,
-        numberOfEachFunction: NUMBER_OF_EACH_FUNCTION
+        numberOfEachFunction: 1
       } ),
 
       // 2 functions scene
       new Scene( cardContent, functionCreators, builder2, {
         iconNode: FBIconFactory.createSceneIcon( 2 ),
         numberOfEachCard: NUMBER_OF_EACH_CARD,
-        numberOfEachFunction: NUMBER_OF_EACH_FUNCTION
+        numberOfEachFunction: 2 //TODO adjust this when I see the actual pool of challenges
       } ),
 
       // 3 functions scene
       new Scene( cardContent, functionCreators, builder3, {
         iconNode: FBIconFactory.createSceneIcon( 3 ),
         numberOfEachCard: NUMBER_OF_EACH_CARD,
-        numberOfEachFunction: NUMBER_OF_EACH_FUNCTION
+        numberOfEachFunction: 3 //TODO adjust this when I see the actual pool of challenges
       } )
     ];
 
     // @public {Property.<Scene>} the selected scene
     this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
+
+    //TODO instantiate these on demand from a description, to use fewer resources and improve readability?
+    /**
+     * Pre-defined pools of challenges, one pool for each scene, indexed by number of functions in the challenge.
+     * The first challenge in each pool is always the first one chose when the sim starts.
+     * @public
+     */
+    this.challengePools = [
+
+      // pool of 1-function challenges
+      [
+        [ new Plus( { operand: 2 } ) ],
+        [ new Minus( { operand: 3 } ) ],
+        [ new Times( { operand: -2 } ) ],
+        [ new Divide( { operand: 2 } ) ]
+      ],
+
+      // pool of 2-function challenges
+      [
+        [ new Plus( { operand: 1 } ), new Times( { operand: 2 } ) ],
+        [ new Times( { operand: 2 } ), new Minus( { operand: 2 } ) ],
+        [ new Times( { operand: -2 } ), new Plus( { operand: 3 } ) ],
+        [ new Minus( { operand: 1 } ), new Divide( { operand: 2 } ) ]
+      ],
+
+      // pool of 3-function challenges
+      [
+        [ new Plus( { operand: 1 } ), new Times( { operand: 2 } ), new Minus( { operand: -1 } ) ],
+        [ new Times( { operand: 2 } ), new Minus( { operand: 2 } ), new Divide( { operand: -1 } ) ],
+        [ new Minus( { operand: 2 } ), new Times( { operand: -2 } ), new Plus( { operand: 3 } ) ],
+        [ new Times( { operand: -1 } ), new Minus( { operand: 2 } ), new Divide( { operand: 3 } ) ]
+      ]
+    ];
+
+    // verify that each challenge has the correct number of functions
+    if ( assert ) {
+      for ( var poolIndex = 0; poolIndex < this.challengePools.length; poolIndex++ ) {
+        var pool = this.challengePools[ poolIndex ];
+        for ( var challengeIndex = 0; challengeIndex < pool.length; challengeIndex++ ) {
+          var challenge = pool[ challengeIndex ];
+          assert( challenge.length === poolIndex + 1,
+            'incorrect number of functions in challenge ' + challengeIndex + ' of pool ' + poolIndex + ': ' + challenge.length );
+        }
+      }
+    }
+
+    //TODO do we need a separate random number generator for each scene?
+    // @private random number generator, for picking challenges
+    this.random = new Random();
   }
 
   functionBuilder.register( 'MysteryModel', MysteryModel );
@@ -125,6 +175,26 @@ define( function( require ) {
       for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
         this.scenes[ sceneIndex ].step( dt );
       }
+    },
+
+    /**
+     * Randomly selects a challenge.
+     *
+     * @param {number} numberOfFunctions
+     * @returns {MathFunction[]}
+     */
+    getChallenge: function( numberOfFunctions ) {
+
+      var pool = this.challengePools[ numberOfFunctions - 1 ];
+      assert && assert( pool, 'pool index out of range: ' + ( numberOfFunctions - 1 ) );
+
+      var challengeIndex = this.random.nextInt( pool.length ) - 1;
+      assert && assert( challengeIndex >=0 && challengeIndex < pool.length );
+
+      var challenge = pool[ challengeIndex ];
+      assert && assert( challenge.length === numberOfFunctions );
+
+      return challenge;
     }
   } );
 } );

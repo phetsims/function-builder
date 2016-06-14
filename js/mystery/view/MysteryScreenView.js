@@ -81,6 +81,7 @@ define( function( require ) {
           var sceneNode = new MysterySceneNode( scene, layoutBounds, { visible: false } );
           sceneNodes.push( sceneNode );
           scenesParent.addChild( sceneNode );
+
           sceneNode.functionCarousel.visible = false; //TODO temporary
           sceneNode.functionPageControl.visible = false; //TODO temporary
           sceneNode.hideFunctionsCheckBox.visible = false; //TODO temporary
@@ -172,6 +173,7 @@ define( function( require ) {
           sceneNodes[ sceneIndex ] = sceneNode;
           scenesParent.addChild( sceneNode );
           sceneNode.populateCarousels(); // after adding to scene graph!
+
           sceneNode.functionCarousel.visible = false; //TODO temporary
           sceneNode.functionPageControl.visible = false; //TODO temporary
           sceneNode.hideFunctionsCheckBox.visible = false; //TODO temporary
