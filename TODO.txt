@@ -27,3 +27,5 @@ DESIGN
 Do we really want negative operands for the plus and minus operators?
 
 Now that we're using scene buttons in Mystery screen, should Patterns use a 3-function scene button?
+
+Mystery screen background color
