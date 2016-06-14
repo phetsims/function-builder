@@ -35,10 +35,11 @@ define( function( require ) {
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
   /**
+   * @param {*[]} pool - pool of challenges TODO type?
    * @param {Object} [options]
    * @constructor
    */
-  function MysteryScene( options ) {
+  function MysteryScene( pool, options ) {
 
     options = _.extend( {
       functionsPerChallenge: 1, // {number} number of functions in each challenge
@@ -50,6 +51,21 @@ define( function( require ) {
     // {Node} scene selection icon
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
+
+    // @private pool of challenges
+    this.pool = pool;
+
+    // verify that each challenge contains the correct number of functions
+    if ( assert ) {
+      for ( var challengeIndex = 0; challengeIndex < this.pool.length; challengeIndex++ ) {
+        var challenge = this.pool[ challengeIndex ];
+        assert && assert( challenge.length === options.functionsPerChallenge,
+          'incorrect number of functions in challenge ' + challengeIndex + ': ' + challenge.length );
+      }
+    }
+
+    // @private random number generator, for picking challenges
+    this.random = new Random();
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
@@ -70,21 +86,6 @@ define( function( require ) {
       width: BUILDER_WIDTH,
       location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
     } );
-
-    // @private random number generator, for picking challenges
-    this.random = new Random();
-
-    // @private pool of challenges
-    this.pool = []; //TODO populate
-
-    // verify that each challenge contains the correct number of functions
-    if ( assert ) {
-      for ( var challengeIndex = 0; challengeIndex < this.pool.length; challengeIndex++ ) {
-        var challenge = this.pool[ challengeIndex ];
-        assert( challenge.length === options.functionsPerChallenge,
-          'incorrect number of functions in challenge ' + challengeIndex + ': ' + challenge.length );
-      }
-    }
 
     Scene.call( this, cardContent, functionCreators, builder, options );
   }

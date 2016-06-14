@@ -21,9 +21,9 @@ define( function( require ) {
 
     // @public (read-only)
     this.scenes = [
-      new MysteryScene( { functionsPerChallenge: 1 } ),
-      new MysteryScene( { functionsPerChallenge: 2 } ),
-      new MysteryScene( { functionsPerChallenge: 3 } )
+      new MysteryScene( [], { functionsPerChallenge: 1 } ),
+      new MysteryScene( [], { functionsPerChallenge: 2 } ),
+      new MysteryScene( [], { functionsPerChallenge: 3 } )
     ];
 
     // @public {Property.<Scene>} the selected scene
