@@ -15,6 +15,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/MathBuilder' );
+  var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
@@ -58,12 +59,17 @@ define( function( require ) {
       location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
     } );
 
-    // @public This screen has a single scene.
-    this.scene = new Scene( cardContent, functionCreators, builder, {
-      cardSymbol: FBSymbols.X,
-      numberOfEachCard: 1,
-      numberOfEachFunction: 2
-    } );
+    // @public (read-only)
+    this.scenes = [
+      new Scene( cardContent, functionCreators, builder, {
+        cardSymbol: FBSymbols.X,
+        numberOfEachCard: 1,
+        numberOfEachFunction: 2
+      } )
+    ];
+
+    // @public {Property.<Scene>} the selected scene
+    this.selectedSceneProperty = new Property( this.scenes[ 0 ] );
   }
 
   functionBuilder.register( 'EquationsModel', EquationsModel );
@@ -72,7 +78,9 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.scene.reset();
+      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+        this.scenes[ sceneIndex ].reset();
+      }
     },
 
     /**
@@ -82,7 +90,9 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      this.scene.step( dt );
+      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+        this.scenes[ sceneIndex ].step( dt );
+      }
     }
   } );
 } );

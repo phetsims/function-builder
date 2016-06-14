@@ -10,92 +10,34 @@ define( function( require ) {
 
   // modules
   var EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBScreenView = require( 'FUNCTION_BUILDER/common/view/FBScreenView' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
-   * @param {*} model - model type is determined by client
-   * @param {Object} [sceneNodeOptions] - see EquationsSceneNode options
+   * @param {EquationsModel} model
+   * @param {Object} [options]
    * @constructor
    */
-  function EquationsScreenView( model, sceneNodeOptions ) {
-
-    // model duck typing
-    assert && assert( !!model.scene, 'model must have a scene' );
-    assert && assert( !!model.reset, 'model must have a reset function' );
-
-    // @private
-    this.model = model;
-    this.sceneNodeOptions = sceneNodeOptions;
-    this.initialized = false;
-
-    ScreenView.call( this, { layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS } );
-
-    if ( FBConstants.INIT_SCREEN_VIEWS_ON_START ) {
-      this.initialize();
-    }
+  function EquationsScreenView( model, options ) {
+    FBScreenView.call( this, model, options );
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( ScreenView, EquationsScreenView, {
+  return inherit( FBScreenView, EquationsScreenView, {
 
     /**
-     * Called when the simulation clock ticks.
+     * Creates the node for a scene.
      *
-     * @param {number} dt - clock time change, in seconds
-     * @public
+     * @param {Scene} scene
+     * @param {Bounds2} layoutBounds
+     * @param {Object} options - options to SceneNode constructor
+     * @returns {SceneNode}
+     * @protected
      */
-    step: function( dt ) {
-      if ( !this.initialized ) {
-        this.initialize();
-      }
-    },
-
-    /**
-     * Deferred initialization, to improve startup time. Called from step.
-     *
-     * @private
-     */
-    initialize: function() {
-
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
-
-      assert && assert( !this.initialized );
-      this.initialized = true;
-
-      var model = this.model;
-
-      // Scene
-      var sceneNode = new EquationsSceneNode( model.scene, this.layoutBounds, this.sceneNodeOptions );
-
-      // Resets this screen
-      var resetAll = function() {
-
-        // reset view before model, or we'll see animation that's not desired
-        sceneNode.reset();
-        model.reset();
-      };
-
-      // Reset All button at bottom-right
-      var resetAllButton = new ResetAllButton( {
-        right: this.layoutBounds.maxX + FBConstants.RESET_ALL_BUTTON_OFFSET.x,
-        bottom: this.layoutBounds.maxY + FBConstants.RESET_ALL_BUTTON_OFFSET.y,
-        listener: resetAll
-      } );
-
-      // rendering order
-      this.addChild( resetAllButton );
-      this.addChild( sceneNode );
-
-      /**
-       * After the scene graph is fully constructed, populate parts of the model that
-       * depend on the location of things in the view.
-       */
-      sceneNode.populateCarousels();
+    createSceneNode: function( scene, layoutBounds, options ) {
+      return new EquationsSceneNode( scene, layoutBounds, options );
     }
   } );
 } );
