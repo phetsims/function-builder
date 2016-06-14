@@ -104,9 +104,11 @@ define( function( require ) {
         listener: function() {
           console.log( 'generate challenge' ); //TODO
         },
-        iconWidth: 38,
+        iconWidth: 34,
+        xMargin: 16,
+        yMargin: 8,
         centerX: sceneControl.centerX,
-        top: this.layoutBounds.centerY + 40
+        top: this.layoutBounds.centerY + 50
       } );
 
       // Resets this screen
