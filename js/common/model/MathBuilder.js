@@ -34,7 +34,7 @@ define( function( require ) {
   return inherit( Builder, MathBuilder, {
 
     /**
-     * Puts a function instance into a slot.
+     * Puts a function instance into a slot. Start observing its operand.
      *
      * @param {AbstractFunction} functionInstance
      * @param {number} slotNumber
@@ -47,7 +47,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes a function instance from a slot.
+     * Removes a function instance from a slot. Stop observing its operand.
      *
      * @param {AbstractFunction} functionInstance
      * @param {number} slotNumber
