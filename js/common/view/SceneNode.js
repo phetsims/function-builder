@@ -355,6 +355,7 @@ define( function( require ) {
     this.builderNode = builderNode;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
+    this.outputCarousel = outputCarousel;
     this.hideFunctionsCheckBox = hideFunctionsCheckBox;
     this.seeInsideCheckBox = seeInsideCheckBox;
   }

@@ -40,11 +40,17 @@ define( function( require ) {
 
     }, options );
 
+    var thisNode = this;
+
     SceneNode.call( this, scene, layoutBounds, options );
 
-    // these features are initially disabled
-    this.hideFunctionsCheckBox.enabled = false;
-    this.seeInsideCheckBox.enabled = false;
+    // 'See Inside' and 'Hide Functions' check boxes are enabled only when all cards are in the output carousel
+    var totalNumberOfCards = this.outputCarousel.items.length * scene.numberOfEachCard;
+    this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
+      var enabled = ( numberOfCards === totalNumberOfCards );
+      thisNode.hideFunctionsCheckBox.enabled = enabled;
+      thisNode.seeInsideCheckBox.enabled = enabled;
+    } );
 
     // @private
     this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {

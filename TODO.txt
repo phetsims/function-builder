@@ -12,7 +12,6 @@ Mystery screen:
 - pool of predefined function combinations (operator, operand)
 - implement "generate" button listener
 - assign function colors randomly
-- enable "See Inside" and "Hide Functions" check boxes when all cards have been dragged to output carousel
 - MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
 
 Write model.md
