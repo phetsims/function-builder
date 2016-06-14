@@ -17,6 +17,12 @@ Mystery screen:
 - "Show functions" button?
 - MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
 
+Code review
+
+
+---
+DESIGN
+
 Do we really want negative operands for the plus and minus operators?
 
-Code review
+Now that we're using scene buttons in Mystery screen, should Patterns use a 3-function scene button?

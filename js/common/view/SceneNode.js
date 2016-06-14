@@ -48,18 +48,25 @@ define( function( require ) {
     functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
 
     options = _.extend( {
+      seeInside: false, // {boolean} initial value of seeInsideProperty
+      hideFunctions: false, // {boolean} initial value of hideFunctionsProperty
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
       functionsPerPage: 3, // {number} functions per page in the functions carousel
-      seeInsideIconType: 'number' // {string} see FBIconFactory.createSeeInsideIcon
+      seeInsideIconType: 'number', // {string} see FBIconFactory.createSeeInsideIcon
+      functionCarouselVisible: true // {boolean} is the function carousel visible?
     }, options );
 
     var thisNode = this;
 
     // view-specific properties
     var viewProperties = new PropertySet( {
-      seeInside: false, // {boolean} show/hide windows that allow you to 'see inside' the builder
-      hideFunctions: false // {boolean} should the identity of functions in the builder be hidden?
+
+      // {boolean} show/hide windows that allow you to 'see inside' the builder
+      seeInside: options.seeInside,
+
+      // {boolean} should the identity of functions in the builder be hidden?
+      hideFunctions: options.hideFunctions
     } );
 
     // cards are in this layer while they are draggable
@@ -168,6 +175,7 @@ define( function( require ) {
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
+      visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       itemsPerPage: options.functionsPerPage,
       spacing: 12,
@@ -179,6 +187,7 @@ define( function( require ) {
 
     // Page control for function carousel
     var functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
+      visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       centerX: functionCarousel.centerX,
       top: functionCarousel.bottom + PAGE_CONTROL_SPACING
@@ -343,14 +352,11 @@ define( function( require ) {
     // @protected needed by subtypes
     this.viewProperties = viewProperties;
     this.drawersLayer = drawersLayer;
+    this.builderNode = builderNode;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
-
-    this.builderNode = builderNode; //TODO temporary for Mystery screen
-    this.functionCarousel = functionCarousel; //TODO temporary for Mystery screen
-    this.functionPageControl = functionPageControl; //TODO temporary for Mystery screen
-    this.hideFunctionsCheckBox = hideFunctionsCheckBox; //TODO temporary for Mystery screen
-    this.seeInsideCheckBox = seeInsideCheckBox; //TODO temporary for Mystery screen
+    this.hideFunctionsCheckBox = hideFunctionsCheckBox;
+    this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );

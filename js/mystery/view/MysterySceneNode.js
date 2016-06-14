@@ -30,13 +30,21 @@ define( function( require ) {
     // things that differ between the Equations and Numbers screens
     options = _.extend( {}, options, {
 
-      // options for supertype
       cardCarouselDefaultPageNumber: 1,
-      functionsPerPage: 2
+
+      // 'Hide Functions' check box should initially be checked, so that answers are not revealed
+      hideFunctions: true,
+
+      // Mystery screen has a hidden function carousel, which is where we get functions for composing challenges
+      functionCarouselVisible: false
 
     }, options );
 
     SceneNode.call( this, scene, layoutBounds, options );
+
+    // these features are initially disabled
+    this.hideFunctionsCheckBox.enabled = false;
+    this.seeInsideCheckBox.enabled = false;
 
     // @private
     this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {
