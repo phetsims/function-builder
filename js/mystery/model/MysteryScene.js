@@ -16,6 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  var Property = require( 'AXON/Property' );
   var Random = require( 'DOT/Random' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
@@ -52,8 +53,8 @@ define( function( require ) {
     // verify that each challenge contains the correct number of functions
     if ( assert ) {
       pool.forEach( function( challenge ) {
-         assert && assert( challenge.split( ' ').length === 2 * options.functionsPerChallenge,
-           'syntax error in challenge: ' + challenge );
+        assert && assert( challenge.split( ' ' ).length === 2 * options.functionsPerChallenge,
+          'syntax error in challenge: ' + challenge );
       } );
     }
 
@@ -61,14 +62,15 @@ define( function( require ) {
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
-    // @private pool of available challenges
-    this.availablePool = pool.slice( 0 );
+    // @public the current challenge
+    this.challengeProperty = new Property( pool[ 0 ] );
+
+    // @private pool of available challenges, remove first challenge
+    this.availablePool = pool.slice( 1 );
+    assert && assert( this.availablePool.length === pool.length - 1 );
 
     // @private pool of challenges that have already been selected
     this.usedPool = [];
-
-    // @private the previous challenge index, so we don't select the same challenge twice in a row
-    this.previousChallengeIndex = -1;
 
     // @private random number generator, for picking challenges
     this.random = new Random();
@@ -108,17 +110,15 @@ define( function( require ) {
      */
     reset: function() {
       Scene.prototype.reset.call( this );
-      this.previousChallengeIndex = -1;
+      this.challengeProperty.reset();
     },
 
     /**
-     * Randomly selects a challenge.  After a challenge has been selected, it is not selected again
-     * until all challenges in the pool have been selected. When called for the first time (or after reset),
+     * Advances to the next randomly-selected challenge.  After a challenge has been selected, it is not selected
+     * again until all challenges in the pool have been selected. When called for the first time (or after reset),
      * returns the first challenge in the pool. This provides a reproducible first challenge on startup and reset.
-     *
-     * @returns {string}
      */
-    getChallenge: function() {
+    nextChallenge: function() {
 
       // available pool is empty, start over
       if ( this.availablePool.length === 0 ) {
@@ -127,19 +127,15 @@ define( function( require ) {
       }
 
       // randomly select a challenge from the available pool
-      var challengeIndex = 0;
-      if ( this.previousChallengeIndex !== -1 ) {
-        challengeIndex = this.random.nextInt( this.availablePool.length );
-        assert && assert( challengeIndex >= 0 && challengeIndex < this.availablePool.length );
-      }
+      var challengeIndex = this.random.nextInt( this.availablePool.length );
+      assert && assert( challengeIndex >= 0 && challengeIndex < this.availablePool.length );
       var challenge = this.availablePool[ challengeIndex ];
-      this.previousChallengeIndex = challengeIndex;
 
       // move the challenge from available pool to used pool
       this.availablePool.splice( challengeIndex, 1 );
       this.usedPool.push( challenge );
 
-      return challenge;
+      this.challengeProperty.set( challenge );
     }
   } );
 } );
