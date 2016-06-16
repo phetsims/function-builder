@@ -74,21 +74,30 @@ define( function( require ) {
     } );
     this.drawersLayer.addChild( this.graphDrawer );
 
+    // Listener for generate button
+    var updateChallenge = function() {
+
+      // erase output carousel
+      thisNode.erase();
+
+      // clear functions from the function builder
+      thisNode.builderNode.reset();
+
+      // {string} randomly select a challenge
+      var challenge = scene.getChallenge();
+
+      //TODO parse the challenge
+      //TODO get functions from carousel, configure them (operand, color)
+      //TODO put functions into builder
+
+      // show the answer for debugging
+      answerNode.text = challenge;
+      answerNode.centerX = generateButton.centerX;
+    };
+
     // Button for generating a new challenge
     var generateButton = new RefreshButton( {
-      listener: function() {
-
-        // erase output carousel
-        thisNode.erase();
-
-        // clear functions from the function builder
-        thisNode.builderNode.reset();
-
-        //TODO randomly select a challenge
-        //TODO get functions from carousel, configure them (operand, color)
-        //TODO put functions into builder
-        //TODO update answerNode
-      },
+      listener: updateChallenge,
       iconWidth: 34,
       xMargin: 16,
       yMargin: 8,
@@ -106,6 +115,8 @@ define( function( require ) {
     if ( FBQueryParameters.SHOW_ANSWER ) {
       this.addChild( answerNode );
     }
+
+    updateChallenge();
   }
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );

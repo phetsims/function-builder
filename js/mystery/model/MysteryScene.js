@@ -35,11 +35,13 @@ define( function( require ) {
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
   /**
-   * @param {*[]} pool - pool of challenges TODO type?
+   * @param {string[]} pool - pool of challenges
    * @param {Object} [options]
    * @constructor
    */
   function MysteryScene( pool, options ) {
+
+    //TODO verify that each challenge contains the correct number of functions
 
     options = _.extend( {
       functionsPerChallenge: 1, // {number} number of functions in each challenge
@@ -53,17 +55,14 @@ define( function( require ) {
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
-    // @private pool of challenges
-    this.pool = pool;
+    // @private pool of available challenges
+    this.availablePool = pool.slice( 0 );
 
-    // verify that each challenge contains the correct number of functions
-    if ( assert ) {
-      for ( var challengeIndex = 0; challengeIndex < this.pool.length; challengeIndex++ ) {
-        var challenge = this.pool[ challengeIndex ];
-        assert && assert( challenge.length === options.functionsPerChallenge,
-          'incorrect number of functions in challenge ' + challengeIndex + ': ' + challenge.length );
-      }
-    }
+    // @private pool of challenges that have already been selected
+    this.usedPool = [];
+
+    // @private the previous challenge index, so we don't select the same challenge twice in a row
+    this.previousChallengeIndex = -1;
 
     // @private random number generator, for picking challenges
     this.random = new Random();
@@ -96,15 +95,45 @@ define( function( require ) {
   return inherit( Scene, MysteryScene, {
 
     /**
-     * Randomly selects a challenge.
+     * Resets the scene, sets the challenge index so that the first challenge in the pool will be selected.
      *
-     * @returns {*} TODO type?
+     * @public
+     * @override
+     */
+    reset: function() {
+      Scene.prototype.reset.call( this );
+      this.previousChallengeIndex = -1;
+    },
+
+    /**
+     * Randomly selects a challenge.  After a challenge has been selected, it is not selected again
+     * until all challenges in the pool have been selected. When called for the first time (or after reset),
+     * returns the first challenge in the pool. This provides a reproducible first challenge on startup and reset.
+     *
+     * @returns {string}
      */
     getChallenge: function() {
-      //TODO if this is the first time called, return the first challenge
-      var challengeIndex = this.random.nextInt( this.pool.length );
-      assert && assert( challengeIndex >= 0 && challengeIndex < this.pool.length );
-      return this.pool[ challengeIndex ];
+
+      // available pool is empty, start over
+      if ( this.availablePool.length === 0 ) {
+        this.availablePool = this.usedPool;
+        this.usedPool = [];
+      }
+
+      // randomly select a challenge from the available pool
+      var challengeIndex = 0;
+      if ( this.previousChallengeIndex !== -1 ) {
+        challengeIndex = this.random.nextInt( this.availablePool.length );
+        assert && assert( challengeIndex >= 0 && challengeIndex < this.availablePool.length );
+      }
+      var challenge = this.availablePool[ challengeIndex ];
+      this.previousChallengeIndex = challengeIndex;
+
+      // move the challenge from available pool to used pool
+      this.availablePool.splice( challengeIndex, 1 );
+      this.usedPool.push( challenge );
+
+      return challenge;
     }
   } );
 } );

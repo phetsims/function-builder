@@ -14,15 +14,51 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
 
+  // pool of 1-function challenges
+  var POOL1 = [
+    '+ 1',
+    '+ 2',
+    '+ 3',
+    '- 1',
+    '- 2',
+    '- 3',
+    '* 1',
+    '* 2',
+    '* 3',
+    '/ 1',
+    '/ 2',
+    '/ 3'
+  ];
+
+  // pool of 2-function challenges
+  var POOL2 = [
+    '+ 1 * 2',
+    '+ 2 * 3',
+    '- 1 * 2',
+    '- 2 * 3',
+    '+ 1 / 2',
+    '+ 2 / 3',
+    '- 1 / 2',
+    '- 2 / 3'
+  ];
+
+  // pool of 3-function challenges
+  var POOL3 = [
+    '* 1 + 2 / 3',
+    '/ 1 - 2 * 3',
+    '* 2 + 3 / 2',
+    '/ 2 - 3 * 2'
+  ];
+
   /**
    * @constructor
    */
   function MysteryModel() {
 
     var scenes = [
-      new MysteryScene( [], { functionsPerChallenge: 1 } ),
-      new MysteryScene( [], { functionsPerChallenge: 2 } ),
-      new MysteryScene( [], { functionsPerChallenge: 3 } )
+      new MysteryScene( POOL1, { functionsPerChallenge: 1 } ),
+      new MysteryScene( POOL2, { functionsPerChallenge: 2 } ),
+      new MysteryScene( POOL3, { functionsPerChallenge: 3 } )
     ];
 
     FBModel.call( this, scenes );
