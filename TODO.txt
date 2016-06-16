@@ -2,6 +2,20 @@ TODO list for function-builder
 
 Interviews on 6/29 & 7/5
 
+Mystery screen:
+- pool of predefined function combinations (operator, operand)
+- implement "generate" button listener
+- assign function colors randomly
+- MysteryFunctionNode
+- MysteryFunctionContainer
+- MysterySceneNode has much in common with EquationSceneNode
+
+MysteryFunctionNode
+- default label of '?', optional other label
+- mutable fill
+- syncs with model operand
+- show/hide button on them that reveals the function, available after 2 cards are put in output carousel
+
 Change SceneNode hierarchy to:
 
     SceneNode
@@ -10,27 +24,11 @@ Change SceneNode hierarchy to:
             EquationsSceneNode
             MysterySceneNode
 
-Hide Functions not available
-
-See Inside available after you've moved 1 cards to output carousel
-
-Mystery functions have a show/hide button on them that is reveals after 2 cards are put in output carousel
-
 Limit to 1 "parked" card in builder #44
-
-Responsiveness
 
 Startup time #37
 
 Change requests
-
-Mystery screen:
-- pool of predefined function combinations (operator, operand)
-- implement "generate" button listener
-- assign function colors randomly
-- MysteryFunctionNode that has a default label of '?', optional label can be specified, mutable fill, syncs with model operand, supports 'show answer'
-- MysteryFunctionContainer
-- MysterySceneNode has much in common with EquationSceneNode
 
 Write model.md
 
