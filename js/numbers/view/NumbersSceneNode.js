@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Scene for the 'Numbers' screen, a variation of EquationsScene with different options.
+ * Scene for the 'Numbers' screen, a variation of 'Equations' scene with different options.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
