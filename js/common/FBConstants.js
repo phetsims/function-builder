@@ -33,7 +33,7 @@ define( function( require ) {
     INIT_SCENES_ON_START: ( FBQueryParameters.INIT_SCENES === 'onStart' ),
 
     // offset of the Reset All button from the lower-right corner of the screen
-    RESET_ALL_BUTTON_OFFSET: new Vector2( -20, -20 ),
+    RESET_ALL_BUTTON_OFFSET: new Vector2( -50, -20 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Builder
