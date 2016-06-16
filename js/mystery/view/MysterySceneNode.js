@@ -35,9 +35,7 @@ define( function( require ) {
     options = _.extend( {}, options, {
 
       cardCarouselDefaultPageNumber: 1,
-
-      // 'Hide Functions' check box should initially be checked, so that answers are not revealed
-      hideFunctions: true,
+      hideFunctionsCheckBoxVisible: false,
 
       /*
        * Mystery screen has a hidden function carousel, which is where we get functions for composing challenges.
@@ -52,12 +50,9 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, options );
 
-    // 'See Inside' and 'Hide Functions' check boxes are enabled only when all cards are in the output carousel
-    var totalNumberOfCards = this.outputCarousel.items.length * scene.numberOfEachCard;
+    // 'See Inside' check box is enabled after 1 card has been put in output carousel
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
-      var enabled = ( numberOfCards === totalNumberOfCards );
-      thisNode.hideFunctionsCheckBox.enabled = enabled;
-      thisNode.seeInsideCheckBox.enabled = enabled;
+      thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
     } );
 
     // @private
@@ -98,6 +93,9 @@ define( function( require ) {
     // Update when the challenge changes.
     // unlink unnecessary, instances exist for lifetime of the sim
     scene.challengeProperty.link( function( challenge ) {
+
+      // disable the 'See Inside' check box
+      thisNode.seeInsideCheckBox.enabled = false;
 
       // erase output carousel
       thisNode.erase();

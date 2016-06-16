@@ -54,7 +54,8 @@ define( function( require ) {
       cardsPerPage: 4, // {number} cards per page in the input and output carousels
       functionsPerPage: 3, // {number} functions per page in the functions carousel
       seeInsideIconType: 'number', // {string} see FBIconFactory.createSeeInsideIcon
-      functionCarouselVisible: true // {boolean} is the function carousel visible?
+      functionCarouselVisible: true, // {boolean} is the function carousel visible?
+      hideFunctionsCheckBoxVisible: true // {boolean} is hideFunctionsCheckBox visible?
     }, options );
 
     var thisNode = this;
@@ -215,6 +216,7 @@ define( function( require ) {
     var hideFunctionsCheckBox = new CheckBox(
       FBIconFactory.createHideFunctionsIcon(),
       viewProperties.hideFunctionsProperty, {
+        visible: options.hideFunctionsCheckBoxVisible,
         spacing: 8,
         left: inputCarousel.left,
         top: functionCarousel.top
@@ -356,7 +358,6 @@ define( function( require ) {
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
     this.outputCarousel = outputCarousel;
-    this.hideFunctionsCheckBox = hideFunctionsCheckBox;
     this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
