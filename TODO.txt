@@ -4,8 +4,6 @@ Interviews on 6/29 & 7/5
 
 Blank space after 6 in input carousel of Mystery screen
 
-Should there be 'see inside' windows only for slots that contain a function?
-
 Mystery screen:
 - pool of predefined function combinations (operator, operand)
 - implement "generate" button listener
