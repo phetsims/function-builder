@@ -119,7 +119,7 @@ define( function( require ) {
 
       // composed: builder with 3 slots, for exploring function composition
       new Scene( cardContent, functionCreators, composedBuilder, {
-        iconNode: FBIconFactory.createSceneIcon( 2 ),
+        iconNode: FBIconFactory.createSceneIcon( 3 ),
         numberOfEachCard: 2,
         numberOfEachFunction: 2
       } )

@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Interviews on 6/29 & 7/5
+
 Change SceneNode hierarchy to:
 
     SceneNode
@@ -7,6 +9,12 @@ Change SceneNode hierarchy to:
             NumbersSceneNode
             EquationsSceneNode
             MysterySceneNode
+
+Hide Functions not available
+
+See Inside available after you've moved 1 cards to output carousel
+
+Mystery functions have a show/hide button on them that is reveals after 2 cards are put in output carousel
 
 Limit to 1 "parked" card in builder #44
 
@@ -34,7 +42,9 @@ Code review
 ---
 DESIGN
 
-Do we really want negative operands for plus and minus operators? (Equations and Mystery screens)
+Do we really want negative operands for plus and minus operators?
+    yes on Equations
+    no on Mystery
 
 function combinations for the Mystery screen (negative operands for plus and minus, adjacent operators of the same type, first function in each “pool”)
 
