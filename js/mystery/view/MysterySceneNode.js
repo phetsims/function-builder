@@ -74,7 +74,6 @@ define( function( require ) {
     } );
     this.drawersLayer.addChild( this.graphDrawer );
 
-    // Listener for generate button
     var updateChallenge = function() {
 
       // erase output carousel
@@ -95,7 +94,7 @@ define( function( require ) {
       answerNode.centerX = generateButton.centerX;
     };
 
-    // Button for generating a new challenge
+    // button for generating a new challenge
     var generateButton = new RefreshButton( {
       listener: updateChallenge,
       iconWidth: 34,
@@ -123,7 +122,12 @@ define( function( require ) {
 
   return inherit( SceneNode, MysterySceneNode, {
 
-    // @public @override
+    /**
+     * Resets the scene.
+     *
+     * @public
+     * @override
+     */
     reset: function() {
 
       // disable scrolling animation for the table

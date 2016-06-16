@@ -41,8 +41,6 @@ define( function( require ) {
    */
   function MysteryScene( pool, options ) {
 
-    //TODO verify that each challenge contains the correct number of functions
-
     options = _.extend( {
       functionsPerChallenge: 1, // {number} number of functions in each challenge
       numberOfEachCard: 1,
@@ -50,6 +48,14 @@ define( function( require ) {
     }, options );
 
     options.numberOfEachFunction = options.functionsPerChallenge; //TODO revisit this value, after pools are specified
+
+    // verify that each challenge contains the correct number of functions
+    if ( assert ) {
+      pool.forEach( function( challenge ) {
+         assert && assert( challenge.split( ' ').length === 2 * options.functionsPerChallenge,
+           'syntax error in challenge: ' + challenge );
+      } );
+    }
 
     // {Node} scene selection icon
     assert && assert( !options.iconNode );
