@@ -53,6 +53,7 @@ define( function( require ) {
     // 'See Inside' check box is enabled after 1 card has been put in output carousel
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
       thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
+      //TODO make show/hide button visible on functions in builder when (numberOfCards === 2)
     } );
 
     // @private
