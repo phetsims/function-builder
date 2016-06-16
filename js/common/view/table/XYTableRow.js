@@ -101,7 +101,6 @@ define( function( require ) {
 
   functionBuilder.register( 'XYTableRow', XYTableRow );
 
-  //TODO investigate how to get rid of instanceof tests herein
   /**
    * Creates the value for a specified card.
    *
