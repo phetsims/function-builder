@@ -37,19 +37,3 @@ Write model.md
 Write implementation-notes.md
 
 Code review
-
-
----
-DESIGN
-
-Do we really want negative operands for plus and minus operators?
-    yes on Equations
-    no on Mystery
-
-function combinations for the Mystery screen (negative operands for plus and minus, adjacent operators of the same type, first function in each “pool”)
-
-“Hide Functions” check box on Mystery screen - Do we want it? Should it have a different icon on the button?
-
-Now that we're using scene buttons in Mystery screen, should Patterns screen use a 3-function scene button?
-
-Is the background color OK for the Mystery screen?
