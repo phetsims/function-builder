@@ -26,10 +26,12 @@ Code review
 ---
 DESIGN
 
-Do we really want negative operands for the plus and minus operators?
+Do we really want negative operands for plus and minus operators? (Equations and Mystery screens)
 
-Now that we're using scene buttons in Mystery screen, should Patterns use a 3-function scene button?
+function combinations for the Mystery screen (negative operands for plus and minus, adjacent operators of the same type, first function in each “pool”)
 
-Mystery screen background color
+“Hide Functions” check box on Mystery screen - Do we want it? Should it have a different icon on the button?
 
-Center "Reset All" button under eraser button?
+Now that we're using scene buttons in Mystery screen, should Patterns screen use a 3-function scene button?
+
+Is the background color OK for the Mystery screen?
