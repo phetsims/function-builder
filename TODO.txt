@@ -1,5 +1,7 @@
 TODO list for function-builder
 
+Query parameter to show current function combination in Mystery screen
+
 Limit to 1 "parked" card in builder #44
 
 Responsiveness
