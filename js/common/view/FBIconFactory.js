@@ -28,8 +28,8 @@ define( function( require ) {
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // images
-  var butterflyHiRes = require( 'image!FUNCTION_BUILDER/inputs/butterfly-hires.png' );
-  var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
+  var butterflyHiRes = require( 'image!FUNCTION_BUILDER/cards/butterfly-hires.png' );
+  var stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
 
   // strings
   var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );

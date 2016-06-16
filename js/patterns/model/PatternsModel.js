@@ -34,18 +34,18 @@ define( function( require ) {
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // card images
-  var beakerImage = require( 'image!FUNCTION_BUILDER/inputs/beaker.png' );
-  var butterflyImage = require( 'image!FUNCTION_BUILDER/inputs/butterfly.png' );
-  var cherriesImage = require( 'image!FUNCTION_BUILDER/inputs/cherries.png' );
-  var circleImage = require( 'image!FUNCTION_BUILDER/inputs/circle.png' );
-  var feetImage = require( 'image!FUNCTION_BUILDER/inputs/feet.png' );
-  var planetImage = require( 'image!FUNCTION_BUILDER/inputs/planet.png' );
-  var rectangleImage = require( 'image!FUNCTION_BUILDER/inputs/rectangle.png' );
-  var snowflakeImage = require( 'image!FUNCTION_BUILDER/inputs/snowflake.png' );
-  var starImage = require( 'image!FUNCTION_BUILDER/inputs/star.png' );
-  var stickFigureImage = require( 'image!FUNCTION_BUILDER/inputs/stickFigure.png' );
-  var sunImage = require( 'image!FUNCTION_BUILDER/inputs/sun.png' );
-  var triangleImage = require( 'image!FUNCTION_BUILDER/inputs/triangle.png' );
+  var beakerImage = require( 'image!FUNCTION_BUILDER/cards/beaker.png' );
+  var butterflyImage = require( 'image!FUNCTION_BUILDER/cards/butterfly.png' );
+  var cherriesImage = require( 'image!FUNCTION_BUILDER/cards/cherries.png' );
+  var circleImage = require( 'image!FUNCTION_BUILDER/cards/circle.png' );
+  var feetImage = require( 'image!FUNCTION_BUILDER/cards/feet.png' );
+  var planetImage = require( 'image!FUNCTION_BUILDER/cards/planet.png' );
+  var rectangleImage = require( 'image!FUNCTION_BUILDER/cards/rectangle.png' );
+  var snowflakeImage = require( 'image!FUNCTION_BUILDER/cards/snowflake.png' );
+  var starImage = require( 'image!FUNCTION_BUILDER/cards/star.png' );
+  var stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
+  var sunImage = require( 'image!FUNCTION_BUILDER/cards/sun.png' );
+  var triangleImage = require( 'image!FUNCTION_BUILDER/cards/triangle.png' );
 
   // constants for the 'single' scene
   var SINGLE_BUILDER_SLOTS = 1;
