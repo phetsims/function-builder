@@ -12,12 +12,15 @@ define( function( require ) {
   // modules
   var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/EquationCardContainer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/MathFunctionContainer' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
 
@@ -84,6 +87,7 @@ define( function( require ) {
         //TODO randomly select a challenge
         //TODO get functions from carousel, configure them (operand, color)
         //TODO put functions into builder
+        //TODO update answerNode
       },
       iconWidth: 34,
       xMargin: 16,
@@ -92,6 +96,16 @@ define( function( require ) {
       top: this.builderNode.bottom + 10
     } );
     this.addChild( generateButton );
+
+    // shows the answer below the generate button, for debugging, i18n not required
+    var answerNode = new Text( 'answer', {
+      font: new FBFont( 18 ),
+      centerX: generateButton.centerX,
+      top: generateButton.bottom + 25
+    } );
+    if ( FBQueryParameters.SHOW_ANSWER ) {
+      this.addChild( answerNode );
+    }
   }
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );

@@ -34,7 +34,10 @@ define( function( require ) {
     INIT_SCREEN_VIEWS: getQueryParameter( 'initScreenViews' ) || 'onStart',
 
     // when to initialize scenes: 'onDemand'|'onStart'
-    INIT_SCENES: getQueryParameter( 'initScenes' ) || 'onStart'
+    INIT_SCENES: getQueryParameter( 'initScenes' ) || 'onStart',
+
+    // shows the answer in the Mystery screen
+    SHOW_ANSWER: !!getQueryParameter( 'showAnswer' )
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
