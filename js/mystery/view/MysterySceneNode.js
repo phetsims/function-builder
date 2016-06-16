@@ -95,7 +95,7 @@ define( function( require ) {
       this.addChild( answerNode );
     }
 
-    // update when the challenge changes
+    // Update when the challenge changes.
     // unlink unnecessary, instances exist for lifetime of the sim
     scene.challengeProperty.link( function( challenge ) {
 
