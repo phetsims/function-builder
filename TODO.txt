@@ -1,5 +1,13 @@
 TODO list for function-builder
 
+Change SceneNode hierarchy to:
+
+    SceneNode
+        MathSceneNode (new, copy of EquationsSceneNode)
+            NumbersSceneNode
+            EquationsSceneNode
+            MysterySceneNode
+
 Limit to 1 "parked" card in builder #44
 
 Responsiveness
