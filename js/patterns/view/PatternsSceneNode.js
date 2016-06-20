@@ -10,8 +10,9 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageCardContainer' );
-  var ImageFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageFunctionContainer' );
+  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
 
@@ -62,7 +63,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new ImageFunctionContainer( functionCreator, containerOptions ) );
+        functionContainers.push( new FunctionContainer( functionCreator, ImageFunctionNode, containerOptions ) );
       } );
       return functionContainers;
     }

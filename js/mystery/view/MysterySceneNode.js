@@ -12,9 +12,10 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
-  var MysteryFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/MysteryFunctionContainer' );
+  var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -112,7 +113,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new MysteryFunctionContainer( functionCreator, containerOptions ) );
+        functionContainers.push( new FunctionContainer( functionCreator, MysteryFunctionNode, containerOptions ) );
       } );
       return functionContainers;
     }

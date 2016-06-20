@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for function containers.
+ * Container for functions.
  * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)

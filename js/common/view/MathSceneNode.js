@@ -15,8 +15,9 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/MathFunctionContainer' );
+  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
@@ -170,7 +171,7 @@ define( function( require ) {
     createFunctionContainers: function( scene, containerOptions ) {
       var functionContainers = [];
       scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new MathFunctionContainer( functionCreator, containerOptions ) );
+        functionContainers.push( new FunctionContainer( functionCreator, MathFunctionNode, containerOptions ) );
       } );
       return functionContainers;
     }
