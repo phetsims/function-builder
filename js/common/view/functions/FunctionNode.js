@@ -33,7 +33,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      //TODO remove this workaround someday, see https://github.com/phetsims/function-builder/issues/49
+      //FUTURE remove this workaround, see https://github.com/phetsims/function-builder/issues/49
       allowTouchSnag: false
     }, options );
 

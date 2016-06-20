@@ -59,7 +59,7 @@ define( function( require ) {
       // create the icon
       var iconNode = new Image( outputCanvas.toDataURL(), {
 
-        //TODO document why this is necessary, https://github.com/phetsims/function-builder/issues/68
+        //FUTURE document why this is necessary, https://github.com/phetsims/function-builder/issues/68
         initialWidth: outputCanvas.width,
         initialHeight: outputCanvas.height
       } );
