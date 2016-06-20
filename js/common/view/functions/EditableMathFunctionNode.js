@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Math function with mutable operand, controlled using a NumberPicker.
+ * Node that synchronizes with a MathFunction, and supports changing its operand via a NumberPicker.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MutableMathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
+  function EditableMathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof MathFunction );
 
@@ -57,7 +57,7 @@ define( function( require ) {
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
-  functionBuilder.register( 'MutableMathFunctionNode', MutableMathFunctionNode );
+  functionBuilder.register( 'EditableMathFunctionNode', EditableMathFunctionNode );
 
-  return inherit( FunctionNode, MutableMathFunctionNode );
+  return inherit( FunctionNode, EditableMathFunctionNode );
 } );

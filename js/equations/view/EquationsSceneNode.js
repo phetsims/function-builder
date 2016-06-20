@@ -12,7 +12,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
-  var MutableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MutableMathFunctionNode' );
+  var EditableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/EditableMathFunctionNode' );
 
   /**
    * @param {Scene} scene - model for this scene
@@ -30,7 +30,7 @@ define( function( require ) {
       hasEquationDrawer: true // include an equation drawer
     }, options );
 
-    MathSceneNode.call( this, scene, layoutBounds, MutableMathFunctionNode, options );
+    MathSceneNode.call( this, scene, layoutBounds, EditableMathFunctionNode, options );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );

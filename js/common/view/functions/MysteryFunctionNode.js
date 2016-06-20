@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MutableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MutableMathFunctionNode' );
+  var EditableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/EditableMathFunctionNode' );
 
   /**
    * @param {MathFunction} functionInstance
@@ -23,11 +23,11 @@ define( function( require ) {
    * @constructor
    */
   function MysteryFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
-    MutableMathFunctionNode.call( this, functionInstance, container, builderNode, dragLayer, options );
+    EditableMathFunctionNode.call( this, functionInstance, container, builderNode, dragLayer, options );
     //TODO implement
   }
 
   functionBuilder.register( 'MysteryFunctionNode', MysteryFunctionNode );
 
-  return inherit( MutableMathFunctionNode, MysteryFunctionNode );
+  return inherit( EditableMathFunctionNode, MysteryFunctionNode );
 } );
