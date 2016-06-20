@@ -28,7 +28,6 @@ define( function( require ) {
 
     options = _.extend( {
       operand: 1, // {number} initial value of operandProperty, an integer
-      operandMutable: true, // {boolean} is the operand mutable?
       operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
       zeroOperandValid: true, // {boolean} is zero a valid operand?
       pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
@@ -41,7 +40,6 @@ define( function( require ) {
 
     // @public (read-only)
     this.operatorString = operatorString;
-    this.operandMutable = options.operandMutable;
     this.operandRange = options.operandRange;
     this.zeroOperandValid = options.zeroOperandValid;
 
@@ -53,7 +51,6 @@ define( function( require ) {
     this.operandProperty.lazyLink( function( operand ) {
 
       // validate operand
-      assert && assert( options.operandMutable, 'operand is not mutable' );
       assert && assert( Util.isInteger( operand ) );
       assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
       assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
