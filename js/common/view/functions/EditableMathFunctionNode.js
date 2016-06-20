@@ -30,7 +30,7 @@ define( function( require ) {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var operatorNode = new Text( functionInstance.operatorString, {
+    var operatorNode = new Text( functionInstance.operator, {
       font: FBConstants.EQUATIONS_FUNCTION_OPERATOR_FONT
     } );
 

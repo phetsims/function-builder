@@ -32,22 +32,22 @@ define( function( require ) {
 
       var mathFunction = mathFunctions[ i ];
 
-      if ( mathFunction.operatorString === FBSymbols.PLUS ) {
+      if ( mathFunction.operator === FBSymbols.PLUS ) {
         intercept = intercept.plus( mathFunction.operandProperty.get() );
       }
-      else if ( mathFunction.operatorString === FBSymbols.MINUS ) {
+      else if ( mathFunction.operator === FBSymbols.MINUS ) {
         intercept = intercept.minus( mathFunction.operandProperty.get() );
       }
-      else if ( mathFunction.operatorString === FBSymbols.TIMES ) {
+      else if ( mathFunction.operator === FBSymbols.TIMES ) {
         slope = slope.times( mathFunction.operandProperty.get() );
         intercept = intercept.times( mathFunction.operandProperty.get() );
       }
-      else if ( mathFunction.operatorString === FBSymbols.DIVIDE ) {
+      else if ( mathFunction.operator === FBSymbols.DIVIDE ) {
         slope = slope.divide( mathFunction.operandProperty.get() );
         intercept = intercept.divide( mathFunction.operandProperty.get() );
       }
       else {
-        throw new Error( 'unsupported operator ' + mathFunction.operatorString );
+        throw new Error( 'unsupported operator ' + mathFunction.operator );
       }
     }
 

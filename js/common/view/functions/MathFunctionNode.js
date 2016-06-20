@@ -40,7 +40,7 @@ define( function( require ) {
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( function( operand ) {
-      contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operatorString, operand );
+      contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
       contentNode.center = thisNode.backgroundNode.center;
     } );
   }

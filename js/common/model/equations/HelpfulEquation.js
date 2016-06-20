@@ -48,7 +48,7 @@ define( function( require ) {
     for ( var i = 0; i < mathFunctions.length; i++ ) {
 
       currentFunction = mathFunctions[ i ];
-      currentOperator = currentFunction.operatorString;
+      currentOperator = currentFunction.operator;
       currentOperand = currentFunction.operandProperty.get();
 
       if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
@@ -154,7 +154,7 @@ define( function( require ) {
      */
     evaluatesToConstant: function() {
       return ( this.mathFunctions.length !== 0 &&
-               this.mathFunctions[ 0 ].operatorString === FBSymbols.TIMES &&
+               this.mathFunctions[ 0 ].operator === FBSymbols.TIMES &&
                this.mathFunctions[ 0 ].operandProperty.get() === 0 );
     },
 
@@ -205,7 +205,7 @@ define( function( require ) {
         for ( i = 0; i < this.mathFunctions.length; i++ ) {
 
           currentFunction = this.mathFunctions[ i ];
-          currentOperator = currentFunction.operatorString;
+          currentOperator = currentFunction.operator;
           currentOperand = currentFunction.operandProperty.get().valueOf();
 
           if ( currentOperator === FBSymbols.PLUS ) {

@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
+  var MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -86,6 +87,8 @@ define( function( require ) {
       // clear functions from the function builder
       thisNode.builderNode.reset();
 
+      // convert the challenge from a string to an array of {operator: string, operand: number}
+      var challengeObjects = MysteryModel.parseChallenge( challenge );
       //TODO parse the challenge
       //TODO get functions from carousel, configure them (operand, color)
       //TODO put functions into builder

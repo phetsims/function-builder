@@ -174,7 +174,7 @@ define( function( require ) {
       for ( i = 0; i < mathFunctions.length; i++ ) {
 
         currentFunction = mathFunctions[ i ];
-        currentOperator = currentFunction.operatorString;
+        currentOperator = currentFunction.operator;
         currentOperand = currentFunction.operandProperty.get().valueOf();
 
         if ( currentOperator === FBSymbols.PLUS ) {

@@ -70,7 +70,7 @@ define( function( require ) {
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( function( operand ) {
-      thisNode.identityNode.text = StringUtils.format( '{0} {1}', functionInstance.operatorString, operand );
+      thisNode.identityNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
       thisNode.identityNode.center = thisNode.mysteryNode.center;
     } );
   }
@@ -125,19 +125,19 @@ define( function( require ) {
      *
      * @returns {string}
      */
-    getOperatorString: function() {
-      return this.functionInstance.operatorString;
+    getOperator: function() {
+      return this.functionInstance.operator;
     },
-    get operatorString() { return this.getOperatorString(); },
+    get operator() { return this.getOperator(); },
 
     /**
      * Convenience function for determining if the associated function has a specific operator.
      *
-     * @param {string} operatorString
+     * @param {string} operator
      * @returns {boolean}
      */
-    operatorEquals: function( operatorString ) {
-      return this.functionInstance.operatorString.equals( operatorString );
+    operatorEquals: function( operator ) {
+      return this.functionInstance.operator.equals( operator );
     }
   } );
 } );

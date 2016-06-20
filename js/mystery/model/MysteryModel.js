@@ -66,5 +66,31 @@ define( function( require ) {
 
   functionBuilder.register( 'MysteryModel', MysteryModel );
 
-  return inherit( FBModel, MysteryModel );
+  return inherit( FBModel, MysteryModel, {}, {
+
+    /**
+     * Each challenge in a pool is expressed as a string, to make them easy to read and modify.
+     * This function converts the string representation of a challenge into something that can
+     * be more easily processed programmatically.
+     *
+     * @param {string} challenge
+     * @returns {{operator: string, operand: number}[]}
+     */
+    parseChallenge: function( challenge ) {
+
+      var tokens = challenge.split( ' ' );
+      assert && assert( tokens.length % 2 === 0 );
+
+      var challengeObjects = [];
+      
+      for ( var i = 0; i < tokens.length; i = i + 2 ) {
+        challengeObjects.push( {
+          operator: tokens[ i ],
+          operand: parseInt( tokens[ i + 1 ] )
+        } );
+      }
+      
+      return challengeObjects;
+    }
+  } );
 } );

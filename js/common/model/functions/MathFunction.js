@@ -19,12 +19,12 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   * @param {string} operatorString - string representation of the operator
+   * @param {string} operator - string representation of the operator
    * @param {function(RationalNumber,number):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
    * @param {Object} [options]
    * @constructor
    */
-  function MathFunction( operatorString, applyRationalNumber, options ) {
+  function MathFunction( operator, applyRationalNumber, options ) {
 
     options = _.extend( {
       operand: 1, // {number} initial value of operandProperty, an integer
@@ -39,7 +39,7 @@ define( function( require ) {
       'default value zero is not a valid operand' );
 
     // @public (read-only)
-    this.operatorString = operatorString;
+    this.operator = operator;
     this.operandRange = options.operandRange;
     this.zeroOperandValid = options.zeroOperandValid;
 
