@@ -37,10 +37,10 @@ define( function( require ) {
       visible: false
     } );
     this.eyeCloseNode.setScaleMagnitude( ( 0.4 * FBConstants.FUNCTION_SIZE.height ) / this.eyeCloseNode.height );
-    this.eyeCloseNode.center = contentNode.center;
+    this.eyeCloseNode.center = this.identityNode.center;
 
     var decoratedContentNode = new Node( {
-       children: [ contentNode, this.eyeCloseNode ]
+      children: [ this.identityNode, this.eyeCloseNode ]
     } );
 
     FunctionNode.call( this, functionInstance, decoratedContentNode, container, builderNode, dragLayer, options );
