@@ -133,6 +133,7 @@ define( function( require ) {
             // configure function to match the challenge
             functionNode.operand = challengeObject.operand;
             functionNode.backgroundFill = thisNode.scene.nextColor();
+            functionNode.setIdentityVisible( false );
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );
