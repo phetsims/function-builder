@@ -180,6 +180,33 @@ define( function( require ) {
     },
 
     /**
+     * Moves this function immediately to the builder, no animation.
+     *
+     * @param {number} slotNumber
+     */
+    moveToBuilder: function( slotNumber ) {
+
+      assert && assert( !this.builderNode.containsFunctionNode( this ), 'function is already in builder' );
+      assert && assert( !this.builderNode.getFunctionNode( slotNumber ), 'slot ' + slotNumber + ' is occupied' );
+
+      // remove from drag layer
+      if ( this.dragLayer.hasChild( this ) ) {
+        this.cancelDrag();
+        this.dragLayer.removeChild( this );
+      }
+
+      // remove from carousel
+      if ( this.container.containsNode( this ) ) {
+        this.container.removeNode( this );
+      }
+
+      // move to builder
+      var slotLocation = this.builderNode.builder.getSlotLocation( slotNumber );
+      this.functionInstance.moveTo( slotLocation );
+      this.builderNode.addFunctionNode( this, slotNumber );
+    },
+
+    /**
      * Animates this function to the carousel.
      *
      * @private
