@@ -267,25 +267,26 @@ define( function( require ) {
     //------------------------------------------------------------------------------------------------------------------
     // Create properties in one place, so we can see what's available and document visibility
 
-    // @private populated by populateCarousels, needed by reset
+    // @private populated by completeInitialization, needed by reset
     this.functionNodes = []; // {FunctionNode[]}
     this.cardNodes = []; // {CardNode[]}
 
     // @private needed by prototype functions
     this.scene = scene;
     this.viewProperties = viewProperties;
-    this.functionsDragLayer = functionsDragLayer;
     this.cardsDragLayer = cardsDragLayer;
     this.seeInsideLayer = seeInsideLayer;
     this.inputCarousel = inputCarousel;
     this.outputCarousel = outputCarousel;
     this.functionCarousel = functionCarousel;
-    this.builderNode = builderNode;
 
     // @protected needed by subtypes
     this.drawersLayer = drawersLayer;
+    this.functionsDragLayer = functionsDragLayer;
+    this.builderNode = builderNode;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
+    this.functionContainers = functionContainers;
     this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
@@ -324,7 +325,7 @@ define( function( require ) {
 
   /**
    * Has this Node been attached beneath a ScreenView?
-   * This is a pre-requisite to calling populateCarousels.
+   * This is a pre-requisite to calling completeInitialization.
    *
    * @param {Node} node
    * @returns {boolean}
@@ -391,12 +392,12 @@ define( function( require ) {
     },
 
     /**
-     * Populates the function and card carousels. This cannot be done until this scene is attached
+     * Completes initialization of the scene. This cannot be done until the scene is attached
      * to a ScreenView, because we need to know the location of the containers in the carousels.
      *
      * @public
      */
-    populateCarousels: function() {
+    completeInitialization: function() {
       assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
       this.populateFunctionCarousels();
       this.populateCardCarousels();

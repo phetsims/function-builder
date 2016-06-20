@@ -125,7 +125,7 @@ define( function( require ) {
        * depend on the location of things in the view.
        */
       sceneNodes.forEach( function( sceneNode ) {
-        sceneNode && sceneNode.populateCarousels();
+        sceneNode && sceneNode.completeInitialization();
       } );
 
       // Fade between scenes
@@ -151,7 +151,7 @@ define( function( require ) {
           sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
           sceneNodes[ sceneIndex ] = sceneNode;
           scenesParent.addChild( sceneNode );
-          sceneNode.populateCarousels(); // after adding to scene graph!
+          sceneNode.completeInitialization(); // after adding to scene graph!
         }
 
         // Fade scenes in/out as selection changes

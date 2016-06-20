@@ -53,8 +53,8 @@ define( function( require ) {
       //TODO make show/hide button visible on functions in builder when (numberOfCards === 2)
     } );
 
-    // button for generating a new challenge
-    var generateButton = new RefreshButton( {
+    // @private button for generating a new challenge
+    this.generateButton = new RefreshButton( {
       listener: function() { scene.nextChallenge(); },
       iconWidth: 34,
       xMargin: 16,
@@ -62,21 +62,48 @@ define( function( require ) {
       centerX: this.builderNode.centerX,
       top: this.builderNode.bottom + 10
     } );
-    this.addChild( generateButton );
+    this.addChild( this.generateButton );
 
-    // shows the answer below the generate button, for debugging, i18n not required
-    var answerNode = new Text( 'answer', {
+    // @private shows the answer below the generate button, for debugging, i18n not required
+    this.answerNode = new Text( 'answer', {
       font: new FBFont( 18 ),
-      centerX: generateButton.centerX,
-      top: generateButton.bottom + 25
+      centerX: this.generateButton.centerX,
+      top: this.generateButton.bottom + 25
     } );
     if ( FBQueryParameters.SHOW_ANSWER ) {
-      this.addChild( answerNode );
+      this.addChild( this.answerNode );
     }
 
     // Update when the challenge changes.
+    // This can't be executed until the function carousel is populated.
     // unlink unnecessary, instances exist for lifetime of the sim
-    scene.challengeProperty.link( function( challenge ) {
+    scene.challengeProperty.lazyLink( function( challenge ) {
+      thisNode.nextChallenge();
+    } );
+  }
+
+  functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
+
+  return inherit( MathSceneNode, MysterySceneNode, {
+
+    /**
+     * Completes initialization by displaying the first challenge.
+     *
+     * @public
+     */
+    completeInitialization: function() {
+      MathSceneNode.prototype.completeInitialization.call( this );
+      this.nextChallenge();
+    },
+
+    /**
+     * Displays the next challenge.
+     *
+     * @private
+     */
+    nextChallenge: function() {
+
+      var thisNode = this;
 
       // disable the 'See Inside' check box
       thisNode.seeInsideCheckBox.enabled = false;
@@ -88,18 +115,40 @@ define( function( require ) {
       thisNode.builderNode.reset();
 
       // convert the challenge from a string to an array of {operator: string, operand: number}
+      var challenge = thisNode.scene.challengeProperty.get();
       var challengeObjects = MysteryModel.parseChallenge( challenge );
-      //TODO parse the challenge
-      //TODO get functions from carousel, configure them (operand, color)
-      //TODO put functions into builder
+
+      // transfer functions from carousel to builder, configured to match the challenge
+      var slotNumber = 0;
+      challengeObjects.forEach( function( challengeObject ) {
+
+        var functionNode = null;
+        for ( var i = 0; i < thisNode.functionContainers.length && !functionNode; i++ ) {
+
+          var functionContainer = thisNode.functionContainers[ i ];
+          functionNode = functionContainer.getContents()[ 0 ];
+
+          if ( functionNode.operatorEquals( challengeObject.operator ) ) {
+
+            // configure function to match the challenge
+            functionNode.operand = challengeObject.operand;
+            //TODO functionNode.backgroundFill = random color
+
+            // move function to the builder
+            functionNode.moveToBuilder( slotNumber );
+          }
+          else {
+            functionNode = null;
+          }
+        }
+        assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
+
+        slotNumber++;
+      } );
 
       // show the answer for debugging
-      answerNode.text = challenge;
-      answerNode.centerX = generateButton.centerX;
-    } );
-  }
-
-  functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
-
-  return inherit( MathSceneNode, MysterySceneNode );
+      thisNode.answerNode.text = challenge;
+      thisNode.answerNode.centerX = thisNode.generateButton.centerX;
+    }
+  } );
 } );
