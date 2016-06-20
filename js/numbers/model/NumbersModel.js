@@ -45,78 +45,18 @@ define( function( require ) {
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
     var functionCreators = [
-
-      // +1
-      new FunctionCreator( Plus, {
-        operand: 1,
-        fill: 'rgb( 128, 197, 237 )'
-      } ),
-
-      // + 2
-      new FunctionCreator( Plus, {
-        operand: 2,
-        fill: 'rgb( 147, 231, 128 )'
-      } ),
-
-      // + 3
-      new FunctionCreator( Plus, {
-        operand: 3,
-        fill: 'rgb( 255, 120, 120 )'
-      } ),
-
-      // - 1
-      new FunctionCreator( Minus, {
-        operand: 1,
-        fill: 'rgb( 147, 231, 128 )'
-      } ),
-
-      // - 2
-      new FunctionCreator( Minus, {
-        operand: 2,
-        fill: 'rgb( 255, 161, 43 )'
-      } ),
-
-      // - 3
-      new FunctionCreator( Minus, {
-        operand: 3,
-        fill: 'rgb( 255, 246, 187 )'
-      } ),
-
-      // * 0
-      new FunctionCreator( Times, {
-        operand: 0,
-        fill: 'rgb( 0, 222, 224 )'
-      } ),
-
-      // * 1
-      new FunctionCreator( Times, {
-        operand: 1,
-        fill: 'rgb( 246, 164, 255 )'
-      } ),
-
-      // * 2
-      new FunctionCreator( Times, {
-        operand: 2,
-        fill: 'rgb( 250, 186, 75 )'
-      } ),
-
-      // / 1
-      new FunctionCreator( Divide, {
-        operand: 1,
-        fill: 'rgb( 127, 225, 173 )'
-      } ),
-
-      // / 2
-      new FunctionCreator( Divide, {
-        operand: 2,
-        fill: 'rgb( 249, 144, 99 )'
-      } ),
-
-      // / 3
-      new FunctionCreator( Divide, {
-        operand: 3,
-        fill: 'rgb( 222, 186, 247 )'
-      } )
+      new FunctionCreator( Plus, { operand: 1, fill: 'rgb( 128, 197, 237 )' } ),   // + 1
+      new FunctionCreator( Plus, { operand: 2, fill: 'rgb( 147, 231, 128 )' } ),   // + 2
+      new FunctionCreator( Plus, { operand: 3, fill: 'rgb( 255, 120, 120 )' } ),   // + 3
+      new FunctionCreator( Minus, { operand: 1, fill: 'rgb( 147, 231, 128 )' } ),  // - 1
+      new FunctionCreator( Minus, { operand: 2, fill: 'rgb( 255, 161, 43 )' } ),   // - 2
+      new FunctionCreator( Minus, { operand: 3, fill: 'rgb( 255, 246, 187 )' } ),  // - 3
+      new FunctionCreator( Times, { operand: 0, fill: 'rgb( 0, 222, 224 )' } ),    // * 0
+      new FunctionCreator( Times, { operand: 1, fill: 'rgb( 246, 164, 255 )' } ),  // * 1
+      new FunctionCreator( Times, { operand: 2, fill: 'rgb( 250, 186, 75 )' } ),   // * 2
+      new FunctionCreator( Divide, { operand: 1, fill: 'rgb( 127, 225, 173 )' } ), // / 1
+      new FunctionCreator( Divide, { operand: 2, fill: 'rgb( 249, 144, 99 )' } ),  // / 2
+      new FunctionCreator( Divide, { operand: 3, fill: 'rgb( 222, 186, 247 )' } )  // / 3
     ];
 
     // builder
