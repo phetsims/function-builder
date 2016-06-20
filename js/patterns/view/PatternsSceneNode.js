@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var ImageCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageCardContainer' );
   var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -27,7 +26,7 @@ define( function( require ) {
     options = options || {};
     options.seeInsideIconType = 'image'; // see FBIconFactory.createSeeInsideIcon
 
-    SceneNode.call( this, scene, layoutBounds, options );
+    SceneNode.call( this, scene, layoutBounds, ImageFunctionNode, options );
   }
 
   functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
@@ -49,23 +48,6 @@ define( function( require ) {
         containers.push( new ImageCardContainer( cardImage, containerOptions ) );
       } );
       return containers;
-    },
-
-    /**
-     * Creates the function containers that go in the function carousel.
-     *
-     * @param {Scene} scene
-     * @param {Object} [containerOptions] - see ImageFunctionContainer options
-     * @returns {FunctionContainer[]}
-     * @protected
-     * @override
-     */
-    createFunctionContainers: function( scene, containerOptions ) {
-      var functionContainers = [];
-      scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new FunctionContainer( functionCreator, ImageFunctionNode, containerOptions ) );
-      } );
-      return functionContainers;
     }
   } );
 } );

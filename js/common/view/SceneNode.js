@@ -17,6 +17,7 @@ define( function( require ) {
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
@@ -40,10 +41,11 @@ define( function( require ) {
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
    * @param {Object} [options]
    * @constructor
    */
-  function SceneNode( scene, layoutBounds, options ) {
+  function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
     functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
 
@@ -172,7 +174,7 @@ define( function( require ) {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    var functionContainers = this.createFunctionContainers( scene );
+    var functionContainers = this.createFunctionContainers( scene, functionNodeConstructor );
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
@@ -450,13 +452,17 @@ define( function( require ) {
      * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions]
+     * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
+     * @param {Object} [containerOptions] - see ImageFunctionContainer options
      * @returns {FunctionContainer[]}
-     * @protected
-     * @abstract
+     * @private
      */
-    createFunctionContainers: function( scene, containerOptions ) {
-      throw new Error( 'must be implemented by subtype' );
+    createFunctionContainers: function( scene, functionNodeConstructor, containerOptions ) {
+      var functionContainers = [];
+      scene.functionCreators.forEach( function( functionCreator ) {
+        functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
+      } );
+      return functionContainers;
     }
   } );
 } );

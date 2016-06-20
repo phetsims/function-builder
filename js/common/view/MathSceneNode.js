@@ -15,7 +15,6 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
@@ -42,7 +41,7 @@ define( function( require ) {
       tableHeadingFont: FBConstants.TABLE_XY_HEADING_FONT
     }, options );
 
-    SceneNode.call( this, scene, layoutBounds, options );
+    SceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
 
     // XY table drawer
     if ( options.hasTableDrawer ) {
@@ -157,23 +156,6 @@ define( function( require ) {
       }
 
       return containers;
-    },
-
-    /**
-     * Creates the function containers that go in the function carousel.
-     *
-     * @param {Scene} scene
-     * @param {Object} [containerOptions] - see MathFunctionContainer options
-     * @returns {FunctionContainer[]}
-     * @protected
-     * @override
-     */
-    createFunctionContainers: function( scene, containerOptions ) {
-      var functionContainers = [];
-      scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new FunctionContainer( functionCreator, MathFunctionNode, containerOptions ) );
-      } );
-      return functionContainers;
     }
   } );
 } );

@@ -12,7 +12,6 @@ define( function( require ) {
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
@@ -45,7 +44,7 @@ define( function( require ) {
 
     var thisNode = this;
 
-    MathSceneNode.call( this, scene, layoutBounds, options );
+    MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
 
     // 'See Inside' check box is enabled after 1 card has been put in output carousel
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
@@ -99,23 +98,5 @@ define( function( require ) {
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
 
-  return inherit( MathSceneNode, MysterySceneNode, {
-
-    /**
-     * Creates the function containers that go in the function carousel.
-     *
-     * @param {Scene} scene
-     * @param {Object} [containerOptions] - see MathFunctionContainer options
-     * @returns {FunctionContainer[]}
-     * @protected
-     * @override
-     */
-    createFunctionContainers: function( scene, containerOptions ) {
-      var functionContainers = [];
-      scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new FunctionContainer( functionCreator, MysteryFunctionNode, containerOptions ) );
-      } );
-      return functionContainers;
-    }
-  } );
+  return inherit( MathSceneNode, MysterySceneNode );
 } );
