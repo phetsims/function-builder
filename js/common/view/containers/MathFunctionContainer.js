@@ -21,38 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function MathFunctionContainer( functionCreator, options ) {
-
-    this.functionCreator = functionCreator; // @private
-
-    FunctionContainer.call( this, options );
+    FunctionContainer.call( this, functionCreator, MathFunctionNode, options );
   }
 
   functionBuilder.register( 'MathFunctionContainer', MathFunctionContainer );
 
-  return inherit( FunctionContainer, MathFunctionContainer, {
-
-    /***
-     * Creates the model element for a function.
-     *
-     * @param {Vector2} location
-     * @returns {MathFunction}
-     * @protected
-     * @abstract
-     */
-    createFunctionInstance: function( location ) {
-      return this.functionCreator.createInstance( { location: this.carouselLocation } );
-    },
-
-    /**
-     * Creates the view element for a function.
-     * See supertype FunctionContainer.createFunctionNode for params.
-     *
-     * @returns {MathFunctionNode}
-     * @protected
-     * @abstract
-     */
-    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new MathFunctionNode( functionInstance, container, builderNode, dragLayer );
-    }
-  } );
+  return inherit( FunctionContainer, MathFunctionContainer );
 } );

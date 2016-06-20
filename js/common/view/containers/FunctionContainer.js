@@ -16,14 +16,20 @@ define( function( require ) {
   var MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
+   * @param {FunctionCreator} functionCreator - creates function instances
+   * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
    * @param {Object} [options]
    * @constructor
    */
-  function FunctionContainer( options ) {
+  function FunctionContainer( functionCreator, functionNodeConstructor, options ) {
 
     options = _.extend( {
       size: FBConstants.FUNCTION_SIZE
     }, options );
+
+    // @private
+    this.functionCreator = functionCreator;
+    this.functionNodeConstructor = functionNodeConstructor;
 
     MovableContainer.call( this, options );
   }
@@ -48,42 +54,15 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var functionInstance = this.createFunctionInstance( this.carouselLocation );
+        var functionInstance = this.functionCreator.createInstance( { location: this.carouselLocation } );
         scene.functionInstances.push( functionInstance );
 
         // associated Node
-        var functionNode = this.createFunctionNode( functionInstance, this, builderNode, dragLayer );
+        var functionNode = new this.functionNodeConstructor( functionInstance, this, builderNode, dragLayer );
 
         // put the Node in this container
         this.addNode( functionNode );
       }
-    },
-
-    /***
-     * Creates the model element for a function.
-     *
-     * @param {Vector2} location - the function's initial location
-     * @returns {AbstractFunction}
-     * @protected
-     * @abstract
-     */
-    createFunctionInstance: function( location ) {
-      throw new Error( 'must be implemented by subtype' );
-    },
-
-    /**
-     * Creates the view element (Node) for a function.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @param {FunctionContainer} container
-     * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
-     * @returns {FunctionNode}
-     * @protected
-     * @abstract
-     */
-    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      throw new Error( 'must be implemented by subtype' );
     }
   } );
 } );

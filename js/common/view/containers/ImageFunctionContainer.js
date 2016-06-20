@@ -21,38 +21,10 @@ define( function( require ) {
    * @constructor
    */
   function ImageFunctionContainer( functionCreator, options ) {
-    this.functionCreator = functionCreator; // @private
-    FunctionContainer.call( this, options );
+    FunctionContainer.call( this, functionCreator, ImageFunctionNode, options );
   }
 
   functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
 
-  return inherit( FunctionContainer, ImageFunctionContainer, {
-
-    //TODO this is identical in all subtypes of FunctionContainer
-    /***
-     * Creates the model element for a function.
-     * See supertype FunctionContainer.createFunctionInstance for params.
-     *
-     * @returns {AbstractFunction}
-     * @protected
-     * @abstract
-     */
-    createFunctionInstance: function( location ) {
-      return this.functionCreator.createInstance( { location: this.carouselLocation } );
-    },
-
-    //TODO except for the constructor name, this is identical in all subtypes of FunctionContainer
-    /**
-     * Creates the view element (Node) for a function.
-     * See supertype FunctionContainer.createFunctionNode for params.
-     *
-     * @returns {ImageFunctionNode}
-     * @protected
-     * @abstract
-     */
-    createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new ImageFunctionNode( functionInstance, container, builderNode, dragLayer );
-    }
-  } );
+  return inherit( FunctionContainer, ImageFunctionContainer );
 } );
