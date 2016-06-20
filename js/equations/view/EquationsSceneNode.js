@@ -22,11 +22,11 @@ define( function( require ) {
   function EquationsSceneNode( scene, layoutBounds, options ) {
 
     options = _.extend( {
-      cardCarouselDefaultPageNumber: 1,
-      functionsPerPage: 2,
-      hasTableDrawer: true,
-      hasGraphDrawer: true,
-      hasEquationDrawer: true
+      cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
+      functionsPerPage: 2, // number of functions visible in the carousel
+      hasTableDrawer: true, // include an XY table drawer
+      hasGraphDrawer: true, // include an XY graph drawer
+      hasEquationDrawer: true // include an equation drawer
     }, options );
 
     MathSceneNode.call( this, scene, layoutBounds, options );

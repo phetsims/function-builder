@@ -27,13 +27,13 @@ define( function( require ) {
 
     options = _.extend( {
 
-      cardCarouselDefaultPageNumber: 1,
-      hasTableDrawer: true,
-      hasGraphDrawer: true,
-      hideFunctionsCheckBoxVisible: false,
+      cardCarouselDefaultPageNumber: 1, // show cards 0-3 in input carousel
+      hasTableDrawer: true, // include an XY table drawer
+      hasGraphDrawer: true, // include an XY graph drawer
+      hideFunctionsCheckBoxVisible: false, // hide this feature
 
       /*
-       * Mystery screen has a hidden function carousel, which is where we get functions for composing challenges.
+       * Mystery scenes have a hidden function carousel, which is where we get functions for composing challenges.
        * This approach was necessary because the Mystery screen was added late in the development process, and
        * the existence of the function carousel was (by that point) required by too many things.
        */

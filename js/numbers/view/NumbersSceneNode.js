@@ -27,14 +27,15 @@ define( function( require ) {
   function NumbersSceneNode( scene, layoutBounds, options ) {
 
     options = _.extend( {
-      functionsPerPage: 3,
-      hasTableDrawer: true,
-      hasEquationDrawer: true,
-      xSymbol: inputString, // symbol used in place of x
-      ySymbol: outputString, // symbol used in place of y
-      xyFont: FBConstants.EQUATION_CARD_INPUT_OUTPUT_FONT, // {Font} for x & y symbols
+      cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
+      functionsPerPage: 3, // number of functions visible in the carousel
+      hasTableDrawer: true, // include an XY table drawer
+      hasEquationDrawer: true, // include an equation drawer
+      xSymbol: inputString, // use 'Input' in place of x
+      ySymbol: outputString, // use 'Output' in place of y
+      xyFont: FBConstants.EQUATION_CARD_INPUT_OUTPUT_FONT, // {Font} for x & y symbols in equations
       xyAsCardsInEquations: true, // {boolean} make x & y symbols look like a card in equations
-      tableHeadingFont: FBConstants.TABLE_INPUT_OUTPUT_HEADING_FONT
+      tableHeadingFont: FBConstants.TABLE_INPUT_OUTPUT_HEADING_FONT // {Font} for XY table heading
     }, options );
 
     MathSceneNode.call( this, scene, layoutBounds, options );

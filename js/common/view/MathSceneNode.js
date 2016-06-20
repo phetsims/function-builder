@@ -36,7 +36,7 @@ define( function( require ) {
       hasEquationDrawer: false, // show equation drawer
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
-      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols
+      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols in equations
       xyAsCardsInEquations: false, // {boolean} put x & y symbols on a rectangle background in equations, like a card?
       tableHeadingFont: FBConstants.TABLE_XY_HEADING_FONT
     }, options );
