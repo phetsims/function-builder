@@ -1,0 +1,18 @@
+{
+  "lock-closed.png": {
+    "text": [
+      "Copyright 2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amanda McGarry"
+  },
+  "lock-open.png": {
+    "text": [
+      "Copyright 2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amanda McGarry"
+  }
+}
