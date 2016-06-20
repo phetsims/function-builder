@@ -174,7 +174,7 @@ define( function( require ) {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    var functionContainers = this.createFunctionContainers( scene, functionNodeConstructor );
+    var functionContainers = createFunctionContainers( scene, functionNodeConstructor );
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
@@ -413,6 +413,23 @@ define( function( require ) {
     return found;
   };
 
+  /**
+   * Creates the function containers that go in the function carousel.
+   *
+   * @param {Scene} scene
+   * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
+   * @param {Object} [containerOptions] - see ImageFunctionContainer options
+   * @returns {FunctionContainer[]}
+   * @private
+   */
+  var createFunctionContainers = function( scene, functionNodeConstructor, containerOptions ) {
+    var functionContainers = [];
+    scene.functionCreators.forEach( function( functionCreator ) {
+      functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
+    } );
+    return functionContainers;
+  };
+
   return inherit( Node, SceneNode, {
 
     // @public
@@ -433,23 +450,6 @@ define( function( require ) {
      */
     populateCarousels: function() {
       this._populateCarousels();
-    },
-
-    /**
-     * Creates the function containers that go in the function carousel.
-     *
-     * @param {Scene} scene
-     * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
-     * @param {Object} [containerOptions] - see ImageFunctionContainer options
-     * @returns {FunctionContainer[]}
-     * @private
-     */
-    createFunctionContainers: function( scene, functionNodeConstructor, containerOptions ) {
-      var functionContainers = [];
-      scene.functionCreators.forEach( function( functionCreator ) {
-        functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
-      } );
-      return functionContainers;
     },
 
     /**
