@@ -30,7 +30,8 @@ define( function( require ) {
   var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var BUILDER_WIDTH = ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70;
+  var MAX_SLOTS = 3; // max number of slots in the builder
+  var BUILDER_WIDTH = ( MAX_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
@@ -47,6 +48,7 @@ define( function( require ) {
       numberOfEachCard: 1,
       cardSymbol: INCLUDE_X_CARD ? FBSymbols.X : null
     }, options );
+    assert && assert( options.functionsPerChallenge <= MAX_SLOTS );
 
     // Supports the case when all 3 functions in a challenge have the same type
     options.numberOfEachFunction = options.functionsPerChallenge;
