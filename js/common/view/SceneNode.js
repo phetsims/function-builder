@@ -174,7 +174,7 @@ define( function( require ) {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    var functionContainers = createFunctionContainers( scene, functionNodeConstructor );
+    var functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
@@ -416,15 +416,15 @@ define( function( require ) {
   /**
    * Creates the function containers that go in the function carousel.
    *
-   * @param {Scene} scene
+   * @param {FunctionCreator[]} functionCreators
    * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
    * @param {Object} [containerOptions] - see ImageFunctionContainer options
    * @returns {FunctionContainer[]}
    * @private
    */
-  var createFunctionContainers = function( scene, functionNodeConstructor, containerOptions ) {
+  var createFunctionContainers = function( functionCreators, functionNodeConstructor, containerOptions ) {
     var functionContainers = [];
-    scene.functionCreators.forEach( function( functionCreator ) {
+    functionCreators.forEach( function( functionCreator ) {
       functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
     } );
     return functionContainers;
