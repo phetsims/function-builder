@@ -38,7 +38,9 @@ define( function( require ) {
     options = _.extend( {
 
       // {Node} this node obscures the identity of the function
-      mysteryNode: new Text( mysteryCharacterString, new FBFont( 30 ) ),
+      mysteryNode: new Text( mysteryCharacterString, {
+        font: FBConstants.MYSTERY_FUNCTION_FONT
+      } ),
 
       identityVisible: false // {boolean} is the function's identity visible?
 
@@ -53,7 +55,7 @@ define( function( require ) {
 
     // @private this node reveals the identity of the function
     this.identityNode = new Text( '', {
-      font: FBConstants.NUMBERS_FUNCTION_FONT,
+      font: FBConstants.MYSTERY_FUNCTION_FONT,
       center: options.mysteryNode.center,
       visible: options.identityVisible
     } );
