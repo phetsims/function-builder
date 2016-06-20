@@ -18,14 +18,6 @@ MysteryFunctionNode
 - syncs with model operand
 - show/hide button on them that reveals the function, available after 2 cards are put in output carousel
 
-Change SceneNode hierarchy to:
-
-    SceneNode
-        MathSceneNode (new, copy of EquationsSceneNode)
-            NumbersSceneNode
-            EquationsSceneNode
-            MysterySceneNode
-
 Limit to 1 "parked" card in builder #44
 
 Startup time #37
