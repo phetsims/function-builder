@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Math function with mutable operand.
+ * Math function with mutable operand, controlled using a NumberPicker.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
