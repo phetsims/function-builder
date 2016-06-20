@@ -10,9 +10,11 @@ define( function( require ) {
 
   // modules
   var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
+  var Util = require( 'DOT/Util' );
 
   // pool of 1-function challenges
   var POOL1 = [
@@ -50,6 +52,14 @@ define( function( require ) {
     '/ 2 - 3 * 2'
   ];
 
+  // maps operator token used in the pool to operator symbols used in functions
+  var OPERATOR_MAP = {
+    '+': FBSymbols.PLUS,
+    '-': FBSymbols.MINUS,
+    '*': FBSymbols.TIMES,
+    '/': FBSymbols.DIVIDE
+  };
+
   /**
    * @constructor
    */
@@ -84,10 +94,15 @@ define( function( require ) {
       var challengeObjects = [];
       
       for ( var i = 0; i < tokens.length; i = i + 2 ) {
-        challengeObjects.push( {
-          operator: tokens[ i ],
+
+        var challengeObject = {
+          operator: OPERATOR_MAP[ tokens[ i ] ],
           operand: parseInt( tokens[ i + 1 ] )
-        } );
+        };
+        assert( challengeObject.operator );
+        assert( Util.isInteger( challengeObject.operand ) );
+
+        challengeObjects.push( challengeObject );
       }
       
       return challengeObjects;
