@@ -36,6 +36,22 @@ define( function( require ) {
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
+  // pool of colors for functions
+  var COLOR_POOL = [
+    'rgb( 128, 197, 237 )',
+    'rgb( 147, 231, 128 )',
+    'rgb( 255, 120, 120 )',
+    'rgb( 147, 231, 128 )',
+    'rgb( 255, 161, 43 )',
+    'rgb( 255, 246, 187 )',
+    'rgb( 0, 222, 224 )',
+    'rgb( 246, 164, 255 )',
+    'rgb( 250, 186, 75 )',
+    'rgb( 127, 225, 173 )',
+    'rgb( 249, 144, 99 )',
+    'rgb( 222, 186, 247 )'
+  ];
+
   /**
    * @param {string[]} pool - pool of challenges
    * @param {Object} [options]
@@ -69,14 +85,20 @@ define( function( require ) {
     this.challengeProperty = new Property( pool[ 0 ] );
 
     // @private pool of available challenges, remove first challenge
-    this.availablePool = pool.slice( 1 );
-    assert && assert( this.availablePool.length === pool.length - 1 );
+    this.availableChallenges = pool.slice( 1 );
+    assert && assert( this.availableChallenges.length === pool.length - 1 );
 
     // @private pool of challenges that have already been selected
-    this.usedPool = [];
+    this.usedChallenges = [];
 
-    // @private random number generator, for picking challenges
-    this.random = new Random();
+    // @private random number generator for choosing challenges
+    this.randomChallenge = new Random();
+
+    // @private random number generator for choosing colors
+    this.randomColor = new Random();
+
+    // @private pool of available colors
+    this.availableColors = COLOR_POOL.slice( 0 );
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
@@ -124,21 +146,46 @@ define( function( require ) {
     nextChallenge: function() {
 
       // available pool is empty, start over
-      if ( this.availablePool.length === 0 ) {
-        this.availablePool = this.usedPool;
-        this.usedPool = [];
+      if ( this.availableChallenges.length === 0 ) {
+        this.availableChallenges = this.usedChallenges;
+        this.usedChallenges = [];
       }
 
+      //TODO this could possibly select the same challenge twice in a row, when pool is refreshed
       // randomly select a challenge from the available pool
-      var challengeIndex = this.random.nextInt( this.availablePool.length );
-      assert && assert( challengeIndex >= 0 && challengeIndex < this.availablePool.length );
-      var challenge = this.availablePool[ challengeIndex ];
+      var challengeIndex = this.randomChallenge.nextInt( this.availableChallenges.length );
+      assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
+      var challenge = this.availableChallenges[ challengeIndex ];
 
       // move the challenge from available pool to used pool
-      this.availablePool.splice( challengeIndex, 1 );
-      this.usedPool.push( challenge );
+      this.availableChallenges.splice( challengeIndex, 1 );
+      this.usedChallenges.push( challenge );
 
       this.challengeProperty.set( challenge );
+    },
+
+    /**
+     * Randomly selects a color from the pool.
+     *
+     * @returns {Color|string}
+     */
+    nextColor: function() {
+
+      // pool is empty, start over
+      if ( this.availableColors.length === 0 ) {
+        this.availableColors = COLOR_POOL.slice( 0 );
+      }
+
+      //TODO this could possibly select the same color twice in a row, or twice in the same challenge, when pool is refreshed
+      // randomly select a color
+      var colorIndex = this.randomColor.nextInt( this.availableColors.length );
+      assert && assert( colorIndex >= 0 && colorIndex < this.availableColors.length );
+      var color = this.availableColors[ colorIndex ];
+
+      // remove the color from the pool
+      this.availableColors.splice( colorIndex, 1 );
+
+      return color;
     }
   } );
 } );

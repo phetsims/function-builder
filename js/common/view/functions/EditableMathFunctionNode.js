@@ -12,8 +12,8 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBNumberPicker = require( 'FUNCTION_BUILDER/common/view/FBNumberPicker' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var HideableFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/HideableFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -54,10 +54,10 @@ define( function( require ) {
       spacing: 5
     } );
 
-    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
+    HideableFunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
   }
 
   functionBuilder.register( 'EditableMathFunctionNode', EditableMathFunctionNode );
 
-  return inherit( FunctionNode, EditableMathFunctionNode );
+  return inherit( HideableFunctionNode, EditableMathFunctionNode );
 } );

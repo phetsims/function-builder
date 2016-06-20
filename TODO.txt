@@ -5,6 +5,8 @@ Mystery screen:
 - populate pools with combinations from spreadsheet
 - assign function colors randomly
 - 'reveal' button on functions, available after 2 cards are put in output carousel
+- animate challenge reveal
+- animate next challenge
 
 Limit to 1 "parked" card in builder #44
 

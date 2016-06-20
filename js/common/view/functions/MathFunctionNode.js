@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  var HideableFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/HideableFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -35,7 +35,7 @@ define( function( require ) {
       font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 
-    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
+    HideableFunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
 
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
@@ -47,5 +47,5 @@ define( function( require ) {
 
   functionBuilder.register( 'MathFunctionNode', MathFunctionNode );
 
-  return inherit( FunctionNode, MathFunctionNode );
+  return inherit( HideableFunctionNode, MathFunctionNode );
 } );

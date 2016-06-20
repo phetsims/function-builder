@@ -79,6 +79,7 @@ define( function( require ) {
 
   return inherit( FunctionNode, MysteryFunctionNode, {
 
+    //TODO animate this transition?
     /**
      * Shows or hides the identify of the function.
      *
@@ -106,6 +107,7 @@ define( function( require ) {
      * @param {Color|string} fill
      */
     setBackgroundFill: function( fill ) {
+      console.log( 'setBackgroundFill ' + fill );//XXX
       this.backgroundNode.fill = fill;
     },
     set backgroundFill( value ) { this.setBackgroundFill( value ); },

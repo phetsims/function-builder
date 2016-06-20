@@ -132,7 +132,7 @@ define( function( require ) {
 
             // configure function to match the challenge
             functionNode.operand = challengeObject.operand;
-            //TODO functionNode.backgroundFill = random color
+            functionNode.backgroundFill = thisNode.scene.nextColor();
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );
