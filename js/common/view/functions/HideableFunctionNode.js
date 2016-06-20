@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Function that can hide its identity. The function turns gray and displays a 'close eye' icon.
+ * Base type for functions that can hide their identity.
+ * The function turns gray and displays a 'close eye' icon.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
