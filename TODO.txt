@@ -1,7 +1,7 @@
 TODO list for function-builder
 
 Mystery screen:
-- clean up lock/unlock feature
+- clean up lock/unlock feature in MysteryFunctionNode
 - fix Reset All so that pressing it twice doesn't clear the builder
 - populate pools with combinations from spreadsheet
 - animate next challenge
