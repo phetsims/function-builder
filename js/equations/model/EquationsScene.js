@@ -27,7 +27,7 @@ define( function( require ) {
   var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
+  var CARD_NUMBERS_RANGE = new Range( -4, 6 );
 
   /**
    * @param {Object} [options]
