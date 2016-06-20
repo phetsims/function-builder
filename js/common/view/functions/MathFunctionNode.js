@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Math function with immutable operand.
+ * Node that synchronizes with a MathFunction, but does not support editing its operand.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,26 +25,28 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ImmutableMathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
+  function MathFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var labelString = StringUtils.format( '{0} {1}',
-      functionInstance.operatorString, functionInstance.operandProperty.get() );
+    var thisNode = this;
 
-    var contentNode = new Text( labelString, {
+    var contentNode = new Text( '', {
       font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
 
+    // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
-    functionInstance.operandProperty.lazyLink( function( operand ) {
-      assert && assert( 'operand should not change' );
+    functionInstance.operandProperty.link( function( operand ) {
+      contentNode.text = StringUtils.format( '{0} {1}',
+        functionInstance.operatorString, functionInstance.operandProperty.get() );
+      contentNode.center = thisNode.backgroundNode.center;
     } );
   }
 
-  functionBuilder.register( 'ImmutableMathFunctionNode', ImmutableMathFunctionNode );
+  functionBuilder.register( 'MathFunctionNode', MathFunctionNode );
 
-  return inherit( FunctionNode, ImmutableMathFunctionNode );
+  return inherit( FunctionNode, MathFunctionNode );
 } );

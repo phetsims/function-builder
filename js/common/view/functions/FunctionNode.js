@@ -49,7 +49,7 @@ define( function( require ) {
     this.builder = builderNode.builder;
     this.dragLayer = dragLayer;
 
-    // @private
+    // @protected
     this.backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
     contentNode.center = this.backgroundNode.center;
 

@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImmutableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImmutableMathFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
 
   // strings
@@ -39,7 +39,7 @@ define( function( require ) {
       tableHeadingFont: FBConstants.TABLE_INPUT_OUTPUT_HEADING_FONT // {Font} for XY table heading
     }, options );
 
-    MathSceneNode.call( this, scene, layoutBounds, ImmutableMathFunctionNode, options );
+    MathSceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
   }
 
   functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
