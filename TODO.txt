@@ -1,24 +1,16 @@
 TODO list for function-builder
 
+Mystery screen:
+- fix Reset All so that pressing it twice doesn't clear the builder
+- populate pools with combinations from spreadsheet
+- assign function colors randomly
+- 'reveal' button on functions, available after 2 cards are put in output carousel
+
+Limit to 1 "parked" card in builder #44
+
 Interviews on 6/29 & 7/5
 
 Blank space after 6 in input carousel of Mystery screen
-
-Mystery screen:
-- pool of predefined function combinations (operator, operand)
-- implement "generate" button listener
-- assign function colors randomly
-- MysteryFunctionNode
-- MysteryFunctionContainer
-- MysterySceneNode has much in common with EquationSceneNode
-
-MysteryFunctionNode
-- default label of '?', optional other label
-- mutable fill
-- syncs with model operand
-- show/hide button on them that reveals the function, available after 2 cards are put in output carousel
-
-Limit to 1 "parked" card in builder #44
 
 Startup time #37
 
