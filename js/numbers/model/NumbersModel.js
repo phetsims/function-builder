@@ -31,7 +31,6 @@ define( function( require ) {
   var BUILDER_WIDTH = ( BUILDER_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 120;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
-  var OPERAND_MUTABLE = false;
 
   /**
    * @constructor
@@ -50,84 +49,72 @@ define( function( require ) {
       // +1
       new FunctionCreator( Plus, {
         operand: 1,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 128, 197, 237 )'
       } ),
 
       // + 2
       new FunctionCreator( Plus, {
         operand: 2,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 147, 231, 128 )'
       } ),
 
       // + 3
       new FunctionCreator( Plus, {
         operand: 3,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 255, 120, 120 )'
       } ),
 
       // - 1
       new FunctionCreator( Minus, {
         operand: 1,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 147, 231, 128 )'
       } ),
 
       // - 2
       new FunctionCreator( Minus, {
         operand: 2,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 255, 161, 43 )'
       } ),
 
       // - 3
       new FunctionCreator( Minus, {
         operand: 3,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 255, 246, 187 )'
       } ),
 
       // * 0
       new FunctionCreator( Times, {
         operand: 0,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 0, 222, 224 )'
       } ),
 
       // * 1
       new FunctionCreator( Times, {
         operand: 1,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 246, 164, 255 )'
       } ),
 
       // * 2
       new FunctionCreator( Times, {
         operand: 2,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 250, 186, 75 )'
       } ),
 
       // / 1
       new FunctionCreator( Divide, {
         operand: 1,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 127, 225, 173 )'
       } ),
 
       // / 2
       new FunctionCreator( Divide, {
         operand: 2,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 249, 144, 99 )'
       } ),
 
       // / 3
       new FunctionCreator( Divide, {
         operand: 3,
-        operandMutable: OPERAND_MUTABLE,
         fill: 'rgb( 222, 186, 247 )'
       } )
     ];
