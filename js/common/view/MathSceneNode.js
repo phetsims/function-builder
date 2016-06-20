@@ -16,7 +16,6 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
@@ -25,10 +24,11 @@ define( function( require ) {
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
    * @param {Object} [options]
    * @constructor
    */
-  function MathSceneNode( scene, layoutBounds, options ) {
+  function MathSceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
     options = _.extend( {
       hasTableDrawer: false, // show XY table drawer
@@ -41,7 +41,7 @@ define( function( require ) {
       tableHeadingFont: FBConstants.TABLE_XY_HEADING_FONT
     }, options );
 
-    SceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
+    SceneNode.call( this, scene, layoutBounds, functionNodeConstructor, options );
 
     // XY table drawer
     if ( options.hasTableDrawer ) {

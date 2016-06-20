@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
 
   /**
@@ -29,7 +30,7 @@ define( function( require ) {
       hasEquationDrawer: true // include an equation drawer
     }, options );
 
-    MathSceneNode.call( this, scene, layoutBounds, options );
+    MathSceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
   }
 
   functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
