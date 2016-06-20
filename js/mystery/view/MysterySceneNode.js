@@ -29,6 +29,7 @@ define( function( require ) {
     options = _.extend( {
 
       cardCarouselDefaultPageNumber: 1, // show cards 0-3 in input carousel
+      functionsPerPage: 2, // functions per page in the functions carousel (which is invisible)
       hasTableDrawer: true, // include an XY table drawer
       hasGraphDrawer: true, // include an XY graph drawer
       hideFunctionsCheckBoxVisible: false, // hide this feature
