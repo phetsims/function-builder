@@ -84,7 +84,7 @@ define( function( require ) {
     // drawers get added to this layer by subtypes
     var drawersLayer = new Node();
 
-    // Builder
+    // Builder, ends are separate nodes to provide illusion of dragging cards through the builder
     var builder = scene.builder;
     var BUILDER_END_OPTIONS = {
       radiusX: 15,
@@ -199,22 +199,18 @@ define( function( require ) {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    // Link input carousel to output carousel, so that they display the same page number.
+    // Link the input and output carousels, so that they display the same page number.
     // unlink unnecessary, instances exist for lifetime of the sim.
     assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
     inputCarousel.pageNumberProperty.link( function( pageNumber ) {
       outputCarousel.pageNumberProperty.set( pageNumber );
     } );
-
-    // Link output carousel to input carousel.
-    // unlink unnecessary, instances exist for lifetime of the sim.
     outputCarousel.pageNumberProperty.link( function( pageNumber ) {
       inputCarousel.pageNumberProperty.set( pageNumber );
     } );
 
-    // Misc controls ----------------------------------------------------------------------------------------------------
+    // 'Hide Functions' feature ----------------------------------------------------------------------------------------
 
-    // hide function icons in the builder
     var hideFunctionsCheckBox = new CheckBox(
       FBIconFactory.createHideFunctionsIcon(),
       viewProperties.hideFunctionsProperty, {
@@ -226,11 +222,12 @@ define( function( require ) {
     controlsLayer.addChild( hideFunctionsCheckBox );
     hideFunctionsCheckBox.touchArea = hideFunctionsCheckBox.localBounds.dilatedXY( 10, 10 );
 
+    // 'See Inside' feature --------------------------------------------------------------------------------------------
+
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
       visible: viewProperties.seeInsideProperty.get()
     } );
 
-    // 'See Inside' windows in builder
     var seeInsideCheckBox = new CheckBox(
       FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
       viewProperties.seeInsideProperty, {
@@ -267,99 +264,28 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Create properties in one place, so we can see what's available and document visibility
+
     // @private populated by populateCarousels, needed by reset
     this.functionNodes = []; // {FunctionNode[]}
     this.cardNodes = []; // {CardNode[]}
 
-    // @private Resets this node
-    this._reset = function() {
-
-      viewProperties.reset();
-
-      // Reset carousels without animation
-      functionCarousel.reset( { animationEnabled: false } );
-
-      // Because the input and output carousels are linked, we need to use this approach:
-      inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      inputCarousel.reset();
-      outputCarousel.reset();
-      inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
-
-      builderNode.reset();
-
-      // Return all functions to the carousel
-      thisNode.functionNodes.forEach( function( functionNode ) {
-        functionNode.moveToCarousel();
-      } );
-
-      // Return all cards to the input carousel
-      thisNode.cardNodes.forEach( function( cardNode ) {
-        cardNode.moveToInputCarousel();
-      } );
-    };
-
-    // @private Populates the carousels, while we scroll them with animation disabled.
-    this._populateCarousels = function() {
-
-      // This cannot be done until this scene is attached to a ScreenView.
-      assert && assert( hasScreenViewAncestor( thisNode ), 'call this function after attaching to ScreenView' );
-
-      // functions
-      functionCarousel.animationEnabled = false;
-      functionContainers.forEach( function( functionContainer ) {
-
-        // function container's location
-        functionContainer.carouselLocation = getCarouselLocation( functionCarousel, functionContainer, functionsDragLayer );
-
-        // populate the container with functions
-        functionContainer.createFunctions( scene.numberOfEachFunction, scene, builderNode, functionsDragLayer );
-
-        // get the functions that were added, needed for reset
-        thisNode.functionNodes = thisNode.functionNodes.concat( functionContainer.getContents() );
-      } );
-      functionCarousel.pageNumberProperty.reset();
-      functionCarousel.animationEnabled = true;
-
-      // cards
-      inputCarousel.animationEnabled = outputCarousel.animationEnabled = false;
-      assert && assert( inputContainers.length === outputContainers.length );
-      for ( var i = 0; i < inputContainers.length; i++ ) {
-
-        // input container's location
-        var inputContainer = inputContainers[ i ];
-        inputContainer.carouselLocation = getCarouselLocation( inputCarousel, inputContainer, cardsDragLayer );
-
-        // output container's location
-        var outputContainer = outputContainers[ i ];
-        outputContainer.carouselLocation = getCarouselLocation( outputCarousel, outputContainer, cardsDragLayer );
-
-        // populate the input container with cards
-        inputContainer.createCards( scene.numberOfEachCard, scene, inputContainer, outputContainer, builderNode,
-          cardsDragLayer, seeInsideLayer, viewProperties.seeInsideProperty );
-
-        // get the cards that were added, needed for reset
-        thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
-      }
-      inputCarousel.pageNumberProperty.reset();
-      outputCarousel.pageNumberProperty.reset();
-      inputCarousel.animationEnabled = outputCarousel.animationEnabled = true;
-
-      // move 1 of each card to the output carousel, for testing
-      if ( FBQueryParameters.POPULATE_OUTPUT ) {
-        populateOutputCarousel( inputCarousel, outputCarousel );
-      }
-    };
-
     // @private needed by prototype functions
+    this.scene = scene;
+    this.viewProperties = viewProperties;
+    this.functionsDragLayer = functionsDragLayer;
+    this.cardsDragLayer = cardsDragLayer;
+    this.seeInsideLayer = seeInsideLayer;
+    this.inputCarousel = inputCarousel;
     this.outputCarousel = outputCarousel;
+    this.functionCarousel = functionCarousel;
+    this.builderNode = builderNode;
 
     // @protected needed by subtypes
-    this.viewProperties = viewProperties;
     this.drawersLayer = drawersLayer;
-    this.builderNode = builderNode;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
-    this.outputCarousel = outputCarousel;
     this.seeInsideCheckBox = seeInsideCheckBox;
   }
 
@@ -434,7 +360,29 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this._reset();
+
+      this.viewProperties.reset();
+
+      // Reset carousels without animation
+      this.functionCarousel.reset( { animationEnabled: false } );
+
+      // Because the input and output carousels are linked, we need to use this approach:
+      this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
+      this.inputCarousel.reset();
+      this.outputCarousel.reset();
+      this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
+
+      this.builderNode.reset();
+
+      // Return all functions to the carousel
+      this.functionNodes.forEach( function( functionNode ) {
+        functionNode.moveToCarousel();
+      } );
+
+      // Return all cards to the input carousel
+      this.cardNodes.forEach( function( cardNode ) {
+        cardNode.moveToInputCarousel();
+      } );
     },
 
     // @protected called when the 'eraser' button is pressed
@@ -443,13 +391,77 @@ define( function( require ) {
     },
 
     /**
-     * Populates the function and card carousels. This must be done after the view is created, because
-     * we need to know the location of the containers in the carousels.
+     * Populates the function and card carousels. This cannot be done until this scene is attached
+     * to a ScreenView, because we need to know the location of the containers in the carousels.
      *
      * @public
      */
     populateCarousels: function() {
-      this._populateCarousels();
+      assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
+      this.populateFunctionCarousels();
+      this.populateCardCarousels();
+    },
+
+    // @private populates the function carousel
+    populateFunctionCarousels: function() {
+
+      var thisNode = this;
+
+      thisNode.functionCarousel.animationEnabled = false;
+
+      thisNode.functionCarousel.items.forEach( function( functionContainer ) {
+
+        // function container's location
+        functionContainer.carouselLocation = getCarouselLocation( thisNode.functionCarousel, functionContainer, thisNode.functionsDragLayer );
+
+        // populate the container with functions
+        functionContainer.createFunctions( thisNode.scene.numberOfEachFunction, thisNode.scene, thisNode.builderNode, thisNode.functionsDragLayer );
+
+        // get the functions that were added, needed for reset
+        thisNode.functionNodes = thisNode.functionNodes.concat( functionContainer.getContents() );
+      } );
+
+      thisNode.functionCarousel.pageNumberProperty.reset();
+      thisNode.functionCarousel.animationEnabled = true;
+    },
+
+    // @private populates the card carousels
+    populateCardCarousels: function() {
+
+      var thisNode = this;
+
+      thisNode.inputCarousel.animationEnabled = thisNode.outputCarousel.animationEnabled = false;
+
+      var inputContainers = thisNode.inputCarousel.items;
+      var outputContainers = thisNode.outputCarousel.items;
+      assert && assert( inputContainers.length === outputContainers.length );
+
+      for ( var i = 0; i < inputContainers.length; i++ ) {
+
+        // input container's location
+        var inputContainer = inputContainers[ i ];
+        inputContainer.carouselLocation = getCarouselLocation( thisNode.inputCarousel, inputContainer, thisNode.cardsDragLayer );
+
+        // output container's location
+        var outputContainer = outputContainers[ i ];
+        outputContainer.carouselLocation = getCarouselLocation( thisNode.outputCarousel, outputContainer, thisNode.cardsDragLayer );
+
+        // populate the input container with cards
+        inputContainer.createCards( thisNode.scene.numberOfEachCard, thisNode.scene, inputContainer, outputContainer,
+          thisNode.builderNode, thisNode.cardsDragLayer, thisNode.seeInsideLayer, thisNode.viewProperties.seeInsideProperty );
+
+        // get the cards that were added, needed for reset
+        thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
+      }
+
+      thisNode.inputCarousel.pageNumberProperty.reset();
+      thisNode.outputCarousel.pageNumberProperty.reset();
+      thisNode.inputCarousel.animationEnabled = thisNode.outputCarousel.animationEnabled = true;
+
+      // move 1 of each card to the output carousel, for testing
+      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+        populateOutputCarousel( thisNode.inputCarousel, thisNode.outputCarousel );
+      }
     },
 
     /**
