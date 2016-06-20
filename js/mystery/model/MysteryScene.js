@@ -48,7 +48,8 @@ define( function( require ) {
       cardSymbol: INCLUDE_X_CARD ? FBSymbols.X : null
     }, options );
 
-    options.numberOfEachFunction = options.functionsPerChallenge; //TODO revisit this value, after pools are specified
+    // Supports the case when all 3 functions in a challenge have the same type
+    options.numberOfEachFunction = options.functionsPerChallenge;
 
     // verify that each challenge contains the correct number of functions
     if ( assert ) {
