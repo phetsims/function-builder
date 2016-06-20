@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Abstract base type for all ScreenViews in this sim.
+ * Base type for all ScreenViews in this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,10 +20,11 @@ define( function( require ) {
 
   /**
    * @param {*} model - model, type determined by subtype
+   * @param {constructor} sceneNodeConstructor - constructor for SceneNode subtype
    * @param {Object} [options]
    * @constructor
    */
-  function FBScreenView( model, options ) {
+  function FBScreenView( model, sceneNodeConstructor, options ) {
 
     options = _.extend( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
@@ -32,8 +33,9 @@ define( function( require ) {
 
     // @private
     this.model = model;
+    this.sceneNodeConstructor = sceneNodeConstructor;
     this.sceneControlYOffset = options.sceneControlYOffset;
-    this.initialized = false;
+    this.initialized = false; // {boolean} has initialized been called?
 
     ScreenView.call( this, options );
 
@@ -45,20 +47,6 @@ define( function( require ) {
   functionBuilder.register( 'FBScreenView', FBScreenView );
 
   return inherit( ScreenView, FBScreenView, {
-
-    /**
-     * Creates the node for a scene.
-     *
-     * @param {Scene} scene
-     * @param {Bounds2} layoutBounds
-     * @param {Object} options - options to SceneNode constructor
-     * @returns {SceneNode}
-     * @protected
-     * @abstract
-     */
-    createSceneNode: function( scene, layoutBounds, options ) {
-      throw new Error( 'must be implemented by subtype' );
-    },
 
     /**
      * Called when the simulation clock ticks.
@@ -121,7 +109,7 @@ define( function( require ) {
         if ( FBConstants.INIT_SCENES_ON_START ) {
 
           // create scene node on start
-          var sceneNode = thisNode.createSceneNode( scene, layoutBounds, { visible: false } );
+          var sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
           sceneNodes.push( sceneNode );
           scenesParent.addChild( sceneNode );
         }
@@ -160,7 +148,7 @@ define( function( require ) {
         if ( !sceneNode ) {
 
           // create on demand
-          sceneNode = thisNode.createSceneNode( scene, layoutBounds, { visible: false } );
+          sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
           sceneNodes[ sceneIndex ] = sceneNode;
           scenesParent.addChild( sceneNode );
           sceneNode.populateCarousels(); // after adding to scene graph!

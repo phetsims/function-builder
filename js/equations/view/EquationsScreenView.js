@@ -20,25 +20,10 @@ define( function( require ) {
    * @constructor
    */
   function EquationsScreenView( model, options ) {
-    FBScreenView.call( this, model, options );
+    FBScreenView.call( this, model, EquationsSceneNode, options );
   }
 
   functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( FBScreenView, EquationsScreenView, {
-
-    /**
-     * Creates the node for a scene.
-     *
-     * @param {Scene} scene
-     * @param {Bounds2} layoutBounds
-     * @param {Object} options - options to SceneNode constructor
-     * @returns {SceneNode}
-     * @protected
-     * @override
-     */
-    createSceneNode: function( scene, layoutBounds, options ) {
-      return new EquationsSceneNode( scene, layoutBounds, options );
-    }
-  } );
+  return inherit( FBScreenView, EquationsScreenView );
 } );

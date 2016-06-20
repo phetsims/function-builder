@@ -60,6 +60,8 @@ define( function( require ) {
       hideFunctionsCheckBoxVisible: true // {boolean} is hideFunctionsCheckBox visible?
     }, options );
 
+    console.log( 'cardCarouselDefaultPageNumber=' + options.cardCarouselDefaultPageNumber ); //XXX
+
     var thisNode = this;
 
     // view-specific properties

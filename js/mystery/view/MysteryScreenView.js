@@ -25,25 +25,10 @@ define( function( require ) {
       sceneControlYOffset: 515 // offset of scene control from top of screen
     }, options );
 
-    FBScreenView.call( this, model, options );
+    FBScreenView.call( this, model, MysterySceneNode, options );
   }
 
   functionBuilder.register( 'MysteryScreenView', MysteryScreenView );
 
-  return inherit( FBScreenView, MysteryScreenView, {
-
-    /**
-     * Creates the node for a scene.
-     *
-     * @param {Scene} scene
-     * @param {Bounds2} layoutBounds
-     * @param {Object} options - options to SceneNode constructor
-     * @returns {SceneNode}
-     * @protected
-     * @override
-     */
-    createSceneNode: function( scene, layoutBounds, options ) {
-      return new MysterySceneNode( scene, layoutBounds, options );
-    }
-  } );
+  return inherit( FBScreenView, MysteryScreenView );
 } );

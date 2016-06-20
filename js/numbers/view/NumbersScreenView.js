@@ -20,25 +20,10 @@ define( function( require ) {
    * @constructor
    */
   function NumbersScreenView( model, options ) {
-    FBScreenView.call( this, model, options );
+    FBScreenView.call( this, model, NumbersSceneNode, options );
   }
 
   functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
 
-  return inherit( FBScreenView, NumbersScreenView, {
-
-    /**
-     * Creates the node for a scene.
-     *
-     * @param {Scene} scene
-     * @param {Bounds2} layoutBounds
-     * @param {Object} options - options to SceneNode constructor
-     * @returns {SceneNode}
-     * @protected
-     * @override
-     */
-    createSceneNode: function( scene, layoutBounds, options ) {
-      return new NumbersSceneNode( scene, layoutBounds, options );
-    }
-  } );
+  return inherit( FBScreenView, NumbersScreenView );
 } );
