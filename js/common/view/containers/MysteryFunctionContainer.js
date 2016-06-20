@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Container for image functions.
+ * Container for functions in the 'Mystery' screen.
  * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -12,29 +12,30 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
-  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
 
   /**
-   * @param {FunctionCreator} functionCreator - creates function instances
+   * @param {FunctionCreator} functionCreator - function creator
    * @param {Object} [options]
    * @constructor
    */
-  function ImageFunctionContainer( functionCreator, options ) {
+  function MysteryFunctionContainer( functionCreator, options ) {
+
     this.functionCreator = functionCreator; // @private
+
     FunctionContainer.call( this, options );
   }
 
-  functionBuilder.register( 'ImageFunctionContainer', ImageFunctionContainer );
+  functionBuilder.register( 'MysteryFunctionContainer', MysteryFunctionContainer );
 
-  return inherit( FunctionContainer, ImageFunctionContainer, {
+  return inherit( FunctionContainer, MysteryFunctionContainer, {
 
-    //TODO this is identical in all subtypes of FunctionContainer
     /***
      * Creates the model element for a function.
-     * See supertype FunctionContainer.createFunctionInstance for params.
      *
-     * @returns {AbstractFunction}
+     * @param {Vector2} location
+     * @returns {MathFunction}
      * @protected
      * @abstract
      */
@@ -42,17 +43,16 @@ define( function( require ) {
       return this.functionCreator.createInstance( { location: this.carouselLocation } );
     },
 
-    //TODO except for the constructor name, this is identical in all subtypes of FunctionContainer
     /**
-     * Creates the view element (Node) for a function.
+     * Creates the view element for a function.
      * See supertype FunctionContainer.createFunctionNode for params.
      *
-     * @returns {ImageFunctionNode}
+     * @returns {MathFunctionNode}
      * @protected
      * @abstract
      */
     createFunctionNode: function( functionInstance, container, builderNode, dragLayer ) {
-      return new ImageFunctionNode( functionInstance, container, builderNode, dragLayer );
+      return new MysteryFunctionNode( functionInstance, container, builderNode, dragLayer );
     }
   } );
 } );

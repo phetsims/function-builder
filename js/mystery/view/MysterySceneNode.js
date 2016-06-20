@@ -14,6 +14,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  var MysteryFunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/MysteryFunctionContainer' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -97,5 +98,23 @@ define( function( require ) {
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
 
-  return inherit( MathSceneNode, MysterySceneNode );
+  return inherit( MathSceneNode, MysterySceneNode, {
+
+    /**
+     * Creates the function containers that go in the function carousel.
+     *
+     * @param {Scene} scene
+     * @param {Object} [containerOptions] - see MathFunctionContainer options
+     * @returns {FunctionContainer[]}
+     * @protected
+     * @override
+     */
+    createFunctionContainers: function( scene, containerOptions ) {
+      var functionContainers = [];
+      scene.functionCreators.forEach( function( functionCreator ) {
+        functionContainers.push( new MysteryFunctionContainer( functionCreator, containerOptions ) );
+      } );
+      return functionContainers;
+    }
+  } );
 } );
