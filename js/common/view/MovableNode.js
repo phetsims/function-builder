@@ -24,6 +24,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      draggable: true, // {boolean} is this node draggable?
       allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up
       cursor: 'pointer',
       startDrag: null, // {function|null} Called at the start of each drag sequence
@@ -54,35 +55,37 @@ define( function( require ) {
     var startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
 
     // @private
-    this.dragHandler = new SimpleDragHandler( {
+    if ( options.draggable ) {
+      this.dragHandler = new SimpleDragHandler( {
 
-      allowTouchSnag: options.allowTouchSnag,
+        allowTouchSnag: options.allowTouchSnag,
 
-      start: function( event, trail ) {
+        start: function( event, trail ) {
 
-        movable.dragging = true;
-        options.startDrag && options.startDrag();
+          movable.dragging = true;
+          options.startDrag && options.startDrag();
 
-        // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
-        var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-        startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
-      },
+          // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
+          var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
+        },
 
-      // No need to constrain drag bounds because Movables return to carousel or builder when released.
-      drag: function( event, trail ) {
-        var previousLocation = movable.locationProperty.get();
-        var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-        var location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
-        var delta = location.minus( previousLocation );
-        options.translateMovable( movable, location, delta );
-      },
+        // No need to constrain drag bounds because Movables return to carousel or builder when released.
+        drag: function( event, trail ) {
+          var previousLocation = movable.locationProperty.get();
+          var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          var location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
+          var delta = location.minus( previousLocation );
+          options.translateMovable( movable, location, delta );
+        },
 
-      end: function( event, trail ) {
-        movable.dragging = false;
-        options.endDrag && options.endDrag();
-      }
-    } );
-    this.addInputListener( this.dragHandler );
+        end: function( event, trail ) {
+          movable.dragging = false;
+          options.endDrag && options.endDrag();
+        }
+      } );
+      this.addInputListener( this.dragHandler );
+    }
   }
 
   functionBuilder.register( 'MovableNode', MovableNode );
@@ -96,7 +99,7 @@ define( function( require ) {
      * @public
      */
     cancelDrag: function() {
-      if ( this.movable.dragging ) {
+      if ( this.dragHandler && this.movable.dragging ) {
         this.dragHandler.endDrag( null /* event */ );
       }
     }

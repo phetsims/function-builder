@@ -16,10 +16,16 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+
+  // images
+  var lockClosedImage = require( 'image!FUNCTION_BUILDER/lock-closed.png' );
+  var lockOpenImage = require( 'image!FUNCTION_BUILDER/lock-open.png' );
 
   // strings
   var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
@@ -41,12 +47,12 @@ define( function( require ) {
         font: FBConstants.MYSTERY_FUNCTION_FONT
       } ),
 
+      draggable: false, // {boolean} Mystery functions are not draggable
       identityVisible: false // {boolean} is the function's identity visible?
 
     }, options );
 
-    // there is no user interaction with Mystery functions
-    options.pickable = false;
+    var thisNode = this;
 
     // @private this node obscures the identity of the function
     this.mysteryNode = options.mysteryNode;
@@ -60,12 +66,39 @@ define( function( require ) {
     } );
 
     var contentNode = new Node( {
-       children: [ this.mysteryNode, this.identityNode ]
+      children: [ this.mysteryNode, this.identityNode ]
     } );
 
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
 
-    var thisNode = this;
+    //TODO clean up this block of lock stuff, replace setIdentityVisible with a Property
+    {
+      // @private
+      this.lockedNode = new Image( lockClosedImage, {
+        visible: !options.identityVisible,
+        scale: 0.35,
+        left: 0.75 * this.width,
+        centerY: this.height / 2
+      } );
+      this.unlockedNode = new Image( lockOpenImage, {
+        visible: options.identityVisible,
+        scale: 0.35,
+        left: this.lockedNode.left,
+        bottom: this.lockedNode.bottom
+      } );
+      this.addChild( this.lockedNode );
+      this.addChild( this.unlockedNode );
+
+      var lockListener = new DownUpListener( {
+        down: function() {
+          thisNode.identityVisible = !thisNode.identityVisible;
+        }
+      } );
+      this.lockedNode.addInputListener( lockListener );
+      this.unlockedNode.addInputListener( lockListener );
+      this.lockedNode.touchArea = this.lockedNode.localBounds.dilatedXY( 10, 10 );
+      this.unlockedNode.touchArea = this.lockedNode.localBounds.dilatedXY( 10, 10 );
+    }
 
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
@@ -86,14 +119,14 @@ define( function( require ) {
      * @param {boolean} visible
      */
     setIdentityVisible: function( visible ) {
-      this.mysteryNode.visible = !visible;
-      this.identityNode.visible = !visible;
+      this.mysteryNode.visible = this.lockedNode.visible = !visible;
+      this.identityNode.visible = this.unlockedNode.visible = visible;
     },
     set identityVisible( value ) { this.setIdentityVisible( value ); },
 
     /**
      * Is the function's identity visible?
-     * 
+     *
      * @returns {boolen}
      */
     getIdentityVisible: function() {
@@ -107,7 +140,6 @@ define( function( require ) {
      * @param {Color|string} fill
      */
     setBackgroundFill: function( fill ) {
-      console.log( 'setBackgroundFill ' + fill );//XXX
       this.backgroundNode.fill = fill;
     },
     set backgroundFill( value ) { this.setBackgroundFill( value ); },
