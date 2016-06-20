@@ -1,8 +1,11 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Function for the Mystery screen.
- * TODO describe what's different
+ * Function for the Mystery screen. It adds the following features:
+ *
+ * - mutable background fill
+ * - ability to show/hide the function's identity
+ * - convenience functions for mutating and comparing the associated function
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,9 +13,17 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
 
   /**
    * @param {MathFunction} functionInstance
@@ -23,11 +34,109 @@ define( function( require ) {
    * @constructor
    */
   function MysteryFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
-    MathFunctionNode.call( this, functionInstance, container, builderNode, dragLayer, options );
-    //TODO implement
+
+    options = _.extend( {
+
+      // {Node} this node obscures the identity of the function
+      mysteryNode: new Text( mysteryCharacterString, new FBFont( 30 ) ),
+
+      identityVisible: false // {boolean} is the function's identity visible?
+
+    }, options );
+
+    // there is no user interaction with Mystery functions
+    options.pickable = false;
+
+    // @private this node obscures the identity of the function
+    this.mysteryNode = options.mysteryNode;
+    this.mysteryNode.visible = !options.identityVisible;
+
+    // @private this node reveals the identity of the function
+    this.identityNode = new Text( '', {
+      font: FBConstants.NUMBERS_FUNCTION_FONT,
+      center: options.mysteryNode.center,
+      visible: options.identityVisible
+    } );
+
+    var contentNode = new Node( {
+       children: [ this.mysteryNode, this.identityNode ]
+    } );
+
+    FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
+
+    var thisNode = this;
+
+    // synchronize operand with model.
+    // unlink unnecessary, instances exist for lifetime of the sim
+    functionInstance.operandProperty.link( function( operand ) {
+      thisNode.identityNode.text = StringUtils.format( '{0} {1}', functionInstance.operatorString, operand );
+      thisNode.identityNode.center = thisNode.mysteryNode.center;
+    } );
   }
 
   functionBuilder.register( 'MysteryFunctionNode', MysteryFunctionNode );
 
-  return inherit( MathFunctionNode, MysteryFunctionNode );
+  return inherit( FunctionNode, MysteryFunctionNode, {
+
+    /**
+     * Shows or hides the identify of the function.
+     *
+     * @param {boolean} visible
+     */
+    setIdentityVisible: function( visible ) {
+      this.mysteryNode.visible = !visible;
+      this.identityNode.visible = !visible;
+    },
+    set identityVisible( value ) { this.setIdentityVisible( value ); },
+
+    /**
+     * Is the function's identity visible?
+     * 
+     * @returns {boolen}
+     */
+    getIdentityVisible: function() {
+      return this.identityNode.visible;
+    },
+    get identityVisible() { return this.getIdentityVisible(); },
+
+    /**
+     * Sets the fill of the function's background.
+     *
+     * @param {Color|string} fill
+     */
+    setBackgroundFill: function( fill ) {
+      this.backgroundNode.fill = fill;
+    },
+    set backgroundFill( value ) { this.setBackgroundFill( value ); },
+
+    /**
+     * Convenience function for setting the operand of the associated function.
+     *
+     * @param {number} operand
+     */
+    setOperand: function( operand ) {
+      this.functionInstance.operandProperty.set( operand );
+    },
+    set operand( value ) { this.setOperand( value ); },
+
+    /**
+     * Convenience function for getting the operator of the associated function.
+     *
+     * @returns {string}
+     */
+    getOperatorString: function() {
+      return this.functionInstance.operatorString;
+    },
+    get operatorString() { return this.getOperatorString(); },
+
+    /**
+     * Convenience function for determining if the associated function has a specific operator.
+     *
+     * @param {string} operatorString
+     * @returns {boolean}
+     */
+    operatorEquals: function( operatorString ) {
+      return this.functionInstance.operatorString.equals( operatorString );
+    }
+  } );
 } );
