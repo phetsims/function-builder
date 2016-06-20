@@ -436,19 +436,6 @@ define( function( require ) {
     },
 
     /**
-     * Creates the card containers that go in the card carousels.
-     *
-     * @param {Scene} scene
-     * @param {Object} [containerOptions]
-     * @returns {CardContainer[]}
-     * @protected
-     * @abstract
-     */
-    createCardContainers: function( scene, containerOptions ) {
-      throw new Error( 'must be implemented by subtype' );
-    },
-
-    /**
      * Creates the function containers that go in the function carousel.
      *
      * @param {Scene} scene
@@ -463,6 +450,19 @@ define( function( require ) {
         functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
       } );
       return functionContainers;
+    },
+
+    /**
+     * Creates the card containers that go in the card carousels.
+     *
+     * @param {Scene} scene
+     * @param {Object} [containerOptions]
+     * @returns {CardContainer[]}
+     * @protected
+     * @abstract
+     */
+    createCardContainers: function( scene, containerOptions ) {
+      throw new Error( 'must be implemented by subtype' );
     }
   } );
 } );
