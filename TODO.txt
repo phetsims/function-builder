@@ -1,10 +1,9 @@
 TODO list for function-builder
 
 Mystery screen:
+- clean up lock/unlock feature
 - fix Reset All so that pressing it twice doesn't clear the builder
 - populate pools with combinations from spreadsheet
-- 'reveal' button on functions, available after 2 cards are put in output carousel
-- animate challenge reveal
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor
 
