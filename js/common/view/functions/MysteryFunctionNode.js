@@ -137,7 +137,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     operatorEquals: function( operator ) {
-      return this.functionInstance.operator.equals( operator );
+      return this.functionInstance.operator === operator;
     }
   } );
 } );
