@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO move to scenery-phet
 /**
  * Button that toggles between an open and closed eyeball, used to control the visibility of something.
  * 
