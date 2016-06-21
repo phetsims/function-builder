@@ -83,6 +83,9 @@ define( function( require ) {
         thisNode.revealButtons.push( revealButton );
         thisNode.controlsLayer.addChild( revealButton );
 
+        // touchArea
+        revealButton.touchArea = revealButton.localBounds.dilatedXY( 25, 15 );
+
       })();
     }
 
