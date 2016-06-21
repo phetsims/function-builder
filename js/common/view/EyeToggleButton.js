@@ -47,7 +47,7 @@ define( function( require ) {
     RectangularToggleButton.call( this, true, false, eyeOpenProperty, options );
 
     // @private
-    this._disposeEyeToggleButton = function() {
+    this.disposeEyeToggleButton = function() {
       eyeOpenProperty.unlink( eyeOpenObserver );
     };
   }
@@ -58,7 +58,7 @@ define( function( require ) {
     
     // @public
     dispose: function() {
-      this._disposeEyeToggleButton();
+      this.disposeEyeToggleButton();
     }
   } );
 } );
