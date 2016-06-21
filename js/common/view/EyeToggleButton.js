@@ -16,7 +16,7 @@ define( function( require ) {
   var RectangularToggleButton = require( 'SUN/buttons/RectangularToggleButton' );
 
   /**
-   * @param {Property.<boolean>} eyeOpenProperty
+   * @param {Property.<boolean>} eyeOpenProperty - true: eye is open; false: eye is closed
    * @param {Object} [options]
    * @constructor
    */
