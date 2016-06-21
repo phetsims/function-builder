@@ -12,9 +12,7 @@ Limit to 1 "parked" card in builder #44
 
 Interviews on 6/29 & 7/5
 
-Blank space after 6 in input carousel of Mystery screen
-
-Startup time #37
+reduce startup time #37
 
 stringTest
 
@@ -27,3 +25,5 @@ Write implementation-notes.md
 Code review
 
 Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
+
+Blank space after 6 in input carousel of Mystery screen
