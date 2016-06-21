@@ -84,11 +84,30 @@ define( function( require ) {
     // Supports the case when all 3 functions in a challenge have the same type
     options.numberOfEachFunction = options.functionsPerChallenge;
 
-    // verify that each challenge contains the correct number of functions
+    // validate the pool
     if ( assert ) {
-      pool.forEach( function( challenge ) {
-        thisScene.parseChallenge( challenge );
-      } );
+
+      // limit scope of for-loop var using IIFE
+      ( function() {
+        var duplicates = '';
+        for ( var i = 0; i < pool.length; i++ ) {
+
+          var challenge = pool[ i ];
+
+          // validate challenge
+          thisScene.parseChallenge( challenge );
+
+          // check for duplicates
+          var subset = pool.slice( i + 1 );
+          if ( subset.indexOf( challenge ) !== -1 ) {
+            if ( duplicates.length > 0 ) {
+              duplicates += ', ';
+            }
+            duplicates += challenge;
+          }
+        }
+        assert && assert( duplicates.length === 0, 'pool contains duplicate challenges: ' + duplicates );
+      } )();
     }
 
     // {Node} scene selection icon
