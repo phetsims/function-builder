@@ -18,6 +18,10 @@ Startup time #37
 
 Change requests
 
+stringTest
+
+touchAreas
+
 Write model.md
 
 Write implementation-notes.md
