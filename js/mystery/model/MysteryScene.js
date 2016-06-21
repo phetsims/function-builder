@@ -156,7 +156,8 @@ define( function( require ) {
   return inherit( Scene, MysteryScene, {
 
     /**
-     * Resets the scene, sets the challenge index so that the first challenge in the pool will be selected.
+     * Resets the scene.
+     * Resets the challenge to its initial value, restocks the challenge pool.
      *
      * @public
      * @override
@@ -224,7 +225,7 @@ define( function( require ) {
      */
     nextChallenge: function() {
 
-      // available pool is empty, start over
+      // available pool is empty, restock it
       if ( this.availableChallenges.length === 0 ) {
         this.availableChallenges = this.pool.slice( 0 );
       }
@@ -249,7 +250,7 @@ define( function( require ) {
      */
     nextColor: function() {
 
-      // pool is empty, start over
+      // available pool is empty, restock it
       if ( this.availableColors.length === 0 ) {
         this.availableColors = COLOR_POOL.slice( 0 );
       }
