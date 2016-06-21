@@ -62,11 +62,6 @@ define( function( require ) {
     options.x = builder.location.x;
     options.y = builder.location.y;
 
-    var thisNode = this;
-
-    // @public (read-only)
-    this.builder = builder;
-
     var colorScheme = builder.colorScheme;
     assert && assert( FBUtils.isaBuilderColorScheme( colorScheme ) );
 
@@ -132,7 +127,7 @@ define( function( require ) {
 
     // slots and the function nodes that are in the slots
     var slotNodes = [];
-    this.functionNodes = []; // @private {FunctionNode[]}
+    var functionNodes = []; // {FunctionNode[]}
     for ( var i = 0; i < builder.slots.length; i++ ) {
 
       slotNodes.push( new FunctionSlotNode( {
@@ -140,17 +135,17 @@ define( function( require ) {
         center: builder.slots[ i ].location.minus( builder.location )
       } ) );
 
-      this.functionNodes[ i ] = null; // empty functions are null
+      functionNodes[ i ] = null; // empty functions are null
     }
-    assert && assert( this.functionNodes.length === builder.slots.length );
+    assert && assert( functionNodes.length === builder.slots.length );
     var slotsParent = new Node( { children: slotNodes } );
-    this.functionsParent = new Node(); // @private
+    var functionsParent = new Node();
 
-    // @private 'moles under the carpet' that represents a card being dragged through the builder
-    this.moleCardsLayer = new Node();
+    // 'moles under the carpet' that represents a card being dragged through the builder
+    var moleCardsLayer = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ bodyNode, slotsParent, this.functionsParent, this.moleCardsLayer, leftEndNode, rightEndNode ];
+    options.children = [ bodyNode, slotsParent, functionsParent, moleCardsLayer, leftEndNode, rightEndNode ];
 
     assert && assert( !options.clipArea, 'clipArea cannot be customized' );
     options.clipArea = Shape.rect( 0, -END_HEIGHT / 2, BODY_WIDTH, END_HEIGHT );
@@ -159,14 +154,26 @@ define( function( require ) {
 
     // Hide/reveal the identify of functions in the builder.
     // unlink unnecessary, instances exist for lifetime of the sim
-    this.hideFunctionsProperty = hideFunctionsProperty; // @private
-    this.hideFunctionsProperty.link( function( hideFunctions ) {
-      thisNode.functionNodes.forEach( function( functionNode ) {
+    var hideFunctionsProperty = hideFunctionsProperty; // @private
+    hideFunctionsProperty.link( function( hideFunctions ) {
+      functionNodes.forEach( function( functionNode ) {
         if ( functionNode ) {
           functionNode.identityVisibleProperty.set( !hideFunctions );
         }
       } );
     } );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Define properties in one place, so we can see what's available and document visibility
+
+    // @public
+    this.builder = builder; // (read-only)
+    this.hideFunctionsProperty = hideFunctionsProperty;
+
+    // @private
+    this.functionNodes = functionNodes;
+    this.functionsParent = functionsParent;
+    this.moleCardsLayer = moleCardsLayer;
   }
 
   functionBuilder.register( 'BuilderNode', BuilderNode );
