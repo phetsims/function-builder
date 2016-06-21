@@ -97,8 +97,8 @@ define( function( require ) {
     EQUATIONS_FUNCTION_PICKER_FONT: new FBFont( 30 ),
     EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 30 ),
 
-    // font for functions in Mystery screen
-    MYSTERY_FUNCTION_FONT: new FBFont( 30 ),
+    // font for hidden functions in Mystery screen
+    MYSTERY_FUNCTION_FONT: new FBFont( 44 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Drawers
