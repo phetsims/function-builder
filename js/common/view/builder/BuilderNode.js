@@ -163,7 +163,7 @@ define( function( require ) {
     this.hideFunctionsProperty.link( function( hideFunctions ) {
       thisNode.functionNodes.forEach( function( functionNode ) {
         if ( functionNode ) {
-          functionNode.setIdentityHidden && functionNode.setIdentityHidden( hideFunctions );
+          functionNode.identityVisibleProperty.set( !hideFunctions );
         }
       } );
     } );
@@ -212,7 +212,7 @@ define( function( require ) {
       assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
 
       // hide the identity of function in the builder, if feature is enabled
-      functionNode.setIdentityHidden && functionNode.setIdentityHidden( this.hideFunctionsProperty.get() );
+      functionNode.identityVisibleProperty.set( !this.hideFunctionsProperty.get() );
     },
 
     /**
@@ -239,7 +239,7 @@ define( function( require ) {
       assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
 
       // reveal function's identity
-      functionNode.setIdentityHidden && functionNode.setIdentityHidden( false );
+      functionNode.identityVisibleProperty.set( true );
 
       return slotNumber;
     },

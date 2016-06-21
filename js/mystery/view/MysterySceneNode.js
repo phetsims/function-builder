@@ -60,7 +60,6 @@ define( function( require ) {
 
         var slotNumber = i;
 
-        //TODO move revealProperty to MysteryFunction or MysteryFunctionNode
         // Property associated with the slot
         var revealProperty = new Property( false );
         thisNode.revealProperties.push( revealProperty );
@@ -69,7 +68,9 @@ define( function( require ) {
         // unlink unnecessary, instances exist for lifetime of the sim
         revealProperty.link( function( reveal ) {
           var functionNode = thisNode.builderNode.getFunctionNode( slotNumber );
-          functionNode && functionNode.setIdentityVisible( reveal );
+          if ( functionNode ) {
+            functionNode.identityVisibleProperty.set( reveal );
+          }
         } );
 
         // Button below the slot
@@ -214,6 +215,9 @@ define( function( require ) {
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );
+
+            // hide function's identity
+            functionNode.identityVisibleProperty.set( false );
           }
           else {
             functionNode = null;

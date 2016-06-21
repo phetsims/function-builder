@@ -16,8 +16,9 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -42,6 +43,7 @@ define( function( require ) {
       } ),
 
       draggable: false, // {boolean} Mystery functions are not draggable
+      hiddenFill: null, // don't change fill color when identity is hidden
       identityVisible: false // {boolean} is the function's identity visible?
 
     }, options );
@@ -71,32 +73,22 @@ define( function( require ) {
       thisNode.identityNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
       thisNode.identityNode.center = thisNode.mysteryNode.center;
     } );
+
+    //TODO copied from HideableFunctionNode
+    // @public
+    this.identityVisibleProperty = new Property( options.identityVisible );
+    this.identityVisibleProperty.link( function( identityVisible ) {
+
+      thisNode.identityNode.visible = identityVisible;
+      thisNode.mysteryNode.visible = !identityVisible;
+
+      if ( options.hiddenFill ) {
+        thisNode.backgroundNode.fill = identityVisible ? thisNode.functionInstance.fillProperty.get() : options.hiddenFill;
+      }
+    } );
   }
 
   functionBuilder.register( 'MysteryFunctionNode', MysteryFunctionNode );
 
-  return inherit( FunctionNode, MysteryFunctionNode, {
-
-    //TODO replace with a Property
-    /**
-     * Shows or hides the identify of the function.
-     *
-     * @param {boolean} visible
-     */
-    setIdentityVisible: function( visible ) {
-      this.mysteryNode.visible = !visible;
-      this.identityNode.visible = visible;
-    },
-    set identityVisible( value ) { this.setIdentityVisible( value ); },
-
-    /**
-     * Is the function's identity visible?
-     *
-     * @returns {boolean}
-     */
-    getIdentityVisible: function() {
-      return this.identityNode.visible;
-    },
-    get identityVisible() { return this.getIdentityVisible(); }
-  } );
+  return inherit( FunctionNode, MysteryFunctionNode );
 } );

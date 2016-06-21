@@ -17,6 +17,7 @@ define( function( require ) {
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {ImageFunction} functionInstance
@@ -28,6 +29,13 @@ define( function( require ) {
    * @constructor
    */
   function HideableFunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
+
+    options = _.extend( {
+      identityVisible: true, // {boolean} is the function's identity visible?
+      hiddenFill: FBColors.HIDDEN_FUNCTION // {null|Color|string} background color when function identity is hidden
+    }, options );
+
+    var thisNode = this;
 
     // @private
     this.identityNode = contentNode;
@@ -44,23 +52,21 @@ define( function( require ) {
     } );
 
     FunctionNode.call( this, functionInstance, decoratedContentNode, container, builderNode, dragLayer, options );
+
+    // @public
+    this.identityVisibleProperty = new Property( options.identityVisible );
+    this.identityVisibleProperty.link( function( identityVisible ) {
+
+      thisNode.identityNode.visible = identityVisible;
+      thisNode.eyeCloseNode.visible = !identityVisible;
+
+      if ( options.hiddenFill ) {
+        thisNode.backgroundNode.fill = identityVisible ? thisNode.functionInstance.fillProperty.get() : options.hiddenFill;
+      }
+    } );
   }
 
   functionBuilder.register( 'HideableFunctionNode', HideableFunctionNode );
 
-  return inherit( FunctionNode, HideableFunctionNode, {
-
-    /**
-     * Hides the identity of this function by changing its background to gray and
-     * replacing its content with 'eye close' icon.
-     *
-     * @param {boolean} hidden
-     * @public
-     */
-    setIdentityHidden: function( hidden ) {
-      this.identityNode.visible = !hidden;
-      this.eyeCloseNode.visible = hidden;
-      this.backgroundNode.fill = hidden ? FBColors.HIDDEN_FUNCTION : this.functionInstance.fillProperty.get();
-    }
-  } );
+  return inherit( FunctionNode, HideableFunctionNode );
 } );
