@@ -1,7 +1,6 @@
 TODO list for function-builder
 
 Mystery screen:
-- fix Reset All so that pressing it twice doesn't clear the builder
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor
 - more colors for MysteryScene.COLOR_POOL

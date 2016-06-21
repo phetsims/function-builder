@@ -163,7 +163,10 @@ define( function( require ) {
      */
     reset: function() {
       Scene.prototype.reset.call( this );
+
+      this.challengeProperty.set( this.pool[1] ); // hack to force an update
       this.challengeProperty.reset();
+
       this.availableChallenges = this.pool.slice( 1 );
     },
 
