@@ -113,7 +113,7 @@ define( function( require ) {
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
-    // @public the current challenge
+    // @public the current challenge, initialized to the first challenge in the pool
     this.challengeProperty = new Property( pool[ 0 ] );
 
     // @private the original pool, do not modify!

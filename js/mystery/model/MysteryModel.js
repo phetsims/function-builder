@@ -16,7 +16,7 @@ define( function( require ) {
 
   // pool of 1-function challenges
   var POOL1 = [
-    '+ 3',
+    '+ 3', // this challenge is always selected on startup and reset
     '+ 2',
     '+ 1',
     '+ 0',
@@ -41,7 +41,7 @@ define( function( require ) {
 
   // pool of 2-function challenges
   var POOL2 = [
-    '+ 1 + 3',
+    '+ 1 + 3', // this challenge is always selected on startup and reset
     '+ 1 + 2',
     '* 2 * 0',
     '* 0 * 1',
@@ -77,7 +77,7 @@ define( function( require ) {
 
   // pool of 3-function challenges
   var POOL3 = [
-    '* -3 * -1 * 0',
+    '* -3 * -1 * 0', // this challenge is always selected on startup and reset
     '* 3 * -2 * -1',
     '* 2 * -2 * -2',
     '/ 3 / -1 / -1',
