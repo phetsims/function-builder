@@ -49,6 +49,13 @@ define( function( require ) {
 
     // @protected
     this.backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
+
+    // unlink unnecessary, instances exist for lifetime of the sim
+    functionInstance.fillProperty.link( function( fill ) {
+       thisNode.backgroundNode.fill = fill;
+    } );
+
+    // center content
     contentNode.center = this.backgroundNode.center;
 
     // @private

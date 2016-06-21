@@ -77,7 +77,7 @@ define( function( require ) {
 
   return inherit( FunctionNode, MysteryFunctionNode, {
 
-    //TODO replace with a Property in functionInstance
+    //TODO replace with a Property
     /**
      * Shows or hides the identify of the function.
      *
@@ -97,46 +97,6 @@ define( function( require ) {
     getIdentityVisible: function() {
       return this.identityNode.visible;
     },
-    get identityVisible() { return this.getIdentityVisible(); },
-
-    /**
-     * Sets the fill of the function's background.
-     *
-     * @param {Color|string} fill
-     */
-    setBackgroundFill: function( fill ) {
-      this.backgroundNode.fill = fill;
-    },
-    set backgroundFill( value ) { this.setBackgroundFill( value ); },
-
-    /**
-     * Convenience function for setting the operand of the associated function.
-     *
-     * @param {number} operand
-     */
-    setOperand: function( operand ) {
-      this.functionInstance.operandProperty.set( operand );
-    },
-    set operand( value ) { this.setOperand( value ); },
-
-    /**
-     * Convenience function for getting the operator of the associated function.
-     *
-     * @returns {string}
-     */
-    getOperator: function() {
-      return this.functionInstance.operator;
-    },
-    get operator() { return this.getOperator(); },
-
-    /**
-     * Convenience function for determining if the associated function has a specific operator.
-     *
-     * @param {string} operator
-     * @returns {boolean}
-     */
-    operatorEquals: function( operator ) {
-      return this.functionInstance.operator === operator;
-    }
+    get identityVisible() { return this.getIdentityVisible(); }
   } );
 } );

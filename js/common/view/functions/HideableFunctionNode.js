@@ -60,7 +60,7 @@ define( function( require ) {
     setIdentityHidden: function( hidden ) {
       this.identityNode.visible = !hidden;
       this.eyeCloseNode.visible = hidden;
-      this.backgroundNode.fill = hidden ? FBColors.HIDDEN_FUNCTION : this.functionInstance.viewOptions.fill;
+      this.backgroundNode.fill = hidden ? FBColors.HIDDEN_FUNCTION : this.functionInstance.fillProperty.get();
     }
   } );
 } );

@@ -13,6 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {Object} [options]
@@ -36,11 +37,19 @@ define( function( require ) {
 
     }, options );
 
+    var thisFunction = this;
+
     // @private
     this._invertible = options.invertible;
 
-    // @public properties of FunctionNode, in the model for convenience
+    // @public (read-only) properties of FunctionNode, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
+
+    // @public
+    this.fillProperty = new Property( options.fill );
+    this.fillProperty.link( function( fill ) {
+      thisFunction.viewOptions.fill = fill;
+    } );
 
     Movable.call( this, options );
   }
@@ -48,6 +57,12 @@ define( function( require ) {
   functionBuilder.register( 'AbstractFunction', AbstractFunction );
 
   return inherit( Movable, AbstractFunction, {
+
+    // @public @override
+    reset: function() {
+      Movable.prototype.reset.call( this );
+      this.fillProperty.reset();
+    },
 
     /**
      * Is this function invertible?

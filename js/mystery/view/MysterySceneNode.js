@@ -198,18 +198,19 @@ define( function( require ) {
       var slotNumber = 0;
       challengeObjects.forEach( function( challengeObject ) {
 
+        //TODO this is brute force, set up a map between operators and functionContainers?
         var functionNode = null;
         for ( var i = 0; i < thisNode.functionContainers.length && !functionNode; i++ ) {
 
           var functionContainer = thisNode.functionContainers[ i ];
           functionNode = functionContainer.getContents()[ 0 ];
+          var functionInstance = functionNode.functionInstance;
 
-          if ( functionNode.operatorEquals( challengeObject.operator ) ) {
+          if ( functionInstance.operator === challengeObject.operator ) {
 
-            // configure function to match the challenge
-            functionNode.operand = challengeObject.operand;
-            functionNode.backgroundFill = thisNode.scene.nextColor();
-            functionNode.setIdentityVisible( false );
+            // configure function to match challenge
+            functionInstance.operandProperty.set( challengeObject.operand );
+            functionInstance.fillProperty.get( thisNode.scene.nextColor() );
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );
