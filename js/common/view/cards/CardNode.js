@@ -36,22 +36,12 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @public
-    this.card = card;
-
-    // @private
-    this.inputContainer = inputContainer;
-    this.outputContainer = outputContainer;
-    this.builderNode = builderNode;
-    this.dragLayer = dragLayer;
-    this.seeInsideProperty = seeInsideProperty;
-
     // @protected the basic shape of a blank card
-    this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, contentNode ];
+    options.children = [ backgroundNode, contentNode ];
 
     var builder = builderNode.builder;
 
@@ -218,10 +208,8 @@ define( function( require ) {
       }
     };
 
-    MovableNode.call( this, card, options );
-
-    // @protected Number of functions to apply is based on where the card is located relative to the function slots in the builder
-    this.numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
+    // Number of functions to apply is based on where the card is located relative to the function slots in the builder
+    var numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
       function( location ) {
         for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
           if ( location.x >= builder.slots[ i ].location.x ) {
@@ -232,8 +220,29 @@ define( function( require ) {
       }
     );
 
+    MovableNode.call( this, card, options );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Define properties in one place, so we can see what's available and document visibility
+
+    // @public
+    this.card = card;
+
+    // @protected
+    this.backgroundNode = backgroundNode;
+    this.numberOfFunctionsToApplyProperty = numberOfFunctionsToApplyProperty;
+
+    // @private
+    this.inputContainer = inputContainer;
+    this.outputContainer = outputContainer;
+    this.builderNode = builderNode;
+    this.dragLayer = dragLayer;
+    this.seeInsideProperty = seeInsideProperty;
+
+    //------------------------------------------------------------------------------------------------------------------
+
     // unlink unnecessary, instances exist for lifetime of the sim
-    this.numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
+    numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
       thisNode.updateContent( builder, numberOfFunctionsToApply );
     } );
 
@@ -241,7 +250,7 @@ define( function( require ) {
     // removeListener unnecessary, instances exist for the lifetime of the sim.
     builderNode.builder.functionChangedEmitter.addListener( function() {
       if ( !inputContainer.containsNode( thisNode ) ) {
-        thisNode.updateContent( builder, thisNode.numberOfFunctionsToApplyProperty.get() );
+        thisNode.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
       }
     } );
 
