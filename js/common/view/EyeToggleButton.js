@@ -16,11 +16,11 @@ define( function( require ) {
   var RectangularToggleButton = require( 'SUN/buttons/RectangularToggleButton' );
 
   /**
-   * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<boolean>} eyeOpenProperty
    * @param {Object} [options]
    * @constructor
    */
-  function EyeToggleButton( visibleProperty, options ) {
+  function EyeToggleButton( eyeOpenProperty, options ) {
 
     options = options || {};
 
@@ -37,17 +37,17 @@ define( function( require ) {
     } );
 
     // toggle which icon is shown
-    var visibleObserver = function( visible ) {
-      eyeOpenNode.visible = !visible;
-      eyeCloseNode.visible = visible;
+    var eyeOpenObserver = function( eyeOpen ) {
+      eyeOpenNode.visible = eyeOpen;
+      eyeCloseNode.visible = !eyeOpen;
     };
-    visibleProperty.link( visibleObserver );
+    eyeOpenProperty.link( eyeOpenObserver );
 
-    RectangularToggleButton.call( this, true, false, visibleProperty, options );
+    RectangularToggleButton.call( this, true, false, eyeOpenProperty, options );
 
     // @private
     this._disposeEyeToggleButton = function() {
-      visibleProperty.unlink( visibleObserver );
+      eyeOpenProperty.unlink( eyeOpenObserver );
     };
   }
 
