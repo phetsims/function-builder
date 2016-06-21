@@ -43,15 +43,12 @@ define( function( require ) {
     'rgb( 128, 197, 237 )',
     'rgb( 147, 231, 128 )',
     'rgb( 255, 120, 120 )',
-    'rgb( 147, 231, 128 )',
-    'rgb( 255, 161, 43 )',
     'rgb( 255, 246, 187 )',
     'rgb( 0, 222, 224 )',
     'rgb( 246, 164, 255 )',
     'rgb( 250, 186, 75 )',
     'rgb( 127, 225, 173 )',
-    'rgb( 249, 144, 99 )',
-    'rgb( 222, 186, 247 )'
+    'rgb( 249, 144, 99 )'
   ];
 
   // maps operator token used in the pool to operator symbols used in functions
