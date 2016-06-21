@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HideableFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/HideableFunctionNode' );
+  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -26,10 +26,10 @@ define( function( require ) {
 
     assert && assert( functionInstance instanceof ImageFunction );
 
-    HideableFunctionNode.call( this, functionInstance, functionInstance.iconNode, container, builderNode, dragLayer, options );
+    FunctionNode.call( this, functionInstance, functionInstance.iconNode, container, builderNode, dragLayer, options );
   }
 
   functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
 
-  return inherit( HideableFunctionNode, ImageFunctionNode );
+  return inherit( FunctionNode, ImageFunctionNode );
 } );

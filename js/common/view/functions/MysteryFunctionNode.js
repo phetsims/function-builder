@@ -17,8 +17,6 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -36,33 +34,17 @@ define( function( require ) {
   function MysteryFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     options = _.extend( {
-
-      // {Node} this node obscures the identity of the function
-      mysteryNode: new Text( mysteryCharacterString, {
-        font: FBConstants.MYSTERY_FUNCTION_FONT
-      } ),
-
-      draggable: false, // {boolean} Mystery functions are not draggable
+      identityVisible: false, // function's identity is not initially visible
+      hiddenNode: new Text( mysteryCharacterString, { font: FBConstants.MYSTERY_FUNCTION_FONT } ), // '?'
       hiddenFill: null, // don't change fill color when identity is hidden
-      identityVisible: false // {boolean} is the function's identity visible?
-
+      draggable: false // {boolean} Mystery functions are not draggable
     }, options );
 
     var thisNode = this;
 
-    // @private this node obscures the identity of the function
-    this.mysteryNode = options.mysteryNode;
-    this.mysteryNode.visible = !options.identityVisible;
-
-    // @private this node reveals the identity of the function
-    this.identityNode = new Text( '', {
-      font: FBConstants.MYSTERY_FUNCTION_FONT,
-      center: options.mysteryNode.center,
-      visible: options.identityVisible
-    } );
-
-    var contentNode = new Node( {
-      children: [ this.mysteryNode, this.identityNode ]
+    // @private updated by operandProperty observer
+    var contentNode = new Text( '', {
+      font: FBConstants.MYSTERY_FUNCTION_FONT
     } );
 
     FunctionNode.call( this, functionInstance, contentNode, container, builderNode, dragLayer, options );
@@ -70,21 +52,8 @@ define( function( require ) {
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( function( operand ) {
-      thisNode.identityNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
-      thisNode.identityNode.center = thisNode.mysteryNode.center;
-    } );
-
-    //TODO copied from HideableFunctionNode
-    // @public
-    this.identityVisibleProperty = new Property( options.identityVisible );
-    this.identityVisibleProperty.link( function( identityVisible ) {
-
-      thisNode.identityNode.visible = identityVisible;
-      thisNode.mysteryNode.visible = !identityVisible;
-
-      if ( options.hiddenFill ) {
-        thisNode.backgroundNode.fill = identityVisible ? thisNode.functionInstance.fillProperty.get() : options.hiddenFill;
-      }
+      contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
+      contentNode.center = thisNode.backgroundNode.center;
     } );
   }
 

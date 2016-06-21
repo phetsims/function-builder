@@ -10,13 +10,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @param {AbstractFunction} functionInstance - model element associated with this node
@@ -30,6 +33,10 @@ define( function( require ) {
   function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
 
     options = _.extend( {
+
+      identityVisible: true, // {boolean} is the function's identity visible?
+      hiddenNode: new FontAwesomeNode( 'eye_close' ), // {Node} displayed when the function identity is hidden
+      hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
 
       //FUTURE remove this workaround, see https://github.com/phetsims/function-builder/issues/49
       allowTouchSnag: false
@@ -55,8 +62,9 @@ define( function( require ) {
        thisNode.backgroundNode.fill = fill;
     } );
 
-    // center content
+    // center
     contentNode.center = this.backgroundNode.center;
+    options.hiddenNode.center = this.backgroundNode.center;
 
     // @private
     this.notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
@@ -65,12 +73,25 @@ define( function( require ) {
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, contentNode, this.notInvertibleSymbolNode ];
+    options.children = [ this.backgroundNode, contentNode, options.hiddenNode, this.notInvertibleSymbolNode ];
 
-    var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
+    // @public
+    this.identityVisibleProperty = new Property( options.identityVisible );
+    this.identityVisibleProperty.link( function( identityVisible ) {
+
+      thisNode.contentNode.visible = identityVisible;
+      options.hiddenNode.visible = !identityVisible;
+
+      if ( options.hiddenFill ) {
+        thisNode.backgroundNode.fill = identityVisible ? thisNode.functionInstance.fillProperty.get() : options.hiddenFill;
+      }
+    } );
 
     //-------------------------------------------------------------------------------
     // start a drag cycle
+
+    var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
+
     assert && assert( !options.startDrag );
     options.startDrag = function() {
 
