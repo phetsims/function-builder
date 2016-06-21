@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -97,12 +98,11 @@ define( function( require ) {
     // @public the current challenge
     this.challengeProperty = new Property( pool[ 0 ] );
 
-    // @private pool of available challenges, remove first challenge
-    this.availableChallenges = pool.slice( 1 );
-    assert && assert( this.availableChallenges.length === pool.length - 1 );
+    // @private the original pool, do not modify!
+    this.pool = pool;
 
-    // @private pool of challenges that have already been selected
-    this.usedChallenges = [];
+    // @private pool of available challenges, first one removed
+    this.availableChallenges = pool.slice( 1 );
 
     // @private random number generator for choosing challenges
     this.randomChallenge = new Random();
@@ -149,6 +149,7 @@ define( function( require ) {
     reset: function() {
       Scene.prototype.reset.call( this );
       this.challengeProperty.reset();
+      this.availableChallenges = this.pool.slice( 1 );
     },
 
     /**
@@ -199,19 +200,17 @@ define( function( require ) {
 
       // available pool is empty, start over
       if ( this.availableChallenges.length === 0 ) {
-        this.availableChallenges = this.usedChallenges;
-        this.usedChallenges = [];
+        this.availableChallenges = this.pool.slice( 0 );
       }
 
       //TODO this could possibly select the same challenge twice in a row, when pool is refreshed
       // randomly select a challenge from the available pool
-      var challengeIndex = this.randomChallenge.nextInt( this.availableChallenges.length );
+      var challengeIndex = FBQueryParameters.PLAY_ALL ? 0 : this.randomChallenge.nextInt( this.availableChallenges.length );
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
       var challenge = this.availableChallenges[ challengeIndex ];
 
-      // move the challenge from available pool to used pool
+      // remove the challenge from available pool
       this.availableChallenges.splice( challengeIndex, 1 );
-      this.usedChallenges.push( challenge );
 
       this.challengeProperty.set( challenge );
     },

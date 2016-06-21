@@ -37,7 +37,10 @@ define( function( require ) {
     INIT_SCENES: getQueryParameter( 'initScenes' ) || 'onStart',
 
     // shows the answer in the Mystery screen
-    SHOW_ANSWER: !!getQueryParameter( 'showAnswer' )
+    SHOW_ANSWER: !!getQueryParameter( 'showAnswer' ),
+
+    // plays all Mystery challenges, in order
+    PLAY_ALL: !!getQueryParameter( 'playAll' )
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
