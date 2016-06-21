@@ -44,6 +44,7 @@ define( function( require ) {
     // @public (read-only) number of items in the container
     this.numberOfItemsProperty = new Property( 0 );
 
+    // @public
     this.addEmitter = new Emitter(); // emit1(Node) called after a Node is added
     this.removeEmitter = new Emitter(); // emit1(Node) called after a Node is removed
 
