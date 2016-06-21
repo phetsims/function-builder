@@ -9,6 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EyeToggleButton = require( 'FUNCTION_BUILDER/common/view/EyeToggleButton' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -16,6 +18,7 @@ define( function( require ) {
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
   var MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
+  var Property = require( 'AXON/Property' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -47,10 +50,52 @@ define( function( require ) {
 
     MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
 
-    // 'See Inside' check box is enabled after 1 card has been put in output carousel
+    // Toggle buttons below each builder slot, for revealing identity of function in that slot
+    this.revealProperties = [];  // {Property.<boolean>[]}
+    this.revealButtons = []; // {EyeToggleButton[]}
+    for ( var i = 0; i < scene.builder.slots.length; i++ ) {
+
+      // create a closure for slotNumber using an IIFE
+      ( function() {
+
+        var slotNumber = i;
+
+        //TODO move these Properties to MysteryFunction or MysteryFunctionNode
+        // Property associated with the slot
+        var revealProperty = new Property( false );
+        thisNode.revealProperties.push( revealProperty );
+
+        // wire up Property to function that's in the slot
+        // unlink unnecessary, instances exist for lifetime of the sim
+        revealProperty.link( function( reveal ) {
+          var functionNode = thisNode.builderNode.getFunctionNode( slotNumber );
+          functionNode && functionNode.setIdentityVisible( reveal );
+        } );
+
+        // Button below the slot
+        var slotLocation = scene.builder.slots[ slotNumber ].location;
+        var revealButton = new EyeToggleButton( revealProperty, {
+          baseColor: FBColors.HIDDEN_FUNCTION,
+          scale: 0.75,
+          centerX: slotLocation.x,
+          top: slotLocation.y + 65
+        } );
+        thisNode.revealButtons.push( revealButton );
+        thisNode.controlsLayer.addChild( revealButton );
+
+      } )();
+    }
+
+    // Enable features based on number of cards that have been moved to the output carousel
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
+
+      // enable 'See Inside' check box 
       thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
-      //TODO make show/hide button visible on functions in builder when (numberOfCards === 2)
+      
+      // make function reveal buttons available
+      thisNode.revealButtons.forEach( function( revealButton ) {
+        revealButton.visible = revealButton.visible || ( numberOfCards === 2 );
+      } );
     } );
 
     // @private button for generating a new challenge
@@ -60,7 +105,7 @@ define( function( require ) {
       xMargin: 16,
       yMargin: 8,
       centerX: this.builderNode.centerX,
-      top: this.builderNode.bottom + 10
+      top: this.builderNode.bottom + 65
     } );
     this.addChild( this.generateButton );
 
@@ -87,9 +132,21 @@ define( function( require ) {
   return inherit( MathSceneNode, MysterySceneNode, {
 
     /**
+     * @public
+     * @override
+     */
+    reset: function() {
+      MathSceneNode.prototype.reset.call( this );
+      this.revealProperties.forEach( function( revealProperty ) {
+        revealProperty.reset();
+      } );
+    },
+
+    /**
      * Completes initialization by displaying the first challenge.
      *
      * @public
+     * @override
      */
     completeInitialization: function() {
       MathSceneNode.prototype.completeInitialization.call( this );
@@ -105,15 +162,12 @@ define( function( require ) {
 
       var thisNode = this;
 
-      // disable the 'See Inside' check box
-      thisNode.seeInsideCheckBox.enabled = false;
-
       // erase output carousel
       thisNode.erase();
 
       // clear functions from the function builder
       thisNode.builderNode.reset();
-
+      
       // convert the challenge from a string to an array of {operator: string, operand: number}
       var challenge = thisNode.scene.challengeProperty.get();
       var challengeObjects = MysteryModel.parseChallenge( challenge );
@@ -145,6 +199,19 @@ define( function( require ) {
         assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
 
         slotNumber++;
+      } );
+      
+      // disable the 'See Inside' check box
+      thisNode.seeInsideCheckBox.enabled = false;
+
+      // reset all Properties for revealing function identity
+      this.revealProperties.forEach( function( revealProperty ) {
+        revealProperty.reset();
+      } );
+      
+      // hide the buttons for revealing function identity
+      this.revealButtons.forEach( function( revealButton ) {
+        revealButton.visible = false;
       } );
 
       // show the answer for debugging

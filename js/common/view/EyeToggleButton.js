@@ -1,0 +1,63 @@
+// Copyright 2016, University of Colorado Boulder
+
+/**
+ * Button that toggles between an open and closed eyeball, used to control the visibility of something.
+ * 
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var RectangularToggleButton = require( 'SUN/buttons/RectangularToggleButton' );
+
+  /**
+   * @param {Property.<boolean>} visibleProperty
+   * @param {Object} [options]
+   * @constructor
+   */
+  function EyeToggleButton( visibleProperty, options ) {
+
+    options = options || {};
+
+    // icons
+    var eyeOpenNode = new FontAwesomeNode( 'eye_open' );
+    var eyeCloseNode = new FontAwesomeNode( 'eye_close', {
+      center: eyeOpenNode.center
+    } );
+
+    // button content
+    assert && assert( !options.content );
+    options.content = new Node( {
+      children: [ eyeCloseNode, eyeOpenNode ]
+    } );
+
+    // toggle which icon is shown
+    var visibleObserver = function( visible ) {
+      eyeOpenNode.visible = !visible;
+      eyeCloseNode.visible = visible;
+    };
+    visibleProperty.link( visibleObserver );
+
+    RectangularToggleButton.call( this, true, false, visibleProperty, options );
+
+    // @private
+    this._disposeEyeToggleButton = function() {
+      visibleProperty.unlink( visibleObserver );
+    };
+  }
+
+  functionBuilder.register( 'EyeToggleButton', EyeToggleButton );
+
+  return inherit( RectangularToggleButton, EyeToggleButton, {
+    
+    // @public
+    dispose: function() {
+      this._disposeEyeToggleButton();
+    }
+  } );
+} );

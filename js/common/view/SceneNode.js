@@ -278,12 +278,13 @@ define( function( require ) {
     this.seeInsideLayer = seeInsideLayer;
     this.inputCarousel = inputCarousel;
     this.outputCarousel = outputCarousel;
-    this.functionCarousel = functionCarousel;
 
     // @protected needed by subtypes
     this.drawersLayer = drawersLayer;
+    this.controlsLayer = controlsLayer;
     this.functionsDragLayer = functionsDragLayer;
     this.builderNode = builderNode;
+    this.functionCarousel = functionCarousel;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
     this.functionContainers = functionContainers;
