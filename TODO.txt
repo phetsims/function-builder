@@ -16,8 +16,6 @@ Blank space after 6 in input carousel of Mystery screen
 
 Startup time #37
 
-Change requests
-
 stringTest
 
 touchAreas
