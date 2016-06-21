@@ -125,6 +125,9 @@ define( function( require ) {
       // enable 'See Inside' check box
       thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
     } );
+
+    // @private
+    this.scene = scene;
   }
 
   functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
@@ -184,8 +187,10 @@ define( function( require ) {
 
       var thisNode = this;
 
-      // erase output carousel
-      thisNode.erase();
+      // return all cards to the input carousel
+      this.cardNodes.forEach( function( cardNode ) {
+        cardNode.moveToInputCarousel();
+      } );
 
       // clear functions from the function builder
       thisNode.builderNode.reset();
