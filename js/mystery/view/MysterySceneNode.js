@@ -117,13 +117,13 @@ define( function( require ) {
     // Enable features based on number of cards that have been moved to the output carousel
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
 
+      // enabled function reveal buttons
+      thisNode.revealButtons.forEach( function( revealButton ) {
+        revealButton.enabled = revealButton.enabled || ( numberOfCards === 2 );
+      } );
+
       // enable 'See Inside' check box
       thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
-
-      // make function reveal buttons available
-      thisNode.revealButtons.forEach( function( revealButton ) {
-        revealButton.visible = revealButton.visible || ( numberOfCards === 2 );
-      } );
     } );
   }
 
@@ -137,9 +137,28 @@ define( function( require ) {
      */
     reset: function() {
       MathSceneNode.prototype.reset.call( this );
+      this.resetChallengeControls();
+    },
+
+    /**
+     * Resets controls that need to be reset each time the challenge changes.
+     *
+     * @private
+     */
+    resetChallengeControls: function() {
+
+      // reset Properties for revealing function identity
       this.revealProperties.forEach( function( revealProperty ) {
         revealProperty.reset();
       } );
+
+      // disable buttons for revealing function identity
+      this.revealButtons.forEach( function( revealButton ) {
+        revealButton.enabled = false;
+      } );
+
+      // disable the 'See Inside' check box
+      this.seeInsideCheckBox.enabled = false;
     },
 
     /**
@@ -201,18 +220,8 @@ define( function( require ) {
         slotNumber++;
       } );
 
-      // disable the 'See Inside' check box
-      thisNode.seeInsideCheckBox.enabled = false;
-
-      // reset all Properties for revealing function identity
-      this.revealProperties.forEach( function( revealProperty ) {
-        revealProperty.reset();
-      } );
-
-      // hide the buttons for revealing function identity
-      this.revealButtons.forEach( function( revealButton ) {
-        revealButton.visible = false;
-      } );
+      // Resets controls that need to be reset each time the challenge changes.
+      this.resetChallengeControls();
 
       // show the answer for debugging
       thisNode.answerNode.text = challenge;
