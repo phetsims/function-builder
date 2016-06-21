@@ -98,8 +98,7 @@ define( function( require ) {
           thisScene.parseChallenge( challenge );
 
           // check for duplicates
-          var subset = pool.slice( i + 1 );
-          if ( subset.indexOf( challenge ) !== -1 ) {
+          if ( pool.indexOf( challenge, i + 1 ) !== -1 ) {
             if ( duplicates.length > 0 ) {
               duplicates += ', ';
             }
