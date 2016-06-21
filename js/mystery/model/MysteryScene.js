@@ -21,6 +21,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
@@ -52,6 +53,14 @@ define( function( require ) {
     'rgb( 222, 186, 247 )'
   ];
 
+  // maps operator token used in the pool to operator symbols used in functions
+  var OPERATOR_MAP = {
+    '+': FBSymbols.PLUS,
+    '-': FBSymbols.MINUS,
+    '*': FBSymbols.TIMES,
+    '/': FBSymbols.DIVIDE
+  };
+
   /**
    * @param {string[]} pool - pool of challenges
    * @param {Object} [options]
@@ -66,14 +75,18 @@ define( function( require ) {
     }, options );
     assert && assert( options.functionsPerChallenge <= MAX_SLOTS );
 
+    var thisScene = this;
+
+    // @private
+    this.functionsPerChallenge = options.functionsPerChallenge;
+
     // Supports the case when all 3 functions in a challenge have the same type
     options.numberOfEachFunction = options.functionsPerChallenge;
 
     // verify that each challenge contains the correct number of functions
     if ( assert ) {
       pool.forEach( function( challenge ) {
-        assert && assert( challenge.split( ' ' ).length === 2 * options.functionsPerChallenge,
-          'syntax error in challenge: ' + challenge );
+        thisScene.parseChallenge( challenge );
       } );
     }
 
@@ -139,9 +152,48 @@ define( function( require ) {
     },
 
     /**
+     * Each challenge in a pool is expressed as a string, to make them easy to read and modify.
+     * This function converts the string representation of a challenge into something that can
+     * be more easily processed programmatically.
+     *
+     * @param {string} challenge
+     * @returns {{operator: string, operand: number}[]}
+     * @public
+     */
+    parseChallenge: function( challenge ) {
+
+      var tokens = challenge.split( ' ' );
+      assert && assert( tokens.length === 2 * this.functionsPerChallenge,
+        'malformed challenge: ' + challenge );
+
+      var challengeObjects = [];
+
+      for ( var i = 0; i < tokens.length; i = i + 2 ) {
+
+        var challengeObject = {
+          operator: OPERATOR_MAP[ tokens[ i ] ],
+          operand: parseInt( tokens[ i + 1 ] )
+        };
+
+        assert && assert( challengeObject.operator );
+        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in ' + challenge );
+        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
+          'negative operand not allowed with plus: ' + challenge );
+        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
+          'negative operand not allowed with minus: ' + challenge );
+
+        challengeObjects.push( challengeObject );
+      }
+
+      return challengeObjects;
+    },
+
+    /**
      * Advances to the next randomly-selected challenge.  After a challenge has been selected, it is not selected
      * again until all challenges in the pool have been selected. When called for the first time (or after reset),
      * returns the first challenge in the pool. This provides a reproducible first challenge on startup and reset.
+     *
+     * @public
      */
     nextChallenge: function() {
 
@@ -168,6 +220,7 @@ define( function( require ) {
      * Randomly selects a color from the pool.
      *
      * @returns {Color|string}
+     * @public
      */
     nextColor: function() {
 
