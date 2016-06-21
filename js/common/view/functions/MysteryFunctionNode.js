@@ -77,7 +77,7 @@ define( function( require ) {
 
   return inherit( FunctionNode, MysteryFunctionNode, {
 
-    //TODO animate this transition?
+    //TODO replace with a Property in functionInstance
     /**
      * Shows or hides the identify of the function.
      *
