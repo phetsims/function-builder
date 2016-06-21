@@ -187,13 +187,10 @@ define( function( require ) {
 
       var thisNode = this;
 
-      // return all cards to the input carousel
-      this.cardNodes.forEach( function( cardNode ) {
-        cardNode.moveToInputCarousel();
-      } );
-
-      // clear functions from the function builder
-      thisNode.builderNode.reset();
+      this.resetCarousels();
+      this.builderNode.reset();
+      this.resetFunctions();
+      this.resetCards();
 
       // convert the challenge from a string to an array of {operator: string, operand: number}
       var challenge = thisNode.scene.challengeProperty.get();

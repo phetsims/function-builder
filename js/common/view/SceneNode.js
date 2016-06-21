@@ -362,10 +362,42 @@ define( function( require ) {
 
     // @public
     reset: function() {
-
       this.viewProperties.reset();
+      this.resetCarousels();
+      this.builderNode.reset();
+      this.resetFunctions();
+      this.resetCards();
+    },
 
-      // Reset carousels without animation
+    /**
+     * Returns all functions to the function carousel
+     *
+     * @protected
+     */
+    resetFunctions: function() {
+      this.functionNodes.forEach( function( functionNode ) {
+        functionNode.moveToCarousel();
+      } );
+    },
+
+    /**
+     * Returns all cards to the input carousel
+     *
+     * @protected
+     */
+    resetCards: function() {
+      this.cardNodes.forEach( function( cardNode ) {
+        cardNode.moveToInputCarousel();
+      } );
+    },
+
+    /**
+     * Resets the carousels without animation.
+     *
+     * @protected
+     */
+    resetCarousels: function() {
+
       this.functionCarousel.reset( { animationEnabled: false } );
 
       // Because the input and output carousels are linked, we need to use this approach:
@@ -373,18 +405,6 @@ define( function( require ) {
       this.inputCarousel.reset();
       this.outputCarousel.reset();
       this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
-
-      this.builderNode.reset();
-
-      // Return all functions to the carousel
-      this.functionNodes.forEach( function( functionNode ) {
-        functionNode.moveToCarousel();
-      } );
-
-      // Return all cards to the input carousel
-      this.cardNodes.forEach( function( cardNode ) {
-        cardNode.moveToInputCarousel();
-      } );
     },
 
     // @protected called when the 'eraser' button is pressed
