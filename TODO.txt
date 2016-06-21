@@ -1,7 +1,6 @@
 TODO list for function-builder
 
 Mystery screen:
-- move revealProperty to MysteryFunctionNode or MysteryFunction
 - fix Reset All so that pressing it twice doesn't clear the builder
 - fix Reset All and generate so that cards in 'see inside' windows don't animate to output carousel
 - populate pools with combinations from spreadsheet
