@@ -92,7 +92,7 @@ define( function( require ) {
     /**
      * Is the function's identity visible?
      *
-     * @returns {boolen}
+     * @returns {boolean}
      */
     getIdentityVisible: function() {
       return this.identityNode.visible;
