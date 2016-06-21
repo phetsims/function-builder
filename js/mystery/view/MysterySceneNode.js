@@ -60,7 +60,7 @@ define( function( require ) {
 
         var slotNumber = i;
 
-        //TODO move these Properties to MysteryFunction or MysteryFunctionNode
+        //TODO move revealProperty to MysteryFunction or MysteryFunctionNode
         // Property associated with the slot
         var revealProperty = new Property( false );
         thisNode.revealProperties.push( revealProperty );
