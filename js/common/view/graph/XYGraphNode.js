@@ -90,22 +90,12 @@ define( function( require ) {
 
     }, options );
 
-    // @private
-    this.xRange = options.xRange;
-    this.yRange = options.yRange;
-    this.pointFill = options.pointFill;
-    this.pointRadius = options.pointRadius;
-    this.xCoordinates = []; // {RationalNumber[]} x coordinates (inputs) that are plotted
-
-    var thisNode = this;
-
     // model-view transform
     var xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
     var yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
     var xScale = options.size.width / options.xRange.getLength();
     var yScale = -options.size.height / options.yRange.getLength(); // inverted
-    // @private
-    this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
+    var modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
       cornerRadius: options.cornerRadius,
@@ -118,7 +108,7 @@ define( function( require ) {
     // vertical lines
     var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
     for ( var modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
-      var viewGridX = this.modelViewTransform.modelToViewX( modelGridX );
+      var viewGridX = modelViewTransform.modelToViewX( modelGridX );
       gridShape.moveTo( viewGridX, 0 );
       gridShape.lineTo( viewGridX, backgroundNode.height );
       modelGridX += options.xGridSpacing;
@@ -127,7 +117,7 @@ define( function( require ) {
     // horizontal lines
     var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
     for ( var modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
-      var viewGridY = this.modelViewTransform.modelToViewY( modelGridY );
+      var viewGridY = modelViewTransform.modelToViewY( modelGridY );
       gridShape.moveTo( 0, viewGridY );
       gridShape.lineTo( backgroundNode.width, viewGridY );
       modelGridY += options.yGridSpacing;
@@ -138,7 +128,7 @@ define( function( require ) {
       lineWidth: options.gridLineWidth
     } );
 
-    var viewOrigin = this.modelViewTransform.modelToViewXY( 0, 0 );
+    var viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
 
     // x axis
     var xAxisNode = new ArrowNode( 0, 0, backgroundNode.width, 0, AXIS_OPTIONS );
@@ -179,7 +169,7 @@ define( function( require ) {
 
       if ( modelTickX !== 0 ) {
 
-        viewTickPosition = this.modelViewTransform.modelToViewXY( modelTickX, 0 );
+        viewTickPosition = modelViewTransform.modelToViewXY( modelTickX, 0 );
 
         // line
         tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
@@ -206,7 +196,7 @@ define( function( require ) {
 
       if ( modelTickY !== 0 ) {
 
-        viewTickPosition = this.modelViewTransform.modelToViewXY( 0, modelTickY );
+        viewTickPosition = modelViewTransform.modelToViewXY( 0, modelTickY );
 
         // line
         tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
@@ -230,10 +220,10 @@ define( function( require ) {
     } );
 
     // @private parent for all points
-    this.pointsParent = new Node();
+    var pointsParent = new Node();
 
     // @private line that corresponds to the function in the builder
-    this.lineNode = new Line( 0, 0, 1, 0, {
+    var lineNode = new Line( 0, 0, 1, 0, {
       stroke: options.lineStroke,
       lineWidth: options.lineWidth,
       visible: false
@@ -241,15 +231,22 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent,
-      xAxisNode, xAxisLabelNode, yAxisNode, yAxisLabelNode, this.lineNode, this.pointsParent ];
+      xAxisNode, xAxisLabelNode, yAxisNode, yAxisLabelNode, lineNode, pointsParent ];
 
     Node.call( this, options );
 
-    // @private
+    // @private property definitions
     this.builder = builder;
-    this.builder.functionChangedEmitter.addListener( function() {
-      thisNode.update();
-    } );
+    this.xRange = options.xRange;
+    this.yRange = options.yRange;
+    this.pointFill = options.pointFill;
+    this.pointRadius = options.pointRadius;
+    this.xCoordinates = []; // {RationalNumber[]} x coordinates (inputs) that are plotted
+    this.modelViewTransform = modelViewTransform;
+    this.pointsParent = pointsParent;
+    this.lineNode = lineNode;
+
+    builder.functionChangedEmitter.addListener( this.update.bind( this ) );
     this.update();
   }
 
