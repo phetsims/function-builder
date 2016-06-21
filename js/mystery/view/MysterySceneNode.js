@@ -50,7 +50,7 @@ define( function( require ) {
 
     MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
 
-    // Toggle buttons below each builder slot, for revealing identity of function in that slot
+    // Toggle buttons below each builder slot, for revealing identity of functions
     this.revealProperties = [];  // {Property.<boolean>[]}
     this.revealButtons = []; // {EyeToggleButton[]}
     for ( var i = 0; i < scene.builder.slots.length; i++ ) {
