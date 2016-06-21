@@ -3,6 +3,7 @@ TODO list for function-builder
 Mystery screen:
 - move revealProperty to MysteryFunctionNode or MysteryFunction
 - fix Reset All so that pressing it twice doesn't clear the builder
+- fix Reset All so that it flushed cards from the builder
 - populate pools with combinations from spreadsheet
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor

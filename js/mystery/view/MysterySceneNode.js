@@ -157,7 +157,10 @@ define( function( require ) {
         revealButton.enabled = false;
       } );
 
-      // disable the 'See Inside' check box
+      // reset 'See Inside' property
+      this.viewProperties.seeInsideProperty.reset();
+
+      // disable 'See Inside' check box
       this.seeInsideCheckBox.enabled = false;
     },
 
