@@ -176,12 +176,14 @@ define( function( require ) {
           operand: parseInt( tokens[ i + 1 ] )
         };
 
-        assert && assert( challengeObject.operator );
-        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in ' + challenge );
+        assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
+        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
         assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
-          'negative operand not allowed with plus: ' + challenge );
+          'negative operand not allowed with plus in challenge: ' + challenge );
         assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
-          'negative operand not allowed with minus: ' + challenge );
+          'negative operand not allowed with minus in challenge: ' + challenge );
+        assert && assert( !( challengeObject.operand === 0 && challengeObject.operator === FBSymbols.DIVIDE ),
+          'division by zero not allowed in challenge: ' + challenge );
 
         challengeObjects.push( challengeObject );
       }
