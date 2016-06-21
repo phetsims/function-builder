@@ -139,7 +139,7 @@ define( function( require ) {
     MovableNode.call( this, functionInstance, options );
 
     //------------------------------------------------------------------------------------------------------------------
-    // Create properties in one place, so we can see what's available and document visibility
+    // Define properties in one place, so we can see what's available and document visibility
 
     // @public
     this.functionInstance = functionInstance;

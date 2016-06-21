@@ -265,7 +265,7 @@ define( function( require ) {
     Node.call( this, options );
 
     //------------------------------------------------------------------------------------------------------------------
-    // Create properties in one place, so we can see what's available and document visibility
+    // Define properties in one place, so we can see what's available and document visibility
 
     // @private populated by completeInitialization, needed by reset
     this.functionNodes = []; // {FunctionNode[]}
