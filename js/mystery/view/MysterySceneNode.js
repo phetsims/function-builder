@@ -56,7 +56,7 @@ define( function( require ) {
     for ( var i = 0; i < scene.builder.slots.length; i++ ) {
 
       // create a closure for slotNumber using an IIFE
-      ( function() {
+      (function() {
 
         var slotNumber = i;
 
@@ -83,20 +83,8 @@ define( function( require ) {
         thisNode.revealButtons.push( revealButton );
         thisNode.controlsLayer.addChild( revealButton );
 
-      } )();
+      })();
     }
-
-    // Enable features based on number of cards that have been moved to the output carousel
-    this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
-
-      // enable 'See Inside' check box 
-      thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
-      
-      // make function reveal buttons available
-      thisNode.revealButtons.forEach( function( revealButton ) {
-        revealButton.visible = revealButton.visible || ( numberOfCards === 2 );
-      } );
-    } );
 
     // @private button for generating a new challenge
     this.generateButton = new RefreshButton( {
@@ -124,6 +112,18 @@ define( function( require ) {
     // unlink unnecessary, instances exist for lifetime of the sim
     scene.challengeProperty.lazyLink( function( challenge ) {
       thisNode.nextChallenge();
+    } );
+
+    // Enable features based on number of cards that have been moved to the output carousel
+    this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
+
+      // enable 'See Inside' check box
+      thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
+
+      // make function reveal buttons available
+      thisNode.revealButtons.forEach( function( revealButton ) {
+        revealButton.visible = revealButton.visible || ( numberOfCards === 2 );
+      } );
     } );
   }
 
@@ -167,7 +167,7 @@ define( function( require ) {
 
       // clear functions from the function builder
       thisNode.builderNode.reset();
-      
+
       // convert the challenge from a string to an array of {operator: string, operand: number}
       var challenge = thisNode.scene.challengeProperty.get();
       var challengeObjects = MysteryModel.parseChallenge( challenge );
@@ -200,7 +200,7 @@ define( function( require ) {
 
         slotNumber++;
       } );
-      
+
       // disable the 'See Inside' check box
       thisNode.seeInsideCheckBox.enabled = false;
 
@@ -208,7 +208,7 @@ define( function( require ) {
       this.revealProperties.forEach( function( revealProperty ) {
         revealProperty.reset();
       } );
-      
+
       // hide the buttons for revealing function identity
       this.revealButtons.forEach( function( revealButton ) {
         revealButton.visible = false;
