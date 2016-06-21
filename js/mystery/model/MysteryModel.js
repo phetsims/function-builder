@@ -99,8 +99,8 @@ define( function( require ) {
           operator: OPERATOR_MAP[ tokens[ i ] ],
           operand: parseInt( tokens[ i + 1 ] )
         };
-        assert( challengeObject.operator );
-        assert( Util.isInteger( challengeObject.operand ) );
+        assert && assert( challengeObject.operator );
+        assert && assert( Util.isInteger( challengeObject.operand ) );
 
         challengeObjects.push( challengeObject );
       }
