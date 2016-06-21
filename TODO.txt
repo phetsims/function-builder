@@ -8,6 +8,8 @@ Mystery screen:
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor
 
+Move property definitions to end of constructors
+
 Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
 
 Limit to 1 "parked" card in builder #44
