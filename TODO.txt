@@ -1,13 +1,12 @@
 TODO list for function-builder
 
-Mystery screen:
-- animate next challenge
-- fix problems noted in MysteryScene.nextChallenge and nextColor
-- more colors for MysteryScene.COLOR_POOL
+animate switching between challenges in Mystery screen?
 
-Move property definitions to end of constructors
+fix problems noted in MysteryScene.nextChallenge and nextColor
 
-Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
+challenges for Mystery screen #71
+
+colors for Mystery functions #70
 
 Limit to 1 "parked" card in builder #44
 
@@ -24,3 +23,5 @@ Write model.md
 Write implementation-notes.md
 
 Code review
+
+Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
