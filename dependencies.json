@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.59 Mon Jun 20 2016 17:21:30 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.59 Tue Jun 21 2016 09:08:50 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -17,15 +17,15 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "551f726fe6f182efb95ec56c3ebe2f6292d04f25",
+    "sha": "6d72717f9398531e4c1c14ec2765e7a700b9a120",
     "branch": "master"
   },
   "function-builder": {
-    "sha": "4fd14980c2f559b961c11450b5db03058eb2ceb2",
+    "sha": "c48c074e3bff68a70a13a920848fd2910ad909f5",
     "branch": "master"
   },
   "joist": {
-    "sha": "d0cff1190f50f0db93a8df9924ea5069ce508db3",
+    "sha": "a42bced705887608a8f615cd35141fc1a630c1f1",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "d2791b0f130c4015a9eada724d38faa072b4bda3",
+    "sha": "4476eb958b8e19367bd12c7e50636328058f077a",
     "branch": "master"
   },
   "scenery-phet": {
