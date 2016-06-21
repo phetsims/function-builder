@@ -2,7 +2,7 @@
 
 /**
  * Base type for all ScreenViews in this sim.
- * Supports initialization at start up or on demand.
+ * The ScreenView and its Scenes can be initialized (independently) at start up or on demand.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -40,7 +41,7 @@ define( function( require ) {
 
     ScreenView.call( this, options );
 
-    if ( FBConstants.INIT_SCREEN_VIEWS_ON_START ) {
+    if ( FBQueryParameters.INIT_SCREEN_VIEWS === 'onStart' ) {
       this.initialize();
     }
   }
@@ -107,7 +108,7 @@ define( function( require ) {
       // Scene Nodes
       var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
       model.scenes.forEach( function( scene ) {
-        if ( FBConstants.INIT_SCENES_ON_START ) {
+        if ( FBQueryParameters.INIT_SCENES === 'onStart' ) {
 
           // create scene node on start
           var sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
