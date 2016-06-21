@@ -2,6 +2,7 @@
 
 /**
  * Base type for all ScreenViews in this sim.
+ * Supports initialization at start up or on demand.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
