@@ -1,11 +1,11 @@
 TODO list for function-builder
 
 Mystery screen:
+- looks like there are duplicate colors being assigned to functions
 - fix Reset All so that pressing it twice doesn't clear the builder
 - fix Reset All and generate so that cards in 'see inside' windows don't animate to output carousel
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor
-- looks like there are duplicate colors being assigned to functions
 
 Move property definitions to end of constructors
 
