@@ -18,15 +18,25 @@ define( function( require ) {
 
   // pool of 1-function challenges
   var POOL1 = [
+    '+ 0',
     '+ 1',
     '+ 2',
     '+ 3',
+    '- 0',
     '- 1',
     '- 2',
     '- 3',
+    '* -3',
+    '* -2',
+    '* -1',
+    '* 0',
     '* 1',
     '* 2',
     '* 3',
+    '/ -3',
+    '/ -2',
+    '/ -1',
+    '/ 0',
     '/ 1',
     '/ 2',
     '/ 3'
@@ -34,14 +44,38 @@ define( function( require ) {
 
   // pool of 2-function challenges
   var POOL2 = [
-    '+ 1 * 2',
-    '+ 2 * 3',
-    '- 1 * 2',
-    '- 2 * 3',
-    '+ 1 / 2',
-    '+ 2 / 3',
-    '- 1 / 2',
-    '- 2 / 3'
+    '+ 1 + 3',
+    '+ 1 + 2',
+    '* 2 * 0',
+    '* 0 * 1',
+    '* -1 * -2',
+    '* 2 * 1',
+    '* -3 * 2',
+    '* 2 * -3',
+    '* 3 + 3',
+    '* 2 + 3',
+    '* 2 - 2',
+    '* 1 + 3',
+    '* 1 + 2',
+    '/ 1 - 1',
+    '* 0 + 3',
+    '* -3 + 0',
+    '/ 3 - 3',
+    '/ 3 + 2',
+    '/ -1 - 3',
+    '/ -2 + 2',
+    '+ 3 * 3',
+    '- 3 * 2',
+    '+ 2 * 2',
+    '+ 3 * 1',
+    '+ 2 / 1',
+    '- 1 * 1',
+    '+ 3 * 0',
+    '+ 0 * -3',
+    '- 3 / 3',
+    '- 2 / 3',
+    '+ 3 / -1',
+    '+ 2 / -1'
   ];
 
   // pool of 3-function challenges
@@ -92,19 +126,23 @@ define( function( require ) {
       assert && assert( tokens.length % 2 === 0 );
 
       var challengeObjects = [];
-      
+
       for ( var i = 0; i < tokens.length; i = i + 2 ) {
 
         var challengeObject = {
           operator: OPERATOR_MAP[ tokens[ i ] ],
           operand: parseInt( tokens[ i + 1 ] )
         };
+
         assert && assert( challengeObject.operator );
-        assert && assert( Util.isInteger( challengeObject.operand ) );
+        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in ' + challenge );
+        assert && assert( !( challengeObject.operand < 0 &&
+        ( challengeObject.operator === FBSymbols.PLUS || challengeObject.operator === FBSymbols.PLUS ) ),
+          'negative operand not allowed with plus and minus: ' + challenge );
 
         challengeObjects.push( challengeObject );
       }
-      
+
       return challengeObjects;
     }
   } );

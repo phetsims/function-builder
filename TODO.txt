@@ -6,6 +6,7 @@ Mystery screen:
 - populate pools with combinations from spreadsheet
 - animate next challenge
 - fix problems noted in MysteryScene.nextChallenge and nextColor
+- looks like there are duplicate colors being assigned to functions
 
 Move property definitions to end of constructors
 
