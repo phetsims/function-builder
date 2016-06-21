@@ -101,7 +101,7 @@ define( function( require ) {
     this.answerNode = new Text( 'answer', {
       font: new FBFont( 18 ),
       centerX: this.generateButton.centerX,
-      top: this.generateButton.bottom + 25
+      top: this.generateButton.bottom + 10
     } );
     if ( FBQueryParameters.SHOW_ANSWER ) {
       this.addChild( this.answerNode );
