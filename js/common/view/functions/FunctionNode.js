@@ -44,46 +44,35 @@ define( function( require ) {
 
     var thisNode = this;
 
-    // @public
-    this.functionInstance = functionInstance;
-
-    // @private
-    this.contentNode = contentNode;
-    this.container = container;
-    this.builderNode = builderNode;
-    this.builder = builderNode.builder;
-    this.dragLayer = dragLayer;
-
-    // @protected
-    this.backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
+    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
 
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.fillProperty.link( function( fill ) {
-       thisNode.backgroundNode.fill = fill;
+       backgroundNode.fill = fill;
     } );
 
     // center
-    contentNode.center = this.backgroundNode.center;
-    options.hiddenNode.center = this.backgroundNode.center;
+    contentNode.center = backgroundNode.center;
+    options.hiddenNode.center = backgroundNode.center;
 
     // @private
-    this.notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
-      center: this.backgroundNode.center,
+    var notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
+      center: backgroundNode.center,
       visible: false
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, contentNode, options.hiddenNode, this.notInvertibleSymbolNode ];
+    options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
 
     // @public
-    this.identityVisibleProperty = new Property( options.identityVisible );
-    this.identityVisibleProperty.link( function( identityVisible ) {
+    var identityVisibleProperty = new Property( options.identityVisible );
+    identityVisibleProperty.link( function( identityVisible ) {
 
-      thisNode.contentNode.visible = identityVisible;
+      contentNode.visible = identityVisible;
       options.hiddenNode.visible = !identityVisible;
 
       if ( options.hiddenFill ) {
-        thisNode.backgroundNode.fill = identityVisible ? thisNode.functionInstance.fillProperty.get() : options.hiddenFill;
+        backgroundNode.fill = identityVisible ? functionInstance.fillProperty.get() : options.hiddenFill;
       }
     } );
 
@@ -148,6 +137,24 @@ define( function( require ) {
     };
 
     MovableNode.call( this, functionInstance, options );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Create properties in one place, so we can see what's available and document visibility
+
+    // @public
+    this.functionInstance = functionInstance;
+    this.identityVisibleProperty = identityVisibleProperty;
+
+    // @protected used by subtypes
+    this.backgroundNode = backgroundNode;
+
+    // @private used by prototype functions
+    this.contentNode = contentNode;
+    this.container = container;
+    this.builderNode = builderNode;
+    this.builder = builderNode.builder;
+    this.dragLayer = dragLayer;
+    this.notInvertibleSymbolNode = notInvertibleSymbolNode;
   }
 
   functionBuilder.register( 'FunctionNode', FunctionNode );
