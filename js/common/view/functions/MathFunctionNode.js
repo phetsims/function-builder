@@ -29,7 +29,10 @@ define( function( require ) {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var contentNode = new Text( StringUtils.format( '{0} {1}', functionInstance.operator, functionInstance.operandProperty.get() ), {
+    var thisNode = this;
+
+    // @private updated by operandProperty observer
+    var contentNode = new Text( '', {
       font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 
@@ -38,7 +41,8 @@ define( function( require ) {
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( function( operand ) {
-      assert && assert( 'operand is not expected to change in the screens that use this node' );
+      contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
+      contentNode.center = thisNode.backgroundNode.center;
     } );
   }
 
