@@ -210,7 +210,7 @@ define( function( require ) {
 
             // configure function to match challenge
             functionInstance.operandProperty.set( challengeObject.operand );
-            functionInstance.fillProperty.get( thisNode.scene.nextColor() );
+            functionInstance.fillProperty.set( thisNode.scene.nextColor() );
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );
