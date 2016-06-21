@@ -27,3 +27,5 @@ Code review
 Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
 
 Mystery screen has a blank space in card carousels #72
+
+Layout of 'See Inside' check box on Mystery screen feels a little "off"
