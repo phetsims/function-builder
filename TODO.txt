@@ -26,4 +26,4 @@ Code review
 
 Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
 
-Blank space after 6 in input carousel of Mystery screen
+Mystery screen has a blank space in card carousels #72
