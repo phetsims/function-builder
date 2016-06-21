@@ -119,7 +119,7 @@ define( function( require ) {
 
       // enabled function reveal buttons
       thisNode.revealButtons.forEach( function( revealButton ) {
-        revealButton.enabled = revealButton.enabled || ( numberOfCards === 2 );
+        revealButton.enabled = revealButton.enabled || ( numberOfCards === 3 );
       } );
 
       // enable 'See Inside' check box
