@@ -63,7 +63,7 @@ define( function( require ) {
         var revealProperty = new Property( false );
         thisNode.revealProperties.push( revealProperty );
 
-        // wire up Property to function that's in the slot
+        // wire up Property to control the function that's in the slot
         // unlink unnecessary, instances exist for lifetime of the sim
         revealProperty.link( function( reveal ) {
           var functionNode = thisNode.builderNode.getFunctionNode( slotNumber );
@@ -72,7 +72,7 @@ define( function( require ) {
           }
         } );
 
-        // Button below the slot
+        // button below the slot
         var slotLocation = scene.builder.slots[ slotNumber ].location;
         var revealButton = new EyeToggleButton( revealProperty, {
           baseColor: FBColors.HIDDEN_FUNCTION,
