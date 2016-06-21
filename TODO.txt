@@ -1,9 +1,7 @@
 TODO list for function-builder
 
 Mystery screen:
-- built version: Uncaught TypeError: 1 is not a function
-- problem: See Inside windows cover locks
-- clean up lock/unlock feature in MysteryFunctionNode
+- move revealProperty to MysteryFunctionNode or MysteryFunction
 - fix Reset All so that pressing it twice doesn't clear the builder
 - populate pools with combinations from spreadsheet
 - animate next challenge
