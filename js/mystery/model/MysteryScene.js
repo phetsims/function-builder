@@ -194,6 +194,7 @@ define( function( require ) {
           operand: parseInt( tokens[ i + 1 ] )
         };
 
+        // validation
         assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
         assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
         assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
