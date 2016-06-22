@@ -31,7 +31,7 @@ define( function( require ) {
     var iconNode = new SubSupText( mysteryCString, {
       subScale: 0.4,
       font: FBConstants.PATTERNS_FUNCTION_FONT,
-      maxWidth: 0.5 * FBConstants.FUNCTION_SIZE.width
+      maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
     } );
 
     ImageFunction.call( this, iconNode, options );

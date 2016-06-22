@@ -1,8 +1,5 @@
 TODO list for function-builder
 
-stringTest=long failures:
-- maxWidth for '?' on Mystery function
-
 animate switching between challenges in Mystery screen?
 
 fix problems noted in MysteryScene.nextChallenge and nextColor
