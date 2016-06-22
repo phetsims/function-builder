@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.62 Wed Jun 22 2016 10:49:35 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.63 Wed Jun 22 2016 16:36:26 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -17,15 +17,15 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "1efed24bbfa72fbecaea06e853c6cf6ebaa6f106",
+    "sha": "6448a04cc1a1dfa782315d3ad3bafa1346ac2c4b",
     "branch": "master"
   },
   "function-builder": {
-    "sha": "a244594d9d82b079d3dfa7f880294cd5726a2697",
+    "sha": "fe750173fd53c4b1bf1e1ffd4ffd9b88e3e5ad7c",
     "branch": "master"
   },
   "joist": {
-    "sha": "a42bced705887608a8f615cd35141fc1a630c1f1",
+    "sha": "fa5db70c989bd64381fb8d994bbd94c4ae333b61",
     "branch": "master"
   },
   "kite": {
