@@ -2,7 +2,7 @@ TODO list for function-builder
 
 speed up MysterySceneNode.nextChallenge, see TODO
 
-fix problems noted in MysteryScene.nextChallenge and nextColor
+fix problem noted in MysteryScene.nextChallenge
 
 animate switching between challenges in Mystery screen? seems unnecessary...
 
