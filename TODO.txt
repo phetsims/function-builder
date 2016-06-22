@@ -1,5 +1,10 @@
 TODO list for function-builder
 
+stringTest=long failures:
+- maxWidth for 'x' ghost card
+- maxWidth for labels on graph axes
+- maxWidth for '?' on Mystery function
+
 animate switching between challenges in Mystery screen?
 
 fix problems noted in MysteryScene.nextChallenge and nextColor
@@ -7,8 +12,6 @@ fix problems noted in MysteryScene.nextChallenge and nextColor
 constrain to 1 card "parked" in the builder at a time #44
 
 reduce startup time #37
-
-stringTest
 
 touchAreas
 
