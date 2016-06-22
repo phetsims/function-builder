@@ -28,7 +28,32 @@ define( function( require ) {
       middle: 'rgb( 6, 114, 180 )',
       bottom: 'black',
       ends: 'rgb( 189, 206, 216 )'
-    }
+    },
+
+    // colors for Mystery functions
+    MYSTERY_COLOR_SETS: [
+
+      // red
+      [ 'rgb( 255, 0, 0 )', 'rgb( 255, 80, 80 )', 'rgb( 255, 120, 120 )', 'rgb( 255, 180, 180 )' ],
+
+      // orange
+      [ 'rgb( 249, 160, 6 )', 'rgb( 250, 186, 75 )', 'rgb( 255, 179, 102 )', 'rgb(255, 204, 153)' ],
+
+      // yellow
+      [ 'rgb( 255, 255, 0 )', 'rgb( 255, 228, 51 )', 'rgb( 255, 255, 128 )', 'rgb( 255, 246, 187 )' ],
+
+      // green
+      [ 'rgb( 64, 255, 0 )', 'rgb( 71, 209, 71 )', 'rgb( 147, 231, 128 )', 'rgb( 204, 255, 204 )' ],
+
+      // blue
+      [ 'rgb( 51, 173, 255 )', 'rgb( 128, 197, 237 )', 'rgb( 0, 222, 224 )', 'rgb( 204, 230, 255 )' ],
+
+      // purple
+      [ 'rgb( 204, 102, 255 )', 'rgb( 191, 128, 255 )', 'rgb( 221, 175, 255 )', 'rgb( 238, 204, 255 )' ],
+
+      // magenta
+      [ 'rgb( 255, 26, 255 )', 'rgb( 255, 77, 255 )', 'rgb( 255, 128, 255 )', 'rgb( 255, 180, 255 )' ]
+    ]
   };
 
   functionBuilder.register( 'FBColors', FBColors );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
@@ -38,31 +39,6 @@ define( function( require ) {
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
   var DEFAULT_CHALLENGE_INDEX = 0; // the first challenge in the pool is used on startup and reset
-
-  // pool of colors for functions, see nextColors
-  var COLOR_SETS_POOL = [
-
-    // red
-    [ 'rgb( 255, 0, 0 )', 'rgb( 255, 80, 80 )', 'rgb( 255, 120, 120 )', 'rgb( 255, 180, 180 )' ],
-
-    // orange
-    [ 'rgb( 249, 160, 6 )', 'rgb( 250, 186, 75 )', 'rgb( 255, 179, 102 )', 'rgb(255, 204, 153)' ],
-
-    // yellow
-    [ 'rgb( 255, 255, 0 )', 'rgb( 255, 228, 51 )', 'rgb( 255, 255, 128 )', 'rgb( 255, 246, 187 )' ],
-
-    // green
-    [ 'rgb( 64, 255, 0 )', 'rgb( 71, 209, 71 )', 'rgb( 147, 231, 128 )', 'rgb( 204, 255, 204 )' ],
-
-    // blue
-    [ 'rgb( 51, 173, 255 )', 'rgb( 128, 197, 237 )', 'rgb( 0, 222, 224 )', 'rgb( 204, 230, 255 )' ],
-
-    // purple
-    [ 'rgb( 204, 102, 255 )', 'rgb( 191, 128, 255 )', 'rgb( 221, 175, 255 )', 'rgb( 238, 204, 255 )' ],
-
-    // magenta
-    [ 'rgb( 255, 26, 255 )', 'rgb( 255, 77, 255 )', 'rgb( 255, 128, 255 )', 'rgb( 255, 180, 255 )' ]
-  ];
 
   // maps operator token used in the challenge pool to operator symbols used in functions
   var OPERATOR_MAP = {
@@ -133,7 +109,7 @@ define( function( require ) {
     this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
     this.randomChallenge = new Random(); // random number generator for choosing challenges
     this.randomColor = new Random(); // random number generator for choosing colors
-    this.availableColorSets = COLOR_SETS_POOL.slice( 0 ); // pool of available colors
+    this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
     this.previousColorSets = []; // pool that was used on previous call to nextColors
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
@@ -308,16 +284,12 @@ define( function( require ) {
      * @private
      */
     nextColorDebug: function() {
-      var allColors = [].concat.apply( [], COLOR_SETS_POOL ); // flatten the color pool
+      var allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
       var color = allColors[ this.nextColorIndexDebug++ ];
       if ( this.nextColorIndexDebug > allColors.length - 1 ) {
         this.nextColorIndexDebug = 0;
       }
       return color;
     }
-  }, {
-
-    // @static @public - for use in testMysteryFunctionColors only!
-    COLOR_SETS_POOL: COLOR_SETS_POOL
   } );
 } );

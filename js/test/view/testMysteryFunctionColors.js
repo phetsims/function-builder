@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var Color = require( 'SCENERY/util/Color' );
+  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -29,13 +30,13 @@ define( function( require ) {
    */
   function testMysteryFunctionColors( layoutBounds ) {
 
-    // These names are hard coded to correspond to the pools in MysteryScene.COLOR_SETS_POOL
+    // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
     var colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
-    assert && assert( colorSetNames.length === MysteryScene.COLOR_SETS_POOL.length );
+    assert && assert( colorSetNames.length === FBColors.MYSTERY_COLOR_SETS.length );
 
     var vBoxChildren = [];
 
-    for ( var i = 0; i < MysteryScene.COLOR_SETS_POOL.length; i++ ) {
+    for ( var i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
 
       var hBoxChildren = [];
 
@@ -45,7 +46,7 @@ define( function( require ) {
       } ) );
 
       // row of functions
-      var colorSet = MysteryScene.COLOR_SETS_POOL[ i ];
+      var colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
       colorSet.forEach( function( color ) {
         hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
       } );
