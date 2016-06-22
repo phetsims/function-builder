@@ -19,8 +19,7 @@ define( function( require ) {
    * @constructor
    */
   function PatternsModel() {
-
-    var scenes = [
+    FBModel.call( this, [
 
       // builder with 1 slot, for exploring application of 1 function
       new PatternsScene( {
@@ -37,9 +36,7 @@ define( function( require ) {
         numberOfEachCard: 2,
         numberOfEachFunction: 2
       } )
-    ];
-
-    FBModel.call( this, scenes );
+    ] );
   }
 
   functionBuilder.register( 'PatternsModel', PatternsModel );

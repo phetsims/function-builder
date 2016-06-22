@@ -18,8 +18,6 @@ define( function( require ) {
    * @constructor
    */
   function EquationsModel() {
-
-    // this screen has 1 scene
     FBModel.call( this, [ new EquationsScene() ] );
   }
 
