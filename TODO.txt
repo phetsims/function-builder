@@ -2,8 +2,8 @@ TODO list for function-builder
 
 stringTest=long failures:
 - maxWidth for 'x' ghost card
-- maxWidth for labels on graph axes
 - maxWidth for '?' on Mystery function
+- maxWidth for 'slope-intercept' check box
 
 animate switching between challenges in Mystery screen?
 

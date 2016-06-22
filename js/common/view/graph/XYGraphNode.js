@@ -135,6 +135,7 @@ define( function( require ) {
     xAxisNode.centerY = viewOrigin.y;
 
     var xAxisLabelNode = new Text( FBSymbols.X, {
+      maxWidth: 0.3 * options.size.width,
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
       right: xAxisNode.right - 4,
@@ -146,10 +147,11 @@ define( function( require ) {
     yAxisNode.centerX = viewOrigin.x;
 
     var yAxisLabelNode = new Text( FBSymbols.Y, {
+      maxWidth: 0.3 * options.size.width,
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
       left: yAxisNode.right + 2,
-      top: yAxisNode.top
+      top: yAxisNode.top + 1
     } );
 
     // tick lines & labels
