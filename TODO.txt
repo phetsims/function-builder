@@ -4,9 +4,7 @@ animate switching between challenges in Mystery screen?
 
 fix problems noted in MysteryScene.nextChallenge and nextColor
 
-Limit to 1 "parked" card in builder #44
-
-Interviews on 6/29 & 7/5
+constrain to 1 card "parked" in the builder at a time #44
 
 reduce startup time #37
 
@@ -14,11 +12,11 @@ stringTest
 
 touchAreas
 
-Write model.md
+write model.md
 
-Write implementation-notes.md
+write implementation-notes.md
 
-Code review
+code review
 
 
 BLOCKED:
@@ -27,3 +25,4 @@ challenges for Mystery screen #71
 colors for Mystery functions #70
 Mystery screen has a blank space in card carousels #72
 should the "See Inside" feature be available for 1-slot builders? #73
+Interviews on 6/29 & 7/5, https://github.com/phetsims/tasks/issues/625
