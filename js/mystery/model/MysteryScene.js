@@ -57,7 +57,7 @@ define( function( require ) {
     [ 'rgb( 128, 197, 237 )', 'rgb( 0, 222, 224 )', 'rgb( 51, 173, 255 )', 'rgb( 204, 230, 255 )' ],
 
     // purples
-    [ 'rgb( 238, 204, 255 )',  'rgb( 221, 153, 255 )', 'rgb( 204, 102, 255 )', 'rgb( 191, 128, 255 )' ],
+    [ 'rgb( 238, 204, 255 )', 'rgb( 221, 153, 255 )', 'rgb( 204, 102, 255 )', 'rgb( 191, 128, 255 )' ],
 
     // pinks
     [ 'rgb(255, 204, 255)', 'rgb(255, 128, 255)', 'rgb(255, 77, 255)', 'rgb(255, 26, 255)' ]
@@ -130,6 +130,9 @@ define( function( require ) {
 
     // @private pool of available challenges, first one removed
     this.availableChallenges = pool.slice( 1 );
+
+    // @private debug support for the 'showAllColors' query parameter
+    this.debugNextColorIndex = 0;
 
     // @private random number generator for choosing challenges
     this.randomChallenge = new Random();
@@ -267,34 +270,58 @@ define( function( require ) {
      */
     nextColors: function() {
 
-      assert && assert( this.availableColorSets.length >= this.functionsPerChallenge );
-
-      var colorSets = [];
+      var i;
       var colors = [];
 
-      for ( var i = 0; i < this.functionsPerChallenge; i++ ) {
+      if ( FBQueryParameters.SHOW_ALL_COLORS ) {
+        for ( i = 0; i < this.functionsPerChallenge; i++ ) {
+          colors.push( this.nextColorDebug() );
+        }
+      }
+      else {
+        assert && assert( this.availableColorSets.length >= this.functionsPerChallenge );
 
-        // select a color set
-        var colorSetIndex = this.randomColor.nextInt( this.availableColorSets.length );
-        var colorSet = this.availableColorSets[ colorSetIndex ];
-        colorSets.push( colorSet );
+        var colorSets = [];
 
-        // remove the set from the available sets
-        this.availableColorSets.splice( colorSetIndex, 1 );
+        for ( i = 0; i < this.functionsPerChallenge; i++ ) {
 
-        // select a color from the set
-        var colorIndex = this.randomColor.nextInt( colorSet.length );
-        var color = colorSet[ colorIndex ];
-        colors.push( color );
+          // select a color set
+          var colorSetIndex = this.randomColor.nextInt( this.availableColorSets.length );
+          var colorSet = this.availableColorSets[ colorSetIndex ];
+          colorSets.push( colorSet );
+
+          // remove the set from the available sets
+          this.availableColorSets.splice( colorSetIndex, 1 );
+
+          // select a color from the set
+          var colorIndex = this.randomColor.nextInt( colorSet.length );
+          var color = colorSet[ colorIndex ];
+          colors.push( color );
+        }
+
+        // make sets from previous call available
+        this.availableColorSets = this.availableColorSets.concat( this.previousColorSets );
+
+        // remember sets from this call
+        this.previousColorSets = colorSets;
       }
 
-      // make sets from previous call available
-      this.availableColorSets = this.availableColorSets.concat( this.previousColorSets );
-
-      // remember sets from this call
-      this.previousColorSets = colorSets;
-
       return colors;
+    },
+
+    /**
+     * Gets the next color, in order.
+     * This is used to support the 'showAllColors' query parameter.
+     *
+     * @private
+     */
+    nextColorDebug: function() {
+      var allColors = [].concat.apply( [], COLOR_SETS_POOL ); // flatten the pool
+      var color = allColors[ this.debugNextColorIndex++ ];
+      if ( this.debugNextColorIndex > allColors.length - 1 ) {
+        this.debugNextColorIndex = 0;
+      }
+      return color;
     }
   } );
 } );

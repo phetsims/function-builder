@@ -40,7 +40,10 @@ define( function( require ) {
     SHOW_ANSWER: !!getQueryParameter( 'showAnswer' ),
 
     // plays all Mystery challenges, in order
-    PLAY_ALL: !!getQueryParameter( 'playAll' )
+    PLAY_ALL: !!getQueryParameter( 'playAll' ),
+
+    // shows all colors, in order that they appear in pool, for Mystery challenges
+    SHOW_ALL_COLORS: !!getQueryParameter( 'showAllColors' )
   };
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
