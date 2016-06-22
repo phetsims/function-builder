@@ -1,8 +1,10 @@
 TODO list for function-builder
 
-animate switching between challenges in Mystery screen?
+speed up MysterySceneNode.nextChallenge, see TODO
 
 fix problems noted in MysteryScene.nextChallenge and nextColor
+
+animate switching between challenges in Mystery screen? seems unnecessary...
 
 constrain to 1 card "parked" in the builder at a time #44
 
