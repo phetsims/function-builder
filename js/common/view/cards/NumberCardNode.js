@@ -84,9 +84,15 @@ define( function( require ) {
      * @override
      */
     createGhostNode: function( rationalNumber, options ) {
+
+      options = _.extend( {
+        textMaxWidth: 0.75 * FBConstants.CARD_OPTIONS.size.width
+      }, options );
+
       assert && assert( rationalNumber instanceof RationalNumber );
       var contentNode = new Text( rationalNumber.valueOf(), {
-        font: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT
+        font: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
+        maxWidth: options.textMaxWidth
       } );
       return CardNode.createGhostNode( contentNode, options );
     }

@@ -91,8 +91,16 @@ define( function( require ) {
      * @override
      */
     createGhostNode: function( symbol, options ) {
+
+      options = _.extend( {
+        textMaxWidth: 0.75 * FBConstants.CARD_OPTIONS.size.width
+      }, options );
+
       assert && assert( typeof symbol === 'string' );
-      var contentNode = new Text( symbol, { font: FBConstants.EQUATION_CARD_XY_FONT } );
+      var contentNode = new Text( symbol, {
+        font: FBConstants.EQUATION_CARD_XY_FONT,
+        maxWidth: options.textMaxWidth
+      } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );
