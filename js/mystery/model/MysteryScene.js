@@ -38,7 +38,7 @@ define( function( require ) {
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
-  // pool of colors for functions
+  // pool of colors for functions, see nextColors
   var COLOR_SETS_POOL = [
 
     // red
