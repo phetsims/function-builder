@@ -156,8 +156,7 @@ define( function( require ) {
 
     /**
      * Advances to the next randomly-selected challenge.  After a challenge has been selected, it is not selected
-     * again until all challenges in the pool have been selected. When called for the first time (or after reset),
-     * returns the first challenge in the pool. This provides a reproducible first challenge on startup and reset.
+     * again until all challenges in the pool have been selected.
      *
      * @public
      */
