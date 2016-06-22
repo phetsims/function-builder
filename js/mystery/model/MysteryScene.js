@@ -132,7 +132,7 @@ define( function( require ) {
     this.availableChallenges = pool.slice( 1 );
 
     // @private debug support for the 'showAllColors' query parameter
-    this.debugNextColorIndex = 0;
+    this.nextColorIndexDebug = 0;
 
     // @private random number generator for choosing challenges
     this.randomChallenge = new Random();
@@ -317,9 +317,9 @@ define( function( require ) {
      */
     nextColorDebug: function() {
       var allColors = [].concat.apply( [], COLOR_SETS_POOL ); // flatten the pool
-      var color = allColors[ this.debugNextColorIndex++ ];
-      if ( this.debugNextColorIndex > allColors.length - 1 ) {
-        this.debugNextColorIndex = 0;
+      var color = allColors[ this.nextColorIndexDebug++ ];
+      if ( this.nextColorIndexDebug > allColors.length - 1 ) {
+        this.nextColorIndexDebug = 0;
       }
       return color;
     }
