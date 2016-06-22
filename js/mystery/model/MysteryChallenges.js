@@ -1,0 +1,165 @@
+// Copyright 2016, University of Colorado Boulder
+
+/**
+ * Challenges for the 'Mystery' screen, with function for parsing them.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var Util = require( 'DOT/Util' );
+
+  // maps operator tokens used in challenges to operator symbols used in functions
+  var OPERATOR_MAP = {
+    '+': FBSymbols.PLUS,
+    '-': FBSymbols.MINUS,
+    '*': FBSymbols.TIMES,
+    '/': FBSymbols.DIVIDE
+  };
+
+  var MysteryChallenges = {
+
+    // 1-function challenges
+    POOL1: [
+      '+ 3', // selected on startup and reset
+      '+ 2',
+      '+ 1',
+      '+ 0',
+      '- 3',
+      '- 2',
+      '- 1',
+      '- 0',
+      '* 3',
+      '* 2',
+      '* 1',
+      '* 0',
+      '* -1',
+      '* -2',
+      '* -3',
+      '/ 3',
+      '/ 2',
+      '/ 1',
+      '/ -1',
+      '/ -2',
+      '/ -3'
+    ],
+
+    // 2-function challenges
+    POOL2: [
+      '+ 1 + 3', // selected on startup and reset
+      '+ 1 + 2',
+      '* 2 * 0',
+      '* 0 * 1',
+      '* -1 * -2',
+      '* 2 * 1',
+      '* -3 * 2',
+      '* 2 * -3',
+      '* 3 + 3',
+      '* 2 + 3',
+      '* 2 - 2',
+      '* 1 + 3',
+      '* 1 + 2',
+      '/ 1 - 1',
+      '* 0 + 3',
+      '* -3 + 0',
+      '/ 3 - 3',
+      '/ 3 + 2',
+      '/ -1 - 3',
+      '/ -2 + 2',
+      '+ 3 * 3',
+      '- 3 * 2',
+      '+ 2 * 2',
+      '+ 3 * 1',
+      '+ 2 / 1',
+      '- 1 * 1',
+      '+ 3 * 0',
+      '+ 0 * -3',
+      '- 3 / 3',
+      '- 2 / 3',
+      '+ 3 / -1',
+      '+ 2 / -1'
+    ],
+
+    // 3-function challenges
+    POOL3: [
+      '* -3 * -1 * 0', // selected on startup and reset
+      '* 3 * -2 * -1',
+      '* 2 * -2 * -2',
+      '/ 3 / -1 / -1',
+      '/ 2 / 3 / -2',
+      '/ 1 / -1 / 2',
+      '* 3 * -3 + 3',
+      '/ 2 * 2 - 2',
+      '+ 3 * 1 + 3',
+      '+ 2 * 1 + 2',
+      '- 1 / 1 - 1',
+      '+ 3 * 0 + 3',
+      '+ 2 * -2 + 3',
+      '+ 0 * -3 + 0',
+      '- 3 / 3 - 3',
+      '- 2 / 3 + 2',
+      '+ 3 / -1 - 3',
+      '+ 2 / -2 + 2',
+      '* -3 + 3 + 3',
+      '/ 3 - 3 - 3',
+      '* 0 + 2 + 2',
+      '* 3 + 3 * 1',
+      '/ 2 + 2 / 1',
+      '/ 2 - 1 * 1',
+      '* -2 + 3 * 0',
+      '* 2 + 3 * -2',
+      '* 1 + 0 * -3',
+      '* 0 - 3 / 3',
+      '* -1 - 2 / 3',
+      '* 0 + 3 / -1',
+      '* 1 + 2 / -1'
+    ],
+
+    /**
+     * To make them easier to read and modify, challenges are expressed as strings, with operators and operands
+     * separated by spaces. This function converts the string representation of a challenge into an array of
+     * Objects that is easier to process programmatically.
+     *
+     * @param {string} challenge
+     * @returns {{operator: string, operand: number}[]}
+     * @public
+     */
+    parseChallenge: function( challenge ) {
+
+      var challengeObjects = [];
+
+      var tokens = challenge.split( ' ' );
+      assert && assert( tokens.length % 2 === 0, 'malformed challenge: ' + challenge );
+
+      for ( var i = 0; i < tokens.length; i = i + 2 ) {
+
+        var challengeObject = {
+          operator: OPERATOR_MAP[ tokens[ i ] ],
+          operand: parseInt( tokens[ i + 1 ] )
+        };
+
+        // validation
+        assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
+        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
+        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
+          'negative operand not allowed with plus in challenge: ' + challenge );
+        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
+          'negative operand not allowed with minus in challenge: ' + challenge );
+        assert && assert( !( challengeObject.operand === 0 && challengeObject.operator === FBSymbols.DIVIDE ),
+          'division by zero not allowed in challenge: ' + challenge );
+
+        challengeObjects.push( challengeObject );
+      }
+
+      return challengeObjects;
+    }
+  };
+
+  functionBuilder.register( 'MysteryChallenges', MysteryChallenges );
+
+  return MysteryChallenges;
+} );

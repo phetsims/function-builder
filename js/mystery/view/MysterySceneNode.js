@@ -16,6 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
   var Property = require( 'AXON/Property' );
   var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
@@ -197,7 +198,7 @@ define( function( require ) {
 
       // convert the challenge from a string to an array of {operator: string, operand: number}
       var challenge = thisNode.scene.challengeProperty.get();
-      var challengeObjects = thisNode.scene.parseChallenge( challenge );
+      var challengeObjects = MysteryChallenges.parseChallenge( challenge );
 
       // transfer functions from carousel to builder, configured to match the challenge
       var slotNumber = 0;

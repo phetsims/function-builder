@@ -18,12 +18,12 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   var Property = require( 'AXON/Property' );
   var Random = require( 'DOT/Random' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // function modules
@@ -39,14 +39,6 @@ define( function( require ) {
   var CARD_NUMBERS_RANGE = new Range( -4, 6 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
   var DEFAULT_CHALLENGE_INDEX = 0; // the first challenge in the pool is used on startup and reset
-
-  // maps operator token used in the challenge pool to operator symbols used in functions
-  var OPERATOR_MAP = {
-    '+': FBSymbols.PLUS,
-    '-': FBSymbols.MINUS,
-    '*': FBSymbols.TIMES,
-    '/': FBSymbols.DIVIDE
-  };
 
   /**
    * @param {string[]} challengePool
@@ -66,8 +58,6 @@ define( function( require ) {
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
-    var thisScene = this;
-
     // @private
     this.functionsPerChallenge = options.functionsPerChallenge;
 
@@ -85,7 +75,9 @@ define( function( require ) {
           var challenge = challengePool[ i ];
 
           // validate challenge
-          thisScene.parseChallenge( challenge );
+          var challengeObjects = MysteryChallenges.parseChallenge( challenge );
+          assert && assert( challengeObjects.length === options.functionsPerChallenge,
+            'incorrect number of functions in challenge: ' + challenge );
 
           // check for duplicates
           if ( challengePool.indexOf( challenge, i + 1 ) !== -1 ) {
@@ -160,46 +152,6 @@ define( function( require ) {
       // restock the available challenges, with default challenge removed
       this.availableChallenges = this.challengePool.slice( 0 );
       this.availableChallenges.splice( DEFAULT_CHALLENGE_INDEX, 1 );
-    },
-
-    /**
-     * Each challenge in a pool is expressed as a string, to make them easy to read and modify.
-     * This function converts the string representation of a challenge into something that can
-     * be more easily processed programmatically.
-     *
-     * @param {string} challenge
-     * @returns {{operator: string, operand: number}[]}
-     * @public
-     */
-    parseChallenge: function( challenge ) {
-
-      var tokens = challenge.split( ' ' );
-      assert && assert( tokens.length === 2 * this.functionsPerChallenge,
-        'malformed challenge: ' + challenge );
-
-      var challengeObjects = [];
-
-      for ( var i = 0; i < tokens.length; i = i + 2 ) {
-
-        var challengeObject = {
-          operator: OPERATOR_MAP[ tokens[ i ] ],
-          operand: parseInt( tokens[ i + 1 ] )
-        };
-
-        // validation
-        assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
-        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
-        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
-          'negative operand not allowed with plus in challenge: ' + challenge );
-        assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
-          'negative operand not allowed with minus in challenge: ' + challenge );
-        assert && assert( !( challengeObject.operand === 0 && challengeObject.operator === FBSymbols.DIVIDE ),
-          'division by zero not allowed in challenge: ' + challenge );
-
-        challengeObjects.push( challengeObject );
-      }
-
-      return challengeObjects;
     },
 
     /**
