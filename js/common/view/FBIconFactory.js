@@ -133,7 +133,7 @@ define( function( require ) {
 
       var textNode = new Text( mysteryCharacterString, {
         font: new FBFont( 80 ),
-        maxWidth: 0.7 * functionNode.width,
+        maxWidth: 0.5 * functionNode.width,
         maxHeight: 0.95 * functionNode.height,
         center: functionNode.center
       } );
