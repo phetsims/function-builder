@@ -111,14 +111,14 @@ define( function( require ) {
       this.addChild( this.answerNode );
     }
 
-    // @private {Object} maps from operator to function container, created on demand by nextChallenge
+    // @private {Object} maps from operator to function container, created on demand by updateChallenge
     this.operatorToContainerMap = null;
 
     // Update when the challenge changes.
     // This can't be executed until the function carousel is populated.
     // unlink unnecessary, instances exist for lifetime of the sim
     scene.challengeProperty.lazyLink( function( challenge ) {
-      thisNode.nextChallenge();
+      thisNode.updateChallenge();
     } );
 
     // Enable features based on number of cards that have been moved to the output carousel
@@ -182,15 +182,15 @@ define( function( require ) {
      */
     completeInitialization: function() {
       MathSceneNode.prototype.completeInitialization.call( this );
-      this.nextChallenge();
+      this.updateChallenge();
     },
 
     /**
-     * Displays the next challenge.
+     * Synchronizes the displayed challenge with the model.
      *
      * @private
      */
-    nextChallenge: function() {
+    updateChallenge: function() {
 
       var thisNode = this;
 
