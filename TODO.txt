@@ -17,8 +17,6 @@ code review
 
 BLOCKED:
 
-challenges for Mystery screen #71
-colors for Mystery functions #70
 Mystery screen has a blank space in card carousels #72
 should the "See Inside" feature be available for 1-slot builders? #73
 Interviews on 6/29 & 7/5, https://github.com/phetsims/tasks/issues/625
