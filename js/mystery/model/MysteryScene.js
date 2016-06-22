@@ -61,7 +61,7 @@ define( function( require ) {
     // @private
     this.functionsPerChallenge = options.functionsPerChallenge;
 
-    // Supports the case when all 3 functions in a challenge have the same type
+    // Supports the case where all 3 functions in a challenge have the same type
     options.numberOfEachFunction = options.functionsPerChallenge;
 
     // validate the challenge pool
