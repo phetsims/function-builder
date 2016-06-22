@@ -20,11 +20,10 @@ Write implementation-notes.md
 
 Code review
 
-Should we have the 'See Inside' feature available for 1-slot builders? in Patterns? in Mystery?
-
 
 BLOCKED:
 
 challenges for Mystery screen #71
 colors for Mystery functions #70
 Mystery screen has a blank space in card carousels #72
+should the "See Inside" feature be available for 1-slot builders? #73
