@@ -72,7 +72,7 @@ define( function( require ) {
     // 'slope-intercept' check box, at bottom center
     var slopeInterceptLabel = new Text( slopeInterceptString, {
       font: new FBFont( 16 ),
-      maxWidth: 0.9 * this.backgroundNode.width
+      maxWidth: 0.75 * this.backgroundNode.width
     } );
     var slopeInterceptCheckBox = new CheckBox( slopeInterceptLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
