@@ -58,11 +58,12 @@ define( function( require ) {
     assert && assert( !options.iconNode );
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
+    // Create enough instances of each function type to support the case where all functions
+    // in a challenge have the same type.
+    options.numberOfEachFunction = options.functionsPerChallenge;
+
     // @private
     this.functionsPerChallenge = options.functionsPerChallenge;
-
-    // Supports the case where all 3 functions in a challenge have the same type
-    options.numberOfEachFunction = options.functionsPerChallenge;
 
     // validate the challenge pool
     if ( assert ) {
