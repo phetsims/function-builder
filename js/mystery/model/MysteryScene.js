@@ -92,18 +92,18 @@ define( function( require ) {
       })();
     }
 
-    // @public the current challenge, initialized to the first challenge in the pool
+    // @public the challenge that is displayed
     this.challengeProperty = new Property( challengePool[ DEFAULT_CHALLENGE_INDEX ] );
 
     // @private
     this.challengePool = challengePool; // the original challenge pool, do not modify!
     this.availableChallenges = challengePool.slice( 0 ); // available challenges
     this.availableChallenges.splice( DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
-    this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
     this.randomChallenge = new Random(); // random number generator for choosing challenges
     this.randomColor = new Random(); // random number generator for choosing colors
     this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
     this.previousColorSets = []; // pool that was used on previous call to nextColors
+    this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
@@ -179,7 +179,7 @@ define( function( require ) {
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
       var challenge = this.availableChallenges[ challengeIndex ];
 
-      // remove the challenge from available pool
+      // remove the challenge from the available pool
       this.availableChallenges.splice( challengeIndex, 1 );
 
       this.challengeProperty.set( challenge );
