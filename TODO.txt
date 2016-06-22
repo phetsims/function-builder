@@ -8,8 +8,6 @@ constrain to 1 card "parked" in the builder at a time #44
 
 reduce startup time #37
 
-touchAreas
-
 write model.md
 
 write implementation-notes.md
