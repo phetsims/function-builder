@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-fix problem noted in MysteryScene.nextChallenge
-
 animate switching between challenges in Mystery screen? seems unnecessary...
 
 constrain to 1 card "parked" in the builder at a time #44

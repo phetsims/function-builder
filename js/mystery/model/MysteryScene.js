@@ -162,12 +162,17 @@ define( function( require ) {
      */
     nextChallenge: function() {
 
-      // available pool is empty, restock it
+      // available pool is empty
       if ( this.availableChallenges.length === 0 ) {
+
+        // restock the pool
         this.availableChallenges = this.challengePool.slice( 0 );
+
+        // remove the current challenge, so we don't select it twice in a row
+        var currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
+        this.availableChallenges.splice( currentChallengeIndex, 1 );
       }
 
-      //TODO this could possibly select the same challenge twice in a row, when pool is refreshed
       // randomly select a challenge from the available pool
       var challengeIndex = FBQueryParameters.PLAY_ALL ? 0 : this.randomChallenge.nextInt( this.availableChallenges.length );
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
