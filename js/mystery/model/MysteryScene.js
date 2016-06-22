@@ -63,7 +63,7 @@ define( function( require ) {
     [ 'rgb( 255, 26, 255 )', 'rgb( 255, 77, 255 )', 'rgb( 255, 128, 255 )', 'rgb( 255, 180, 255 )' ]
   ];
 
-  // maps operator token used in the pool to operator symbols used in functions
+  // maps operator token used in the challenge pool to operator symbols used in functions
   var OPERATOR_MAP = {
     '+': FBSymbols.PLUS,
     '-': FBSymbols.MINUS,
@@ -72,11 +72,11 @@ define( function( require ) {
   };
 
   /**
-   * @param {string[]} pool - pool of challenges
+   * @param {string[]} challengePool
    * @param {Object} [options]
    * @constructor
    */
-  function MysteryScene( pool, options ) {
+  function MysteryScene( challengePool, options ) {
 
     options = _.extend( {
       functionsPerChallenge: 1, // {number} number of functions in each challenge
@@ -93,21 +93,21 @@ define( function( require ) {
     // Supports the case when all 3 functions in a challenge have the same type
     options.numberOfEachFunction = options.functionsPerChallenge;
 
-    // validate the pool
+    // validate the challenge pool
     if ( assert ) {
 
       // limit scope of for-loop var using IIFE
       (function() {
         var duplicates = '';
-        for ( var i = 0; i < pool.length; i++ ) {
+        for ( var i = 0; i < challengePool.length; i++ ) {
 
-          var challenge = pool[ i ];
+          var challenge = challengePool[ i ];
 
           // validate challenge
           thisScene.parseChallenge( challenge );
 
           // check for duplicates
-          if ( pool.indexOf( challenge, i + 1 ) !== -1 ) {
+          if ( challengePool.indexOf( challenge, i + 1 ) !== -1 ) {
             if ( duplicates.length > 0 ) {
               duplicates += ', ';
             }
@@ -123,13 +123,13 @@ define( function( require ) {
     options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
 
     // @public the current challenge, initialized to the first challenge in the pool
-    this.challengeProperty = new Property( pool[ 0 ] );
+    this.challengeProperty = new Property( challengePool[ 0 ] );
 
     // @private the original pool, do not modify!
-    this.pool = pool;
+    this.challengePool = challengePool;
 
     // @private pool of available challenges, first one removed
-    this.availableChallenges = pool.slice( 1 );
+    this.availableChallenges = challengePool.slice( 1 );
 
     // @private debug support for the 'showAllColors' query parameter
     this.nextColorIndexDebug = 0;
@@ -191,7 +191,7 @@ define( function( require ) {
         this.challengeProperty.reset();
       }
 
-      this.availableChallenges = this.pool.slice( 1 );
+      this.availableChallenges = this.challengePool.slice( 1 );
     },
 
     /**
@@ -245,7 +245,7 @@ define( function( require ) {
 
       // available pool is empty, restock it
       if ( this.availableChallenges.length === 0 ) {
-        this.availableChallenges = this.pool.slice( 0 );
+        this.availableChallenges = this.challengePool.slice( 0 );
       }
 
       //TODO this could possibly select the same challenge twice in a row, when pool is refreshed
@@ -316,7 +316,7 @@ define( function( require ) {
      * @private
      */
     nextColorDebug: function() {
-      var allColors = [].concat.apply( [], COLOR_SETS_POOL ); // flatten the pool
+      var allColors = [].concat.apply( [], COLOR_SETS_POOL ); // flatten the color pool
       var color = allColors[ this.nextColorIndexDebug++ ];
       if ( this.nextColorIndexDebug > allColors.length - 1 ) {
         this.nextColorIndexDebug = 0;
