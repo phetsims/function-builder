@@ -102,7 +102,7 @@ define( function( require ) {
     this.randomChallenge = new Random(); // random number generator for choosing challenges
     this.randomColor = new Random(); // random number generator for choosing colors
     this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
-    this.previousColorSets = []; // pool that was used on previous call to nextColors
+    this.previousColorSets = []; // pool that was used on previous call to getColors
     this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
@@ -193,14 +193,14 @@ define( function( require ) {
      * @returns {<Color|string>[]}
      * @public
      */
-    nextColors: function() {
+    getColors: function() {
 
       var i;
       var colors = [];
 
       if ( FBQueryParameters.SHOW_ALL_COLORS ) {
         for ( i = 0; i < this.functionsPerChallenge; i++ ) {
-          colors.push( this.nextColorDebug() );
+          colors.push( this.getColorDebug() );
         }
       }
       else {
@@ -235,12 +235,12 @@ define( function( require ) {
     },
 
     /**
-     * Gets the next color, in order.
+     * Gets the next color, in order that they appear in the color pool.
      * This is used to support the 'showAllColors' query parameter.
      *
      * @private
      */
-    nextColorDebug: function() {
+    getColorDebug: function() {
       var allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
       var color = allColors[ this.nextColorIndexDebug++ ];
       if ( this.nextColorIndexDebug > allColors.length - 1 ) {

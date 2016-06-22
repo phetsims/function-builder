@@ -218,7 +218,7 @@ define( function( require ) {
 
       // transfer functions from carousel to builder, configured to match the challenge
       var slotNumber = 0;
-      var colors = thisNode.scene.nextColors(); // {<Color|string>[]}
+      var colors = thisNode.scene.getColors(); // {<Color|string>[]}
       challengeObjects.forEach( function( challengeObject ) {
 
         // get the container that has functions for this operator
