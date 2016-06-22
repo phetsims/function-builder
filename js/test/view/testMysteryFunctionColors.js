@@ -47,7 +47,7 @@ define( function( require ) {
     return new VBox( {
       children: vBoxChildren,
       spacing: 10,
-      right: layoutBounds.right - 40,
+      right: layoutBounds.right - 60,
       centerY: layoutBounds.centerY
     } );
   }
