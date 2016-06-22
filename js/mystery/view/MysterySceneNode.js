@@ -111,6 +111,9 @@ define( function( require ) {
       this.addChild( this.answerNode );
     }
 
+    // @private {Object} maps from operator to function container, created on demand by nextChallenge
+    this.operatorToContainerMap = null;
+
     // Update when the challenge changes.
     // This can't be executed until the function carousel is populated.
     // unlink unnecessary, instances exist for lifetime of the sim
@@ -196,6 +199,19 @@ define( function( require ) {
       this.resetFunctions();
       this.resetCards();
 
+      // create the map on demand, since it can't be done until the sim has been fully initialized
+      if ( !this.operatorToContainerMap ) {
+        this.operatorToContainerMap = {};
+        this.functionContainers.forEach( function( functionContainer ) {
+
+          var contents = functionContainer.getContents();
+          assert && assert( contents.length > 0, 'empty functionContainer' );
+
+          var operator = contents[ 0 ].functionInstance.operator;
+          thisNode.operatorToContainerMap[ operator ] = functionContainer;
+        } );
+      }
+
       // convert the challenge from a string to an array of {operator: string, operand: number}
       var challenge = thisNode.scene.challengeProperty.get();
       var challengeObjects = MysteryChallenges.parseChallenge( challenge );
@@ -205,32 +221,25 @@ define( function( require ) {
       var colors = thisNode.scene.nextColors(); // {<Color|string>[]}
       challengeObjects.forEach( function( challengeObject ) {
 
-        //TODO this is brute force, set up a map between operators and functionContainers?
-        var functionNode = null;
-        for ( var i = 0; i < thisNode.functionContainers.length && !functionNode; i++ ) {
-
-          var functionContainer = thisNode.functionContainers[ i ];
-          functionNode = functionContainer.getContents()[ 0 ];
-          var functionInstance = functionNode.functionInstance;
-
-          if ( functionInstance.operator === challengeObject.operator ) {
-
-            // configure function to match challenge
-            functionInstance.operandProperty.set( challengeObject.operand );
-            functionInstance.fillProperty.set( colors[ slotNumber ] );
-
-            // move function to the builder
-            functionNode.moveToBuilder( slotNumber );
-
-            // hide function's identity
-            functionNode.identityVisibleProperty.set( false );
-          }
-          else {
-            functionNode = null;
-          }
-        }
+        // get the container that has functions for this operator
+        var functionContainer = thisNode.operatorToContainerMap[ challengeObject.operator ];
+        assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
+        
+        // get the first item in the container
+        var functionNode = functionContainer.getContents()[ 0 ];
         assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
+        var functionInstance = functionNode.functionInstance;
 
+        // configure the function to match the challenge
+        functionInstance.operandProperty.set( challengeObject.operand );
+        functionInstance.fillProperty.set( colors[ slotNumber ] );
+
+        // move the function to the builder
+        functionNode.moveToBuilder( slotNumber );
+
+        // hide the function's identity
+        functionNode.identityVisibleProperty.set( false );
+        
         slotNumber++;
       } );
 
