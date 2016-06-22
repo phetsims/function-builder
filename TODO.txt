@@ -1,6 +1,6 @@
 TODO list for function-builder
 
-animate switching between challenges in Mystery screen? seems unnecessary...
+animate switching between challenges in Mystery screen
 
 constrain to 1 card "parked" in the builder at a time #44
 
