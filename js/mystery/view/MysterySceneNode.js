@@ -201,6 +201,7 @@ define( function( require ) {
 
       // transfer functions from carousel to builder, configured to match the challenge
       var slotNumber = 0;
+      var colors = thisNode.scene.nextColors(); // {<Color|string>[]}
       challengeObjects.forEach( function( challengeObject ) {
 
         //TODO this is brute force, set up a map between operators and functionContainers?
@@ -215,7 +216,7 @@ define( function( require ) {
 
             // configure function to match challenge
             functionInstance.operandProperty.set( challengeObject.operand );
-            functionInstance.fillProperty.set( thisNode.scene.nextColor() );
+            functionInstance.fillProperty.set( colors[ slotNumber ] );
 
             // move function to the builder
             functionNode.moveToBuilder( slotNumber );

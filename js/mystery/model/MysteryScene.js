@@ -39,16 +39,28 @@ define( function( require ) {
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
   // pool of colors for functions
-  var COLOR_POOL = [
-    'rgb( 128, 197, 237 )',
-    'rgb( 147, 231, 128 )',
-    'rgb( 255, 120, 120 )',
-    'rgb( 255, 246, 187 )',
-    'rgb( 0, 222, 224 )',
-    'rgb( 246, 164, 255 )',
-    'rgb( 250, 186, 75 )',
-    'rgb( 127, 225, 173 )',
-    'rgb( 249, 144, 99 )'
+  var COLOR_SETS_POOL = [
+
+    // reds
+    [ 'rgb( 255, 120, 120 )', 'rgb( 255, 51, 51 )', 'rgb( 255, 153, 153 )', 'rgb( 255, 230, 230 )' ],
+
+    // oranges
+    [ 'rgb( 250, 186, 75 )', 'rgb( 249, 144, 99 )', 'rgb( 249, 160, 6 )', 'rgb( 255, 179, 102 )' ],
+
+    // yellows
+    [ 'rgb( 255, 246, 187 )', 'rgb( 255, 255, 0 )', 'rgb( 255, 228, 51 )', 'rgb( 255, 255, 128 )' ],
+
+    // greens
+    [ 'rgb( 147, 231, 128 )', 'rgb( 127, 225, 173 )', 'rgb( 71, 209, 71 )', 'rgb( 204, 255, 204 )' ],
+
+    // blues
+    [ 'rgb( 128, 197, 237 )', 'rgb( 0, 222, 224 )', 'rgb( 51, 173, 255 )', 'rgb( 204, 230, 255 )' ],
+
+    // purples
+    [ 'rgb( 238, 204, 255 )',  'rgb( 221, 153, 255 )', 'rgb( 204, 102, 255 )', 'rgb( 191, 128, 255 )' ],
+
+    // pinks
+    [ 'rgb(255, 204, 255)', 'rgb(255, 128, 255)', 'rgb(255, 77, 255)', 'rgb(255, 26, 255)' ]
   ];
 
   // maps operator token used in the pool to operator symbols used in functions
@@ -85,7 +97,7 @@ define( function( require ) {
     if ( assert ) {
 
       // limit scope of for-loop var using IIFE
-      ( function() {
+      (function() {
         var duplicates = '';
         for ( var i = 0; i < pool.length; i++ ) {
 
@@ -103,7 +115,7 @@ define( function( require ) {
           }
         }
         assert && assert( duplicates.length === 0, 'pool contains duplicate challenges: ' + duplicates );
-      } )();
+      })();
     }
 
     // {Node} scene selection icon
@@ -126,7 +138,10 @@ define( function( require ) {
     this.randomColor = new Random();
 
     // @private pool of available colors
-    this.availableColors = COLOR_POOL.slice( 0 );
+    this.availableColorSets = COLOR_SETS_POOL.slice( 0 );
+
+    // @private pool that was used on previous call to nextColors
+    this.previousColorSets = [];
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
     var cardContent = [];
@@ -243,28 +258,43 @@ define( function( require ) {
     },
 
     /**
-     * Randomly selects a color from the pool.
+     * Randomly selects N colors from the pool, where N is equal to the number of functions in challenges.
+     * Avoids similar colors by selecting N sets of colors, then choosing 1 color from each set.
+     * The same N sets are not used on consecutive calls.
      *
-     * @returns {Color|string}
+     * @returns {<Color|string>[]}
      * @public
      */
-    nextColor: function() {
+    nextColors: function() {
 
-      // available pool is empty, restock it
-      if ( this.availableColors.length === 0 ) {
-        this.availableColors = COLOR_POOL.slice( 0 );
+      assert && assert( this.availableColorSets.length >= this.functionsPerChallenge );
+
+      var colorSets = [];
+      var colors = [];
+
+      for ( var i = 0; i < this.functionsPerChallenge; i++ ) {
+
+        // select a color set
+        var colorSetIndex = this.randomColor.nextInt( this.availableColorSets.length );
+        var colorSet = this.availableColorSets[ colorSetIndex ];
+        colorSets.push( colorSet );
+
+        // remove the set from the available sets
+        this.availableColorSets.splice( colorSetIndex, 1 );
+
+        // select a color from the set
+        var colorIndex = this.randomColor.nextInt( colorSet.length );
+        var color = colorSet[ colorIndex ];
+        colors.push( color );
       }
 
-      //TODO this could possibly select the same color twice in a row, or twice in the same challenge, when pool is refreshed
-      // randomly select a color
-      var colorIndex = this.randomColor.nextInt( this.availableColors.length );
-      assert && assert( colorIndex >= 0 && colorIndex < this.availableColors.length );
-      var color = this.availableColors[ colorIndex ];
+      // make sets from previous call available
+      this.availableColorSets = this.availableColorSets.concat( this.previousColorSets );
 
-      // remove the color from the pool
-      this.availableColors.splice( colorIndex, 1 );
+      // remember sets from this call
+      this.previousColorSets = colorSets;
 
-      return color;
+      return colors;
     }
   } );
 } );
