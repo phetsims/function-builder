@@ -29,11 +29,23 @@ define( function( require ) {
    */
   function testMysteryFunctionColors( layoutBounds ) {
 
+    // These names are hard coded to correspond to the pools in MysteryScene.COLOR_SETS_POOL
+    var colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
+    assert && assert( colorSetNames.length === MysteryScene.COLOR_SETS_POOL.length );
+
     var vBoxChildren = [];
 
-    MysteryScene.COLOR_SETS_POOL.forEach( function( colorSet ) {
+    for ( var i = 0; i < MysteryScene.COLOR_SETS_POOL.length; i++ ) {
 
       var hBoxChildren = [];
+
+      // label to left of row
+      hBoxChildren.push( new Text( colorSetNames[ i ], {
+        font: new FBFont( 20 )
+      } ) );
+
+      // row of functions
+      var colorSet = MysteryScene.COLOR_SETS_POOL[ i ];
       colorSet.forEach( function( color ) {
         hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
       } );
@@ -42,13 +54,14 @@ define( function( require ) {
         children: hBoxChildren,
         spacing: 10
       } ) );
-    } );
+    }
 
     return new VBox( {
       children: vBoxChildren,
+      align: 'right',
       spacing: 10,
-      right: layoutBounds.right - 60,
-      centerY: layoutBounds.centerY
+      centerX: layoutBounds.centerX,
+      centerY: layoutBounds.centerY + 30
     } );
   }
 
