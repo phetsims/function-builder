@@ -37,7 +37,6 @@ define( function( require ) {
   var BUILDER_WIDTH = ( MAX_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
-  var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
 
   // Always use this challenge on startup and Reset All. This provides a reproducible challenge for the teacher.
   var DEFAULT_CHALLENGE_INDEX = 0;
@@ -50,9 +49,8 @@ define( function( require ) {
   function MysteryScene( challengePool, options ) {
 
     options = _.extend( {
-      functionsPerChallenge: 1, // {number} number of functions in each challenge
-      numberOfEachCard: 1,
-      cardSymbol: INCLUDE_X_CARD ? FBSymbols.X : null
+      functionsPerChallenge: 1,
+      numberOfEachCard: 1
     }, options );
     assert && assert( options.functionsPerChallenge <= MAX_SLOTS );
 
