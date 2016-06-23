@@ -41,7 +41,7 @@ define( function( require ) {
       numberOfEachFunction: 2 // {number} number of instances of each function type
     }, options );
 
-    // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
+    // {RationalNumber[]} number cards, in the order that they appear in the carousel
     var cardContent = [];
     for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       cardContent.push( RationalNumber.withInteger( i ) );
