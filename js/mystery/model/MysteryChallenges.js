@@ -2,6 +2,8 @@
 
 /**
  * Challenges for the 'Mystery' screen, with function for parsing them.
+ * To make them easier to read and modify, challenges are expressed as strings,
+ * with operators and operands separated by spaces.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -123,9 +125,8 @@ define( function( require ) {
     ],
 
     /**
-     * To make them easier to read and modify, challenges are expressed as strings, with operators and operands
-     * separated by spaces. This function converts the string representation of a challenge into an array of
-     * Objects that is easier to process programmatically.
+     * Converts the string representation of a challenge into an array of Objects
+     * that is easier to process programmatically.
      *
      * @param {string} challenge
      * @returns {{operator: string, operand: number}[]}
