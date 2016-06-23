@@ -170,8 +170,11 @@ define( function( require ) {
         this.availableChallenges = this.challengePool.slice( 0 );
 
         // remove the current challenge, so we don't select it twice in a row
-        var currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
-        this.availableChallenges.splice( currentChallengeIndex, 1 );
+        if ( !FBQueryParameters.PLAY_ALL ) {
+          var currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
+          this.availableChallenges.splice( currentChallengeIndex, 1 );
+          assert && assert( this.availableChallenges.length === this.challengePool.length - 1 );
+        }
       }
 
       // randomly select a challenge from the available pool
