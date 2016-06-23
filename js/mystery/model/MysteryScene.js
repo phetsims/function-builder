@@ -36,7 +36,7 @@ define( function( require ) {
   var MAX_SLOTS = 3; // max number of slots in the builder
   var BUILDER_WIDTH = ( MAX_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
-  var CARD_NUMBERS_RANGE = new Range( -4, 6 );
+  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
   var DEFAULT_CHALLENGE_INDEX = 0; // the first challenge in the pool is used on startup and reset
 
