@@ -97,10 +97,19 @@ define( function( require ) {
     var yScale = -options.size.height / options.yRange.getLength(); // inverted
     var modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      cornerRadius: options.cornerRadius,
-      fill: options.background
-    } );
+    // Perform transforms of common points once
+    var viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
+    var viewMinX = modelViewTransform.modelToViewX( options.xRange.min );
+    var viewMaxX = modelViewTransform.modelToViewX( options.xRange.max );
+    var viewMinY = modelViewTransform.modelToViewY( options.yRange.min );
+    var viewMaxY = modelViewTransform.modelToViewY( options.yRange.max );
+
+    var backgroundNode = new Rectangle( viewMinX, viewMaxY,
+      modelViewTransform.modelToViewDeltaX( options.xRange.getLength() ),
+      -modelViewTransform.modelToViewDeltaY( options.yRange.getLength() ), {
+        cornerRadius: options.cornerRadius,
+        fill: options.background
+      } );
 
     // grid, drawn using one Shape
     var gridShape = new Shape();
@@ -109,8 +118,8 @@ define( function( require ) {
     var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
     for ( var modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
       var viewGridX = modelViewTransform.modelToViewX( modelGridX );
-      gridShape.moveTo( viewGridX, 0 );
-      gridShape.lineTo( viewGridX, backgroundNode.height );
+      gridShape.moveTo( viewGridX, viewMinY );
+      gridShape.lineTo( viewGridX, viewMaxY );
       modelGridX += options.xGridSpacing;
     }
 
@@ -118,8 +127,8 @@ define( function( require ) {
     var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
     for ( var modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
       var viewGridY = modelViewTransform.modelToViewY( modelGridY );
-      gridShape.moveTo( 0, viewGridY );
-      gridShape.lineTo( backgroundNode.width, viewGridY );
+      gridShape.moveTo( viewMinX, viewGridY );
+      gridShape.lineTo( viewMaxX, viewGridY );
       modelGridY += options.yGridSpacing;
     }
 
@@ -128,11 +137,8 @@ define( function( require ) {
       lineWidth: options.gridLineWidth
     } );
 
-    var viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
-
     // x axis
-    var xAxisNode = new ArrowNode( 0, 0, backgroundNode.width, 0, AXIS_OPTIONS );
-    xAxisNode.centerY = viewOrigin.y;
+    var xAxisNode = new ArrowNode( viewMinX, viewOrigin.y, viewMaxX, viewOrigin.y, AXIS_OPTIONS );
 
     var xAxisLabelNode = new Text( FBSymbols.X, {
       maxWidth: 0.3 * options.size.width,
@@ -143,8 +149,7 @@ define( function( require ) {
     } );
 
     // y axis
-    var yAxisNode = new ArrowNode( 0, 0, 0, backgroundNode.height, AXIS_OPTIONS );
-    yAxisNode.centerX = viewOrigin.x;
+    var yAxisNode = new ArrowNode( viewOrigin.x, viewMinY, viewOrigin.x, viewMaxY, AXIS_OPTIONS );
 
     var yAxisLabelNode = new Text( FBSymbols.Y, {
       maxWidth: 0.3 * options.size.width,
@@ -158,10 +163,6 @@ define( function( require ) {
     var tickLinesShape = new Shape(); // tick lines are drawn using one Shape
     var tickLabelsParent = new Node();
 
-    // hoist loop variables
-    var viewTickPosition;
-    var tickLabelNode;
-
     // x tick marks
     var xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
     if ( xMinTick === options.xRange.min ) {
@@ -171,19 +172,19 @@ define( function( require ) {
 
       if ( modelTickX !== 0 ) {
 
-        viewTickPosition = modelViewTransform.modelToViewXY( modelTickX, 0 );
+        var viewTickX = modelViewTransform.modelToViewX( modelTickX );
 
         // line
-        tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
-        tickLinesShape.lineTo( viewTickPosition.x, viewTickPosition.y + options.tickLength );
+        tickLinesShape.moveTo( viewTickX, viewOrigin.y );
+        tickLinesShape.lineTo( viewTickX, viewOrigin.y + options.tickLength );
 
         // label
-        tickLabelNode = new Text( modelTickX, {
+        var xTickLabelNode = new Text( modelTickX, {
           font: options.tickFont,
-          centerX: viewTickPosition.x,
-          top: viewTickPosition.y + options.tickLength + options.tickLabelSpace
+          centerX: viewTickX,
+          top: viewOrigin.y + options.tickLength + options.tickLabelSpace
         } );
-        tickLabelsParent.addChild( tickLabelNode );
+        tickLabelsParent.addChild( xTickLabelNode );
       }
 
       modelTickX += options.xTickSpacing;
@@ -198,19 +199,19 @@ define( function( require ) {
 
       if ( modelTickY !== 0 ) {
 
-        viewTickPosition = modelViewTransform.modelToViewXY( 0, modelTickY );
+        var viewTickY = modelViewTransform.modelToViewY( modelTickY );
 
         // line
-        tickLinesShape.moveTo( viewTickPosition.x, viewTickPosition.y );
-        tickLinesShape.lineTo( viewTickPosition.x - options.tickLength, viewTickPosition.y );
+        tickLinesShape.moveTo( viewOrigin.x, viewTickY );
+        tickLinesShape.lineTo( viewOrigin.x - options.tickLength, viewTickY );
 
         // label
-        tickLabelNode = new Text( modelTickY, {
+        var yTickLabelNode = new Text( modelTickY, {
           font: options.tickFont,
-          right: viewTickPosition.x - options.tickLength - options.tickLabelSpace,
-          centerY: viewTickPosition.y
+          right: viewOrigin.x - options.tickLength - options.tickLabelSpace,
+          centerY: viewTickY
         } );
-        tickLabelsParent.addChild( tickLabelNode );
+        tickLabelsParent.addChild( yTickLabelNode );
       }
 
       modelTickY += options.yTickSpacing;
