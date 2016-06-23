@@ -1,10 +1,12 @@
 TODO list for function-builder
 
+6/23 DESIGN MEETING:
+Mystery screen has a blank space in card carousels #72
+should the "See Inside" feature be available for 1-slot builders? #73
 Mystery: when enabling controls, count cards as they are added to output carousel, or count number of cards that are in the carousel?
-
-animate switching between challenges in Mystery screen
-
+animate switching between challenges in Mystery screen?
 constrain to 1 card "parked" in the builder at a time #44
+
 
 make FunctionNode and CardNode responsible for constraining contentNode to fit
 
@@ -19,6 +21,4 @@ code review
 
 BLOCKED:
 
-Mystery screen has a blank space in card carousels #72
-should the "See Inside" feature be available for 1-slot builders? #73
 Interviews on 6/29 & 7/5, https://github.com/phetsims/tasks/issues/625
