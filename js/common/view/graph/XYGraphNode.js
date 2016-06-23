@@ -294,7 +294,6 @@ define( function( require ) {
     addPointAt: function( x ) {
 
       assert && assert( x instanceof RationalNumber );
-      assert && assert( this.xRange.contains( x.valueOf() ), 'x is out of range: ' + x.valueOf() );
       assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
 
       // add x to list
@@ -303,8 +302,13 @@ define( function( require ) {
       // {RationalNumber} compute y based on what is in the builder
       var y = this.builder.applyAllFunctions( x ).valueOf();
 
+      // verify that the point is in range
+      var point = new Vector2( x.valueOf(), y.valueOf() );
+      assert && assert( this.xRange.contains( point.x ) && this.yRange.contains( point.y ),
+        'graphed point out of range: ' + point.toString() );
+
       // create the PointNode
-      this.pointsParent.addChild( new PointNode( new Vector2( x.valueOf(), y.valueOf() ), this.modelViewTransform, {
+      this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
         radius: this.pointRadius,
         fill: this.pointFill
       } ) );
