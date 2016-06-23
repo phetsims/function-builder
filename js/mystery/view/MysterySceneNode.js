@@ -91,8 +91,8 @@ define( function( require ) {
       })();
     }
 
-    // @private button for generating a new challenge
-    this.generateButton = new RefreshButton( {
+    // button for generating a new challenge
+    var generateButton = new RefreshButton( {
       listener: function() { scene.nextChallenge(); },
       iconWidth: 34,
       xMargin: 16,
@@ -100,13 +100,13 @@ define( function( require ) {
       centerX: this.builderNode.centerX,
       top: this.builderNode.bottom + 65
     } );
-    this.addChild( this.generateButton );
+    this.addChild( generateButton );
 
     // @private shows the answer below the generate button, for debugging, i18n not required
     this.answerNode = new Text( 'answer', {
       font: new FBFont( 18 ),
-      centerX: this.generateButton.centerX,
-      top: this.generateButton.bottom + 10
+      centerX: generateButton.centerX,
+      top: generateButton.bottom + 10
     } );
     if ( FBQueryParameters.SHOW_ANSWER ) {
       this.addChild( this.answerNode );
@@ -249,7 +249,7 @@ define( function( require ) {
 
       // show the answer for debugging
       thisNode.answerNode.text = '#' + ( thisNode.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
-      thisNode.answerNode.centerX = thisNode.generateButton.centerX;
+      thisNode.answerNode.centerX = this.builderNode.centerX;
 
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
         thisNode.populateOutputCarousel();
