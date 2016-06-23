@@ -1,8 +1,12 @@
 TODO list for function-builder
 
 6/23 DESIGN MEETING:
-animate switching between challenges in Mystery screen?
 constrain to 1 card "parked" in the builder at a time #44
+
+always select the same color the default challenges
+1: orange[1]
+2: red[2], blue[0]
+3: yellow[0], magenta[1], green[2]
 
 clean up option related to graph range since it's the same for all screens, #72
 
