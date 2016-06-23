@@ -55,7 +55,7 @@ define( function( require ) {
       [ 'rgb( 255, 0, 255 )', 'rgb( 255, 77, 255 )', 'rgb( 255, 128, 255 )', 'rgb( 255, 180, 255 )' ]
     ],
 
-    // these colors are always used for the default Mystery functions
+    // these colors are always used for the default Mystery functions, displayed on startup and Reset All
     MYSTERY_DEFAULT_CHALLENGE_COLORS: [
 
       // 1-function
