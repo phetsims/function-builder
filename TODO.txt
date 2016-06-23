@@ -1,10 +1,11 @@
 TODO list for function-builder
 
 6/23 DESIGN MEETING:
-Mystery screen has a blank space in card carousels #72
 Mystery: when enabling controls, count cards as they are added to output carousel, or count number of cards that are in the carousel?
 animate switching between challenges in Mystery screen?
 constrain to 1 card "parked" in the builder at a time #44
+
+clean up option related to graph range since it's the same for all screens, #72
 
 make FunctionNode and CardNode responsible for constraining contentNode to fit
 
