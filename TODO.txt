@@ -9,6 +9,8 @@ always select the same color the default challenges
 
 clean up option related to graph range since it's the same for all screens, #72
 
+clean up how options are passed to SceneNode subtypes to configure subcomponents, use nested options?
+
 constrain to 1 card "parked" in the builder at a time #44
 
 make FunctionNode and CardNode responsible for constraining contentNode to fit
