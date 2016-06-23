@@ -36,6 +36,8 @@ define( function( require ) {
       hasEquationDrawer: false, // show equation drawer
       xSymbol: FBSymbols.X,
       ySymbol: FBSymbols.Y,
+      xRange: FBConstants.DEFAULT_GRAPH_X_RANGE,
+      yRange: FBConstants.DEFAULT_GRAPH_Y_RANGE,
       xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols in equations
       xyAsCardsInEquations: false, // {boolean} put x & y symbols on a rectangle background in equations, like a card?
       tableHeadingFont: FBConstants.TABLE_XY_HEADING_FONT
@@ -72,6 +74,8 @@ define( function( require ) {
 
       // @private Graph drawer
       this.graphDrawer = new XYGraphDrawer( scene.builder, this.outputContainers, {
+        xRange: options.xRange,
+        yRange: options.yRange,
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.graphDrawer );

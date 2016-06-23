@@ -29,7 +29,6 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -58,8 +57,8 @@ define( function( require ) {
       size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
       cornerRadius: 0,
       background: 'white', // {Color|string} background color of the graph
-      xRange: new Range( -7, 7 ), // {Range} of the x axis, in model coordinates
-      yRange: new Range( -90, 90 ), // {Range} of the y axis, in model coordinates
+      xRange: FBConstants.DEFAULT_GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
+      yRange: FBConstants.DEFAULT_GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
 
       // grid
       xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates

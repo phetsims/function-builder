@@ -15,6 +15,7 @@ define( function( require ) {
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants that are used to compute other constants
@@ -118,7 +119,15 @@ define( function( require ) {
     EQUATION_DRAWER_OPEN: false,
 
     TABLE_XY_HEADING_FONT: new MathSymbolFont( 18 ),
-    TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 )
+    TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 ),
+
+    // Ranges based on card numbers [-4,6] and operand ranges [-3,3]
+    DEFAULT_GRAPH_X_RANGE: new Range( -7, 7 ),
+    DEFAULT_GRAPH_Y_RANGE: new Range( -90, 90 ),
+
+    // Mystery screen has a different range to accommodate extra '7' card
+    MYSTERY_GRAPH_X_RANGE: new Range( -8, 8 ),
+    MYSTERY_GRAPH_Y_RANGE: new Range( -100, 100 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );
