@@ -38,7 +38,9 @@ define( function( require ) {
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
   var INCLUDE_X_CARD = false; // whether to include 'x' card in input carousel
-  var DEFAULT_CHALLENGE_INDEX = 0; // the first challenge in the pool is used on startup and reset
+
+  // Always use this challenge on startup and Reset All. This provides a reproducible challenge for the teacher.
+  var DEFAULT_CHALLENGE_INDEX = 0;
 
   /**
    * @param {string[]} challengePool
@@ -206,6 +208,11 @@ define( function( require ) {
           colors.push( this.getColorDebug() );
         }
       }
+      else if ( this.challengePool.indexOf( this.challengeProperty.get() ) === DEFAULT_CHALLENGE_INDEX ) {
+
+        // Always use the same colors for the default challenge. This provides a reproducible challenge for the teacher.
+        colors = FBColors.MYSTERY_DEFAULT_CHALLENGE_COLORS[ this.functionsPerChallenge - 1 ];
+      }
       else {
         assert && assert( this.availableColorSets.length >= this.functionsPerChallenge );
 
@@ -234,6 +241,7 @@ define( function( require ) {
         this.previousColorSets = colorSets;
       }
 
+      assert && assert( colors, 'what, no colors?' );
       return colors;
     },
 

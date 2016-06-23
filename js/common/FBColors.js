@@ -53,6 +53,19 @@ define( function( require ) {
 
       // magenta
       [ 'rgb( 255, 0, 255 )', 'rgb( 255, 77, 255 )', 'rgb( 255, 128, 255 )', 'rgb( 255, 180, 255 )' ]
+    ],
+
+    // these colors are always used for the default Mystery functions
+    MYSTERY_DEFAULT_CHALLENGE_COLORS: [
+
+      // 1-function
+      [ 'rgb( 250, 186, 75 )' ],
+
+      // 2-functions
+      [ 'rgb( 255, 120, 120 )', 'rgb( 51, 173, 255 )' ],
+
+      // 3-functions
+      [ 'rgb( 255, 255, 0 )', 'rgb( 255, 0, 255 )', 'rgb( 147, 231, 128 )' ]
     ]
   };
 
