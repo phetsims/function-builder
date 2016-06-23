@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-make populateOutput work for Mystery screen
-
 animate switching between challenges in Mystery screen
 
 constrain to 1 card "parked" in the builder at a time #44

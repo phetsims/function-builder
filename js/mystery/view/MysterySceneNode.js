@@ -253,6 +253,10 @@ define( function( require ) {
       // show the answer for debugging
       thisNode.answerNode.text = challenge;
       thisNode.answerNode.centerX = thisNode.generateButton.centerX;
+
+      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+        thisNode.populateOutputCarousel();
+      }
     }
   } );
 } );

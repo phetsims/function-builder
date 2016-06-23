@@ -293,23 +293,6 @@ define( function( require ) {
 
   functionBuilder.register( 'SceneNode', SceneNode );
 
-  // Moves 1 of each card to the output carousel, used for testing.
-  var populateOutputCarousel = function( inputCarousel, outputCarousel ) {
-
-    assert && assert( inputCarousel.items.length === outputCarousel.items.length,
-      'input and output carousels must have the same number of items' );
-
-    for ( var i = 0; i < inputCarousel.items.length; i++ ) {
-
-      var inputContainer = inputCarousel.items[ i ];
-      var outputContainer = outputCarousel.items[ i ];
-
-      var cardNode = inputContainer.getContents()[ 0 ];
-      inputContainer.removeNode( cardNode );
-      outputContainer.addNode( cardNode );
-    }
-  };
-
   /**
    * For a container that is visible in some carousel, gets the location of the container in the model coordinate frame.
    *
@@ -362,6 +345,7 @@ define( function( require ) {
 
     // @public
     reset: function() {
+
       this.viewProperties.reset();
       this.resetCarousels();
       this.builderNode.reset();
@@ -482,7 +466,20 @@ define( function( require ) {
 
       // move 1 of each card to the output carousel, for testing
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
-        populateOutputCarousel( thisNode.inputCarousel, thisNode.outputCarousel );
+        thisNode.populateOutputCarousel();
+      }
+    },
+
+    // Moves 1 of each card to the output carousel, used for testing.
+    populateOutputCarousel: function() {
+      for ( var i = 0; i < this.inputCarousel.items.length; i++ ) {
+
+        var inputContainer = this.inputCarousel.items[ i ];
+        var outputContainer = this.outputCarousel.items[ i ];
+
+        var cardNode = inputContainer.getContents()[ 0 ];
+        inputContainer.removeNode( cardNode );
+        outputContainer.addNode( cardNode );
       }
     },
 
