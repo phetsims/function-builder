@@ -3,7 +3,7 @@
 //TODO move to scenery-phet
 /**
  * Button that toggles between an open and closed eyeball, used to control the visibility of something.
- * 
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
@@ -55,7 +55,7 @@ define( function( require ) {
   functionBuilder.register( 'EyeToggleButton', EyeToggleButton );
 
   return inherit( RectangularToggleButton, EyeToggleButton, {
-    
+
     // @public
     dispose: function() {
       this.disposeEyeToggleButton();

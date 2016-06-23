@@ -225,7 +225,7 @@ define( function( require ) {
         // get the container that has functions for this operator
         var functionContainer = thisNode.operatorToContainerMap[ challengeObject.operator ];
         assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
-        
+
         // get the first item in the container
         var functionNode = functionContainer.getContents()[ 0 ];
         assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
@@ -240,7 +240,7 @@ define( function( require ) {
 
         // hide the function's identity
         functionNode.identityVisibleProperty.set( false );
-        
+
         slotNumber++;
       } );
 

@@ -48,7 +48,7 @@ define( function( require ) {
 
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.fillProperty.link( function( fill ) {
-       backgroundNode.fill = fill;
+      backgroundNode.fill = fill;
     } );
 
     // center
