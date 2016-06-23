@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
-      sceneControlYOffset: 20 // offset of scene control from top of screen
+      sceneControlYOffset: 20 // offset of scene control's top from top of screen
     }, options );
 
     // @private
