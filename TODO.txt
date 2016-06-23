@@ -7,6 +7,7 @@ Mystery: when enabling controls, count cards as they are added to output carouse
 animate switching between challenges in Mystery screen?
 constrain to 1 card "parked" in the builder at a time #44
 
+looks like the number of challenges is shrinking each time we cycle through all challenges
 
 make FunctionNode and CardNode responsible for constraining contentNode to fit
 
