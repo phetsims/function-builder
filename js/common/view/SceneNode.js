@@ -242,7 +242,6 @@ define( function( require ) {
     viewProperties.seeInsideProperty.link( function( seeInside ) {
       seeInsideLayer.visible = seeInside;
     } );
-    seeInsideCheckBox.visible = ( scene.builder.slots.length > 1 );
 
     //------------------------------------------------------------------------------------------------------------------
 
