@@ -10,11 +10,9 @@ define( function( require ) {
 
   // modules
   var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var MysteryImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryImageFunction' );
 
   // strings
   var mysteryAString = require( 'string!FUNCTION_BUILDER/mysteryA' );
@@ -24,22 +22,14 @@ define( function( require ) {
    * @constructor
    */
   function MysteryA( options ) {
-
-    options = options || {};
-    options.fill = 'rgb( 127, 225, 173 )';
-
-    var iconNode = new SubSupText( mysteryAString, {
-      subScale: 0.4,
-      font: FBConstants.PATTERNS_FUNCTION_FONT,
-      maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
-    } );
-
-    ImageFunction.call( this, iconNode, options );
+    MysteryImageFunction.call( this, mysteryAString, _.extend( {
+      fill: 'rgb( 127, 225, 173 )'
+    }, options ) );
   }
 
   functionBuilder.register( 'MysteryA', MysteryA );
 
-  return inherit( ImageFunction, MysteryA, {
+  return inherit( MysteryImageFunction, MysteryA, {
 
     /**
      * Applies this function.

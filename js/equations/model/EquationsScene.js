@@ -36,10 +36,10 @@ define( function( require ) {
   function EquationsScene( options ) {
 
     options = _.extend( {
-      numberOfSlots: 3, // {number} number of slots in the builder
-      builderWidth: ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70, // {number} width of the builder
-      numberOfEachCard: 1, // {number} number of instances of each card type
-      numberOfEachFunction: 2, // {number} number of instances of each function type
+      numberOfSlots: 3, // number of slots in the builder
+      builderWidth: ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70, // width of the builder
+      numberOfEachCard: 1, // number of instances of each card type
+      numberOfEachFunction: 2, // number of instances of each function type
       cardSymbol: FBSymbols.X // add 'x' card to the carousels
     }, options );
 

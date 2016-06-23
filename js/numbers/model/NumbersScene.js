@@ -35,10 +35,10 @@ define( function( require ) {
   function NumbersScene( options ) {
 
     options = _.extend( {
-      numberOfSlots: 2, // {number} number of slots in the builder
-      builderWidth: ( 2 * FBConstants.FUNCTION_SIZE.width ) + 120, // {number} width of the builder
-      numberOfEachCard: 1, // {number} number of instances of each card type
-      numberOfEachFunction: 2 // {number} number of instances of each function type
+      numberOfSlots: 2, // number of slots in the builder
+      builderWidth: ( 2 * FBConstants.FUNCTION_SIZE.width ) + 120, // width of the builder
+      numberOfEachCard: 1, // number of instances of each card type
+      numberOfEachFunction: 2 // number of instances of each function type
     }, options );
 
     // {RationalNumber[]} number cards, in the order that they appear in the carousel

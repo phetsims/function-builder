@@ -53,10 +53,10 @@ define( function( require ) {
   function PatternsScene( options ) {
 
     options = _.extend( {
-      numberOfSlots: 1, // {number} number of slots in the builder
-      builderWidth: 200, // {number} width of the builder
-      numberOfEachCard: 1, // {number} number of instances of each card type
-      numberOfEachFunction: 1 // {number} number of instances of each function type
+      numberOfSlots: 1, // number of slots in the builder
+      builderWidth: 200, // width of the builder
+      numberOfEachCard: 1, // number of instances of each card type
+      numberOfEachFunction: 1 // number of instances of each function type
     }, options );
 
     assert && assert( !options.iconNode );

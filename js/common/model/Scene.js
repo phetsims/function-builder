@@ -23,7 +23,7 @@ define( function( require ) {
 
     options = _.extend( {
       iconNode: null, // {Node|null} icon that represents the scene
-      cardSymbol: null, // {string|null} symbolic input card, e.g. 'x'
+      cardSymbol: null, // {string|null} symbolic input card (e.g. 'x') added to end of card carousel
       numberOfEachCard: 1, // {number} number of instances of each card type
       numberOfEachFunction: 1 // {number} number of instances of each function type
     }, options );
