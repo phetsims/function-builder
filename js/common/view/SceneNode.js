@@ -470,16 +470,24 @@ define( function( require ) {
       }
     },
 
-    // Moves 1 of each card to the output carousel, used for testing.
+    /**
+     * Moves 1 of each card to the output carousel, used for testing.
+     * If an outputContainer already contains cards, this is a no-op for that container.
+     *
+     * @public
+     */
     populateOutputCarousel: function() {
-      for ( var i = 0; i < this.inputCarousel.items.length; i++ ) {
+      for ( var i = 0; i < this.outputCarousel.items.length; i++ ) {
 
-        var inputContainer = this.inputCarousel.items[ i ];
         var outputContainer = this.outputCarousel.items[ i ];
+        if ( outputContainer.isEmpty() ) {
 
-        var cardNode = inputContainer.getContents()[ 0 ];
-        inputContainer.removeNode( cardNode );
-        outputContainer.addNode( cardNode );
+          var inputContainer = this.inputCarousel.items[ i ];
+
+          var cardNode = inputContainer.getContents()[ 0 ];
+          inputContainer.removeNode( cardNode );
+          outputContainer.addNode( cardNode );
+        }
       }
     },
 

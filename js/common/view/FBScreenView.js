@@ -97,6 +97,13 @@ define( function( require ) {
             sceneNode && sceneNode.reset();
           } );
           model.reset();
+
+          // move 1 of each card to the output carousel, for testing
+          if ( FBQueryParameters.POPULATE_OUTPUT ) {
+            sceneNodes.forEach( function( sceneNode ) {
+              sceneNode && sceneNode.populateOutputCarousel();
+            } );
+          }
         }
       } );
       this.addChild( resetAllButton );
