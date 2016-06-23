@@ -94,9 +94,9 @@ define( function( require ) {
 
     // @public the challenge that is displayed
     this.challengeProperty = new Property( challengePool[ DEFAULT_CHALLENGE_INDEX ] );
+    this.challengePool = challengePool; // (read-only) for debug only, the original challenge pool, do not modify!
 
     // @private
-    this.challengePool = challengePool; // the original challenge pool, do not modify!
     this.availableChallenges = challengePool.slice( 0 ); // available challenges
     this.availableChallenges.splice( DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
     this.randomChallenge = new Random(); // random number generator for choosing challenges

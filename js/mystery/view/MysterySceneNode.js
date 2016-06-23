@@ -251,7 +251,7 @@ define( function( require ) {
       this.resetChallengeControls();
 
       // show the answer for debugging
-      thisNode.answerNode.text = challenge;
+      thisNode.answerNode.text = '#' + thisNode.scene.challengePool.indexOf( challenge ) + ': ' + challenge;
       thisNode.answerNode.centerX = thisNode.generateButton.centerX;
 
       if ( FBQueryParameters.POPULATE_OUTPUT ) {
