@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var EyeToggleButton = require( 'FUNCTION_BUILDER/common/view/EyeToggleButton' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
