@@ -122,8 +122,8 @@ define( function( require ) {
     TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 ),
 
     // Ranges based on card numbers [-4,6] and operand ranges [-3,3]
-    DEFAULT_GRAPH_X_RANGE: new Range( -7, 7 ),
-    DEFAULT_GRAPH_Y_RANGE: new Range( -90, 90 ),
+    DEFAULT_GRAPH_X_RANGE: new Range( -8, 8 ),
+    DEFAULT_GRAPH_Y_RANGE: new Range( -100, 100 ),
 
     // Mystery screen has a different range to accommodate extra '7' card
     MYSTERY_GRAPH_X_RANGE: new Range( -8, 8 ),

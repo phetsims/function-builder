@@ -72,7 +72,7 @@ define( function( require ) {
 
       // ticks
       xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
-      yTickSpacing: 40, // {number} spacing of y-axis tick marks, in model coordinates
+      yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
       tickLength: 5, // {number} length of tick lines, in view coordinates
       tickFont: new FBFont( 12 ), // {Font} font for tick labels
       tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
