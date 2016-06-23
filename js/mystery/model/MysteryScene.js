@@ -38,9 +38,6 @@ define( function( require ) {
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );
 
-  // Always use this challenge on startup and Reset All. This provides a reproducible challenge for the teacher.
-  var DEFAULT_CHALLENGE_INDEX = 0;
-
   /**
    * @param {string[]} challengePool
    * @param {Object} [options]
@@ -93,12 +90,12 @@ define( function( require ) {
     }
 
     // @public the challenge that is displayed
-    this.challengeProperty = new Property( challengePool[ DEFAULT_CHALLENGE_INDEX ] );
+    this.challengeProperty = new Property( challengePool[ MysteryChallenges.DEFAULT_CHALLENGE_INDEX ] );
     this.challengePool = challengePool; // (read-only) for debug only, the original challenge pool, do not modify!
 
     // @private
     this.availableChallenges = challengePool.slice( 0 ); // available challenges
-    this.availableChallenges.splice( DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
+    this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
     this.randomChallenge = new Random(); // random number generator for choosing challenges
     this.randomColor = new Random(); // random number generator for choosing colors
     this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
@@ -152,7 +149,7 @@ define( function( require ) {
 
       // restock the available challenges, with default challenge removed
       this.availableChallenges = this.challengePool.slice( 0 );
-      this.availableChallenges.splice( DEFAULT_CHALLENGE_INDEX, 1 );
+      this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 );
     },
 
     /**
@@ -206,7 +203,7 @@ define( function( require ) {
           colors.push( this.getColorDebug() );
         }
       }
-      else if ( this.challengePool.indexOf( this.challengeProperty.get() ) === DEFAULT_CHALLENGE_INDEX ) {
+      else if ( this.challengePool.indexOf( this.challengeProperty.get() ) === MysteryChallenges.DEFAULT_CHALLENGE_INDEX ) {
 
         // Always use the same colors for the default challenge. This provides a reproducible challenge for the teacher.
         colors = FBColors.MYSTERY_DEFAULT_CHALLENGE_COLORS[ this.functionsPerChallenge - 1 ];

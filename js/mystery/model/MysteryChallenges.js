@@ -23,6 +23,10 @@ define( function( require ) {
 
   var MysteryChallenges = {
 
+    // Index of the challenge in each pool that is display on startup and Reset All.
+    // This provides a reproducible challenge for the teacher.
+    DEFAULT_CHALLENGE_INDEX: 0,
+
     // 1-function challenges
     POOL1: [
       '+ 3', // selected on startup and reset
