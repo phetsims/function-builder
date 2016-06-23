@@ -121,13 +121,9 @@ define( function( require ) {
     TABLE_XY_HEADING_FONT: new MathSymbolFont( 18 ),
     TABLE_INPUT_OUTPUT_HEADING_FONT: new FBFont( 18 ),
 
-    // Ranges based on card numbers [-4,6] and operand ranges [-3,3]
-    DEFAULT_GRAPH_X_RANGE: new Range( -8, 8 ),
-    DEFAULT_GRAPH_Y_RANGE: new Range( -100, 100 ),
-
-    // Mystery screen has a different range to accommodate extra '7' card
-    MYSTERY_GRAPH_X_RANGE: new Range( -8, 8 ),
-    MYSTERY_GRAPH_Y_RANGE: new Range( -100, 100 )
+    // Ranges based on card numbers [-4,7] and worst case equation '+ 3 * 3 * 3'
+    GRAPH_X_RANGE: new Range( -8, 8 ),
+    GRAPH_Y_RANGE: new Range( -100, 100 )
   };
 
   functionBuilder.register( 'FBConstants', FBConstants );

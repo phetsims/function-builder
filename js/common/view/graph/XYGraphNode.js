@@ -57,8 +57,8 @@ define( function( require ) {
       size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
       cornerRadius: 0,
       background: 'white', // {Color|string} background color of the graph
-      xRange: FBConstants.DEFAULT_GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
-      yRange: FBConstants.DEFAULT_GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
+      xRange: FBConstants.GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
+      yRange: FBConstants.GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
 
       // grid
       xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates

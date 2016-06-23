@@ -37,15 +37,11 @@ define( function( require ) {
       handleLocation: 'top',
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
-      xRange: FBConstants.DEFAULT_GRAPH_X_RANGE,
-      yRange: FBConstants.DEFAULT_GRAPH_Y_RANGE
+      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS
     }, options );
 
     // Graph
     var graphNode = new XYGraphNode( builder, {
-      xRange: options.xRange,
-      yRange: options.yRange,
       visible: options.open,
       cornerRadius: options.cornerRadius
     } );
