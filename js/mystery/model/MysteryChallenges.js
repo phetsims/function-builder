@@ -129,6 +129,7 @@ define( function( require ) {
      *
      * @param {string} challenge
      * @returns {{operator: string, operand: number}[]}
+     * @static
      * @public
      */
     parseChallenge: function( challenge ) {
