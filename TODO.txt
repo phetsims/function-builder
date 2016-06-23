@@ -1,7 +1,6 @@
 TODO list for function-builder
 
 6/23 DESIGN MEETING:
-Mystery: when enabling controls, count cards as they are added to output carousel, or count number of cards that are in the carousel?
 animate switching between challenges in Mystery screen?
 constrain to 1 card "parked" in the builder at a time #44
 
