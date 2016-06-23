@@ -16,7 +16,6 @@ define( function( require ) {
   // modules
   var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
@@ -37,25 +36,18 @@ define( function( require ) {
       handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
       handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
+      tableOptions: null, // {*} options for XYTableNode
 
       // improve performance by disabling updates while the drawer is closed
       beforeOpen: function() { tableNode.updateEnabled = true; },
-      afterClose: function() { tableNode.updateEnabled = false; },
-
-      // XYTableNode options
-      xSymbol: FBSymbols.X,
-      ySymbol: FBSymbols.Y,
-      headingFont: FBConstants.TABLE_XY_HEADING_FONT
+      afterClose: function() { tableNode.updateEnabled = false; }
 
     }, options );
 
-    var tableNode = new XYTableNode( builder, {
+    var tableNode = new XYTableNode( builder, _.extend( {
       updateEnabled: options.open,
-      xSymbol: options.xSymbol,
-      ySymbol: options.ySymbol,
-      headingFont: options.headingFont,
       cornerRadius: options.cornerRadius
-    } );
+    }, options.tableOptions ) );
 
     Drawer.call( this, tableNode, options );
 

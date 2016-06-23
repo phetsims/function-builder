@@ -13,7 +13,6 @@ define( function( require ) {
   var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/EquationCardContainer' );
   var EquationDrawer = require( 'FUNCTION_BUILDER/common/view/equations/EquationDrawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
@@ -34,11 +33,9 @@ define( function( require ) {
       hasTableDrawer: false, // show XY table drawer
       hasGraphDrawer: false, // show XY graph drawer
       hasEquationDrawer: false, // show equation drawer
-      xSymbol: FBSymbols.X,
-      ySymbol: FBSymbols.Y,
-      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} for x & y symbols in equations
-      xyAsCardsInEquations: false, // {boolean} put x & y symbols on a rectangle background in equations, like a card?
-      tableHeadingFont: FBConstants.TABLE_XY_HEADING_FONT
+      tableOptions: null, // {*} options for XYTableNode
+      graphOptions: null, // {*} options for XYGraphNode
+      equationOptions: null // {*} options for EquationPanel
     }, options );
 
     SceneNode.call( this, scene, layoutBounds, functionNodeConstructor, options );
@@ -51,9 +48,7 @@ define( function( require ) {
 
       // @private
       this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {
-        xSymbol: options.xSymbol,
-        ySymbol: options.ySymbol,
-        headingFont: options.tableHeadingFont,
+        tableOptions: options.tableOptions,
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.tableDrawer );
@@ -72,6 +67,7 @@ define( function( require ) {
 
       // @private Graph drawer
       this.graphDrawer = new XYGraphDrawer( scene.builder, this.outputContainers, {
+        graphOptions: options.graphOptions,
         bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.graphDrawer );
@@ -90,10 +86,7 @@ define( function( require ) {
 
       // @private
       this.equationDrawer = new EquationDrawer( scene.builder, this.viewProperties.slopeInterceptProperty, {
-        xSymbol: options.xSymbol,
-        ySymbol: options.ySymbol,
-        xyFont: options.xyFont,
-        xyAsCards: options.xyAsCardsInEquations,
+        equationOptions: options.equationOptions,
         centerX: scene.builder.centerX,
         top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
       } );
