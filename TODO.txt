@@ -4,8 +4,6 @@ test on iPad2
 
 constrain to 1 card "parked" in the builder at a time #44
 
-make FunctionNode and CardNode responsible for constraining contentNode to fit
-
 write model.md
 
 write implementation-notes.md
