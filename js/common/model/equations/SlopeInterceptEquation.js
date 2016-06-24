@@ -64,9 +64,12 @@ define( function( require ) {
   return inherit( Object, SlopeInterceptEquation, {
 
     /**
-     * String representation, for debugging and PhET-iO.
+     * String representation, for debugging and (perhaps) PhET-iO.
+     * Note that the logic flow herein is similar to SlopeInterceptEquationNode's constructor,
+     * but constructs a string instead of a Node.
      *
      * @returns {string}
+     * @public
      */
     toString: function() {
 

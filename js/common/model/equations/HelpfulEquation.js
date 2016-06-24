@@ -152,6 +152,7 @@ define( function( require ) {
      * Does the equation evaluate to a constant?
      *
      * @returns {boolean}
+     * @public
      */
     evaluatesToConstant: function() {
       return ( this.mathFunctions.length !== 0 &&
@@ -160,10 +161,12 @@ define( function( require ) {
     },
 
     /**
-     * String representation, for debugging and PhET-iO.
-     * Note that the logic herein is similar to HelpfulEquationNode's constructor.
+     * String representation, for debugging and (perhaps) PhET-iO.
+     * Note that the logic flow herein is similar to HelpfulEquationNode's constructor,
+     * but constructs a string instead of a Node.
      *
      * @returns {string}
+     * @public
      */
     toString: function() {
 
