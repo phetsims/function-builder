@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * The end piece of a builder, which provide some pseudo-3D perspective.
+ * The end piece of a builder, which provides some pseudo-3D perspective.
  * It consists of an ellipse with a parallelogram slot that a card passes through.
  * This is factored out to facilitate splitting the builder into foreground and background,
  * so that we can provide the illusion of a card passing through the builder.
@@ -20,11 +20,11 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   * @param {string} faces - which way the end faces, 'left'|'right'
+   * @param {string} orientation - which way the end faces, 'left'|'right'
    * @param {Object} [options]
    * @constructor
    */
-  function BuilderEndNode( faces, options ) {
+  function BuilderEndNode( orientation, options ) {
 
     options = _.extend( {
 
@@ -42,7 +42,7 @@ define( function( require ) {
 
     }, options );
 
-    assert && assert( faces === 'left' || faces === 'right', 'invalid value for faces: ' + faces );
+    assert && assert( orientation === 'left' || orientation === 'right', 'invalid value for orientation: ' + orientation );
 
     // ellipse
     var ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {
@@ -65,7 +65,7 @@ define( function( require ) {
       .close();
 
     // shape for a slot that faces right is a reflection
-    if ( faces === 'right' ) {
+    if ( orientation === 'right' ) {
       slotShape = slotShape.transformed( Matrix3.scaling( -1, 1 ) );
     }
 
