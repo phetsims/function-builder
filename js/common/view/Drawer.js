@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO move to scenery-phet
 /**
  * A drawer that opens/closes to show/hide its contents.
  *
