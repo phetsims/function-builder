@@ -22,7 +22,7 @@ define( function( require ) {
     // color for a function whose icon is hidden
     HIDDEN_FUNCTION: 'rgb( 220, 220, 220 )',
 
-    // a builder color scheme, see FBUtils.isaBuilderColorScheme
+    // a builder color scheme, see Builder options.colorScheme
     BUILDER_BLUE: {
       top: 'rgb( 168, 198, 216 )',
       middle: 'rgb( 6, 114, 180 )',

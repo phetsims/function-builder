@@ -16,7 +16,6 @@ define( function( require ) {
 
   // modules
   var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
   var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/builder/FunctionSlotNode' );
@@ -63,7 +62,6 @@ define( function( require ) {
     options.y = builder.location.y;
 
     var colorScheme = builder.colorScheme;
-    assert && assert( FBUtils.isaBuilderColorScheme( colorScheme ) );
 
     // To improve readability of shape code
     var BODY_WIDTH = builder.width;

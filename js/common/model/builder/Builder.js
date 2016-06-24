@@ -17,7 +17,6 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBUtils = require( 'FUNCTION_BUILDER/common/FBUtils' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -53,12 +52,18 @@ define( function( require ) {
       // {Vector2} location of the center of the input
       location: new Vector2( 0, 0 ),
 
-      // {Object} color scheme, see FBUtils.isaBuilderColorScheme
+      // {*} color scheme for builder, with these properties:
+      // top - top color for vertical gradient
+      // middle - middle color for vertical gradient
+      // bottom - bottom color for vertical gradient
+      // ends - color for builder ends
       colorScheme: FBColors.BUILDER_BLUE
+
     }, options );
 
     // verify duck typing of colorScheme
-    assert && assert( FBUtils.isaBuilderColorScheme( options.colorScheme ) );
+    assert && assert( options.colorScheme.top && options.colorScheme.middle &&
+    options.colorScheme.bottom && options.colorScheme.ends );
 
     // @public (read-only)
     this.width = options.width;
