@@ -1,9 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * For lack of a better name, this equation format was referred to as the "helpful" format in design meetings.
- * It is a PhET-specific format that corresponds to functions in the builder.
- * For details, see the format specification in function-builder/doc/equation-formats.md
+ * Displays a HelpfulEquation - see that type for backstory on name and specification.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
