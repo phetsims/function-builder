@@ -2,6 +2,8 @@ TODO list for function-builder
 
 constrain to 1 card "parked" in the builder at a time #44
 
+confirm credits with AM
+
 write model.md
 
 write implementation-notes.md
