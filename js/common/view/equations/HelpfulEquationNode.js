@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Displays a HelpfulEquation - see that type for backstory on name and specification.
+ * Displays an equation in "helpful" format. See HelpfulEquation for backstory on name and specification.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
