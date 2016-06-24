@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A card with a mathematical symbol or equation on it, e.g. 'x'.
+ * A card with the right-hand side of an equation on it, e.g. 'x' or '2x'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

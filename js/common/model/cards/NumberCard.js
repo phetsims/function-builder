@@ -15,13 +15,14 @@ define( function( require ) {
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
-   * @param {RationalNumber} rationalNumber - the input number
+   * @param {RationalNumber} rationalNumber - the input number, an integer
    * @param {Object} [options]
    * @constructor
    */
   function NumberCard( rationalNumber, options ) {
 
     assert && assert( rationalNumber instanceof RationalNumber );
+    assert && assert( rationalNumber.isInteger() );
 
     // {RationalNumber} @public (read-only)
     this.rationalNumber = rationalNumber;

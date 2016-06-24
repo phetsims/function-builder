@@ -12,7 +12,13 @@ write implementation-notes.md
 
 code review
 
+warts:
+- how content node is passed to CardNode by subtypes, but some subtypes mutate while others replace
+- CardNode doesn't handle scaling content to card
+- FunctionNode doesn't handle scaling content to card
+- CardNode.createGhostNode and subtype implementations could have options out of sync with CardNode instantiation
+- Builder and BuilderNode have overlapping responsibilities for slot management
+- Card doesn't have an responsibility for what's displayed on it
 
-BLOCKED:
 
 Interviews on 6/29 & 7/5, https://github.com/phetsims/tasks/issues/625

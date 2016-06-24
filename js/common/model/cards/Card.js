@@ -1,7 +1,8 @@
 // Copyright 2015-2016, University of Colorado Boulder
 
 /**
- * Base type for cards.
+ * Base type for cards. Other than providing 'input' information to the builder, cards have no responsibility
+ * for what is displayed on them. That is handled by CardNode and its subtypes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
