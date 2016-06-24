@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO implement dispose
 /**
  * A drawer that opens/closes to show/hide its contents.
  *
@@ -183,8 +182,7 @@ define( function( require ) {
     this.openProperty = new Property( options.open );
 
     // Animate opening and closing of the drawer.
-    // unlink unnecessary, instance owns this Property.
-    this.openProperty.lazyLink( function( open ) {
+    var openObserver = function( open ) {
 
       // stop any animation that's in progress
       animation && animation.stop();
@@ -210,12 +208,25 @@ define( function( require ) {
         drawerNode.translation = open ? openLocation : closeLocation;
         !open && options.afterClose && options.afterClose();
       }
-    } );
+    };
+    this.openProperty.lazyLink( openObserver ); // unlink in dispose
+
+    // @private
+    this.disposeDrawer = function() {
+      thisNode.openProperty.unlink( openObserver );
+      thisNode.openProperty.dispose(); // will fail if clients haven't removed observers
+      thisNode.openProperty = null;
+    }
   }
 
   functionBuilder.register( 'Drawer', Drawer );
 
   return inherit( Node, Drawer, {
+
+    // @public
+    dispose: function() {
+      this.disposeDrawer();
+    },
 
     /**
      * @param {Object} [options]
