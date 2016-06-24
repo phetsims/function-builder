@@ -122,7 +122,8 @@ define( function( require ) {
       thisNode.updateChallenge();
     } );
 
-    // Enable features based on number of cards that have been moved to the output carousel
+    // Enable features based on number of cards that have been moved to the output carousel.
+    // unlink unnecessary, instances exist for lifetime of the sim.
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
 
       // enabled function reveal buttons

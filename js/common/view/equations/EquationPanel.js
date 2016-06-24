@@ -99,11 +99,15 @@ define( function( require ) {
       this.backgroundNode.top + ( slopeInterceptCheckBox.top - this.backgroundNode.top ) / 2
     );
 
+    // Controls which equation is visible.
+    // unlink unnecessary, instances exist for lifetime of the sim
     slopeInterceptProperty.lazyLink( function( slopeIntercept ) {
       thisNode.slopeInterceptEquationNode.visible = slopeIntercept;
       thisNode.helpfulEquationNode.visible = !slopeIntercept;
     } );
 
+    // Updates equations when functions in the builder change.
+    // removeListener unnecessary, instances exist for lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
       thisNode.dirty = true;
       if ( thisNode.updateEnabled ) {

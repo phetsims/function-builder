@@ -248,6 +248,8 @@ define( function( require ) {
     this.pointsParent = pointsParent;
     this.lineNode = lineNode;
 
+    // Update the graph when the builder functions change.
+    // removeListener unnecessary, instances exist for lifetime of the sim
     builder.functionChangedEmitter.addListener( this.update.bind( this ) );
     this.update();
   }

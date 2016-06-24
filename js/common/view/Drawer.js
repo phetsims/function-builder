@@ -1,5 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
+//TODO implement dispose
 /**
  * A drawer that opens/closes to show/hide its contents.
  *
@@ -181,7 +182,8 @@ define( function( require ) {
     // @public is the drawer open?
     this.openProperty = new Property( options.open );
 
-    // animate opening and closing of the drawer
+    // Animate opening and closing of the drawer.
+    // unlink unnecessary, instance owns this Property.
     this.openProperty.lazyLink( function( open ) {
 
       // stop any animation that's in progress

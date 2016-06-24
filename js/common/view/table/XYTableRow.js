@@ -76,7 +76,7 @@ define( function( require ) {
         thisNode.updateOutputValue();
       }
     };
-    builder.functionChangedEmitter.addListener( functionChangedListener );
+    builder.functionChangedEmitter.addListener( functionChangedListener ); // removeListener required by dispose
 
     // initial state of output cell
     if ( this.updateEnabled ) {

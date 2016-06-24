@@ -43,7 +43,7 @@ define( function( require ) {
      */
     addFunctionInstance: function( functionInstance, slotNumber ) {
       Builder.prototype.addFunctionInstance.call( this, functionInstance, slotNumber );
-      functionInstance.operandProperty.link( this.operandObserver );
+      functionInstance.operandProperty.link( this.operandObserver ); // unlink handled in removeFunctionInstance
     },
 
     /**

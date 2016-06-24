@@ -54,6 +54,7 @@ define( function( require ) {
 
       // When adding a card to an empty container in the output carousel,
       // add its corresponding point or line to the graph.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.addEmitter.addListener( function( node ) {
         if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
           if ( node instanceof NumberCardNode ) {
@@ -70,6 +71,7 @@ define( function( require ) {
 
       // When removing a card from the output carousel makes its output container empty,
       // remove its corresponding point or line from the graph.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.removeEmitter.addListener( function( node ) {
         if ( outputContainer.isEmpty() ) {
           if ( node instanceof NumberCardNode ) {

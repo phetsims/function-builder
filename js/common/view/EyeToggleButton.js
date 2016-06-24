@@ -42,7 +42,7 @@ define( function( require ) {
       eyeOpenNode.visible = eyeOpen;
       eyeCloseNode.visible = !eyeOpen;
     };
-    eyeOpenProperty.link( eyeOpenObserver );
+    eyeOpenProperty.link( eyeOpenObserver ); // unlink required by dispose
 
     RectangularToggleButton.call( this, true, false, eyeOpenProperty, options );
 

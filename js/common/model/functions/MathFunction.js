@@ -48,6 +48,7 @@ define( function( require ) {
 
     // @public
     this.operandProperty = new Property( options.operand ); // {Property.<number>}
+    // unlink unnecessary, instance owns this Property
     this.operandProperty.lazyLink( function( operand ) {
 
       // validate operand

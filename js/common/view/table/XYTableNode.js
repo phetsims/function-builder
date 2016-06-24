@@ -147,12 +147,13 @@ define( function( require ) {
 
     VBox.call( this, options );
 
-    // private the row number that appears at the top of the table
+    // @private the row number that appears at the top of the table
     this.rowNumberAtTopProperty = new Property( 0 );
 
     var animation = null; // {MoveTo} animation that scrolls the rows
 
     // scroll
+    // unlink unnecessary, instance owns this property
     this.rowNumberAtTopProperty.link( function() {
 
       // stop any animation that's in progress
@@ -184,6 +185,7 @@ define( function( require ) {
       upButton.enabled = ( thisNode.rowNumberAtTopProperty.get() !== 0 );
       downButton.enabled = ( thisNode.numberOfRowsProperty.get() - thisNode.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
     };
+    // unlink unnecessary, instance owns these properties
     this.numberOfRowsProperty.link( updateButtonState );
     this.rowNumberAtTopProperty.link( updateButtonState );
 

@@ -54,14 +54,16 @@ define( function( require ) {
     // wire up table to input containers
     inputContainers.forEach( function( inputContainer ) {
 
-      // when card is removed from input container, add row to table
+      // When card is removed from input container, add row to table.
+      // removeListener unnecessary, instances exist for lifetime of the sim
       inputContainer.removeEmitter.addListener( function( node ) {
         var card = node.card;
         tableNode.addRow( card );
         tableNode.scrollToRow( card );
       } );
 
-      // when card is returned to input container, remove row from table
+      // When card is returned to input container, remove row from table.
+      // removeListener unnecessary, instances exist for lifetime of the sim
       inputContainer.addEmitter.addListener( function( node ) {
         var card = node.card;
         if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
@@ -73,14 +75,16 @@ define( function( require ) {
     // wire up table to output containers
     outputContainers.forEach( function( outputContainer ) {
 
-      // when card is added to the output container, show its output in the table
+      // When card is added to the output container, show its output in the table.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.addEmitter.addListener( function( node ) {
         var card = node.card;
         tableNode.setOutputCellVisible( card, true );
         tableNode.scrollToRow( card );
       } );
 
-      // when card is removed from output container, hide its output in the table
+      // When card is removed from output container, hide its output in the table.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.removeEmitter.addListener( function( node ) {
         var card = node.card;
         tableNode.setOutputCellVisible( card, false );

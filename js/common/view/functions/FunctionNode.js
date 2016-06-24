@@ -66,6 +66,7 @@ define( function( require ) {
 
     // @public
     var identityVisibleProperty = new Property( options.identityVisible );
+    // unlink unnecessary, instance owns this Property
     identityVisibleProperty.link( function( identityVisible ) {
 
       contentNode.visible = identityVisible;
