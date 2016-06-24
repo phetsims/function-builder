@@ -2,8 +2,8 @@
 
 /**
  * Panel that contains:
- * - equation that corresponds to the function in the builder
- * - control for switching the equation's format
+ * - equations that correspond to functions in the builder, in two forms
+ * - control for switching between equation forms
  *
  * Performance is optimized so that the panel synchronizes with the model only while updatesEnabled is true.
  * When updatesEnabled is changed from false to true, anything that is 'dirty' is updated.
