@@ -33,7 +33,7 @@ define( function( require ) {
     //--------------------------------------------------------------------------------------------------------
     // Builder
 
-    // all builders have the same y location
+    // all builders have the same y location, so that the builder doesn't move around when switching screens
     BUILDER_Y: 285,
 
     //--------------------------------------------------------------------------------------------------------
@@ -54,9 +54,6 @@ define( function( require ) {
 
     // distance/second that cards move when animating
     CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
-
-    // scale for the images on cards
-    CARD_IMAGE_SCALE: 0.4,
 
     // fonts for cards that display an equation or number
     EQUATION_CARD_XY_FONT: new MathSymbolFont( 30 ),

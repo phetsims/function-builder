@@ -10,11 +10,13 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
   var inherit = require( 'PHET_CORE/inherit' );
+
+  // constants
+  var DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
 
   /**
    * @param {ImageCard} card
@@ -31,7 +33,7 @@ define( function( require ) {
     assert && assert( card instanceof ImageCard );
 
     options = _.extend( {
-      imageScale: FBConstants.CARD_IMAGE_SCALE
+      imageScale: DEFAULT_IMAGE_SCALE
     }, options );
 
     // @private
@@ -84,7 +86,12 @@ define( function( require ) {
      * @override
      */
     createGhostNode: function( image, options ) {
-      var contentNode = new Image( image, { scale: FBConstants.CARD_IMAGE_SCALE } );
+
+      options = _.extend( {
+        imageScale: DEFAULT_IMAGE_SCALE
+      }, options );
+
+      var contentNode = new Image( image, { scale: options.imageScale } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );
