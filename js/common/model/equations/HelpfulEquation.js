@@ -2,8 +2,8 @@
 
 /**
  * For lack of a better name, this equation format was referred to as the "helpful" format in design meetings.
- * It is a PhET-specific format. The intent is to create a clear association with the functions that are in
- * the builder, and provide a "bridge" to the slope-intercept format.
+ * It is PhET-specific, and does not correspond to a standard mathematical format. The intent is to create a clear
+ * association with the functions that are in the builder, and provide a "bridge" to the slope-intercept format.
  * For details, see the format specification in function-builder/doc/equation-formats.md
  *
  * @author Chris Malley (PixelZoom, Inc.)
