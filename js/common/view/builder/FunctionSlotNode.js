@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A 'slot' for a function in a builder, has a dashed outline and no fill.
+ * A 'slot' for a function in a builder.
+ * It has the same shape as a function, but a dashed outline and no fill.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

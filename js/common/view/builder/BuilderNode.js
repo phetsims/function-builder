@@ -61,9 +61,8 @@ define( function( require ) {
     options.x = builder.location.x;
     options.y = builder.location.y;
 
-    var colorScheme = builder.colorScheme;
-
     // To improve readability of shape code
+    var colorScheme = builder.colorScheme;
     var BODY_WIDTH = builder.width;
     var END_HEIGHT = builder.endHeight;
     var X_INSET = 0.15 * BODY_WIDTH;
