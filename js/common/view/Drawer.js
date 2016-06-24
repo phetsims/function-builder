@@ -217,7 +217,7 @@ define( function( require ) {
       thisNode.openProperty.unlink( openObserver );
       thisNode.openProperty.dispose(); // will fail if clients haven't removed observers
       thisNode.openProperty = null;
-    }
+    };
   }
 
   functionBuilder.register( 'Drawer', Drawer );
