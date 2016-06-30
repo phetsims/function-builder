@@ -440,7 +440,7 @@ define( function( require ) {
     /**
      * Creates a card-like icon for x or y symbol, for use in equations.
      *
-     * @param {Node} xyNode
+     * @param {Node} xyNode - the symbol on the card
      * @param {Object} [options]
      * @returns {Node}
      */
