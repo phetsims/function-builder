@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {FunctionContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
-   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
+   * @param {Property.<boolean>} seeInsideProperty - are the 'See Inside' windows visible?
    * @param {Object} [options]
    * @constructor
    */
