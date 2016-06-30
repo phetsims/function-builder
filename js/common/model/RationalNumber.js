@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO move to scenery-phet, required by RationalNumberNode
 /**
  * A wrapper around the portion of BigRational.js needed by this simulation.
  * Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.

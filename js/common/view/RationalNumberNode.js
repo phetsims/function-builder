@@ -1,6 +1,5 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO move to scenery-phet
 /**
  * Displays a rational number.
  * The number can be displayed as either a mixed number or improper fraction (see options.mixedNumber).
