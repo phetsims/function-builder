@@ -135,7 +135,7 @@ define( function( require ) {
      * @returns {boolean}
      */
     isInteger: function() {
-      return ( this.valueOf() === this.wholeNumberPart() );
+      return ( this.valueOf() % 1 === 0 );
     },
 
     /**
