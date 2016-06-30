@@ -45,9 +45,19 @@ define( function( require ) {
 
   return inherit( Object, RationalNumber, {
 
+    /**
+     * Gets the numerator. Assumes that BigRational stores its value in reduced form.
+     *
+     * @returns {number}
+     */
     getNumerator: function() { return this.bigRational.numerator.valueOf(); },
     get numerator() { return this.getNumerator(); },
 
+    /**
+     * Gets the denominator. Assumes that BigRational stores its value in reduced form.
+     *
+     * @returns {number}
+     */
     getDenominator: function() { return this.bigRational.denominator.valueOf(); },
     get denominator() { return this.getDenominator(); },
 
@@ -149,7 +159,7 @@ define( function( require ) {
     },
 
     /**
-     * Gets the fractional part of this RationalNumber's value, returns a new RationalNumber.
+     * Gets the fractional part of this RationalNumber's value, returns a new instance.
      *
      * @returns {RationalNumber}
      */
