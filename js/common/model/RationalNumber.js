@@ -154,7 +154,7 @@ define( function( require ) {
      * @returns {RationalNumber}
      */
     fractionPart: function() {
-      return this.bigRational.minus( this.wholeNumberPart() );
+      return this.minus( this.wholeNumberPart() );
     }
   }, {
 
