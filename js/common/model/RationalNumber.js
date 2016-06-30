@@ -62,51 +62,116 @@ define( function( require ) {
       return ( rationalNumber.valueOf() === this.valueOf() );
     },
 
+    /**
+     * Gets the value of this RationalNumber.
+     *
+     * @returns {number}
+     */
     valueOf: function() { return this.bigRational.valueOf(); },
 
+    /**
+     * String representation, do not rely on the format of this!
+     *
+     * @returns {string}
+     */
     toString: function() { return this.bigRational.toString(); },
 
+    /**
+     * Adds this RationalNumber and an integer, returns a new instance.
+     *
+     * @param {number} integerValue
+     * @returns {RationalNumber}
+     */
     plus: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.plus( integerValue ) );
     },
 
+    /**
+     * Subtracts this RationalNumber and an integer, returns a new instance.
+     *
+     * @param {number} integerValue
+     * @returns {RationalNumber}
+     */
     minus: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.minus( integerValue ) );
     },
 
+    /**
+     * Multiplies this RationalNumber and an integer, returns a new instance.
+     *
+     * @param {number} integerValue
+     * @returns {RationalNumber}
+     */
     times: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.times( integerValue ) );
     },
 
+    /**
+     * Divides this RationalNumber by an integer, returns a new instance.
+     *
+     * @param {number} integerValue
+     * @returns {RationalNumber}
+     */
     divide: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.divide( integerValue ) );
     },
 
+    /**
+     * Absolute value of this RationalNumber, returns a new instance.
+     *
+     * @returns {RationalNumber}
+     */
     abs: function() {
       return toRationalNumber( this.bigRational.abs() );
     },
 
+    /**
+     * Floor of this RationalNumber, returns a new instance.
+     *
+     * @returns {RationalNumber}
+     */
     floor: function() {
       return toRationalNumber( this.bigRational.floor() );
     },
 
+    /**
+     * Is this RationalNumber an integer?
+     *
+     * @returns {boolean}
+     */
     isInteger: function() {
       return ( this.denominator === 1 );
     },
 
+    /**
+     * Gets the whole number part of this RationalNumber's value.
+     *
+     * @returns {number}
+     */
     quotient: function() {
       return this.bigRational.floor().valueOf();
     },
 
+    /**
+     * Gets the fractional part of this RationalNumber's value, returns a new RationalNumber.
+     *
+     * @returns {RationalNumber}
+     */
     remainder: function() {
       return toRationalNumber( this.bigRational.minus( this.bigRational.floor() ) );
     }
   }, {
 
+    /**
+     * Creates a RationalNumber from an integer.
+     *
+     * @param {number} integerValue
+     * @returns {RationalNumber}
+     */
     withInteger: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
       return new RationalNumber( integerValue, 1 );
