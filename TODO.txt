@@ -8,8 +8,6 @@ write implementation-notes.md
 
 code review
 
-Interviews on 6/29 & 7/5, https://github.com/phetsims/tasks/issues/625
-
 implementation warts:
 - contentNode is passed to CardNode by subtypes, some subtypes mutate it, while others replace it
 - CardNode doesn't handle scaling contentNode to card
