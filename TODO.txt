@@ -9,6 +9,7 @@ write implementation-notes.md
 code review
 
 implementation warts:
+- use the FunctionCreator pattern for Cards
 - contentNode is passed to CardNode by subtypes, some subtypes mutate it, while others replace it
 - CardNode doesn't handle scaling contentNode to card
 - FunctionNode doesn't handle scaling contentNode or hiddenNode to card
