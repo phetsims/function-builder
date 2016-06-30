@@ -50,6 +50,7 @@ define( function( require ) {
     createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
 
       assert && assert( this.carouselLocation );
+      assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
 
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
