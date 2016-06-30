@@ -130,7 +130,7 @@ define( function( require ) {
     },
 
     /**
-     * Floor of this RationalNumber, returns a new instance.
+     * Gets the floor of this RationalNumber, returns a new instance.
      *
      * @returns {RationalNumber}
      */
