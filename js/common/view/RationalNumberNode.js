@@ -103,9 +103,9 @@ define( function( require ) {
       var fraction = rationalNumberAbs; // {RationalNumber}
       if ( rationalNumberAbs.isInteger() || this.options.mixedNumber ) {
 
-        fraction = rationalNumberAbs.remainder();
+        fraction = rationalNumberAbs.fractionPart();
 
-        var wholeNumberNode = new Text( rationalNumberAbs.quotient(), {
+        var wholeNumberNode = new Text( rationalNumberAbs.wholeNumberPart(), {
           fill: this.options.color,
           font: this.options.wholeNumberFont,
           left: left,

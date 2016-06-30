@@ -1,7 +1,5 @@
 TODO list for function-builder
 
-RationalNumber: fix bug in floor(), eliminate quotient(), rename remainder() to fractionPart()
-
 constrain to 1 card "parked" in the builder at a time #44
 
 write model.md

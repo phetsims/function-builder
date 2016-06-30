@@ -130,21 +130,12 @@ define( function( require ) {
     },
 
     /**
-     * Gets the floor of this RationalNumber, returns a new instance.
-     *
-     * @returns {RationalNumber}
-     */
-    floor: function() {
-      return toRationalNumber( this.bigRational.floor() );
-    },
-
-    /**
      * Is this RationalNumber an integer?
      *
      * @returns {boolean}
      */
     isInteger: function() {
-      return ( this.denominator === 1 );
+      return ( this.valueOf() === this.wholeNumberPart() );
     },
 
     /**
@@ -152,8 +143,9 @@ define( function( require ) {
      *
      * @returns {number}
      */
-    quotient: function() {
-      return this.bigRational.floor().valueOf();
+    wholeNumberPart: function() {
+      var value = this.bigRational.valueOf();
+      return ( value < 0 ? -1 : 1 ) * Math.floor( Math.abs( value ) );
     },
 
     /**
@@ -161,8 +153,8 @@ define( function( require ) {
      *
      * @returns {RationalNumber}
      */
-    remainder: function() {
-      return toRationalNumber( this.bigRational.minus( this.bigRational.floor() ) );
+    fractionPart: function() {
+      return this.bigRational.minus( this.wholeNumberPart() );
     }
   }, {
 
