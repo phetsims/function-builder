@@ -52,9 +52,12 @@ define( function( require ) {
     createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode,
                            dragLayer, seeInsideLayer, seeInsideProperty ) {
 
-      assert && assert( this === inputContainer, 'cards must be created in the input carousel' );
-      assert && assert( inputContainer.carouselLocation );
-      assert && assert( outputContainer.carouselLocation );
+      assert && assert( this === inputContainer,
+        'cards must be created in the input carousel' );
+      assert && assert( inputContainer.isEmpty() && outputContainer.isEmpty(),
+        'did you accidentally call this function twice?' );
+      assert && assert( inputContainer.carouselLocation && outputContainer.carouselLocation,
+        'did you call this before containers were attached to ScreenView?' );
 
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
