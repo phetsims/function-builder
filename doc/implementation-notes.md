@@ -39,23 +39,20 @@ are treated as equivalent, and no transform is required. (If you don't understan
 
 ## Model
 
-The base type for anything that can be moved (ie, cards and functions) is [
-Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js).
+[Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)
+is the base type for anything that can be moved (ie, cards and functions).
 It is responsible for an object's location and animation to a desired location.
 
-The card model (see
 [Card](https://github.com/phetsims/function-builder/blob/master/js/common/model/cards/Card.js)
-and its subtypes) has no responsibility for what is displayed on a card. It
-provides the input information to the builder.  What is actually displayed on a card is the responsibility
-of the view (see
+and its subtypes implement the card model. Cards provide the input to the builder, but have no responsibility
+for what is displayed on them. What is actually displayed on a card is the responsibility of the view (see
 [CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
 and its subtypes).
 
-The function model (see
 [AbstractFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/AbstractFunction.js)
-and its subtypes) is responsible for applying the function to an input and producing an output. For programming
-convenience, it also carries some view-specific information (e.g., the color of the function's background,
-the icon to display on the function to identify it).
+and its subtypes implement the function model. The function model is responsible for applying the function to an
+input and producing an output. For programming convenience, it also carries some view-specific information
+(e.g., the color of the function's background, the icon to display on the function to identify it).
 
 There are two primary types of functions:
 * image functions: These functions perform an image transform using Canvas.  See
@@ -64,21 +61,20 @@ There are two primary types of functions:
 [MathFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/MathFunction.js)
 and its subtypes.
 
-Support for rational numbers is implemented in
-(RationalNumber)[https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js].
-This is a wrapper around the 3rd-party library [BigRational.js](https://github.com/peterolson/BigRational.js).
-It wraps only the functionality required for this simulation, so is not generally useful.
+(RationalNumber)[https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js]
+implements support for rational numbers. This is a thin wrapper around the 3rd-party library
+[BigRational.js](https://github.com/peterolson/BigRational.js).
+It exposes only the functionality required for this simulation, so is not generally useful.
 
-The builder is modeled in
-[Builder](https://github.com/phetsims/function-builder/blob/master/js/common/model/builder/Builder.js). It is
-responsible for managing the functions in its slots, and applying those functions to cards. For programming
-convenience, it also carries some view-specific information (e.g., the builder's dimensions, the color scheme
-applied to the builder).
+[Builder](https://github.com/phetsims/function-builder/blob/master/js/common/model/builder/Builder.js)
+implements the builder model. It is responsible for managing the functions in its slots, and applying those
+functions to cards. For programming convenience, it also carries some view-specific information (e.g.,
+the builder's dimensions, the color scheme applied to the builder).
 
-A scene is a specific configuration that is to be displayed to the user. The model for each screen contains
-one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
-See [Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
-and its subtypes. Subtypes add additional elements to the basic scene. For example,
+[Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
+and its subtypes implements a specific configuration that is to be displayed to the user.
+The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
+Subtypes of Scene add additional elements to the basic scene. For example,
 [MysteryScene](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryScene.js)
 adds a pool of challenges for the "Mystery" screen.
 
