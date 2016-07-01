@@ -28,7 +28,7 @@ define( function( require ) {
 
   /**
    * @param {Builder} builder
-   * @param {Property.<boolean>} hideFunctionsProperty
+   * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the indentity of functions in the builder
    * @param {Object} [options]
    * @constructor
    */
