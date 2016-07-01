@@ -1,6 +1,6 @@
 // Copyright 2016, University of Colorado Boulder
 
-//TODO move to scenery-phet
+//TODO move to scenery-phet? see https://github.com/phetsims/scenery-phet/issues/228
 /**
  * A drawer that opens/closes to show/hide its contents.
  *
