@@ -11,7 +11,7 @@ a high-level description of the simulation model.
 
 ## Terminology
 
-Terminology (in alphabetical order), which you'll see throughout the source code:
+This section enumerates terms that you'll see used throughout the source code. In alphabetical order:
 
 * builder - the apparatus in the center of the screen
 * cards - the things in the input and output carousel, that you drag through the builder
