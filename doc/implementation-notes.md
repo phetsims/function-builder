@@ -1,7 +1,7 @@
 # Function Builder - implementation notes
 
 This document contains miscellaneous notes related to the implementation of Function Builder. It
-supplements the internal documentation that appears in the code, and (hopefully) provides insight into
+supplements the internal (source code) documentation, and (hopefully) provides insight into
 "big picture" implementation issues.  The audience for this document is software developers who are familiar
 with JavaScript and PhET simulation development (as described in [PhET Development Overview]
 (http://bit.ly/phet-development-overview)).
@@ -11,7 +11,7 @@ a high-level description of the simulation model.
 
 ## Terminology
 
-This section enumerates terms that you'll see used throughout the internal (source code) and external documentation.
+This section enumerates terms that you'll see used throughout the internal and external documentation.
 In alphabetical order:
 
 * builder - the apparatus in the center of the screen
