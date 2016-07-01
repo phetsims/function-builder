@@ -16,7 +16,7 @@ define( function( require ) {
   var MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
-   * @param {*} value - value of the card, type determined by subtype
+   * @param {*} value - value displayed on the card, type determined by subtype
    * @param {Object} [options]
    * @constructor
    */
