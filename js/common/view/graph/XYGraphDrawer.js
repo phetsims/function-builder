@@ -16,7 +16,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
+  var Drawer = require( 'SCENERY_PHET/Drawer' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );

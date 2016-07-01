@@ -14,7 +14,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Drawer = require( 'FUNCTION_BUILDER/common/view/Drawer' );
+  var Drawer = require( 'SCENERY_PHET/Drawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
