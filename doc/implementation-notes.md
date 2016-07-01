@@ -119,6 +119,9 @@ the second phase, the scenes are then populated with cards and functions. To inv
 
 ## View
 
+**Animation**: Tween.js is used solely for fading between scenes. All other animation is the responsibility
+of the model
+(see `step` in [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)).
 
 Each screen has one or more *scenes*.
 
