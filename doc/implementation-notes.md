@@ -39,6 +39,8 @@ are treated as equivalent, and no transform is required. (If you don't understan
 
 ## Model
 
+This section provides an overview of the most important model elements.
+
 [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)
 is the base type for anything that can be moved (ie, cards and functions).
 It is responsible for an object's location and animation to a desired location.
