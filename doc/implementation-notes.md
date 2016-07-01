@@ -156,6 +156,14 @@ and its subtypes has responsibility for creating the model and view of cards.
 [FunctionContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/FunctionContainer.js)
 has responsibility for creating the model and view of functions.
 
+**Drawers**: A drawer is a user-interface for showing/hiding a feature. Drawers appear on the top and bottom
+edges of the builder in some scenes.
+[MathSceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MathSceneNode.js)
+optionally adds drawers for these 3 features:
+* XY table - a table of input and output values
+* XY graph - a graph of input and output values
+* Equation - equation (in 2 forms) that represents the functions in the builder
+
 **Animation**: The view is responsible only for fading between scenes (using Tween.js).
 All other animation is the responsibility of the model
 (see `step` in [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)).
