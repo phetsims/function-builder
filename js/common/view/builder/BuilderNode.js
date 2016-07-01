@@ -125,7 +125,7 @@ define( function( require ) {
     // slots and the function nodes that are in the slots
     var slotNodes = [];
     var functionNodes = []; // {FunctionNode[]}
-    for ( var i = 0; i < builder.slots.length; i++ ) {
+    for ( var i = 0; i < builder.numberOfSlots; i++ ) {
 
       slotNodes.push( new FunctionSlotNode( {
         // centered at slot locations
@@ -134,7 +134,7 @@ define( function( require ) {
 
       functionNodes[ i ] = null; // empty functions are null
     }
-    assert && assert( functionNodes.length === builder.slots.length );
+    assert && assert( functionNodes.length === builder.numberOfSlots );
     var slotsParent = new Node( { children: slotNodes } );
     var functionsParent = new Node();
 

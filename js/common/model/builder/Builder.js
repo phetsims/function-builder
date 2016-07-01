@@ -66,6 +66,7 @@ define( function( require ) {
     options.colorScheme.bottom && options.colorScheme.ends );
 
     // @public (read-only)
+    this.numberOfSlots = options.numberOfSlots;
     this.width = options.width;
     this.endHeight = options.endHeight;
     this.waistHeight = options.waistHeight;
@@ -91,6 +92,7 @@ define( function( require ) {
       // each slot is initially empty
       this.slots.push( new FunctionSlot( slotLocation ) );
     }
+    assert && assert( this.slots.length === this.numberOfSlots );
 
     // @public emit is called when any function changes
     this.functionChangedEmitter = new Emitter();
@@ -113,7 +115,7 @@ define( function( require ) {
      * @returns {*} output, with same type as input
      */
     applyFunctions: function( input, numberOfFunctionsToApply ) {
-      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.slots.length ) );
+      assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.numberOfSlots ) );
       var output = input;
       for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
         var slot = this.slots[ i ];
@@ -131,7 +133,7 @@ define( function( require ) {
      * @returns {*} output, with same type as input
      */
     applyAllFunctions: function( input ) {
-      return this.applyFunctions( input, this.slots.length );
+      return this.applyFunctions( input, this.numberOfSlots );
     },
 
     /**

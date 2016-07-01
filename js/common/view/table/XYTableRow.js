@@ -115,7 +115,7 @@ define( function( require ) {
       numberOfFunctions: 0, // number of functions to apply
       showLeftHandSide: false // don't show the left-hand side (y =) of equations
     }, options );
-    assert && assert( options.numberOfFunctions <= builder.slots.length );
+    assert && assert( options.numberOfFunctions <= builder.numberOfSlots );
 
     var valueNode = null;
     if ( card instanceof NumberCard ) {
@@ -158,7 +158,7 @@ define( function( require ) {
 
       // add new node
       this.outputValueNode = createCellValueNode( this.card, this.builder, {
-        numberOfFunctions: this.builder.slots.length, // apply all functions for the output value
+        numberOfFunctions: this.builder.numberOfSlots, // apply all functions for the output value
         visible: outputValueNodeWasVisible,
         maxWidth: this.valueMaxWidth,
         maxHeight: this.valueMaxHeight,

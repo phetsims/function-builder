@@ -32,7 +32,7 @@ define( function( require ) {
 
     // add a window at the right end of each slot
     var windowsShape = new Shape();
-    for ( var i = 0; i < builder.slots.length; i++ ) {
+    for ( var i = 0; i < builder.numberOfSlots; i++ ) {
 
       var windowLocation = builder.getWindowLocation( i );
       var windowLeft = windowLocation.x - ( WINDOW_SIZE.width / 2 );

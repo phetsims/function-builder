@@ -121,7 +121,7 @@ define( function( require ) {
 
         // dragging to the left, check to see if blocked by a non-invertible function
         if ( dragDx < 0 ) {
-          for ( var i = builder.slots.length - 1; i >= 0 && !blocked; i-- ) {
+          for ( var i = builder.numberOfSlots - 1; i >= 0 && !blocked; i-- ) {
 
             var slot = builder.slots[ i ];
 
@@ -211,7 +211,7 @@ define( function( require ) {
     // Number of functions to apply is based on where the card is located relative to the function slots in the builder
     var numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
       function( location ) {
-        for ( var i = builder.slots.length - 1; i >= 0; i-- ) {
+        for ( var i = builder.numberOfSlots - 1; i >= 0; i-- ) {
           if ( location.x >= builder.slots[ i ].location.x ) {
             return i + 1;
           }

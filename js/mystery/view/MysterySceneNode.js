@@ -54,7 +54,7 @@ define( function( require ) {
     // Toggle buttons below each builder slot, for revealing identity of functions
     this.revealProperties = [];  // {Property.<boolean>[]}
     this.revealButtons = []; // {EyeToggleButton[]}
-    for ( var i = 0; i < scene.builder.slots.length; i++ ) {
+    for ( var i = 0; i < scene.builder.numberOfSlots; i++ ) {
 
       // create a closure for slotNumber using an IIFE
       (function() {

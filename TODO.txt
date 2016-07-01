@@ -8,7 +8,6 @@ implementation warts:
 - CardNode doesn't handle scaling contentNode to card
 - FunctionNode doesn't handle scaling contentNode or hiddenNode to card
 - CardNode.createGhostNode and subtype implementations could have options and scaling out of sync with CardNode instances
-- Builder and BuilderNode have overlapping responsibilities for slot management
 - CardNode knows about a lot of things
 - FunctionNode knows about a lot of things
 - Builder and BuilderNode know nothing about cards; cards are never really "in" the builder or its windows
