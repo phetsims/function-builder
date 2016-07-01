@@ -3,15 +3,22 @@ Function Builder - equation formats
 
 **Notes**
 
-This specification is referenced in the documentation of `HelpfulEquation`, `HelpfulEquationNode`, `SlopeInterceptEquation` and `SlopeInterceptEquationNode`. To understand those types, you'll want to be familar with this specification.
+This specification is referenced in the documentation of `HelpfulEquation`, `HelpfulEquationNode`,
+`SlopeInterceptEquation` and `SlopeInterceptEquationNode`. To understand those types, you'll want to be familiar
+with this specification.
 
-The "helpful" format was arrived at via consensus at design meetings. It is PhET-specific, and does not correspond to a standard mathematical format. The intent is to create a clear association with the functions that are in the builder, and provide a "bridge" to the slope-intercept format.  The term "helpful" is (thankfully) never shown to the sim user.
+The "helpful" format was arrived at via consensus at design meetings. It is PhET-specific, and does not correspond
+to a standard mathematical format. The intent is to create a clear association with the functions that are in the
+builder, and provide a "bridge" to the slope-intercept format.  The term "helpful" is (thankfully) never shown
+to the sim user.
 
 The "slope-intercept" format is the standard `y = mx + b` format, where `m = rise/run` and `b` is the y intercept.
 
-Cards show the right-hand side of the slope-intercept equation. Eg, if the slope-intercept form is `y = 2x + 2`, then the "x" card in the input carousel will show `2x + 2` in the output carousel.
+Cards show the right-hand side of the slope-intercept equation. Eg, if the slope-intercept form is `y = 2x + 2`,
+then the "x" card in the input carousel will show `2x + 2` in the output carousel.
 
-Square brackets '[ ]' shown in the examples will not be rendered. They are used to indicate a numerator in this specification.
+Square brackets '[ ]' shown in the examples will not be rendered. They are used to indicate a numerator in
+this specification.
 
 The forward slash '/' shown in the examples will be rendered as a horizontal line separating numerator and denominator.
 
