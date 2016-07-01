@@ -41,7 +41,7 @@ are treated as equivalent, and no transform is required. (If you don't understan
 We implemented 2 initialization strategies: (1) on start, which initializes when the sim starts, and
 (2) on demand, which initialize when a feature is first used. These 2 strategies can be selected independently
 for ScreenView and SceneNode types, using query parameters.
-To investigate this further, see `'initScreenViews'` and `'initScenes` in
+To investigate this further, see `'initScreenViews'` and `'initScenes'` in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
 **Memory management**: All objects created in this simulation exist for the lifetime of the simulation. So in
