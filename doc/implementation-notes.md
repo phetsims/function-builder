@@ -42,7 +42,7 @@ are treated as equivalent, and no transform is required. (If you don't understan
 
 **Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. All such query parameters are documented in
-FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
+[FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
 **Initialization**: This simulation takes a long time to initialize, which can be a little annoying or disconcerting for the user.
 We implemented 2 initialization strategies: (1) on start, which initializes when the sim starts, and
