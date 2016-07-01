@@ -23,7 +23,7 @@ The output in this case is an equation in
 
 In the "Mystery" screen, the objective is to guess the identity of a series of 1 or more functions. Each such
 series of functions is referred to as a *challenge*.  The simulation has a set of predefined challenges, from
-which a challenge is selected at random. If you don't mind reading some JavaScript code, you can view the sets
+which a challenge is selected at random. If you don't mind reading JavaScript code, you can view the sets
 of challenges in
 [MysteryChallenges.js](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryChallenges.js).
 
