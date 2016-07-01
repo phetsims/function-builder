@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EyeToggleButton = require( 'FUNCTION_BUILDER/common/view/EyeToggleButton' );
+  var EyeToggleButton = require( 'SCENERY_PHET/buttons/EyeToggleButton' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
