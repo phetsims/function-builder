@@ -2,7 +2,7 @@
 
 /**
  * Abstract base type for card nodes.
- * All drag and animation behavior for cards is handled here.
+ * All drag handling and animation behavior for cards is encapsulated here.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

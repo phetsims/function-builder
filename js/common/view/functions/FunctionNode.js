@@ -2,7 +2,7 @@
 
 /**
  * Base type for function nodes.
- * All drag and animation behavior for functions is handled here.
+ * All drag handling and animation behavior for functions is encapsulated here.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
