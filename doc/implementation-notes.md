@@ -51,7 +51,11 @@ for ScreenView and SceneNode types, using query parameters.
 To investigate this further, see `'initScreenViews'` and `'initScenes'` in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
-**Memory management**: All objects created in this simulation exist for the lifetime of the simulation. So in
+**Memory managements**: All objects created in this simulation exist for the lifetime of the simulation, so there
+is no need to call `dispose`.  Since there is no need to call `dispose`, it is generally not implemented for
+sim-specific types.
+
+**Unregistering observers**: All objects created in this simulation exist for the lifetime of the simulation. So in
 most cases, when an observer is registered (e.g. via `link` or `addListener`), there is no need to unregister that
 observer (e.g. via `unlink` or `removeListener`).  For clarity, all calls that register an observer indicate whether
 a corresponding unregister call is required. For example:
