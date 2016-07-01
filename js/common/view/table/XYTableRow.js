@@ -171,6 +171,8 @@ define( function( require ) {
     },
 
     /**
+     * Sets the visibility ofthe row's output cell.
+     *
      * @param visible
      * @public
      */

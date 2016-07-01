@@ -16,7 +16,7 @@ define( function( require ) {
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
 
   /**
-   * @param {Scene} scene - model for this scene
+   * @param {PatternsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor

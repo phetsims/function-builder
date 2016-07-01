@@ -21,7 +21,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
-   * @param {*} model - model, type determined by subtype
+   * @param {FBModel} model
    * @param {constructor} sceneNodeConstructor - constructor for SceneNode subtype
    * @param {Object} [options]
    * @constructor

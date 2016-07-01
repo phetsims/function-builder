@@ -20,7 +20,7 @@ define( function( require ) {
   var outputString = require( 'string!FUNCTION_BUILDER/output' );
 
   /**
-   * @param {Scene} scene - model for this scene
+   * @param {NumbersScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor

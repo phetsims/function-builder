@@ -216,6 +216,7 @@ define( function( require ) {
      * Moves this function immediately to the builder, no animation.
      *
      * @param {number} slotNumber
+     * @public
      */
     moveToBuilder: function( slotNumber ) {
 

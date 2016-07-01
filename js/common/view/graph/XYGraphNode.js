@@ -367,6 +367,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
+   * @private
    */
   function PointNode( point, modelViewTransform, options ) {
 

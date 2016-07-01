@@ -15,7 +15,7 @@ define( function( require ) {
   var EditableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/EditableMathFunctionNode' );
 
   /**
-   * @param {Scene} scene - model for this scene
+   * @param {EquationsScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {Object} [options]
    * @constructor

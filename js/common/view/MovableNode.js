@@ -96,6 +96,7 @@ define( function( require ) {
     /**
      * Cancels a drag that is in progress.
      * If no drag is in progress, this is a no-op.
+     *
      * @public
      */
     cancelDrag: function() {
