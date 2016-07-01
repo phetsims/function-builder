@@ -25,7 +25,7 @@ In all screens, the notion of non-invertible functions is supported. A function 
 cannot be run backwards through the function to produce the original input. Examples: Multiplication by zero is a
 non-invertible numeric function. Conversion to grayscale is a non-invertible image transform.
 
-For invertible functions, the model in this simulation does not implement an explicit inverse of each invertible
-function. Instead, all computation is performed in the forward direction, based on an input's location relative
+For invertible functions, the model in this simulation does not implement an explicit inverse function.
+Instead, all computation is performed in the forward direction, based on an input's location relative
 to a function. And a card's location is constrained based on whether a function is invertible; cards cannot be
 dragged backwards through non-invertible functions.
