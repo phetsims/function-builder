@@ -110,7 +110,7 @@ adds a pool of challenges for the "Mystery" screen.
 This simulation is a bit different; the
 model cannot be fully instantiated without creating the view. The initial location of cards and functions is their
 location in their respective carousels, which are view components.  So we cannot create cards and functions until
-their carousels are created. Initialization of this simulations model therefore occurs in 2 phases. In the first phase,
+their carousels are created. Initialization of this simulation's model therefore occurs in 2 phases. In the first phase,
 scenes are created without cards and functions. The view is then initialized, which creates the carousels. In
 the second phase, the scenes are then populated with cards and functions. To investigate this further, see
 `completeInitialization` in
