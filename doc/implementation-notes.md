@@ -9,6 +9,8 @@ with JavaScript and PhET simulation development (as described in [PhET Developme
 First, read [model.md](https://github.com/phetsims/function-builder/blob/master/doc/model.md), which provides
 a high-level description of the simulation model.
 
+** Terminology **
+
 Terminology (in alphabetical order), which you'll see throughout the source code:
 
 * builder - the apparatus in the center of the screen
@@ -27,6 +29,12 @@ a new challenge is generated.
 * scene - a builder, set of cards and set of functions. Each screen has 1 or more scenes
 * "see inside" windows - windows that appear in the builder to display intermediate results
 * slots - places where you can drop functions in the builder
+
+** General **
+
+** Model **
+
+** View **
 
 Many PhET simulations have a model-view transform that maps between model and view coordinate frames. This
 simulation has no specific model coordinate frame, so the model and view coordinate frames are equivalent, and
