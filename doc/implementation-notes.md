@@ -1,8 +1,8 @@
 # Function Builder - implementation notes
 
 This document contains miscellaneous notes related to the implementation of Function Builder. It
-supplements the internal documentation that appears in the code, and (hopefully) provides some insight into
-"big picture" implementation issues.  The audience for this document is software developers who are familar
+supplements the internal documentation that appears in the code, and (hopefully) provides insight into
+"big picture" implementation issues.  The audience for this document is software developers who are familiar
 with JavaScript and the PhET simulation development (as described in [PhET Development Overview]
 (http://bit.ly/phet-development-overview)).
 
