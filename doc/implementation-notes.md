@@ -165,10 +165,11 @@ All other animation is the responsibility of the model
 
 **Mystery screen notes**: The Mystery screen was added late in the development process. This had a few
 unfortunate (but not tragic) consequences for its implementation, which are worth describing here.
-The Mystery screen has 3 scenes, but (unlike the other screens) no function carousel.  The function carousel
+The Mystery screen has 3 scenes, but (unlike the other screens) it has no function carousel.  The function carousel
 was at this point deeply ingrained in the architecture of scenes. So in order to reuse what had been done for
-other screens, the function carousel exists in the Mystery screen, but is made invisible. The function carousel
-is populated with enough functions to handle all challenges. When a challenge is generated, functions are moved
-between the (invisible) carousel and the builder, and the functions are configured to match the challenge.
-Had this screen been included from the beginning, this is undoubtedly not how things would have been
+other screens, the function carousel exists in the Mystery screen, but is made invisible. And while the
+function carousel is invisible, it continues to play an important, as a source of functions.
+The function carousel is populated with enough functions to handle all challenges. When a challenge is generated,
+functions are moved between the (invisible) carousel and the builder, and the functions are configured to match
+the challenge. Had this screen been included from the beginning, this is undoubtedly not how things would have been
 implemented. But it does work well, and is not unreasonably complicated to understand.
