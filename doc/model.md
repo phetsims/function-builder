@@ -18,7 +18,7 @@ supported, and is specifically excluded by the simulation. The output cards disp
 The "Equations" screen adds the symbol "x" on an input card.  The same numeric functions are applicable to "x".
 The output in this case is an equation in
 [slope-intercept form](https://en.wikipedia.org/wiki/Linear_equation#Slope.E2.80.93intercept_form)
-(y = mx + b). An additional equation form is also provided, as described in
+(y = mx + b). An additional equation format is also provided, as described in
 [equation-formats.md](https://github.com/phetsims/function-builder/blob/master/doc/equation-formats.md).
 
 In all screens, the notion of non-invertible functions is supported. A function is not invertible if it's output
