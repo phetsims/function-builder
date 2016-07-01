@@ -33,14 +33,14 @@ a new challenge is generated.
 ## General
 
 Many PhET simulations have a model-view transform that maps between model and view coordinate frames
-(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)){:target="_blank"}.
+(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
 The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
 are treated as equivalent, and no transform is required. (If you don't understand that, don't worry about it.)
 
 ## Model
 
 The base type for anything that can be moved (ie, cards and functions) is [
-Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js){:target="_blank"}.
+Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js).
 It is responsible for an object's location and animation to a desired location.
 
 The card model (see
@@ -74,6 +74,13 @@ The builder is modeled in
 responsible for managing the functions in its slots, and applying those functions to cards. For programming
 convenience, it also carries some view-specific information (e.g., the builder's dimensions, the color scheme
 applied to the builder).
+
+A scene is a specific configuration that is to be displayed to the user. The model for each screen contains
+one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
+See [Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
+and its subtypes. Subtypes add additional elements to the basic scene. For example,
+[MysteryScene](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryScene.js)
+adds a pool of challenges for the "Mystery" screen.
 
 ## View
 
