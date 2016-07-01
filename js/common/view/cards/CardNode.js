@@ -449,6 +449,8 @@ define( function( require ) {
      * @param {Node} xyNode - the symbol on the card
      * @param {Object} [options]
      * @returns {Node}
+     * @public
+     * @static
      */
     createEquationXYNode: function( xyNode, options ) {
 
