@@ -73,7 +73,7 @@ functions to cards. For programming convenience, it also carries some view-speci
 the builder's dimensions, the color scheme applied to the builder).
 
 [Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
-and its subtypes implements a specific configuration that is to be displayed to the user.
+and its subtypes implement a specific configuration that is to be displayed to the user.
 The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
 Subtypes of Scene add additional elements to the basic scene. For example,
 [MysteryScene](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryScene.js)
