@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {ImageFunction} functionInstance
-   * @param {ImageFunctionContainer} container - container in the function carousel
+   * @param {FunctionContainer} container - container in the function carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Object} [options]
