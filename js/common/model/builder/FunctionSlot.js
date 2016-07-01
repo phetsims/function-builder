@@ -16,7 +16,7 @@ define( function( require ) {
   var NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
 
   /**
-   * @param {Vector2} location - location of the slot in the model coordinate frame
+   * @param {Vector2} location - location of the slot in the global coordinate frame
    * @constructor
    */
   function FunctionSlot( location ) {

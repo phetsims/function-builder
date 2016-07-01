@@ -293,7 +293,7 @@ define( function( require ) {
   functionBuilder.register( 'SceneNode', SceneNode );
 
   /**
-   * For a container that is visible in some carousel, gets the location of the container in the model coordinate frame.
+   * For a container that is visible in some carousel, gets the location of the container in the global coordinate frame.
    *
    * @param {Carousel} carousel
    * @param {MovableContainer} container

@@ -220,7 +220,7 @@ define( function( require ) {
      * Gets the location of the specified slot.
      *
      * @param {number} slotNumber
-     * @returns {Vector2} location in the model coordinate frame
+     * @returns {Vector2} location in the global coordinate frame
      * @public
      */
     getSlotLocation: function( slotNumber ) {
