@@ -170,6 +170,7 @@ define( function( require ) {
     this.functionNodes = functionNodes;
     this.functionsParent = functionsParent;
     this.moleCardsLayer = moleCardsLayer;
+    this.seeInsideCardNode = null; // {CardNode} 1 card that may occupy the 'see inside' windows, see issue #44
   }
 
   functionBuilder.register( 'BuilderNode', BuilderNode );

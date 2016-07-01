@@ -93,7 +93,9 @@ define( function( require ) {
         rightPoint = card.locationProperty.get();
       }
       else {
-        // card was grabbed while in 'see inside' window
+
+        // card was grabbed while animating or while in 'see inside' window
+        thisNode.unregisterAsSeeInsideCard();
       }
       assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' );
 
@@ -263,6 +265,7 @@ define( function( require ) {
     // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.lazyLink( function( seeInside ) {
       if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
+        thisNode.unregisterAsSeeInsideCard();
         thisNode.animateLeftToRight( OUTPUT_SLOT_X );
       }
     } );
@@ -291,7 +294,7 @@ define( function( require ) {
      * @private
      */
     animateToCarousel: function( container ) {
-      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
+      assert && assert( this.dragLayer.hasChild( this ), 'animateToCarousel: card should be in dragLayer' );
       var thisNode = this;
       thisNode.card.animateTo( container.carouselLocation,
         function() {
@@ -313,6 +316,7 @@ define( function( require ) {
         // remove from drag layer
         this.cancelDrag();
         this.dragLayer.removeChild( this );
+        this.unregisterAsSeeInsideCard();
       }
       else if ( this.outputContainer.containsNode( this ) ) {
 
@@ -334,7 +338,7 @@ define( function( require ) {
      * @private
      */
     animateLeftToRight: function( outputSlotX ) {
-      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
+      assert && assert( this.dragLayer.hasChild( this ), 'animateLeftToRight: card should be in dragLayer' );
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
@@ -346,8 +350,14 @@ define( function( require ) {
         var windowLocation = builder.getWindowLocation( windowNumber );
         thisNode.card.animateTo( windowLocation, function() {
 
-          // if 'See Inside' is not enabled, continue to next window
-          if ( !thisNode.seeInsideProperty.get() ) {
+          if ( thisNode.seeInsideProperty.get() ) {
+
+            // stop at this window, register as the 'see inside' card
+            thisNode.registerAsSeeInsideCard( outputSlotX );
+          }
+          else {
+
+            // continue to next window
             thisNode.animateLeftToRight( outputSlotX );
           }
         } );
@@ -373,7 +383,7 @@ define( function( require ) {
      * @private
      */
     animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
-      assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
+      assert && assert( this.dragLayer.hasChild( this ), 'animateRightToLeft: card should be in dragLayer' );
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
@@ -396,9 +406,14 @@ define( function( require ) {
                 thisNode.animateLeftToRight( outputSlotX );
               } );
           }
-          else if ( !thisNode.seeInsideProperty.get() ) {
+          else if ( thisNode.seeInsideProperty.get() ) {
 
-            // if 'See Inside' is not enabled, continue to next window
+            // stop at this window, register as the 'see inside' card
+            thisNode.registerAsSeeInsideCard( outputSlotX );
+          }
+          else {
+
+            // continue to next window
             thisNode.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
           }
         } );
@@ -410,6 +425,58 @@ define( function( require ) {
           function() {
             thisNode.animateToCarousel( thisNode.inputContainer );
           } );
+      }
+    },
+
+    /**
+     * Flushes this card from a 'see inside' window.  Sends it directly to its container in the output carousel,
+     * without stopping at any 'see inside' windows. See issue #44.
+     *
+     * @param outputSlotX - x coordinate where card is considered to be in the output slot
+     * @public
+     */
+    flushSeeInsideCard: function( outputSlotX ) {
+      assert && assert( this.dragLayer.hasChild( this ), 'flushSeeInsideCard: card should be in dragLayer' );
+      assert && assert( !this.card.dragging, 'flushSeeInsideCard: card should be parked in See Inside window' );
+      assert && assert( this.builderNode.seeInsideCardNode == this, 'flushSeeInsideCard: not a See Inside card' );
+
+      // animate to output slot, then to output carousel
+      var thisNode = this;
+      thisNode.card.animateTo( new Vector2( outputSlotX, thisNode.builderNode.builder.location.y ),
+        function() {
+          thisNode.animateToCarousel( thisNode.outputContainer );
+        } );
+    },
+
+    /**
+     * Registers this card as the sole card that may occupy 'see inside' windows.
+     * Any card that currently occupies a window is flushed to the output carousel.
+     * See issue #44.
+     *
+     * @param {number} outputSlotX - x coordinate where card is considered to be in the output slot
+     * @private
+     */
+    registerAsSeeInsideCard: function( outputSlotX ) {
+
+      // flush any existing 'see inside' card
+      if ( this.builderNode.seeInsideCardNode ) {
+        this.builderNode.seeInsideCardNode.flushSeeInsideCard( outputSlotX );
+        this.builderNode.seeInsideCardNode = null;
+      }
+
+      // register as the 'see inside' card
+      this.builderNode.seeInsideCardNode = this;
+    },
+
+    /**
+     * Unregisters this card as the sole card that may occupy 'see inside' windows. See issue #44.
+     * If this card is not currently registered, this is a no-op.
+     *
+     * @private
+     */
+    unregisterAsSeeInsideCard: function() {
+      if ( this === this.builderNode.seeInsideCardNode ) {
+        this.builderNode.seeInsideCardNode = null;
       }
     }
   }, {
