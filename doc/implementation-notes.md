@@ -61,7 +61,7 @@ There are two primary types of functions:
 [MathFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/MathFunction.js)
 and its subtypes.
 
-(RationalNumber)[https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js]
+[RationalNumber](https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js)
 implements support for rational numbers. This is a thin wrapper around the 3rd-party library
 [BigRational.js](https://github.com/peterolson/BigRational.js).
 It exposes only the functionality required for this simulation, so is not generally useful.
