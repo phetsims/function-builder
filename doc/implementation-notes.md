@@ -9,9 +9,31 @@ with JavaScript and PhET simulation development (as described in [PhET Developme
 First, read [model.md](https://github.com/phetsims/function-builder/blob/master/doc/model.md), which provides
 a high-level description of the simulation model.
 
-Things to discuss...
+Terminology, which you'll see throughout the source code:
 
-No model-view transform. All locations are in the view coordinate frame.
+* builder - the apparatus in the center of the screen
+* cards - the things in the input and output carousel, that you drag through the builder
+* challenge - a series of 1 or more functions in Mystery screen's builder. The user's tasks is to guess the function(s) in the challenge.
+* drawers - things that slide out of the top & bottom of the builder, to reveal additional representations
+* functions - the things in the functions carousel, that you drag into slots in the builder
+* function carousel - horizontal carousel at bottom of screen
+* generate button - the yellow button centered below the builder in the Mystery screen. Pressing it selects a challenge randomly from the pool.
+* input carousel - vertical carousel on the left side of the screen
+* output carousel - vertical carousel on the right side of the screen
+* reveal buttons - toggle buttons below the functions in the Mystery screen (they have eyeball icons on them).
+Pressing a "reveal" button shows/hides the identity of the function directly above it. These buttons are initially
+disabled for a challenge. They are enabled when the output carousel contains 3 cards, and they remain enabled until
+a new challenge is generated.
+* scene - a builder, set of cards and set of functions. Each screen has 1 or more scenes
+* "see inside" windows - windows that appear in the builder to display intermediate results
+* slots - places where you can drop functions in the builder
+
+Many PhET simulations have a model-view transform that maps between model and view coordinate frames. This
+simulation has no specific model coordinate frame, so the model and view coordinate frames are equivalent, and
+no transform is required. (If you don't understand that, don't worry about it.)
+
+
+Each screen has one or more *scenes*.
 
 What is a 'scene', only Patterns screen has multiple scenes
 
