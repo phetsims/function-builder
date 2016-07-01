@@ -39,12 +39,12 @@ define( function( require ) {
     /**
      * Creates cards and puts them in the container.
      *
-     * @param {number} numberOfInstances
+     * @param {number} numberOfInstances - number of instances of the card to create
      * @param {Scene} scene
-     * @param {CardContainer} inputContainer
-     * @param {CardContainer} outputContainer
+     * @param {CardContainer} inputContainer - container in the input carousel
+     * @param {CardContainer} outputContainer - container in the output carousel
      * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
+     * @param {Node} dragLayer - parent for a CardNode when it's being dragged or animating
      * @param {SeeInsideLayer} seeInsideLayer
      * @param {Property.<boolean>} seeInsideProperty
      * @public
@@ -82,7 +82,7 @@ define( function( require ) {
     /***
      * Creates the model element for a card.
      *
-     * @param {*} value - the card's value, type determined by subtype
+     * @param {*} value - the value displayed on the card, type determined by subtype
      * @param {Vector2} location - the card's initial location
      * @returns {Card}
      * @protected
@@ -96,10 +96,10 @@ define( function( require ) {
      * Creates the view element (Node) for a card.
      *
      * @param {Card} card
-     * @param {CardContainer} inputContainer
-     * @param {CardContainer} outputContainer
+     * @param {CardContainer} inputContainer - container in the input carousel
+     * @param {CardContainer} outputContainer - container in the output carousel
      * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
+     * @param {Node} dragLayer - parent for a CardNode when it's being dragged or animating
      * @param {SeeInsideLayer} seeInsideProperty
      * @returns {CardNode}
      * @protected

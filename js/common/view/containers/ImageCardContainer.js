@@ -37,8 +37,8 @@ define( function( require ) {
     /**
      * Creates the model element for a card.
      *
-     * @param {HTMLImageElement} value
-     * @param {Vector2} location
+     * @param {HTMLImageElement} value - the image displayed on the card
+     * @param {Vector2} location - the card's initial location
      * @returns {ImageCard}
      * @protected
      * @override

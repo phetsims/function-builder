@@ -40,8 +40,8 @@ define( function( require ) {
     /**
      * Creates the model element for a card.
      *
-     * @param {RationalNumber} value
-     * @param {Vector2} location
+     * @param {RationalNumber} value - the number displayed on the card
+     * @param {Vector2} location - the card's initial location
      * @returns {NumberCard}
      * @protected
      * @override

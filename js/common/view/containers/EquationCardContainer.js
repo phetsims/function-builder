@@ -39,8 +39,8 @@ define( function( require ) {
     /**
      * Creates the model element for a card.
      *
-     * @param {string} value
-     * @param {Vector2} location
+     * @param {string} value - the symbol displayed on the card, typically 'x'
+     * @param {Vector2} location - the card's initial location
      * @returns {EquationCard}
      * @protected
      * @override

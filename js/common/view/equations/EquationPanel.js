@@ -35,7 +35,7 @@ define( function( require ) {
 
   /**
    * @param {Builder} builder
-   * @param {Property.<boolean>} slopeInterceptProperty
+   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
    * @param {Object} [options]
    * @constructor
    */
