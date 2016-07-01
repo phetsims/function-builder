@@ -32,10 +32,17 @@ a new challenge is generated.
 
 ## General
 
-Many PhET simulations have a model-view transform that maps between model and view coordinate frames
+**Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate frames
 (see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
 The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
 are treated as equivalent, and no transform is required. (If you don't understand that, don't worry about it.)
+
+**Initialization**: This simulation takes a long time to initialize, which can be a little annoying or disconcerting for the user.
+We implemented 2 initialization strategies: (1) on start, which initializes when the sim starts, and
+(2) on demand, which initialize when a feature is first used. These 2 strategies can be selected independently
+for ScreenView and SceneNode types, using query parameters.
+It investigate this further, see `'initScreenViews'` and `'initScenes` in
+[FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
 ## Model
 
