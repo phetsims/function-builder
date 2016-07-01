@@ -159,8 +159,8 @@ and its subtypes has responsibility for creating the model and view of cards.
 [FunctionContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/FunctionContainer.js)
 has responsibility for creating the model and view of functions.
 
-**Animation**: Tween.js is used solely for fading between scenes. All other animation is the responsibility
-of the model
+**Animation**: The view is responsible only for fading between scenes (using Tween.js).
+All other animation is the responsibility of the model
 (see `step` in [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)).
 
 **Mystery screen notes**: The Mystery screen was added late in the development process. This had a few
