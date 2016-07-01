@@ -42,7 +42,8 @@ define( function( require ) {
 
     }, options );
 
-    assert && assert( orientation === 'left' || orientation === 'right', 'invalid value for orientation: ' + orientation );
+    assert && assert( orientation === 'left' || orientation === 'right',
+      'invalid value for orientation: ' + orientation );
 
     // ellipse
     var ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {
