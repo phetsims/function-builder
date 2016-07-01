@@ -438,7 +438,7 @@ define( function( require ) {
     flushSeeInsideCard: function( outputSlotX ) {
       assert && assert( this.dragLayer.hasChild( this ), 'flushSeeInsideCard: card should be in dragLayer' );
       assert && assert( !this.card.dragging, 'flushSeeInsideCard: card should be parked in See Inside window' );
-      assert && assert( this.builderNode.seeInsideCardNode == this, 'flushSeeInsideCard: not a See Inside card' );
+      assert && assert( this.builderNode.seeInsideCardNode === this, 'flushSeeInsideCard: not a See Inside card' );
 
       // animate to output slot, then to output carousel
       var thisNode = this;
