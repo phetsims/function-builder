@@ -48,8 +48,8 @@ To investigate this further, see `'initScreenViews'` and `'initScenes'` in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
 **Memory management**: All objects created in this simulation exist for the lifetime of the simulation. So in
-most cases, when an observer is registered (e.g. via `link`, `addListener`), there is no need to unregister that
-observer (e.g. via `unlink`, `removeListener`).  For clarity, all calls that register an observer indicate whether
+most cases, when an observer is registered (e.g. via `link` or `addListener`), there is no need to unregister that
+observer (e.g. via `unlink` or `removeListener`).  For clarity, all calls that register an observer indicate whether
 a corresponding unregister call is required. For example:
 
 ```js
