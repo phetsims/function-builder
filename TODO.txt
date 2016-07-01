@@ -2,8 +2,6 @@ TODO list for function-builder
 
 constrain to 1 card "parked" in the builder at a time #44
 
-code review
-
 implementation warts:
 - use the FunctionCreator pattern for Cards
 - contentNode is passed to CardNode by subtypes, some subtypes mutate it, while others replace it
