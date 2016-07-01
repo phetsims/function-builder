@@ -2,8 +2,6 @@ TODO list for function-builder
 
 constrain to 1 card "parked" in the builder at a time #44
 
-write implementation-notes.md
-
 code review
 
 implementation warts:
