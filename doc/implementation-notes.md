@@ -9,7 +9,7 @@ with JavaScript and PhET simulation development (as described in [PhET Developme
 First, read [model.md](https://github.com/phetsims/function-builder/blob/master/doc/model.md), which provides
 a high-level description of the simulation model.
 
-Terminology, which you'll see throughout the source code:
+Terminology (in alphabetical order), which you'll see throughout the source code:
 
 * builder - the apparatus in the center of the screen
 * cards - the things in the input and output carousel, that you drag through the builder
