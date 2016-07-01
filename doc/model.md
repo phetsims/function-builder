@@ -21,6 +21,12 @@ The output in this case is an equation in
 (y = mx + b). An additional equation format is also provided, as described in
 [equation-formats.md](https://github.com/phetsims/function-builder/blob/master/doc/equation-formats.md).
 
+In the "Mystery" screen, the objective is to guess the identity of a series of 1 or more functions. Each such
+series of functions is referred to as a "challenge".  The simulation has a set of predefined challenges, from
+which a challenge is selected at random. If you don't mind reading some JavaScript code, you can view the sets
+of challenges in
+[MysteryChallenges.js](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryChallenges.js).
+
 In all screens, the notion of non-invertible functions is supported. A function is not invertible if it's output
 cannot be run backwards through the function to produce the original input. Examples: Multiplication by zero is a
 non-invertible numeric function. Conversion to grayscale is a non-invertible image transform.
