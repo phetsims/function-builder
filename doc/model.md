@@ -1,4 +1,7 @@
-# Function Builder - simulation model description
+# Function Builder - model description
+
+This is a high-level description of the model used in Function Builder. It's intended for audiences
+that are not necessarily technical.
 
 Compared to other PhET simulations, the model in Function Builder is relatively trivial.
 A series of zero or more functions is constructed in a function *builder*.
