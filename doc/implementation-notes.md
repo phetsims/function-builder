@@ -24,7 +24,7 @@ In alphabetical order:
 * generate button - the yellow button centered below the builder in the Mystery screen. Pressing it selects a challenge randomly from the pool.
 * input carousel - vertical carousel on the left side of the screen
 * output carousel - vertical carousel on the right side of the screen
-* reveal buttons - toggle buttons below the functions in the Mystery screen (they have eyeball icons on them). Pressing a "reveal" button shows/hides the identity of the function directly above it. These buttons are initially disabled for a challenge. They are enabled when the output carousel contains 3 cards, and they remain enabled until a new challenge is generated.
+* reveal buttons - toggle buttons below the functions in the Mystery screen (they have eyeball icons on them). Pressing a reveal button shows/hides the identity of the function directly above it. These buttons are initially disabled for a challenge. They are enabled when the output carousel contains 3 cards, and they remain enabled until a new challenge is generated.
 * scene - a builder, set of cards and set of functions. Each screen has 1 or more scenes
 * "see inside" windows - windows that appear in the builder to display intermediate results
 * slots - places where you can drop functions in the builder
