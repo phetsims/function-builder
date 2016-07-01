@@ -160,8 +160,8 @@ has responsibility for creating the model and view of functions.
 edges of the builder in some scenes.
 [MathSceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MathSceneNode.js)
 optionally adds drawers for these 3 features:
-* XY table - a table of input and output values
-* XY graph - a graph of (x,y) points and the line that represents the functions in the builder
+* Table - a table of input and output values
+* Graph - a graph of (x,y) points and the line that represents the functions in the builder
 * Equation - equation (in 2 forms) that represents the functions in the builder
 
 **Animation**: The view is responsible only for fading between scenes (using Tween.js).
