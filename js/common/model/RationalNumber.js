@@ -1,7 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A wrapper around the portion of BigRational.js needed by this simulation.
+ * A wrapper around BigRational.js. Since this wraps only the portion of BigRational.js needed by this simulation,
+ * it's unlikely to be useful in other sims, and inappropriate to move to a common-code repository.
+ *
  * Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.
  * See https://github.com/peterolson/BigRational.js
  *

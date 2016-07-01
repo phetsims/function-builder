@@ -4,6 +4,10 @@
  * Displays a rational number.
  * The number can be displayed as either a mixed number or improper fraction (see options.mixedNumber).
  *
+ * This node requires RationalNumber, which wraps only the portion of BigRational.js needed by this simulation.
+ * Without a more general implementation of RationalNumber, it is not appropriate to move this node to a
+ * common-code repository.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
