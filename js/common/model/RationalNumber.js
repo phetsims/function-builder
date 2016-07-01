@@ -51,6 +51,7 @@ define( function( require ) {
      * Gets the numerator. Assumes that BigRational stores its value in reduced form.
      *
      * @returns {number}
+     * @public
      */
     getNumerator: function() { return this.bigRational.numerator.valueOf(); },
     get numerator() { return this.getNumerator(); },
@@ -59,6 +60,7 @@ define( function( require ) {
      * Gets the denominator. Assumes that BigRational stores its value in reduced form.
      *
      * @returns {number}
+     * @public
      */
     getDenominator: function() { return this.bigRational.denominator.valueOf(); },
     get denominator() { return this.getDenominator(); },
@@ -69,6 +71,7 @@ define( function( require ) {
      *
      * @param {RationalNumber} rationalNumber
      * @returns {boolean}
+     * @public
      */
     equals: function( rationalNumber ) {
       return ( rationalNumber.valueOf() === this.valueOf() );
@@ -78,6 +81,7 @@ define( function( require ) {
      * Gets the value of this RationalNumber.
      *
      * @returns {number}
+     * @public
      */
     valueOf: function() { return this.bigRational.valueOf(); },
 
@@ -85,6 +89,7 @@ define( function( require ) {
      * String representation, do not rely on the format of this!
      *
      * @returns {string}
+     * @public
      */
     toString: function() { return this.bigRational.toString(); },
 
@@ -93,6 +98,7 @@ define( function( require ) {
      *
      * @param {number} integerValue
      * @returns {RationalNumber}
+     * @public
      */
     plus: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
@@ -104,6 +110,7 @@ define( function( require ) {
      *
      * @param {number} integerValue
      * @returns {RationalNumber}
+     * @public
      */
     minus: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
@@ -115,6 +122,7 @@ define( function( require ) {
      *
      * @param {number} integerValue
      * @returns {RationalNumber}
+     * @public
      */
     times: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
@@ -126,6 +134,7 @@ define( function( require ) {
      *
      * @param {number} integerValue
      * @returns {RationalNumber}
+     * @public
      */
     divide: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
@@ -136,6 +145,7 @@ define( function( require ) {
      * Absolute value of this RationalNumber, returns a new instance.
      *
      * @returns {RationalNumber}
+     * @public
      */
     abs: function() {
       return toRationalNumber( this.bigRational.abs() );
@@ -145,6 +155,7 @@ define( function( require ) {
      * Is this RationalNumber an integer?
      *
      * @returns {boolean}
+     * @public
      */
     isInteger: function() {
       return ( this.valueOf() % 1 === 0 );
@@ -154,6 +165,7 @@ define( function( require ) {
      * Gets the whole number part of this RationalNumber's value.
      *
      * @returns {number}
+     * @public
      */
     wholeNumberPart: function() {
       var value = this.bigRational.valueOf();
@@ -164,6 +176,7 @@ define( function( require ) {
      * Gets the fractional part of this RationalNumber's value, returns a new instance.
      *
      * @returns {RationalNumber}
+     * @public
      */
     fractionPart: function() {
       return this.minus( this.wholeNumberPart() );
@@ -175,6 +188,8 @@ define( function( require ) {
      *
      * @param {number} integerValue
      * @returns {RationalNumber}
+     * @public
+     * @static
      */
     withInteger: function( integerValue ) {
       assert && assert( Util.isInteger( integerValue ) );
