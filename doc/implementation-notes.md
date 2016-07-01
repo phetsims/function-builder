@@ -157,7 +157,7 @@ and its subtypes has responsibility for creating the model and view of cards.
 has responsibility for creating the model and view of functions.
 
 **Drawers**: A drawer is a user-interface component for showing/hiding a feature. Drawers appear on the top and bottom
-edges of the builder in some scenes.
+edges of the builder in scenes that involve mathematical functions.
 [MathSceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MathSceneNode.js)
 optionally adds drawers for these 3 features:
 * Table - a table of input and output values
