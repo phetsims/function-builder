@@ -32,10 +32,9 @@ a new challenge is generated.
 
 ## General
 
-Many PhET simulations have a model-view transform (see
-[ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js))
-that maps between model and view coordinate frames. This
-simulation has no specific model coordinate frame, so the model and view coordinate frames are equivalent, and
+Many PhET simulations have a model-view transform that maps between model and view coordinate frames
+(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
+This simulation has no specific model coordinate frame, so the model and view coordinate frames are equivalent, and
 no transform is required. (If you don't understand that, don't worry about it.)
 
 ## Model
