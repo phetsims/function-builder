@@ -38,6 +38,42 @@ no transform is required. (If you don't understand that, don't worry about it.)
 
 ## Model
 
+The base type for anything that can be moved (ie, cards and functions) is [
+Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js).
+It is responsible for an object's location and animation to a desired location.
+
+The card model (see
+[Card](https://github.com/phetsims/function-builder/blob/master/js/common/model/cards/Card.js)
+and its subtypes) has no responsibility for what is displayed on a card. It
+provides the input information to the builder.  What is actually displayed on a card is the responsibility
+of the view (see
+[CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
+and its subtypes).
+
+The function model (see
+[AbstractFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/AbstractFunction.js)
+and its subtypes) is responsible for applying the function to an input and producing an output. For programming
+convenience, it also carries some view-specific information (e.g., the color of the function's background,
+the icon to display on the function to identify it).
+
+There are two primary types of functions:
+* image functions: These functions perform an image transform using Canvas.  See
+[ImageFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/ImageFunction.js).
+* numeric functions: These functions perform mathematical functions using rational numbers. See
+[MathFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/MathFunction.js)
+and its subtypes.
+
+Support for rational numbers is implemented in
+(RationalNumber)[https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js].
+This is a wrapper around the 3rd-party library [BigRational.js](https://github.com/peterolson/BigRational.js).
+It wraps only the functionality required for this simulation, so is not generally useful.
+
+The builder is modeled in
+[Builder](https://github.com/phetsims/function-builder/blob/master/js/common/model/builder/Builder.js). It is
+responsible for managing the functions in its slots, and applying those functions to cards. For programming
+convenience, it also carries some view-specific information (e.g., the builder's dimensions, the color scheme
+applied to the builder).
+
 ## View
 
 
