@@ -22,6 +22,12 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
+   * NOTE: The relatively large number of constructor parameters here is a tradeoff. There are many things
+   * involved in drag handling and animation. We could have reduced the number of parameters by distributing
+   * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
+   * like a superior solution.  So I chose encapsualtion at the expense of some increased coupling.
+   * See discussion in https://github.com/phetsims/function-builder/issues/77
+   *
    * @param {AbstractFunction} functionInstance - model element associated with this node
    * @param {Node} contentNode - content that appears on the function, specific to functionInstance
    * @param {FunctionContainer} container - container in the function carousel where this node originates
