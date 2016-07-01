@@ -5,7 +5,7 @@ A series of zero or more functions is constructed in a function "builder".
 The input to the builder is a set of "cards". As you drag cards through the builder, the cards are
 modified by functions to produce an output.
 Intermediate results are visible through "windows" in the builder, that allow you to see what's happening
-inside the builder.
+inside the builder.  The absence of a function is equivalent to the identity function.
 
 In the "Patterns" screen, the cards are images. The functions are image transforms,
 which modify the image in various ways (rotation, scaling, color mapping, etc.)
