@@ -17,6 +17,7 @@ In alphabetical order:
 * builder - the apparatus in the center of the screen
 * cards - the things in the input and output carousel, that you drag through the builder
 * challenge - a series of 1 or more functions in Mystery screen's builder. The user's tasks is to guess the function(s) in the challenge.
+* container - an item in a carousel, which contains cards or functions
 * drawers - things that slide out of the top & bottom of the builder, to reveal additional representations
 * functions - the things in the functions carousel, that you drag into slots in the builder
 * function carousel - horizontal carousel at bottom of screen
@@ -64,7 +65,8 @@ movable.locationProperty.link( ... );
 
 ## Model
 
-This section provides an overview of the most important model elements.
+This section provides an overview of the most important model elements, and some miscellaneous topics
+related to the model.
 
 [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)
 is the base type for anything that can be moved (ie, cards and functions).
@@ -80,6 +82,10 @@ and its subtypes).
 and its subtypes implement the function model. The function model is responsible for applying the function to an
 input and producing an output. For programming convenience, it also carries some view-specific information
 (e.g., the color of the function's background, the icon to display on the function to identify it).
+For invertible functions, an explicit inverse function is not implemented.
+Instead, all computations are performed in the forward direction, based on an input's location relative
+to a function. A card's location is constrained based on whether a function is invertible; cards cannot be
+dragged backwards through non-invertible functions.
 
 There are two primary types of functions:
 * image functions: These functions perform an image transform using Canvas.  See
@@ -95,9 +101,9 @@ It exposes only the functionality required for this simulation, so is not likely
 simulations.
 
 [Builder](https://github.com/phetsims/function-builder/blob/master/js/common/model/builder/Builder.js)
-implements the builder model. It is responsible for managing the functions in its slots, and applying those
-functions to cards. For programming convenience, it also carries some view-specific information (e.g.,
-the builder's dimensions, the color scheme applied to the builder).
+and its subtypes implement the builder model. It is responsible for managing the functions in its slots, and
+applying those functions to cards. For programming convenience, it also carries some view-specific information
+(e.g., the builder's dimensions, the color scheme applied to the builder).
 
 [Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
 and its subtypes implement a specific configuration that is to be displayed to the user.
@@ -116,26 +122,53 @@ the second phase, the scenes are then populated with cards and functions. To inv
 `completeInitialization` in
 [SceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneNode.js).
 
-
 ## View
+
+This section provides an overview of the most important view components, and some miscellaneous topics
+related to the view.
+
+[MovableNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MovableNode.js)
+is the base type for all nodes that move or animate (i.e., cards and functions).
+
+[CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
+and its subtypes implement are responsible for what appears on the cards, based on their location
+relative to the functions in the builder. CardNode encapsulates all drag handling for cards.
+
+[FunctionNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/functions/FunctionNode.js)
+and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling for cards.
+
+[BuilderNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/builder/BuilderNode.js)
+implements the view of the builder, with a 3D perspective. It uses scenery's `clipArea` feature
+to provide the illusion that cards are being dragged through the builder.
+
+[SeeInsideLayer]() uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the
+illusion of being able to "see inside" the builder. All instances of CardNode are descendants of this node,
+and thus visible when they pass a window.
+
+[SceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneNode.js) and
+its subtypes display a scene.  Each screen has 1 or more scene.  If a screen has more than 1 scene, it
+also has a control for selecting a scene (see
+[SceneControl](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneControl.js)).
+
+**Carousels and containers**: Cards and functions are not put directly into carousels. Rather, cards and functions
+are put into *containers*, which are then put into the carousels. See
+[MovableContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/MovableContainer.js)
+and its subtypes.
+[CardContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/CardContainer.js)
+and its subtypes has responsibility for creating the model and view of cards.
+[FunctionContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/FunctionContainer.js)
+has responsibility for creating the model and view of functions.
 
 **Animation**: Tween.js is used solely for fading between scenes. All other animation is the responsibility
 of the model
 (see `step` in [Movable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)).
 
-Each screen has one or more *scenes*.
-
-Carousels and containers
-
-Movable: dragging vs animation
-
-Drag handling: MovableNode, FunctionNode, CardNode, every drag ends with an animation, no need for dragBounds
-
-No inverse functions, always compute forward
-
-See Inside layer uses scenery DAG and clipArea features
-
-CardNode is responsible for what is displayed on the card based on the card's location.
-
-Mystery screen reuses 'scene' architecture, each scene has a hidden function carousel, programmatically
-get functions from the carousel to construct challenges.
+**Mystery screen notes**: The Mystery screen was added late in the development process. This had a few
+unfortunate (but not tragic) consequences for its implementation, which are worth describing here.
+The Mystery screen has 3 scenes, but (unlike the other screens) no function carousel.  The function carousel
+was at this point deeply ingrained in the architecture of scenes. So in order to reuse what had been done for
+other screens, the function carousel exists in the Mystery screen, but is made invisible. The function carousel
+is populated with enough functions to handle all challenges. When a challenge is generated, functions are moved
+between the (invisible) carousel and the builder, and the functions are configured to match the challenge.
+Had this screen been included from the beginning, this is undoubtedly not how things would have been
+implemented. But it does work well, and is not unreasonably complicated to understand.
