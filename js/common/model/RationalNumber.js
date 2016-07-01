@@ -3,6 +3,7 @@
 /**
  * A wrapper around the portion of BigRational.js needed by this simulation.
  * Requires BigInteger.js and BigRational.js to be added to phet.preload in package.json.
+ * See https://github.com/peterolson/BigRational.js
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
