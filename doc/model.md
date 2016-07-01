@@ -16,9 +16,10 @@ supported, and is specifically excluded by the simulation. The output cards disp
 (integer with proper fraction).
 
 The "Equations" screen adds the symbol "x" on an input card.  The same numeric functions are applicable to "x".
-The output in this case is an equation in slope-intercept form (y = mx + b). An additional equation form is also
-provided, as described in
-(equation-formats.md)[https://github.com/phetsims/function-builder/blob/master/doc/equation-formats.md].
+The output in this case is an equation in
+[slope-intercept](https://en.wikipedia.org/wiki/Linear_equation#Slope.E2.80.93intercept_form)
+form (y = mx + b). An additional equation form is also provided, as described in
+[equation-formats.md](https://github.com/phetsims/function-builder/blob/master/doc/equation-formats.md).
 
 In all screens, the notion of non-invertible functions is supported. A function is not invertible if it's output
 cannot be run backwards through the function to produce the original input. Examples: Multiplication by zero is a
