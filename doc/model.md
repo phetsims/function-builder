@@ -4,7 +4,7 @@ This is a high-level description of the model used in Function Builder. It's int
 that are not necessarily technical.
 
 Compared to other PhET simulations, the model in Function Builder is relatively trivial.
-A series of zero or more functions is constructed in a function *builder*.
+A set of zero or more functions is arranged in series in a function *builder*.
 The input to the builder is a set of *cards* that have something on them (call it the card's *content*).
 As you drag a card through the builder, the card's content is modified by functions.
 Intermediate results are visible through *windows* in the builder, that allow you to see what's happening
@@ -24,8 +24,8 @@ The output in this case is an equation in
 (y = mx + b). An additional equation format is also provided, as described in
 [equation-formats.md](https://github.com/phetsims/function-builder/blob/master/doc/equation-formats.md).
 
-In the Mystery screen, the objective is to guess the identity of a series of 1 or more functions. Each such
-series of functions is referred to as a *challenge*.  The simulation has a set of predefined challenges, from
+In the Mystery screen, the objective is to guess the identity of a set of 1 or more functions. Each such
+set of functions is referred to as a *challenge*.  The simulation has a set of predefined challenges, from
 which a challenge is selected at random. If you don't mind reading JavaScript code, you can view the sets
 of challenges in
 [MysteryChallenges.js](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryChallenges.js).
