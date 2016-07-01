@@ -40,6 +40,10 @@ This section describes how this simulation uses patterns that are common to most
 The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
 are treated as equivalent, and no transform is required. (If you don't understand that, don't worry about it.)
 
+**Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
+testing. All such query parameters are documented in
+FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
+
 **Initialization**: This simulation takes a long time to initialize, which can be a little annoying or disconcerting for the user.
 We implemented 2 initialization strategies: (1) on start, which initializes when the sim starts, and
 (2) on demand, which initialize when a feature is first used. These 2 strategies can be selected independently
