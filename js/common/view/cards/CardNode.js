@@ -236,7 +236,6 @@ define( function( require ) {
 
     // @protected
     this.backgroundNode = backgroundNode;
-    this.numberOfFunctionsToApplyProperty = numberOfFunctionsToApplyProperty;
 
     // @private
     this.inputContainer = inputContainer;
