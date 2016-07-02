@@ -3,7 +3,7 @@
 This is a high-level description of the model used in Function Builder. It's intended for audiences
 that are not necessarily technical.
 
-Compared to other PhET simulations, the model in Function Builder is relatively trivial.
+Compared to other PhET simulations, the model in Function Builder is relatively simple.
 A set of zero or more functions is arranged in series in a function *builder*.
 The input to the builder is a set of *cards* that have something on them (call it the card's *content*).
 As you drag a card through the builder, the card's content is modified by functions.
