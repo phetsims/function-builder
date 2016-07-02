@@ -138,7 +138,7 @@ and animation behavior for functions.
 
 [BuilderNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/builder/BuilderNode.js)
 implements the view of the builder, with a pseudo-3D perspective. It uses scenery's `clipArea` feature
-to provide the illusion that cards are being dragged through the builder.
+to provide the illusion of cards are being dragged through the builder.
 
 [SeeInsideLayer]() uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the
 illusion of being able to "see inside" the builder. All instances of CardNode are descendants of this node,
