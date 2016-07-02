@@ -180,4 +180,4 @@ function carousel is invisible, it continues to play an important, as a source o
 The function carousel is populated with enough functions to handle all challenges. When a challenge is generated,
 functions are moved between the (invisible) carousel and the builder, and the functions are configured to match
 the challenge. Had this screen been included from the beginning, this is *not* how things would have been
-implemented. But it does work well, and is not unreasonably complicated to understand.
+implemented. But this solution does work well, and is not unreasonably complicated to understand.
