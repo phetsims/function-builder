@@ -137,7 +137,7 @@ and its subtypes implement the view of functions. FunctionNode encapsulates all 
 and animation behavior for functions.
 
 [BuilderNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/builder/BuilderNode.js)
-implements the view of the builder, with a 3D perspective. It uses scenery's `clipArea` feature
+implements the view of the builder, with a pseudo-3D perspective. It uses scenery's `clipArea` feature
 to provide the illusion that cards are being dragged through the builder.
 
 [SeeInsideLayer]() uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the
