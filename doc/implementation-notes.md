@@ -129,10 +129,12 @@ is the base type for all nodes that move or animate (i.e., cards and functions).
 
 [CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
 and its subtypes are responsible for what appears on the cards, based on their location
-relative to the functions in the builder. CardNode encapsulates all drag handling for cards.
+relative to the functions in the builder. CardNode encapsulates all drag handling and animation behavior
+for cards.
 
 [FunctionNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/functions/FunctionNode.js)
-and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling for cards.
+and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling 
+and animation behavior for functions.
 
 [BuilderNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/builder/BuilderNode.js)
 implements the view of the builder, with a 3D perspective. It uses scenery's `clipArea` feature
