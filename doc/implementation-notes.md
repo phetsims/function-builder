@@ -154,7 +154,7 @@ are put into *containers*, which are then put into the carousels. See
 [MovableContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/MovableContainer.js)
 and its subtypes.
 [CardContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/CardContainer.js)
-and its subtypes has responsibility for creating the model and view of cards.
+and its subtypes have responsibility for creating the model and view of cards.
 [FunctionContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/FunctionContainer.js)
 has responsibility for creating the model and view of functions.
 
