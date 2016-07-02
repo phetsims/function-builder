@@ -128,7 +128,7 @@ related to the view.
 is the base type for all nodes that move or animate (i.e., cards and functions).
 
 [CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
-and its subtypes implement are responsible for what appears on the cards, based on their location
+and its subtypes are responsible for what appears on the cards, based on their location
 relative to the functions in the builder. CardNode encapsulates all drag handling for cards.
 
 [FunctionNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/functions/FunctionNode.js)
