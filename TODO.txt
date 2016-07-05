@@ -3,5 +3,4 @@ TODO list for function-builder
 implementation warts:
 - use the FunctionCreator pattern for Cards
 - FunctionNode doesn't handle scaling contentNode or hiddenNode to card
-- CardNode.createGhostNode and subtype implementations could have options and scaling out of sync with CardNode instances
 - Builder and BuilderNode know nothing about cards; cards are never really "in" the builder or its windows
