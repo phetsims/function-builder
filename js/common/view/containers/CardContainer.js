@@ -25,7 +25,8 @@ define( function( require ) {
   function CardContainer( cardConstructor, cardNodeConstructor, cardContent, options ) {
 
     options = _.extend( {
-      size: FBConstants.CARD_OPTIONS.size
+      size: FBConstants.CARD_OPTIONS.size,
+      emptyNode: cardNodeConstructor.createGhostNode( cardContent ) // {Node} shown when the container is empty
     }, options );
 
     // @private
