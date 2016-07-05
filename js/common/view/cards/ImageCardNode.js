@@ -36,7 +36,7 @@ define( function( require ) {
       imageScale: DEFAULT_IMAGE_SCALE
     }, options );
 
-    // @private content that is displayed on the card, set by updateContent
+    // @private {Node} content that is displayed on the card, set by updateContent
     this.imageNode = null;
 
     // @private scale images uniformly, because using maxWidth/maxHeight could cause an unintended transform

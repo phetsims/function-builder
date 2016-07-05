@@ -20,6 +20,11 @@ define( function( require ) {
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
+  // constants
+  var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
+    0.75 * FBConstants.CARD_OPTIONS.size.width,
+    0.95 * FBConstants.CARD_OPTIONS.size.height );
+
   /**
    * @param {NumberCard} card
    * @param {CardContainer} inputContainer - container in the input carousel
@@ -34,16 +39,13 @@ define( function( require ) {
 
     assert && assert( card instanceof NumberCard );
 
-    options = options || {};
+    options = _.extend( {
+      maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
+    }, options );
 
-    // @private content that is displayed on the card, set by updateContent
-    this.rationalNumberNode = null;
-
-    // @private constrain content to fit on card
-    this.maxContentSize = new Dimension2(
-      0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ),
-      0.95 * ( options.size ? options.size.height : FBConstants.CARD_OPTIONS.size.height )
-    );
+    // @private
+    this.rationalNumberNode = null; // {Node} content that is displayed on the card, set by updateContent
+    this.maxContentSize = options.maxContentSize;
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -102,14 +104,16 @@ define( function( require ) {
      */
     createGhostNode: function( rationalNumber, options ) {
 
+      assert && assert( rationalNumber instanceof RationalNumber );
+
       options = _.extend( {
-        textMaxWidth: 0.75 * FBConstants.CARD_OPTIONS.size.width
+        maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 
-      assert && assert( rationalNumber instanceof RationalNumber );
       var contentNode = new Text( rationalNumber.valueOf(), {
         font: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
-        maxWidth: options.textMaxWidth
+        maxWidth: options.maxContentSize.width,
+        maxHeight: options.maxContentSize.height
       } );
       return CardNode.createGhostNode( contentNode, options );
     }

@@ -19,6 +19,11 @@ define( function( require ) {
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
+  // constants
+  var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
+    0.75 * FBConstants.CARD_OPTIONS.size.width,
+    0.95 * FBConstants.CARD_OPTIONS.size.height );
+
   /**
    * @param {EquationCard} card
    * @param {CardContainer} inputContainer - container in the input carousel
@@ -33,16 +38,13 @@ define( function( require ) {
 
     assert && assert( card instanceof EquationCard );
 
-    options = options || {};
+    options = _.extend( {
+      maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
+    }, options );
 
-    // @private content that is displayed on the card, set by updateContent
-    this.equationNode = null;
-
-    // @private constrain content to fit on card
-    this.maxEquationSize = new Dimension2(
-      0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ),
-      0.95 * ( options.size ? options.size.height : FBConstants.CARD_OPTIONS.size.height )
-    );
+    // @private
+    this.equationNode = null; // {Node} content that is displayed on the card, set by updateContent
+    this.maxEquationSize = options.maxContentSize;
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -99,14 +101,16 @@ define( function( require ) {
      */
     createGhostNode: function( symbol, options ) {
 
+      assert && assert( typeof symbol === 'string' );
+
       options = _.extend( {
-        textMaxWidth: 0.75 * FBConstants.CARD_OPTIONS.size.width
+        maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 
-      assert && assert( typeof symbol === 'string' );
       var contentNode = new Text( symbol, {
         font: FBConstants.EQUATION_CARD_XY_FONT,
-        maxWidth: options.textMaxWidth
+        maxWidth: options.maxContentSize.width,
+        maxHeight: options.maxContentSize.height
       } );
       return CardNode.createGhostNode( contentNode, options );
     }
