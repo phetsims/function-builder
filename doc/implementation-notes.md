@@ -177,7 +177,7 @@ The Mystery screen has 3 scenes, but (unlike the other screens) it has no functi
 is deeply ingrained in the architecture of scenes, and couldn't be removed without a great deal of redesign
 and destablization. So in order to reuse what had been done for
 other screens, the function carousel exists in the Mystery scenes, but is made invisible. And while the
-function carousel is invisible, it continues to play an important, as a source of functions.
+function carousel is invisible, it continues to play an important role, as a source of functions.
 The function carousel is populated with enough functions to handle all challenges. When a challenge is generated,
 functions are moved between the (invisible) carousel and the builder, and the functions are configured to match
 the challenge. Had this screen been included from the beginning, this is *not* how things would have been
