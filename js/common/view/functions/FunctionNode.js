@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for function nodes.
+ * Base type for function nodes. Provides a background shape for the function. Subtypes are responsible for
+ * ensuring that the content (what is displayed on the function) fits on the background.
  * All drag handling and animation behavior for functions is encapsulated here.
  *
  * @author Chris Malley (PixelZoom, Inc.)
