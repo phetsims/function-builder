@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -34,8 +35,14 @@ define( function( require ) {
 
     options = options || {};
 
-    // @private constrain equation to card
-    this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
+    // @private content that is displayed on the card, set by updateContent
+    this.equationNode = null;
+
+    // @private constrain content to fit on card
+    this.maxEquationSize = new Dimension2(
+      0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ),
+      0.95 * ( options.size ? options.size.height : FBConstants.CARD_OPTIONS.size.height )
+    );
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -54,21 +61,29 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
+      // remove previous equation
+      if ( this.equationNode ) {
+        this.removeChild( this.equationNode );
+      }
+
       /*
        * Apply functions in the builder. Pass in an empty array, because the functions in the builder
        * return MathFunction[], and the input is required to be of the same type as the output.
        */
       var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
-      // update the equation
+      // set new equation
       var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
-      var equationNode = new SlopeInterceptEquationNode(
-        slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
+      this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
           showLeftHandSide: false, // hide 'y =' part of equation
           xSymbol: this.card.xSymbol,
-          maxWidth: this.equationMaxWidth // constrain to card
+          maxWidth: this.maxEquationSize.width,
+          maxHeight: this.maxEquationSize.height
         } );
-      this.setContentNode( equationNode );
+      this.addChild( this.equationNode );
+
+      // center on the card
+      this.equationNode.center = this.backgroundNode.center;
     }
   }, {
 

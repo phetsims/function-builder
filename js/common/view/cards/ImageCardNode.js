@@ -36,10 +36,11 @@ define( function( require ) {
       imageScale: DEFAULT_IMAGE_SCALE
     }, options );
 
-    assert && assert( !options.contentNode, 'this card sets its own contentNode' );
-    options.contentNode = new Image( card.image, {
-      scale: options.imageScale
-    } );
+    // @private content that is displayed on the card, set by updateContent
+    this.imageNode = null;
+
+    // @private scale images uniformly, because using maxWidth/maxHeight could cause an unintended transform
+    this.imageScale = options.imageScale;
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -58,24 +59,27 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      var imageNode = this.contentNode;
+      // {HTMLCanvasElement} run the input image through the builder
+      var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
-      if ( numberOfFunctionsToApply === 0 ) {
+      if ( !this.imageNode ) {
 
-        // performance optimization
-        imageNode.setImageWithSize( this.card.image, this.card.image.width, this.card.image.height );
+        // create the node
+        this.imageNode = new Image( canvas.toDataURL(), {
+          initialWidth: canvas.width,
+          initialHeight: canvas.height,
+          scale: this.imageScale
+        } );
+        this.addChild( this.imageNode );
       }
       else {
 
-        // {HTMLCanvasElement} run the input image through the builder
-        var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
-
-        // display the output image
-        imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+        // update the node
+        this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
       }
 
       // center on the card
-      this.centerContent();
+      this.imageNode.center = this.backgroundNode.center;
     }
   }, {
 

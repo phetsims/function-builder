@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Abstract base type for card nodes.
+ * Abstract base type for card nodes. Provides a background shape for the card. Subtypes are responsible for the
+ * card's 'content' (what is displayed on the card), and for constraining the content to the dimensions of the card.
  * All drag handling and animation behavior for cards is encapsulated here.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -37,9 +38,7 @@ define( function( require ) {
    */
   function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    options = _.extend( {
-      contentNode: null // {Node} what appears on the card
-    }, FBConstants.CARD_OPTIONS, options );
+    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
     var thisNode = this;
 
@@ -49,9 +48,6 @@ define( function( require ) {
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode ];
-    if ( options.contentNode ) {
-      options.children.push( options.contentNode );
-    }
 
     var builder = builderNode.builder;
 
@@ -240,9 +236,10 @@ define( function( require ) {
     // @public
     this.card = card;
 
-    // @private
-    this._contentNode = options.contentNode;
+    // @protected
     this.backgroundNode = backgroundNode;
+
+    // @private
     this.inputContainer = inputContainer;
     this.outputContainer = outputContainer;
     this.builderNode = builderNode;
@@ -277,52 +274,6 @@ define( function( require ) {
   functionBuilder.register( 'CardNode', CardNode );
 
   return inherit( MovableNode, CardNode, {
-
-    /**
-     * Sets the content node. This is what is displayed on the card.
-     *
-     * @param {Node} contentNode
-     * @public
-     */
-    setContentNode: function( contentNode ) {
-      if ( !this._contentNode || this._contentNode !== contentNode ) {
-
-        // remove previous content
-        if ( this._contentNode ) {
-          this.removeChild( this._contentNode );
-        }
-
-        // set new content
-        this._contentNode = contentNode;
-        this.addChild( contentNode );
-        contentNode.moveToFront();
-
-        // center on the background
-        contentNode.center = this.backgroundNode.center;
-      }
-    },
-    set contentNode( value ) { this.setContentNode( value ); },
-
-    /**
-     * Gets the content on the card.
-     *
-     * @returns {Node|null}
-     * @public
-     */
-    getContentNode: function() { return this._contentNode; },
-    get contentNode() { return this.getContentNode(); },
-
-    /**
-     * Centers the content on the background.
-     * If the card has no content, this is a no-op.
-     *
-     * @public
-     */
-    centerContent: function() {
-      if ( this._contentNode ) {
-        this._contentNode.center = this.backgroundNode.center;
-      }
-    },
 
     /**
      * Updates the card's content, based on where the card is relative the the builder slots.

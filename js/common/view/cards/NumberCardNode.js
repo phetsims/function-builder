@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
@@ -35,15 +36,14 @@ define( function( require ) {
 
     options = options || {};
 
-    assert && assert( !options.contentNode, 'this card sets its own contentNode' );
-    options.contentNode = new RationalNumberNode( card.rationalNumber, {
-      mixedNumber: false, // display as improper fraction
-      negativeSymbol: FBSymbols.MINUS,
-      signFont: FBConstants.EQUATION_CARD_SIGN_FONT,
-      wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
-      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT,
-      maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
-    } );
+    // @private content that is displayed on the card, set by updateContent
+    this.rationalNumberNode = null;
+
+    // @private constrain content to fit on card
+    this.maxContentSize = new Dimension2(
+      0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ),
+      0.95 * ( options.size ? options.size.height : FBConstants.CARD_OPTIONS.size.height )
+    );
 
     CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
@@ -65,11 +65,28 @@ define( function( require ) {
       // {RationalNumber} run the input value through the builder
       var value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
 
-      // update the node
-      this.contentNode.setValue( value );
+      if ( !this.rationalNumberNode ) {
+
+        // create the node
+        this.rationalNumberNode = new RationalNumberNode( value, {
+          mixedNumber: false, // display as improper fraction
+          negativeSymbol: FBSymbols.MINUS,
+          signFont: FBConstants.EQUATION_CARD_SIGN_FONT,
+          wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
+          fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT,
+          maxWidth: this.maxContentSize.width,
+          maxHeight: this.maxContentSize.height
+        } );
+        this.addChild( this.rationalNumberNode );
+      }
+      else {
+
+        // update the node
+        this.rationalNumberNode.setValue( value );
+      }
 
       // center on the card
-      this.centerContent();
+      this.rationalNumberNode.center = this.backgroundNode.center;
     }
   }, {
 
