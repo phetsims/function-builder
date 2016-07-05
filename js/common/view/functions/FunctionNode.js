@@ -41,6 +41,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      size: FBConstants.FUNCTION_SIZE, // {Dimension2} size of the background
       identityVisible: true, // {boolean} is the function's identity visible?
       hiddenNode: new FontAwesomeNode( 'eye_close' ), // {Node} displayed when the function identity is hidden
       hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
@@ -51,7 +52,9 @@ define( function( require ) {
 
     var thisNode = this;
 
-    var backgroundNode = new FunctionBackgroundNode( functionInstance.viewOptions );
+    var backgroundNode = new FunctionBackgroundNode( _.extend( {
+      size: options.size
+    }, functionInstance.viewOptions ) );
 
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.fillProperty.link( function( fill ) {

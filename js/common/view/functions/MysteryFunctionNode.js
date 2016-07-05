@@ -29,14 +29,19 @@ define( function( require ) {
   function MysteryFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
     options = _.extend( {
+      size: FBConstants.FUNCTION_SIZE,
       identityVisible: false, // function's identity is not initially visible
-      hiddenNode: new Text( mysteryCharacterString, {
-        font: FBConstants.MYSTERY_FUNCTION_FONT,
-        maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
-      } ), // '?'
       hiddenFill: null, // don't change fill color when identity is hidden
       draggable: false // {boolean} Mystery functions are not draggable
     }, options );
+
+    // Node that is displayed when the function's identity is hidden
+    assert && assert( !options.hiddenNode );
+    options.hiddenNode = new Text( mysteryCharacterString, {
+      font: FBConstants.MYSTERY_FUNCTION_FONT,
+      maxWidth: 0.35 * options.size.width,
+      maxHeight: 0.9 * options.size.height
+    } );
 
     MathFunctionNode.call( this, functionInstance, container, builderNode, dragLayer, options );
   }
