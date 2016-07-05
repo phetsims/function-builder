@@ -25,7 +25,7 @@ define( function( require ) {
    * NOTE: The relatively large number of constructor parameters here is a tradeoff. There are many things
    * involved in drag handling and animation. I could have reduced the number of parameters by distributing
    * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
-   * like a superior solution.  So I chose encapsualtion at the expense of some increased coupling.
+   * like a superior solution.  So I chose encapsulation at the expense of some increased coupling.
    * See discussion in https://github.com/phetsims/function-builder/issues/77
    *
    * @param {AbstractFunction} functionInstance - model element associated with this node
