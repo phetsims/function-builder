@@ -36,8 +36,7 @@ define( function( require ) {
      * @returns {AbstractFunction}
      */
     createInstance: function( options ) {
-      var FunctionConstructor = this.functionConstructor;
-      return new FunctionConstructor( _.extend( {}, this.functionConstructorOptions, options ) );
+      return new this.functionConstructor( _.extend( {}, this.functionConstructorOptions, options ) );
     }
   } );
 } );
