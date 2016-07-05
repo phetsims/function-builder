@@ -2,4 +2,3 @@ TODO list for function-builder
 
 implementation warts:
 - use the FunctionCreator pattern for Cards
-- FunctionNode doesn't handle scaling contentNode or hiddenNode to card
