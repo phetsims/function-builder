@@ -13,8 +13,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * @param {*[]} cardContent - content of the cards, type determined by client
-   * @param {FunctionCreator[]} functionCreators
+   * @param {*[]} cardContent - content that will appear on card, type determined by client
+   * @param {FunctionCreator[]} functionCreators - describes how to create functions
    * @param {Builder} builder
    * @param {Object} [options]
    * @constructor
