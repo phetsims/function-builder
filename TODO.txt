@@ -1,4 +1,0 @@
-TODO list for function-builder
-
-implementation warts:
-- use the FunctionCreator pattern for Cards
