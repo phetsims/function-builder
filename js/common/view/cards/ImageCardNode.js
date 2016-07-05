@@ -20,8 +20,8 @@ define( function( require ) {
 
   /**
    * @param {ImageCard} card
-   * @param {ImageCardContainer} inputContainer - container in the input carousel
-   * @param {ImageCardContainer} outputContainer - container in the output carousel
+   * @param {CardContainer} inputContainer - container in the input carousel
+   * @param {CardContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer - parent for this node when it's being dragged or animating
    * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature

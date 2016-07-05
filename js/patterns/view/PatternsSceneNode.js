@@ -9,8 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/ImageCardContainer' );
+  var ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
+  var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/cards/ImageCardNode' );
   var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
@@ -37,7 +39,7 @@ define( function( require ) {
      * Creates the card containers that go in the input and output carousels.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see ImageCardContainer options
+     * @param {Object} [containerOptions] - see CardContainer options
      * @returns {CardContainer[]}
      * @protected
      * @override
@@ -45,7 +47,7 @@ define( function( require ) {
     createCardContainers: function( scene, containerOptions ) {
       var containers = [];
       scene.cardContent.forEach( function( cardImage ) {
-        containers.push( new ImageCardContainer( cardImage, containerOptions ) );
+        containers.push( new CardContainer( ImageCard, ImageCardNode, cardImage, containerOptions ) );
       } );
       return containers;
     }

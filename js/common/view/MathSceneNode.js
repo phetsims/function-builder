@@ -10,12 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EquationCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/EquationCardContainer' );
+  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
+  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
+  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
   var EquationDrawer = require( 'FUNCTION_BUILDER/common/view/equations/EquationDrawer' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardContainer = require( 'FUNCTION_BUILDER/common/view/containers/NumberCardContainer' );
+  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
+  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
@@ -129,7 +132,7 @@ define( function( require ) {
      * Creates the card containers that go in the card carousels.
      *
      * @param {Scene} scene
-     * @param {Object} [containerOptions] - see NumberCardContainer and EquationCardContainer options
+     * @param {Object} [containerOptions] - see CardContainer options
      * @returns {CardContainer[]}
      * @protected
      * @override
@@ -140,12 +143,12 @@ define( function( require ) {
 
       // numbers
       scene.cardContent.forEach( function( value ) {
-        containers.push( new NumberCardContainer( value, containerOptions ) );
+        containers.push( new CardContainer( NumberCard, NumberCardNode, value, containerOptions ) );
       } );
 
       // symbol (eg 'x') is put in the carousel last
       if ( scene.cardSymbol ) {
-        containers.push( new EquationCardContainer( scene.cardSymbol, containerOptions ) );
+        containers.push( new CardContainer( EquationCard, EquationCardNode, scene.cardSymbol, containerOptions ) );
       }
 
       return containers;

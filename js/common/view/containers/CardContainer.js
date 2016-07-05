@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Base type for card containers.
+ * Container for cards.
  * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,18 +16,22 @@ define( function( require ) {
   var MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
-   * @param {*} value - value displayed on the card, type determined by subtype
+   * @param {constructor} cardConstructor
+   * @param {constructor} cardNodeConstructor
+   * @param {*} cardContent - content displayed on the card, type determined by subtype
    * @param {Object} [options]
    * @constructor
    */
-  function CardContainer( value, options ) {
+  function CardContainer( cardConstructor, cardNodeConstructor, cardContent, options ) {
 
     options = _.extend( {
       size: FBConstants.CARD_OPTIONS.size
     }, options );
 
     // @private
-    this.value = value;
+    this.cardConstructor = cardConstructor;
+    this.cardNodeConstructor = cardNodeConstructor;
+    this.cardContent = cardContent;
 
     MovableContainer.call( this, options );
   }
@@ -62,11 +66,11 @@ define( function( require ) {
       for ( var i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var card = this.createCard( this.value, inputContainer.carouselLocation );
+        var card = new this.cardConstructor( this.cardContent, { location: inputContainer.carouselLocation } );
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new this.createCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
+        var cardNode = new this.cardNodeConstructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
 
         // put the Node in this container
         this.addNode( cardNode );
@@ -77,36 +81,6 @@ define( function( require ) {
         // add a 'mole under the carpet' to the builder, synchronizes with the card's location
         builderNode.addMole( card );
       }
-    },
-
-    /***
-     * Creates the model element for a card.
-     *
-     * @param {*} value - the value displayed on the card, type determined by subtype
-     * @param {Vector2} location - the card's initial location
-     * @returns {Card}
-     * @protected
-     * @abstract
-     */
-    createCard: function( value, location ) {
-      throw new Error( 'must be implemented by subtype' );
-    },
-
-    /**
-     * Creates the view element (Node) for a card.
-     *
-     * @param {Card} card
-     * @param {CardContainer} inputContainer - container in the input carousel
-     * @param {CardContainer} outputContainer - container in the output carousel
-     * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer - parent for a CardNode when it's being dragged or animating
-     * @param {SeeInsideLayer} seeInsideProperty
-     * @returns {CardNode}
-     * @protected
-     * @abstract
-     */
-    createCardNode: function( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty ) {
-      throw new Error( 'must be implemented by subtype' );
     }
   } );
 } );
