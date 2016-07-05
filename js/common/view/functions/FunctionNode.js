@@ -22,7 +22,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
-   * NOTE: The relatively large number of constructor parameters here is a tradeoff. There are many things
+   * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
    * involved in drag handling and animation. I could have reduced the number of parameters by distributing
    * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
    * like a superior solution.  So I chose encapsulation at the expense of some increased coupling.
