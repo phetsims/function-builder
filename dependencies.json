@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.0-dev.68 Fri Jul 01 2016 15:47:50 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.69 Tue Jul 05 2016 13:18:54 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -21,15 +21,15 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "417dfa9dcf518b414397ababf8b4ab640d784d44",
+    "sha": "b2ff314a5f9128c70fd65b1b642b00e85ea1b943",
     "branch": "master"
   },
   "joist": {
-    "sha": "fa5db70c989bd64381fb8d994bbd94c4ae333b61",
+    "sha": "94bc734c61a9569d975cb8c4c15d213d95dffd37",
     "branch": "master"
   },
   "kite": {
-    "sha": "dce9765e6fcb535970ef17c1a1bcb8db95599b08",
+    "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
     "branch": "master"
   },
   "phet-core": {
@@ -41,11 +41,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "4476eb958b8e19367bd12c7e50636328058f077a",
+    "sha": "942889ad7b16f527d86a81bb1f2d219835671771",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "544273f3a1130f99308cf51f4252384e420355d1",
+    "sha": "0c43b6ccd7290589d98dc4d61893580b33d884ce",
     "branch": "master"
   },
   "sherpa": {
