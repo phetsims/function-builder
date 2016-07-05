@@ -14,7 +14,6 @@ define( function( require ) {
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
   var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -38,10 +37,7 @@ define( function( require ) {
     // @private constrain equation to card
     this.equationMaxWidth = 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width );
 
-    // @private will be updated properly by updateContent
-    this.equationNode = new Rectangle( 0, 0, 1, 1 );
-
-    CardNode.call( this, card, this.equationNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'EquationCardNode', EquationCardNode );
@@ -58,9 +54,6 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
-      // remove old equation
-      this.removeChild( this.equationNode );
-
       /*
        * Apply functions in the builder. Pass in an empty array, because the functions in the builder
        * return MathFunction[], and the input is required to be of the same type as the output.
@@ -69,14 +62,13 @@ define( function( require ) {
 
       // update the equation
       var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
-      this.equationNode = new SlopeInterceptEquationNode(
+      var equationNode = new SlopeInterceptEquationNode(
         slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
           showLeftHandSide: false, // hide 'y =' part of equation
           xSymbol: this.card.xSymbol,
-          maxWidth: this.equationMaxWidth, // constrain to card
-          center: this.backgroundNode.center // center on the card
+          maxWidth: this.equationMaxWidth // constrain to card
         } );
-      this.addChild( this.equationNode );
+      this.setContentNode( equationNode );
     }
   }, {
 

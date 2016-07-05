@@ -23,11 +23,10 @@ define( function( require ) {
    * NOTE: The relatively large number of constructor parameters here is a tradeoff. There are many things
    * involved in drag handling and animation. I could have reduced the number of parameters by distributing
    * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
-   * like a superior solution.  So I chose encapsualtion at the expense of some increased coupling.
+   * like a superior solution.  So I chose encapsulation at the expense of some increased coupling.
    * See discussion in https://github.com/phetsims/function-builder/issues/77
    *
    * @param {Card} card
-   * @param {Node} contentNode - what appears on the card
    * @param {FunctionContainer} inputContainer - container in the input carousel
    * @param {FunctionContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode
@@ -36,18 +35,23 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function CardNode( card, contentNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+  function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
+    options = _.extend( {
+      contentNode: null // {Node} what appears on the card
+    }, FBConstants.CARD_OPTIONS, options );
 
     var thisNode = this;
 
-    // @protected the basic shape of a blank card
+    // the basic shape of a blank card
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, contentNode ];
+    options.children = [ backgroundNode ];
+    if ( options.contentNode ) {
+      options.children.push( options.contentNode );
+    }
 
     var builder = builderNode.builder;
 
@@ -236,10 +240,9 @@ define( function( require ) {
     // @public
     this.card = card;
 
-    // @protected
-    this.backgroundNode = backgroundNode;
-
     // @private
+    this._contentNode = options.contentNode;
+    this.backgroundNode = backgroundNode;
     this.inputContainer = inputContainer;
     this.outputContainer = outputContainer;
     this.builderNode = builderNode;
@@ -274,6 +277,52 @@ define( function( require ) {
   functionBuilder.register( 'CardNode', CardNode );
 
   return inherit( MovableNode, CardNode, {
+
+    /**
+     * Sets the content node. This is what is displayed on the card.
+     *
+     * @param {Node} contentNode
+     * @public
+     */
+    setContentNode: function( contentNode ) {
+      if ( !this._contentNode || this._contentNode !== contentNode ) {
+
+        // remove previous content
+        if ( this._contentNode ) {
+          this.removeChild( this._contentNode );
+        }
+
+        // set new content
+        this._contentNode = contentNode;
+        this.addChild( contentNode );
+        contentNode.moveToFront();
+
+        // center on the background
+        contentNode.center = this.backgroundNode.center;
+      }
+    },
+    set contentNode( value ) { this.setContentNode( value ); },
+
+    /**
+     * Gets the content on the card.
+     *
+     * @returns {Node|null}
+     * @public
+     */
+    getContentNode: function() { return this._contentNode; },
+    get contentNode() { return this.getContentNode(); },
+
+    /**
+     * Centers the content on the background.
+     * If the card has no content, this is a no-op.
+     *
+     * @public
+     */
+    centerContent: function() {
+      if ( this._contentNode ) {
+        this._contentNode.center = this.backgroundNode.center;
+      }
+    },
 
     /**
      * Updates the card's content, based on where the card is relative the the builder slots.

@@ -35,8 +35,8 @@ define( function( require ) {
 
     options = options || {};
 
-    // @private
-    this.rationalNumberNode = new RationalNumberNode( card.rationalNumber, {
+    assert && assert( !options.contentNode, 'this card sets its own contentNode' );
+    options.contentNode = new RationalNumberNode( card.rationalNumber, {
       mixedNumber: false, // display as improper fraction
       negativeSymbol: FBSymbols.MINUS,
       signFont: FBConstants.EQUATION_CARD_SIGN_FONT,
@@ -45,7 +45,7 @@ define( function( require ) {
       maxWidth: 0.75 * ( options.size ? options.size.width : FBConstants.CARD_OPTIONS.size.width ) // constrain to card
     } );
 
-    CardNode.call( this, card, this.rationalNumberNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'NumberCardNode', NumberCardNode );
@@ -66,10 +66,10 @@ define( function( require ) {
       var value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
 
       // update the node
-      this.rationalNumberNode.setValue( value );
+      this.contentNode.setValue( value );
 
       // center on the card
-      this.rationalNumberNode.center = this.backgroundNode.center;
+      this.centerContent();
     }
   }, {
 

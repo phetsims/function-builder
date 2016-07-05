@@ -36,12 +36,12 @@ define( function( require ) {
       imageScale: DEFAULT_IMAGE_SCALE
     }, options );
 
-    // @private
-    this.imageNode = new Image( card.image, {
+    assert && assert( !options.contentNode, 'this card sets its own contentNode' );
+    options.contentNode = new Image( card.image, {
       scale: options.imageScale
     } );
 
-    CardNode.call( this, card, this.imageNode, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
+    CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
   }
 
   functionBuilder.register( 'ImageCardNode', ImageCardNode );
@@ -58,10 +58,12 @@ define( function( require ) {
      */
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
+      var imageNode = this.contentNode;
+
       if ( numberOfFunctionsToApply === 0 ) {
 
         // performance optimization
-        this.imageNode.setImageWithSize( this.card.image, this.card.image.width, this.card.image.height );
+        imageNode.setImageWithSize( this.card.image, this.card.image.width, this.card.image.height );
       }
       else {
 
@@ -69,9 +71,11 @@ define( function( require ) {
         var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
         // display the output image
-        this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+        imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
       }
-      this.imageNode.center = this.backgroundNode.center;
+
+      // center on the card
+      this.centerContent();
     }
   }, {
 
