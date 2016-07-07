@@ -65,7 +65,7 @@ define( function( require ) {
       parenthesesXSpacing: 3, // {number} x space inside of parentheses
 
       // y spacing
-      fractionYSpacing: 6 // {number} y space above and below fraction line
+      fractionYSpacing: 2 // {number} y space above and below fraction line
 
     }, options );
 
