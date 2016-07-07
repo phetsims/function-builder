@@ -35,11 +35,8 @@ define( function( require ) {
     options = _.extend( {
       open: FBConstants.GRAPH_DRAWER_OPEN,
       handleLocation: 'top',
-      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       graphOptions: null // {*} options for XYGraphNode
-    }, options );
+    }, FBConstants.DRAWER_OPTIONS, options );
 
     // Graph
     var graphNode = new XYGraphNode( builder, _.extend( {

@@ -93,10 +93,14 @@ define( function( require ) {
     //--------------------------------------------------------------------------------------------------------
     // Drawers
 
-    DRAWER_CORNER_RADIUS: 4,
     DRAWER_Y_OVERLAP: 1, // how much drawers overlap the builder
-    DRAWER_TOUCH_AREA_X_DILATION: 25, // x dilation of the drawer's handle
-    DRAWER_TOUCH_AREA_Y_DILATION: 5, // y dilation of the drawer's handle
+
+    // default option values used by all Drawers
+    DRAWER_OPTIONS: {
+      handleTouchAreaXDilation: 25, // x dilation of the drawer's handle
+      handleTouchAreaYDilation: 25, // y dilation of the drawer's handle
+      cornerRadius: 4
+    },
 
     //--------------------------------------------------------------------------------------------------------
     // Table

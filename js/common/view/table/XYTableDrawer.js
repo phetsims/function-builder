@@ -33,16 +33,13 @@ define( function( require ) {
 
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
-      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       tableOptions: null, // {*} options for XYTableNode
 
       // improve performance by disabling updates while the drawer is closed
       beforeOpen: function() { tableNode.updateEnabled = true; },
       afterClose: function() { tableNode.updateEnabled = false; }
 
-    }, options );
+    }, FBConstants.DRAWER_OPTIONS, options );
 
     var tableNode = new XYTableNode( builder, _.extend( {
       updateEnabled: options.open,

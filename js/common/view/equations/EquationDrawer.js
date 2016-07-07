@@ -26,17 +26,14 @@ define( function( require ) {
     options = _.extend( {
 
       open: FBConstants.EQUATION_DRAWER_OPEN,
-      cornerRadius: FBConstants.DRAWER_CORNER_RADIUS,
       handleLocation: 'bottom',
-      handleTouchAreaXDilation: FBConstants.DRAWER_TOUCH_AREA_X_DILATION,
-      handleTouchAreaYDilation: FBConstants.DRAWER_TOUCH_AREA_Y_DILATION,
       equationOptions: null, // {*} options for EquationPanel
 
       // improve performance by disabling updates while the drawer is closed
       beforeOpen: function() { equationPanel.updateEnabled = true; },
       afterClose: function() { equationPanel.updateEnabled = false; }
 
-    }, options );
+    }, FBConstants.DRAWER_OPTIONS, options );
 
     var equationPanel = new EquationPanel( builder, slopeInterceptProperty, _.extend( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
