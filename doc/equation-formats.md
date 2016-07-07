@@ -68,7 +68,7 @@ Rules for generating "helpful" format:
 
 (3) Multiplication by 1 is shown, e.g.: `* 1 → 1x`, `+ 2 * 1 → 1(x + 2)`
 
-(4) Multiplication by 0 is shown, e.g.: `* 0 → 0x`
+(4) Multiplication by 0 is shown, e.g.: `* 0 → 0x`, `+ 2 * 0 → 0(x + 2)`
 
 (5) If the portion of the equation preceding multiplication contains one or more operators, then it is wrapped in parentheses, e.g.: `- 3 * 2 → 2(x-3)`
 
