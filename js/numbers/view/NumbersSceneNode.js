@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
@@ -38,14 +38,14 @@ define( function( require ) {
       tableOptions: {
         xSymbol: inputString, // use 'Input' in place of x
         ySymbol: outputString, // use 'Output' in place of y
-        headingFont: FBConstants.TABLE_INPUT_OUTPUT_HEADING_FONT // different font for 'Input' and 'Output'
+        headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
       },
 
       // options for EquationPanel
       equationOptions: {
         xSymbol: inputString, // use 'Input' in place of x
         ySymbol: outputString, // use 'Output' in place of y
-        xyFont: FBConstants.EQUATION_CARD_INPUT_OUTPUT_FONT, // different font for 'Input' and 'Output'
+        xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
         xyAsCards: true // card outlines around 'Input' and 'Output'
       }
 

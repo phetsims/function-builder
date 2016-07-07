@@ -108,7 +108,7 @@ define( function( require ) {
       }, options );
 
       var contentNode = new Text( symbol, {
-        font: FBConstants.EQUATION_CARD_XY_FONT,
+        font: FBConstants.EQUATION_OPTIONS.xyFont,
         maxWidth: options.maxContentSize.width,
         maxHeight: options.maxContentSize.height
       } );

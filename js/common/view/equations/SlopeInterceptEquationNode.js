@@ -22,7 +22,7 @@ define( function( require ) {
   /**
    * @param {RationalNumber} slope
    * @param {RationalNumber} intercept
-   * @param {Object} [options]
+   * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
    * @constructor
    */
   function SlopeInterceptEquationNode( slope, intercept, options ) {
@@ -30,43 +30,7 @@ define( function( require ) {
     assert && assert( slope instanceof RationalNumber );
     assert && assert( intercept instanceof RationalNumber );
 
-    options = _.extend( {
-
-      showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation (y =)
-      xSymbol: FBSymbols.X, // {string} symbol for x (input)
-      ySymbol: FBSymbols.Y, // {string} symbol for y (output)
-      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-      xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
-
-      // colors
-      xColor: 'black', // {Color|string} for x symbol
-      yColor: 'black', // {Color|string} for y symbol
-      color: 'black', // {Color|string} for everything else
-
-      // fonts
-      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} font for x & y symbols
-      symbolFont: FBConstants.EQUATION_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
-      wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for whole number
-      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT, // {Font} font for fractions
-      signFont: FBConstants.EQUATION_CARD_SIGN_FONT, // {Font} font for negative sign
-
-      // x spacing
-      equalsXSpacing: 8, // {number} x space on both sides of equals sign
-      signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
-      operatorXSpacing: 8, // {number} x space on both sides of an operator
-      integerSlopeXSpacing: 3, // {number} x space between integer slope and x
-      fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
-
-      // y spacing
-      fractionYSpacing: 2,  // {number} y space above and below fraction line
-
-      // y offsets, positive is down, everything is relative to the equals sign
-      xyYOffset: 0, // {number} vertical offset of x & y symbols
-      slopeYOffset: 0, // {number} vertical offset of slope
-      interceptYOffset: 0, // {number} vertical offset of intercept
-      operatorYOffset: 0 // {number} vertical offset of operators (plus, minus)
-
-    }, options );
+    options = _.extend( {}, FBConstants.EQUATION_OPTIONS, options );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];

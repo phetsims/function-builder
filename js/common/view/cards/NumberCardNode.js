@@ -73,9 +73,9 @@ define( function( require ) {
         this.rationalNumberNode = new RationalNumberNode( value, {
           mixedNumber: false, // display as improper fraction
           negativeSymbol: FBSymbols.MINUS,
-          signFont: FBConstants.EQUATION_CARD_SIGN_FONT,
-          wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
-          fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT,
+          signFont: FBConstants.EQUATION_OPTIONS.signFont,
+          wholeNumberFont: FBConstants.EQUATION_OPTIONS.wholeNumberFont,
+          fractionFont: FBConstants.EQUATION_OPTIONS.fractionFont,
           maxWidth: this.maxContentSize.width,
           maxHeight: this.maxContentSize.height
         } );

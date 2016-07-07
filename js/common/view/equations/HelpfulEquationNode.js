@@ -26,47 +26,15 @@ define( function( require ) {
 
   /**
    * @param {HelpfulEquation} equation
-   * @param {Object} [options]
+   * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
    * @constructor
    */
   function HelpfulEquationNode( equation, options ) {
 
     assert && assert( equation instanceof HelpfulEquation );
 
-    options = _.extend( {
-
-      showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
-      xSymbol: FBSymbols.X, // {string} symbol for input
-      ySymbol: FBSymbols.Y, // {string} symbol for output
-      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-      xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
-
-      // colors
-      xColor: 'black', // {Color|string} for x symbol
-      yColor: 'black', // {Color|string} for y symbol
-      color: 'black', // {Color|string} for everything else
-
-      // fonts
-      xyFont: FBConstants.EQUATION_CARD_XY_FONT, // {Font} font for x & y symbols
-      symbolFont: FBConstants.EQUATION_CARD_SYMBOL_FONT, // {Font} font for math symbols (equals, plus, minus)
-      wholeNumberFont: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT, // {Font} font for whole number
-      fractionFont: FBConstants.EQUATION_CARD_FRACTION_FONT, // {Font} font for fractions
-      signFont: FBConstants.EQUATION_CARD_SIGN_FONT, // {Font} font for negative sign
-      parenthesesFont: FBConstants.EQUATION_CARD_PARENTHESES_FONT, // {Font} font for parentheses
-
-      // fractions
-      fractionScale: 0.67, // {number} how much to scale fractions
-
-      // x spacing
-      equalsXSpacing: 8, // {number} x space on both sides of equals sign
-      signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
-      operatorXSpacing: 8, // {number} x space on both sides of an operator
-      multiplierXSpacing: 3, // {number} x space following multiplier
-      parenthesesXSpacing: 3, // {number} x space inside of parentheses
-
-      // y spacing
-      fractionYSpacing: 2 // {number} y space above and below fraction line
-
+    options = _.extend( {}, FBConstants.EQUATION_OPTIONS, {
+      fractionScale: 0.67 // {number} how much to scale fractions
     }, options );
 
     assert && assert( !options.children, 'decoration not supported' );
