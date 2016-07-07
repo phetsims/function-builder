@@ -21,9 +21,6 @@ define( function( require ) {
   var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // constants
-  var ZERO = RationalNumber.withInteger( 0 );
-
   /**
    * @param {HelpfulEquation} equation
    * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
@@ -92,21 +89,6 @@ define( function( require ) {
       xNode.left = equalsNode.right + options.equalsXSpacing;
       xNode.centerY = equalsNode.centerY;
       options.children.push( xNode );
-    }
-    else if ( equation.evaluatesToConstant() ) {
-
-      // constant
-      var value = ZERO;
-      for ( i = 0; i < mathFunctions.length; i++ ) {
-        value = mathFunctions[ i ].apply( value );
-      }
-
-      var constantNode = new RationalNumberNode( value,
-        _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
-          left: equalsNode.right + options.equalsXSpacing,
-          centerY: equalsNode.centerY
-        } ) );
-      options.children.push( constantNode );
     }
     else {
 
@@ -199,7 +181,6 @@ define( function( require ) {
 
           // TIMES ----------------------------------------------------------------------------
 
-          assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
             'adjacent times should have been collapsed' );
 

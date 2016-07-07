@@ -77,20 +77,7 @@ define( function( require ) {
       }
       else if ( currentOperator === FBSymbols.TIMES ) {
 
-        if ( currentOperand === 0 ) {
-
-          // times zero clears the stack
-          stack = [];
-          stack.push( new Times( {
-            operand: 0,
-            operandRange: null
-          } ) );
-
-        }
-        else if ( stack.length === 0 ) {
-          stack.push( currentFunction );
-        }
-        else if ( previousOperator === FBSymbols.TIMES ) {
+        if ( previousOperator === FBSymbols.TIMES ) {
 
           // collapse adjacent times
           stack.pop();
@@ -106,10 +93,7 @@ define( function( require ) {
       else if ( currentOperator === FBSymbols.DIVIDE ) {
         assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
 
-        if ( stack.length === 0 ) {
-          stack.push( currentFunction );
-        }
-        else if ( previousOperator === FBSymbols.DIVIDE ) {
+        if ( previousOperator === FBSymbols.DIVIDE ) {
 
           // collapse adjacent divide
           stack.pop();
@@ -150,18 +134,6 @@ define( function( require ) {
   return inherit( Object, HelpfulEquation, {
 
     /**
-     * Does the equation evaluate to a constant?
-     *
-     * @returns {boolean}
-     * @public
-     */
-    evaluatesToConstant: function() {
-      return ( this.mathFunctions.length !== 0 &&
-               this.mathFunctions[ 0 ].operator === FBSymbols.TIMES &&
-               this.mathFunctions[ 0 ].operandProperty.get() === 0 );
-    },
-
-    /**
      * String representation, for debugging and (perhaps) PhET-iO.
      * Note that the logic flow herein is similar to HelpfulEquationNode's constructor,
      * but constructs a string instead of a Node.
@@ -178,24 +150,6 @@ define( function( require ) {
 
         // x
         equation = this.xSymbol;
-      }
-      else if ( this.evaluatesToConstant() ) {
-
-        // constant
-        var value = ZERO;
-        for ( i = 0; i < this.mathFunctions.length; i++ ) {
-          value = this.mathFunctions[ i ].apply( value );
-        }
-        if ( value.isInteger() ) {
-
-          // whole number
-          equation = '' + value.valueOf();
-        }
-        else {
-
-          // fraction
-          equation = value.numerator + '/' + value.denominator;
-        }
       }
       else {
 
@@ -232,7 +186,6 @@ define( function( require ) {
               ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), Math.abs( currentOperand ) );
           }
           else if ( currentOperator === FBSymbols.TIMES ) {
-            assert && assert( currentOperand !== 0, 'times zero should have been factored out' );
             assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
               'adjacent times should have been collapsed' );
 
