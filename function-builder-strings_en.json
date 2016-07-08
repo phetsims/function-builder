@@ -14,8 +14,8 @@
   "screen.mystery": {
     "value": "Mystery"
   },
-  "slopeIntercept": {
-    "value": "slope-intercept"
+  "simplify": {
+    "value": "simplify"
   },
   "input": {
      "value": "Input"

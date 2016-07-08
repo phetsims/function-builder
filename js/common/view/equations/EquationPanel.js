@@ -31,7 +31,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var slopeInterceptString = require( 'string!FUNCTION_BUILDER/slopeIntercept' );
+  var simplifyString = require( 'string!FUNCTION_BUILDER/simplify' );
 
   /**
    * @param {Builder} builder
@@ -69,34 +69,34 @@ define( function( require ) {
       fill: 'white'
     } );
 
-    // 'slope-intercept' check box, at bottom center
-    var slopeInterceptLabel = new Text( slopeInterceptString, {
+    // 'simplify' check box, at bottom center
+    var simplifyLabel = new Text( simplifyString, {
       font: new FBFont( 16 ),
       maxWidth: 0.75 * this.backgroundNode.width
     } );
-    var slopeInterceptCheckBox = new CheckBox( slopeInterceptLabel, slopeInterceptProperty, {
+    var simplifyCheckBox = new CheckBox( simplifyLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
       bottom: this.backgroundNode.bottom - 10
     } );
-    slopeInterceptCheckBox.touchArea = slopeInterceptCheckBox.localBounds.dilatedXY( 10, 10 );
+    simplifyCheckBox.touchArea = simplifyCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // @private initialized by updateEquations
     this.slopeInterceptEquationNode = null;
     this.helpfulEquationNode = null;
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, slopeInterceptCheckBox ];
+    options.children = [ this.backgroundNode, simplifyCheckBox ];
 
     Node.call( this, options );
 
     // @private constrain equation to available space in panel
     this.equationMaxWidth = 0.85 * this.backgroundNode.width;
-    this.equationMaxHeight = 0.9 * ( slopeInterceptCheckBox.top - this.backgroundNode.top );
+    this.equationMaxHeight = 0.9 * ( simplifyCheckBox.top - this.backgroundNode.top );
 
     // @private center of space available for equations
     this.equationCenter = new Vector2(
       this.backgroundNode.centerX,
-      this.backgroundNode.top + ( slopeInterceptCheckBox.top - this.backgroundNode.top ) / 2
+      this.backgroundNode.top + ( simplifyCheckBox.top - this.backgroundNode.top ) / 2
     );
 
     // Controls which equation is visible.
