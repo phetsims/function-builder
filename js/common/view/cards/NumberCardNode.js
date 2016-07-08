@@ -111,7 +111,7 @@ define( function( require ) {
       }, options );
 
       var contentNode = new Text( rationalNumber.valueOf(), {
-        font: FBConstants.EQUATION_CARD_WHOLE_NUMBER_FONT,
+        font: FBConstants.EQUATION_OPTIONS.wholeNumberFont,
         maxWidth: options.maxContentSize.width,
         maxHeight: options.maxContentSize.height
       } );
