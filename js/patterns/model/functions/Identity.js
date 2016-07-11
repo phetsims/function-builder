@@ -12,9 +12,9 @@ define( function( require ) {
   var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // images
   var identityImage = require( 'mipmap!FUNCTION_BUILDER/functions/identity.png' );
@@ -26,9 +26,12 @@ define( function( require ) {
   function Identity( options ) {
 
     options = options || {};
-    options.fill = 'rgb( 255, 161, 43 )';
+    options.fill = 'rgb( 255, 255, 128 )';
 
-    var iconNode = new Image( identityImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    // The identify function has no visible icon. See https://github.com/phetsims/function-builder/issues/91
+    // This decision was made late in development, and it was easier to use an invisible Rectangle than to
+    // make the icon optional in the myriad places where it is currently required.
+    var iconNode = new Rectangle( 0, 0, 1, 1 );
 
     ImageFunction.call( this, iconNode, options );
   }
