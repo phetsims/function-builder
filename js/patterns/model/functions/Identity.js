@@ -22,7 +22,7 @@ define( function( require ) {
   function Identity( options ) {
 
     options = options || {};
-    options.fill = 'rgb( 255, 255, 128 )';
+    options.fill = 'rgb( 255, 246, 146 )';
 
     // The identify function has no visible icon. See https://github.com/phetsims/function-builder/issues/91
     // This decision was made late in development, and it was easier to use an invisible Rectangle than to
