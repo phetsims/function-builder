@@ -32,7 +32,7 @@ define( function( require ) {
       // builder with 3 slots, for exploring function composition
       new PatternsScene( {
         numberOfSlots: 3,
-        builderWidth: ( 3 * FBConstants.FUNCTION_SIZE.width ) + 50,
+        builderWidth: ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70,
         numberOfEachCard: 2,
         numberOfEachFunction: 2
       } )
