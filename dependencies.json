@@ -1,67 +1,67 @@
 {
-  "comment": "# function-builder 1.0.0-rc.1 Mon Jul 11 2016 10:14:57 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.0-dev.74 Tue Jul 12 2016 15:44:06 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "9a0e2f3a61a2416edf8247c6ccdb262195b2f420",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "f0b1f7da85f87b9626562bea7fe69197fa81f05f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "9059e93b28d88dbc7e2e2c2c6b4b696dfe9ff4d2",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "7daf67e1237356abd603f01c44ce045401896501",
+    "sha": "1401e4658993f4ffc6ad4f210e510a1bc7879d5c",
     "branch": "1.0"
   },
   "joist": {
     "sha": "94bc734c61a9569d975cb8c4c15d213d95dffd37",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "35ef94ad2852b567a056b5f3b8c1e3906b8da7c1",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "942889ad7b16f527d86a81bb1f2d219835671771",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "0d6b589e3674e0dccd013aa4790651fad81a6e78",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "03590a07436272b142319aae4aaa0dae08471387",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "cccaf53409b87182a417d85906ef40047e495dfb",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tandem": {
     "sha": "a8ac284b9dc4fa6a9e1e3ca039b594126c4de1f5",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "twixt": {
     "sha": "53b31872ff34d68a49dd4d30ea934bdcd362556e",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
