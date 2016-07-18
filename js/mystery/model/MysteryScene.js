@@ -20,7 +20,7 @@ define( function( require ) {
   var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   var Property = require( 'AXON/Property' );
   var Random = require( 'DOT/Random' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -32,7 +32,7 @@ define( function( require ) {
   var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
+  var CARD_NUMBERS_RANGE = new RangeWithValue( -4, 7 );
   var MAX_SLOTS = 3; // max number of slots in the builder
   var BUILDER_WIDTH = ( MAX_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
   var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
