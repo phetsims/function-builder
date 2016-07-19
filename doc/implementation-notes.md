@@ -86,7 +86,8 @@ dragged backwards through non-invertible functions.
 
 There are two primary types of functions:
 * image functions: These functions perform an image transform using Canvas.  See
-[ImageFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/ImageFunction.js).
+[ImageFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/ImageFunction.js)
+and its subtypes.
 * numeric functions: These functions perform mathematical functions using rational numbers. See
 [MathFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/MathFunction.js)
 and its subtypes.
