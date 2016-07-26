@@ -18,7 +18,10 @@ Cards show the right-hand side of the slope-intercept equation. Eg, if the slope
 then the "x" card in the input carousel will show `2x + 2` in the output carousel.
 
 Square brackets '[ ]' shown in the examples will not be rendered. They are used to indicate a numerator in
-this specification.
+this specification. For example, `'[x + 3]/2'` is rendered as:
+
+[!imageOfEquation]
+(https://cloud.githubusercontent.com/assets/3046552/17148758/9daaa994-5325-11e6-9ccc-89f86e369d2a.png)
 
 The forward slash '/' shown in the examples will be rendered as a horizontal line separating numerator and denominator.
 
