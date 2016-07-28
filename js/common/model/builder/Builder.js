@@ -32,8 +32,10 @@ define( function( require ) {
    */
   function Builder( options ) {
 
+    options = options || {};
+
     // used to compute other default option values
-    var NUMBER_OF_SLOTS = ( options && options.numberOfSlots ) ? options.numberOfSlots : 1;
+    var NUMBER_OF_SLOTS = options.numberOfSlots ? options.numberOfSlots : 1;
 
     options = _.extend( {
 
