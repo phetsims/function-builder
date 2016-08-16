@@ -21,15 +21,18 @@ define( function( require ) {
   var screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function NumbersScreen() {
+  function NumbersScreen( tandem ) {
     Screen.call( this,
       screenNumbersString,
       FBIconFactory.createNumbersScreenIcon(),
       function() { return new NumbersModel(); },
-      function( model ) { return new NumbersScreenView( model ); },
-      { backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND }
+      function( model ) { return new NumbersScreenView( model ); }, {
+        backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND,
+        tandem: tandem
+      }
     );
   }
 

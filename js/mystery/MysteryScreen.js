@@ -21,15 +21,18 @@ define( function( require ) {
   var screenMysteryString = require( 'string!FUNCTION_BUILDER/screen.mystery' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function MysteryScreen() {
+  function MysteryScreen( tandem ) {
     Screen.call( this,
       screenMysteryString,
       FBIconFactory.createMysteryScreenIcon(),
       function() { return new MysteryModel(); },
-      function( model ) { return new MysteryScreenView( model ); },
-      { backgroundColor: FBColors.MYSTERY_SCREEN_BACKGROUND }
+      function( model ) { return new MysteryScreenView( model ); }, {
+        backgroundColor: FBColors.MYSTERY_SCREEN_BACKGROUND,
+        tandem: tandem
+      }
     );
   }
 

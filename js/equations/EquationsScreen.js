@@ -21,15 +21,18 @@ define( function( require ) {
   var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function EquationsScreen() {
+  function EquationsScreen( tandem ) {
     Screen.call( this,
       screenEquationsString,
       FBIconFactory.createEquationsScreenIcon(),
       function() { return new EquationsModel(); },
-      function( model ) { return new EquationsScreenView( model ); },
-      { backgroundColor: FBColors.EQUATIONS_SCREEN_BACKGROUND }
+      function( model ) { return new EquationsScreenView( model ); }, {
+        backgroundColor: FBColors.EQUATIONS_SCREEN_BACKGROUND,
+        tandem: tandem
+      }
     );
   }
 

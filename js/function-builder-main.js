@@ -17,9 +17,13 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
+  var Tandem = require( 'TANDEM/Tandem' );
 
   // strings
   var functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
+
+  // constants
+  var tandem = Tandem.createRootTandem();
 
   var options = {
     credits: {
@@ -27,16 +31,17 @@ define( function( require ) {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins,\nSam Reid, Beth Stade, David Webb',
       qualityAssurance: 'Steele Dalton, Amanda Davis, Andrea Lin, Ben Roberts'
-    }
+    },
+    tandem: tandem
   };
 
   SimLauncher.launch( function() {
 
     var screens = [
-      new PatternsScreen(),
-      new NumbersScreen(),
-      new EquationsScreen(),
-      new MysteryScreen()
+      new PatternsScreen( tandem.createTandem( 'patternsScreen' ) ),
+      new NumbersScreen( tandem.createTandem( 'numbersScreen' ) ),
+      new EquationsScreen( tandem.createTandem( 'equationsScreen' ) ),
+      new MysteryScreen( tandem.createTandem( 'mysteryScreen' ) )
     ];
 
     if ( FBQueryParameters.TEST_SCREEN ) {

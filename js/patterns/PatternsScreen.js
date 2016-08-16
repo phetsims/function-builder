@@ -21,15 +21,18 @@ define( function( require ) {
   var screenPatternsString = require( 'string!FUNCTION_BUILDER/screen.patterns' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function PatternsScreen() {
+  function PatternsScreen( tandem ) {
     Screen.call( this,
       screenPatternsString,
       FBIconFactory.createPatternsScreenIcon(),
       function() { return new PatternsModel(); },
-      function( model ) { return new PatternsScreenView( model ); },
-      { backgroundColor: FBColors.PATTERNS_SCREEN_BACKGROUND }
+      function( model ) { return new PatternsScreenView( model ); }, {
+        backgroundColor: FBColors.PATTERNS_SCREEN_BACKGROUND,
+        tandem: tandem
+      }
     );
   }
 
