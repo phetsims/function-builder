@@ -95,8 +95,8 @@ define( function( require ) {
     // @private
     this.availableChallenges = challengePool.slice( 0 ); // available challenges
     this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
-    this.randomChallenge = new Random(); // random number generator for choosing challenges
-    this.randomColor = new Random(); // random number generator for choosing colors
+    this.randomChallenge = new Random( { staticSeed: true } ); // random number generator for choosing challenges
+    this.randomColor = new Random( { staticSeed: true } ); // random number generator for choosing colors
     this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
     this.previousColorSets = []; // pool that was used on previous call to getColors
     this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
