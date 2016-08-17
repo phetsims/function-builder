@@ -31,8 +31,7 @@ define( function( require ) {
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins,\nSam Reid, Beth Stade, David Webb',
       qualityAssurance: 'Steele Dalton, Amanda Davis, Andrea Lin, Ben Roberts'
-    },
-    tandem: tandem
+    }
   };
 
   SimLauncher.launch( function() {
