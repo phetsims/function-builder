@@ -19,7 +19,6 @@ define( function( require ) {
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
   var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   var Property = require( 'AXON/Property' );
-  var Random = require( 'DOT/Random' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
@@ -95,8 +94,6 @@ define( function( require ) {
     // @private
     this.availableChallenges = challengePool.slice( 0 ); // available challenges
     this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
-    this.randomChallenge = new Random( { staticSeed: true } ); // random number generator for choosing challenges
-    this.randomColor = new Random( { staticSeed: true } ); // random number generator for choosing colors
     this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
     this.previousColorSets = []; // pool that was used on previous call to getColors
     this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
@@ -174,7 +171,7 @@ define( function( require ) {
       }
 
       // randomly select a challenge from the available pool
-      var challengeIndex = FBQueryParameters.PLAY_ALL ? 0 : this.randomChallenge.nextInt( this.availableChallenges.length );
+      var challengeIndex = FBQueryParameters.PLAY_ALL ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
       var challenge = this.availableChallenges[ challengeIndex ];
 
@@ -215,7 +212,7 @@ define( function( require ) {
         for ( i = 0; i < this.functionsPerChallenge; i++ ) {
 
           // select a color set
-          var colorSetIndex = this.randomColor.nextInt( this.availableColorSets.length );
+          var colorSetIndex = phet.joist.random.nextInt( this.availableColorSets.length );
           var colorSet = this.availableColorSets[ colorSetIndex ];
           colorSets.push( colorSet );
 
@@ -223,7 +220,7 @@ define( function( require ) {
           this.availableColorSets.splice( colorSetIndex, 1 );
 
           // select a color from the set
-          var colorIndex = this.randomColor.nextInt( colorSet.length );
+          var colorIndex = phet.joist.random.nextInt( colorSet.length );
           var color = colorSet[ colorIndex ];
           colors.push( color );
         }
