@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.1.0-dev.1 Tue Aug 23 2016 22:11:41 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.1.0-dev.2 Mon Aug 29 2016 20:31:47 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -13,23 +13,23 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "136b1d30c9cb95165fd05dbcef0e6dfc1704c576",
+    "sha": "4dde85e70cefdabd435591ab4591b670dc381c00",
     "branch": "master"
   },
   "dot": {
-    "sha": "3f60cfcc03fb523fab5e01ec64eaeb74d3bf331e",
+    "sha": "23b13772fe60b19cd4d3b8e75ac177ff5dcec594",
     "branch": "master"
   },
   "function-builder": {
-    "sha": "c253243a383f5733e51c0edfa324a4e3133ca5ce",
+    "sha": "5853d42951ddabd9e0f569537c8301202c9d3118",
     "branch": "master"
   },
   "joist": {
-    "sha": "9c50d3f77b6c84baf7feed3db7dc0c210582bd0a",
+    "sha": "c0442ba8d2ba1732aec95d4d475257318f1d3a89",
     "branch": "master"
   },
   "kite": {
-    "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
+    "sha": "3b656b9a455ced42b9af90a15a25446b248490ab",
     "branch": "master"
   },
   "phet-core": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "a1361fa4fc50dd34ce2503d153424f6c40ef7b4b",
+    "sha": "5fe8a40881886a42e03e0018d7ef1b43855c3f93",
     "branch": "master"
   },
   "sherpa": {
@@ -53,11 +53,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "9d90fd152663fd9214a044e7b84f76a05cffdead",
+    "sha": "c71c3c11625b159ea5982db94dc341c8213ec830",
     "branch": "master"
   },
   "tandem": {
-    "sha": "43ebdfb3f57308563c7735b83ec9b4122eebf0a8",
+    "sha": "a6dec05ea8f6524719adbd75c355b770dcea99cf",
     "branch": "master"
   },
   "twixt": {
