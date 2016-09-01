@@ -144,7 +144,7 @@ define( function( require ) {
 
         var challengeObject = {
           operator: OPERATOR_MAP[ tokens[ i ] ],
-          operand: parseInt( tokens[ i + 1 ] )
+          operand: parseInt( tokens[ i + 1 ], 10 )
         };
 
         // validation
