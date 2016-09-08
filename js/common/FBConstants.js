@@ -54,7 +54,7 @@ define( function( require ) {
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // distance/second that cards move when animating
-    CARD_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
+    CARD_ANIMATION_SPEED: FBQueryParameters.slow ? 100 : 400,
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
@@ -72,7 +72,7 @@ define( function( require ) {
     FUNCTION_DISTANCE_THRESHOLD: ( FUNCTION_SIZE.width / 2 ) - 1,
 
     // distance/second that functions move when animating
-    FUNCTION_ANIMATION_SPEED: FBQueryParameters.SLOW ? 100 : 400,
+    FUNCTION_ANIMATION_SPEED: FBQueryParameters.slow ? 100 : 400,
 
     // scale of the icons on functions in Patterns screen
     PATTERNS_FUNCTION_ICON_SCALE: 0.3,

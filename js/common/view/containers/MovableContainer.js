@@ -35,7 +35,7 @@ define( function( require ) {
 
     // @private invisible background, so that an empty container has dimensions
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      stroke: FBQueryParameters.SHOW_CONTAINERS ? 'red' : null
+      stroke: FBQueryParameters.showContainers ? 'red' : null
     } );
 
     // @private parent for contents of the container

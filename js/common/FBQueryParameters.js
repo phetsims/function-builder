@@ -11,40 +11,38 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var getQueryParameter = phet.chipper.getQueryParameter;
-
-  var FBQueryParameters = {
+  var FBQueryParameters = QueryStringMachine.parse( {
 
     // enables developer-only features
-    DEV: !!getQueryParameter( 'dev' ),
+    dev: { type: 'flag' },
 
     // adds the 'Test' screen
-    TEST_SCREEN: !!getQueryParameter( 'testScreen' ),
+    testScreen: { type: 'flag' },
 
     // populates the output carousel with 1 card of each type
-    POPULATE_OUTPUT: !!getQueryParameter( 'populateOutput' ),
+    populateOutput: { type: 'flag' },
 
     // makes all animation run slowly, so that things are easier to grab while they're animating
-    SLOW: !!getQueryParameter( 'slow' ),
+    slow: { type: 'flag' },
 
     // puts a red stroke around containers in the carousels, so that empty containers are visible
-    SHOW_CONTAINERS: !!getQueryParameter( 'showContainers' ),
+    showContainers: { type: 'flag' },
 
     // when to initialize screen views: 'onDemand'|'onStart'
-    INIT_SCREEN_VIEWS: getQueryParameter( 'initScreenViews' ) || 'onStart',
+    initScreenViews: { type: 'string', allowedValues: [ 'onDemand', 'onStart' ], defaultValue: 'onStart' },
 
     // when to initialize scenes: 'onDemand'|'onStart'
-    INIT_SCENES: getQueryParameter( 'initScenes' ) || 'onStart',
+    initScenes: { type: 'string', allowedValues: [ 'onDemand', 'onStart' ], defaultValue: 'onStart' },
 
     // shows the answer in the Mystery screen
-    SHOW_ANSWER: !!getQueryParameter( 'showAnswer' ),
+    showAnswer: { type: 'flag' },
 
     // plays all Mystery challenges, in order
-    PLAY_ALL: !!getQueryParameter( 'playAll' ),
+    playAll: { type: 'flag' },
 
     // shows all colors, in order that they appear in pool, for Mystery challenges
-    SHOW_ALL_COLORS: !!getQueryParameter( 'showAllColors' )
-  };
+    showAllColors: { type: 'flag' }
+  } );
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
 

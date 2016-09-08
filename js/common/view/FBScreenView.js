@@ -41,7 +41,7 @@ define( function( require ) {
 
     ScreenView.call( this, options );
 
-    if ( FBQueryParameters.INIT_SCREEN_VIEWS === 'onStart' ) {
+    if ( FBQueryParameters.initScreenViews === 'onStart' ) {
       this.initialize();
     }
   }
@@ -99,7 +99,7 @@ define( function( require ) {
           model.reset();
 
           // move 1 of each card to the output carousel, for testing
-          if ( FBQueryParameters.POPULATE_OUTPUT ) {
+          if ( FBQueryParameters.populateOutput ) {
             sceneNodes.forEach( function( sceneNode ) {
               sceneNode && sceneNode.populateOutputCarousel();
             } );
@@ -115,7 +115,7 @@ define( function( require ) {
       // Scene Nodes
       var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
       model.scenes.forEach( function( scene ) {
-        if ( FBQueryParameters.INIT_SCENES === 'onStart' ) {
+        if ( FBQueryParameters.initScenes === 'onStart' ) {
 
           // create scene node on start
           var sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );

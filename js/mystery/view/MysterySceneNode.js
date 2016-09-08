@@ -108,7 +108,7 @@ define( function( require ) {
       centerX: generateButton.centerX,
       top: generateButton.bottom + 10
     } );
-    if ( FBQueryParameters.SHOW_ANSWER ) {
+    if ( FBQueryParameters.showAnswer ) {
       this.addChild( this.answerNode );
     }
 
@@ -252,7 +252,7 @@ define( function( require ) {
       thisNode.answerNode.text = '#' + ( thisNode.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
       thisNode.answerNode.centerX = this.builderNode.centerX;
 
-      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+      if ( FBQueryParameters.populateOutput ) {
         thisNode.populateOutputCarousel();
       }
     }

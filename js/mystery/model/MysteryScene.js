@@ -163,7 +163,7 @@ define( function( require ) {
         this.availableChallenges = this.challengePool.slice( 0 );
 
         // remove the current challenge, so we don't select it twice in a row
-        if ( !FBQueryParameters.PLAY_ALL ) {
+        if ( !FBQueryParameters.playAll ) {
           var currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
           this.availableChallenges.splice( currentChallengeIndex, 1 );
           assert && assert( this.availableChallenges.length === this.challengePool.length - 1 );
@@ -171,7 +171,7 @@ define( function( require ) {
       }
 
       // randomly select a challenge from the available pool
-      var challengeIndex = FBQueryParameters.PLAY_ALL ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
+      var challengeIndex = FBQueryParameters.playAll ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
       var challenge = this.availableChallenges[ challengeIndex ];
 
@@ -194,7 +194,7 @@ define( function( require ) {
       var i;
       var colors = [];
 
-      if ( FBQueryParameters.SHOW_ALL_COLORS ) {
+      if ( FBQueryParameters.showAllColors ) {
         for ( i = 0; i < this.functionsPerChallenge; i++ ) {
           colors.push( this.getColorDebug() );
         }

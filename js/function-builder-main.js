@@ -43,7 +43,7 @@ define( function( require ) {
       new MysteryScreen( tandem.createTandem( 'mysteryScreen' ) )
     ];
 
-    if ( FBQueryParameters.TEST_SCREEN ) {
+    if ( FBQueryParameters.testScreen ) {
       screens.push( new TestScreen() );
     }
 

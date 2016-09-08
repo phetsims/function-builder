@@ -464,7 +464,7 @@ define( function( require ) {
       thisNode.inputCarousel.animationEnabled = thisNode.outputCarousel.animationEnabled = true;
 
       // move 1 of each card to the output carousel, for testing
-      if ( FBQueryParameters.POPULATE_OUTPUT ) {
+      if ( FBQueryParameters.populateOutput ) {
         thisNode.populateOutputCarousel();
       }
     },
