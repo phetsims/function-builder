@@ -25,15 +25,18 @@ define( function( require ) {
    * @constructor
    */
   function MysteryScreen( tandem ) {
+
+    var options = {
+      name: screenMysteryString,
+      backgroundColor: FBColors.MYSTERY_SCREEN_BACKGROUND,
+      homeScreenIcon: FBIconFactory.createMysteryScreenIcon(),
+      tandem: tandem
+    };
+
     Screen.call( this,
-      screenMysteryString,
-      FBIconFactory.createMysteryScreenIcon(),
       function() { return new MysteryModel(); },
-      function( model ) { return new MysteryScreenView( model ); }, {
-        backgroundColor: FBColors.MYSTERY_SCREEN_BACKGROUND,
-        tandem: tandem
-      }
-    );
+      function( model ) { return new MysteryScreenView( model ); },
+      options );
   }
 
   functionBuilder.register( 'MysteryScreen', MysteryScreen );

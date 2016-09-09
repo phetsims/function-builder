@@ -25,15 +25,18 @@ define( function( require ) {
    * @constructor
    */
   function NumbersScreen( tandem ) {
+
+    var options = {
+      name: screenNumbersString,
+      backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND,
+      homeScreenIcon: FBIconFactory.createNumbersScreenIcon(),
+      tandem: tandem
+    };
+
     Screen.call( this,
-      screenNumbersString,
-      FBIconFactory.createNumbersScreenIcon(),
       function() { return new NumbersModel(); },
-      function( model ) { return new NumbersScreenView( model ); }, {
-        backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND,
-        tandem: tandem
-      }
-    );
+      function( model ) { return new NumbersScreenView( model ); },
+      options );
   }
 
   functionBuilder.register( 'NumbersScreen', NumbersScreen );

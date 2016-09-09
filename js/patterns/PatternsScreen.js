@@ -25,15 +25,18 @@ define( function( require ) {
    * @constructor
    */
   function PatternsScreen( tandem ) {
+
+    var options = {
+      name: screenPatternsString,
+      backgroundColor: FBColors.PATTERNS_SCREEN_BACKGROUND,
+      homeScreenIcon: FBIconFactory.createPatternsScreenIcon(),
+      tandem: tandem
+    };
+
     Screen.call( this,
-      screenPatternsString,
-      FBIconFactory.createPatternsScreenIcon(),
       function() { return new PatternsModel(); },
-      function( model ) { return new PatternsScreenView( model ); }, {
-        backgroundColor: FBColors.PATTERNS_SCREEN_BACKGROUND,
-        tandem: tandem
-      }
-    );
+      function( model ) { return new PatternsScreenView( model ); },
+      options );
   }
 
   functionBuilder.register( 'PatternsScreen', PatternsScreen );

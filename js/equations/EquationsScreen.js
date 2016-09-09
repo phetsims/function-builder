@@ -25,15 +25,18 @@ define( function( require ) {
    * @constructor
    */
   function EquationsScreen( tandem ) {
+
+    var options = {
+      name: screenEquationsString,
+      backgroundColor: FBColors.EQUATIONS_SCREEN_BACKGROUND,
+      homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
+      tandem: tandem
+    };
+
     Screen.call( this,
-      screenEquationsString,
-      FBIconFactory.createEquationsScreenIcon(),
       function() { return new EquationsModel(); },
-      function( model ) { return new EquationsScreenView( model ); }, {
-        backgroundColor: FBColors.EQUATIONS_SCREEN_BACKGROUND,
-        tandem: tandem
-      }
-    );
+      function( model ) { return new EquationsScreenView( model ); },
+      options );
   }
 
   functionBuilder.register( 'EquationsScreen', EquationsScreen );

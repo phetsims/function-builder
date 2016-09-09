@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
   var TestScreenView = require( 'FUNCTION_BUILDER/test/view/TestScreenView' );
 
@@ -19,13 +18,16 @@ define( function( require ) {
    * @constructor
    */
   function TestScreen() {
+
+    var options = {
+      name: 'Test',
+      backgroundColor: 'rgb( 255, 247, 234 )'
+    };
+
     Screen.call( this,
-      'Test',
-      new Rectangle( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, { fill: 'red' } ),
       function() { return {}; },
       function( model ) { return new TestScreenView( model ); },
-      { backgroundColor: 'rgb( 255, 247, 234 )' }
-    );
+      options );
   }
 
   functionBuilder.register( 'TestScreen', TestScreen );
