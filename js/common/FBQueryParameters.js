@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var FBQueryParameters = QueryStringMachine.parse( {
+  var FBQueryParameters = QueryStringMachine.getAll( {
 
     // enables developer-only features
     dev: { type: 'flag' },
