@@ -83,7 +83,7 @@ define( function( require ) {
           thisNode.animation = null;
         }
       } );
-      this.animation.start();
+      this.animation.start( phet.joist.elapsedTime );
     },
 
     /**

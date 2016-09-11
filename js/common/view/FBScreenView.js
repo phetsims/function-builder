@@ -177,14 +177,14 @@ define( function( require ) {
             endOpacity: 0,
             onComplete: function() {
               oldSceneNode.visible = false;
-              newFadeIn.start();
+              newFadeIn.start( phet.joist.elapsedTime );
             },
             onStop: function() {
               oldSceneNode.visible = false;
             }
           } );
 
-          oldFadeOut.start();
+          oldFadeOut.start( phet.joist.elapsedTime );
         }
         else {
 

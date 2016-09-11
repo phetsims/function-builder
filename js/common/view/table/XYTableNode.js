@@ -171,7 +171,7 @@ define( function( require ) {
             animation = null;
           }
         } );
-        animation.start();
+        animation.start( phet.joist.elapsedTime );
       }
       else {
 
