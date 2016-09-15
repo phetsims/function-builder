@@ -50,7 +50,7 @@ define( function( require ) {
       allowTouchSnag: false
     }, options );
 
-    var thisNode = this;
+    var self = this;
 
     var backgroundNode = new FunctionBackgroundNode( _.extend( {
       size: options.size
@@ -97,31 +97,31 @@ define( function( require ) {
 
       slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;
 
-      if ( container.containsNode( thisNode ) ) {
+      if ( container.containsNode( self ) ) {
 
         // function is in the carousel, pop it out
-        container.removeNode( thisNode );
-        dragLayer.addChild( thisNode );
+        container.removeNode( self );
+        dragLayer.addChild( self );
         functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
-      else if ( builderNode.containsFunctionNode( thisNode ) ) {
+      else if ( builderNode.containsFunctionNode( self ) ) {
 
         // function is in the builder
 
         // if this node's 'not invertible' animation was running, stop it
-        thisNode.stopNotInvertibleAnimation();
+        self.stopNotInvertibleAnimation();
 
         // pop it out of the builder
-        slotNumberRemovedFrom = builderNode.removeFunctionNode( thisNode );
+        slotNumberRemovedFrom = builderNode.removeFunctionNode( self );
         var slotLocation = builderNode.builder.getSlotLocation( slotNumberRemovedFrom );
-        dragLayer.addChild( thisNode );
+        dragLayer.addChild( self );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
         // function was grabbed while in dragLayer, do nothing
       }
 
-      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag: function should be in dragLayer' );
+      assert && assert( dragLayer.hasChild( self ), 'startDrag: function should be in dragLayer' );
     };
 
     //-------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
-      assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: function should be in dragLayer' );
+      assert && assert( dragLayer.hasChild( self ), 'endDrag: function should be in dragLayer' );
 
       // Find the closest slot in the builder
       var slotNumber = builderNode.builder.getClosestSlot( functionInstance.locationProperty.get(),
@@ -138,12 +138,12 @@ define( function( require ) {
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
 
         // no builder slot, animate back to the carousel
-        thisNode.animateToCarousel();
+        self.animateToCarousel();
       }
       else {
 
         // put function in builder slot
-        thisNode.animateToBuilder( slotNumber, slotNumberRemovedFrom );
+        self.animateToBuilder( slotNumber, slotNumberRemovedFrom );
       }
     };
 
@@ -182,14 +182,14 @@ define( function( require ) {
     animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
 
-      var thisNode = this;
+      var self = this;
 
       // to improve readability
-      var builderNode = thisNode.builderNode;
+      var builderNode = this.builderNode;
       var builder = builderNode.builder;
-      var dragLayer = thisNode.dragLayer;
+      var dragLayer = this.dragLayer;
 
-      thisNode.functionInstance.animateTo( builder.getSlotLocation( slotNumber ),
+      this.functionInstance.animateTo( builder.getSlotLocation( slotNumber ),
         function() {
 
           // If the slot is occupied, relocate the occupier.
@@ -211,8 +211,8 @@ define( function( require ) {
             }
           }
 
-          dragLayer.removeChild( thisNode );
-          builderNode.addFunctionNode( thisNode, slotNumber );
+          dragLayer.removeChild( self );
+          builderNode.addFunctionNode( self, slotNumber );
         } );
     },
 
@@ -251,11 +251,11 @@ define( function( require ) {
      */
     animateToCarousel: function() {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
-      var thisNode = this;
-      thisNode.functionInstance.animateTo( thisNode.container.carouselLocation,
+      var self = this;
+      self.functionInstance.animateTo( self.container.carouselLocation,
         function() {
-          thisNode.dragLayer.removeChild( thisNode );
-          thisNode.container.addNode( thisNode );
+          self.dragLayer.removeChild( self );
+          self.container.addNode( self );
         } );
     },
 

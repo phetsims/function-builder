@@ -69,11 +69,11 @@ define( function( require ) {
     this.outputValueNode = null;
 
     // Update the output value when functions change
-    var thisNode = this;
+    var self = this;
     var functionChangedListener = function() {
-      thisNode.dirty = true;
-      if ( thisNode.updateEnabled ) {
-        thisNode.updateOutputValue();
+      self.dirty = true;
+      if ( self.updateEnabled ) {
+        self.updateOutputValue();
       }
     };
     builder.functionChangedEmitter.addListener( functionChangedListener ); // removeListener required by dispose

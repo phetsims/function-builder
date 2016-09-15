@@ -34,11 +34,11 @@ define( function( require ) {
 
     Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
 
-    var thisNode = this;
+    var self = this;
 
     // unlink unnecessary, instances exist for lifetime of the sim
     card.locationProperty.link( function( location ) {
-      thisNode.center = location.minus( builderLocation );
+      self.center = location.minus( builderLocation );
     } );
   }
 

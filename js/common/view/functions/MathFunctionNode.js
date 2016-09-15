@@ -29,7 +29,7 @@ define( function( require ) {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var thisNode = this;
+    var self = this;
 
     // @private updated by operandProperty observer
     var contentNode = new Text( '', {
@@ -42,7 +42,7 @@ define( function( require ) {
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( function( operand ) {
       contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
-      contentNode.center = thisNode.backgroundNode.center;
+      contentNode.center = self.backgroundNode.center;
     } );
   }
 

@@ -47,7 +47,7 @@ define( function( require ) {
 
     }, options );
 
-    var thisNode = this;
+    var self = this;
 
     MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
 
@@ -63,12 +63,12 @@ define( function( require ) {
 
         // Property associated with the slot
         var revealProperty = new Property( false );
-        thisNode.revealProperties.push( revealProperty );
+        self.revealProperties.push( revealProperty );
 
         // wire up Property to control the function that's in the slot
         // unlink unnecessary, instances exist for lifetime of the sim
         revealProperty.link( function( reveal ) {
-          var functionNode = thisNode.builderNode.getFunctionNode( slotNumber );
+          var functionNode = self.builderNode.getFunctionNode( slotNumber );
           if ( functionNode ) {
             functionNode.identityVisibleProperty.set( reveal );
           }
@@ -82,8 +82,8 @@ define( function( require ) {
           centerX: slotLocation.x,
           top: slotLocation.y + 65
         } );
-        thisNode.revealButtons.push( revealButton );
-        thisNode.controlsLayer.addChild( revealButton );
+        self.revealButtons.push( revealButton );
+        self.controlsLayer.addChild( revealButton );
 
         // touchArea
         revealButton.touchArea = revealButton.localBounds.dilatedXY( 25, 15 );
@@ -119,7 +119,7 @@ define( function( require ) {
     // This can't be executed until the function carousel is populated.
     // unlink unnecessary, instances exist for lifetime of the sim
     scene.challengeProperty.lazyLink( function( challenge ) {
-      thisNode.updateChallenge();
+      self.updateChallenge();
     } );
 
     // Enable features based on number of cards that have been moved to the output carousel.
@@ -127,12 +127,12 @@ define( function( require ) {
     this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
 
       // enabled function reveal buttons
-      thisNode.revealButtons.forEach( function( revealButton ) {
+      self.revealButtons.forEach( function( revealButton ) {
         revealButton.enabled = revealButton.enabled || ( numberOfCards === 3 );
       } );
 
       // enable 'See Inside' check box
-      thisNode.seeInsideCheckBox.enabled = thisNode.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
+      self.seeInsideCheckBox.enabled = self.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
     } );
 
     // @private
@@ -194,7 +194,7 @@ define( function( require ) {
      */
     updateChallenge: function() {
 
-      var thisNode = this;
+      var self = this;
 
       this.resetCarousels();
       this.builderNode.reset();
@@ -210,21 +210,21 @@ define( function( require ) {
           assert && assert( contents.length > 0, 'empty functionContainer' );
 
           var operator = contents[ 0 ].functionInstance.operator;
-          thisNode.operatorToContainerMap[ operator ] = functionContainer;
+          self.operatorToContainerMap[ operator ] = functionContainer;
         } );
       }
 
       // convert the challenge from a string to an array of {operator: string, operand: number}
-      var challenge = thisNode.scene.challengeProperty.get();
+      var challenge = self.scene.challengeProperty.get();
       var challengeObjects = MysteryChallenges.parseChallenge( challenge );
 
       // transfer functions from carousel to builder, configured to match the challenge
       var slotNumber = 0;
-      var colors = thisNode.scene.getColors(); // {<Color|string>[]}
+      var colors = self.scene.getColors(); // {<Color|string>[]}
       challengeObjects.forEach( function( challengeObject ) {
 
         // get the container that has functions for this operator
-        var functionContainer = thisNode.operatorToContainerMap[ challengeObject.operator ];
+        var functionContainer = self.operatorToContainerMap[ challengeObject.operator ];
         assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
 
         // get the first item in the container
@@ -249,11 +249,11 @@ define( function( require ) {
       this.resetChallengeControls();
 
       // show the answer for debugging
-      thisNode.answerNode.text = '#' + ( thisNode.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
-      thisNode.answerNode.centerX = this.builderNode.centerX;
+      self.answerNode.text = '#' + ( self.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
+      self.answerNode.centerX = this.builderNode.centerX;
 
       if ( FBQueryParameters.populateOutput ) {
-        thisNode.populateOutputCarousel();
+        self.populateOutputCarousel();
       }
     }
   } );

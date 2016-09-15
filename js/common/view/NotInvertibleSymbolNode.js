@@ -69,18 +69,18 @@ define( function( require ) {
       this.animation && this.animation.stop();
 
       // start animation, show symbol and gradually fade out by modulating opacity
-      var thisNode = this;
+      var self = this;
       this.animation = new OpacityTo( this, {
         startOpacity: 0.85,
         endOpacity: 0,
         duration: 1500, // fade out time, ms
         easing: TWEEN.Easing.Quintic.In, // most of opacity change happens at end of duration
         onStart: function() {
-          thisNode.visible = true;
+          self.visible = true;
         },
         onComplete: function() {
-          thisNode.visible = false;
-          thisNode.animation = null;
+          self.visible = false;
+          self.animation = null;
         }
       } );
       this.animation.start( phet.joist.elapsedTime );

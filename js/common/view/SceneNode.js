@@ -60,7 +60,7 @@ define( function( require ) {
       hideFunctionsCheckBoxVisible: true // {boolean} is hideFunctionsCheckBox visible?
     }, options );
 
-    var thisNode = this;
+    var self = this;
 
     // view-specific properties
     var viewProperties = new PropertySet( {
@@ -157,7 +157,7 @@ define( function( require ) {
 
     // Eraser button, centered below the output carousel
     var eraserButton = new EraserButton( {
-      listener: function() { thisNode.erase(); },
+      listener: function() { self.erase(); },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
       top: outputCarousel.bottom + 25
@@ -410,62 +410,61 @@ define( function( require ) {
     // @private populates the function carousel
     populateFunctionCarousels: function() {
 
-      var thisNode = this;
+      var self = this;
 
-      thisNode.functionCarousel.animationEnabled = false;
+      self.functionCarousel.animationEnabled = false;
 
-      thisNode.functionCarousel.items.forEach( function( functionContainer ) {
+      self.functionCarousel.items.forEach( function( functionContainer ) {
 
         // function container's location
-        functionContainer.carouselLocation = getCarouselLocation( thisNode.functionCarousel, functionContainer, thisNode.functionsDragLayer );
+        functionContainer.carouselLocation = getCarouselLocation( self.functionCarousel, functionContainer, self.functionsDragLayer );
 
         // populate the container with functions
-        functionContainer.createFunctions( thisNode.scene.numberOfEachFunction, thisNode.scene, thisNode.builderNode, thisNode.functionsDragLayer );
+        functionContainer.createFunctions( self.scene.numberOfEachFunction, self.scene, self.builderNode, self.functionsDragLayer );
 
         // get the functions that were added, needed for reset
-        thisNode.functionNodes = thisNode.functionNodes.concat( functionContainer.getContents() );
+        self.functionNodes = self.functionNodes.concat( functionContainer.getContents() );
       } );
 
-      thisNode.functionCarousel.pageNumberProperty.reset();
-      thisNode.functionCarousel.animationEnabled = true;
+      self.functionCarousel.pageNumberProperty.reset();
+      self.functionCarousel.animationEnabled = true;
     },
 
     // @private populates the card carousels
     populateCardCarousels: function() {
 
-      var thisNode = this;
+      this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
 
-      thisNode.inputCarousel.animationEnabled = thisNode.outputCarousel.animationEnabled = false;
-
-      var inputContainers = thisNode.inputCarousel.items;
-      var outputContainers = thisNode.outputCarousel.items;
+      var inputContainers = this.inputCarousel.items;
+      var outputContainers = this.outputCarousel.items;
       assert && assert( inputContainers.length === outputContainers.length );
 
       for ( var i = 0; i < inputContainers.length; i++ ) {
 
         // input container's location
         var inputContainer = inputContainers[ i ];
-        inputContainer.carouselLocation = getCarouselLocation( thisNode.inputCarousel, inputContainer, thisNode.cardsDragLayer );
+        inputContainer.carouselLocation = getCarouselLocation( this.inputCarousel, inputContainer, this.cardsDragLayer );
 
         // output container's location
         var outputContainer = outputContainers[ i ];
-        outputContainer.carouselLocation = getCarouselLocation( thisNode.outputCarousel, outputContainer, thisNode.cardsDragLayer );
+        outputContainer.carouselLocation = getCarouselLocation( this.outputCarousel, outputContainer, this.cardsDragLayer );
 
         // populate the input container with cards
-        inputContainer.createCards( thisNode.scene.numberOfEachCard, thisNode.scene, inputContainer, outputContainer,
-          thisNode.builderNode, thisNode.cardsDragLayer, thisNode.seeInsideLayer, thisNode.viewProperties.seeInsideProperty );
+        inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,
+          this.builderNode, this.cardsDragLayer, this.seeInsideLayer, this.viewProperties.seeInsideProperty );
 
         // get the cards that were added, needed for reset
-        thisNode.cardNodes = thisNode.cardNodes.concat( inputContainer.getContents() );
+        this.cardNodes = this.cardNodes.concat( inputContainer.getContents() );
       }
 
-      thisNode.inputCarousel.pageNumberProperty.reset();
-      thisNode.outputCarousel.pageNumberProperty.reset();
-      thisNode.inputCarousel.animationEnabled = thisNode.outputCarousel.animationEnabled = true;
+      this.inputCarousel.pageNumberProperty.reset();
+      this.outputCarousel.pageNumberProperty.reset();
+      this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
 
       // move 1 of each card to the output carousel, for testing
+      var self = this;
       if ( FBQueryParameters.populateOutput ) {
-        thisNode.populateOutputCarousel();
+        self.populateOutputCarousel();
       }
     },
 

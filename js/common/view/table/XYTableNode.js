@@ -65,7 +65,7 @@ define( function( require ) {
 
     }, options );
 
-    var thisNode = this;
+    var self = this;
 
     // @private
     this.builder = builder;
@@ -159,8 +159,8 @@ define( function( require ) {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      var scrollY = -( thisNode.rowNumberAtTopProperty.get() * thisNode.rowSize.height );
-      if ( thisNode.visible && thisNode.animationEnabled ) {
+      var scrollY = -( self.rowNumberAtTopProperty.get() * self.rowSize.height );
+      if ( self.visible && self.animationEnabled ) {
 
         // animate scrolling
         var destination = new Vector2( scrollingContents.x, scrollY );
@@ -182,19 +182,19 @@ define( function( require ) {
 
     // button state is dependent on number of rows and which rows are visible
     var updateButtonState = function() {
-      upButton.enabled = ( thisNode.rowNumberAtTopProperty.get() !== 0 );
-      downButton.enabled = ( thisNode.numberOfRowsProperty.get() - thisNode.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
+      upButton.enabled = ( self.rowNumberAtTopProperty.get() !== 0 );
+      downButton.enabled = ( self.numberOfRowsProperty.get() - self.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
     };
     // unlink unnecessary, instance owns these properties
     this.numberOfRowsProperty.link( updateButtonState );
     this.rowNumberAtTopProperty.link( updateButtonState );
 
     upButton.addListener( function() {
-      thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() - 1 );
+      self.rowNumberAtTopProperty.set( self.rowNumberAtTopProperty.get() - 1 );
     } );
 
     downButton.addListener( function() {
-      thisNode.rowNumberAtTopProperty.set( thisNode.rowNumberAtTopProperty.get() + 1 );
+      self.rowNumberAtTopProperty.set( self.rowNumberAtTopProperty.get() + 1 );
     } );
   }
 

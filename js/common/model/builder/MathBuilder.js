@@ -23,9 +23,9 @@ define( function( require ) {
     Builder.call( this, options );
 
     // when any function's operand changes, notify listeners
-    var thisBuilder = this;
+    var self = this;
     this.operandObserver = function( operand ) {
-      thisBuilder.functionChangedEmitter.emit();
+      self.functionChangedEmitter.emit();
     };
   }
 

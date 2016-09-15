@@ -61,7 +61,7 @@ define( function( require ) {
     this._updateEnabled = options.updateEnabled;
     this.dirty = true; // {boolean} does this node need to be updated?
 
-    var thisNode = this;
+    var self = this;
 
     // @private background
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -102,16 +102,16 @@ define( function( require ) {
     // Controls which equation is visible.
     // unlink unnecessary, instances exist for lifetime of the sim
     slopeInterceptProperty.lazyLink( function( slopeIntercept ) {
-      thisNode.slopeInterceptEquationNode.visible = slopeIntercept;
-      thisNode.helpfulEquationNode.visible = !slopeIntercept;
+      self.slopeInterceptEquationNode.visible = slopeIntercept;
+      self.helpfulEquationNode.visible = !slopeIntercept;
     } );
 
     // Updates equations when functions in the builder change.
     // removeListener unnecessary, instances exist for lifetime of the sim
     builder.functionChangedEmitter.addListener( function() {
-      thisNode.dirty = true;
-      if ( thisNode.updateEnabled ) {
-        thisNode.updateEquations();
+      self.dirty = true;
+      if ( self.updateEnabled ) {
+        self.updateEquations();
       }
     } );
 

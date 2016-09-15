@@ -37,7 +37,7 @@ define( function( require ) {
 
     }, options );
 
-    var thisFunction = this;
+    var self = this;
 
     // @private
     this._invertible = options.invertible;
@@ -48,7 +48,7 @@ define( function( require ) {
     // @public
     this.fillProperty = new Property( options.fill );
     this.fillProperty.link( function( fill ) {
-      thisFunction.viewOptions.fill = fill;
+      self.viewOptions.fill = fill;
     } );
 
     Movable.call( this, options );

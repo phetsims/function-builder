@@ -40,7 +40,7 @@ define( function( require ) {
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
-    var thisNode = this;
+    var self = this;
 
     this.movable = movable; // @public
 
@@ -48,7 +48,7 @@ define( function( require ) {
 
     // unlink unnecessary, instances exist for lifetime of the sim
     movable.locationProperty.link( function( location ) {
-        options.translateNode( thisNode, location );
+        options.translateNode( self, location );
       }
     );
 
@@ -66,14 +66,14 @@ define( function( require ) {
           options.startDrag && options.startDrag();
 
           // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
-          var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          var parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
           startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
         },
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
         drag: function( event, trail ) {
           var previousLocation = movable.locationProperty.get();
-          var parent = thisNode.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          var parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
           var location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
           var delta = location.minus( previousLocation );
           options.translateMovable( movable, location, delta );

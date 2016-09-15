@@ -73,7 +73,7 @@ define( function( require ) {
       this.initialized = true;
       functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
 
-      var thisNode = this;
+      var self = this;
       var model = this.model;
       var layoutBounds = this.layoutBounds;
 
@@ -118,7 +118,7 @@ define( function( require ) {
         if ( FBQueryParameters.initScenes === 'onStart' ) {
 
           // create scene node on start
-          var sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
+          var sceneNode = new self.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
           sceneNodes.push( sceneNode );
           scenesParent.addChild( sceneNode );
         }
@@ -157,7 +157,7 @@ define( function( require ) {
         if ( !sceneNode ) {
 
           // create on demand
-          sceneNode = new thisNode.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
+          sceneNode = new self.sceneNodeConstructor( scene, layoutBounds, { visible: false } );
           sceneNodes[ sceneIndex ] = sceneNode;
           scenesParent.addChild( sceneNode );
           sceneNode.completeInitialization(); // after adding to scene graph!

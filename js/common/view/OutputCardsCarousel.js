@@ -28,9 +28,9 @@ define( function( require ) {
     this.numberOfCardsProperty = new Property( getNumberOfCards( containers ) );
 
     // update numberOfCardsProperty as cards are added/removed
-    var thisNode = this;
+    var self = this;
     var containerListener = function() {
-      thisNode.numberOfCardsProperty.set( getNumberOfCards( containers ) );
+      self.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
     containers.forEach( function( container ) {
 
