@@ -5,7 +5,7 @@
  * See https://github.com/phetsims/function-builder/issues/102
  *
  * Parsing the SVG to create a FontAwesomeNode has a significant performance penalty.  Here we reuse a
- * single instance of FontAwesomeNode( 'eye_close'), and take advantage of scenery's DAG feature, which
+ * single instance of FontAwesomeNode( 'eye_close' ), and take advantage of scenery's DAG feature, which
  * allows a Node to have multiple parents and therefore appear in the scenegraph more than once.
  * Such a Node should not be transformed directly, so we wrap the FontAwesomeNode instance in a Node.
  * Clients can then instantiate and transform an EyeCloseNode without worrying about the fact that
