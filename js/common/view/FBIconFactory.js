@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
   var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -244,13 +244,13 @@ define( function( require ) {
         scale: CHECK_BOX_ICON_SCALE
       } );
 
-      var closedEyeNode = new FontAwesomeNode( 'eye_close', {
+      var eyeCloseNode = new EyeCloseNode( {
         maxHeight: 0.65 * functionNode.height,
         center: functionNode.center
       } );
 
       return new Node( {
-        children: [ functionNode, closedEyeNode ]
+        children: [ functionNode, eyeCloseNode ]
       } );
     }
   };

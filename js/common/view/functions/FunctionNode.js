@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
@@ -43,7 +43,7 @@ define( function( require ) {
 
       size: FBConstants.FUNCTION_SIZE, // {Dimension2} size of the background
       identityVisible: true, // {boolean} is the function's identity visible?
-      hiddenNode: new FontAwesomeNode( 'eye_close' ), // {Node} displayed when the function identity is hidden
+      hiddenNode: new EyeCloseNode(), // {Node} displayed when the function identity is hidden
       hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
 
       //FUTURE remove this workaround, see https://github.com/phetsims/function-builder/issues/49
