@@ -170,7 +170,7 @@ define( function( require ) {
       } );
 
       // reset 'See Inside' property
-      this.viewProperties.seeInsideProperty.reset();
+      this.seeInsideProperty.reset();
 
       // disable 'See Inside' check box
       this.seeInsideCheckBox.enabled = false;

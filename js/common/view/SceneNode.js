@@ -23,7 +23,7 @@ define( function( require ) {
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   var PageControl = require( 'SUN/PageControl' );
   var platform = require( 'PHET_CORE/platform' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
 
@@ -62,15 +62,11 @@ define( function( require ) {
 
     var self = this;
 
-    // view-specific properties
-    var viewProperties = new PropertySet( {
+    // @protected {boolean} show/hide windows that allow you to 'see inside' the builder
+    this.seeInsideProperty = new Property( options.seeInside );
 
-      // {boolean} show/hide windows that allow you to 'see inside' the builder
-      seeInside: options.seeInside,
-
-      // {boolean} should the identity of functions in the builder be hidden?
-      hideFunctions: options.hideFunctions
-    } );
+    // @private {boolean} should the identity of functions in the builder be hidden?
+    this.hideFunctionsProperty = new Property( options.hideFunctions );
 
     // cards are in this layer while they are draggable
     var cardsDragLayer = new Node();
@@ -98,7 +94,7 @@ define( function( require ) {
     var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
       centerX: builder.right
     } ) );
-    var builderNode = new BuilderNode( builder, viewProperties.hideFunctionsProperty, {
+    var builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
       endRadiusX: BUILDER_END_OPTIONS.radiusX,
       slotFill: null
     } );
@@ -211,26 +207,24 @@ define( function( require ) {
 
     // 'Hide Functions' feature ----------------------------------------------------------------------------------------
 
-    var hideFunctionsCheckBox = new CheckBox(
-      FBIconFactory.createHideFunctionsIcon(),
-      viewProperties.hideFunctionsProperty, {
-        visible: options.hideFunctionsCheckBoxVisible,
-        spacing: 8,
-        left: inputCarousel.left,
-        top: functionCarousel.top
-      } );
+    var hideFunctionsCheckBox = new CheckBox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
+      visible: options.hideFunctionsCheckBoxVisible,
+      spacing: 8,
+      left: inputCarousel.left,
+      top: functionCarousel.top
+    } );
     controlsLayer.addChild( hideFunctionsCheckBox );
     hideFunctionsCheckBox.touchArea = hideFunctionsCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // 'See Inside' feature --------------------------------------------------------------------------------------------
 
     var seeInsideLayer = new SeeInsideLayer( scene.builder, {
-      visible: viewProperties.seeInsideProperty.get()
+      visible: this.seeInsideProperty.get()
     } );
 
     var seeInsideCheckBox = new CheckBox(
       FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
-      viewProperties.seeInsideProperty, {
+      this.seeInsideProperty, {
         spacing: 8,
         left: hideFunctionsCheckBox.left,
         top: hideFunctionsCheckBox.bottom + 25
@@ -239,7 +233,7 @@ define( function( require ) {
     seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    viewProperties.seeInsideProperty.link( function( seeInside ) {
+    this.seeInsideProperty.link( function( seeInside ) {
       seeInsideLayer.visible = seeInside;
     } );
 
@@ -272,7 +266,6 @@ define( function( require ) {
 
     // @private needed by prototype functions
     this.scene = scene;
-    this.viewProperties = viewProperties;
     this.cardsDragLayer = cardsDragLayer;
     this.seeInsideLayer = seeInsideLayer;
     this.inputCarousel = inputCarousel;
@@ -344,8 +337,8 @@ define( function( require ) {
 
     // @public
     reset: function() {
-
-      this.viewProperties.reset();
+      this.seeInsideProperty.reset();
+      this.hideFunctionsProperty.reset();
       this.resetCarousels();
       this.builderNode.reset();
       this.resetFunctions();
@@ -451,7 +444,7 @@ define( function( require ) {
 
         // populate the input container with cards
         inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,
-          this.builderNode, this.cardsDragLayer, this.seeInsideLayer, this.viewProperties.seeInsideProperty );
+          this.builderNode, this.cardsDragLayer, this.seeInsideLayer, this.seeInsideProperty );
 
         // get the cards that were added, needed for reset
         this.cardNodes = this.cardNodes.concat( inputContainer.getContents() );

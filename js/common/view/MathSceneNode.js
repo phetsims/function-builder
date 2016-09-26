@@ -19,6 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
+  var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
@@ -43,11 +44,11 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, functionNodeConstructor, options );
 
+    // @public whether the equation is displayed in slope-intercept form
+    this.slopeInterceptProperty = new Property( false );
+
     // XY table drawer
     if ( options.hasTableDrawer ) {
-
-      // add additional view-specific properties
-      this.viewProperties.addProperty( 'slopeIntercept', false ); // @public whether slope-intercept form is displayed
 
       // @private
       this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {
@@ -88,7 +89,7 @@ define( function( require ) {
     if ( options.hasEquationDrawer ) {
 
       // @private
-      this.equationDrawer = new EquationDrawer( scene.builder, this.viewProperties.slopeInterceptProperty, {
+      this.equationDrawer = new EquationDrawer( scene.builder, this.slopeInterceptProperty, {
         equationOptions: options.equationOptions,
         centerX: scene.builder.centerX,
         top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
@@ -103,6 +104,8 @@ define( function( require ) {
 
     // @public @override
     reset: function() {
+
+      this.slopeInterceptProperty.reset();
 
       // disable scrolling animation for the table
       this.tableDrawer && ( this.tableDrawer.contentsNode.animationEnabled = false );
