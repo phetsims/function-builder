@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.1.0-phetio Wed Oct 05 2016 15:43:57 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.1.1-phetio Wed Oct 05 2016 15:47:43 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "b3bd5b50cf098d0b60a711a931ad1b69482f2cf2",
+    "sha": "4fa8f49618e7e180de7750def1844f7293f91020",
     "branch": "1.1-phetio"
   },
   "joist": {
