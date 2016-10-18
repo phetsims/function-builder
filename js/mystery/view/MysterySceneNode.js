@@ -13,13 +13,14 @@ define( function( require ) {
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
   var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
   var Property = require( 'AXON/Property' );
-  var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -92,11 +93,12 @@ define( function( require ) {
     }
 
     // button for generating a new challenge
-    var generateButton = new RefreshButton( {
+    var generateButton = new RectangularPushButton( {
+      content: new FontAwesomeNode( 'refresh' ),
+      baseColor: 'rgb( 242, 233, 22 )',
       listener: function() { scene.nextChallenge(); },
-      iconWidth: 34,
-      xMargin: 16,
-      yMargin: 8,
+      xMargin: 18,
+      yMargin: 10,
       centerX: this.builderNode.centerX,
       top: this.builderNode.bottom + 65
     } );
