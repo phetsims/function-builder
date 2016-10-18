@@ -59,7 +59,8 @@ define( function( require ) {
       // create the icon
       var iconNode = new Image( outputCanvas.toDataURL(), {
 
-        //FUTURE document why this is necessary, https://github.com/phetsims/function-builder/issues/68
+        // Dimensions are unlikely to be available when loading an image via a URL, so set the initial dimensions
+        // explicitly. See https://github.com/phetsims/function-builder/issues/68
         initialWidth: outputCanvas.width,
         initialHeight: outputCanvas.height
       } );
