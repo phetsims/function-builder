@@ -26,6 +26,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -418,7 +419,7 @@ define( function( require ) {
      */
     setUpdateEnabled: function( updateEnabled ) {
 
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
+      FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
 
       var wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;

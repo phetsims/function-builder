@@ -47,7 +47,7 @@ define( function( require ) {
    */
   function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
-    functionBuilder.log && functionBuilder.log( this.constructor.name + '.initialize' );
+    FBQueryParameters.log && console.log( this.constructor.name + '.initialize' );
 
     options = _.extend( {
       seeInside: false, // {boolean} initial value of seeInsideProperty

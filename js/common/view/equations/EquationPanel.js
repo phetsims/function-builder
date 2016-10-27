@@ -18,6 +18,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
@@ -191,7 +192,7 @@ define( function( require ) {
      *
      */
     setUpdateEnabled: function( updateEnabled ) {
-      functionBuilder.log && functionBuilder.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
+      FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
       var wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
       if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {

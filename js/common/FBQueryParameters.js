@@ -16,6 +16,9 @@ define( function( require ) {
     // enables developer-only features
     dev: { type: 'flag' },
 
+    // enables console logging
+    log: { type: 'flag' },
+
     // adds the 'Test' screen
     testScreen: { type: 'flag' },
 

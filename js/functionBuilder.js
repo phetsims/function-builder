@@ -11,15 +11,5 @@ define( function( require ) {
   // modules
   var Namespace = require( 'PHET_CORE/Namespace' );
 
-  var functionBuilder = new Namespace( 'functionBuilder' );
-
-  // enables logging output to the console
-  if ( phet.chipper.getQueryParameter( 'log' ) ) {
-    console.log( 'enabling log' );
-    functionBuilder.log = function( message ) {
-      console.log( '%clog: ' + message, 'color: #009900' ); // green
-    };
-  }
-
-  return functionBuilder;
+  return new Namespace( 'functionBuilder' );
 } );
