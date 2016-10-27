@@ -32,10 +32,18 @@ define( function( require ) {
     showContainers: { type: 'flag' },
 
     // when to initialize screen views: 'onDemand'|'onStart'
-    initScreenViews: { type: 'string', validValues: [ 'onDemand', 'onStart' ], defaultValue: 'onStart' },
+    initScreenViews: {
+      type: 'string',
+      validValues: [ 'onDemand', 'onStart' ],
+      defaultValue: 'onStart'
+    },
 
     // when to initialize scenes: 'onDemand'|'onStart'
-    initScenes: { type: 'string', validValues: [ 'onDemand', 'onStart' ], defaultValue: 'onStart' },
+    initScenes: {
+      type: 'string',
+      validValues: [ 'onDemand', 'onStart' ],
+      defaultValue: 'onStart'
+    },
 
     // shows the answer in the Mystery screen
     showAnswer: { type: 'flag' },
