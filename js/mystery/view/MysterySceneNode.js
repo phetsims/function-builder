@@ -22,6 +22,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   /**
    * @param {MysteryScene} scene - model for this scene
@@ -95,7 +96,7 @@ define( function( require ) {
     // button for generating a new challenge
     var generateButton = new RectangularPushButton( {
       content: new FontAwesomeNode( 'refresh' ),
-      baseColor: 'rgb( 242, 233, 22 )',
+      baseColor: PhetColorScheme.PHET_YELLOW,
       listener: function() { scene.nextChallenge(); },
       xMargin: 18,
       yMargin: 10,
