@@ -13,9 +13,6 @@ define( function( require ) {
 
   var FBQueryParameters = QueryStringMachine.getAll( {
 
-    // enables developer-only features
-    dev: { type: 'flag' },
-
     // enables console logging
     log: { type: 'flag' },
 
