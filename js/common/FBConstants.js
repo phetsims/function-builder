@@ -47,7 +47,7 @@ define( function( require ) {
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,
-      lineDash: null
+      lineDash: []
     },
 
     // how much a card should 'pop out' of its container when clicked

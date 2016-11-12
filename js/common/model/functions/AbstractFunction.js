@@ -33,7 +33,7 @@ define( function( require ) {
       fill: 'white', // {Color|string|null}
       stroke: 'black', // {Color|string|null}
       lineWidth: 1, // {number}
-      lineDash: null // {number[]|null}
+      lineDash: [] // {number[]|null}
 
     }, options );
 
