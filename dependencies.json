@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.1.1-phetio Wed Oct 05 2016 15:47:43 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.1.0-phetio Wed Oct 05 2016 15:45:30 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -21,8 +21,8 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "4fa8f49618e7e180de7750def1844f7293f91020",
-    "branch": "1.1-phetio"
+    "sha": "b3bd5b50cf098d0b60a711a931ad1b69482f2cf2",
+    "branch": "HEAD"
   },
   "joist": {
     "sha": "96c109c6d6d9528fee2b2b2cbd6a6d6033bf3fe8",
@@ -35,10 +35,6 @@
   "phet-core": {
     "sha": "ee1f025a440712ca11a42a05d6c46e9609d2e1b3",
     "branch": "HEAD"
-  },
-  "phet-io": {
-    "sha": "d2293c3ed7449424f87494276527d28ee010d560",
-    "branch": "master"
   },
   "phetcommon": {
     "sha": "5a539ab931b94a3f65ba9c01fbe121c9c1f0774b",
