@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.1.0-phetio Wed Oct 05 2016 15:45:30 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.1.2-phetiophetio Sat Nov 12 2016 17:23:13 GMT-0700 (MST)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -13,16 +13,16 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "5f52de352ec59ab1a6fe91608908e9aaedb8041f",
-    "branch": "HEAD"
+    "sha": "23f68a5610a1880c736db8880e917d529ecd73f9",
+    "branch": "master"
   },
   "dot": {
     "sha": "993d48e69cb042b20a981d1be885d463d731519c",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "b3bd5b50cf098d0b60a711a931ad1b69482f2cf2",
-    "branch": "HEAD"
+    "sha": "c46e3640fbc5e553c8dbc5650285a65aa21a368d",
+    "branch": "1.1-phetio"
   },
   "joist": {
     "sha": "96c109c6d6d9528fee2b2b2cbd6a6d6033bf3fe8",
@@ -35,6 +35,14 @@
   "phet-core": {
     "sha": "ee1f025a440712ca11a42a05d6c46e9609d2e1b3",
     "branch": "HEAD"
+  },
+  "phet-io": {
+    "sha": "0fb9cbf67765eb10fb8abf630aca4de59a215c66",
+    "branch": "state"
+  },
+  "phet-io-website": {
+    "sha": "528402554ab49e7dd2eb5de3044cd90ab8100e8f",
+    "branch": "master"
   },
   "phetcommon": {
     "sha": "5a539ab931b94a3f65ba9c01fbe121c9c1f0774b",
@@ -53,8 +61,8 @@
     "branch": "HEAD"
   },
   "sherpa": {
-    "sha": "785d9664b4f30291119b8021498c788a47318b9f",
-    "branch": "HEAD"
+    "sha": "7a7b88b0658d2ee65bdf66cf232a46a6c20c9917",
+    "branch": "master"
   },
   "sun": {
     "sha": "58f6612d1ab0fbf1b322f49ca318103b86db8ef9",
