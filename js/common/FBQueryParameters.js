@@ -49,7 +49,14 @@ define( function( require ) {
     playAll: { type: 'flag' },
 
     // shows all colors, in order that they appear in pool, for Mystery challenges
-    showAllColors: { type: 'flag' }
+    showAllColors: { type: 'flag' },
+
+    // which test to select initially on the Test screen, see TestScreenView
+    selectedTest: {
+      type: 'string',
+      defaultValue: 'imageFunctions',
+      validValues: [ 'imageFunctions', 'mysteryFunctionColors' ]
+    }
   } );
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );

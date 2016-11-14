@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var DemosView = require( 'SUN/demo/DemosView' );
+  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -20,17 +21,12 @@ define( function( require ) {
    * @constructor
    */
   function TestScreenView() {
-    DemosView.call( this, 'test', [
-
-    /**
-     * To add a test, add an object literal here. Each object has these properties:
-     *
-     * {string} label - label in the combo box
-     * {function(Bounds2): Node} getNode - creates the scene graph for the test
-     */
-      { label: 'Image functions', getNode: testImageFunctions },
-      { label: 'Mystery function colors', getNode: testMysteryFunctionColors }
-    ] );
+    DemosView.call( this, [
+      { label: 'imageFunctions', getNode: testImageFunctions },
+      { label: 'mysteryFunctionColors', getNode: testMysteryFunctionColors }
+    ], {
+      selectedDemoLabel: FBQueryParameters.selectedTest
+    } );
   }
 
   functionBuilder.register( 'TestScreenView', TestScreenView );
