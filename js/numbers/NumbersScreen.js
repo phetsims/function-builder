@@ -16,6 +16,8 @@ define( function( require ) {
   var NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
   var NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
@@ -28,7 +30,7 @@ define( function( require ) {
 
     var options = {
       name: screenNumbersString,
-      backgroundColor: FBColors.NUMBERS_SCREEN_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( FBColors.NUMBERS_SCREEN_BACKGROUND ) ),
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon(),
       tandem: tandem
     };

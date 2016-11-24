@@ -16,6 +16,8 @@ define( function( require ) {
   var PatternsModel = require( 'FUNCTION_BUILDER/patterns/model/PatternsModel' );
   var PatternsScreenView = require( 'FUNCTION_BUILDER/patterns/view/PatternsScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenPatternsString = require( 'string!FUNCTION_BUILDER/screen.patterns' );
@@ -28,7 +30,7 @@ define( function( require ) {
 
     var options = {
       name: screenPatternsString,
-      backgroundColor: FBColors.PATTERNS_SCREEN_BACKGROUND,
+      backgroundColorProperty: new Property( Color.toColor( FBColors.PATTERNS_SCREEN_BACKGROUND ) ),
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon(),
       tandem: tandem
     };
