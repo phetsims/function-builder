@@ -96,7 +96,7 @@ define( function( require ) {
     // button for generating a new challenge
     var generateButton = new RectangularPushButton( {
       content: new FontAwesomeNode( 'refresh' ),
-      baseColor: PhetColorScheme.PHET_YELLOW,
+      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
       listener: function() { scene.nextChallenge(); },
       xMargin: 18,
       yMargin: 10,
