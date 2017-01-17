@@ -33,8 +33,10 @@ define( function( require ) {
     this.locationProperty = new Property( options.location );
 
     // @public
-    this.animationSpeed = options.animationSpeed;
     this.dragging = options.dragging;
+
+    // @private
+    this.animationSpeed = options.animationSpeed;
 
     // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.location.copy();
