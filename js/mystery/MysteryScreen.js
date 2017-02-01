@@ -15,9 +15,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
   var MysteryScreenView = require( 'FUNCTION_BUILDER/mystery/view/MysteryScreenView' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenMysteryString = require( 'string!FUNCTION_BUILDER/screen.mystery' );
@@ -30,7 +29,7 @@ define( function( require ) {
 
     var options = {
       name: screenMysteryString,
-      backgroundColorProperty: new Property( Color.toColor( FBColors.MYSTERY_SCREEN_BACKGROUND ) ),
+      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ),
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon(),
       tandem: tandem
     };

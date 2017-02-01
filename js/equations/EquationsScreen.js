@@ -15,9 +15,8 @@ define( function( require ) {
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
@@ -30,7 +29,7 @@ define( function( require ) {
 
     var options = {
       name: screenEquationsString,
-      backgroundColorProperty: new Property( Color.toColor( FBColors.EQUATIONS_SCREEN_BACKGROUND ) ),
+      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ),
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem
     };

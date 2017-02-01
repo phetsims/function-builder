@@ -11,10 +11,9 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
   var TestScreenView = require( 'FUNCTION_BUILDER/test/view/TestScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   /**
    * @constructor
@@ -23,7 +22,7 @@ define( function( require ) {
 
     var options = {
       name: 'Test',
-      backgroundColorProperty: new Property( Color.toColor( 'rgb( 255, 247, 234 )' ) )
+      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )
     };
 
     Screen.call( this,
