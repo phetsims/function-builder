@@ -138,6 +138,7 @@ define( function( require ) {
     // @public
     dispose: function() {
       this.disposeXYTableRow();
+      Node.prototype.dispose.call( this );
     },
 
     /**
