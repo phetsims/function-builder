@@ -33,24 +33,24 @@ define( function( require ) {
 
     // increment, optionally skip zero
     assert && assert( !options.upFunction );
-    options.upFunction = function() {
-      var value = valueProperty.get() + 1;
-      if ( value === 0 && options.skipZero ) {
-        value++;
+    options.upFunction = function( value ) {
+      var newValue = value + 1;
+      if ( newValue === 0 && options.skipZero ) {
+        newValue++;
       }
-      assert && assert( !( options.skipZero && value === 0 ), 'programming error, zero should be skipped' );
-      return value;
+      assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
+      return newValue;
     };
 
     // decrement, optionally skip zero
     assert && assert( !options.downFunction );
-    options.downFunction = function() {
-      var value = valueProperty.get() - 1;
-      if ( value === 0 && options.skipZero ) {
-        value--;
+    options.downFunction = function( value ) {
+      var newValue = value - 1;
+      if ( newValue === 0 && options.skipZero ) {
+        newValue--;
       }
-      assert && assert( !( options.skipZero && value === 0 ), 'programming error, zero should be skipped' );
-      return value;
+      assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
+      return newValue;
     };
 
     NumberPicker.call( this, valueProperty, new Property( valueRange ), options );
