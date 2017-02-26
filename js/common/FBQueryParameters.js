@@ -42,8 +42,8 @@ define( function( require ) {
       defaultValue: 'onStart'
     },
 
-    // shows the answer in the Mystery screen
-    showAnswer: { type: 'flag' },
+    // shows the answers in the Mystery screen
+    showAnswers: { type: 'flag' },
 
     // plays all Mystery challenges, in order
     playAll: { type: 'flag' },

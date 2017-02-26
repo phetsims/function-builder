@@ -111,7 +111,7 @@ define( function( require ) {
       centerX: generateButton.centerX,
       top: generateButton.bottom + 10
     } );
-    if ( FBQueryParameters.showAnswer ) {
+    if ( FBQueryParameters.showAnswers ) {
       this.addChild( this.answerNode );
     }
 
