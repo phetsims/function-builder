@@ -88,7 +88,7 @@ define( function( require ) {
      *
      * @param {HTMLImageElement} image - image that appears on the card
      * @param {Object} [options]
-     * @return {Node}
+     * @returns {Node}
      * @public
      * @static
      * @override

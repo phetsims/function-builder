@@ -97,7 +97,7 @@ define( function( require ) {
      *
      * @param {RationalNumber} rationalNumber
      * @param {Object} [options]
-     * @return {Node}
+     * @returns {Node}
      * @public
      * @static
      * @override

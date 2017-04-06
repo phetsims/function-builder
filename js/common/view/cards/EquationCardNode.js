@@ -94,7 +94,7 @@ define( function( require ) {
      *
      * @param {string} symbol - symbol that appears on the card
      * @param {Object} [options]
-     * @return {Node}
+     * @returns {Node}
      * @public
      * @static
      * @override
