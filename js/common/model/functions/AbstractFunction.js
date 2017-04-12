@@ -23,6 +23,9 @@ define( function( require ) {
 
     options = _.extend( {
 
+      // {string} optional name, for internal debugging
+      name: null,
+
       // {boolean} is this function invertible?
       invertible: true,
 
@@ -41,6 +44,9 @@ define( function( require ) {
 
     // @private
     this._invertible = options.invertible;
+
+    // @public (read-only)
+    this.name = options.name;
 
     // @public (read-only) properties of FunctionNode, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );

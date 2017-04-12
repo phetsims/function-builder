@@ -23,6 +23,7 @@ define( function( require ) {
    */
   function MysteryC( options ) {
     MysteryImageFunction.call( this, mysteryCString, _.extend( {
+      name: 'MysteryC',
       fill: 'rgb( 222, 186, 247 )'
     }, options ) );
   }

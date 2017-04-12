@@ -57,6 +57,7 @@ define( function( require ) {
   function Warhol( options ) {
 
     options = options || {};
+    options.name = 'Warhol';
     options.fill = 'rgb( 250, 186, 75 )';
     options.invertible = false; // grayscale conversion and intensity mapping are both lossy
 

@@ -26,6 +26,7 @@ define( function( require ) {
   function Grayscale( options ) {
 
     options = options || {};
+    options.name = 'Grayscale';
     options.fill = 'rgb( 232, 232, 232 )';
     options.invertible = false; // converting to grayscale is lossy
 

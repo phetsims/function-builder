@@ -28,6 +28,7 @@ define( function( require ) {
     options = _.extend( {
       scale: 0.75
     }, options );
+    options.name = 'Shrink';
     options.fill = 'rgb( 246, 164, 255 )';
 
     assert && assert( options.scale > 0 && options.scale < 1 );

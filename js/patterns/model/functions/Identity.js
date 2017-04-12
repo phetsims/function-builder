@@ -22,6 +22,7 @@ define( function( require ) {
   function Identity( options ) {
 
     options = options || {};
+    options.name = 'Identity';
     options.fill = 'rgb( 255, 246, 146 )';
 
     // The identify function has no visible icon. See https://github.com/phetsims/function-builder/issues/91

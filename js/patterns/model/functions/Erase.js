@@ -26,6 +26,7 @@ define( function( require ) {
   function Erase( options ) {
 
     options = options || {};
+    options.name = 'Erase';
     options.fill = 'rgb( 0, 222, 224 )';
     options.invertible = false; // lossy, erased image data cannot be restored
 

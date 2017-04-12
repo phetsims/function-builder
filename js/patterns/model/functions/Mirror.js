@@ -26,6 +26,7 @@ define( function( require ) {
   function Mirror( options ) {
 
     options = options || {};
+    options.name = 'Mirror';
     options.fill = 'rgb( 128, 197, 237 )';
 
     var iconNode = new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );

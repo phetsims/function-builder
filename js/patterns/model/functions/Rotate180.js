@@ -26,6 +26,7 @@ define( function( require ) {
   function Rotate180( options ) {
 
     options = options || {};
+    options.name = 'Rotate180';
     options.fill = 'rgb( 147, 231, 128 )';
 
     var iconNode = new Image( rotate180Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );

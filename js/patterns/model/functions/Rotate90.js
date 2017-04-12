@@ -26,6 +26,7 @@ define( function( require ) {
   function Rotate90( options ) {
 
     options = options || {};
+    options.name = 'Rotate90';
     options.fill = 'rgb( 147, 231, 128 )';
 
     var iconNode = new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );

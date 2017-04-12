@@ -26,6 +26,7 @@ define( function( require ) {
   function InvertRGB( options ) {
 
     options = options || {};
+    options.name = 'InvertRGB';
     options.fill = 'black';
 
     var iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
