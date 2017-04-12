@@ -66,7 +66,9 @@ define( function( require ) {
 
       // 3-functions
       [ 'rgb( 255, 255, 0 )', 'rgb( 255, 0, 255 )', 'rgb( 147, 231, 128 )' ]
-    ]
+    ],
+
+    QUESTION_MARK_COLORS: [ 'red', 'blue', 'green', 'orange', 'magenta' ]
   };
 
   functionBuilder.register( 'FBColors', FBColors );
