@@ -55,6 +55,7 @@ define( function( require ) {
 
     // Create enough instances of each function type to support the case where all functions
     // in a challenge have the same type.
+    assert && assert( !options.numberOfEachFunction );
     options.numberOfEachFunction = options.functionsPerChallenge;
 
     // @private
