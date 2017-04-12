@@ -39,6 +39,14 @@ define( function( require ) {
   return inherit( MovableContainer, FunctionContainer, {
 
     /**
+     * Gets the constructor associated with this container.
+     * @returns {constructor} constructor for a subtype of AbstractFunction
+     */
+    getFunctionConstructor: function() {
+      return this.functionCreator.functionConstructor;
+    },
+
+    /**
      * Creates functions and puts them in the container.
      *
      * @param {number} numberOfInstances
