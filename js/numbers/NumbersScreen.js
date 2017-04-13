@@ -23,16 +23,19 @@ define( function( require ) {
 
   /**
    * @param {Tandem} tandem
+   * @param {Object} [options]
    * @constructor
    */
-  function NumbersScreen( tandem ) {
+  function NumbersScreen( tandem, options ) {
 
-    var options = {
+    options = _.extend( {
       name: screenNumbersString,
       backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ),
-      homeScreenIcon: FBIconFactory.createNumbersScreenIcon(),
-      tandem: tandem
-    };
+      homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
+    }, options );
+
+    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
+    options.tandem = tandem;
 
     Screen.call( this,
       function() { return new NumbersModel(); },
