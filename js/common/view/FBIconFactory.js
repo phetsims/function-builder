@@ -145,15 +145,18 @@ define( function( require ) {
     createMysteryScreenIcon: function( options ) {
 
       options = _.extend( {
-        fill: FBColors.MYSTERY_SCREEN_BACKGROUND
+        fill: FBColors.MYSTERY_SCREEN_BACKGROUND,
+        functionFill: 'rgb( 147, 231, 128 )',
+        questionMarkFill: 'black'
       }, options );
 
       var functionNode = new FunctionBackgroundNode( {
-        fill: 'rgb( 147, 231, 128 )'
+        fill: options.functionFill
       } );
 
       var textNode = new Text( mysteryCharacterString, {
-        font: new FBFont( 80 ),
+        font: new FBFont( { size: 80, weight: 'bold' } ),
+        fill: options.questionMarkFill,
         maxWidth: 0.5 * functionNode.width,
         maxHeight: 0.95 * functionNode.height,
         center: functionNode.center
