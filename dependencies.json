@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.2 Fri Apr 07 2017 17:14:21 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.2 Thu Apr 13 2017 13:02:59 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -9,19 +9,19 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "f0b1f7da85f87b9626562bea7fe69197fa81f05f",
-    "branch": "HEAD"
+    "sha": "0e0cd583ee2e8ccb652d361d0b4bb63192c5e900",
+    "branch": "function-builder-1.0"
   },
   "chipper": {
     "sha": "9059e93b28d88dbc7e2e2c2c6b4b696dfe9ff4d2",
-    "branch": "HEAD"
+    "branch": "function-builder-1.0"
   },
   "dot": {
     "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "3f85316d73bd166a2c0e39b87b473528c9260924",
+    "sha": "d53cef5ba0ec617b34fbf88ae18f045edb3d5595",
     "branch": "1.0"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "8b5ebd459eccdeb66698a72d0a28086f93af0331",
-    "branch": "HEAD"
+    "sha": "32ee5d6aaefa4f07545476b13ee021076ce3e01d",
+    "branch": "function-builder-1.0"
   },
   "scenery": {
     "sha": "76a6035fe2ae86e3672467ee1501d2fb2b5c60e0",
