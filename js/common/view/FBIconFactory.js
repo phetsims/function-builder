@@ -47,9 +47,14 @@ define( function( require ) {
      * Be sure to use a higher resolution version of the image or it will look lousy at the
      * size of the home screen icon.
      *
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createPatternsScreenIcon: function() {
+    createPatternsScreenIcon: function( options ) {
+
+      options = _.extend( {
+        fill: FBColors.PATTERNS_SCREEN_BACKGROUND
+      }, options );
 
       // apply Warhol to the image
       var warhol = new Warhol();
@@ -65,15 +70,20 @@ define( function( require ) {
         initialHeight: outputCanvas.height
       } );
 
-      return new ScreenIcon( iconNode, { fill: FBColors.PATTERNS_SCREEN_BACKGROUND } );
+      return new ScreenIcon( iconNode, options );
     },
 
     /**
      * Creates the icon for the 'Numbers' screen, a function piece with '+ 3' on it.
      *
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createNumbersScreenIcon: function() {
+    createNumbersScreenIcon: function( options ) {
+
+      options = _.extend( {
+        fill: FBColors.NUMBERS_SCREEN_BACKGROUND
+      }, options );
 
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 255, 120, 120 )'
@@ -105,28 +115,38 @@ define( function( require ) {
 
       var iconNode = new Node( { children: [ functionNode, parentNode ] } );
 
-      return new ScreenIcon( iconNode, { fill: FBColors.NUMBERS_SCREEN_BACKGROUND } );
+      return new ScreenIcon( iconNode, options );
     },
 
     /**
      * Creates the icon for the 'Equations' screen, the equation y = 2x + 1
      *
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createEquationsScreenIcon: function() {
-      var iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
-      return new ScreenIcon( iconNode, {
+    createEquationsScreenIcon: function( options ) {
+
+      options = _.extend( {
         fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
         maxIconWidthProportion: 0.75
-      } );
+      }, options );
+
+      var iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
+
+      return new ScreenIcon( iconNode, options );
     },
 
     /**
      * Creates the icon for the 'Mystery' screen.
      *
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createMysteryScreenIcon: function() {
+    createMysteryScreenIcon: function( options ) {
+
+      options = _.extend( {
+        fill: FBColors.MYSTERY_SCREEN_BACKGROUND
+      }, options );
 
       var functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 128 )'
@@ -141,7 +161,7 @@ define( function( require ) {
 
       var iconNode = new Node( { children: [ functionNode, textNode ] } );
 
-      return new ScreenIcon( iconNode, { fill: FBColors.MYSTERY_SCREEN_BACKGROUND } );
+      return new ScreenIcon( iconNode, options );
     },
 
     /**
