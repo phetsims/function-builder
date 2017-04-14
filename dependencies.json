@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.3-rc.1 Thu Apr 13 2017 22:24:47 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.3 Fri Apr 14 2017 17:34:10 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "9d5bd6549354bc26f1f8698fbc2de9fba1be2d7c",
+    "sha": "8c073723c2e1d080196dd85b4831f6723a7b502c",
     "branch": "1.0"
   },
   "joist": {
