@@ -13,7 +13,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
 
   /**
    * @param {string} mysteryString - string that may contain subscripts and superscripts
@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function MysteryImageFunction( mysteryString, options ) {
 
-    var iconNode = new SubSupText( mysteryString, {
+    var iconNode = new RichText( mysteryString, {
       subScale: 0.4, // subscript scale
       font: FBConstants.PATTERNS_FUNCTION_FONT,
       maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
