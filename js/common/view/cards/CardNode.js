@@ -342,7 +342,7 @@ define( function( require ) {
 
       var self = this;
       var builder = self.builderNode.builder;
-      var windowNumber = builder.getRightWindowNumber( self.card.locationProperty.get().x );
+      var windowNumber = builder.geWindowNumberGreaterThan( self.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -387,7 +387,7 @@ define( function( require ) {
 
       var self = this;
       var builder = self.builderNode.builder;
-      var windowNumber = builder.getLeftWindowNumber( self.card.locationProperty.get().x );
+      var windowNumber = builder.getWindowNumberLessThanOrEqualTo( self.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
