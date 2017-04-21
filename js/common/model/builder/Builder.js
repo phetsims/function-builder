@@ -280,7 +280,7 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window that is immediately to the right of some x coordinate.
+     * Gets the number of the window whose x coordinate is >= some x coordinate.
      *
      * @param {number} x
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
@@ -289,7 +289,7 @@ define( function( require ) {
     getRightWindowNumber: function( x ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x > x ) {
+        if ( windowLocation.x >= x ) {
           return i;
         }
       }
@@ -297,7 +297,7 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window that is immediately to the left of some x coordinate.
+     * Gets the number of the window whose x coordinate is <= some x coordinate.
      *
      * @param {number} x
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
@@ -306,7 +306,7 @@ define( function( require ) {
     getLeftWindowNumber: function( x ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x < x ) {
+        if ( windowLocation.x <= x ) {
           return i;
         }
       }
