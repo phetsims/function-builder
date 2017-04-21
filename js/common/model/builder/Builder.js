@@ -283,7 +283,7 @@ define( function( require ) {
      * Gets the number of the window whose x coordinate is > some x coordinate.
      *
      * @param {number} x
-     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window >
      * @public
      */
     geWindowNumberGreaterThan: function( x ) {
