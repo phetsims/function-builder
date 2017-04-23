@@ -413,6 +413,13 @@ define( function( require ) {
           }
           else {
 
+            // If a card is exactly centered in a window, it will stop there, regardless of 'see inside' state.
+            // So before continuing to the next window, move the card 1 unit to the left.
+            // See https://github.com/phetsims/function-builder/issues/107
+            if ( self.card.locationProperty.get().x === windowLocation.x ) {
+              self.card.moveTo( new Vector2( self.card.locationProperty.get().x - 1, builder.location.y ) );
+            }
+
             // continue to next window
             self.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
           }
