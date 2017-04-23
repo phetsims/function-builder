@@ -286,7 +286,7 @@ define( function( require ) {
      * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window >
      * @public
      */
-    geWindowNumberGreaterThan: function( x ) {
+    getWindowNumberGreaterThan: function( x ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
         var windowLocation = this.getWindowLocation( i );
         if ( windowLocation.x > x ) {
