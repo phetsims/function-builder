@@ -32,10 +32,8 @@ define( function( require ) {
    */
   function Builder( options ) {
 
-    options = options || {};
-
     // used to compute other default option values
-    var NUMBER_OF_SLOTS = ( options.numberOfSlots || 1 );
+    var NUMBER_OF_SLOTS = ( options && options.numberOfSlots ) ? options.numberOfSlots : 1;
 
     options = _.extend( {
 
@@ -280,13 +278,13 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window whose x coordinate is > some x coordinate.
+     * Gets the number of the window that is immediately to the right of some x coordinate.
      *
      * @param {number} x
-     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window >
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the right
      * @public
      */
-    geWindowNumberGreaterThan: function( x ) {
+    getRightWindowNumber: function( x ) {
       for ( var i = 0; i < this.slots.length; i++ ) {
         var windowLocation = this.getWindowLocation( i );
         if ( windowLocation.x > x ) {
@@ -297,16 +295,16 @@ define( function( require ) {
     },
 
     /**
-     * Gets the number of the window whose x coordinate is <= some x coordinate.
+     * Gets the number of the window that is immediately to the left of some x coordinate.
      *
      * @param {number} x
-     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window <=
+     * @returns {number} FunctionSlot.NO_SLOT_NUMBER if there is no window to the left
      * @public
      */
-    getWindowNumberLessThanOrEqualTo: function( x ) {
+    getLeftWindowNumber: function( x ) {
       for ( var i = this.slots.length - 1; i >= 0; i-- ) {
         var windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x <= x ) {
+        if ( windowLocation.x < x ) {
           return i;
         }
       }

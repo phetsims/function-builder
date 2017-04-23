@@ -40,7 +40,7 @@ define( function( require ) {
 
     options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
-    var self = this;
+    var thisNode = this;
 
     // the basic shape of a blank card
     var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
@@ -72,22 +72,22 @@ define( function( require ) {
       var leftPoint = inputContainer.carouselLocation;
       var rightPoint = outputContainer.carouselLocation;
 
-      if ( inputContainer.containsNode( self ) ) {
+      if ( inputContainer.containsNode( thisNode ) ) {
 
         // card is in the input carousel, pop it out
-        inputContainer.removeNode( self );
+        inputContainer.removeNode( thisNode );
         card.moveTo( inputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-        dragLayer.addChild( self );
+        dragLayer.addChild( thisNode );
 
         // adjust for pop-out offset
         leftPoint = card.locationProperty.get();
       }
-      else if ( outputContainer.containsNode( self ) ) {
+      else if ( outputContainer.containsNode( thisNode ) ) {
 
         // card is in the output carousel, pop it out
-        outputContainer.removeNode( self );
+        outputContainer.removeNode( thisNode );
         card.moveTo( outputContainer.carouselLocation.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-        dragLayer.addChild( self );
+        dragLayer.addChild( thisNode );
 
         // adjust for pop-out offset
         rightPoint = card.locationProperty.get();
@@ -95,12 +95,12 @@ define( function( require ) {
       else {
 
         // card was grabbed while animating or while in 'see inside' window
-        self.unregisterAsSeeInsideCard();
+        thisNode.unregisterAsSeeInsideCard();
       }
-      assert && assert( dragLayer.hasChild( self ), 'startDrag must move node to dragLayer' );
+      assert && assert( dragLayer.hasChild( thisNode ), 'startDrag must move node to dragLayer' );
 
       // the card most recently grabbed is in the front
-      self.moveToFront();
+      thisNode.moveToFront();
 
       // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
       slopeLeft = ( leftPoint.y - builder.location.y ) / ( leftPoint.x - INPUT_SLOT_X );
@@ -142,7 +142,7 @@ define( function( require ) {
               if ( !slot.isInvertible() && location.x < windowLocation.x ) {
 
                 blocked = true;
-                self.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
+                thisNode.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
 
                 // allow left edge of card to be dragged slightly past left edge of 'see inside' window
                 var blockedX = windowLocation.x - BLOCKED_X_OFFSET;
@@ -179,19 +179,19 @@ define( function( require ) {
     assert && assert( !options.endDrag );
     options.endDrag = function() {
 
-      assert && assert( dragLayer.hasChild( self ), 'endDrag: card should be in dragLayer' );
+      assert && assert( dragLayer.hasChild( thisNode ), 'endDrag: card should be in dragLayer' );
 
       var cardX = card.locationProperty.get().x;
 
       if ( cardX < INPUT_SLOT_X ) {
 
         // card is to left of builder, animate to input carousel
-        self.animateToCarousel( inputContainer );
+        thisNode.animateToCarousel( inputContainer );
       }
       else if ( cardX > OUTPUT_SLOT_X ) {
 
         // card is to right of builder, animate to output carousel
-        self.animateToCarousel( outputContainer );
+        thisNode.animateToCarousel( outputContainer );
       }
       else { // card is in the builder
 
@@ -202,7 +202,7 @@ define( function( require ) {
             card.moveTo( new Vector2( builder.left, builder.location.y ) );
           }
 
-          self.animateLeftToRight( OUTPUT_SLOT_X );
+          thisNode.animateLeftToRight( OUTPUT_SLOT_X );
         }
         else { // dragging to the left
 
@@ -211,7 +211,7 @@ define( function( require ) {
             card.moveTo( new Vector2( builder.right, builder.location.y ) );
           }
 
-          self.animateRightToLeft( INPUT_SLOT_X, OUTPUT_SLOT_X, BLOCKED_X_OFFSET );
+          thisNode.animateRightToLeft( INPUT_SLOT_X, OUTPUT_SLOT_X, BLOCKED_X_OFFSET );
         }
       }
     };
@@ -250,23 +250,23 @@ define( function( require ) {
 
     // unlink unnecessary, instances exist for lifetime of the sim
     numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
-      self.updateContent( builder, numberOfFunctionsToApply );
+      thisNode.updateContent( builder, numberOfFunctionsToApply );
     } );
 
     // Updates any cards that are not in the input carousel when any function in the builder changes.
     // removeListener unnecessary, instances exist for the lifetime of the sim.
     builderNode.builder.functionChangedEmitter.addListener( function() {
-      if ( !inputContainer.containsNode( self ) ) {
-        self.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
+      if ( !inputContainer.containsNode( thisNode ) ) {
+        thisNode.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
       }
     } );
 
     // When 'See Inside' is turned off, flush out any cards that are stopped in windows.
     // unlink unnecessary, instances exist for lifetime of the sim
     seeInsideProperty.lazyLink( function( seeInside ) {
-      if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( self ) ) {
-        self.unregisterAsSeeInsideCard();
-        self.animateLeftToRight( OUTPUT_SLOT_X );
+      if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( thisNode ) ) {
+        thisNode.unregisterAsSeeInsideCard();
+        thisNode.animateLeftToRight( OUTPUT_SLOT_X );
       }
     } );
   }
@@ -295,11 +295,11 @@ define( function( require ) {
      */
     animateToCarousel: function( container ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateToCarousel: card should be in dragLayer' );
-      var self = this;
-      self.card.animateTo( container.carouselLocation,
+      var thisNode = this;
+      thisNode.card.animateTo( container.carouselLocation,
         function() {
-          self.dragLayer.removeChild( self );
-          container.addNode( self );
+          thisNode.dragLayer.removeChild( thisNode );
+          container.addNode( thisNode );
         } );
     },
 
@@ -340,34 +340,34 @@ define( function( require ) {
     animateLeftToRight: function( outputSlotX ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateLeftToRight: card should be in dragLayer' );
 
-      var self = this;
-      var builder = self.builderNode.builder;
-      var windowNumber = builder.geWindowNumberGreaterThan( self.card.locationProperty.get().x );
+      var thisNode = this;
+      var builder = thisNode.builderNode.builder;
+      var windowNumber = builder.getRightWindowNumber( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
         // animate to 'See Inside' window to right of card
         var windowLocation = builder.getWindowLocation( windowNumber );
-        self.card.animateTo( windowLocation, function() {
+        thisNode.card.animateTo( windowLocation, function() {
 
-          if ( self.seeInsideProperty.get() ) {
+          if ( thisNode.seeInsideProperty.get() ) {
 
             // stop at this window, register as the 'see inside' card
-            self.registerAsSeeInsideCard( outputSlotX );
+            thisNode.registerAsSeeInsideCard( outputSlotX );
           }
           else {
 
             // continue to next window
-            self.animateLeftToRight( outputSlotX );
+            thisNode.animateLeftToRight( outputSlotX );
           }
         } );
       }
       else {
 
         // animate to output slot, then to output carousel
-        self.card.animateTo( new Vector2( outputSlotX, builder.location.y ),
+        thisNode.card.animateTo( new Vector2( outputSlotX, builder.location.y ),
           function() {
-            self.animateToCarousel( self.outputContainer );
+            thisNode.animateToCarousel( thisNode.outputContainer );
           } );
       }
     },
@@ -385,45 +385,45 @@ define( function( require ) {
     animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateRightToLeft: card should be in dragLayer' );
 
-      var self = this;
-      var builder = self.builderNode.builder;
-      var windowNumber = builder.getWindowNumberLessThanOrEqualTo( self.card.locationProperty.get().x );
+      var thisNode = this;
+      var builder = thisNode.builderNode.builder;
+      var windowNumber = builder.getLeftWindowNumber( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
         // animate to 'See Inside' window to left of card
         var windowLocation = builder.getWindowLocation( windowNumber );
-        self.card.animateTo( windowLocation, function() {
+        thisNode.card.animateTo( windowLocation, function() {
 
           var slot = builder.slots[ windowNumber ];
 
           if ( !slot.isEmpty() && !slot.functionInstance.invertible ) {
 
             // encountered a non-invertible function, go slightly past it, then reverse direction
-            self.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
-            self.card.animateTo( new Vector2( windowLocation.x - blockedXOffset, windowLocation.y ),
+            thisNode.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
+            thisNode.card.animateTo( new Vector2( windowLocation.x - blockedXOffset, windowLocation.y ),
               function() {
-                self.animateLeftToRight( outputSlotX );
+                thisNode.animateLeftToRight( outputSlotX );
               } );
           }
-          else if ( self.seeInsideProperty.get() ) {
+          else if ( thisNode.seeInsideProperty.get() ) {
 
             // stop at this window, register as the 'see inside' card
-            self.registerAsSeeInsideCard( outputSlotX );
+            thisNode.registerAsSeeInsideCard( outputSlotX );
           }
           else {
 
             // continue to next window
-            self.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
+            thisNode.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
           }
         } );
       }
       else {
 
         // animate to input slot, then to input carousel
-        self.card.animateTo( new Vector2( inputSlotX, builder.location.y ),
+        thisNode.card.animateTo( new Vector2( inputSlotX, builder.location.y ),
           function() {
-            self.animateToCarousel( self.inputContainer );
+            thisNode.animateToCarousel( thisNode.inputContainer );
           } );
       }
     },
@@ -441,10 +441,10 @@ define( function( require ) {
       assert && assert( this.builderNode.seeInsideCardNode === this, 'flushSeeInsideCard: not a See Inside card' );
 
       // animate to output slot, then to output carousel
-      var self = this;
-      self.card.animateTo( new Vector2( outputSlotX, self.builderNode.builder.location.y ),
+      var thisNode = this;
+      thisNode.card.animateTo( new Vector2( outputSlotX, thisNode.builderNode.builder.location.y ),
         function() {
-          self.animateToCarousel( self.outputContainer );
+          thisNode.animateToCarousel( thisNode.outputContainer );
         } );
     },
 
