@@ -33,8 +33,6 @@ define( function( require ) {
   // constants
   var CARD_NUMBERS_RANGE = new RangeWithValue( -4, 7 );
   var MAX_SLOTS = 3; // max number of slots in the builder
-  var BUILDER_WIDTH = ( MAX_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 70;
-  var BUILDER_X = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( BUILDER_WIDTH / 2 );
 
   /**
    * @param {string[]} challengePool
@@ -44,22 +42,22 @@ define( function( require ) {
   function MysteryScene( challengePool, options ) {
 
     options = _.extend( {
-      functionsPerChallenge: 1,
+      numberOfSlots: 1,
       numberOfEachCard: 1
     }, options );
-    assert && assert( options.functionsPerChallenge <= MAX_SLOTS );
+    assert && assert( options.numberOfSlots <= MAX_SLOTS );
 
     // {Node} scene selection icon
     assert && assert( !options.iconNode );
-    options.iconNode = FBIconFactory.createSceneIcon( options.functionsPerChallenge );
+    options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
 
     // Create enough instances of each function type to support the case where all functions
     // in a challenge have the same type.
     assert && assert( !options.numberOfEachFunction );
-    options.numberOfEachFunction = options.functionsPerChallenge;
+    options.numberOfEachFunction = options.numberOfSlots;
 
     // @private
-    this.functionsPerChallenge = options.functionsPerChallenge;
+    this.numberOfSlots = options.numberOfSlots;
 
     // validate the challenge pool
     if ( assert ) {
@@ -73,7 +71,7 @@ define( function( require ) {
 
           // validate challenge
           var challengeObjects = MysteryChallenges.parseChallenge( challenge );
-          assert && assert( challengeObjects.length === options.functionsPerChallenge,
+          assert && assert( challengeObjects.length === options.numberOfSlots,
             'incorrect number of functions in challenge: ' + challenge );
 
           // check for duplicates
@@ -113,10 +111,13 @@ define( function( require ) {
       new FunctionCreator( Divide )
     ];
 
+    // All builders have the same width, regardless of number of slots
+    var builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
+    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     var builder = new MathBuilder( {
-      numberOfSlots: options.functionsPerChallenge,
-      width: BUILDER_WIDTH,
-      location: new Vector2( BUILDER_X, FBConstants.BUILDER_Y )
+      numberOfSlots: options.numberOfSlots,
+      width: builderWidth,
+      location: new Vector2( builderX, FBConstants.BUILDER_Y )
     } );
 
     Scene.call( this, cardContent, functionCreators, builder, options );
@@ -196,21 +197,21 @@ define( function( require ) {
       var colors = [];
 
       if ( FBQueryParameters.showAllColors ) {
-        for ( i = 0; i < this.functionsPerChallenge; i++ ) {
+        for ( i = 0; i < this.numberOfSlots; i++ ) {
           colors.push( this.getColorDebug() );
         }
       }
       else if ( this.challengePool.indexOf( this.challengeProperty.get() ) === MysteryChallenges.DEFAULT_CHALLENGE_INDEX ) {
 
         // Always use the same colors for the default challenge. This provides a reproducible challenge for the teacher.
-        colors = FBColors.MYSTERY_DEFAULT_CHALLENGE_COLORS[ this.functionsPerChallenge - 1 ];
+        colors = FBColors.MYSTERY_DEFAULT_CHALLENGE_COLORS[ this.numberOfSlots - 1 ];
       }
       else {
-        assert && assert( this.availableColorSets.length >= this.functionsPerChallenge );
+        assert && assert( this.availableColorSets.length >= this.numberOfSlots );
 
         var colorSets = [];
 
-        for ( i = 0; i < this.functionsPerChallenge; i++ ) {
+        for ( i = 0; i < this.numberOfSlots; i++ ) {
 
           // select a color set
           var colorSetIndex = phet.joist.random.nextInt( this.availableColorSets.length );
@@ -233,7 +234,7 @@ define( function( require ) {
         this.previousColorSets = colorSets;
       }
 
-      assert && assert( colors, 'what, no colors?' );
+      assert && assert( colors && colors.length > 0, 'what, no colors?' );
       return colors;
     },
 

@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,7 +23,6 @@ define( function( require ) {
       // builder with 1 slot, for exploring application of 1 function
       new PatternsScene( {
         numberOfSlots: 1,
-        builderWidth: FBConstants.FUNCTION_SIZE.width + 200,
         numberOfEachCard: 2,
         numberOfEachFunction: 1
       } ),
@@ -32,7 +30,6 @@ define( function( require ) {
       // builder with 3 slots, for exploring function composition
       new PatternsScene( {
         numberOfSlots: 3,
-        builderWidth: ( 3 * FBConstants.FUNCTION_SIZE.width ) + 70,
         numberOfEachCard: 2,
         numberOfEachFunction: 2
       } )

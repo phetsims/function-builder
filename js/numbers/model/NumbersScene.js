@@ -36,7 +36,6 @@ define( function( require ) {
 
     options = _.extend( {
       numberOfSlots: 2, // number of slots in the builder
-      builderWidth: ( 2 * FBConstants.FUNCTION_SIZE.width ) + 120, // width of the builder
       numberOfEachCard: 1, // number of instances of each card type
       numberOfEachFunction: 2 // number of instances of each function type
     }, options );
@@ -64,10 +63,11 @@ define( function( require ) {
     ];
 
     // builder
-    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( options.builderWidth / 2 );
+    var builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     var builder = new MathBuilder( {
       numberOfSlots: options.numberOfSlots,
-      width: options.builderWidth,
+      width: builderWidth,
       location: new Vector2( builderX, FBConstants.BUILDER_Y )
     } );
 

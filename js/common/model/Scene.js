@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -82,6 +83,26 @@ define( function( require ) {
       // cards
       for ( var cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
         this.cards[ cardIndex ].step( dt );
+      }
+    }
+  }, {
+
+    /**
+     * Computes the builder width for the specified number of slots.
+     * Constants determined empirically.
+     * @param {number} numberOfSlots
+     * @returns {number}
+     * @public
+     * @static
+     */
+    computeBuilderWidth: function( numberOfSlots ) {
+      if ( numberOfSlots === 1 ) {
+
+        // use a bit of extra padding for single slot
+        return FBConstants.FUNCTION_SIZE.width + 200;
+      }
+      else {
+        return ( numberOfSlots * FBConstants.FUNCTION_SIZE.width ) + 70;
       }
     }
   } );

@@ -32,18 +32,13 @@ define( function( require ) {
    */
   function Builder( options ) {
 
-    options = options || {};
-
-    // used to compute other default option values
-    var NUMBER_OF_SLOTS = ( options.numberOfSlots || 1 );
-
     options = _.extend( {
 
       // {number} number of function slots
-      numberOfSlots: NUMBER_OF_SLOTS,
+      numberOfSlots: 1,
 
       // {number} horizontal distance between input and output slots
-      width: ( NUMBER_OF_SLOTS * FBConstants.FUNCTION_SIZE.width ) + 75,
+      width: 200,
 
       // {number} height of the builder at it ends
       endHeight: FBConstants.FUNCTION_SIZE.height + 58,
