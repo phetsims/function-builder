@@ -342,7 +342,7 @@ define( function( require ) {
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
-      var windowNumber = builder.getRightWindowNumber( thisNode.card.locationProperty.get().x );
+      var windowNumber = builder.getWindowNumberGreaterThan( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -387,7 +387,7 @@ define( function( require ) {
 
       var thisNode = this;
       var builder = thisNode.builderNode.builder;
-      var windowNumber = builder.getLeftWindowNumber( thisNode.card.locationProperty.get().x );
+      var windowNumber = builder.getWindowNumberLessThanOrEqualTo( thisNode.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -412,6 +412,13 @@ define( function( require ) {
             thisNode.registerAsSeeInsideCard( outputSlotX );
           }
           else {
+
+            // If a card is exactly centered in a window, it will stop there, regardless of 'see inside' state.
+            // So before continuing to the next window, move the card 1 unit to the left.
+            // See https://github.com/phetsims/function-builder/issues/107
+            if ( thisNode.card.locationProperty.get().x === windowLocation.x ) {
+              thisNode.card.moveTo( new Vector2( thisNode.card.locationProperty.get().x - 1, builder.location.y ) );
+            }
 
             // continue to next window
             thisNode.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
