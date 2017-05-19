@@ -15,6 +15,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'DOT/Util' );
 
   // images
   var shrinkImage = require( 'mipmap!FUNCTION_BUILDER/functions/shrink.png' );
@@ -53,8 +54,19 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
+      // Constrain shrinking to even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
+      // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
+      var width = Util.roundSymmetric( this.scale * inputCanvas.width );
+      if ( width % 2 !== 0 ) {
+        width++;
+      }
+      var height = Util.roundSymmetric( this.scale * inputCanvas.height );
+      if ( height % 2 !== 0 ) {
+        height++;
+      }
+
       // scale by drawing into a smaller canvas
-      var outputCanvas = FBCanvasUtils.createCanvas( this.scale * inputCanvas.width, this.scale * inputCanvas.height );
+      var outputCanvas = FBCanvasUtils.createCanvas( width, height );
       outputCanvas.getContext( '2d' ).drawImage( inputCanvas, 0, 0, outputCanvas.width, outputCanvas.height );
       return outputCanvas;
     }
