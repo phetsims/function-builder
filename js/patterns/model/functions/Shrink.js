@@ -54,8 +54,8 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
-      // Constrain shrinking to even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
-      // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
+      // Constrain shrinking to even dimensions, to prevent anti-aliasing artifacts.
+      // See https://github.com/phetsims/function-builder-basics/issues/18
       var width = Util.roundSymmetric( this.scale * inputCanvas.width );
       if ( width % 2 !== 0 ) {
         width++;
