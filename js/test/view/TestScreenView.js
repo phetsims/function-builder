@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var DemosScreenView = require( 'SUN/demo/DemosScreenView' );
+  var DemosView = require( 'SUN/demo/DemosView' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function TestScreenView() {
-    DemosScreenView.call( this, [
+    DemosView.call( this, [
       { label: 'imageFunctions', getNode: testImageFunctions },
       { label: 'mysteryFunctionColors', getNode: testMysteryFunctionColors }
     ], {
