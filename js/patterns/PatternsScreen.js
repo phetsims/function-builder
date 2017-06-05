@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       name: screenPatternsString,
-      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ),
+      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
     }, options );
 

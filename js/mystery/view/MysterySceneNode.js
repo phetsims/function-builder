@@ -63,7 +63,7 @@ define( function( require ) {
 
         var slotNumber = i;
 
-        // Property associated with the slot
+        // {Property.<boolean>} Property associated with the slot
         var revealProperty = new Property( false );
         self.revealProperties.push( revealProperty );
 

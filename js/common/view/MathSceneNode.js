@@ -44,7 +44,7 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, functionNodeConstructor, options );
 
-    // @public whether the equation is displayed in slope-intercept form
+    // @public {Property.<boolean>} whether the equation is displayed in slope-intercept form
     this.slopeInterceptProperty = new Property( false );
 
     // XY table drawer

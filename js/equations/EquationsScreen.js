@@ -29,7 +29,7 @@ define( function( require ) {
 
     var options = {
       name: screenEquationsString,
-      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ),
+      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem
     };

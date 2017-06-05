@@ -78,7 +78,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
 
-    // @public
+    // @public {Property.<boolean>}
     var identityVisibleProperty = new Property( options.identityVisible );
     // unlink unnecessary, instance owns this Property
     identityVisibleProperty.link( function( identityVisible ) {

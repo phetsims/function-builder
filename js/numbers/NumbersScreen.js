@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       name: screenNumbersString,
-      backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ),
+      backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
     }, options );
 

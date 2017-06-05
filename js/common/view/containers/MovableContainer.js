@@ -41,7 +41,7 @@ define( function( require ) {
     // @private parent for contents of the container
     this.contentsParent = new Node();
 
-    // @public (read-only) number of items in the container
+    // @public (read-only) {Property.<number>} number of items in the container
     this.numberOfItemsProperty = new Property( 0 );
 
     // @public

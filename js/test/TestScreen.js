@@ -22,7 +22,7 @@ define( function( require ) {
 
     var options = {
       name: 'Test',
-      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )
+      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
     };
 
     Screen.call( this,

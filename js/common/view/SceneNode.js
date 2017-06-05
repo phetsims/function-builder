@@ -62,10 +62,10 @@ define( function( require ) {
 
     var self = this;
 
-    // @protected {boolean} show/hide windows that allow you to 'see inside' the builder
+    // @protected {Property.<boolean>} show/hide windows that allow you to 'see inside' the builder
     this.seeInsideProperty = new Property( options.seeInside );
 
-    // @private {boolean} should the identity of functions in the builder be hidden?
+    // @private {Property.<boolean>} should the identity of functions in the builder be hidden?
     this.hideFunctionsProperty = new Property( options.hideFunctions );
 
     // cards are in this layer while they are draggable

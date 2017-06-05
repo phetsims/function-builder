@@ -75,7 +75,7 @@ define( function( require ) {
     this._updateEnabled = options.updateEnabled;
     this.gridDirty = true; // {boolean} does the grid need to be updated?
 
-    // @private number of rows in the table
+    // @private {Property.<number>} number of rows in the table
     this.numberOfRowsProperty = new Property( 0 );
 
     // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
@@ -148,7 +148,7 @@ define( function( require ) {
 
     VBox.call( this, options );
 
-    // @private the row number that appears at the top of the table
+    // @private {Property.<number>} the row number that appears at the top of the table
     this.rowNumberAtTopProperty = new Property( 0 );
 
     var animation = null; // {MoveTo} animation that scrolls the rows

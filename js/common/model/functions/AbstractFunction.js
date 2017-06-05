@@ -51,7 +51,7 @@ define( function( require ) {
     // @public (read-only) properties of FunctionNode, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
-    // @public
+    // @public {Property.<Color|string>}
     this.fillProperty = new Property( options.fill );
     this.fillProperty.link( function( fill ) {
       self.viewOptions.fill = fill;

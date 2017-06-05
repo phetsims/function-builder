@@ -216,7 +216,8 @@ define( function( require ) {
       }
     };
 
-    // Number of functions to apply is based on where the card is located relative to the function slots in the builder
+    // {Property.<number>} Number of functions to apply is based on where the card is located relative to the
+    // function slots in the builder
     var numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
       function( location ) {
         for ( var i = builder.numberOfSlots - 1; i >= 0; i-- ) {

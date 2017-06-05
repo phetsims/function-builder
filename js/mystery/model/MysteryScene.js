@@ -86,7 +86,7 @@ define( function( require ) {
       })();
     }
 
-    // @public the challenge that is displayed
+    // @public {Property.<string>} the challenge that is displayed
     this.challengeProperty = new Property( challengePool[ MysteryChallenges.DEFAULT_CHALLENGE_INDEX ] );
     this.challengePool = challengePool; // (read-only) for debug only, the original challenge pool, do not modify!
 

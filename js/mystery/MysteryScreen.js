@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       name: screenMysteryString,
-      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ),
+      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon()
     }, options );
 
