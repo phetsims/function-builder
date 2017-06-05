@@ -15,6 +15,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'DOT/Util' );
 
   // images
   var shrinkImage = require( 'mipmap!FUNCTION_BUILDER/functions/shrink.png' );
@@ -28,6 +29,7 @@ define( function( require ) {
     options = _.extend( {
       scale: 0.75
     }, options );
+    options.name = 'Shrink';
     options.fill = 'rgb( 246, 164, 255 )';
 
     assert && assert( options.scale > 0 && options.scale < 1 );
@@ -39,6 +41,19 @@ define( function( require ) {
   }
 
   functionBuilder.register( 'Shrink', Shrink );
+
+  /**
+   * Converts a value to an even integer.
+   * @param {number} value
+   * @return {number}
+   */
+  var toEvenInteger = function( value ) {
+    var newValue = Util.roundSymmetric( value );
+    if ( newValue % 2 !== 0 ) {
+      newValue++;
+    }
+    return newValue;
+  };
 
   return inherit( ImageFunction, Shrink, {
 
@@ -52,8 +67,13 @@ define( function( require ) {
      */
     apply: function( inputCanvas ) {
 
+      // Constrain shrinking to even integer dimensions, to prevent anti-aliasing artifacts.
+      // See https://github.com/phetsims/function-builder-basics/issues/18
+      var width = toEvenInteger( this.scale * inputCanvas.width );
+      var height = toEvenInteger( this.scale * inputCanvas.height );
+
       // scale by drawing into a smaller canvas
-      var outputCanvas = FBCanvasUtils.createCanvas( this.scale * inputCanvas.width, this.scale * inputCanvas.height );
+      var outputCanvas = FBCanvasUtils.createCanvas( width, height );
       outputCanvas.getContext( '2d' ).drawImage( inputCanvas, 0, 0, outputCanvas.width, outputCanvas.height );
       return outputCanvas;
     }

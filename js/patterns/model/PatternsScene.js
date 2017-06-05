@@ -54,7 +54,6 @@ define( function( require ) {
 
     options = _.extend( {
       numberOfSlots: 1, // number of slots in the builder
-      builderWidth: 200, // width of the builder
       numberOfEachCard: 1, // number of instances of each card type
       numberOfEachFunction: 1 // number of instances of each function type
     }, options );
@@ -78,6 +77,12 @@ define( function( require ) {
       starImage
     ];
 
+    // All card images must have even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
+    // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
+    assert && cardContent.forEach( function( image ) {
+      assert( ( image.width % 2 === 0 && image.height % 2 === 0 ), 'dimensions must be even! width=' + image.width + ', height=' + image.height );
+    } );
+
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
     var functionCreators = [
       new FunctionCreator( Mirror ),
@@ -95,10 +100,11 @@ define( function( require ) {
     ];
 
     // builder
-    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( options.builderWidth / 2 );
+    var builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     var builder = new Builder( {
       numberOfSlots: options.numberOfSlots,
-      width: options.builderWidth,
+      width: builderWidth,
       location: new Vector2( builderX, FBConstants.BUILDER_Y )
     } );
 
