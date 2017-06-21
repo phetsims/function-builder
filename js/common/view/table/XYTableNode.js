@@ -312,8 +312,8 @@ define( function( require ) {
       // remove row, rows below it move up automatically since rowsParent is a VBox
       var rowNode = this.rowsParent.getChildAt( cardIndex );
       assert && assert( rowNode instanceof XYTableRow );
-      rowNode.dispose();
       this.rowsParent.removeChild( rowNode );
+      rowNode.dispose();
       this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() - 1 );
 
       // update the grid
