@@ -139,7 +139,7 @@ define( function( require ) {
 
       // force notification when initial challenge is displayed
       if ( this.challengeProperty.get() === this.challengeProperty.initialValue ) {
-        this.challengeProperty.notifyObserversStatic();
+        this.challengeProperty.notifyListenersStatic();
       }
       else {
         this.challengeProperty.reset();
