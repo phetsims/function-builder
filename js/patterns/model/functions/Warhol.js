@@ -18,8 +18,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var Color = require( 'SCENERY/util/Color' );
+  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );

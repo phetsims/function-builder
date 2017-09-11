@@ -16,8 +16,8 @@ define( function( require ) {
   var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
-  var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
   var Tandem = require( 'TANDEM/Tandem' );
+  var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
 
   // strings
   var functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );

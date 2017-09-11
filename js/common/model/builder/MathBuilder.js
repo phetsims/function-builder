@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Builder = require( 'FUNCTION_BUILDER/common/model/builder/Builder' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Object} [options]

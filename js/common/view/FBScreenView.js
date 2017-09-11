@@ -16,8 +16,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OpacityTo = require( 'TWIXT/OpacityTo' );
-  var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**

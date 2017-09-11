@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
   var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var EquationsScene = require( 'FUNCTION_BUILDER/equations/model/EquationsScene' );
 
   /**
    * @constructor

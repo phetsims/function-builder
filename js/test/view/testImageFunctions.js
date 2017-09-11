@@ -18,8 +18,8 @@ define( function( require ) {
   var MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
   var MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
   var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
-  var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
   var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
+  var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
   var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
   var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 

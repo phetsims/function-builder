@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var EditableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/EditableMathFunctionNode' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
-  var EditableMathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/EditableMathFunctionNode' );
 
   /**
    * @param {EquationsScene} scene - model for this scene
