@@ -2,7 +2,6 @@
 
 /**
  * Base type for all ScreenViews in this sim.
- * The ScreenView and its Scenes can be initialized (independently) at start up or on demand.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -75,18 +74,9 @@ define( function( require ) {
     // Scene Nodes
     var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
     model.scenes.forEach( function( scene ) {
-      if ( FBQueryParameters.initScenes === 'onStart' ) {
-
-        // create scene node on start
         var sceneNode = new sceneNodeConstructor( scene, self.layoutBounds, { visible: false } );
         sceneNodes.push( sceneNode );
         scenesParent.addChild( sceneNode );
-      }
-      else {
-
-        // scene node will be created on demand
-        sceneNodes.push( null );
-      }
     } );
 
     /**
@@ -111,17 +101,10 @@ define( function( require ) {
       // Get the Node that corresponds to the old scene
       var oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
 
-      // Get the Node that corresponds to the scene, or create it on demand
+      // Get the Node that corresponds to the scene.
       var sceneIndex = model.scenes.indexOf( scene );
+      assert && assert( sceneIndex !== -1 );
       var sceneNode = sceneNodes[ sceneIndex ];
-      if ( !sceneNode ) {
-
-        // create on demand
-        sceneNode = new sceneNodeConstructor( scene, self.layoutBounds, { visible: false } );
-        sceneNodes[ sceneIndex ] = sceneNode;
-        scenesParent.addChild( sceneNode );
-        sceneNode.completeInitialization(); // after adding to scene graph!
-      }
 
       // Fade scenes in/out as selection changes
       if ( oldScene ) {
