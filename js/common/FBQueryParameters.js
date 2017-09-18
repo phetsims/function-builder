@@ -25,13 +25,6 @@ define( function( require ) {
     // puts a red stroke around containers in the carousels, so that empty containers are visible
     showContainers: { type: 'flag' },
 
-    // when to initialize screen views
-    initScreenViews: {
-      type: 'string',
-      validValues: [ 'onStart', 'onDemand' ],
-      defaultValue: 'onStart'
-    },
-
     // when to initialize scenes
     initScenes: {
       type: 'string',
