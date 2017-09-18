@@ -13,9 +13,6 @@ define( function( require ) {
 
   var FBQueryParameters = QueryStringMachine.getAll( {
 
-    // enables console logging
-    log: { type: 'flag' },
-
     // adds the 'Test' screen
     testScreen: { type: 'flag' },
 
@@ -60,6 +57,15 @@ define( function( require ) {
   } );
 
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
+
+  // log the values of all sim-specific query parameters
+  if ( phet.log ) {
+    for ( var property in FBQueryParameters ) {
+      if ( FBQueryParameters.hasOwnProperty( property ) ) {
+        phet.log( property + '=' + FBQueryParameters[ property ] );
+      }
+    }
+  }
 
   return FBQueryParameters;
 } );

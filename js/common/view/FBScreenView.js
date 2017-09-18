@@ -71,7 +71,7 @@ define( function( require ) {
 
       assert && assert( !this.initialized );
       this.initialized = true;
-      FBQueryParameters.log && console.log( this.constructor.name + '.initialize' );
+      phet.log && phet.log( this.constructor.name + '.initialize' );
 
       var self = this;
       var model = this.model;
