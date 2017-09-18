@@ -59,13 +59,7 @@ define( function( require ) {
   functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
 
   // log the values of all sim-specific query parameters
-  if ( phet.log ) {
-    for ( var property in FBQueryParameters ) {
-      if ( FBQueryParameters.hasOwnProperty( property ) ) {
-        phet.log( property + '=' + FBQueryParameters[ property ] );
-      }
-    }
-  }
+  phet.log && phet.log( 'query parameters: ' + JSON.stringify( FBQueryParameters, null, 2 ) );
 
   return FBQueryParameters;
 } );
