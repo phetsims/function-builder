@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var DemosScreenView = require( 'SUN/demo/DemosScreenView' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -24,9 +23,7 @@ define( function( require ) {
     DemosScreenView.call( this, [
       { label: 'imageFunctions', getNode: testImageFunctions },
       { label: 'mysteryFunctionColors', getNode: testMysteryFunctionColors }
-    ], {
-      selectedDemoLabel: FBQueryParameters.selectedTest
-    } );
+    ] );
   }
 
   functionBuilder.register( 'TestScreenView', TestScreenView );
