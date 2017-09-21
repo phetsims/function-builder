@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /***
  * Carousel for 'output' cards, those cards that have been run through the builder.
