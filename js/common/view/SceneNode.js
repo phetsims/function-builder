@@ -35,7 +35,7 @@ define( function( require ) {
     dotMouseAreaDilation: 4
   };
 
-  //FUTURE revisit this workaround, see https://github.com/phetsims/function-builder/issues/69
+  //TODO revisit this workaround, see https://github.com/phetsims/function-builder/issues/69
   var WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
 
   /**

@@ -46,7 +46,7 @@ define( function( require ) {
       hiddenNode: null, // {Node} displayed when the function identity is hidden
       hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
 
-      //FUTURE remove this workaround, see https://github.com/phetsims/function-builder/issues/49
+      //TODO remove this workaround, see https://github.com/phetsims/function-builder/issues/49
       allowTouchSnag: false
     }, options );
 

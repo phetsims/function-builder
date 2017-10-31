@@ -92,7 +92,7 @@ define( function( require ) {
 
   return inherit( Node, MovableNode, {
 
-    //FUTURE revisit when scenery supports drag cancellation, see https://github.com/phetsims/function-builder/issues/57
+    //TODO revisit when scenery supports drag cancellation, see https://github.com/phetsims/function-builder/issues/57
     /**
      * Cancels a drag that is in progress.
      * If no drag is in progress, this is a no-op.
