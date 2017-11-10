@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2015-2017, University of Colorado Boulder
 
 /**
  * Canvas utility functions, used by image processing functions in the Patterns screen.
