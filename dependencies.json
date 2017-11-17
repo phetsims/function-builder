@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.8 Mon Jun 05 2017 15:19:32 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.0.8 Fri Nov 17 2017 12:08:44 GMT-0700 (MST)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -13,20 +13,20 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "9059e93b28d88dbc7e2e2c2c6b4b696dfe9ff4d2",
-    "branch": "HEAD"
+    "sha": "6661602f33fbbac07f62512a625e638dce9eda9f",
+    "branch": "function-builder-1.0"
   },
   "dot": {
     "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "5f2060f84373f2b587bbc8d4cbbbea1fef69b631",
+    "sha": "21e0f45ebdbfd4ef63e5576ac7f363fbd3a74bec",
     "branch": "1.0"
   },
   "joist": {
-    "sha": "20d7c2b127d9c05bdd944c039457771ebd0ca441",
-    "branch": "HEAD"
+    "sha": "53e87711d3cb533db8d5c366cf7ae54df00b754d",
+    "branch": "function-builder-1.0"
   },
   "kite": {
     "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
