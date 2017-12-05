@@ -42,13 +42,6 @@ are treated as equivalent, and no transform is required. (If you don't understan
 testing. All such query parameters are documented in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
 
-**Initialization**: This simulation takes a long time to initialize, which can be a little annoying or disconcerting for the user.
-We implemented 2 initialization strategies: (1) on start, which initializes when the sim starts, and
-(2) on demand, which initialize when a feature is first used. These 2 strategies can be selected independently
-for ScreenView and SceneNode types, using query parameters.
-To investigate this further, see `'initScreenViews'` and `'initScenes'` in
-[FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
-
 **Memory management**: All objects created in this simulation exist for the lifetime of the simulation, so there
 is no need to call `dispose`.  Since there is no need to call `dispose`, it is generally not implemented for
 sim-specific types. Likewise, when an observer is registered (e.g. via `link` or `addListener`), there is no need
