@@ -33,9 +33,8 @@ In alphabetical order:
 
 This section describes how this simulation uses patterns that are common to most PhET simulations.
 
-**Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate frames
-(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
-The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
+**Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate
+frames. The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
 are treated as equivalent, and no transform is required. (If you don't understand that, don't worry about it.)
 
 **Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
