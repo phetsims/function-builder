@@ -1,4 +1,4 @@
-These icons were generated using the following manual process:
+Function icons (PNG files) were generated using the following manual process:
 
 1. Open assets/function-icons.ai in Adobe Illustrator
 2. Select an icon and copy it
