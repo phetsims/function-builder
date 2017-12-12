@@ -19,6 +19,6 @@ I had to take them into Photoshop and crop them. When I exported the pngs out of
 and then centered them in Photoshop, people thought the final images were too pixelated. So, I exported out of
 Illustrator at a higher resolution and then centered the offending pngs in Photoshop.
 
-This resulted in a dramatic increase in file size, as reported in [function-builder#115](https://github.com/phetsims/function-builder/issues/115).
+Using higher resolution in Illustrator resulted in a dramatic increase in file size, as reported in [function-builder#115](https://github.com/phetsims/function-builder/issues/115).
 Opening the PNG files in Photoshop and saving them using the default settings in "File > Save for Web" reduced the PNG files
 to more reasonable sizes.
