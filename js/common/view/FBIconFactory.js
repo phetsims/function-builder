@@ -204,7 +204,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'see inside' check box, which shows/hides windows in the builder.
+     * Creates the icon for the 'see inside' checkbox, which shows/hides windows in the builder.
      *
      * @param {Object} [options]
      * @returns {Node}
@@ -256,7 +256,7 @@ define( function( require ) {
     },
 
     /**
-     * Creates the icon for the 'hide functions' check box, which hides the identity of functions in the builder.
+     * Creates the icon for the 'hide functions' checkbox, which hides the identity of functions in the builder.
      *
      * @returns {Node}
      */

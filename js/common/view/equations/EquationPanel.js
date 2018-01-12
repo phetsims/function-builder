@@ -70,7 +70,7 @@ define( function( require ) {
       fill: 'white'
     } );
 
-    // 'simplify' check box, at bottom center
+    // 'simplify' checkbox, at bottom center
     var simplifyLabel = new Text( simplifyString, {
       font: new FBFont( 16 ),
       maxWidth: 0.75 * this.backgroundNode.width
