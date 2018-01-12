@@ -15,7 +15,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
@@ -75,29 +75,29 @@ define( function( require ) {
       font: new FBFont( 16 ),
       maxWidth: 0.75 * this.backgroundNode.width
     } );
-    var simplifyCheckBox = new CheckBox( simplifyLabel, slopeInterceptProperty, {
+    var simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
       bottom: this.backgroundNode.bottom - 10
     } );
-    simplifyCheckBox.touchArea = simplifyCheckBox.localBounds.dilatedXY( 10, 10 );
+    simplifyCheckbox.touchArea = simplifyCheckbox.localBounds.dilatedXY( 10, 10 );
 
     // @private initialized by updateEquations
     this.slopeInterceptEquationNode = null;
     this.helpfulEquationNode = null;
 
     assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ this.backgroundNode, simplifyCheckBox ];
+    options.children = [ this.backgroundNode, simplifyCheckbox ];
 
     Node.call( this, options );
 
     // @private constrain equation to available space in panel
     this.equationMaxWidth = 0.85 * this.backgroundNode.width;
-    this.equationMaxHeight = 0.9 * ( simplifyCheckBox.top - this.backgroundNode.top );
+    this.equationMaxHeight = 0.9 * ( simplifyCheckbox.top - this.backgroundNode.top );
 
     // @private center of space available for equations
     this.equationCenter = new Vector2(
       this.backgroundNode.centerX,
-      this.backgroundNode.top + ( simplifyCheckBox.top - this.backgroundNode.top ) / 2
+      this.backgroundNode.top + ( simplifyCheckbox.top - this.backgroundNode.top ) / 2
     );
 
     // Controls which equation is visible.

@@ -45,7 +45,7 @@ define( function( require ) {
       functionsPerPage: 2, // functions per page in the functions carousel (which is invisible)
       hasTableDrawer: true, // include an XY table drawer
       hasGraphDrawer: true, // include an XY graph drawer
-      hideFunctionsCheckBoxVisible: false // hide this feature
+      hideFunctionsCheckboxVisible: false // hide this feature
 
     }, options );
 
@@ -135,7 +135,7 @@ define( function( require ) {
       } );
 
       // enable 'See Inside' check box
-      self.seeInsideCheckBox.enabled = self.seeInsideCheckBox.enabled || ( numberOfCards === 1 );
+      self.seeInsideCheckbox.enabled = self.seeInsideCheckbox.enabled || ( numberOfCards === 1 );
     } );
 
     // @private
@@ -176,7 +176,7 @@ define( function( require ) {
       this.seeInsideProperty.reset();
 
       // disable 'See Inside' check box
-      this.seeInsideCheckBox.enabled = false;
+      this.seeInsideCheckbox.enabled = false;
     },
 
     /**

@@ -12,7 +12,7 @@ define( function( require ) {
   var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
@@ -57,7 +57,7 @@ define( function( require ) {
       functionsPerPage: 3, // {number} functions per page in the functions carousel
       seeInsideIconType: 'number', // {string} see FBIconFactory.createSeeInsideIcon
       functionCarouselVisible: true, // {boolean} is the function carousel visible?
-      hideFunctionsCheckBoxVisible: true // {boolean} is hideFunctionsCheckBox visible?
+      hideFunctionsCheckboxVisible: true // {boolean} is hideFunctionsCheckbox visible?
     }, options );
 
     var self = this;
@@ -207,14 +207,14 @@ define( function( require ) {
 
     // 'Hide Functions' feature ----------------------------------------------------------------------------------------
 
-    var hideFunctionsCheckBox = new CheckBox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
-      visible: options.hideFunctionsCheckBoxVisible,
+    var hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
+      visible: options.hideFunctionsCheckboxVisible,
       spacing: 8,
       left: inputCarousel.left,
       top: functionCarousel.top
     } );
-    controlsLayer.addChild( hideFunctionsCheckBox );
-    hideFunctionsCheckBox.touchArea = hideFunctionsCheckBox.localBounds.dilatedXY( 10, 10 );
+    controlsLayer.addChild( hideFunctionsCheckbox );
+    hideFunctionsCheckbox.touchArea = hideFunctionsCheckbox.localBounds.dilatedXY( 10, 10 );
 
     // 'See Inside' feature --------------------------------------------------------------------------------------------
 
@@ -222,15 +222,15 @@ define( function( require ) {
       visible: this.seeInsideProperty.get()
     } );
 
-    var seeInsideCheckBox = new CheckBox(
+    var seeInsideCheckbox = new Checkbox(
       FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
       this.seeInsideProperty, {
         spacing: 8,
-        left: hideFunctionsCheckBox.left,
-        top: hideFunctionsCheckBox.bottom + 25
+        left: hideFunctionsCheckbox.left,
+        top: hideFunctionsCheckbox.bottom + 25
       } );
-    controlsLayer.addChild( seeInsideCheckBox );
-    seeInsideCheckBox.touchArea = seeInsideCheckBox.localBounds.dilatedXY( 10, 10 );
+    controlsLayer.addChild( seeInsideCheckbox );
+    seeInsideCheckbox.touchArea = seeInsideCheckbox.localBounds.dilatedXY( 10, 10 );
 
     // unlink unnecessary, instances exist for lifetime of the sim
     this.seeInsideProperty.link( function( seeInside ) {
@@ -280,7 +280,7 @@ define( function( require ) {
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
     this.functionContainers = functionContainers;
-    this.seeInsideCheckBox = seeInsideCheckBox;
+    this.seeInsideCheckbox = seeInsideCheckbox;
   }
 
   functionBuilder.register( 'SceneNode', SceneNode );
