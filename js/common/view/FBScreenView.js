@@ -112,7 +112,10 @@ define( function( require ) {
         // fades in the new scene
         newFadeIn = new OpacityTo( sceneNode, {
           startOpacity: 0,
-          endOpacity: 1
+          endOpacity: 1,
+          onStart: function() {
+            sceneNode.visible = true;
+          }
         } );
 
         // fades out the old scene
