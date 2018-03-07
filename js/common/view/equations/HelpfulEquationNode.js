@@ -52,7 +52,7 @@ define( function( require ) {
     }
 
     // =
-    var equalsNode = new Text( FBSymbols.EQUALS, {
+    var equalToNode = new Text( FBSymbols.EQUAL_TO, {
       fill: options.color,
       font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing,
@@ -61,7 +61,7 @@ define( function( require ) {
 
     // Create the left-hand side nodes to simplify layout, but add them only if requested
     if ( options.showLeftHandSide ) {
-      options.children.push( yNode, equalsNode );
+      options.children.push( yNode, equalToNode );
     }
 
     var RATIONAL_NUMBER_OPTIONS = {
@@ -81,13 +81,13 @@ define( function( require ) {
         fill: options.xColor,
         font: options.xyFont,
         maxWidth: options.xyMaxWidth,
-        left: equalsNode.right + options.equalsXSpacing
+        left: equalToNode.right + options.equalsXSpacing
       } );
       if ( options.xyAsCards ) {
         xNode = CardNode.createEquationXYNode( xNode );
       }
-      xNode.left = equalsNode.right + options.equalsXSpacing;
-      xNode.centerY = equalsNode.centerY;
+      xNode.left = equalToNode.right + options.equalsXSpacing;
+      xNode.centerY = equalToNode.centerY;
       options.children.push( xNode );
     }
     else {
@@ -117,7 +117,7 @@ define( function( require ) {
       }
       rhsNode.addChild( xNode );
       nextLeft = xNode.right + options.operatorXSpacing;
-      nextCenterY = equalsNode.centerY;
+      nextCenterY = equalToNode.centerY;
 
       for ( i = 0; i < mathFunctions.length; i++ ) {
 
@@ -275,8 +275,8 @@ define( function( require ) {
       }
 
       options.children.push( rhsNode );
-      rhsNode.left = equalsNode.right + options.equalsXSpacing;
-      rhsNode.centerY = equalsNode.centerY;
+      rhsNode.left = equalToNode.right + options.equalsXSpacing;
+      rhsNode.centerY = equalToNode.centerY;
     }
 
     Node.call( this, options );

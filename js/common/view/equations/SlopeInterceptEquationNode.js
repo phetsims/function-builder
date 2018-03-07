@@ -47,7 +47,7 @@ define( function( require ) {
     yNode.y = options.xyYOffset;
 
     // =
-    var equalsNode = new Text( FBSymbols.EQUALS, {
+    var equalToNode = new Text( FBSymbols.EQUAL_TO, {
       fill: options.color,
       font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing,
@@ -56,7 +56,7 @@ define( function( require ) {
 
     // Create the left-hand side nodes to simplify layout, but add them only if requested
     if ( options.showLeftHandSide ) {
-      options.children.push( yNode, equalsNode );
+      options.children.push( yNode, equalToNode );
     }
 
     if ( slope.valueOf() === 0 && intercept.valueOf() === 0 ) {
@@ -65,7 +65,7 @@ define( function( require ) {
       var zeroNode = new Text( '0', {
         fill: options.yColor,
         font: options.wholeNumberFont,
-        left: equalsNode.right + options.equalsXSpacing,
+        left: equalToNode.right + options.equalsXSpacing,
         centerY: yNode.centerY
       } );
       options.children.push( zeroNode );
@@ -85,7 +85,7 @@ define( function( require ) {
         if ( slope.valueOf() === 1 ) {
 
           // omit slope if value is 1, so we have 'x' instead of '1x'
-          xLeft = equalsNode.right + options.equalsXSpacing;
+          xLeft = equalToNode.right + options.equalsXSpacing;
         }
         else if ( slope.valueOf() === -1 ) {
 
@@ -93,8 +93,8 @@ define( function( require ) {
           var signNode = new Text( FBSymbols.MINUS, {
             fill: options.color,
             font: options.signFont,
-            left: equalsNode.right + options.equalsXSpacing,
-            centerY: equalsNode.centerY
+            left: equalToNode.right + options.equalsXSpacing,
+            centerY: equalToNode.centerY
           } );
           options.children.push( signNode );
 
@@ -111,8 +111,8 @@ define( function( require ) {
             signFont: options.signFont,
             wholeNumberFont: options.wholeNumberFont,
             fractionFont: options.fractionFont,
-            left: equalsNode.right + options.equalsXSpacing,
-            centerY: equalsNode.centerY + options.slopeYOffset
+            left: equalToNode.right + options.equalsXSpacing,
+            centerY: equalToNode.centerY + options.slopeYOffset
           } );
           options.children.push( slopeNode );
 
@@ -137,7 +137,7 @@ define( function( require ) {
           xNode = CardNode.createEquationXYNode( xNode );
         }
         xNode.left = xLeft;
-        xNode.centerY = equalsNode.centerY + options.xyYOffset;
+        xNode.centerY = equalToNode.centerY + options.xyYOffset;
 
         options.children.push( xNode );
         operatorLeft = xNode.right + options.operatorXSpacing;
@@ -150,7 +150,7 @@ define( function( require ) {
           fill: options.color,
           font: options.symbolFont,
           left: operatorLeft,
-          centerY: equalsNode.centerY + options.operatorYOffset
+          centerY: equalToNode.centerY + options.operatorYOffset
         } );
         options.children.push( operatorNode );
         interceptLeft = operatorNode.right + options.operatorXSpacing;
@@ -158,7 +158,7 @@ define( function( require ) {
       else {
 
         // no operator, intercept follows equals sign
-        interceptLeft = equalsNode.right + options.equalsXSpacing;
+        interceptLeft = equalToNode.right + options.equalsXSpacing;
       }
 
       // intercept
@@ -172,7 +172,7 @@ define( function( require ) {
           wholeNumberFont: options.wholeNumberFont,
           fractionFont: options.fractionFont,
           left: interceptLeft,
-          centerY: equalsNode.centerY + options.interceptYOffset
+          centerY: equalToNode.centerY + options.interceptYOffset
         } );
         options.children.push( interceptNode );
       }

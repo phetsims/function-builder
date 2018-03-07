@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
 
   // strings
   var xString = require( 'string!FUNCTION_BUILDER/x' );
@@ -18,11 +19,11 @@ define( function( require ) {
   var FBSymbols = {
     X: xString,
     Y: yString,
-    DIVIDE: '\u00f7',
-    MINUS: '\u2212',
-    PLUS: '\u002b',
-    TIMES: '\u00d7',
-    EQUALS: '\u003d'
+    DIVIDE: MathSymbols.DIVIDE,
+    MINUS: MathSymbols.MINUS,
+    PLUS: MathSymbols.PLUS,
+    TIMES: MathSymbols.TIMES,
+    EQUAL_TO: MathSymbols.EQUAL_TO //TODO rename EQUAL_TO
   };
 
   functionBuilder.register( 'FBSymbols', FBSymbols );
