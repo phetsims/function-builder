@@ -19,9 +19,6 @@ define( function( require ) {
     // populates the output carousel with 1 card of each type
     populateOutput: { type: 'flag' },
 
-    // makes all animation run slowly, so that things are easier to grab while they're animating
-    slow: { type: 'flag' },
-
     // puts a red stroke around containers in the carousels, so that empty containers are visible
     showContainers: { type: 'flag' },
 

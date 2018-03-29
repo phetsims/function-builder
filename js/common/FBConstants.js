@@ -12,7 +12,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
@@ -54,7 +53,7 @@ define( function( require ) {
     CARD_POP_OUT_OFFSET: new Vector2( 0, -10 ),
 
     // distance/second that cards move when animating
-    CARD_ANIMATION_SPEED: FBQueryParameters.slow ? 100 : 400,
+    CARD_ANIMATION_SPEED: 400,
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
@@ -72,7 +71,7 @@ define( function( require ) {
     FUNCTION_DISTANCE_THRESHOLD: ( FUNCTION_SIZE.width / 2 ) - 1,
 
     // distance/second that functions move when animating
-    FUNCTION_ANIMATION_SPEED: FBQueryParameters.slow ? 100 : 400,
+    FUNCTION_ANIMATION_SPEED: 400,
 
     // scale of the icons on functions in Patterns screen
     PATTERNS_FUNCTION_ICON_SCALE: 0.3,
