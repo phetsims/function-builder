@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Scene for the 'Numbers' screen.
+ * View of a scene in the 'Numbers' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
