@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Node the displays the fontawesome 'eye_close' icon.
+ * Node that displays the fontawesome 'eye_close' icon.
  * Wrapper around FontAwesomeNode to guard against changes that were made in
  * https://github.com/phetsims/function-builder/issues/102
  *
