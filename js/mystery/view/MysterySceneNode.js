@@ -21,7 +21,7 @@ define( function( require ) {
   var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var Property = require( 'AXON/Property' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   /**
@@ -94,9 +94,7 @@ define( function( require ) {
     }
 
     // button for generating a new challenge
-    var generateButton = new RectangularPushButton( {
-      content: new FontAwesomeNode( 'refresh' ),
-      baseColor: PhetColorScheme.BUTTON_YELLOW,
+    var generateButton = new RefreshButton( {
       listener: function() { scene.nextChallenge(); },
       xMargin: 18,
       yMargin: 10,
