@@ -26,7 +26,7 @@ this specification. The forward slash '/' shown in the examples will be rendered
 **Examples**
 
 | Builder | Helpful | Slope-intercept |
-| ------------- | ------------- | ------------- |
+|:------------- |:------------- |:------------- |
 | - 3 - 2	| y = x - 5 | y = x - 5 |
 | + 1 - 2	| y = x - 1	| y = x - 1 |
 | + 3 * 2	| y = 2(x + 3) | y = 2x + 6 |
