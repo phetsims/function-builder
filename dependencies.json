@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "23f68a5610a1880c736db8880e917d529ecd73f9",
+    "sha": "5f52de352ec59ab1a6fe91608908e9aaedb8041f",
     "branch": "HEAD"
   },
   "dot": {
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "phet-io": {
-    "sha": "0fb9cbf67765eb10fb8abf630aca4de59a215c66",
+    "sha": "d2293c3ed7449424f87494276527d28ee010d560",
     "branch": "HEAD"
   },
   "phet-io-website": {
@@ -61,7 +61,7 @@
     "branch": "HEAD"
   },
   "sherpa": {
-    "sha": "7a7b88b0658d2ee65bdf66cf232a46a6c20c9917",
+    "sha": "785d9664b4f30291119b8021498c788a47318b9f",
     "branch": "HEAD"
   },
   "sun": {
