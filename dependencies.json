@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.1.3-rc.4 Fri Jul 06 2018 16:43:39 GMT-0600 (MDT)",
+  "comment": "# function-builder 1.1.3-rc.5 Fri Jul 06 2018 16:54:37 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "5937eedc0c933f46d53e6eb79cb377b1e5c4675d",
-    "branch": "function-builder-1.1-phetio"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "993d48e69cb042b20a981d1be885d463d731519c",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "b5b433df644db98eb1c4de2f3be243b01e943aa3",
+    "sha": "bba7c7cc157f9c77338c83bd0a350538f27f4a77",
     "branch": "1.1-phetio"
   },
   "joist": {
