@@ -22,9 +22,6 @@ define( function( require ) {
     // puts a red stroke around containers in the carousels, so that empty containers are visible
     showContainers: { type: 'flag' },
 
-    // shows the answers in the Mystery screen
-    showAnswers: { type: 'flag' },
-
     // plays all Mystery challenges, in order
     playAll: { type: 'flag' },
 
