@@ -277,7 +277,7 @@ define( function( require ) {
   return inherit( MovableNode, CardNode, {
 
     /**
-     * Updates the card's content, based on where the card is relative the the builder slots.
+     * Updates the card's content, based on where the card is relative the builder slots.
      *
      * @param {Builder} builder
      * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
