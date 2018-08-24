@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * Drawer that contains the equation that corresponds to the functions in the builder.
@@ -25,6 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      stepper: 'timer', // animation is controlled by the global phet-core Timer
       open: FBConstants.EQUATION_DRAWER_OPEN,
       handleLocation: 'bottom',
       equationOptions: null, // {*} options for EquationPanel

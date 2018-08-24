@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * Drawer that contains the XY table.
@@ -31,6 +31,7 @@ define( function( require ) {
 
     options = _.extend( {
 
+      stepper: 'timer', // animation is controlled by the global phet-core Timer
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
       tableOptions: null, // {*} options for XYTableNode

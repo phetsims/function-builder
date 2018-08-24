@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * Drawer that contains the XY graph.
@@ -33,6 +33,7 @@ define( function( require ) {
   function XYGraphDrawer( builder, outputContainers, options ) {
 
     options = _.extend( {
+      stepper: 'timer', // animation is controlled by the global phet-core Timer
       open: FBConstants.GRAPH_DRAWER_OPEN,
       handleLocation: 'top',
       graphOptions: null // {*} options for XYGraphNode
