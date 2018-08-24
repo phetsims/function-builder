@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * Base type for all ScreenViews in this sim.
@@ -9,12 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
+  var Easing = require( 'TWIXT/Easing' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var OpacityTo = require( 'TWIXT/OpacityTo' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -87,9 +88,9 @@ define( function( require ) {
       sceneNode && sceneNode.completeInitialization();
     } );
 
-    // Fade between scenes
-    var newFadeIn; // {OpacityTo}
-    var oldFadeOut; // {OpacityTo}
+    // {Animation} Fade between scenes
+    var newFadeIn = null;
+    var oldFadeOut = null;
 
     // unlink unnecessary, instances exist for lifetime of the sim
     model.selectedSceneProperty.link( function( scene, oldScene ) {
@@ -109,28 +110,38 @@ define( function( require ) {
       // Fade scenes in/out as selection changes
       if ( oldScene ) {
 
-        // fades in the new scene
-        newFadeIn = new OpacityTo( sceneNode, {
-          startOpacity: 0,
-          endOpacity: 1,
-          onStart: function() {
-            sceneNode.visible = true;
-          }
+        // fade out the old scene
+        oldFadeOut = new Animation( {
+          stepper: 'timer', // animation is controlled by the global phet-core Timer
+          duration: 0.5, // seconds
+          easing: Easing.QUADRATIC_IN_OUT,
+          setValue: function( value ) { oldSceneNode.opacity = value; },
+          getValue: function() { return oldSceneNode.opacity; },
+          from: oldSceneNode.opacity,
+          to: 0
         } );
 
-        // fades out the old scene
-        oldFadeOut = new OpacityTo( oldSceneNode, {
-          endOpacity: 0,
-          onComplete: function() {
-            oldSceneNode.visible = false;
-            newFadeIn.start( phet.joist.elapsedTime );
-          },
-          onStop: function() {
-            oldSceneNode.visible = false;
-          }
+        oldFadeOut.finishEmitter.addListener( function finishListener() {
+
+          oldFadeOut.finishEmitter.removeListener( finishListener );
+
+          // fade in the new scene
+          newFadeIn = new Animation( {
+            stepper: 'timer', // animation is controlled by the global phet-core Timer
+            duration: 0.5, // seconds
+            easing: Easing.QUADRATIC_IN_OUT,
+            setValue: function( value ) { sceneNode.opacity = value; },
+            getValue: function() { return sceneNode.opacity; },
+            from: sceneNode.opacity,
+            to: 1
+          } );
+
+          oldSceneNode.visible = false;
+          sceneNode.visible = true;
+          newFadeIn.start();
         } );
 
-        oldFadeOut.start( phet.joist.elapsedTime );
+        oldFadeOut.start();
       }
       else {
 
