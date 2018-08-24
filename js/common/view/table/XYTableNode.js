@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * XY table, showing the mapping between input and output values for the functions in the builder.
@@ -22,15 +22,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
   var CarouselButton = require( 'SUN/buttons/CarouselButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var Easing = require( 'TWIXT/Easing' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MoveTo = require( 'TWIXT/MoveTo' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -38,7 +39,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
   var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/table/XYTableHeading' );
   var XYTableRow = require( 'FUNCTION_BUILDER/common/view/table/XYTableRow' );
 
@@ -151,7 +151,8 @@ define( function( require ) {
     // @private {Property.<number>} the row number that appears at the top of the table
     this.rowNumberAtTopProperty = new Property( 0 );
 
-    var animation = null; // {MoveTo} animation that scrolls the rows
+    // {Animation} animation that vertically scrolls the rows
+    var animation = null;
 
     // scroll
     // unlink unnecessary, instance owns this property
@@ -164,15 +165,15 @@ define( function( require ) {
       if ( self.visible && self.animationEnabled ) {
 
         // animate scrolling
-        var destination = new Vector2( scrollingContents.x, scrollY );
-        animation = new MoveTo( scrollingContents, destination, {
-          constantSpeed: false,
-          duration: 500, // ms
-          onComplete: function() {
-            animation = null;
-          }
+        animation = new Animation( {
+          stepper: 'timer', // animation is controlled by the global phet-core Timer
+          duration: 0.5, // seconds
+          easing: Easing.QUADRATIC_IN_OUT,
+          setValue: function( value ) { scrollingContents.y = value; },
+          getValue: function() { return scrollingContents.y; },
+          to: scrollY
         } );
-        animation.start( phet.joist.elapsedTime );
+        animation.start();
       }
       else {
 
