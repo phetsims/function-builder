@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2018, University of Colorado Boulder
 
 /**
  * Symbol used to indicate that a function is not invertible.
@@ -12,12 +12,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Easing = require( 'TWIXT/Easing' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var OpacityTo = require( 'TWIXT/OpacityTo' );
 
   /**
    * @param {Object} [options]
@@ -48,7 +49,7 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ circleNode, slashNode ];
 
-    // @private {OpacityTo} animation that fades this node out
+    // @private {Animation} animation that fades this node out
     this.animation = null;
 
     Node.call( this, options );
@@ -65,25 +66,30 @@ define( function( require ) {
      */
     startAnimation: function() {
 
+      var self = this;
+
       // stop animation if it's already running
       this.animation && this.animation.stop();
 
       // start animation, show symbol and gradually fade out by modulating opacity
-      var self = this;
-      this.animation = new OpacityTo( this, {
-        startOpacity: 0.85,
-        endOpacity: 0,
-        duration: 1500, // fade out time, ms
-        easing: TWEEN.Easing.Quintic.In, // most of opacity change happens at end of duration
-        onStart: function() {
-          self.visible = true;
-        },
-        onComplete: function() {
-          self.visible = false;
-          self.animation = null;
-        }
+      this.animation = new Animation( {
+        stepper: 'timer', // animation is controlled by the global phet-core Timer
+        duration: 1.5, // seconds
+        easing: Easing.QUADRATIC_IN_OUT,
+        setValue: function( value ) { self.opacity = value; },
+        getValue: function() { return self.opacity; },
+        from: 0.85,
+        to: 0
       } );
-      this.animation.start( phet.joist.elapsedTime );
+
+      this.animation.endedEmitter.addListener( function endedListener() {
+        self.visible = false;
+        self.animation.endedEmitter.removeListener( endedListener );
+        self.animation = null;
+      } );
+
+      this.visible = true;
+      this.animation.start();
     },
 
     /**
