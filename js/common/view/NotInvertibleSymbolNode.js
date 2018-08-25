@@ -76,8 +76,8 @@ define( function( require ) {
         stepper: 'timer', // animation is controlled by the global phet-core Timer
         duration: 1.5, // seconds
         easing: Easing.QUADRATIC_IN_OUT,
-        setValue: function( value ) { self.opacity = value; },
-        getValue: function() { return self.opacity; },
+        object: this,
+        attribute: 'opacity',
         from: 0.85,
         to: 0
       } );

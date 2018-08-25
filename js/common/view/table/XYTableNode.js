@@ -169,8 +169,8 @@ define( function( require ) {
           stepper: 'timer', // animation is controlled by the global phet-core Timer
           duration: 0.5, // seconds
           easing: Easing.QUADRATIC_IN_OUT,
-          setValue: function( value ) { scrollingContents.y = value; },
-          getValue: function() { return scrollingContents.y; },
+          object: scrollingContents,
+          attribute: 'y',
           to: scrollY
         } );
         animation.start();

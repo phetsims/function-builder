@@ -115,8 +115,8 @@ define( function( require ) {
           stepper: 'timer', // animation is controlled by the global phet-core Timer
           duration: 0.5, // seconds
           easing: Easing.QUADRATIC_IN_OUT,
-          setValue: function( value ) { oldSceneNode.opacity = value; },
-          getValue: function() { return oldSceneNode.opacity; },
+          object: oldSceneNode,
+          attribute: 'opacity',
           from: oldSceneNode.opacity,
           to: 0
         } );
@@ -130,8 +130,8 @@ define( function( require ) {
             stepper: 'timer', // animation is controlled by the global phet-core Timer
             duration: 0.5, // seconds
             easing: Easing.QUADRATIC_IN_OUT,
-            setValue: function( value ) { sceneNode.opacity = value; },
-            getValue: function() { return sceneNode.opacity; },
+            object: sceneNode,
+            attribute: 'opacity',
             from: sceneNode.opacity,
             to: 1
           } );
