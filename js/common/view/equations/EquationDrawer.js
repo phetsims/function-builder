@@ -25,7 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      stepper: 'timer', // animation is controlled by the global phet-core Timer
+      stepper: 'timer', // animation is controlled by the global phet-core timer
       open: FBConstants.EQUATION_DRAWER_OPEN,
       handleLocation: 'bottom',
       equationOptions: null, // {*} options for EquationPanel

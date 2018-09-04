@@ -31,7 +31,7 @@ define( function( require ) {
 
     options = _.extend( {
 
-      stepper: 'timer', // animation is controlled by the global phet-core Timer
+      stepper: 'timer', // animation is controlled by the global phet-core timer
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
       tableOptions: null, // {*} options for XYTableNode

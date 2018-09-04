@@ -73,7 +73,7 @@ define( function( require ) {
 
       // start animation, show symbol and gradually fade out by modulating opacity
       this.animation = new Animation( {
-        stepper: 'timer', // animation is controlled by the global phet-core Timer
+        stepper: 'timer', // animation is controlled by the global phet-core timer
         duration: 1.5, // seconds
         easing: Easing.QUADRATIC_IN_OUT,
         object: this,
