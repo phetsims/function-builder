@@ -21,8 +21,8 @@ define( function( require ) {
    */
   function TestScreenView() {
     DemosScreenView.call( this, [
-      { label: 'imageFunctions', getNode: testImageFunctions },
-      { label: 'mysteryFunctionColors', getNode: testMysteryFunctionColors }
+      { label: 'imageFunctions', createNode: testImageFunctions },
+      { label: 'mysteryFunctionColors', createNode: testMysteryFunctionColors }
     ] );
   }
 
