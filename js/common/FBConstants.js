@@ -15,7 +15,7 @@ define( function( require ) {
   var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants that are used to compute other constants
@@ -115,8 +115,8 @@ define( function( require ) {
     GRAPH_DRAWER_OPEN: false,
 
     // Ranges based on card numbers [-4,7] and worst case equation '+ 3 * 3 * 3'
-    GRAPH_X_RANGE: new RangeWithValue( -8, 8 ),
-    GRAPH_Y_RANGE: new RangeWithValue( -100, 100 ),
+    GRAPH_X_RANGE: new Range( -8, 8 ),
+    GRAPH_Y_RANGE: new Range( -100, 100 ),
 
     //--------------------------------------------------------------------------------------------------------
     // Equations

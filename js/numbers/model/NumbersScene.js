@@ -14,7 +14,7 @@ define( function( require ) {
   var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -26,7 +26,7 @@ define( function( require ) {
   var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var CARD_NUMBERS_RANGE = new RangeWithValue( -4, 7 );
+  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
 
   /**
    * @param {Object} [options]

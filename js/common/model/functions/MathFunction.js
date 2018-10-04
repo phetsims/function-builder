@@ -14,7 +14,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Util = require( 'DOT/Util' );
 
@@ -28,7 +28,7 @@ define( function( require ) {
 
     options = _.extend( {
       operand: 1, // {number} initial value of operandProperty, an integer
-      operandRange: new RangeWithValue( -3, 3 ), // {Range|null} optional range of operandProperty
+      operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
       zeroOperandValid: true, // {boolean} is zero a valid operand?
       pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
     }, options );
