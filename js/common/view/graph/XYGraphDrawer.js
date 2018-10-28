@@ -33,7 +33,6 @@ define( function( require ) {
   function XYGraphDrawer( builder, outputContainers, options ) {
 
     options = _.extend( {
-      stepper: 'timer', // animation is controlled by the global phet-core timer
       open: FBConstants.GRAPH_DRAWER_OPEN,
       handleLocation: 'top',
       graphOptions: null // {*} options for XYGraphNode

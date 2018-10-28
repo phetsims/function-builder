@@ -124,7 +124,6 @@ define( function( require ) {
 
     // vertical carousel to show the output images
     var carousel = new Carousel( items, {
-      stepper: 'timer',
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: 4

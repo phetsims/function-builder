@@ -30,8 +30,6 @@ define( function( require ) {
   function XYTableDrawer( builder, inputContainers, outputContainers, options ) {
 
     options = _.extend( {
-
-      stepper: 'timer', // animation is controlled by the global phet-core timer
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
       tableOptions: null, // {*} options for XYTableNode

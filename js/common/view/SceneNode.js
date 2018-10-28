@@ -106,7 +106,6 @@ define( function( require ) {
 
     // Input carousel, at left
     var inputCarousel = new Carousel( inputContainers, {
-      stepper: 'timer',
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -134,7 +133,6 @@ define( function( require ) {
 
     // Output carousel, at right
     var outputCarousel = new OutputCardsCarousel( outputContainers, {
-      stepper: 'timer',
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -176,7 +174,6 @@ define( function( require ) {
 
     // Function carousel, centered below bottom builder
     var functionCarousel = new Carousel( functionContainers, {
-      stepper: 'timer',
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       itemsPerPage: options.functionsPerPage,

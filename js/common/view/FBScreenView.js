@@ -112,7 +112,6 @@ define( function( require ) {
 
         // fade out the old scene
         oldFadeOut = new Animation( {
-          stepper: 'timer', // animation is controlled by the global phet-core timer
           duration: 0.5, // seconds
           easing: Easing.QUADRATIC_IN_OUT,
           object: oldSceneNode,
@@ -127,7 +126,6 @@ define( function( require ) {
 
           // fade in the new scene
           newFadeIn = new Animation( {
-            stepper: 'timer', // animation is controlled by the global phet-core timer
             duration: 0.5, // seconds
             easing: Easing.QUADRATIC_IN_OUT,
             object: sceneNode,

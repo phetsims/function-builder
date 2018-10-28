@@ -166,7 +166,6 @@ define( function( require ) {
 
         // animate scrolling
         animation = new Animation( {
-          stepper: 'timer', // animation is controlled by the global phet-core timer
           duration: 0.5, // seconds
           easing: Easing.QUADRATIC_IN_OUT,
           object: scrollingContents,
