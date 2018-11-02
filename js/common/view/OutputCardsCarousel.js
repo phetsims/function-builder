@@ -13,7 +13,7 @@ define( function( require ) {
   var Carousel = require( 'SUN/Carousel' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {CardContainer[]} containers - containers in the carousel
@@ -25,7 +25,9 @@ define( function( require ) {
     Carousel.call( this, containers, options );
 
     // @public (read-only) {Property.<number>} of cards in the carousel
-    this.numberOfCardsProperty = new Property( getNumberOfCards( containers ) );
+    this.numberOfCardsProperty = new NumberProperty( getNumberOfCards( containers ), {
+      numberType: 'Integer'
+    } );
 
     // update numberOfCardsProperty as cards are added/removed
     var self = this;

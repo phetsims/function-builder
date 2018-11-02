@@ -16,7 +16,7 @@ define( function( require ) {
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -41,8 +41,8 @@ define( function( require ) {
     // @private parent for contents of the container
     this.contentsParent = new Node();
 
-    // @public (read-only) {Property.<number>} number of items in the container
-    this.numberOfItemsProperty = new Property( 0 );
+    // @public (read-only) number of items in the container
+    this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     // @public
     this.addEmitter = new Emitter(); // emit1(Node) called after a Node is added

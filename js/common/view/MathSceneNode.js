@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
   var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
@@ -19,7 +20,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
-  var Property = require( 'AXON/Property' );
   var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
   var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
   var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
@@ -44,8 +44,8 @@ define( function( require ) {
 
     SceneNode.call( this, scene, layoutBounds, functionNodeConstructor, options );
 
-    // @public {Property.<boolean>} whether the equation is displayed in slope-intercept form
-    this.slopeInterceptProperty = new Property( false );
+    // @public whether the equation is displayed in slope-intercept form
+    this.slopeInterceptProperty = new BooleanProperty( false );
 
     // XY table drawer
     if ( options.hasTableDrawer ) {

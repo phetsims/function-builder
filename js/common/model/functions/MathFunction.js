@@ -13,7 +13,7 @@ define( function( require ) {
   var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
   var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   var Util = require( 'DOT/Util' );
@@ -47,7 +47,7 @@ define( function( require ) {
     this.applyRationalNumber = applyRationalNumber;
 
     // @public
-    this.operandProperty = new Property( options.operand ); // {Property.<number>}
+    this.operandProperty = new NumberProperty( options.operand ); // {Property.<number>}
     // unlink unnecessary, instance owns this Property
     this.operandProperty.lazyLink( function( operand ) {
 

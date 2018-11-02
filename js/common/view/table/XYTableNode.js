@@ -35,7 +35,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -75,8 +75,8 @@ define( function( require ) {
     this._updateEnabled = options.updateEnabled;
     this.gridDirty = true; // {boolean} does the grid need to be updated?
 
-    // @private {Property.<number>} number of rows in the table
-    this.numberOfRowsProperty = new Property( 0 );
+    // @private number of rows in the table
+    this.numberOfRowsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
     this.cards = [];
@@ -149,7 +149,7 @@ define( function( require ) {
     VBox.call( this, options );
 
     // @private {Property.<number>} the row number that appears at the top of the table
-    this.rowNumberAtTopProperty = new Property( 0 );
+    this.rowNumberAtTopProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     // {Animation} animation that vertically scrolls the rows
     var animation = null;

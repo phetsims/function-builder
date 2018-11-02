@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
   var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
   var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
@@ -20,7 +21,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
-  var Property = require( 'AXON/Property' );
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
@@ -78,8 +78,8 @@ define( function( require ) {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
 
-    // @public {Property.<boolean>}
-    var identityVisibleProperty = new Property( options.identityVisible );
+    // @public
+    var identityVisibleProperty = new BooleanProperty( options.identityVisible );
     // unlink unnecessary, instance owns this Property
     identityVisibleProperty.link( function( identityVisible ) {
 

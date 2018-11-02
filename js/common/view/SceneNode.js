@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
   var BuilderNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderNode' );
   var Carousel = require( 'SUN/Carousel' );
@@ -23,7 +24,6 @@ define( function( require ) {
   var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   var PageControl = require( 'SUN/PageControl' );
   var platform = require( 'PHET_CORE/platform' );
-  var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
 
@@ -62,11 +62,11 @@ define( function( require ) {
 
     var self = this;
 
-    // @protected {Property.<boolean>} show/hide windows that allow you to 'see inside' the builder
-    this.seeInsideProperty = new Property( options.seeInside );
+    // @protected show/hide windows that allow you to 'see inside' the builder
+    this.seeInsideProperty = new BooleanProperty( options.seeInside );
 
-    // @private {Property.<boolean>} should the identity of functions in the builder be hidden?
-    this.hideFunctionsProperty = new Property( options.hideFunctions );
+    // @private should the identity of functions in the builder be hidden?
+    this.hideFunctionsProperty = new BooleanProperty( options.hideFunctions );
 
     // cards are in this layer while they are draggable
     var cardsDragLayer = new Node();
