@@ -45,7 +45,7 @@ define( function( require ) {
   /**
    * Converts a value to an even integer.
    * @param {number} value
-   * @return {number}
+   * @returns {number}
    */
   var toEvenInteger = function( value ) {
     var newValue = Util.roundSymmetric( value );
