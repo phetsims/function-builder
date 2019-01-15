@@ -315,7 +315,7 @@ define( function( require ) {
       if ( this.dragLayer.hasChild( this ) ) {
 
         // remove from drag layer
-        this.cancelDrag();
+        this.interruptSubtreeInput(); // cancel drag
         this.dragLayer.removeChild( this );
         this.unregisterAsSeeInsideCard();
       }

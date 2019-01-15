@@ -52,6 +52,9 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY + FBConstants.RESET_ALL_BUTTON_OFFSET.y,
       listener: function() {
 
+        // cancel drags that may be in progress
+        self.interruptSubtreeInput();
+
         // reset view before model, or we'll see animation that's not desired
         sceneNodes.forEach( function( sceneNode ) {
           sceneNode && sceneNode.reset();

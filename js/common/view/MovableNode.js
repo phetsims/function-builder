@@ -56,7 +56,7 @@ define( function( require ) {
 
     // @private
     if ( options.draggable ) {
-      this.dragHandler = new SimpleDragHandler( {
+      var dragHandler = new SimpleDragHandler( {
 
         allowTouchSnag: options.allowTouchSnag,
 
@@ -84,25 +84,11 @@ define( function( require ) {
           options.endDrag && options.endDrag();
         }
       } );
-      this.addInputListener( this.dragHandler );
+      this.addInputListener( dragHandler );
     }
   }
 
   functionBuilder.register( 'MovableNode', MovableNode );
 
-  return inherit( Node, MovableNode, {
-
-    //TODO revisit when scenery supports drag cancellation, see https://github.com/phetsims/function-builder/issues/57
-    /**
-     * Cancels a drag that is in progress.
-     * If no drag is in progress, this is a no-op.
-     *
-     * @public
-     */
-    cancelDrag: function() {
-      if ( this.dragHandler && this.movable.dragging ) {
-        this.dragHandler.endDrag( null /* event */ );
-      }
-    }
-  } );
+  return inherit( Node, MovableNode );
 } );
