@@ -45,8 +45,8 @@ define( function( require ) {
     this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     // @public
-    this.addEmitter = new Emitter(); // emit1(Node) called after a Node is added
-    this.removeEmitter = new Emitter(); // emit1(Node) called after a Node is removed
+    this.addEmitter = new Emitter( { validationEnabled: false } ); // emit(Node) called after a Node is added
+    this.removeEmitter = new Emitter( { validationEnabled: false } ); // emit(Node) called after a Node is removed
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
@@ -88,7 +88,7 @@ define( function( require ) {
       this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
 
       // notify observers
-      this.addEmitter.emit1( node );
+      this.addEmitter.emit( node );
     },
 
     /**
@@ -106,7 +106,7 @@ define( function( require ) {
       this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
 
       // notify observers
-      this.removeEmitter.emit1( node );
+      this.removeEmitter.emit( node );
     },
 
     /**
