@@ -44,9 +44,15 @@ define( function( require ) {
     // @public (read-only) number of items in the container
     this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    // @public
-    this.addEmitter = new Emitter( { validationEnabled: false } ); // emit(Node) called after a Node is added
-    this.removeEmitter = new Emitter( { validationEnabled: false } ); // emit(Node) called after a Node is removed
+    // @public emit is called when a Node is added
+    this.addEmitter = new Emitter( {
+      validators: [ { valueType: Node } ]
+    } );
+
+    // @public emit is called when a Node is removed
+    this.removeEmitter = new Emitter( {
+      validators: [ { valueType: Node } ]
+    } );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ this.backgroundNode ];
