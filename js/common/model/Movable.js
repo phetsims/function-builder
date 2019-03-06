@@ -1,4 +1,4 @@
-// Copyright 2015-2017, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * A model element that is movable.
@@ -14,8 +14,8 @@ define( function( require ) {
   // modules
   var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * @param {Object} [options]
@@ -29,8 +29,8 @@ define( function( require ) {
       animationSpeed: 100 // {number} distance/second when animating
     }, options );
 
-    // @public (read-only) {Property.<Vector2>} DO NOT set this directly! Use moveTo or animateTo.
-    this.locationProperty = new Property( options.location );
+    // @public (read-only) DO NOT set this directly! Use moveTo or animateTo.
+    this.locationProperty = new Vector2Property( options.location );
 
     // @public
     this.dragging = options.dragging;
