@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.15 Fri Mar 08 2019 13:25:56 GMT-0500 (EST)",
+  "comment": "# function-builder 1.0.15 Tue Mar 19 2019 16:42:20 GMT-0400 (EDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -10,23 +10,23 @@
   },
   "brand": {
     "sha": "d3a01b17b52774d738c7366331c03dd114a546a1",
-    "branch": "function-builder-1.0"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "b45eb915ccb631f12b329d74368d676fa3266638",
-    "branch": "HEAD"
+    "sha": "0855306498a235ebef099f4900d7105885f865c8",
+    "branch": "function-builder-1.0"
   },
   "dot": {
     "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "76ce3c440ebac94d76796a1f51c3752574820ea1",
+    "sha": "ab5b43575f49385c6716a14de858d7d85e90479c",
     "branch": "1.0"
   },
   "joist": {
     "sha": "25d6bdc61be4f90ec1cff17aaaf1dcf99d0fda91",
-    "branch": "function-builder-1.0"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
@@ -38,6 +38,10 @@
   },
   "phetcommon": {
     "sha": "c01af6a7c69bc848816f65c29849a8ffee76edb3",
+    "branch": "HEAD"
+  },
+  "phetmarks": {
+    "sha": "3fdfece0fe0262594bb06856833b8b16be25deb8",
     "branch": "HEAD"
   },
   "scenery": {
@@ -63,9 +67,5 @@
   "twixt": {
     "sha": "53b31872ff34d68a49dd4d30ea934bdcd362556e",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "3fdfece0fe0262594bb06856833b8b16be25deb8"
   }
 }
