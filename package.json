@@ -13,8 +13,7 @@
     "requirejsNamespace": "FUNCTION_BUILDER",
     "preload": [
       "../sherpa/lib/BigInteger-cda5bcc.js",
-      "../sherpa/lib/BigRational-8f8c2fa.js",
-      "../sherpa/lib/Tween-r12.js"
+      "../sherpa/lib/BigRational-8f8c2fa.js"
     ],
     "phetLibs": [
       "twixt"
