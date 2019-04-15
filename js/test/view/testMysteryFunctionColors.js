@@ -112,8 +112,6 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'testMysteryFunctionColors.TestFunctionNode', TestFunctionNode );
-
   inherit( Node, TestFunctionNode );
 
   return testMysteryFunctionColors;

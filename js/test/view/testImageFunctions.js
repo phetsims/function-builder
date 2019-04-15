@@ -169,8 +169,6 @@ define( function( require ) {
     Node.call( this, options );
   }
 
-  functionBuilder.register( 'testImageFunctions.TestCardNode', TestCardNode );
-
   inherit( Node, TestCardNode );
 
   /**
@@ -212,8 +210,6 @@ define( function( require ) {
 
     Node.call( this, options );
   }
-
-  functionBuilder.register( 'testImageFunctions.TestFunctionNode', TestFunctionNode );
 
   inherit( Node, TestFunctionNode );
 

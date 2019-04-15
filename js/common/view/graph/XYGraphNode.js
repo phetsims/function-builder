@@ -384,8 +384,6 @@ define( function( require ) {
     this.center = modelViewTransform.modelToViewPosition( point );
   }
 
-  functionBuilder.register( 'XYGraphNode.PointNode', PointNode );
-
   inherit( Circle, PointNode );
 
   return XYGraphNode;
