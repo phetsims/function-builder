@@ -97,7 +97,7 @@ define( function( require ) {
     // default option values used by all Drawers
     DRAWER_OPTIONS: {
       handleTouchAreaXDilation: 25, // x dilation of the drawer's handle
-      handleTouchAreaYDilation: 25, // y dilation of the drawer's handle
+      handleTouchAreaYDilation: 8, // y dilation of the drawer's handle
       cornerRadius: 4
     },
 
