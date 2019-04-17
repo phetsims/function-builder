@@ -48,13 +48,14 @@
       '../sherpa/lib/TextEncoderLite-3c9f6f0.js',
       '../tandem/js/PhetioIDUtils.js',
       '../sherpa/lib/BigInteger-cda5bcc.js',
-      '../sherpa/lib/BigRational-8f8c2fa.js',
-      '../sherpa/lib/Tween-r12.js'
+      '../sherpa/lib/BigRational-8f8c2fa.js'
     ];
 
     if ( brand === 'phet-io' ) {
       preloads = preloads.concat( [
-        '../phet-io/js/phet-io-initialize-globals.js'
+        '../phet-io/js/phet-io-initialize-globals.js',
+        '../function-builder/js/phet-io/function-builder-phet-io-elements-baseline.js',
+        '../function-builder/js/phet-io/function-builder-phet-io-elements-overrides.js'
       ] );
     }
 
