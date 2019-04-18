@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.16 Wed Apr 17 2019 13:52:59 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.0.17-rc.1 Thu Apr 18 2019 09:44:30 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "d2cc8b536f18b51628d8d118011830652fabb0ad",
-    "branch": "function-builder-1.0"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "923df98ec257be75068d3baa7ac830a74d242b91",
+    "sha": "80794b083aba3c522e150349dcee0898f88cd4f8",
     "branch": "1.0"
   },
   "joist": {
