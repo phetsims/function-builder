@@ -131,7 +131,7 @@ define( function( require ) {
 
           assert && assert(
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-            'adjacent plus and minus should have been collapsed' );
+            `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
 
           // eg: x + 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
@@ -157,7 +157,7 @@ define( function( require ) {
 
           assert && assert(
             !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-            'adjacent plus and minus should have been collapsed' );
+            `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
 
           // eg: x - 3
           operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
@@ -182,7 +182,7 @@ define( function( require ) {
           // TIMES ----------------------------------------------------------------------------
 
           assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
-            'adjacent times should have been collapsed' );
+            `adjacent times should have been collapsed: ${equation.toString()}` );
 
           // parentheses around term, eg: 2(x + 2)
           if ( i !== 0 ) {
@@ -224,9 +224,10 @@ define( function( require ) {
 
           // DIVIDE ----------------------------------------------------------------------------
 
-          assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
+          assert && assert( currentOperand !== 0,
+            `divide by zero is not supported: ${equation.toString()}` );
           assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
-            'adjacent divide should have been collapsed' );
+            `adjacent divide should have been collapsed: ${equation.toString()}` );
 
           // what we've built so far becomes the numerator
           var numeratorNode = rhsNode;
@@ -268,7 +269,7 @@ define( function( require ) {
 
           // oops! ----------------------------------------------------------------------------
 
-          throw new Error( 'invalid operator: ' + currentOperator );
+          throw new Error( `invalid operator=${currentOperator}, equation=${equation.toString()}` );
         }
 
         previousOperator = currentOperator;

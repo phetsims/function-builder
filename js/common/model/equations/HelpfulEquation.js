@@ -134,9 +134,9 @@ define( function( require ) {
   return inherit( Object, HelpfulEquation, {
 
     /**
-     * String representation, for debugging and (perhaps) PhET-iO.
-     * Note that the logic flow herein is similar to HelpfulEquationNode's constructor,
-     * but constructs a string instead of a Node.
+     * String representation, for debugging. Do not rely on format!
+     * Note that the logic flow herein is similar to HelpfulEquationNode's constructor, but constructs a string
+     * instead of a Node, and doesn't check logic in case we need to see a malformed equation.
      *
      * @returns {string}
      * @public
@@ -168,27 +168,18 @@ define( function( require ) {
           currentOperand = currentFunction.operandProperty.get().valueOf();
 
           if ( currentOperator === FBSymbols.PLUS ) {
-            assert && assert(
-              !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-              'adjacent plus and minus should have been collapsed' );
 
             // eg: 2x + 3
             equation = StringUtils.format( '{0} {1} {2}', equation,
               ( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS ), Math.abs( currentOperand ) );
           }
           else if ( currentOperator === FBSymbols.MINUS ) {
-            assert && assert(
-              !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-              'adjacent plus and minus should have been collapsed' );
 
             // eg: 2x - 3
             equation = StringUtils.format( '{0} {1} {2}', equation,
               ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), Math.abs( currentOperand ) );
           }
           else if ( currentOperator === FBSymbols.TIMES ) {
-            assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
-              'adjacent times should have been collapsed' );
-
             if ( equation === this.xSymbol ) {
 
               // eg: 3x
@@ -201,10 +192,6 @@ define( function( require ) {
             }
           }
           else if ( currentOperator === FBSymbols.DIVIDE ) {
-            assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
-            assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
-              'adjacent divide should have been collapsed' );
-
             if ( equation !== '0' ) {
 
               // eq: [2x + 1]/3
