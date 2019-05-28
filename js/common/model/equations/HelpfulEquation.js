@@ -157,7 +157,6 @@ define( function( require ) {
         var currentFunction = null; // {MathFunction}
         var currentOperator = null; // {string}
         var currentOperand = null; // {number}
-        var previousOperator = null; // {string}
 
         equation = this.xSymbol;
 
@@ -202,8 +201,6 @@ define( function( require ) {
           else {
             throw new Error( 'invalid operator: ' + currentOperator );
           }
-
-          previousOperator = currentOperator;
         }
       }
 
