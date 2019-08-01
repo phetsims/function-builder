@@ -46,12 +46,12 @@ define( function( require ) {
 
     // @public emit is called when a Node is added
     this.addEmitter = new Emitter( {
-      validators: [ { valueType: Node } ]
+      parameters: [ { valueType: Node } ]
     } );
 
     // @public emit is called when a Node is removed
     this.removeEmitter = new Emitter( {
-      validators: [ { valueType: Node } ]
+      parameters: [ { valueType: Node } ]
     } );
 
     assert && assert( !options.children, 'decoration not supported' );
