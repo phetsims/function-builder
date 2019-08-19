@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.19 Mon Aug 05 2019 15:45:47 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.0.19 Mon Aug 19 2019 13:50:15 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "12b8f01d11f8a35ac00a24a1be871d398c2af4e3",
+    "sha": "871730b440beb1e8d1f71a65ccc6264f45539986",
     "branch": "1.0"
   },
   "joist": {
-    "sha": "25d6bdc61be4f90ec1cff17aaaf1dcf99d0fda91",
-    "branch": "HEAD"
+    "sha": "1755cc7c83278aba2f9f6b0ad05413d71c374a2c",
+    "branch": "function-builder-1.0"
   },
   "kite": {
     "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "0d6b589e3674e0dccd013aa4790651fad81a6e78",
-    "branch": "HEAD"
+    "sha": "512f6f77e73ba3226d9b47be4536c7759e52952c",
+    "branch": "function-builder-1.0"
   },
   "sherpa": {
     "sha": "03590a07436272b142319aae4aaa0dae08471387",
