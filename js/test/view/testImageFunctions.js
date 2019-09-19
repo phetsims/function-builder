@@ -60,7 +60,7 @@ define( require => {
   function testImageFunctions( layoutBounds ) {
 
     // a canvas for each input image
-    var canvases = [
+    const canvases = [
       FBCanvasUtils.createCanvasWithImage( feetImage ),
       FBCanvasUtils.createCanvasWithImage( snowflakeImage ),
       FBCanvasUtils.createCanvasWithImage( butterflyImage ),
@@ -76,7 +76,7 @@ define( require => {
     ];
 
     // functions to be applied to the images
-    var functions = [
+    const functions = [
       new Identity(),
       new Mirror(),
       new Rotate90(),
@@ -92,27 +92,27 @@ define( require => {
     ];
 
     // a row of function icons
-    var functionNodes = [];
+    const functionNodes = [];
     functions.forEach( function( functionInstance ) {
       functionNodes.push( new TestFunctionNode( functionInstance, {
         scale: 0.45 // determined empirically, to make functions line up with images in carousel
       } ) );
     } );
-    var functionsBox = new HBox( {
+    const functionsBox = new HBox( {
       children: functionNodes,
       spacing: 21
     } );
 
     // carousel items
-    var items = [];
+    const items = [];
 
     // A row for each card
     canvases.forEach( function( canvas ) {
 
-      var hBoxChildren = [];
+      const hBoxChildren = [];
 
       functions.forEach( function( functionInstance ) {
-        var outputCanvas = functionInstance.apply( canvas );
+        const outputCanvas = functionInstance.apply( canvas );
         hBoxChildren.push( new TestCardNode( outputCanvas ) );
       } );
 
@@ -123,7 +123,7 @@ define( require => {
     } );
 
     // vertical carousel to show the output images
-    var carousel = new Carousel( items, {
+    const carousel = new Carousel( items, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: 4
@@ -149,14 +149,14 @@ define( require => {
 
     options = options || {};
 
-    var backgroundNode = new Rectangle( 0, 0, 60, 60, {
+    const backgroundNode = new Rectangle( 0, 0, 60, 60, {
       cornerRadius: 5,
       fill: 'white',
       stroke: 'black',
       lineWidth: 1
     } );
 
-    var imageNode = new Image( canvas.toDataURL(), {
+    const imageNode = new Image( canvas.toDataURL(), {
       initialWidth: canvas.width,
       initialHeight: canvas.height,
       scale: 0.3,  // determined empirically
@@ -184,12 +184,12 @@ define( require => {
 
     options = options || {};
 
-    var WIDTH = 120;
-    var HEIGHT = 0.6 * WIDTH;
-    var X_INSET = 0.15 * WIDTH;
+    const WIDTH = 120;
+    const HEIGHT = 0.6 * WIDTH;
+    const X_INSET = 0.15 * WIDTH;
 
     // Described from top-left, moving clockwise.
-    var backgroundShape = new Shape()
+    const backgroundShape = new Shape()
       .moveTo( 0, 0 )
       .lineTo( WIDTH - X_INSET, 0 )
       .lineTo( WIDTH, HEIGHT / 2 )
@@ -198,9 +198,9 @@ define( require => {
       .lineTo( X_INSET, HEIGHT / 2 )
       .close();
 
-    var backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
+    const backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
 
-    var iconNode = new Node( {
+    const iconNode = new Node( {
       children: [ functionInstance.iconNode ],
       center: backgroundNode.center
     } );

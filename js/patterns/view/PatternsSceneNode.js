@@ -45,7 +45,7 @@ define( require => {
      * @override
      */
     createCardContainers: function( scene, containerOptions ) {
-      var containers = [];
+      const containers = [];
       scene.cardContent.forEach( function( cardImage ) {
         containers.push( new CardContainer( ImageCard, ImageCardNode, cardImage, containerOptions ) );
       } );

@@ -35,7 +35,7 @@ define( require => {
     assert && assert( options.scale > 0 && options.scale < 1 );
     this.scale = options.scale; // @private
 
-    var iconNode = new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -47,8 +47,8 @@ define( require => {
    * @param {number} value
    * @returns {number}
    */
-  var toEvenInteger = function( value ) {
-    var newValue = Util.roundSymmetric( value );
+  const toEvenInteger = function( value ) {
+    let newValue = Util.roundSymmetric( value );
     if ( newValue % 2 !== 0 ) {
       newValue++;
     }
@@ -69,11 +69,11 @@ define( require => {
 
       // Constrain shrinking to even integer dimensions, to prevent anti-aliasing artifacts.
       // See https://github.com/phetsims/function-builder-basics/issues/18
-      var width = toEvenInteger( this.scale * inputCanvas.width );
-      var height = toEvenInteger( this.scale * inputCanvas.height );
+      const width = toEvenInteger( this.scale * inputCanvas.width );
+      const height = toEvenInteger( this.scale * inputCanvas.height );
 
       // scale by drawing into a smaller canvas
-      var outputCanvas = FBCanvasUtils.createCanvas( width, height );
+      const outputCanvas = FBCanvasUtils.createCanvas( width, height );
       outputCanvas.getContext( '2d' ).drawImage( inputCanvas, 0, 0, outputCanvas.width, outputCanvas.height );
       return outputCanvas;
     }

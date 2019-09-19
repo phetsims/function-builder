@@ -34,7 +34,7 @@ define( require => {
 
     Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
 
-    var self = this;
+    const self = this;
 
     // unlink unnecessary, instances exist for lifetime of the sim
     card.locationProperty.link( function( location ) {

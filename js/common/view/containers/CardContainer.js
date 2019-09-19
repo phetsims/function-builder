@@ -64,14 +64,14 @@ define( require => {
       assert && assert( inputContainer.carouselLocation && outputContainer.carouselLocation,
         'did you call this before containers were attached to ScreenView?' );
 
-      for ( var i = 0; i < numberOfInstances; i++ ) {
+      for ( let i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var card = new this.cardConstructor( this.cardContent, { location: inputContainer.carouselLocation } );
+        const card = new this.cardConstructor( this.cardContent, { location: inputContainer.carouselLocation } );
         scene.cards.push( card );
 
         // associated Node
-        var cardNode = new this.cardNodeConstructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
+        const cardNode = new this.cardNodeConstructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty );
 
         // put the Node in this container
         this.addNode( cardNode );

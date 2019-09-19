@@ -11,7 +11,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var FBColors = {
+  const FBColors = {
 
     // background colors for Screens
     PATTERNS_SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',

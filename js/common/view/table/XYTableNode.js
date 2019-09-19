@@ -66,7 +66,7 @@ define( require => {
 
     }, options );
 
-    var self = this;
+    const self = this;
 
     // @private
     this.builder = builder;
@@ -86,19 +86,19 @@ define( require => {
     this.rowsParent = new VBox();
 
     // options for scroll buttons
-    var BUTTON_OPTIONS = {
+    const BUTTON_OPTIONS = {
       fireOnHold: false, // because scrolling is animated
       minWidth: options.size.width
     };
 
     // up button
-    var upButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+    const upButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
       cornerRadius: 0,
       arrowDirection: 'up'
     } ) );
 
     // down button
-    var downButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+    const downButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
       cornerRadius: options.cornerRadius,
       arrowDirection: 'down'
     } ) );
@@ -108,7 +108,7 @@ define( require => {
     downButton.touchArea = downButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
 
     // column headings
-    var headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
+    const headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
       size: new Dimension2( options.size.width, 30 ),
       font: options.headingFont,
       fill: options.headingBackground,
@@ -119,8 +119,8 @@ define( require => {
     } );
 
     // window that rows scroll in
-    var scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
-    var scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
+    const scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
+    const scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
       fill: options.scrollingRegionFill
     } );
     scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
@@ -138,7 +138,7 @@ define( require => {
     }
 
     // contents of the scrolling region
-    var scrollingContents = new Node( {
+    const scrollingContents = new Node( {
       children: [ this.rowsParent, this.gridNode ]
     } );
     scrollingRegion.addChild( scrollingContents ); // add after setting clipArea
@@ -152,7 +152,7 @@ define( require => {
     this.rowNumberAtTopProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
     // {Animation} animation that vertically scrolls the rows
-    var animation = null;
+    let animation = null;
 
     // scroll
     // unlink unnecessary, instance owns this property
@@ -161,7 +161,7 @@ define( require => {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      var scrollY = -( self.rowNumberAtTopProperty.get() * self.rowSize.height );
+      const scrollY = -( self.rowNumberAtTopProperty.get() * self.rowSize.height );
       if ( self.visible && self.animationEnabled ) {
 
         // animate scrolling
@@ -182,7 +182,7 @@ define( require => {
     } );
 
     // button state is dependent on number of rows and which rows are visible
-    var updateButtonState = function() {
+    const updateButtonState = function() {
       upButton.enabled = ( self.rowNumberAtTopProperty.get() !== 0 );
       downButton.enabled = ( self.numberOfRowsProperty.get() - self.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
     };
@@ -215,18 +215,18 @@ define( require => {
       assert && assert( this.updateEnabled && this.gridDirty );
 
       // always show 1 page of cells, even if some are empty
-      var numberOfRows = Math.max( this.numberOfRowsVisible, this.numberOfRowsProperty.get() );
+      const numberOfRows = Math.max( this.numberOfRowsVisible, this.numberOfRowsProperty.get() );
 
-      var gridShape = new Shape();
+      const gridShape = new Shape();
 
       // horizontal lines between rows
-      for ( var i = 1; i < numberOfRows + 1; i++ ) {
-        var y = i * this.rowSize.height;
+      for ( let i = 1; i < numberOfRows + 1; i++ ) {
+        const y = i * this.rowSize.height;
         gridShape.moveTo( 0, y ).lineTo( this.rowSize.width, y );
       }
 
       // vertical line between columns
-      var centerX = this.rowSize.width / 2;
+      const centerX = this.rowSize.width / 2;
       gridShape.moveTo( centerX, 0 ).lineTo( centerX, ( numberOfRows + 1 ) * this.rowSize.height );
 
       this.gridNode.shape = gridShape;
@@ -248,7 +248,7 @@ define( require => {
       assert && assert( card instanceof NumberCard || card instanceof EquationCard );
 
       // create the row
-      var rowNode = new XYTableRow( card, this.builder, {
+      const rowNode = new XYTableRow( card, this.builder, {
         size: this.rowSize,
         updateEnabled: this.updateEnabled
       } );
@@ -257,9 +257,9 @@ define( require => {
 
         // Insert number cards in ascending numerical order. Determine insertion index by looking at cards in order,
         // until we encounter a symbolic card (eg, 'x', which is always at the end) or a card with a larger number.
-        var insertIndex = this.cards.length;
-        for ( var i = 0; i < this.cards.length; i++ ) {
-          var someCard = this.cards[ i ];
+        let insertIndex = this.cards.length;
+        for ( let i = 0; i < this.cards.length; i++ ) {
+          const someCard = this.cards[ i ];
           if ( ( someCard instanceof EquationCard ) || ( card.rationalNumber.valueOf() < someCard.rationalNumber.valueOf() ) ) {
             insertIndex = i;
             break;
@@ -295,7 +295,7 @@ define( require => {
      */
     removeRow: function( card ) {
 
-      var cardIndex = this.cards.indexOf( card );
+      const cardIndex = this.cards.indexOf( card );
       assert && assert( cardIndex !== -1 );
 
       // remove card
@@ -304,13 +304,13 @@ define( require => {
       // If the last row is visible at the bottom of the table, disable scrolling animation.
       // This prevents a situation that looks a little odd: rows will move up to reveal an empty
       // row at the bottom, then rows will scroll down.
-      var wasAnimationEnabled = this.animationEnabled;
+      const wasAnimationEnabled = this.animationEnabled;
       if ( this.rowNumberAtTopProperty.get() === this.numberOfRowsProperty.get() - this.numberOfRowsVisible ) {
         this.animationEnabled = false;
       }
 
       // remove row, rows below it move up automatically since rowsParent is a VBox
-      var rowNode = this.rowsParent.getChildAt( cardIndex );
+      const rowNode = this.rowsParent.getChildAt( cardIndex );
       assert && assert( rowNode instanceof XYTableRow );
       this.rowsParent.removeChild( rowNode );
       rowNode.dispose();
@@ -354,10 +354,10 @@ define( require => {
      */
     setOutputCellVisible: function( card, visible ) {
 
-      var cardIndex = this.cards.indexOf( card );
+      const cardIndex = this.cards.indexOf( card );
       assert && assert( cardIndex !== -1 );
 
-      var rowNode = this.rowsParent.getChildAt( cardIndex );
+      const rowNode = this.rowsParent.getChildAt( cardIndex );
       assert && assert( rowNode instanceof XYTableRow );
       rowNode.setOutputCellVisible( visible );
     },
@@ -371,10 +371,10 @@ define( require => {
      */
     scrollToRow: function( card ) {
 
-      var cardIndex = this.cards.indexOf( card );
+      const cardIndex = this.cards.indexOf( card );
       assert && assert( cardIndex !== -1 );
 
-      var rowNumberAtTop = this.rowNumberAtTopProperty.get();
+      const rowNumberAtTop = this.rowNumberAtTopProperty.get();
 
       if ( cardIndex < rowNumberAtTop ) {
         this.rowNumberAtTopProperty.set( cardIndex );
@@ -421,7 +421,7 @@ define( require => {
 
       FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
 
-      var wasUpdateEnabled = this._updateEnabled;
+      const wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
 
       // set updateEnabled for rows

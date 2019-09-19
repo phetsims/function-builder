@@ -38,7 +38,7 @@ define( require => {
    * @param {BigRational} bigRational
    * @returns {RationalNumber}
    */
-  var toRationalNumber = function( bigRational ) {
+  const toRationalNumber = function( bigRational ) {
 
     // BigRational.js does not export type BigRational. This verification works only when unminified.
     assert && assert( bigRational.constructor.name === 'BigRational' );
@@ -168,7 +168,7 @@ define( require => {
      * @public
      */
     wholeNumberPart: function() {
-      var value = this.bigRational.valueOf();
+      const value = this.bigRational.valueOf();
       return ( value < 0 ? -1 : 1 ) * Math.floor( Math.abs( value ) );
     },
 

@@ -36,7 +36,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var AXIS_OPTIONS = {
+  const AXIS_OPTIONS = {
     doubleHead: true,
     headWidth: 8,
     headHeight: 8,
@@ -90,20 +90,20 @@ define( require => {
     }, options );
 
     // model-view transform
-    var xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
-    var yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
-    var xScale = options.size.width / options.xRange.getLength();
-    var yScale = -options.size.height / options.yRange.getLength(); // inverted
-    var modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
+    const xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
+    const yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
+    const xScale = options.size.width / options.xRange.getLength();
+    const yScale = -options.size.height / options.yRange.getLength(); // inverted
+    const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
     // Perform transforms of common points once
-    var viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
-    var viewMinX = modelViewTransform.modelToViewX( options.xRange.min );
-    var viewMaxX = modelViewTransform.modelToViewX( options.xRange.max );
-    var viewMinY = modelViewTransform.modelToViewY( options.yRange.min );
-    var viewMaxY = modelViewTransform.modelToViewY( options.yRange.max );
+    const viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
+    const viewMinX = modelViewTransform.modelToViewX( options.xRange.min );
+    const viewMaxX = modelViewTransform.modelToViewX( options.xRange.max );
+    const viewMinY = modelViewTransform.modelToViewY( options.yRange.min );
+    const viewMaxY = modelViewTransform.modelToViewY( options.yRange.max );
 
-    var backgroundNode = new Rectangle( viewMinX, viewMaxY,
+    const backgroundNode = new Rectangle( viewMinX, viewMaxY,
       modelViewTransform.modelToViewDeltaX( options.xRange.getLength() ),
       -modelViewTransform.modelToViewDeltaY( options.yRange.getLength() ), {
         cornerRadius: options.cornerRadius,
@@ -111,35 +111,35 @@ define( require => {
       } );
 
     // grid, drawn using one Shape
-    var gridShape = new Shape();
+    const gridShape = new Shape();
 
     // vertical lines
-    var xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
-    for ( var modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
-      var viewGridX = modelViewTransform.modelToViewX( modelGridX );
+    const xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
+    for ( let modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
+      const viewGridX = modelViewTransform.modelToViewX( modelGridX );
       gridShape.moveTo( viewGridX, viewMinY );
       gridShape.lineTo( viewGridX, viewMaxY );
       modelGridX += options.xGridSpacing;
     }
 
     // horizontal lines
-    var yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
-    for ( var modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
-      var viewGridY = modelViewTransform.modelToViewY( modelGridY );
+    const yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
+    for ( let modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
+      const viewGridY = modelViewTransform.modelToViewY( modelGridY );
       gridShape.moveTo( viewMinX, viewGridY );
       gridShape.lineTo( viewMaxX, viewGridY );
       modelGridY += options.yGridSpacing;
     }
 
-    var gridNode = new Path( gridShape, {
+    const gridNode = new Path( gridShape, {
       stroke: options.gridStroke,
       lineWidth: options.gridLineWidth
     } );
 
     // x axis
-    var xAxisNode = new ArrowNode( viewMinX, viewOrigin.y, viewMaxX, viewOrigin.y, AXIS_OPTIONS );
+    const xAxisNode = new ArrowNode( viewMinX, viewOrigin.y, viewMaxX, viewOrigin.y, AXIS_OPTIONS );
 
-    var xAxisLabelNode = new Text( FBSymbols.X, {
+    const xAxisLabelNode = new Text( FBSymbols.X, {
       maxWidth: 0.3 * options.size.width,
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
@@ -148,9 +148,9 @@ define( require => {
     } );
 
     // y axis
-    var yAxisNode = new ArrowNode( viewOrigin.x, viewMinY, viewOrigin.x, viewMaxY, AXIS_OPTIONS );
+    const yAxisNode = new ArrowNode( viewOrigin.x, viewMinY, viewOrigin.x, viewMaxY, AXIS_OPTIONS );
 
-    var yAxisLabelNode = new Text( FBSymbols.Y, {
+    const yAxisLabelNode = new Text( FBSymbols.Y, {
       maxWidth: 0.3 * options.size.width,
       font: options.axisLabelFont,
       fill: options.axisLabelColor,
@@ -159,26 +159,26 @@ define( require => {
     } );
 
     // tick lines & labels
-    var tickLinesShape = new Shape(); // tick lines are drawn using one Shape
-    var tickLabelsParent = new Node();
+    const tickLinesShape = new Shape(); // tick lines are drawn using one Shape
+    const tickLabelsParent = new Node();
 
     // x tick marks
-    var xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
+    let xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
     if ( xMinTick === options.xRange.min ) {
       xMinTick = xMinTick + options.xTickSpacing;
     }
-    for ( var modelTickX = xMinTick; modelTickX < options.xRange.max; ) {
+    for ( let modelTickX = xMinTick; modelTickX < options.xRange.max; ) {
 
       if ( modelTickX !== 0 ) {
 
-        var viewTickX = modelViewTransform.modelToViewX( modelTickX );
+        const viewTickX = modelViewTransform.modelToViewX( modelTickX );
 
         // line
         tickLinesShape.moveTo( viewTickX, viewOrigin.y );
         tickLinesShape.lineTo( viewTickX, viewOrigin.y + options.tickLength );
 
         // label
-        var xTickLabelNode = new Text( modelTickX, {
+        const xTickLabelNode = new Text( modelTickX, {
           font: options.tickFont,
           centerX: viewTickX,
           top: viewOrigin.y + options.tickLength + options.tickLabelSpace
@@ -190,22 +190,22 @@ define( require => {
     }
 
     // y tick marks
-    var yMinTick = options.yRange.min - ( options.yRange.min % options.yTickSpacing );
+    let yMinTick = options.yRange.min - ( options.yRange.min % options.yTickSpacing );
     if ( yMinTick === options.yRange.min ) {
       yMinTick = yMinTick + options.yTickSpacing;
     }
-    for ( var modelTickY = yMinTick; modelTickY < options.yRange.max; ) {
+    for ( let modelTickY = yMinTick; modelTickY < options.yRange.max; ) {
 
       if ( modelTickY !== 0 ) {
 
-        var viewTickY = modelViewTransform.modelToViewY( modelTickY );
+        const viewTickY = modelViewTransform.modelToViewY( modelTickY );
 
         // line
         tickLinesShape.moveTo( viewOrigin.x, viewTickY );
         tickLinesShape.lineTo( viewOrigin.x - options.tickLength, viewTickY );
 
         // label
-        var yTickLabelNode = new Text( modelTickY, {
+        const yTickLabelNode = new Text( modelTickY, {
           font: options.tickFont,
           right: viewOrigin.x - options.tickLength - options.tickLabelSpace,
           centerY: viewTickY
@@ -216,16 +216,16 @@ define( require => {
       modelTickY += options.yTickSpacing;
     }
 
-    var tickLinesNode = new Path( tickLinesShape, {
+    const tickLinesNode = new Path( tickLinesShape, {
       stroke: options.tickStroke,
       lineWidth: options.tickLineWidth
     } );
 
     // @private parent for all points
-    var pointsParent = new Node();
+    const pointsParent = new Node();
 
     // @private line that corresponds to the function in the builder
-    var lineNode = new Line( 0, 0, 1, 0, {
+    const lineNode = new Line( 0, 0, 1, 0, {
       stroke: options.lineStroke,
       lineWidth: options.lineWidth,
       visible: false
@@ -268,18 +268,18 @@ define( require => {
 
     // @private updates points
     updatePoints: function() {
-      var xCoordinates = this.xCoordinates.slice( 0 ); // copy
+      const xCoordinates = this.xCoordinates.slice( 0 ); // copy
       this.xCoordinates = [];
       this.pointsParent.removeAllChildren();
-      for ( var i = 0; i < xCoordinates.length; i++ ) {
+      for ( let i = 0; i < xCoordinates.length; i++ ) {
         this.addPointAt( xCoordinates[ i ] );
       }
     },
 
     // @private updates the line
     updateLine: function() {
-      var yLeft = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.min ) );
-      var yRight = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.max ) );
+      const yLeft = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.min ) );
+      const yRight = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.max ) );
       this.lineNode.setLine(
         this.modelViewTransform.modelToViewX( this.xRange.min ),
         this.modelViewTransform.modelToViewY( yLeft ),
@@ -302,10 +302,10 @@ define( require => {
       this.xCoordinates.push( x );
 
       // {RationalNumber} compute y based on what is in the builder
-      var y = this.builder.applyAllFunctions( x ).valueOf();
+      const y = this.builder.applyAllFunctions( x ).valueOf();
 
       // verify that the point is in range
-      var point = new Vector2( x.valueOf(), y.valueOf() );
+      const point = new Vector2( x.valueOf(), y.valueOf() );
       assert && assert( this.xRange.contains( point.x ) && this.yRange.contains( point.y ),
         'graphed point out of range: ' + point.toString() );
 
@@ -331,10 +331,10 @@ define( require => {
       this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
 
       // remove associated PointNode
-      var removed = false;
-      for ( var i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
+      let removed = false;
+      for ( let i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
 
-        var pointNode = this.pointsParent.getChildAt( i );
+        const pointNode = this.pointsParent.getChildAt( i );
         assert && assert( pointNode instanceof PointNode );
 
         if ( pointNode.point.x.valueOf() === x.valueOf() ) {

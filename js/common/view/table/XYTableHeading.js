@@ -36,35 +36,35 @@ define( require => {
       cornerRadii: null // {Object} see Shape.roundedRectangleWithRadii
     }, options );
 
-    var backgroundShape = Shape.roundedRectangleWithRadii( 0, 0, options.size.width, options.size.height, options.cornerRadii );
-    var backgroundNode = new Path( backgroundShape, {
+    const backgroundShape = Shape.roundedRectangleWithRadii( 0, 0, options.size.width, options.size.height, options.cornerRadii );
+    const backgroundNode = new Path( backgroundShape, {
       stroke: 'black',
       lineWidth: 0.5,
       fill: options.fill
     } );
 
     // constrain column labels to fit in cells
-    var xyMaxWidth = ( backgroundNode.width / 2 ) - ( 2 * options.xMargin );
-    var xyMaxHeight = backgroundNode.height - ( 2 * options.yMargin );
+    const xyMaxWidth = ( backgroundNode.width / 2 ) - ( 2 * options.xMargin );
+    const xyMaxHeight = backgroundNode.height - ( 2 * options.yMargin );
 
-    var LABEL_OPTIONS = {
+    const LABEL_OPTIONS = {
       font: options.font,
       maxWidth: xyMaxWidth,
       maxHeight: xyMaxHeight
     };
 
-    var xLabelNode = new Text( xSymbol, _.extend( {}, LABEL_OPTIONS, {
+    const xLabelNode = new Text( xSymbol, _.extend( {}, LABEL_OPTIONS, {
       centerX: 0.25 * backgroundNode.width,
       centerY: backgroundNode.centerY
     } ) );
 
-    var yLabelNode = new Text( ySymbol, _.extend( {}, LABEL_OPTIONS, {
+    const yLabelNode = new Text( ySymbol, _.extend( {}, LABEL_OPTIONS, {
       centerX: 0.75 * backgroundNode.width,
       centerY: backgroundNode.centerY
     } ) );
 
     // vertical line that separates columns
-    var verticalLine = new Line( 0, 0, 0, options.size.height, {
+    const verticalLine = new Line( 0, 0, 0, options.size.height, {
       stroke: 'black',
       lineWidth: 0.5,
       center: backgroundNode.center

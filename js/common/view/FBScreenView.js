@@ -28,7 +28,7 @@ define( require => {
    */
   function FBScreenView( model, sceneNodeConstructor, options ) {
 
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
@@ -39,7 +39,7 @@ define( require => {
 
     // If there's more than one scene, add a control for switching between scenes
     if ( model.scenes.length > 1 ) {
-      var sceneControl = new SceneControl( model.selectedSceneProperty, model.scenes, {
+      const sceneControl = new SceneControl( model.selectedSceneProperty, model.scenes, {
         centerX: this.layoutBounds.centerX,
         top: this.layoutBounds.top + options.sceneControlYOffset
       } );
@@ -47,7 +47,7 @@ define( require => {
     }
 
     // Reset All button at bottom-right
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       right: this.layoutBounds.maxX + FBConstants.RESET_ALL_BUTTON_OFFSET.x,
       bottom: this.layoutBounds.maxY + FBConstants.RESET_ALL_BUTTON_OFFSET.y,
       listener: function() {
@@ -72,13 +72,13 @@ define( require => {
     this.addChild( resetAllButton );
 
     // Parent for scenes
-    var scenesParent = new Node();
+    const scenesParent = new Node();
     this.addChild( scenesParent );
 
     // Scene Nodes
     var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
     model.scenes.forEach( function( scene ) {
-        var sceneNode = new sceneNodeConstructor( scene, self.layoutBounds, { visible: false } );
+        const sceneNode = new sceneNodeConstructor( scene, self.layoutBounds, { visible: false } );
         sceneNodes.push( sceneNode );
         scenesParent.addChild( sceneNode );
     } );
@@ -92,8 +92,8 @@ define( require => {
     } );
 
     // {Animation} Fade between scenes
-    var newFadeIn = null;
-    var oldFadeOut = null;
+    let newFadeIn = null;
+    let oldFadeOut = null;
 
     // unlink unnecessary, instances exist for lifetime of the sim
     model.selectedSceneProperty.link( function( scene, oldScene ) {
@@ -103,12 +103,12 @@ define( require => {
       newFadeIn && newFadeIn.stop();
 
       // Get the Node that corresponds to the old scene
-      var oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
+      const oldSceneNode = oldScene ? sceneNodes[ model.scenes.indexOf( oldScene ) ] : null;
 
       // Get the Node that corresponds to the scene.
-      var sceneIndex = model.scenes.indexOf( scene );
+      const sceneIndex = model.scenes.indexOf( scene );
       assert && assert( sceneIndex !== -1 );
-      var sceneNode = sceneNodes[ sceneIndex ];
+      const sceneNode = sceneNodes[ sceneIndex ];
 
       // Fade scenes in/out as selection changes
       if ( oldScene ) {

@@ -16,14 +16,14 @@ define( require => {
   const Util = require( 'DOT/Util' );
 
   // maps operator tokens used in challenges to operator symbols used in functions
-  var OPERATOR_MAP = {
+  const OPERATOR_MAP = {
     '+': FBSymbols.PLUS,
     '-': FBSymbols.MINUS,
     '*': FBSymbols.TIMES,
     '/': FBSymbols.DIVIDE
   };
 
-  var MysteryChallenges = {
+  const MysteryChallenges = {
 
     // Index of the challenge in each pool that is display on startup and reset.
     // This provides a reproducible challenge for the teacher.
@@ -135,14 +135,14 @@ define( require => {
      */
     parseChallenge: function( challenge ) {
 
-      var challengeObjects = [];
+      const challengeObjects = [];
 
-      var tokens = challenge.split( ' ' );
+      const tokens = challenge.split( ' ' );
       assert && assert( tokens.length % 2 === 0, 'malformed challenge: ' + challenge );
 
-      for ( var i = 0; i < tokens.length; i = i + 2 ) {
+      for ( let i = 0; i < tokens.length; i = i + 2 ) {
 
-        var challengeObject = {
+        const challengeObject = {
           operator: OPERATOR_MAP[ tokens[ i ] ],
           operand: parseInt( tokens[ i + 1 ], 10 )
         };

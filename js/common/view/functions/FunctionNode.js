@@ -54,9 +54,9 @@ define( require => {
       options.hiddenNode = new EyeCloseNode();
     }
 
-    var self = this;
+    const self = this;
 
-    var backgroundNode = new FunctionBackgroundNode( _.extend( {
+    const backgroundNode = new FunctionBackgroundNode( _.extend( {
       size: options.size
     }, functionInstance.viewOptions ) );
 
@@ -70,7 +70,7 @@ define( require => {
     options.hiddenNode.center = backgroundNode.center;
 
     // @private
-    var notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
+    const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
       center: backgroundNode.center,
       visible: false
     } );
@@ -79,7 +79,7 @@ define( require => {
     options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
 
     // @public
-    var identityVisibleProperty = new BooleanProperty( options.identityVisible );
+    const identityVisibleProperty = new BooleanProperty( options.identityVisible );
     // unlink unnecessary, instance owns this Property
     identityVisibleProperty.link( function( identityVisible ) {
 
@@ -94,7 +94,7 @@ define( require => {
     //-------------------------------------------------------------------------------
     // start a drag cycle
 
-    var slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
+    let slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
 
     assert && assert( !options.startDrag );
     options.startDrag = function() {
@@ -117,7 +117,7 @@ define( require => {
 
         // pop it out of the builder
         slotNumberRemovedFrom = builderNode.removeFunctionNode( self );
-        var slotLocation = builderNode.builder.getSlotLocation( slotNumberRemovedFrom );
+        const slotLocation = builderNode.builder.getSlotLocation( slotNumberRemovedFrom );
         dragLayer.addChild( self );
         functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
@@ -136,7 +136,7 @@ define( require => {
       assert && assert( dragLayer.hasChild( self ), 'endDrag: function should be in dragLayer' );
 
       // Find the closest slot in the builder
-      var slotNumber = builderNode.builder.getClosestSlot( functionInstance.locationProperty.get(),
+      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.locationProperty.get(),
         FBConstants.FUNCTION_DISTANCE_THRESHOLD );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
@@ -186,18 +186,18 @@ define( require => {
     animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
 
-      var self = this;
+      const self = this;
 
       // to improve readability
-      var builderNode = this.builderNode;
-      var builder = builderNode.builder;
-      var dragLayer = this.dragLayer;
+      const builderNode = this.builderNode;
+      const builder = builderNode.builder;
+      const dragLayer = this.dragLayer;
 
       this.functionInstance.animateTo( builder.getSlotLocation( slotNumber ),
         function() {
 
           // If the slot is occupied, relocate the occupier.
-          var occupierNode = builderNode.getFunctionNode( slotNumber );
+          const occupierNode = builderNode.getFunctionNode( slotNumber );
           if ( occupierNode ) {
 
             builderNode.removeFunctionNode( occupierNode, slotNumber );
@@ -243,7 +243,7 @@ define( require => {
       }
 
       // move to builder
-      var slotLocation = this.builderNode.builder.getSlotLocation( slotNumber );
+      const slotLocation = this.builderNode.builder.getSlotLocation( slotNumber );
       this.functionInstance.moveTo( slotLocation );
       this.builderNode.addFunctionNode( this, slotNumber );
     },
@@ -255,7 +255,7 @@ define( require => {
      */
     animateToCarousel: function() {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
-      var self = this;
+      const self = this;
       self.functionInstance.animateTo( self.container.carouselLocation,
         function() {
           self.dragLayer.removeChild( self );

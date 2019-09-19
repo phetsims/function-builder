@@ -29,7 +29,7 @@ define( require => {
     options.name = 'Rotate180';
     options.fill = 'rgb( 147, 231, 128 )';
 
-    var iconNode = new Image( rotate180Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( rotate180Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -49,8 +49,8 @@ define( require => {
     apply: function( inputCanvas ) {
 
       // Create the output canvas
-      var outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-      var context = outputCanvas.getContext( '2d' );
+      const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+      const context = outputCanvas.getContext( '2d' );
 
       // Rotate 180 degrees
       context.translate( outputCanvas.width, outputCanvas.height );

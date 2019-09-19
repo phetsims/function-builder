@@ -11,7 +11,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  var FBQueryParameters = QueryStringMachine.getAll( {
+  const FBQueryParameters = QueryStringMachine.getAll( {
 
     // adds the 'Test' screen
     testScreen: { type: 'flag' },

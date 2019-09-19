@@ -43,8 +43,8 @@ define( require => {
     apply: function( inputCanvas ) {
 
       // Create the output canvas
-      var outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-      var context = outputCanvas.getContext( '2d' );
+      const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+      const context = outputCanvas.getContext( '2d' );
 
       // Reflect about the x axis
       context.translate( 0, outputCanvas.height );

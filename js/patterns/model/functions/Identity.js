@@ -28,7 +28,7 @@ define( require => {
     // The identify function has no visible icon. See https://github.com/phetsims/function-builder/issues/91
     // This decision was made late in development, and it was easier to use an invisible Rectangle than to
     // make the icon optional in the myriad places where it is currently required.
-    var iconNode = new Rectangle( 0, 0, 1, 1 );
+    const iconNode = new Rectangle( 0, 0, 1, 1 );
 
     ImageFunction.call( this, iconNode, options );
   }

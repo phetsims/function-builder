@@ -34,7 +34,7 @@ define( require => {
     options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
     options.touchAreaYDilation = 5;
 
-    var content = [];
+    const content = [];
     scenes.forEach( function( scene ) {
       assert && assert( scene.iconNode, 'expected iconNode for scene' );
       content.push( {

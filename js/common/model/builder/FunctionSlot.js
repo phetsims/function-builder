@@ -13,7 +13,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
+  const NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
 
   /**
    * @param {Vector2} location - location of the slot in the global coordinate frame

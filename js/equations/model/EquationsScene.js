@@ -27,7 +27,7 @@ define( require => {
   const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var CARD_NUMBERS_RANGE = new Range( -4, 6 );
+  const CARD_NUMBERS_RANGE = new Range( -4, 6 );
 
   /**
    * @param {Object} [options]
@@ -43,13 +43,13 @@ define( require => {
     }, options );
 
     // {RationalNumber[]} number cards, in the order that they appear in the carousel
-    var cardContent = [];
-    for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
+    const cardContent = [];
+    for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       cardContent.push( RationalNumber.withInteger( i ) );
     }
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-    var functionCreators = [
+    const functionCreators = [
       new FunctionCreator( Plus ),
       new FunctionCreator( Minus ),
       new FunctionCreator( Times ),
@@ -57,9 +57,9 @@ define( require => {
     ];
 
     // builder
-    var builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
-    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-    var builder = new MathBuilder( {
+    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new MathBuilder( {
       numberOfSlots: options.numberOfSlots,
       width: builderWidth,
       location: new Vector2( builderX, FBConstants.BUILDER_Y )

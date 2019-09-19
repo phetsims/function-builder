@@ -57,12 +57,12 @@ define( require => {
     reset: function() {
 
       // function instances
-      for ( var functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
+      for ( let functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
         this.functionInstances[ functionIndex ].reset();
       }
 
       // cards
-      for ( var cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
+      for ( let cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
         this.cards[ cardIndex ].reset();
       }
     },
@@ -76,12 +76,12 @@ define( require => {
     step: function( dt ) {
 
       // function instances
-      for ( var functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
+      for ( let functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
         this.functionInstances[ functionIndex ].step( dt );
       }
 
       // cards
-      for ( var cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
+      for ( let cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
         this.cards[ cardIndex ].step( dt );
       }
     }

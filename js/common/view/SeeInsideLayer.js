@@ -18,8 +18,8 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
-  var CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
+  const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
+  const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
 
   /**
    * @param {Builder} builder
@@ -31,12 +31,12 @@ define( require => {
     options = options || {};
 
     // add a window at the right end of each slot
-    var windowsShape = new Shape();
-    for ( var i = 0; i < builder.numberOfSlots; i++ ) {
+    const windowsShape = new Shape();
+    for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
-      var windowLocation = builder.getWindowLocation( i );
-      var windowLeft = windowLocation.x - ( WINDOW_SIZE.width / 2 );
-      var windowY = windowLocation.y - ( WINDOW_SIZE.height / 2 );
+      const windowLocation = builder.getWindowLocation( i );
+      const windowLeft = windowLocation.x - ( WINDOW_SIZE.width / 2 );
+      const windowY = windowLocation.y - ( WINDOW_SIZE.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner
         windowsShape.moveTo( windowLocation.x, windowY );
@@ -50,12 +50,12 @@ define( require => {
     } );
 
     // background, black because it's dark inside the builder :)
-    var backgroundNode = new Path( windowsShape, {
+    const backgroundNode = new Path( windowsShape, {
       fill: 'black'
     } );
 
     // foreground, stroked with builder color, so it looks like we cut out a window
-    var foregroundNode = new Path( windowsShape, {
+    const foregroundNode = new Path( windowsShape, {
       stroke: builder.colorScheme.middle,
       lineWidth: 2
     } );

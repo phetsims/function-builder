@@ -34,7 +34,7 @@ define( require => {
     // increment, optionally skip zero
     assert && assert( !options.upFunction );
     options.upFunction = function( value ) {
-      var newValue = value + 1;
+      let newValue = value + 1;
       if ( newValue === 0 && options.skipZero ) {
         newValue++;
       }
@@ -45,7 +45,7 @@ define( require => {
     // decrement, optionally skip zero
     assert && assert( !options.downFunction );
     options.downFunction = function( value ) {
-      var newValue = value - 1;
+      let newValue = value - 1;
       if ( newValue === 0 && options.skipZero ) {
         newValue--;
       }

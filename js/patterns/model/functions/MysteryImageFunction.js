@@ -22,7 +22,7 @@ define( require => {
    */
   function MysteryImageFunction( mysteryString, options ) {
 
-    var iconNode = new RichText( mysteryString, {
+    const iconNode = new RichText( mysteryString, {
       subScale: 0.4, // subscript scale
       font: FBConstants.PATTERNS_FUNCTION_FONT,
       maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width

@@ -33,13 +33,13 @@ define( require => {
       fill: 'white'
     }, options );
 
-    var circleNode = new Circle( options.radius, {
+    const circleNode = new Circle( options.radius, {
       lineWidth: options.lineWidth,
       stroke: options.stroke,
       fill: options.fill
     } );
 
-    var slashNode = new Line( 0, 0, 2 * options.radius, 0, {
+    const slashNode = new Line( 0, 0, 2 * options.radius, 0, {
       lineWidth: options.lineWidth,
       stroke: options.stroke,
       rotation: Math.PI / 4,
@@ -66,7 +66,7 @@ define( require => {
      */
     startAnimation: function() {
 
-      var self = this;
+      const self = this;
 
       // stop animation if it's already running
       this.animation && this.animation.stop();

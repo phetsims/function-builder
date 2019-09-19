@@ -47,7 +47,7 @@ define( require => {
 
     }, options );
 
-    var self = this;
+    const self = this;
 
     MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
 
@@ -59,24 +59,24 @@ define( require => {
       // create a closure for slotNumber using an IIFE
       (function() {
 
-        var slotNumber = i;
+        const slotNumber = i;
 
         // {Property.<boolean>} Property associated with the slot
-        var revealProperty = new BooleanProperty( false );
+        const revealProperty = new BooleanProperty( false );
         self.revealProperties.push( revealProperty );
 
         // wire up Property to control the function that's in the slot
         // unlink unnecessary, instances exist for lifetime of the sim
         revealProperty.link( function( reveal ) {
-          var functionNode = self.builderNode.getFunctionNode( slotNumber );
+          const functionNode = self.builderNode.getFunctionNode( slotNumber );
           if ( functionNode ) {
             functionNode.identityVisibleProperty.set( reveal );
           }
         } );
 
         // button below the slot
-        var slotLocation = scene.builder.slots[ slotNumber ].location;
-        var revealButton = new EyeToggleButton( revealProperty, {
+        const slotLocation = scene.builder.slots[ slotNumber ].location;
+        const revealButton = new EyeToggleButton( revealProperty, {
           baseColor: FBColors.HIDDEN_FUNCTION,
           scale: 0.75,
           centerX: slotLocation.x,
@@ -92,7 +92,7 @@ define( require => {
     }
 
     // button for generating a new challenge
-    var generateButton = new RefreshButton( {
+    const generateButton = new RefreshButton( {
       listener: function() { scene.nextChallenge(); },
       xMargin: 18,
       yMargin: 10,
@@ -193,7 +193,7 @@ define( require => {
      */
     updateChallenge: function() {
 
-      var self = this;
+      const self = this;
 
       this.resetCarousels();
       this.builderNode.reset();
@@ -205,31 +205,31 @@ define( require => {
         this.operatorToContainerMap = {};
         this.functionContainers.forEach( function( functionContainer ) {
 
-          var contents = functionContainer.getContents();
+          const contents = functionContainer.getContents();
           assert && assert( contents.length > 0, 'empty functionContainer' );
 
-          var operator = contents[ 0 ].functionInstance.operator;
+          const operator = contents[ 0 ].functionInstance.operator;
           self.operatorToContainerMap[ operator ] = functionContainer;
         } );
       }
 
       // convert the challenge from a string to an array of {operator: string, operand: number}
-      var challenge = self.scene.challengeProperty.get();
-      var challengeObjects = MysteryChallenges.parseChallenge( challenge );
+      const challenge = self.scene.challengeProperty.get();
+      const challengeObjects = MysteryChallenges.parseChallenge( challenge );
 
       // transfer functions from carousel to builder, configured to match the challenge
-      var slotNumber = 0;
-      var colors = self.scene.getColors(); // {<Color|string>[]}
+      let slotNumber = 0;
+      const colors = self.scene.getColors(); // {<Color|string>[]}
       challengeObjects.forEach( function( challengeObject ) {
 
         // get the container that has functions for this operator
-        var functionContainer = self.operatorToContainerMap[ challengeObject.operator ];
+        const functionContainer = self.operatorToContainerMap[ challengeObject.operator ];
         assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
 
         // get the first item in the container
-        var functionNode = functionContainer.getContents()[ 0 ];
+        const functionNode = functionContainer.getContents()[ 0 ];
         assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
-        var functionInstance = functionNode.functionInstance;
+        const functionInstance = functionNode.functionInstance;
 
         // configure the function to match the challenge
         functionInstance.operandProperty.set( challengeObject.operand );

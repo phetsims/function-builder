@@ -16,7 +16,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
-  var DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
+  const DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
 
   /**
    * @param {ImageCard} card
@@ -60,7 +60,7 @@ define( require => {
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
       // {HTMLCanvasElement} run the input image through the builder
-      var canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
+      const canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
 
       if ( !this.imageNode ) {
 
@@ -99,7 +99,7 @@ define( require => {
         imageScale: DEFAULT_IMAGE_SCALE
       }, options );
 
-      var contentNode = new Image( image, { scale: options.imageScale } );
+      const contentNode = new Image( image, { scale: options.imageScale } );
       return CardNode.createGhostNode( contentNode, options );
     }
   } );

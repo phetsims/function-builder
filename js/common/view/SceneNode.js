@@ -28,15 +28,15 @@ define( require => {
   const SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
 
   // constants
-  var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
-  var PAGE_CONTROL_OPTIONS = {
+  const PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
+  const PAGE_CONTROL_OPTIONS = {
     interactive: true,
     dotTouchAreaDilation: 4,
     dotMouseAreaDilation: 4
   };
 
   //TODO revisit this workaround, see https://github.com/phetsims/function-builder/issues/69
-  var WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
+  const WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
 
   /**
    * @param {Scene} scene - model for this scene
@@ -60,7 +60,7 @@ define( require => {
       hideFunctionsCheckboxVisible: true // {boolean} is hideFunctionsCheckbox visible?
     }, options );
 
-    var self = this;
+    const self = this;
 
     // @protected show/hide windows that allow you to 'see inside' the builder
     this.seeInsideProperty = new BooleanProperty( options.seeInside );
@@ -69,32 +69,32 @@ define( require => {
     this.hideFunctionsProperty = new BooleanProperty( options.hideFunctions );
 
     // cards are in this layer while they are draggable
-    var cardsDragLayer = new Node();
+    const cardsDragLayer = new Node();
 
     // functions are in this layer while they are draggable
-    var functionsDragLayer = new Node();
+    const functionsDragLayer = new Node();
 
     // basic UI controls get added to this layer
-    var controlsLayer = new Node( WORKAROUND_35_OPTIONS );
+    const controlsLayer = new Node( WORKAROUND_35_OPTIONS );
 
     // drawers get added to this layer by subtypes
-    var drawersLayer = new Node();
+    const drawersLayer = new Node();
 
     // Builder, ends are separate nodes to provide illusion of dragging cards through the builder
-    var builder = scene.builder;
-    var BUILDER_END_OPTIONS = {
+    const builder = scene.builder;
+    const BUILDER_END_OPTIONS = {
       radiusX: 15,
       radiusY: builder.endHeight / 2,
       fill: builder.colorScheme.ends,
       centerY: builder.location.y
     };
-    var builderLeftEndNode = new BuilderEndNode( 'left', _.extend( {}, BUILDER_END_OPTIONS, {
+    const builderLeftEndNode = new BuilderEndNode( 'left', _.extend( {}, BUILDER_END_OPTIONS, {
       centerX: builder.left
     } ) );
-    var builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
+    const builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
       centerX: builder.right
     } ) );
-    var builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
+    const builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
       endRadiusX: BUILDER_END_OPTIONS.radiusX,
       slotFill: null
     } );
@@ -102,10 +102,10 @@ define( require => {
     // Input carousel --------------------------------------------------------------------------------------------------
 
     // Containers in the input carousel
-    var inputContainers = this.createCardContainers( scene );
+    const inputContainers = this.createCardContainers( scene );
 
     // Input carousel, at left
-    var inputCarousel = new Carousel( inputContainers, {
+    const inputCarousel = new Carousel( inputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -117,7 +117,7 @@ define( require => {
     } );
 
     // Page control for input carousel
-    var inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
+    const inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
       right: inputCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputCarousel.centerY
@@ -127,12 +127,12 @@ define( require => {
     // Output carousel ------------------------------------------------------------------------------------------------
 
     // Containers in the output carousel
-    var outputContainers = this.createCardContainers( scene, {
+    const outputContainers = this.createCardContainers( scene, {
       emptyNode: null // don't show anything in empty output containers
     } );
 
     // Output carousel, at right
-    var outputCarousel = new OutputCardsCarousel( outputContainers, {
+    const outputCarousel = new OutputCardsCarousel( outputContainers, {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -144,7 +144,7 @@ define( require => {
     } );
 
     // Page control for output carousel
-    var outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
+    const outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
       orientation: 'vertical',
       left: outputCarousel.right + PAGE_CONTROL_SPACING,
       centerY: outputCarousel.centerY
@@ -152,7 +152,7 @@ define( require => {
     controlsLayer.addChild( outputPageControl );
 
     // Eraser button, centered below the output carousel
-    var eraserButton = new EraserButton( {
+    const eraserButton = new EraserButton( {
       listener: function() { self.erase(); },
       iconWidth: 28,
       centerX: outputCarousel.centerX,
@@ -170,10 +170,10 @@ define( require => {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    var functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
+    const functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
 
     // Function carousel, centered below bottom builder
-    var functionCarousel = new Carousel( functionContainers, {
+    const functionCarousel = new Carousel( functionContainers, {
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       itemsPerPage: options.functionsPerPage,
@@ -185,7 +185,7 @@ define( require => {
     } );
 
     // Page control for function carousel
-    var functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
+    const functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       centerX: functionCarousel.centerX,
@@ -207,7 +207,7 @@ define( require => {
 
     // 'Hide Functions' feature ----------------------------------------------------------------------------------------
 
-    var hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
+    const hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
       visible: options.hideFunctionsCheckboxVisible,
       spacing: 8,
       left: inputCarousel.left,
@@ -218,11 +218,11 @@ define( require => {
 
     // 'See Inside' feature --------------------------------------------------------------------------------------------
 
-    var seeInsideLayer = new SeeInsideLayer( scene.builder, {
+    const seeInsideLayer = new SeeInsideLayer( scene.builder, {
       visible: this.seeInsideProperty.get()
     } );
 
-    var seeInsideCheckbox = new Checkbox(
+    const seeInsideCheckbox = new Checkbox(
       FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
       this.seeInsideProperty, {
         spacing: 8,
@@ -293,7 +293,7 @@ define( require => {
    * @param {Node} worldParent
    * @returns {Vector2}
    */
-  var getCarouselLocation = function( carousel, container, worldParent ) {
+  const getCarouselLocation = function( carousel, container, worldParent ) {
     assert && assert( !carousel.animationEnabled );
     carousel.scrollToItem( container );
     return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
@@ -306,10 +306,10 @@ define( require => {
    * @param {Node} node
    * @returns {boolean}
    */
-  var hasScreenViewAncestor = function( node ) {
-    var found = false;
+  const hasScreenViewAncestor = function( node ) {
+    let found = false;
     while ( !found && node !== null ) {
-      var parent = node.getParent();
+      const parent = node.getParent();
       found = ( parent instanceof ScreenView );
       node = parent; // move up the scene graph by one level
     }
@@ -326,7 +326,7 @@ define( require => {
    * @private
    */
   var createFunctionContainers = function( functionCreators, functionNodeConstructor, containerOptions ) {
-    var functionContainers = [];
+    const functionContainers = [];
     functionCreators.forEach( function( functionCreator ) {
       functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
     } );
@@ -403,7 +403,7 @@ define( require => {
     // @private populates the function carousel
     populateFunctionCarousels: function() {
 
-      var self = this;
+      const self = this;
 
       self.functionCarousel.animationEnabled = false;
 
@@ -428,18 +428,18 @@ define( require => {
 
       this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
 
-      var inputContainers = this.inputCarousel.items;
-      var outputContainers = this.outputCarousel.items;
+      const inputContainers = this.inputCarousel.items;
+      const outputContainers = this.outputCarousel.items;
       assert && assert( inputContainers.length === outputContainers.length );
 
-      for ( var i = 0; i < inputContainers.length; i++ ) {
+      for ( let i = 0; i < inputContainers.length; i++ ) {
 
         // input container's location
-        var inputContainer = inputContainers[ i ];
+        const inputContainer = inputContainers[ i ];
         inputContainer.carouselLocation = getCarouselLocation( this.inputCarousel, inputContainer, this.cardsDragLayer );
 
         // output container's location
-        var outputContainer = outputContainers[ i ];
+        const outputContainer = outputContainers[ i ];
         outputContainer.carouselLocation = getCarouselLocation( this.outputCarousel, outputContainer, this.cardsDragLayer );
 
         // populate the input container with cards
@@ -455,7 +455,7 @@ define( require => {
       this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
 
       // move 1 of each card to the output carousel, for testing
-      var self = this;
+      const self = this;
       if ( FBQueryParameters.populateOutput ) {
         self.populateOutputCarousel();
       }
@@ -468,14 +468,14 @@ define( require => {
      * @public
      */
     populateOutputCarousel: function() {
-      for ( var i = 0; i < this.outputCarousel.items.length; i++ ) {
+      for ( let i = 0; i < this.outputCarousel.items.length; i++ ) {
 
-        var outputContainer = this.outputCarousel.items[ i ];
+        const outputContainer = this.outputCarousel.items[ i ];
         if ( outputContainer.isEmpty() ) {
 
-          var inputContainer = this.inputCarousel.items[ i ];
+          const inputContainer = this.inputCarousel.items[ i ];
 
-          var cardNode = inputContainer.getContents()[ 0 ];
+          const cardNode = inputContainer.getContents()[ 0 ];
           inputContainer.removeNode( cardNode );
           outputContainer.addNode( cardNode );
         }

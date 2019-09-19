@@ -40,12 +40,12 @@ define( require => {
     }, options );
 
     // To improve readability of shape code
-    var WIDTH = options.size.width;
-    var HEIGHT = options.size.height;
-    var X_INSET = FBConstants.FUNCTION_X_INSET_FACTOR * WIDTH;
+    const WIDTH = options.size.width;
+    const HEIGHT = options.size.height;
+    const X_INSET = FBConstants.FUNCTION_X_INSET_FACTOR * WIDTH;
 
     // Described from top-left, moving clockwise.
-    var backgroundShape = new Shape()
+    const backgroundShape = new Shape()
       .moveTo( 0, 0 )
       .lineTo( WIDTH - X_INSET, 0 )
       .lineTo( WIDTH, HEIGHT / 2 )

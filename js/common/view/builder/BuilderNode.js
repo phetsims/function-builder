@@ -62,20 +62,20 @@ define( require => {
     options.y = builder.location.y;
 
     // To improve readability of shape code
-    var colorScheme = builder.colorScheme;
-    var BODY_WIDTH = builder.width;
-    var END_HEIGHT = builder.endHeight;
-    var X_INSET = 0.15 * BODY_WIDTH;
-    var Y_INSET = ( END_HEIGHT - builder.waistHeight ) / 2;
+    const colorScheme = builder.colorScheme;
+    const BODY_WIDTH = builder.width;
+    const END_HEIGHT = builder.endHeight;
+    const X_INSET = 0.15 * BODY_WIDTH;
+    const Y_INSET = ( END_HEIGHT - builder.waistHeight ) / 2;
 
     // Gradient for the body
-    var bodyGradient = new LinearGradient( 0, 0, 1, END_HEIGHT )
+    const bodyGradient = new LinearGradient( 0, 0, 1, END_HEIGHT )
       .addColorStop( 0, colorScheme.top )
       .addColorStop( 0.5, colorScheme.middle )
       .addColorStop( 1, colorScheme.bottom );
 
     // Body of the builder, described starting at upper-left and moving clockwise
-    var bodyNode = new Path( new Shape()
+    const bodyNode = new Path( new Shape()
       .moveTo( 0, 0 )
       .lineTo( X_INSET, Y_INSET )
       .lineTo( BODY_WIDTH - X_INSET, Y_INSET )
@@ -95,7 +95,7 @@ define( require => {
     } );
 
     // Options for the ends
-    var END_OPTIONS = {
+    const END_OPTIONS = {
       radiusX: options.endRadiusX,
       radiusY: END_HEIGHT / 2,
       fill: colorScheme.ends,
@@ -109,23 +109,23 @@ define( require => {
     };
 
     // Left end
-    var leftEndNode = new BuilderEndNode( 'left',
+    const leftEndNode = new BuilderEndNode( 'left',
       _.extend( {}, END_OPTIONS, {
         centerX: bodyNode.left,
         centerY: bodyNode.centerY
       } ) );
 
     // Right end
-    var rightEndNode = new BuilderEndNode( 'right',
+    const rightEndNode = new BuilderEndNode( 'right',
       _.extend( {}, END_OPTIONS, {
         centerX: bodyNode.right,
         centerY: bodyNode.centerY
       } ) );
 
     // slots and the function nodes that are in the slots
-    var slotNodes = [];
-    var functionNodes = []; // {FunctionNode[]}
-    for ( var i = 0; i < builder.numberOfSlots; i++ ) {
+    const slotNodes = [];
+    const functionNodes = []; // {FunctionNode[]}
+    for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
       slotNodes.push( new FunctionSlotNode( {
         // centered at slot locations
@@ -135,11 +135,11 @@ define( require => {
       functionNodes[ i ] = null; // empty functions are null
     }
     assert && assert( functionNodes.length === builder.numberOfSlots );
-    var slotsParent = new Node( { children: slotNodes } );
-    var functionsParent = new Node();
+    const slotsParent = new Node( { children: slotNodes } );
+    const functionsParent = new Node();
 
     // 'moles under the carpet' that represents a card being dragged through the builder
-    var moleCardsLayer = new Node();
+    const moleCardsLayer = new Node();
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ bodyNode, slotsParent, functionsParent, moleCardsLayer, leftEndNode, rightEndNode ];
@@ -183,8 +183,8 @@ define( require => {
      * @public
      */
     reset: function() {
-      for ( var i = 0; i < this.functionNodes.length; i++ ) {
-        var functionNode = this.functionNodes[ i ];
+      for ( let i = 0; i < this.functionNodes.length; i++ ) {
+        const functionNode = this.functionNodes[ i ];
         if ( functionNode ) {
           this.removeFunctionNode( functionNode );
           functionNode && functionNode.moveToCarousel();
@@ -230,7 +230,7 @@ define( require => {
 
       assert && assert( functionNode instanceof FunctionNode );
 
-      var slotNumber = this.functionNodes.indexOf( functionNode );
+      const slotNumber = this.functionNodes.indexOf( functionNode );
       assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
 
       // remove from view, restore location in model coordinate frame

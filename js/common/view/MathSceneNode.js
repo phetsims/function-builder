@@ -113,7 +113,7 @@ define( require => {
       this.tableDrawer && ( this.tableDrawer.contentsNode.animationEnabled = true );
 
       // reset drawers with animation disabled
-      var drawerResetOptions = { animationEnabled: false };
+      const drawerResetOptions = { animationEnabled: false };
       this.equationDrawer && this.equationDrawer.reset( drawerResetOptions );
       this.tableDrawer && this.tableDrawer.reset( drawerResetOptions );
       this.graphDrawer && this.graphDrawer && this.graphDrawer.reset( drawerResetOptions );
@@ -142,7 +142,7 @@ define( require => {
      */
     createCardContainers: function( scene, containerOptions ) {
 
-      var containers = [];
+      const containers = [];
 
       // numbers
       scene.cardContent.forEach( function( value ) {

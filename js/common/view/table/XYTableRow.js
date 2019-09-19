@@ -48,7 +48,7 @@ define( require => {
     Node.call( this );
 
     // don't stroke the cells, grid is drawn by XYTableNode
-    var rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
+    const rowNode = new Rectangle( 0, 0, options.size.width, options.size.height );
     this.addChild( rowNode );
 
     // @private constrain values to cells
@@ -56,7 +56,7 @@ define( require => {
     this.valueMaxHeight = options.size.height - ( 2 * options.cellYMargin );
 
     // input value, static
-    var inputValueNode = createCellValueNode( card, builder, {
+    const inputValueNode = createCellValueNode( card, builder, {
       numberOfFunctions: 0, // apply no functions for the input value
       maxWidth: this.valueMaxWidth,
       maxHeight: this.valueMaxHeight,
@@ -69,8 +69,8 @@ define( require => {
     this.outputValueNode = null;
 
     // Update the output value when functions change
-    var self = this;
-    var functionChangedListener = function() {
+    const self = this;
+    const functionChangedListener = function() {
       self.dirty = true;
       if ( self.updateEnabled ) {
         self.updateOutputValue();
@@ -117,14 +117,14 @@ define( require => {
     }, options );
     assert && assert( options.numberOfFunctions <= builder.numberOfSlots );
 
-    var valueNode = null;
+    let valueNode = null;
     if ( card instanceof NumberCard ) {
-      var rationalNumber = builder.applyFunctions( card.rationalNumber, options.numberOfFunctions );
+      const rationalNumber = builder.applyFunctions( card.rationalNumber, options.numberOfFunctions );
       valueNode = new RationalNumberNode( rationalNumber, options );
     }
     else if ( card instanceof EquationCard ) {
-      var mathFunctions = builder.applyFunctions( [], options.numberOfFunctions ); // {MathFunction[]}
-      var equation = new SlopeInterceptEquation( mathFunctions );
+      const mathFunctions = builder.applyFunctions( [], options.numberOfFunctions ); // {MathFunction[]}
+      const equation = new SlopeInterceptEquation( mathFunctions );
       valueNode = new SlopeInterceptEquationNode( equation.slope, equation.intercept, options );
     }
     else {
@@ -151,7 +151,7 @@ define( require => {
       assert && assert( this.updateEnabled && this.dirty );
 
       // remove previous node
-      var outputValueNodeWasVisible = false;
+      let outputValueNodeWasVisible = false;
       if ( this.outputValueNode ) {
         outputValueNodeWasVisible = this.outputValueNode.visible;
         this.removeChild( this.outputValueNode );
@@ -189,7 +189,7 @@ define( require => {
      *
      */
     setUpdateEnabled: function( updateEnabled ) {
-      var wasUpdateEnabled = this._updateEnabled;
+      const wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
       if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
         this.updateOutputValue();

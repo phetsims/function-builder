@@ -45,10 +45,10 @@ define( require => {
    *
    * @type {Color[]}
    */
-  var LEFT_TOP_COLOR_MAP = [ new Color( 0, 0, 255 ), new Color( 0, 255, 0 ), new Color( 255, 0, 0 ), new Color( 255, 255, 0 ) ];
-  var RIGHT_TOP_COLOR_MAP = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 40, 40, 255 ) ];
-  var LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
-  var RIGHT_BOTTOM_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
+  const LEFT_TOP_COLOR_MAP = [ new Color( 0, 0, 255 ), new Color( 0, 255, 0 ), new Color( 255, 0, 0 ), new Color( 255, 255, 0 ) ];
+  const RIGHT_TOP_COLOR_MAP = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 40, 40, 255 ) ];
+  const LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
+  const RIGHT_BOTTOM_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
 
   /**
    * @param {Object} [options]
@@ -66,7 +66,7 @@ define( require => {
     this.grayscale = new Grayscale();
     this.identity = new Identity();
 
-    var iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -83,21 +83,21 @@ define( require => {
    * @param {Color[]} colorMap
    * @returns {ImageData}
    */
-  var applyColorMap = function( inputData, outputData, colorMap ) {
+  const applyColorMap = function( inputData, outputData, colorMap ) {
     assert && assert( inputData.data.length === outputData.data.length );
-    for ( var i = 0; i < inputData.data.length - 4; i += 4 ) {
+    for ( let i = 0; i < inputData.data.length - 4; i += 4 ) {
 
       // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
       // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
-      var intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
+      const intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
       assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
 
       // map intensity to a color map
-      var colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
+      const colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
       assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
 
       // apply the color map
-      var color = colorMap[ colorIndex ];
+      const color = colorMap[ colorIndex ];
       FBCanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
     }
     return outputData;
@@ -115,7 +115,7 @@ define( require => {
      */
     apply: function( inputCanvas ) {
 
-      var outputCanvas = null;
+      let outputCanvas = null;
 
       if ( FBCanvasUtils.isBlank( inputCanvas ) ) {
 
@@ -126,25 +126,25 @@ define( require => {
 
         // Shrink the image by 50%.
         // Do this first so that we're processing fewer pixels in subsequent operations.
-        var halfCanvas = this.shrink.apply( inputCanvas );
+        const halfCanvas = this.shrink.apply( inputCanvas );
 
         // Put the image on an opaque background, so we have no transparent pixels.
-        var opaqueCanvas = FBCanvasUtils.createCanvasWithImage( halfCanvas, {
+        const opaqueCanvas = FBCanvasUtils.createCanvasWithImage( halfCanvas, {
           fillStyle: 'white'
         } );
 
         // Convert the image to grayscale
-        var grayscaleCanvas = this.grayscale.apply( opaqueCanvas );
-        var grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
+        const grayscaleCanvas = this.grayscale.apply( opaqueCanvas );
+        const grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
 
         // Create the output canvas, with same dimensions as inputCanvas
         outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-        var outputContext = outputCanvas.getContext( '2d' );
+        const outputContext = outputCanvas.getContext( '2d' );
 
         // Create a 'scratch' ImageData that will hold the result of mapping grayscale to colors.
         // This gets reused for each color mapping, so be sure to draw the data to the output canvas
         // before proceeding with the next mapping.
-        var scratchData = halfCanvas.getContext( '2d' ).createImageData( halfCanvas.width, halfCanvas.height );
+        const scratchData = halfCanvas.getContext( '2d' ).createImageData( halfCanvas.width, halfCanvas.height );
 
         // Draw a color-mapped image to each quadrant of the output canvas, using a different map in each quadrant.
         outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_TOP_COLOR_MAP ),

@@ -21,7 +21,7 @@ define( require => {
      * @returns {HTMLCanvasElement}
      */
     createCanvas: function( width, height ) {
-      var canvas = document.createElement( 'canvas' );
+      const canvas = document.createElement( 'canvas' );
       canvas.width = width;
       canvas.height = height;
       return canvas;
@@ -40,10 +40,10 @@ define( require => {
         fillStyle: null  // {string|null} canvas will be filled with this color before drawing the image
       }, options );
 
-      var canvas = document.createElement( 'canvas' );
+      const canvas = document.createElement( 'canvas' );
       canvas.width = image.width;
       canvas.height = image.height;
-      var context = canvas.getContext( '2d' );
+      const context = canvas.getContext( '2d' );
 
       if ( options.fillStyle ) {
         context.fillStyle = options.fillStyle;
@@ -61,7 +61,7 @@ define( require => {
      * @returns {HTMLCanvasElement}
      */
     createCanvasWithImageData: function( imageData ) {
-      var canvas = FBCanvasUtils.createCanvas( imageData.width, imageData.height );
+      const canvas = FBCanvasUtils.createCanvas( imageData.width, imageData.height );
       canvas.getContext( '2d' ).putImageData( imageData, 0, 0 );
       return canvas;
     },
@@ -83,8 +83,8 @@ define( require => {
      * @returns {boolean}
      */
     isBlank: function( canvas ) {
-      var imageData = FBCanvasUtils.getImageData( canvas );
-      for ( var i = 0; i < imageData.data.length - 4; i += 4 ) {
+      const imageData = FBCanvasUtils.getImageData( canvas );
+      for ( let i = 0; i < imageData.data.length - 4; i += 4 ) {
         if ( imageData.data[ i + 3 ] !== 0 ) {
           return false; // we're done when we find one non-transparent pixel
         }

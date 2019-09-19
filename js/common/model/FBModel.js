@@ -39,7 +39,7 @@ define( require => {
     // @public
     reset: function() {
       this.selectedSceneProperty.reset();
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+      for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
         this.scenes[ sceneIndex ].reset();
       }
     },
@@ -51,7 +51,7 @@ define( require => {
      * @public
      */
     step: function( dt ) {
-      for ( var sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+      for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
         this.scenes[ sceneIndex ].step( dt );
       }
     }

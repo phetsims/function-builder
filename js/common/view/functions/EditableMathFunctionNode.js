@@ -30,12 +30,12 @@ define( require => {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var operatorNode = new Text( functionInstance.operator, {
+    const operatorNode = new Text( functionInstance.operator, {
       font: FBConstants.EQUATIONS_FUNCTION_OPERATOR_FONT
     } );
 
     // picker for changing operand value
-    var picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
+    const picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
       color: functionInstance.viewOptions.pickerColor,
       font: FBConstants.EQUATIONS_FUNCTION_PICKER_FONT,
       arrowLineWidth: 0.5,
@@ -49,7 +49,7 @@ define( require => {
       }
     } );
 
-    var contentNode = new HBox( {
+    const contentNode = new HBox( {
       children: [ operatorNode, picker ],
       spacing: 5
     } );

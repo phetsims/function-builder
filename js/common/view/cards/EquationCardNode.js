@@ -20,7 +20,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
+  const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
     0.75 * FBConstants.CARD_OPTIONS.size.width,
     0.95 * FBConstants.CARD_OPTIONS.size.height );
 
@@ -72,10 +72,10 @@ define( require => {
        * Apply functions in the builder. Pass in an empty array, because the functions in the builder
        * return MathFunction[], and the input is required to be of the same type as the output.
        */
-      var mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
+      const mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
 
       // set new equation
-      var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
+      const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
       this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
           showLeftHandSide: false, // hide 'y =' part of equation
           xSymbol: this.card.xSymbol,
@@ -107,7 +107,7 @@ define( require => {
         maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 
-      var contentNode = new Text( symbol, {
+      const contentNode = new Text( symbol, {
         font: FBConstants.EQUATION_OPTIONS.xyFont,
         maxWidth: options.maxContentSize.width,
         maxHeight: options.maxContentSize.height

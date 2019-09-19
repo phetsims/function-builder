@@ -62,7 +62,7 @@ define( require => {
     this._updateEnabled = options.updateEnabled;
     this.dirty = true; // {boolean} does this node need to be updated?
 
-    var self = this;
+    const self = this;
 
     // @private background
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -71,11 +71,11 @@ define( require => {
     } );
 
     // 'simplify' checkbox, at bottom center
-    var simplifyLabel = new Text( simplifyString, {
+    const simplifyLabel = new Text( simplifyString, {
       font: new FBFont( 16 ),
       maxWidth: 0.75 * this.backgroundNode.width
     } );
-    var simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
+    const simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
       centerX: this.backgroundNode.centerX,
       bottom: this.backgroundNode.bottom - 10
     } );
@@ -139,13 +139,13 @@ define( require => {
        * Apply all functions in the builder. Pass in an empty array, because the functions in the builder
        * return MathFunction[], and the input is required to be of the same type as the output.
        */
-      var mathFunctions = this.builder.applyAllFunctions( [] );
+      const mathFunctions = this.builder.applyAllFunctions( [] );
 
       // PhET-specific form
       if ( this.helpfulEquationNode ) {
         this.removeChild( this.helpfulEquationNode );
       }
-      var helpfulEquation = new HelpfulEquation( mathFunctions, {
+      const helpfulEquation = new HelpfulEquation( mathFunctions, {
         xSymbol: this.xSymbol
       } );
       this.helpfulEquationNode = new HelpfulEquationNode( helpfulEquation, {
@@ -164,7 +164,7 @@ define( require => {
       if ( this.slopeInterceptEquationNode ) {
         this.removeChild( this.slopeInterceptEquationNode );
       }
-      var slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions, {
+      const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions, {
         xSymbol: this.xSymbol
       } );
       this.slopeInterceptEquationNode = new SlopeInterceptEquationNode(
@@ -193,7 +193,7 @@ define( require => {
      */
     setUpdateEnabled: function( updateEnabled ) {
       FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
-      var wasUpdateEnabled = this._updateEnabled;
+      const wasUpdateEnabled = this._updateEnabled;
       this._updateEnabled = updateEnabled;
       if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
         this.updateEquations();

@@ -40,7 +40,7 @@ define( require => {
 
     }, options );
 
-    var self = this;
+    const self = this;
 
     // @private
     this._invertible = options.invertible;

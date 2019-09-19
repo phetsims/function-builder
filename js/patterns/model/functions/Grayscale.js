@@ -30,7 +30,7 @@ define( require => {
     options.fill = 'rgb( 232, 232, 232 )';
     options.invertible = false; // converting to grayscale is lossy
 
-    var iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -49,12 +49,12 @@ define( require => {
      */
     apply: function( inputCanvas ) {
 
-      var imageData = FBCanvasUtils.getImageData( inputCanvas );
+      const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
       // Average the red, green and blue values of each pixel. This drains the color from the image.
-      var data = imageData.data;
-      for ( var i = 0; i < data.length - 4; i += 4 ) {
-        var average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
+      const data = imageData.data;
+      for ( let i = 0; i < data.length - 4; i += 4 ) {
+        const average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
         data[ i ] = average;
         data[ i + 1 ] = average;
         data[ i + 2 ] = average;

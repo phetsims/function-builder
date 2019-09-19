@@ -19,10 +19,10 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants that are used to compute other constants
-  var CARD_SIZE = new Dimension2( 70, 70 );
-  var FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
+  const CARD_SIZE = new Dimension2( 70, 70 );
+  const FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
 
-  var FBConstants = {
+  const FBConstants = {
 
     // layoutBounds for all ScreenView subtypes
     SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),

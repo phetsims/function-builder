@@ -40,26 +40,26 @@ define( require => {
 
     options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
 
-    var self = this;
+    const self = this;
 
     // the basic shape of a blank card
-    var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+    const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
       _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode ];
 
-    var builder = builderNode.builder;
+    const builder = builderNode.builder;
 
-    var MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
-    var INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
-    var OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
-    var BLOCKED_X_OFFSET = ( 0.4 * options.size.width ); // how far to move card to left of window for a non-invertible function
+    const MIN_DISTANCE = options.size.width; // minimum distance for card to be considered 'in' slot
+    const INPUT_SLOT_X = builder.left - MIN_DISTANCE; // x coordinate where card is considered to be 'in' input slot
+    const OUTPUT_SLOT_X = builder.right + MIN_DISTANCE; // x coordinate where card is considered to be 'in' output slot
+    const BLOCKED_X_OFFSET = ( 0.4 * options.size.width ); // how far to move card to left of window for a non-invertible function
 
-    var dragDx = 0; // most recent change in x while dragging
-    var blocked = false; // was dragging to the left blocked by a non-invertible function?
-    var slopeLeft = 0; // slope of the line connecting the input carousel and builder input slot
-    var slopeRight = 0; // slope of the line connecting the output carousel and builder input slot
+    let dragDx = 0; // most recent change in x while dragging
+    let blocked = false; // was dragging to the left blocked by a non-invertible function?
+    let slopeLeft = 0; // slope of the line connecting the input carousel and builder input slot
+    let slopeRight = 0; // slope of the line connecting the output carousel and builder input slot
 
     //-------------------------------------------------------------------------------
     // start a drag cycle
@@ -69,8 +69,8 @@ define( require => {
       dragDx = 0;
 
       // points used to compute slope of line between input/output carousels and input/output builder slots
-      var leftPoint = inputContainer.carouselLocation;
-      var rightPoint = outputContainer.carouselLocation;
+      let leftPoint = inputContainer.carouselLocation;
+      let rightPoint = outputContainer.carouselLocation;
 
       if ( inputContainer.containsNode( self ) ) {
 
@@ -117,7 +117,7 @@ define( require => {
       blocked = false; // assume we're not blocked, because functions may be changing simultaneously via multi-touch
       dragDx = delta.x;
 
-      var y = 0;
+      let y = 0;
 
       if ( location.x > OUTPUT_SLOT_X ) {
 
@@ -129,14 +129,14 @@ define( require => {
 
         // dragging to the left, check to see if blocked by a non-invertible function
         if ( dragDx < 0 ) {
-          for ( var i = builder.numberOfSlots - 1; i >= 0 && !blocked; i-- ) {
+          for ( let i = builder.numberOfSlots - 1; i >= 0 && !blocked; i-- ) {
 
-            var slot = builder.slots[ i ];
+            const slot = builder.slots[ i ];
 
             // if slot is to the left of where the card currently is ...
             if ( card.locationProperty.get().x > slot.location.x ) {
 
-              var windowLocation = builder.getWindowLocation( i );
+              const windowLocation = builder.getWindowLocation( i );
 
               // card has hit a non-invertible function
               if ( !slot.isInvertible() && location.x < windowLocation.x ) {
@@ -145,7 +145,7 @@ define( require => {
                 self.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
 
                 // allow left edge of card to be dragged slightly past left edge of 'see inside' window
-                var blockedX = windowLocation.x - BLOCKED_X_OFFSET;
+                const blockedX = windowLocation.x - BLOCKED_X_OFFSET;
                 if ( location.x > blockedX ) {
                   card.moveTo( new Vector2( location.x, builder.location.y ) );
 
@@ -181,7 +181,7 @@ define( require => {
 
       assert && assert( dragLayer.hasChild( self ), 'endDrag: card should be in dragLayer' );
 
-      var cardX = card.locationProperty.get().x;
+      const cardX = card.locationProperty.get().x;
 
       if ( cardX < INPUT_SLOT_X ) {
 
@@ -218,9 +218,9 @@ define( require => {
 
     // {Property.<number>} Number of functions to apply is based on where the card is located relative to the
     // function slots in the builder
-    var numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
+    const numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.locationProperty ],
       function( location ) {
-        for ( var i = builder.numberOfSlots - 1; i >= 0; i-- ) {
+        for ( let i = builder.numberOfSlots - 1; i >= 0; i-- ) {
           if ( location.x >= builder.slots[ i ].location.x ) {
             return i + 1;
           }
@@ -296,7 +296,7 @@ define( require => {
      */
     animateToCarousel: function( container ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateToCarousel: card should be in dragLayer' );
-      var self = this;
+      const self = this;
       self.card.animateTo( container.carouselLocation,
         function() {
           self.dragLayer.removeChild( self );
@@ -341,14 +341,14 @@ define( require => {
     animateLeftToRight: function( outputSlotX ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateLeftToRight: card should be in dragLayer' );
 
-      var self = this;
-      var builder = self.builderNode.builder;
-      var windowNumber = builder.getWindowNumberGreaterThan( self.card.locationProperty.get().x );
+      const self = this;
+      const builder = self.builderNode.builder;
+      const windowNumber = builder.getWindowNumberGreaterThan( self.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
         // animate to 'See Inside' window to right of card
-        var windowLocation = builder.getWindowLocation( windowNumber );
+        const windowLocation = builder.getWindowLocation( windowNumber );
         self.card.animateTo( windowLocation, function() {
 
           if ( self.seeInsideProperty.get() ) {
@@ -386,17 +386,17 @@ define( require => {
     animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
       assert && assert( this.dragLayer.hasChild( this ), 'animateRightToLeft: card should be in dragLayer' );
 
-      var self = this;
-      var builder = self.builderNode.builder;
-      var windowNumber = builder.getWindowNumberLessThanOrEqualTo( self.card.locationProperty.get().x );
+      const self = this;
+      const builder = self.builderNode.builder;
+      const windowNumber = builder.getWindowNumberLessThanOrEqualTo( self.card.locationProperty.get().x );
 
       if ( builder.isValidWindowNumber( windowNumber ) ) {
 
         // animate to 'See Inside' window to left of card
-        var windowLocation = builder.getWindowLocation( windowNumber );
+        const windowLocation = builder.getWindowLocation( windowNumber );
         self.card.animateTo( windowLocation, function() {
 
-          var slot = builder.slots[ windowNumber ];
+          const slot = builder.slots[ windowNumber ];
 
           if ( !slot.isEmpty() && !slot.functionInstance.invertible ) {
 
@@ -449,7 +449,7 @@ define( require => {
       assert && assert( this.builderNode.seeInsideCardNode === this, 'flushSeeInsideCard: not a See Inside card' );
 
       // animate to output slot, then to output carousel
-      var self = this;
+      const self = this;
       self.card.animateTo( new Vector2( outputSlotX, self.builderNode.builder.location.y ),
         function() {
           self.animateToCarousel( self.outputContainer );
@@ -505,7 +505,7 @@ define( require => {
       options.lineDash = [ 4, 4 ];
       options.opacity = 0.5;
 
-      var backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
+      const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
         _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
       // center content on background
@@ -534,10 +534,10 @@ define( require => {
         minHeight: 35
       }, FBConstants.CARD_OPTIONS, options );
 
-      var backgroundHeight = Math.max( options.minHeight, xyNode.height + options.yMargin );
-      var backgroundWidth = Math.max( xyNode.width + options.xMargin, backgroundHeight );
+      const backgroundHeight = Math.max( options.minHeight, xyNode.height + options.yMargin );
+      const backgroundWidth = Math.max( xyNode.width + options.xMargin, backgroundHeight );
 
-      var backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight,
+      const backgroundNode = new Rectangle( 0, 0, backgroundWidth, backgroundHeight,
         _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
 
       // center content on background

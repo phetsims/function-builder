@@ -62,7 +62,7 @@ define( require => {
     options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
 
     // {HTMLImageElement[]} images for the input cards, in the order that they appear in the carousel
-    var cardContent = [
+    const cardContent = [
       feetImage,
       snowflakeImage,
       butterflyImage,
@@ -84,7 +84,7 @@ define( require => {
     } );
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-    var functionCreators = [
+    const functionCreators = [
       new FunctionCreator( Mirror ),
       new FunctionCreator( Rotate90 ),
       new FunctionCreator( Grayscale ),
@@ -100,9 +100,9 @@ define( require => {
     ];
 
     // builder
-    var builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
-    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-    var builder = new Builder( {
+    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new Builder( {
       numberOfSlots: options.numberOfSlots,
       width: builderWidth,
       location: new Vector2( builderX, FBConstants.BUILDER_Y )

@@ -53,7 +53,7 @@ define( require => {
       // When card is removed from input container, add row to table.
       // removeListener unnecessary, instances exist for lifetime of the sim
       inputContainer.removeEmitter.addListener( function( node ) {
-        var card = node.card;
+        const card = node.card;
         tableNode.addRow( card );
         tableNode.scrollToRow( card );
       } );
@@ -61,7 +61,7 @@ define( require => {
       // When card is returned to input container, remove row from table.
       // removeListener unnecessary, instances exist for lifetime of the sim
       inputContainer.addEmitter.addListener( function( node ) {
-        var card = node.card;
+        const card = node.card;
         if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
           tableNode.removeRow( card );
         }
@@ -74,7 +74,7 @@ define( require => {
       // When card is added to the output container, show its output in the table.
       // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.addEmitter.addListener( function( node ) {
-        var card = node.card;
+        const card = node.card;
         tableNode.setOutputCellVisible( card, true );
         tableNode.scrollToRow( card );
       } );
@@ -82,7 +82,7 @@ define( require => {
       // When card is removed from output container, hide its output in the table.
       // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.removeEmitter.addListener( function( node ) {
-        var card = node.card;
+        const card = node.card;
         tableNode.setOutputCellVisible( card, false );
         tableNode.scrollToRow( card );
       } );

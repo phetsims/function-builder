@@ -46,19 +46,19 @@ define( require => {
       'invalid value for orientation: ' + orientation );
 
     // ellipse
-    var ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {
+    const ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {
       fill: options.fill,
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
     // constants that determine the shape of the slot
-    var SLOT_WIDTH = 0.4 * options.radiusX;
-    var SLOT_HEIGHT = 1.5 * options.radiusY;
-    var SLOT_Y_OFFSET = 0.025 * SLOT_HEIGHT; // determines perspective of slot
+    const SLOT_WIDTH = 0.4 * options.radiusX;
+    const SLOT_HEIGHT = 1.5 * options.radiusY;
+    const SLOT_Y_OFFSET = 0.025 * SLOT_HEIGHT; // determines perspective of slot
 
     // shape for a slot that faces left, parallelogram described from upper-left, moving clockwise
-    var slotShape = new Shape()
+    let slotShape = new Shape()
       .moveTo( 0, SLOT_Y_OFFSET )
       .lineTo( SLOT_WIDTH, 0 )
       .lineTo( SLOT_WIDTH, SLOT_HEIGHT )
@@ -71,7 +71,7 @@ define( require => {
     }
 
     // slot node
-    var slotNode = new Path( slotShape, {
+    const slotNode = new Path( slotShape, {
       fill: options.slotFill,
       stroke: options.slotStroke,
       lineWidth: options.slotLineWidth,

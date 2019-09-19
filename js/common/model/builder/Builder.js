@@ -23,7 +23,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // {number} x-offset of center of 'see inside' window from it's corresponding slot in the builder
-  var WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -
+  const WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -
                         ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 );
 
   /**
@@ -71,7 +71,7 @@ define( require => {
     this.colorScheme = options.colorScheme;
 
     // width occupied by slots
-    var totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_SIZE.width;
+    let totalWidthOfSlots = options.numberOfSlots * FBConstants.FUNCTION_SIZE.width;
     if ( options.numberOfSlots > 1 ) {
       totalWidthOfSlots -= ( ( options.numberOfSlots - 1 ) * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width );
     }
@@ -79,12 +79,12 @@ define( require => {
 
     // @public {FunctionSlot[]} slots
     this.slots = [];
-    var leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
-    for ( var i = 0; i < options.numberOfSlots; i++ ) {
+    const leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
+    for ( let i = 0; i < options.numberOfSlots; i++ ) {
 
       // location is at slot's center
-      var dx = i * FBConstants.FUNCTION_SIZE.width - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width;
-      var slotLocation = leftSlotLocation.plusXY( dx, 0 );
+      const dx = i * FBConstants.FUNCTION_SIZE.width - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width;
+      const slotLocation = leftSlotLocation.plusXY( dx, 0 );
 
       // each slot is initially empty
       this.slots.push( new FunctionSlot( slotLocation ) );
@@ -113,9 +113,9 @@ define( require => {
      */
     applyFunctions: function( input, numberOfFunctionsToApply ) {
       assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.numberOfSlots ) );
-      var output = input;
-      for ( var i = 0; i < numberOfFunctionsToApply; i++ ) {
-        var slot = this.slots[ i ];
+      let output = input;
+      for ( let i = 0; i < numberOfFunctionsToApply; i++ ) {
+        const slot = this.slots[ i ];
         if ( !slot.isEmpty() ) {
           output = slot.functionInstance.apply( output );
         }
@@ -146,7 +146,7 @@ define( require => {
       assert && assert( this.isValidSlotNumber( slotNumber ) );
       assert && assert( !this.containsFunctionInstance( functionInstance ), 'function is already in builder' );
 
-      var slot = this.slots[ slotNumber ];
+      const slot = this.slots[ slotNumber ];
       assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
 
       slot.functionInstance = functionInstance;
@@ -165,7 +165,7 @@ define( require => {
       assert && assert( functionInstance );
       assert && assert( this.isValidSlotNumber( slotNumber ) );
 
-      var slot = this.slots[ slotNumber ];
+      const slot = this.slots[ slotNumber ];
       assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
 
       slot.clear();
@@ -204,8 +204,8 @@ define( require => {
      */
     getSlotNumber: function( functionInstance ) {
       assert && assert( functionInstance );
-      for ( var i = 0; i < this.slots.length; i++ ) {
-        var slot = this.slots[ i ];
+      for ( let i = 0; i < this.slots.length; i++ ) {
+        const slot = this.slots[ i ];
         if ( slot.contains( functionInstance ) ) {
           return i;
         }
@@ -235,9 +235,9 @@ define( require => {
      */
     getClosestSlot: function( location, distanceThreshold ) {
       assert && assert( location );
-      var slotNumber = FunctionSlot.NO_SLOT_NUMBER;
-      for ( var i = 0; i < this.slots.length; i++ ) {
-        var slot = this.slots[ i ];
+      let slotNumber = FunctionSlot.NO_SLOT_NUMBER;
+      for ( let i = 0; i < this.slots.length; i++ ) {
+        const slot = this.slots[ i ];
         if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
           if ( slot.location.distance( location ) < distanceThreshold ) {
             slotNumber = i;
@@ -270,7 +270,7 @@ define( require => {
      */
     getWindowLocation: function( windowNumber ) {
       assert && assert( this.isValidWindowNumber( windowNumber ) );
-      var slot = this.slots[ windowNumber ];
+      const slot = this.slots[ windowNumber ];
       return new Vector2( slot.location.x + WINDOW_X_OFFSET, slot.location.y );
     },
 
@@ -282,8 +282,8 @@ define( require => {
      * @public
      */
     getWindowNumberGreaterThan: function( x ) {
-      for ( var i = 0; i < this.slots.length; i++ ) {
-        var windowLocation = this.getWindowLocation( i );
+      for ( let i = 0; i < this.slots.length; i++ ) {
+        const windowLocation = this.getWindowLocation( i );
         if ( windowLocation.x > x ) {
           return i;
         }
@@ -299,8 +299,8 @@ define( require => {
      * @public
      */
     getWindowNumberLessThanOrEqualTo: function( x ) {
-      for ( var i = this.slots.length - 1; i >= 0; i-- ) {
-        var windowLocation = this.getWindowLocation( i );
+      for ( let i = this.slots.length - 1; i >= 0; i-- ) {
+        const windowLocation = this.getWindowLocation( i );
         if ( windowLocation.x <= x ) {
           return i;
         }

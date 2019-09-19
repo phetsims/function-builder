@@ -25,12 +25,12 @@ define( require => {
       xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
     }, options );
 
-    var slope = new RationalNumber( 1, 1 );
-    var intercept = new RationalNumber( 0, 1 );
+    let slope = new RationalNumber( 1, 1 );
+    let intercept = new RationalNumber( 0, 1 );
 
-    for ( var i = 0; i < mathFunctions.length; i++ ) {
+    for ( let i = 0; i < mathFunctions.length; i++ ) {
 
-      var mathFunction = mathFunctions[ i ];
+      const mathFunction = mathFunctions[ i ];
 
       if ( mathFunction.operator === FBSymbols.PLUS ) {
         intercept = intercept.plus( mathFunction.operandProperty.get() );
@@ -73,7 +73,7 @@ define( require => {
      */
     toString: function() {
 
-      var equation = '';
+      let equation = '';
 
       // slope
       if ( this.slope.valueOf() !== 0 ) {

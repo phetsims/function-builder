@@ -21,7 +21,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
+  const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
     0.75 * FBConstants.CARD_OPTIONS.size.width,
     0.95 * FBConstants.CARD_OPTIONS.size.height );
 
@@ -65,7 +65,7 @@ define( require => {
     updateContent: function( builder, numberOfFunctionsToApply ) {
 
       // {RationalNumber} run the input value through the builder
-      var value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
+      const value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
 
       if ( !this.rationalNumberNode ) {
 
@@ -110,7 +110,7 @@ define( require => {
         maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 
-      var contentNode = new Text( rationalNumber.valueOf(), {
+      const contentNode = new Text( rationalNumber.valueOf(), {
         font: FBConstants.EQUATION_OPTIONS.wholeNumberFont,
         maxWidth: options.maxContentSize.width,
         maxHeight: options.maxContentSize.height

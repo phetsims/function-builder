@@ -30,7 +30,7 @@ define( require => {
     options.fill = 'rgb( 0, 222, 224 )';
     options.invertible = false; // lossy, erased image data cannot be restored
 
-    var iconNode = new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -50,7 +50,7 @@ define( require => {
     apply: function( inputCanvas ) {
 
       // blank image data (transparent black pixels), same dimensions as input
-      var imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
+      const imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
       return FBCanvasUtils.createCanvasWithImageData( imageData );
     }
   } );

@@ -35,12 +35,12 @@ define( require => {
   const mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
 
   // constants
-  var RADIO_BUTTON_ICON_SCALE = 0.35;
-  var RADIO_BUTTON_ICON_LINE_WIDTH = 3;
-  var CHECK_BOX_ICON_SCALE = 0.45;
-  var CHECK_BOX_ICON_LINE_WIDTH = 3;
+  const RADIO_BUTTON_ICON_SCALE = 0.35;
+  const RADIO_BUTTON_ICON_LINE_WIDTH = 3;
+  const CHECK_BOX_ICON_SCALE = 0.45;
+  const CHECK_BOX_ICON_LINE_WIDTH = 3;
 
-  var FBIconFactory = {
+  const FBIconFactory = {
 
     /**
      * Creates the icon for the 'Patterns' screen, the Warhol function applied to an image.
@@ -57,12 +57,12 @@ define( require => {
       }, options );
 
       // apply Warhol to the image
-      var warhol = new Warhol();
-      var inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
-      var outputCanvas = warhol.apply( inputCanvas );
+      const warhol = new Warhol();
+      const inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
+      const outputCanvas = warhol.apply( inputCanvas );
 
       // create the icon
-      var iconNode = new Image( outputCanvas.toDataURL(), {
+      const iconNode = new Image( outputCanvas.toDataURL(), {
 
         // Dimensions are unlikely to be available when loading an image via a URL, so set the initial dimensions
         // explicitly. See https://github.com/phetsims/function-builder/issues/68
@@ -85,19 +85,19 @@ define( require => {
         fill: FBColors.NUMBERS_SCREEN_BACKGROUND
       }, options );
 
-      var functionNode = new FunctionBackgroundNode( {
+      const functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 255, 120, 120 )'
       } );
 
       // handle operator separately, so we can control spacing
-      var operatorNode = new Text( FBSymbols.PLUS, {
+      const operatorNode = new Text( FBSymbols.PLUS, {
         font: new FBFont( 80 ),
         maxWidth: 0.5 * functionNode.width,
         maxHeight: 0.95 * functionNode.height,
         center: functionNode.center
       } );
 
-      var operandNode = new Text( '3', {
+      const operandNode = new Text( '3', {
         font: new FBFont( 80 ),
         maxWidth: 0.5 * functionNode.width,
         maxHeight: 0.95 * functionNode.height,
@@ -105,7 +105,7 @@ define( require => {
       } );
 
       // operator & operand
-      var parentNode = new HBox( {
+      const parentNode = new HBox( {
         children: [ operatorNode, operandNode ],
         spacing: 6,
         maxWidth: 0.5 * functionNode.width,
@@ -113,7 +113,7 @@ define( require => {
         center: functionNode.center
       } );
 
-      var iconNode = new Node( { children: [ functionNode, parentNode ] } );
+      const iconNode = new Node( { children: [ functionNode, parentNode ] } );
 
       return new ScreenIcon( iconNode, options );
     },
@@ -131,7 +131,7 @@ define( require => {
         maxIconWidthProportion: 0.75
       }, options );
 
-      var iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
+      const iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
 
       return new ScreenIcon( iconNode, options );
     },
@@ -150,11 +150,11 @@ define( require => {
         questionMarkFill: 'black'
       }, options );
 
-      var functionNode = new FunctionBackgroundNode( {
+      const functionNode = new FunctionBackgroundNode( {
         fill: options.functionFill
       } );
 
-      var textNode = new Text( mysteryCharacterString, {
+      const textNode = new Text( mysteryCharacterString, {
         font: new FBFont( { size: 80, weight: 'bold' } ),
         fill: options.questionMarkFill,
         maxWidth: 0.5 * functionNode.width,
@@ -162,7 +162,7 @@ define( require => {
         center: functionNode.center
       } );
 
-      var iconNode = new Node( { children: [ functionNode, textNode ] } );
+      const iconNode = new Node( { children: [ functionNode, textNode ] } );
 
       return new ScreenIcon( iconNode, options );
     },
@@ -186,10 +186,10 @@ define( require => {
 
       assert && assert( !options.children );
       options.children = [];
-      var previousFunctionNode = null;
+      let previousFunctionNode = null;
 
-      for ( var i = 0; i < numberOfFunctions; i++ ) {
-        var functionNode = new FunctionBackgroundNode( {
+      for ( let i = 0; i < numberOfFunctions; i++ ) {
+        const functionNode = new FunctionBackgroundNode( {
           fill: options.colors[ i ],
           lineWidth: options.lineWidth
         } );
@@ -216,14 +216,14 @@ define( require => {
       }, options );
       assert && assert( options.iconType === 'number' || options.iconType === 'image' );
 
-      var functionNode = new FunctionBackgroundNode( {
+      const functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
         lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
         scale: CHECK_BOX_ICON_SCALE
       } );
 
-      var windowLength = 0.75 * functionNode.height;
-      var windowNode = new Rectangle( 0, 0, windowLength, windowLength, {
+      const windowLength = 0.75 * functionNode.height;
+      const windowNode = new Rectangle( 0, 0, windowLength, windowLength, {
         cornerRadius: 3,
         fill: 'white',
         stroke: 'black',
@@ -232,7 +232,7 @@ define( require => {
         centerY: functionNode.centerY
       } );
 
-      var contentNode = null;
+      let contentNode = null;
       if ( options.iconType === 'number' ) {
 
         // number '2'
@@ -262,13 +262,13 @@ define( require => {
      */
     createHideFunctionsIcon: function() {
 
-      var functionNode = new FunctionBackgroundNode( {
+      const functionNode = new FunctionBackgroundNode( {
         fill: FBColors.HIDDEN_FUNCTION,
         lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
         scale: CHECK_BOX_ICON_SCALE
       } );
 
-      var eyeCloseNode = new EyeCloseNode( {
+      const eyeCloseNode = new EyeCloseNode( {
         maxHeight: 0.65 * functionNode.height,
         center: functionNode.center
       } );

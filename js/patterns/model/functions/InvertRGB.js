@@ -29,7 +29,7 @@ define( require => {
     options.name = 'InvertRGB';
     options.fill = 'black';
 
-    var iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     ImageFunction.call( this, iconNode, options );
   }
@@ -48,11 +48,11 @@ define( require => {
      */
     apply: function( inputCanvas ) {
 
-      var imageData = FBCanvasUtils.getImageData( inputCanvas );
+      const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
       // invert colors for non-transparent pixels
-      var data = imageData.data;
-      for ( var i = 0; i < data.length; i += 4 ) {
+      const data = imageData.data;
+      for ( let i = 0; i < data.length; i += 4 ) {
         if ( data[ i + 3 ] !== 0 ) {
           data[ i ] = 255 - data[ i ];
           data[ i + 1 ] = 255 - data[ i + 1 ];

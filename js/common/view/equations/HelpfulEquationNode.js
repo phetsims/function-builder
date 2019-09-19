@@ -37,12 +37,12 @@ define( require => {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
-    var mathFunctions = equation.mathFunctions; // {MathFunction[]}
-    var i = 0; // {number} for loop index
-    var xNode = null; // {Node}
+    const mathFunctions = equation.mathFunctions; // {MathFunction[]}
+    let i = 0; // {number} for loop index
+    let xNode = null; // {Node}
 
     // y
-    var yNode = new Text( options.ySymbol, {
+    let yNode = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
       maxWidth: options.xyMaxWidth
@@ -52,7 +52,7 @@ define( require => {
     }
 
     // =
-    var equalToNode = new Text( FBSymbols.EQUAL_TO, {
+    const equalToNode = new Text( FBSymbols.EQUAL_TO, {
       fill: options.color,
       font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing,
@@ -64,7 +64,7 @@ define( require => {
       options.children.push( yNode, equalToNode );
     }
 
-    var RATIONAL_NUMBER_OPTIONS = {
+    const RATIONAL_NUMBER_OPTIONS = {
       fill: options.color,
       mixedNumber: false, // display as an improper fraction
       fractionYSpacing: options.fractionYSpacing,
@@ -93,18 +93,18 @@ define( require => {
     else {
 
       // local vars to improve readability
-      var currentFunction = null; // {MathFunction}
-      var currentOperator = null; // {string}
-      var currentOperand = null; // {number}
-      var previousOperator = null; // {string}
+      let currentFunction = null; // {MathFunction}
+      let currentOperator = null; // {string}
+      let currentOperand = null; // {number}
+      let previousOperator = null; // {string}
 
-      var operatorNode = null; // {Node}
-      var operandNode = null; // {Node}
-      var nextLeft = 0; // {number} left position of next Node added to equation
-      var nextCenterY = 0; // {number} centerY position of next Node added to equation
+      let operatorNode = null; // {Node}
+      let operandNode = null; // {Node}
+      let nextLeft = 0; // {number} left position of next Node added to equation
+      let nextCenterY = 0; // {number} centerY position of next Node added to equation
 
       // parent node for right-hand side (rhs) of the equation
-      var rhsNode = new Node();
+      let rhsNode = new Node();
 
       // x
       xNode = new Text( options.xSymbol, {
@@ -187,21 +187,21 @@ define( require => {
           // parentheses around term, eg: 2(x + 2)
           if ( i !== 0 ) {
 
-            var leftParenthesisNode = new Text( '(', {
+            const leftParenthesisNode = new Text( '(', {
               font: options.parenthesesFont,
               right: rhsNode.left - options.parenthesesXSpacing,
               centerY: nextCenterY
             } );
 
-            var rightParenthesisNode = new Text( ')', {
+            const rightParenthesisNode = new Text( ')', {
               font: options.parenthesesFont,
               left: rhsNode.right + options.parenthesesXSpacing,
               centerY: leftParenthesisNode.centerY
             } );
 
             // scale to fit around term, handling x & y dimensions independently so that parenthesis don't get too heavy
-            var parenthesesScaleX = 1;
-            var parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
+            const parenthesesScaleX = 1;
+            const parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
             leftParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
             rightParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
 
@@ -230,17 +230,17 @@ define( require => {
             `adjacent divide should have been collapsed: ${equation.toString()}` );
 
           // what we've built so far becomes the numerator
-          var numeratorNode = rhsNode;
+          const numeratorNode = rhsNode;
 
           // denominator, use RationalNumberNode so that sign is rendered consistently
-          var denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
+          const denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
             _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
               font: options.wholeNumberFont
             } ) );
 
           // line dividing numerator and denominator
-          var fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
-          var fractionLineNode = new Line( 0, 0, fractionLineLength, 0, {
+          const fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
+          const fractionLineNode = new Line( 0, 0, fractionLineLength, 0, {
             stroke: options.color,
             centerX: rhsNode.centerX,
             top: numeratorNode.bottom + options.fractionYSpacing
@@ -253,7 +253,7 @@ define( require => {
           denominatorNode.top = fractionLineNode.bottom + options.fractionYSpacing;
 
           // fraction
-          var fractionNode = new Node( {
+          const fractionNode = new Node( {
             children: [ numeratorNode, fractionLineNode, denominatorNode ],
             scale: options.fractionScale
           } );

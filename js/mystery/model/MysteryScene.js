@@ -31,8 +31,8 @@ define( require => {
   const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var CARD_NUMBERS_RANGE = new Range( -4, 7 );
-  var MAX_SLOTS = 3; // max number of slots in the builder
+  const CARD_NUMBERS_RANGE = new Range( -4, 7 );
+  const MAX_SLOTS = 3; // max number of slots in the builder
 
   /**
    * @param {string[]} challengePool
@@ -64,13 +64,13 @@ define( require => {
 
       // limit scope of for-loop var using IIFE
       (function() {
-        var duplicates = '';
-        for ( var i = 0; i < challengePool.length; i++ ) {
+        let duplicates = '';
+        for ( let i = 0; i < challengePool.length; i++ ) {
 
-          var challenge = challengePool[ i ];
+          const challenge = challengePool[ i ];
 
           // validate challenge
-          var challengeObjects = MysteryChallenges.parseChallenge( challenge );
+          const challengeObjects = MysteryChallenges.parseChallenge( challenge );
           assert && assert( challengeObjects.length === options.numberOfSlots,
             'incorrect number of functions in challenge: ' + challenge );
 
@@ -98,13 +98,13 @@ define( require => {
     this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
 
     // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
-    var cardContent = [];
-    for ( var i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
+    const cardContent = [];
+    for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
       cardContent.push( RationalNumber.withInteger( i ) );
     }
 
     // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-    var functionCreators = [
+    const functionCreators = [
       new FunctionCreator( Plus ),
       new FunctionCreator( Minus ),
       new FunctionCreator( Times ),
@@ -112,9 +112,9 @@ define( require => {
     ];
 
     // All builders have the same width, regardless of number of slots
-    var builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
-    var builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-    var builder = new MathBuilder( {
+    const builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new MathBuilder( {
       numberOfSlots: options.numberOfSlots,
       width: builderWidth,
       location: new Vector2( builderX, FBConstants.BUILDER_Y )
@@ -166,16 +166,16 @@ define( require => {
 
         // remove the current challenge, so we don't select it twice in a row
         if ( !FBQueryParameters.playAll ) {
-          var currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
+          const currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
           this.availableChallenges.splice( currentChallengeIndex, 1 );
           assert && assert( this.availableChallenges.length === this.challengePool.length - 1 );
         }
       }
 
       // randomly select a challenge from the available pool
-      var challengeIndex = FBQueryParameters.playAll ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
+      const challengeIndex = FBQueryParameters.playAll ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
       assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
-      var challenge = this.availableChallenges[ challengeIndex ];
+      const challenge = this.availableChallenges[ challengeIndex ];
 
       // remove the challenge from the available pool
       this.availableChallenges.splice( challengeIndex, 1 );
@@ -193,8 +193,8 @@ define( require => {
      */
     getColors: function() {
 
-      var i;
-      var colors = [];
+      let i;
+      let colors = [];
 
       if ( FBQueryParameters.showAllColors ) {
         for ( i = 0; i < this.numberOfSlots; i++ ) {
@@ -209,21 +209,21 @@ define( require => {
       else {
         assert && assert( this.availableColorSets.length >= this.numberOfSlots );
 
-        var colorSets = [];
+        const colorSets = [];
 
         for ( i = 0; i < this.numberOfSlots; i++ ) {
 
           // select a color set
-          var colorSetIndex = phet.joist.random.nextInt( this.availableColorSets.length );
-          var colorSet = this.availableColorSets[ colorSetIndex ];
+          const colorSetIndex = phet.joist.random.nextInt( this.availableColorSets.length );
+          const colorSet = this.availableColorSets[ colorSetIndex ];
           colorSets.push( colorSet );
 
           // remove the set from the available sets
           this.availableColorSets.splice( colorSetIndex, 1 );
 
           // select a color from the set
-          var colorIndex = phet.joist.random.nextInt( colorSet.length );
-          var color = colorSet[ colorIndex ];
+          const colorIndex = phet.joist.random.nextInt( colorSet.length );
+          const color = colorSet[ colorIndex ];
           colors.push( color );
         }
 
@@ -245,8 +245,8 @@ define( require => {
      * @private
      */
     getColorDebug: function() {
-      var allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
-      var color = allColors[ this.nextColorIndexDebug++ ];
+      const allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
+      const color = allColors[ this.nextColorIndexDebug++ ];
       if ( this.nextColorIndexDebug > allColors.length - 1 ) {
         this.nextColorIndexDebug = 0;
       }

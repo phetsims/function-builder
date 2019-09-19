@@ -23,7 +23,7 @@ define( require => {
     Builder.call( this, options );
 
     // when any function's operand changes, notify listeners
-    var self = this;
+    const self = this;
     this.operandObserver = function( operand ) {
       self.functionChangedEmitter.emit();
     };

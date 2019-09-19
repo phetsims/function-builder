@@ -20,7 +20,7 @@ define( require => {
    */
   function TestScreen() {
 
-    var options = {
+    const options = {
       name: 'Test',
       backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
     };

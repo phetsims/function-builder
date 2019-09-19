@@ -16,7 +16,7 @@ define( require => {
   const xString = require( 'string!FUNCTION_BUILDER/x' );
   const yString = require( 'string!FUNCTION_BUILDER/y' );
 
-  var FBSymbols = {
+  const FBSymbols = {
     X: xString,
     Y: yString,
     DIVIDE: MathSymbols.DIVIDE,

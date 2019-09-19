@@ -60,14 +60,14 @@ define( require => {
       assert && assert( this.carouselLocation );
       assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
 
-      for ( var i = 0; i < numberOfInstances; i++ ) {
+      for ( let i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        var functionInstance = this.functionCreator.createInstance( { location: this.carouselLocation } );
+        const functionInstance = this.functionCreator.createInstance( { location: this.carouselLocation } );
         scene.functionInstances.push( functionInstance );
 
         // associated Node
-        var functionNode = new this.functionNodeConstructor( functionInstance, this, builderNode, dragLayer );
+        const functionNode = new this.functionNodeConstructor( functionInstance, this, builderNode, dragLayer );
 
         // put the Node in this container
         this.addNode( functionNode );

@@ -29,10 +29,10 @@ define( require => {
 
     assert && assert( functionInstance instanceof MathFunction );
 
-    var self = this;
+    const self = this;
 
     // @private updated by operandProperty observer
-    var contentNode = new Text( '', {
+    const contentNode = new Text( '', {
       font: FBConstants.NUMBERS_FUNCTION_FONT
     } );
 

@@ -39,7 +39,7 @@ define( require => {
     }, FBConstants.DRAWER_OPTIONS, options );
 
     // Graph
-    var graphNode = new XYGraphNode( builder, _.extend( {
+    const graphNode = new XYGraphNode( builder, _.extend( {
       visible: options.open,
       cornerRadius: options.cornerRadius
     }, options.graphOptions ) );

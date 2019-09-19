@@ -23,7 +23,7 @@ define( require => {
   const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
-  var ZERO = RationalNumber.withInteger( 0 );
+  const ZERO = RationalNumber.withInteger( 0 );
 
   /**
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
@@ -36,18 +36,18 @@ define( require => {
       xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
     }, options );
 
-    var stack = []; // {MathFunction[]}
+    const stack = []; // {MathFunction[]}
 
     // local vars to improve readability
-    var currentFunction = null; // {MathFunction}
-    var currentOperator = null; // {string}
-    var currentOperand = null; // {number}
-    var previousFunction = null; // {MathFunction}
-    var previousOperator = null; // {string}
-    var previousOperand = null; // {number}
-    var rationalNumber = ZERO; // {RationalNumber}
+    let currentFunction = null; // {MathFunction}
+    let currentOperator = null; // {string}
+    let currentOperand = null; // {number}
+    let previousFunction = null; // {MathFunction}
+    let previousOperator = null; // {string}
+    let previousOperand = null; // {number}
+    let rationalNumber = ZERO; // {RationalNumber}
 
-    for ( var i = 0; i < mathFunctions.length; i++ ) {
+    for ( let i = 0; i < mathFunctions.length; i++ ) {
 
       currentFunction = mathFunctions[ i ];
       currentOperator = currentFunction.operator;
@@ -143,8 +143,8 @@ define( require => {
      */
     toString: function() {
 
-      var equation = null; // {string}
-      var i = 0; // {number}
+      let equation = null; // {string}
+      let i = 0; // {number}
 
       if ( this.mathFunctions.length === 0 ) {
 
@@ -154,9 +154,9 @@ define( require => {
       else {
 
         // local vars to improve readability
-        var currentFunction = null; // {MathFunction}
-        var currentOperator = null; // {string}
-        var currentOperand = null; // {number}
+        let currentFunction = null; // {MathFunction}
+        let currentOperator = null; // {string}
+        let currentOperand = null; // {number}
 
         equation = this.xSymbol;
 

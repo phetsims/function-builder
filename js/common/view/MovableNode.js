@@ -40,7 +40,7 @@ define( require => {
 
     assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
-    var self = this;
+    const self = this;
 
     this.movable = movable; // @public
 
@@ -52,11 +52,11 @@ define( require => {
       }
     );
 
-    var startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
+    let startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
 
     // @private
     if ( options.draggable ) {
-      var dragHandler = new SimpleDragHandler( {
+      const dragHandler = new SimpleDragHandler( {
 
         allowTouchSnag: options.allowTouchSnag,
 
@@ -66,16 +66,16 @@ define( require => {
           options.startDrag && options.startDrag();
 
           // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
-          var parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
           startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
         },
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
         drag: function( event, trail ) {
-          var previousLocation = movable.locationProperty.get();
-          var parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          var location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
-          var delta = location.minus( previousLocation );
+          const previousLocation = movable.locationProperty.get();
+          const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+          const location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
+          const delta = location.minus( previousLocation );
           options.translateMovable( movable, location, delta );
         },
 

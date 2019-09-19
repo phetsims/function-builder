@@ -30,12 +30,12 @@ define( require => {
   function testMysteryFunctionColors( layoutBounds ) {
 
     // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
-    var colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
+    const colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
     assert && assert( colorSetNames.length === FBColors.MYSTERY_COLOR_SETS.length );
 
-    var vBoxChildren = [];
+    const vBoxChildren = [];
 
-    for ( var i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
+    for ( let i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
 
       var hBoxChildren = [];
 
@@ -45,7 +45,7 @@ define( require => {
       } ) );
 
       // row of functions
-      var colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
+      const colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
       colorSet.forEach( function( color ) {
         hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
       } );
@@ -81,12 +81,12 @@ define( require => {
       stroke: 'black'
     }, options );
 
-    var WIDTH = options.size.width;
-    var HEIGHT = options.size.height;
-    var X_INSET = 0.18 * WIDTH;
+    const WIDTH = options.size.width;
+    const HEIGHT = options.size.height;
+    const X_INSET = 0.18 * WIDTH;
 
     // Described from top-left, moving clockwise.
-    var functionShape = new Shape()
+    const functionShape = new Shape()
       .moveTo( 0, 0 )
       .lineTo( WIDTH - X_INSET, 0 )
       .lineTo( WIDTH, HEIGHT / 2 )
@@ -94,14 +94,14 @@ define( require => {
       .lineTo( 0, HEIGHT )
       .lineTo( X_INSET, HEIGHT / 2 )
       .close();
-    var functionNode = new Path( functionShape, {
+    const functionNode = new Path( functionShape, {
       fill: options.fill,
       stroke: options.stroke
     } );
 
-    var color = Color.toColor( options.fill );
-    var rgbString = color.red + ', ' + color.green + ', ' + color.blue;
-    var rgbTextNode = new Text( rgbString, {
+    const color = Color.toColor( options.fill );
+    const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
+    const rgbTextNode = new Text( rgbString, {
       font: new FBFont( 14 ),
       centerX: functionNode.centerX + ( 0.25 * X_INSET ),
       centerY: functionNode.centerY

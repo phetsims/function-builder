@@ -30,8 +30,8 @@ define( require => {
     } );
 
     // update numberOfCardsProperty as cards are added/removed
-    var self = this;
-    var containerListener = function() {
+    const self = this;
+    const containerListener = function() {
       self.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
     containers.forEach( function( container ) {
@@ -52,7 +52,7 @@ define( require => {
    * @returns {number}
    */
   var getNumberOfCards = function( containers ) {
-    var numberOfCards = 0;
+    let numberOfCards = 0;
     containers.forEach( function( container ) {
       numberOfCards += container.numberOfItemsProperty.get();
     } );

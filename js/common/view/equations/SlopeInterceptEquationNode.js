@@ -36,7 +36,7 @@ define( require => {
     options.children = [];
 
     // y
-    var yNode = new Text( options.ySymbol, {
+    let yNode = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
       maxWidth: options.xyMaxWidth
@@ -47,7 +47,7 @@ define( require => {
     yNode.y = options.xyYOffset;
 
     // =
-    var equalToNode = new Text( FBSymbols.EQUAL_TO, {
+    const equalToNode = new Text( FBSymbols.EQUAL_TO, {
       fill: options.color,
       font: options.symbolFont,
       left: yNode.right + options.equalsXSpacing,
@@ -62,7 +62,7 @@ define( require => {
     if ( slope.valueOf() === 0 && intercept.valueOf() === 0 ) {
 
       // y = 0
-      var zeroNode = new Text( '0', {
+      const zeroNode = new Text( '0', {
         fill: options.yColor,
         font: options.wholeNumberFont,
         left: equalToNode.right + options.equalsXSpacing,
@@ -75,9 +75,9 @@ define( require => {
       // y = mx + b
 
       // horizontal layout positions, adjusted as the equation is built
-      var xLeft = 0;
-      var operatorLeft = 0;
-      var interceptLeft = 0;
+      let xLeft = 0;
+      let operatorLeft = 0;
+      let interceptLeft = 0;
 
       // slope
       if ( slope.valueOf() !== 0 ) {
@@ -90,7 +90,7 @@ define( require => {
         else if ( slope.valueOf() === -1 ) {
 
           // omit 1 if value is -1, so we have '-x' instead of '-1x'
-          var signNode = new Text( FBSymbols.MINUS, {
+          const signNode = new Text( FBSymbols.MINUS, {
             fill: options.color,
             font: options.signFont,
             left: equalToNode.right + options.equalsXSpacing,
@@ -103,7 +103,7 @@ define( require => {
         else {
 
           // whole number or fractional slope
-          var slopeNode = new RationalNumberNode( slope, {
+          const slopeNode = new RationalNumberNode( slope, {
             fill: options.color,
             mixedNumber: false, // display as an improper fraction
             fractionYSpacing: options.fractionYSpacing,
@@ -128,7 +128,7 @@ define( require => {
       // x
       if ( slope.valueOf() !== 0 ) {
 
-        var xNode = new Text( options.xSymbol, {
+        let xNode = new Text( options.xSymbol, {
           fill: options.xColor,
           font: options.xyFont,
           maxWidth: options.xyMaxWidth
@@ -145,8 +145,8 @@ define( require => {
 
       // operator (+, -)
       if ( ( intercept.valueOf() !== 0 ) && ( slope.valueOf() !== 0 ) ) {
-        var operator = ( intercept.valueOf() > 0 ) ? FBSymbols.PLUS : FBSymbols.MINUS;
-        var operatorNode = new Text( operator, {
+        const operator = ( intercept.valueOf() > 0 ) ? FBSymbols.PLUS : FBSymbols.MINUS;
+        const operatorNode = new Text( operator, {
           fill: options.color,
           font: options.symbolFont,
           left: operatorLeft,
@@ -163,7 +163,7 @@ define( require => {
 
       // intercept
       if ( intercept.valueOf() !== 0 ) {
-        var interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
+        const interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
           fill: options.color,
           mixedNumber: false, // display as an improper fraction
           fractionYSpacing: options.fractionYSpacing,

@@ -81,14 +81,14 @@ define( require => {
 
       this.removeAllChildren();
 
-      var left = 0;
-      var centerY = 0;
+      let left = 0;
+      let centerY = 0;
 
       // sign
-      var isNegative = ( rationalNumber.valueOf() < 0 );
+      const isNegative = ( rationalNumber.valueOf() < 0 );
       if ( ( rationalNumber.valueOf() !== 0 ) && ( isNegative || this.options.showPositiveSign ) ) {
-        var sign = isNegative ? this.options.negativeSymbol : this.options.positiveSymbol;
-        var signNode = new Text( sign, {
+        const sign = isNegative ? this.options.negativeSymbol : this.options.positiveSymbol;
+        const signNode = new Text( sign, {
           fill: this.options.color,
           font: this.options.signFont
         } );
@@ -100,15 +100,15 @@ define( require => {
       }
 
       // {RationalNumber} display absolute value, since we have a separate node for sign
-      var rationalNumberAbs = rationalNumber.abs();
+      const rationalNumberAbs = rationalNumber.abs();
 
       // whole number
-      var fraction = rationalNumberAbs; // {RationalNumber}
+      let fraction = rationalNumberAbs; // {RationalNumber}
       if ( rationalNumberAbs.isInteger() || this.options.mixedNumber ) {
 
         fraction = rationalNumberAbs.fractionPart();
 
-        var wholeNumberNode = new Text( rationalNumberAbs.wholeNumberPart(), {
+        const wholeNumberNode = new Text( rationalNumberAbs.wholeNumberPart(), {
           fill: this.options.color,
           font: this.options.wholeNumberFont,
           left: left,
@@ -125,17 +125,17 @@ define( require => {
       if ( !rationalNumberAbs.isInteger() || this.options.mixedNumber ) {
 
         // numerator and denominator
-        var FRACTION_OPTIONS = {
+        const FRACTION_OPTIONS = {
           fill: this.options.color,
           font: this.options.fractionFont
         };
-        var numeratorNode = new Text( fraction.numerator, FRACTION_OPTIONS ); // @private
+        const numeratorNode = new Text( fraction.numerator, FRACTION_OPTIONS ); // @private
         this.addChild( numeratorNode );
-        var denominatorNode = new Text( fraction.denominator, FRACTION_OPTIONS ); // @private
+        const denominatorNode = new Text( fraction.denominator, FRACTION_OPTIONS ); // @private
         this.addChild( denominatorNode );
 
         // horizontal line separating numerator and denominator
-        var lineNode = new Line( 0, 0, Math.max( numeratorNode.width, denominatorNode.width ), 0, {
+        const lineNode = new Line( 0, 0, Math.max( numeratorNode.width, denominatorNode.width ), 0, {
           stroke: this.options.color,
           lineWidth: this.options.lineWidth,
           left: left,
