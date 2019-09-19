@@ -5,13 +5,13 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Node} iconNode - icon that represents the function type

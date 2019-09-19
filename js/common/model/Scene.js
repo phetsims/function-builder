@@ -5,13 +5,13 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {*[]} cardContent - content that will appear on card, type determined by client

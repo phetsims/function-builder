@@ -5,21 +5,21 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {HelpfulEquation} equation

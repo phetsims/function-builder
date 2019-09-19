@@ -5,21 +5,21 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
-  var EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const EquationsModel = require( 'FUNCTION_BUILDER/equations/model/EquationsModel' );
+  const EquationsScreenView = require( 'FUNCTION_BUILDER/equations/view/EquationsScreenView' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
+  const screenEquationsString = require( 'string!FUNCTION_BUILDER/screen.equations' );
 
   /**
    * @param {Tandem} tandem

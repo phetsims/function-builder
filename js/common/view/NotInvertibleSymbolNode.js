@@ -8,17 +8,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Animation = require( 'TWIXT/Animation' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Easing = require( 'TWIXT/Easing' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  const Animation = require( 'TWIXT/Animation' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Easing = require( 'TWIXT/Easing' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
 
   /**
    * @param {Object} [options]

@@ -5,27 +5,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
-  var BuilderNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderNode' );
-  var Carousel = require( 'SUN/Carousel' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
-  var PageControl = require( 'SUN/PageControl' );
-  var platform = require( 'PHET_CORE/platform' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
+  const BuilderNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderNode' );
+  const Carousel = require( 'SUN/Carousel' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
+  const PageControl = require( 'SUN/PageControl' );
+  const platform = require( 'PHET_CORE/platform' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SeeInsideLayer = require( 'FUNCTION_BUILDER/common/view/SeeInsideLayer' );
 
   // constants
   var PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels

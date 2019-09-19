@@ -5,19 +5,19 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
-  var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
+  const MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
 
   // strings
-  var inputString = require( 'string!FUNCTION_BUILDER/input' );
-  var outputString = require( 'string!FUNCTION_BUILDER/output' );
+  const inputString = require( 'string!FUNCTION_BUILDER/input' );
+  const outputString = require( 'string!FUNCTION_BUILDER/output' );
 
   /**
    * @param {NumbersScene} scene - model for this scene

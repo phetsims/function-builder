@@ -5,20 +5,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(

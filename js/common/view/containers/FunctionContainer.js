@@ -6,14 +6,14 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
    * @param {FunctionCreator} functionCreator - creates function instances

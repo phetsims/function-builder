@@ -5,19 +5,19 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
+  const SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   var DEFAULT_MAX_CONTENT_SIZE = new Dimension2(

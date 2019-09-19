@@ -5,16 +5,16 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DemosScreenView = require( 'SUN/demo/DemosScreenView' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var testImageFunctions = require( 'FUNCTION_BUILDER/test/view/testImageFunctions' );
-  var testMysteryFunctionColors = require( 'FUNCTION_BUILDER/test/view/testMysteryFunctionColors' );
+  const DemosScreenView = require( 'SUN/demo/DemosScreenView' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const testImageFunctions = require( 'FUNCTION_BUILDER/test/view/testImageFunctions' );
+  const testMysteryFunctionColors = require( 'FUNCTION_BUILDER/test/view/testMysteryFunctionColors' );
 
   /**
    * @constructor

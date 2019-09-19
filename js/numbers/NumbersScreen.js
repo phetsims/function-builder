@@ -5,21 +5,21 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
-  var NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
+  const NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
+  const screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
 
   /**
    * @param {Tandem} tandem

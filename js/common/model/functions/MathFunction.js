@@ -6,17 +6,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Range = require( 'DOT/Range' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var Util = require( 'DOT/Util' );
+  const AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Range = require( 'DOT/Range' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const Util = require( 'DOT/Util' );
 
   /**
    * @param {string} operator - string representation of the operator

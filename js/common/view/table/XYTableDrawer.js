@@ -10,15 +10,15 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Drawer = require( 'SCENERY_PHET/Drawer' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
+  const Drawer = require( 'SCENERY_PHET/Drawer' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
 
   /**
    * @param {Builder} builder

@@ -5,16 +5,16 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
 
   // strings
-  var xString = require( 'string!FUNCTION_BUILDER/x' );
-  var yString = require( 'string!FUNCTION_BUILDER/y' );
+  const xString = require( 'string!FUNCTION_BUILDER/x' );
+  const yString = require( 'string!FUNCTION_BUILDER/y' );
 
   var FBSymbols = {
     X: xString,

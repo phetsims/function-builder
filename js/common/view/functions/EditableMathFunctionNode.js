@@ -5,18 +5,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBNumberPicker = require( 'FUNCTION_BUILDER/common/view/FBNumberPicker' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBNumberPicker = require( 'FUNCTION_BUILDER/common/view/FBNumberPicker' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {MathFunction} functionInstance

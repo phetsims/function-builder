@@ -11,20 +11,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
-  var FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/builder/FunctionSlotNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MoleCardNode = require( 'FUNCTION_BUILDER/common/view/cards/MoleCardNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
+  const BuilderEndNode = require( 'FUNCTION_BUILDER/common/view/builder/BuilderEndNode' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  const FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/builder/FunctionSlotNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const MoleCardNode = require( 'FUNCTION_BUILDER/common/view/cards/MoleCardNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Shape = require( 'KITE/Shape' );
 
   /**
    * @param {Builder} builder

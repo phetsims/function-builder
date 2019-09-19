@@ -5,13 +5,13 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
    * @param {Property.<Scene>} selectedSceneProperty

@@ -6,23 +6,23 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
-  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
-  var EquationDrawer = require( 'FUNCTION_BUILDER/common/view/equations/EquationDrawer' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
-  var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
-  var XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
-  var XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
+  const EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
+  const EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
+  const EquationDrawer = require( 'FUNCTION_BUILDER/common/view/equations/EquationDrawer' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
+  const NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
+  const SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  const XYGraphDrawer = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphDrawer' );
+  const XYTableDrawer = require( 'FUNCTION_BUILDER/common/view/table/XYTableDrawer' );
 
   /**
    * @param {Scene} scene - model for this scene

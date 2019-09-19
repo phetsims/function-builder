@@ -6,22 +6,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @param {Bounds2} layoutBounds

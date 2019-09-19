@@ -12,17 +12,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Drawer = require( 'SCENERY_PHET/Drawer' );
-  var EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
-  var XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
+  const Drawer = require( 'SCENERY_PHET/Drawer' );
+  const EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
+  const XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
 
   /**
    * @param {Builder} builder

@@ -14,23 +14,23 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
-  var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
+  const Color = require( 'SCENERY/util/Color' );
+  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
+  const Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
 
   // images
-  var warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
+  const warholImage = require( 'mipmap!FUNCTION_BUILDER/functions/warhol.png' );
 
   /**
    * Color maps, for mapping grayscale intensity to RGB.

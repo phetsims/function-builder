@@ -13,27 +13,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var AXIS_OPTIONS = {

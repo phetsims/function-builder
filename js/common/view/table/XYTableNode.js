@@ -18,29 +18,29 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Animation = require( 'TWIXT/Animation' );
-  var CarouselButton = require( 'SUN/buttons/CarouselButton' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Easing = require( 'TWIXT/Easing' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var XYTableHeading = require( 'FUNCTION_BUILDER/common/view/table/XYTableHeading' );
-  var XYTableRow = require( 'FUNCTION_BUILDER/common/view/table/XYTableRow' );
+  const Animation = require( 'TWIXT/Animation' );
+  const CarouselButton = require( 'SUN/buttons/CarouselButton' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const Easing = require( 'TWIXT/Easing' );
+  const EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const XYTableHeading = require( 'FUNCTION_BUILDER/common/view/table/XYTableHeading' );
+  const XYTableRow = require( 'FUNCTION_BUILDER/common/view/table/XYTableRow' );
 
   /**
    * @param {Builder} builder

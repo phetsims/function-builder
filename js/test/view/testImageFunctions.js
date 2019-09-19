@@ -6,52 +6,52 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // image function modules
-  var Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
-  var Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
-  var Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
-  var InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
-  var Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
-  var MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
-  var MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
-  var MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
-  var Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
-  var Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
-  var Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
-  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
+  const Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
+  const Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
+  const Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
+  const InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
+  const Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
+  const MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
+  const MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
+  const MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
+  const Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
+  const Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
+  const Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
+  const Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // other function-builder modules
-  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
+  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
 
   // common modules
-  var Carousel = require( 'SUN/Carousel' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Carousel = require( 'SUN/Carousel' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // images (input cards)
-  var beakerImage = require( 'image!FUNCTION_BUILDER/cards/beaker.png' );
-  var butterflyImage = require( 'image!FUNCTION_BUILDER/cards/butterfly.png' );
-  var cherriesImage = require( 'image!FUNCTION_BUILDER/cards/cherries.png' );
-  var circleImage = require( 'image!FUNCTION_BUILDER/cards/circle.png' );
-  var feetImage = require( 'image!FUNCTION_BUILDER/cards/feet.png' );
-  var planetImage = require( 'image!FUNCTION_BUILDER/cards/planet.png' );
-  var rectangleImage = require( 'image!FUNCTION_BUILDER/cards/rectangle.png' );
-  var snowflakeImage = require( 'image!FUNCTION_BUILDER/cards/snowflake.png' );
-  var starImage = require( 'image!FUNCTION_BUILDER/cards/star.png' );
-  var stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
-  var sunImage = require( 'image!FUNCTION_BUILDER/cards/sun.png' );
-  var triangleImage = require( 'image!FUNCTION_BUILDER/cards/triangle.png' );
+  const beakerImage = require( 'image!FUNCTION_BUILDER/cards/beaker.png' );
+  const butterflyImage = require( 'image!FUNCTION_BUILDER/cards/butterfly.png' );
+  const cherriesImage = require( 'image!FUNCTION_BUILDER/cards/cherries.png' );
+  const circleImage = require( 'image!FUNCTION_BUILDER/cards/circle.png' );
+  const feetImage = require( 'image!FUNCTION_BUILDER/cards/feet.png' );
+  const planetImage = require( 'image!FUNCTION_BUILDER/cards/planet.png' );
+  const rectangleImage = require( 'image!FUNCTION_BUILDER/cards/rectangle.png' );
+  const snowflakeImage = require( 'image!FUNCTION_BUILDER/cards/snowflake.png' );
+  const starImage = require( 'image!FUNCTION_BUILDER/cards/star.png' );
+  const stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
+  const sunImage = require( 'image!FUNCTION_BUILDER/cards/sun.png' );
+  const triangleImage = require( 'image!FUNCTION_BUILDER/cards/triangle.png' );
 
   /**
    * @param {Bounds2} layoutBounds

@@ -5,34 +5,34 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
-  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ScreenIcon = require( 'JOIST/ScreenIcon' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
+  const EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
+  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ScreenIcon = require( 'JOIST/ScreenIcon' );
+  const SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
   // images
-  var butterflyHiRes = require( 'image!FUNCTION_BUILDER/cards/butterfly-hires.png' );
-  var stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
+  const butterflyHiRes = require( 'image!FUNCTION_BUILDER/cards/butterfly-hires.png' );
+  const stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
 
   // strings
-  var mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
+  const mysteryCharacterString = require( 'string!FUNCTION_BUILDER/mysteryCharacter' );
 
   // constants
   var RADIO_BUTTON_ICON_SCALE = 0.35;

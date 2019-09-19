@@ -7,20 +7,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
-  var NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const EyeCloseNode = require( 'FUNCTION_BUILDER/common/view/EyeCloseNode' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
+  const NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things

@@ -5,15 +5,15 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Drawer = require( 'SCENERY_PHET/Drawer' );
-  var EquationPanel = require( 'FUNCTION_BUILDER/common/view/equations/EquationPanel' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const Drawer = require( 'SCENERY_PHET/Drawer' );
+  const EquationPanel = require( 'FUNCTION_BUILDER/common/view/equations/EquationPanel' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Builder} builder

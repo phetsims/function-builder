@@ -5,15 +5,15 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const CardNode = require( 'FUNCTION_BUILDER/common/view/cards/CardNode' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   // constants
   var DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards

@@ -5,19 +5,19 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   // images
-  var eraseImage = require( 'mipmap!FUNCTION_BUILDER/functions/erase.png' );
+  const eraseImage = require( 'mipmap!FUNCTION_BUILDER/functions/erase.png' );
 
   /**
    * @param {Object} [options]

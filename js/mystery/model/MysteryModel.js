@@ -5,15 +5,15 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
-  var MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
+  const FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
+  const MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
 
   /**
    * @constructor

@@ -5,11 +5,11 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
   var FBCanvasUtils = {
 

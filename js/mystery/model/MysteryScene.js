@@ -5,30 +5,30 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
-  var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  const MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // function modules
-  var Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
-  var Minus = require( 'FUNCTION_BUILDER/common/model/functions/Minus' );
-  var Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
-  var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
+  const Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
+  const Minus = require( 'FUNCTION_BUILDER/common/model/functions/Minus' );
+  const Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
+  const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );

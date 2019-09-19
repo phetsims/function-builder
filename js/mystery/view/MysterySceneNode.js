@@ -5,22 +5,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var EyeToggleButton = require( 'SCENERY_PHET/buttons/EyeToggleButton' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
-  var MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
-  var MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
-  var RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const EyeToggleButton = require( 'SCENERY_PHET/buttons/EyeToggleButton' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  const MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
+  const MysteryFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MysteryFunctionNode' );
+  const RefreshButton = require( 'SCENERY_PHET/buttons/RefreshButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {MysteryScene} scene - model for this scene

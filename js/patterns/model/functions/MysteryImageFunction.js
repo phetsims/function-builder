@@ -5,15 +5,15 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
 
   /**
    * @param {string} mysteryString - string that may contain subscripts and superscripts

@@ -7,13 +7,13 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var Util = require( 'DOT/Util' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const Util = require( 'DOT/Util' );
 
   // maps operator tokens used in challenges to operator symbols used in functions
   var OPERATOR_MAP = {

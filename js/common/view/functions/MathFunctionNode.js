@@ -5,17 +5,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   /**
    * @param {MathFunction} functionInstance

@@ -7,18 +7,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things

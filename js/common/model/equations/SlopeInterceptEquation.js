@@ -5,14 +5,14 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied

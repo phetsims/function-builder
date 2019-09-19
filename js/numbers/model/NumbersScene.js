@@ -5,25 +5,25 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
-  var Range = require( 'DOT/Range' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  const Range = require( 'DOT/Range' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // function modules
-  var Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
-  var Minus = require( 'FUNCTION_BUILDER/common/model/functions/Minus' );
-  var Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
-  var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
+  const Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
+  const Minus = require( 'FUNCTION_BUILDER/common/model/functions/Minus' );
+  const Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
+  const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
   var CARD_NUMBERS_RANGE = new Range( -4, 7 );

@@ -6,18 +6,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Emitter = require( 'AXON/Emitter' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const Emitter = require( 'AXON/Emitter' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
    * @param {Object} [options]

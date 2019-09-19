@@ -9,18 +9,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
-  var RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
+  const Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
+  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
 
   // constants
   var ZERO = RationalNumber.withInteger( 0 );

@@ -5,22 +5,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var MysteryScreen = require( 'FUNCTION_BUILDER/mystery/MysteryScreen' );
-  var NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
-  var PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Tandem = require( 'TANDEM/Tandem' );
-  var TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
+  const EquationsScreen = require( 'FUNCTION_BUILDER/equations/EquationsScreen' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const MysteryScreen = require( 'FUNCTION_BUILDER/mystery/MysteryScreen' );
+  const NumbersScreen = require( 'FUNCTION_BUILDER/numbers/NumbersScreen' );
+  const PatternsScreen = require( 'FUNCTION_BUILDER/patterns/PatternsScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const Tandem = require( 'TANDEM/Tandem' );
+  const TestScreen = require( 'FUNCTION_BUILDER/test/TestScreen' );
 
   // strings
-  var functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
+  const functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
   // constants
   var tandem = Tandem.rootTandem;

@@ -5,17 +5,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
-  var ImageCardNode = require( 'FUNCTION_BUILDER/common/view/cards/ImageCardNode' );
-  var ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
+  const CardContainer = require( 'FUNCTION_BUILDER/common/view/containers/CardContainer' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
+  const ImageCardNode = require( 'FUNCTION_BUILDER/common/view/cards/ImageCardNode' );
+  const ImageFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/ImageFunctionNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
 
   /**
    * @param {PatternsScene} scene - model for this scene

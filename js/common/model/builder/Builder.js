@@ -10,17 +10,17 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Emitter = require( 'AXON/Emitter' );
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Emitter = require( 'AXON/Emitter' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // {number} x-offset of center of 'see inside' window from it's corresponding slot in the builder
   var WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -

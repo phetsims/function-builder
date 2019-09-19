@@ -5,21 +5,21 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  var FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
-  var MysteryScreenView = require( 'FUNCTION_BUILDER/mystery/view/MysteryScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
+  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
+  const MysteryScreenView = require( 'FUNCTION_BUILDER/mystery/view/MysteryScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenMysteryString = require( 'string!FUNCTION_BUILDER/screen.mystery' );
+  const screenMysteryString = require( 'string!FUNCTION_BUILDER/screen.mystery' );
 
   /**
    * @param {Tandem} tandem

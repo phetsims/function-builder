@@ -5,18 +5,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const Range = require( 'DOT/Range' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants that are used to compute other constants
   var CARD_SIZE = new Dimension2( 70, 70 );

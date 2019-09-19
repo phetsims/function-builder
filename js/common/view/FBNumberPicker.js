@@ -5,14 +5,14 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  var Property = require( 'AXON/Property' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
+  const Property = require( 'AXON/Property' );
 
   /**
    * @param {Property.<number>} valueProperty

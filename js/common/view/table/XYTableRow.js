@@ -6,20 +6,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  var RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
+  const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
+  const SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
 
   /**
    * @param {NumberCard|EquationCard} card - card that's associated with the row

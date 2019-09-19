@@ -11,28 +11,28 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
-  var HelpfulEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/HelpfulEquationNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
-  var SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
+  const HelpfulEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/HelpfulEquationNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
+  const SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var simplifyString = require( 'string!FUNCTION_BUILDER/simplify' );
+  const simplifyString = require( 'string!FUNCTION_BUILDER/simplify' );
 
   /**
    * @param {Builder} builder

@@ -5,20 +5,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Animation = require( 'TWIXT/Animation' );
-  var Easing = require( 'TWIXT/Easing' );
-  var FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  var FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
-  var ScreenView = require( 'JOIST/ScreenView' );
+  const Animation = require( 'TWIXT/Animation' );
+  const Easing = require( 'TWIXT/Easing' );
+  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
+  const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
+  const ScreenView = require( 'JOIST/ScreenView' );
 
   /**
    * @param {FBModel} model

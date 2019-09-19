@@ -5,14 +5,14 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
-  var FBScreenView = require( 'FUNCTION_BUILDER/common/view/FBScreenView' );
-  var functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
+  const FBScreenView = require( 'FUNCTION_BUILDER/common/view/FBScreenView' );
+  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {EquationsModel} model
