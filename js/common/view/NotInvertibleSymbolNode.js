@@ -1,4 +1,4 @@
-// Copyright 2016-2018, University of Colorado Boulder
+// Copyright 2016-2019, University of Colorado Boulder
 
 /**
  * Symbol used to indicate that a function is not invertible.
