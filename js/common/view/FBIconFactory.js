@@ -37,8 +37,8 @@ define( require => {
   // constants
   const RADIO_BUTTON_ICON_SCALE = 0.35;
   const RADIO_BUTTON_ICON_LINE_WIDTH = 3;
-  const CHECK_BOX_ICON_SCALE = 0.45;
-  const CHECK_BOX_ICON_LINE_WIDTH = 3;
+  const CHECKBOX_ICON_SCALE = 0.45;
+  const CHECKBOX_ICON_LINE_WIDTH = 3;
 
   const FBIconFactory = {
 
@@ -218,8 +218,8 @@ define( require => {
 
       const functionNode = new FunctionBackgroundNode( {
         fill: 'rgb( 147, 231, 129 )',
-        lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
-        scale: CHECK_BOX_ICON_SCALE
+        lineWidth: CHECKBOX_ICON_LINE_WIDTH,
+        scale: CHECKBOX_ICON_SCALE
       } );
 
       const windowLength = 0.75 * functionNode.height;
@@ -264,8 +264,8 @@ define( require => {
 
       const functionNode = new FunctionBackgroundNode( {
         fill: FBColors.HIDDEN_FUNCTION,
-        lineWidth: CHECK_BOX_ICON_LINE_WIDTH,
-        scale: CHECK_BOX_ICON_SCALE
+        lineWidth: CHECKBOX_ICON_LINE_WIDTH,
+        scale: CHECKBOX_ICON_SCALE
       } );
 
       const eyeCloseNode = new EyeCloseNode( {
