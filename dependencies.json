@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.22 Tue Oct 15 2019 14:03:55 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.0.23-rc.1 Tue Oct 15 2019 18:32:06 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "75ddc680797d7e7a6c31e4e7e5eae5346c7c01bd",
+    "sha": "0f873ddd6c72cc061154743f63e4dfa703c515d2",
     "branch": "1.0"
   },
   "joist": {
@@ -34,7 +34,7 @@
   },
   "phet-core": {
     "sha": "718ca7844a0ac743e90b912a6fb04fc8a00f1588",
-    "branch": "function-builder-1.0"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "84d5c397d9eaed4310ddc19a515b951775a5bfc0",
