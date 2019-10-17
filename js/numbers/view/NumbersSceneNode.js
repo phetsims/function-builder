@@ -14,6 +14,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
   const MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  const merge = require( 'PHET_CORE/merge' );
 
   // strings
   const inputString = require( 'string!FUNCTION_BUILDER/input' );
@@ -27,7 +28,7 @@ define( require => {
    */
   function NumbersSceneNode( scene, layoutBounds, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
       functionsPerPage: 3, // number of functions visible in the carousel

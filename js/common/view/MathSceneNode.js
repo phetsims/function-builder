@@ -18,6 +18,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   const NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
   const SceneNode = require( 'FUNCTION_BUILDER/common/view/SceneNode' );
@@ -33,7 +34,7 @@ define( require => {
    */
   function MathSceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
-    options = _.extend( {
+    options = merge( {
       hasTableDrawer: false, // show XY table drawer
       hasGraphDrawer: false, // show XY graph drawer
       hasEquationDrawer: false, // show equation drawer

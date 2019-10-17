@@ -12,6 +12,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
@@ -22,7 +23,7 @@ define( require => {
    */
   function MovableNode( movable, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       draggable: true, // {boolean} is this node draggable?
       allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up

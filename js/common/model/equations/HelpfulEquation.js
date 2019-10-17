@@ -17,6 +17,7 @@ define( require => {
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function HelpfulEquation( mathFunctions, options ) {
 
-    options = _.extend( {
+    options = merge( {
       xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
     }, options );
 

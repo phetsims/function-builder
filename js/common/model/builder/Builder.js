@@ -20,6 +20,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // {number} x-offset of center of 'see inside' window from it's corresponding slot in the builder
@@ -32,7 +33,7 @@ define( require => {
    */
   function Builder( options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // {number} number of function slots
       numberOfSlots: 1,

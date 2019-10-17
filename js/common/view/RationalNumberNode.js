@@ -17,6 +17,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
@@ -31,7 +32,7 @@ define( require => {
 
     assert && assert( rationalNumber instanceof RationalNumber );
 
-    options = _.extend( {
+    options = merge( {
 
       mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
       color: 'black', // {Color|string} color used for all sub-parts of this node

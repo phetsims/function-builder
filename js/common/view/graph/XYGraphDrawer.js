@@ -21,6 +21,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
   const XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
 
@@ -32,14 +33,14 @@ define( require => {
    */
   function XYGraphDrawer( builder, outputContainers, options ) {
 
-    options = _.extend( {
+    options = merge( {
       open: FBConstants.GRAPH_DRAWER_OPEN,
       handleLocation: 'top',
       graphOptions: null // {*} options for XYGraphNode
     }, FBConstants.DRAWER_OPTIONS, options );
 
     // Graph
-    const graphNode = new XYGraphNode( builder, _.extend( {
+    const graphNode = new XYGraphNode( builder, merge( {
       visible: options.open,
       cornerRadius: options.cornerRadius
     }, options.graphOptions ) );

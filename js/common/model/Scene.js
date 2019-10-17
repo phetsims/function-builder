@@ -12,6 +12,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {*[]} cardContent - content that will appear on card, type determined by client
@@ -22,7 +23,7 @@ define( require => {
    */
   function Scene( cardContent, functionCreators, builder, options ) {
 
-    options = _.extend( {
+    options = merge( {
       iconNode: null, // {Node|null} icon that represents the scene
       cardSymbol: null, // {string|null} symbolic input card (e.g. 'x') added to end of card carousel
       numberOfEachCard: 1, // {number} number of instances of each card type

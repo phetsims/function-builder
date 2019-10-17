@@ -16,6 +16,7 @@ define( require => {
   const HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -30,7 +31,7 @@ define( require => {
 
     assert && assert( equation instanceof HelpfulEquation );
 
-    options = _.extend( {}, FBConstants.EQUATION_OPTIONS, {
+    options = merge( {}, FBConstants.EQUATION_OPTIONS, {
       fractionScale: 0.67 // {number} how much to scale fractions
     }, options );
 
@@ -214,7 +215,7 @@ define( require => {
 
           // multiplier in front of term, eg: 2x or 2(x + 2), use RationalNumberNode so that sign is rendered consistently
           operandNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
-            _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
+            merge( {}, RATIONAL_NUMBER_OPTIONS, {
               right: rhsNode.left - options.multiplierXSpacing,
               centerY: nextCenterY
             } ) );
@@ -234,7 +235,7 @@ define( require => {
 
           // denominator, use RationalNumberNode so that sign is rendered consistently
           const denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
-            _.extend( {}, RATIONAL_NUMBER_OPTIONS, {
+            merge( {}, RATIONAL_NUMBER_OPTIONS, {
               font: options.wholeNumberFont
             } ) );
 

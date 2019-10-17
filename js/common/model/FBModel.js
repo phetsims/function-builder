@@ -11,6 +11,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
 
   /**
@@ -20,7 +21,7 @@ define( require => {
    */
   function FBModel( scenes, options ) {
 
-    options = _.extend( {
+    options = merge( {
       defaultScene: scenes[ 0 ]
     }, options );
     assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );

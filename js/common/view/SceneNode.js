@@ -20,6 +20,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const FunctionContainer = require( 'FUNCTION_BUILDER/common/view/containers/FunctionContainer' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const OutputCardsCarousel = require( 'FUNCTION_BUILDER/common/view/OutputCardsCarousel' );
   const PageControl = require( 'SUN/PageControl' );
@@ -49,7 +50,7 @@ define( require => {
 
     phet.log && phet.log( this.constructor.name + '.initialize' );
 
-    options = _.extend( {
+    options = merge( {
       seeInside: false, // {boolean} initial value of seeInsideProperty
       hideFunctions: false, // {boolean} initial value of hideFunctionsProperty
       cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
@@ -88,10 +89,10 @@ define( require => {
       fill: builder.colorScheme.ends,
       centerY: builder.location.y
     };
-    const builderLeftEndNode = new BuilderEndNode( 'left', _.extend( {}, BUILDER_END_OPTIONS, {
+    const builderLeftEndNode = new BuilderEndNode( 'left', merge( {}, BUILDER_END_OPTIONS, {
       centerX: builder.left
     } ) );
-    const builderRightEndNode = new BuilderEndNode( 'right', _.extend( {}, BUILDER_END_OPTIONS, {
+    const builderRightEndNode = new BuilderEndNode( 'right', merge( {}, BUILDER_END_OPTIONS, {
       centerX: builder.right
     } ) );
     const builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
@@ -117,7 +118,7 @@ define( require => {
     } );
 
     // Page control for input carousel
-    const inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, _.extend( {
+    const inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, merge( {
       orientation: 'vertical',
       right: inputCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputCarousel.centerY
@@ -144,7 +145,7 @@ define( require => {
     } );
 
     // Page control for output carousel
-    const outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, _.extend( {
+    const outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, merge( {
       orientation: 'vertical',
       left: outputCarousel.right + PAGE_CONTROL_SPACING,
       centerY: outputCarousel.centerY
@@ -185,7 +186,7 @@ define( require => {
     } );
 
     // Page control for function carousel
-    const functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, _.extend( {
+    const functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, merge( {
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       centerX: functionCarousel.centerX,

@@ -13,6 +13,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
 
   /**
@@ -23,7 +24,7 @@ define( require => {
    */
   function FunctionContainer( functionCreator, functionNodeConstructor, options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: FBConstants.FUNCTION_SIZE
     }, options );
 

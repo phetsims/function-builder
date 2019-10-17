@@ -21,6 +21,7 @@ define( require => {
   const FunctionSlotNode = require( 'FUNCTION_BUILDER/common/view/builder/FunctionSlotNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoleCardNode = require( 'FUNCTION_BUILDER/common/view/cards/MoleCardNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -34,7 +35,7 @@ define( require => {
    */
   function BuilderNode( builder, hideFunctionsProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // body
       bodyStroke: 'black',
@@ -110,14 +111,14 @@ define( require => {
 
     // Left end
     const leftEndNode = new BuilderEndNode( 'left',
-      _.extend( {}, END_OPTIONS, {
+      merge( {}, END_OPTIONS, {
         centerX: bodyNode.left,
         centerY: bodyNode.centerY
       } ) );
 
     // Right end
     const rightEndNode = new BuilderEndNode( 'right',
-      _.extend( {}, END_OPTIONS, {
+      merge( {}, END_OPTIONS, {
         centerX: bodyNode.right,
         centerY: bodyNode.centerY
       } ) );

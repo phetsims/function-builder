@@ -32,10 +32,11 @@ define( require => {
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
-  const Path = require( 'SCENERY/nodes/Path' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -49,7 +50,7 @@ define( require => {
    */
   function XYTableNode( builder, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       size: FBConstants.TABLE_DRAWER_SIZE,
       numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
@@ -92,13 +93,13 @@ define( require => {
     };
 
     // up button
-    const upButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+    const upButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
       cornerRadius: 0,
       arrowDirection: 'up'
     } ) );
 
     // down button
-    const downButton = new CarouselButton( _.extend( {}, BUTTON_OPTIONS, {
+    const downButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
       cornerRadius: options.cornerRadius,
       arrowDirection: 'down'
     } ) );

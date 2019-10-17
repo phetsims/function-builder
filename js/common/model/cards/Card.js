@@ -13,6 +13,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
 
   /**
@@ -21,7 +22,7 @@ define( require => {
    */
   function Card( options ) {
 
-    options = _.extend( {
+    options = merge( {
       animationSpeed: FBConstants.CARD_ANIMATION_SPEED  // {number} distance/second when animating
     }, options );
 

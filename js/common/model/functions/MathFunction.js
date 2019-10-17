@@ -13,6 +13,7 @@ define( require => {
   const AbstractFunction = require( 'FUNCTION_BUILDER/common/model/functions/AbstractFunction' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
@@ -26,7 +27,7 @@ define( require => {
    */
   function MathFunction( operator, applyRationalNumber, options ) {
 
-    options = _.extend( {
+    options = merge( {
       operand: 1, // {number} initial value of operandProperty, an integer
       operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
       zeroOperandValid: true, // {boolean} is zero a valid operand?

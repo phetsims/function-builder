@@ -15,6 +15,7 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Util = require( 'DOT/Util' );
 
   // images
@@ -26,7 +27,7 @@ define( require => {
    */
   function Shrink( options ) {
 
-    options = _.extend( {
+    options = merge( {
       scale: 0.75
     }, options );
     options.name = 'Shrink';

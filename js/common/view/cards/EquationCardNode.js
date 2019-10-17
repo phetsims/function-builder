@@ -15,6 +15,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
   const SlopeInterceptEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/SlopeInterceptEquationNode' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -38,7 +39,7 @@ define( require => {
 
     assert && assert( card instanceof EquationCard );
 
-    options = _.extend( {
+    options = merge( {
       maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
     }, options );
 
@@ -103,7 +104,7 @@ define( require => {
 
       assert && assert( typeof symbol === 'string' );
 
-      options = _.extend( {
+      options = merge( {
         maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 

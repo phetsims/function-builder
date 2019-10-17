@@ -14,6 +14,7 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const ImageCard = require( 'FUNCTION_BUILDER/common/model/cards/ImageCard' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   // constants
   const DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
@@ -32,7 +33,7 @@ define( require => {
 
     assert && assert( card instanceof ImageCard );
 
-    options = _.extend( {
+    options = merge( {
       imageScale: DEFAULT_IMAGE_SCALE
     }, options );
 
@@ -95,7 +96,7 @@ define( require => {
      */
     createGhostNode: function( image, options ) {
 
-      options = _.extend( {
+      options = merge( {
         imageScale: DEFAULT_IMAGE_SCALE
       }, options );
 

@@ -15,6 +15,7 @@ define( require => {
   const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const SceneControl = require( 'FUNCTION_BUILDER/common/view/SceneControl' );
@@ -30,7 +31,7 @@ define( require => {
 
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
       sceneControlYOffset: 20 // offset of scene control's top from top of screen
     }, options );

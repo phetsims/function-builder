@@ -15,6 +15,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -38,7 +39,7 @@ define( require => {
    */
   function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
+    options = merge( {}, FBConstants.CARD_OPTIONS, options );
 
     const self = this;
 
@@ -501,7 +502,7 @@ define( require => {
      */
     createGhostNode: function( contentNode, options ) {
 
-      options = _.extend( {}, FBConstants.CARD_OPTIONS, options );
+      options = merge( {}, FBConstants.CARD_OPTIONS, options );
       options.lineDash = [ 4, 4 ];
       options.opacity = 0.5;
 
@@ -528,7 +529,7 @@ define( require => {
      */
     createEquationXYNode: function( xyNode, options ) {
 
-      options = _.extend( {
+      options = merge( {
         xMargin: 30,
         yMargin: 15,
         minHeight: 35

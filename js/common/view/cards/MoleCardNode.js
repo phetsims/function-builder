@@ -13,6 +13,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -23,7 +24,7 @@ define( require => {
    */
   function MoleCardNode( card, builderLocation, options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: FBConstants.CARD_OPTIONS.size,
       cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
       fill: 'white',

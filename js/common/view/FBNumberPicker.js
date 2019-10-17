@@ -11,6 +11,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Property = require( 'AXON/Property' );
 
@@ -22,7 +23,7 @@ define( require => {
    */
   function FBNumberPicker( valueProperty, valueRange, options ) {
 
-    options = _.extend( {
+    options = merge( {
       touchAreaXDilation: 0, // so that it's easier to grab the function's background
       xMargin: 6,
       skipZero: false // {boolean} whether to skip zero value

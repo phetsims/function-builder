@@ -17,6 +17,7 @@ define( require => {
   const FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  const merge = require( 'PHET_CORE/merge' );
   const MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -41,7 +42,7 @@ define( require => {
    */
   function MysteryScene( challengePool, options ) {
 
-    options = _.extend( {
+    options = merge( {
       numberOfSlots: 1,
       numberOfEachCard: 1
     }, options );

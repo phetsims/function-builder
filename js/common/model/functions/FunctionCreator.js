@@ -12,6 +12,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {constructor} functionConstructor - constructor for a function
@@ -36,7 +37,7 @@ define( require => {
      * @returns {AbstractFunction}
      */
     createInstance: function( options ) {
-      return new this.functionConstructor( _.extend( {}, this.functionConstructorOptions, options ) );
+      return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );
     }
   } );
 } );

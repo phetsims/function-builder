@@ -13,6 +13,7 @@ define( require => {
   const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
   const NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
   const Property = require( 'AXON/Property' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function NumbersScreen( tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       name: screenNumbersString,
       backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon()

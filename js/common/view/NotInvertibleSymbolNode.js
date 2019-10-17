@@ -18,6 +18,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
 
   /**
@@ -26,7 +27,7 @@ define( require => {
    */
   function NotInvertibleSymbolNode( options ) {
 
-    options = _.extend( {
+    options = merge( {
       radius: 20,
       lineWidth: 5,
       stroke: 'red',

@@ -15,6 +15,7 @@ define( require => {
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -39,7 +40,7 @@ define( require => {
 
     assert && assert( card instanceof NumberCard );
 
-    options = _.extend( {
+    options = merge( {
       maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
     }, options );
 
@@ -106,7 +107,7 @@ define( require => {
 
       assert && assert( rationalNumber instanceof RationalNumber );
 
-      options = _.extend( {
+      options = merge( {
         maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
       }, options );
 

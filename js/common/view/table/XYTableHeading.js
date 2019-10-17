@@ -14,6 +14,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -27,7 +28,7 @@ define( require => {
    */
   function XYTableHeading( xSymbol, ySymbol, options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: new Dimension2( 100, 25 ),
       font: FBConstants.TABLE_XY_HEADING_FONT,
       xMargin: 10,
@@ -53,12 +54,12 @@ define( require => {
       maxHeight: xyMaxHeight
     };
 
-    const xLabelNode = new Text( xSymbol, _.extend( {}, LABEL_OPTIONS, {
+    const xLabelNode = new Text( xSymbol, merge( {}, LABEL_OPTIONS, {
       centerX: 0.25 * backgroundNode.width,
       centerY: backgroundNode.centerY
     } ) );
 
-    const yLabelNode = new Text( ySymbol, _.extend( {}, LABEL_OPTIONS, {
+    const yLabelNode = new Text( ySymbol, merge( {}, LABEL_OPTIONS, {
       centerX: 0.75 * backgroundNode.width,
       centerY: backgroundNode.centerY
     } ) );

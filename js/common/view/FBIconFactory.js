@@ -19,6 +19,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const Image = require( 'SCENERY/nodes/Image' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -52,7 +53,7 @@ define( require => {
      */
     createPatternsScreenIcon: function( options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: FBColors.PATTERNS_SCREEN_BACKGROUND
       }, options );
 
@@ -81,7 +82,7 @@ define( require => {
      */
     createNumbersScreenIcon: function( options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: FBColors.NUMBERS_SCREEN_BACKGROUND
       }, options );
 
@@ -126,7 +127,7 @@ define( require => {
      */
     createEquationsScreenIcon: function( options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
         maxIconWidthProportion: 0.75
       }, options );
@@ -144,7 +145,7 @@ define( require => {
      */
     createMysteryScreenIcon: function( options ) {
 
-      options = _.extend( {
+      options = merge( {
         fill: FBColors.MYSTERY_SCREEN_BACKGROUND,
         functionFill: 'rgb( 147, 231, 128 )',
         questionMarkFill: 'black'
@@ -177,7 +178,7 @@ define( require => {
      */
     createSceneIcon: function( numberOfFunctions, options ) {
 
-      options = _.extend( {
+      options = merge( {
         colors: [ 'rgb( 147, 231, 129 )', 'rgb( 205, 175, 230 )', 'rgb( 255, 120, 120 )' ],
         scale: RADIO_BUTTON_ICON_SCALE,
         lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH
@@ -211,7 +212,7 @@ define( require => {
      */
     createSeeInsideIcon: function( options ) {
 
-      options = _.extend( {
+      options = merge( {
         iconType: 'number' // {string} whether to show a 'number' or 'image' on the card in the window
       }, options );
       assert && assert( options.iconType === 'number' || options.iconType === 'image' );

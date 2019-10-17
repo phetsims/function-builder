@@ -15,6 +15,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -52,7 +53,7 @@ define( require => {
    */
   function PatternsScene( options ) {
 
-    options = _.extend( {
+    options = merge( {
       numberOfSlots: 1, // number of slots in the builder
       numberOfEachCard: 1, // number of instances of each card type
       numberOfEachFunction: 1 // number of instances of each function type

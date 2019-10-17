@@ -24,6 +24,7 @@ define( require => {
   const HelpfulEquation = require( 'FUNCTION_BUILDER/common/model/equations/HelpfulEquation' );
   const HelpfulEquationNode = require( 'FUNCTION_BUILDER/common/view/equations/HelpfulEquationNode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const SlopeInterceptEquation = require( 'FUNCTION_BUILDER/common/model/equations/SlopeInterceptEquation' );
@@ -42,7 +43,7 @@ define( require => {
    */
   function EquationPanel( builder, slopeInterceptProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: 0,
       xSymbol: FBSymbols.X, // {string} symbol for x, the input

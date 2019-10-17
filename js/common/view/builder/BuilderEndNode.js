@@ -15,6 +15,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Matrix3 = require( 'DOT/Matrix3' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -26,7 +27,7 @@ define( require => {
    */
   function BuilderEndNode( orientation, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // ellipse
       radiusX: 15,

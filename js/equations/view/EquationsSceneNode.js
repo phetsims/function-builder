@@ -13,6 +13,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {EquationsScene} scene - model for this scene
@@ -22,7 +23,7 @@ define( require => {
    */
   function EquationsSceneNode( scene, layoutBounds, options ) {
 
-    options = _.extend( {
+    options = merge( {
       cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
       functionsPerPage: 2, // number of functions visible in the carousel
       hasTableDrawer: true, // include an XY table drawer

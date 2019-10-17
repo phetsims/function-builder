@@ -11,6 +11,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   /**
@@ -21,7 +22,7 @@ define( require => {
    */
   function SceneControl( selectedSceneProperty, scenes, options ) {
 
-    options = _.extend( {
+    options = merge( {
       orientation: 'horizontal',
       spacing: 20,
       baseColor: 'white',

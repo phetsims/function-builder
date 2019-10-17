@@ -13,6 +13,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {Object} options
@@ -20,7 +21,7 @@ define( require => {
    */
   function Times( options ) {
 
-    options = _.extend( {
+    options = merge( {
       fill: 'rgb( 237, 165, 222 )',
       pickerColor: 'rgb( 223, 17, 213 )'
     }, options );

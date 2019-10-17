@@ -18,6 +18,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
 
   /**
@@ -29,7 +30,7 @@ define( require => {
    */
   function XYTableDrawer( builder, inputContainers, outputContainers, options ) {
 
-    options = _.extend( {
+    options = merge( {
       open: FBConstants.TABLE_DRAWER_OPEN,
       handleLocation: 'top',
       tableOptions: null, // {*} options for XYTableNode
@@ -40,7 +41,7 @@ define( require => {
 
     }, FBConstants.DRAWER_OPTIONS, options );
 
-    var tableNode = new XYTableNode( builder, _.extend( {
+    var tableNode = new XYTableNode( builder, merge( {
       updateEnabled: options.open,
       cornerRadius: options.cornerRadius
     }, options.tableOptions ) );

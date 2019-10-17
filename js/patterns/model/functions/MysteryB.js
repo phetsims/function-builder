@@ -12,6 +12,7 @@ define( require => {
   const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MysteryImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryImageFunction' );
 
   // strings
@@ -22,7 +23,7 @@ define( require => {
    * @constructor
    */
   function MysteryB( options ) {
-    MysteryImageFunction.call( this, mysteryBString, _.extend( {
+    MysteryImageFunction.call( this, mysteryBString, merge( {
       name: 'MysteryB',
       fill: 'rgb( 249, 144, 99 )'
     }, options ) );

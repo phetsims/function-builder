@@ -14,6 +14,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
 
@@ -23,7 +24,7 @@ define( require => {
    */
   function Movable( options ) {
 
-    options = _.extend( {
+    options = merge( {
       location: new Vector2( 0, 0 ), // {Vector2} initial location
       dragging: false, // {boolean} is this instance being dragged by the user?
       animationSpeed: 100 // {number} distance/second when animating

@@ -13,6 +13,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
+  const merge = require( 'PHET_CORE/merge' );
   const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -28,7 +29,7 @@ define( require => {
    */
   function MysteryFunctionNode( functionInstance, container, builderNode, dragLayer, options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: FBConstants.FUNCTION_SIZE,
       identityVisible: false, // function's identity is not initially visible
       hiddenFill: null, // don't change fill color when identity is hidden

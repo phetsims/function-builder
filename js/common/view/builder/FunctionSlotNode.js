@@ -13,6 +13,7 @@ define( require => {
   const FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {Object} [options]
@@ -20,7 +21,7 @@ define( require => {
    */
   function FunctionSlotNode( options ) {
 
-    options = _.extend( {
+    options = merge( {
       fill: null,
       stroke: 'white',
       lineDash: [ 4, 4 ]

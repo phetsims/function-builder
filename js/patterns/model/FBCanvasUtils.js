@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const merge = require( 'PHET_CORE/merge' );
 
   var FBCanvasUtils = {
 
@@ -36,7 +37,7 @@ define( require => {
      */
     createCanvasWithImage: function( image, options ) {
 
-      options = _.extend( {
+      options = merge( {
         fillStyle: null  // {string|null} canvas will be filled with this color before drawing the image
       }, options );
 

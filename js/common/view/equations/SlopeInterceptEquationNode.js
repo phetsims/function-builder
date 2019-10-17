@@ -14,6 +14,7 @@ define( require => {
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -30,7 +31,7 @@ define( require => {
     assert && assert( slope instanceof RationalNumber );
     assert && assert( intercept instanceof RationalNumber );
 
-    options = _.extend( {}, FBConstants.EQUATION_OPTIONS, options );
+    options = merge( {}, FBConstants.EQUATION_OPTIONS, options );
 
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [];

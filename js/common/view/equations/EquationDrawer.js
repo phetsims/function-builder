@@ -14,6 +14,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    * @param {Builder} builder
@@ -23,7 +24,7 @@ define( require => {
    */
   function EquationDrawer( builder, slopeInterceptProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       open: FBConstants.EQUATION_DRAWER_OPEN,
       handleLocation: 'bottom',
       equationOptions: null, // {*} options for EquationPanel
@@ -34,7 +35,7 @@ define( require => {
 
     }, FBConstants.DRAWER_OPTIONS, options );
 
-    var equationPanel = new EquationPanel( builder, slopeInterceptProperty, _.extend( {
+    var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       updateEnabled: options.open,
       cornerRadius: options.cornerRadius

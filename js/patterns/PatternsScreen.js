@@ -13,6 +13,7 @@ define( require => {
   const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const PatternsModel = require( 'FUNCTION_BUILDER/patterns/model/PatternsModel' );
   const PatternsScreenView = require( 'FUNCTION_BUILDER/patterns/view/PatternsScreenView' );
   const Property = require( 'AXON/Property' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function PatternsScreen( tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       name: screenPatternsString,
       backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon()

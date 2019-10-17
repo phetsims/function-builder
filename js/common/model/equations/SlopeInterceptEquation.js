@@ -12,6 +12,7 @@ define( require => {
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
 
   /**
@@ -21,7 +22,7 @@ define( require => {
    */
   function SlopeInterceptEquation( mathFunctions, options ) {
 
-    options = _.extend( {
+    options = merge( {
       xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
     }, options );
 

@@ -15,6 +15,7 @@ define( require => {
   const FunctionCreator = require( 'FUNCTION_BUILDER/common/model/functions/FunctionCreator' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathBuilder = require( 'FUNCTION_BUILDER/common/model/builder/MathBuilder' );
+  const merge = require( 'PHET_CORE/merge' );
   const Range = require( 'DOT/Range' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
   const Scene = require( 'FUNCTION_BUILDER/common/model/Scene' );
@@ -35,7 +36,7 @@ define( require => {
    */
   function EquationsScene( options ) {
 
-    options = _.extend( {
+    options = merge( {
       numberOfSlots: 3, // number of slots in the builder
       numberOfEachCard: 1, // number of instances of each card type
       numberOfEachFunction: 2, // number of instances of each function type

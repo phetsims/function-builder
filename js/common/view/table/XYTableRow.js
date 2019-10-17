@@ -14,6 +14,7 @@ define( require => {
   const EquationCard = require( 'FUNCTION_BUILDER/common/model/cards/EquationCard' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberCard = require( 'FUNCTION_BUILDER/common/model/cards/NumberCard' );
   const RationalNumberNode = require( 'FUNCTION_BUILDER/common/view/RationalNumberNode' );
@@ -31,7 +32,7 @@ define( require => {
 
     assert && assert( card instanceof NumberCard || card instanceof EquationCard );
 
-    options = _.extend( {
+    options = merge( {
       size: new Dimension2( 100, 10 ),
       cellXMargin: 15,
       cellYMargin: 3,
@@ -111,7 +112,7 @@ define( require => {
    */
   var createCellValueNode = function( card, builder, options ) {
 
-    options = _.extend( {
+    options = merge( {
       numberOfFunctions: 0, // number of functions to apply
       showLeftHandSide: false // don't show the left-hand side (y =) of equations
     }, options );

@@ -15,6 +15,7 @@ define( require => {
   const FBQueryParameters = require( 'FUNCTION_BUILDER/common/FBQueryParameters' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -25,7 +26,7 @@ define( require => {
    */
   function MovableContainer( options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: new Dimension2( 100, 100 ), // {Dimension2} size of the container
       emptyNode: null // {Node|null} node that's visible when the container is empty
     }, options );

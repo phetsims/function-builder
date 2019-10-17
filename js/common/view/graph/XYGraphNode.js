@@ -26,6 +26,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -52,7 +53,7 @@ define( require => {
    */
   function XYGraphNode( builder, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
       cornerRadius: 0,
@@ -371,7 +372,7 @@ define( require => {
    */
   function PointNode( point, modelViewTransform, options ) {
 
-    options = _.extend( {
+    options = merge( {
       radius: 1,
       fill: 'white',
       stroke: 'black',

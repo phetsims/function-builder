@@ -12,6 +12,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
   const Property = require( 'AXON/Property' );
 
@@ -21,7 +22,7 @@ define( require => {
    */
   function AbstractFunction( options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // {string} optional name, for internal debugging
       name: null,

@@ -17,6 +17,7 @@ define( require => {
   const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
 
@@ -26,7 +27,7 @@ define( require => {
    */
   function FunctionBackgroundNode( options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // Shape
       size: FBConstants.FUNCTION_SIZE, // {Dimensions2}

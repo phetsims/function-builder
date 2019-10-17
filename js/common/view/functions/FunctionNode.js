@@ -19,6 +19,7 @@ define( require => {
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const FunctionSlot = require( 'FUNCTION_BUILDER/common/model/builder/FunctionSlot' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableNode = require( 'FUNCTION_BUILDER/common/view/MovableNode' );
   const NotInvertibleSymbolNode = require( 'FUNCTION_BUILDER/common/view/NotInvertibleSymbolNode' );
 
@@ -39,7 +40,7 @@ define( require => {
    */
   function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       size: FBConstants.FUNCTION_SIZE, // {Dimension2} size of the background
       identityVisible: true, // {boolean} is the function's identity visible?
@@ -56,7 +57,7 @@ define( require => {
 
     const self = this;
 
-    const backgroundNode = new FunctionBackgroundNode( _.extend( {
+    const backgroundNode = new FunctionBackgroundNode( merge( {
       size: options.size
     }, functionInstance.viewOptions ) );
 

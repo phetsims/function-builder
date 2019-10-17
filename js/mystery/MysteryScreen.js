@@ -13,6 +13,7 @@ define( require => {
   const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MysteryModel = require( 'FUNCTION_BUILDER/mystery/model/MysteryModel' );
   const MysteryScreenView = require( 'FUNCTION_BUILDER/mystery/view/MysteryScreenView' );
   const Property = require( 'AXON/Property' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function MysteryScreen( tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       name: screenMysteryString,
       backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon()
