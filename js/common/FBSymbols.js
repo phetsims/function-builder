@@ -23,7 +23,7 @@ define( require => {
     MINUS: MathSymbols.MINUS,
     PLUS: MathSymbols.PLUS,
     TIMES: MathSymbols.TIMES,
-    EQUAL_TO: MathSymbols.EQUAL_TO //TODO rename EQUAL_TO
+    EQUAL_TO: MathSymbols.EQUAL_TO
   };
 
   functionBuilder.register( 'FBSymbols', FBSymbols );
