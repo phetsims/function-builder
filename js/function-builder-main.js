@@ -23,7 +23,7 @@ define( require => {
   const functionBuilderTitleString = require( 'string!FUNCTION_BUILDER/function-builder.title' );
 
   // constants
-  const tandem = Tandem.rootTandem;
+  const tandem = Tandem.ROOT;
 
   const options = {
     credits: {
