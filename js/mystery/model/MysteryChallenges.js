@@ -13,7 +13,7 @@ define( require => {
   // modules
   const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // maps operator tokens used in challenges to operator symbols used in functions
   const OPERATOR_MAP = {
@@ -149,7 +149,7 @@ define( require => {
 
         // validation
         assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
-        assert && assert( Util.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
+        assert && assert( Utils.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
         assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS  ),
           'negative operand not allowed with plus in challenge: ' + challenge );
         assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),

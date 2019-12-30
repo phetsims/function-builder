@@ -17,7 +17,7 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param {string} operator - string representation of the operator
@@ -34,7 +34,7 @@ define( require => {
       pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
     }, options );
 
-    assert && assert( Util.isInteger( options.operand ) );
+    assert && assert( Utils.isInteger( options.operand ) );
     assert && assert( !options.operandRange || options.operandRange.contains( options.operand ) );
     assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
@@ -53,7 +53,7 @@ define( require => {
     this.operandProperty.lazyLink( function( operand ) {
 
       // validate operand
-      assert && assert( Util.isInteger( operand ) );
+      assert && assert( Utils.isInteger( operand ) );
       assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
       assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
     } );

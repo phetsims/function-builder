@@ -15,7 +15,7 @@ define( require => {
   // modules
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param numerator
@@ -24,8 +24,8 @@ define( require => {
    */
   function RationalNumber( numerator, denominator ) {
 
-    assert && assert( Util.isInteger( numerator ) );
-    assert && assert( Util.isInteger( denominator ) );
+    assert && assert( Utils.isInteger( numerator ) );
+    assert && assert( Utils.isInteger( denominator ) );
 
     // @private {BigRational} bigRat is a global created by preloading BigRational.js
     this.bigRational = bigRat( numerator, denominator );
@@ -101,7 +101,7 @@ define( require => {
      * @public
      */
     plus: function( integerValue ) {
-      assert && assert( Util.isInteger( integerValue ) );
+      assert && assert( Utils.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.plus( integerValue ) );
     },
 
@@ -113,7 +113,7 @@ define( require => {
      * @public
      */
     minus: function( integerValue ) {
-      assert && assert( Util.isInteger( integerValue ) );
+      assert && assert( Utils.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.minus( integerValue ) );
     },
 
@@ -125,7 +125,7 @@ define( require => {
      * @public
      */
     times: function( integerValue ) {
-      assert && assert( Util.isInteger( integerValue ) );
+      assert && assert( Utils.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.times( integerValue ) );
     },
 
@@ -137,7 +137,7 @@ define( require => {
      * @public
      */
     divide: function( integerValue ) {
-      assert && assert( Util.isInteger( integerValue ) );
+      assert && assert( Utils.isInteger( integerValue ) );
       return toRationalNumber( this.bigRational.divide( integerValue ) );
     },
 
@@ -192,7 +192,7 @@ define( require => {
      * @static
      */
     withInteger: function( integerValue ) {
-      assert && assert( Util.isInteger( integerValue ) );
+      assert && assert( Utils.isInteger( integerValue ) );
       return new RationalNumber( integerValue, 1 );
     }
   } );
