@@ -16,7 +16,7 @@ define( require => {
   const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // images
   const shrinkImage = require( 'mipmap!FUNCTION_BUILDER/functions/shrink.png' );
@@ -49,7 +49,7 @@ define( require => {
    * @returns {number}
    */
   const toEvenInteger = function( value ) {
-    let newValue = Util.roundSymmetric( value );
+    let newValue = Utils.roundSymmetric( value );
     if ( newValue % 2 !== 0 ) {
       newValue++;
     }
