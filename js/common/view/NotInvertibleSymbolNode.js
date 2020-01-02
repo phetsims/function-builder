@@ -1,10 +1,7 @@
 // Copyright 2016-2019, University of Colorado Boulder
 
 /**
- * Symbol used to indicate that a function is not invertible.
- * Consists of the universal 'no' symbol (circle with slash).
- * Displayed on a function when it blocks a card from passing through the builder.
- * Animation gradually fades it out.
+ * Adds fade-in/fade-out animation to the BanNode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,59 +10,30 @@ define( require => {
 
   // modules
   const Animation = require( 'TWIXT/Animation' );
-  const Circle = require( 'SCENERY/nodes/Circle' );
+  const BanNode = require( 'FUNCTION_BUILDER/common/view/BanNode' );
   const Easing = require( 'TWIXT/Easing' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Line = require( 'SCENERY/nodes/Line' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NotInvertibleSymbolNode( options ) {
+  class NotInvertibleSymbolNode extends BanNode {
 
-    options = merge( {
-      radius: 20,
-      lineWidth: 5,
-      stroke: 'red',
-      fill: 'white'
-    }, options );
+    /**
+     * @param {Object} [options]
+     * @constructor
+     */
+    constructor( options ) {
 
-    const circleNode = new Circle( options.radius, {
-      lineWidth: options.lineWidth,
-      stroke: options.stroke,
-      fill: options.fill
-    } );
+      super( options );
 
-    const slashNode = new Line( 0, 0, 2 * options.radius, 0, {
-      lineWidth: options.lineWidth,
-      stroke: options.stroke,
-      rotation: Math.PI / 4,
-      center: circleNode.center
-    } );
-
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ circleNode, slashNode ];
-
-    // @private {Animation} animation that fades this node out
-    this.animation = null;
-
-    Node.call( this, options );
-  }
-
-  functionBuilder.register( 'NotInvertibleSymbolNode', NotInvertibleSymbolNode );
-
-  return inherit( Node, NotInvertibleSymbolNode, {
+      // @private {Animation|null} animation that fades this node out
+      this.animation = null;
+    }
 
     /**
      * Starts animation.
      *
      * @public
      */
-    startAnimation: function() {
+    startAnimation() {
 
       const self = this;
 
@@ -82,26 +50,32 @@ define( require => {
         to: 0
       } );
 
-      this.animation.endedEmitter.addListener( function endedListener() {
-        self.visible = false;
-        self.animation.endedEmitter.removeListener( endedListener );
-        self.animation = null;
-      } );
+      const endedListener = ()=>{
+        this.visible = false;
+        this.animation.endedEmitter.removeListener( endedListener );
+        this.animation = null;
+      };
+
+      this.animation.endedEmitter.addListener( endedListener );
 
       this.visible = true;
       this.animation.start();
-    },
+    }
 
     /**
      * Stops animation. If no animation is in progress, this is a no-op.
      *
      * @public
      */
-    stopAnimation: function() {
+    stopAnimation() {
       if ( this.animation ) {
         this.animation.stop();
         this.visible = false;
       }
     }
-  } );
+  }
+
+  functionBuilder.register( 'NotInvertibleSymbolNode', NotInvertibleSymbolNode );
+
+  return NotInvertibleSymbolNode;
 } );
