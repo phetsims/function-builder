@@ -35,8 +35,6 @@ define( require => {
      */
     startAnimation() {
 
-      const self = this;
-
       // stop animation if it's already running
       this.animation && this.animation.stop();
 
