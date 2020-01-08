@@ -58,9 +58,9 @@ define( require => {
 
     }, options );
 
-    assert && assert( !options.x && !options.y, 'location is determined by model' );
-    options.x = builder.location.x;
-    options.y = builder.location.y;
+    assert && assert( !options.x && !options.y, 'position is determined by model' );
+    options.x = builder.position.x;
+    options.y = builder.position.y;
 
     // To improve readability of shape code
     const colorScheme = builder.colorScheme;
@@ -129,8 +129,8 @@ define( require => {
     for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
       slotNodes.push( new FunctionSlotNode( {
-        // centered at slot locations
-        center: builder.slots[ i ].location.minus( builder.location )
+        // centered at slot positions
+        center: builder.slots[ i ].position.minus( builder.position )
       } ) );
 
       functionNodes[ i ] = null; // empty functions are null
@@ -210,7 +210,7 @@ define( require => {
       // add to view
       this.functionNodes[ slotNumber ] = functionNode;
       this.functionsParent.addChild( functionNode );
-      functionNode.center = this.builder.slots[ slotNumber ].location.minus( this.builder.location ); // center in slot
+      functionNode.center = this.builder.slots[ slotNumber ].position.minus( this.builder.position ); // center in slot
 
       // add to model
       this.builder.addFunctionInstance( functionNode.functionInstance, slotNumber );
@@ -234,10 +234,10 @@ define( require => {
       const slotNumber = this.functionNodes.indexOf( functionNode );
       assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
 
-      // remove from view, restore location in model coordinate frame
+      // remove from view, restore position in model coordinate frame
       this.functionNodes[ slotNumber ] = null;
       this.functionsParent.removeChild( functionNode );
-      functionNode.center = functionNode.functionInstance.locationProperty.get();
+      functionNode.center = functionNode.functionInstance.positionProperty.get();
 
       // remove from model
       this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );
@@ -281,7 +281,7 @@ define( require => {
      * @public
      */
     addMole: function( card ) {
-      this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.location ) );
+      this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.position ) );
     }
   } );
 } );

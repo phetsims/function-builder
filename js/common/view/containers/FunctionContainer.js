@@ -58,13 +58,13 @@ define( require => {
      */
     createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
 
-      assert && assert( this.carouselLocation );
+      assert && assert( this.carouselPosition );
       assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
 
       for ( let i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        const functionInstance = this.functionCreator.createInstance( { location: this.carouselLocation } );
+        const functionInstance = this.functionCreator.createInstance( { position: this.carouselPosition } );
         scene.functionInstances.push( functionInstance );
 
         // associated Node

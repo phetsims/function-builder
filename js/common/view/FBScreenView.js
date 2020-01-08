@@ -86,7 +86,7 @@ define( require => {
 
     /**
      * After the scene graph is fully constructed, populate parts of the model that
-     * depend on the location of things in the view.
+     * depend on the position of things in the view.
      */
     sceneNodes.forEach( function( sceneNode ) {
       sceneNode && sceneNode.completeInitialization();

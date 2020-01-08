@@ -76,12 +76,12 @@ define( require => {
         } );
 
         // button below the slot
-        const slotLocation = scene.builder.slots[ slotNumber ].location;
+        const slotPosition = scene.builder.slots[ slotNumber ].position;
         const revealButton = new EyeToggleButton( revealProperty, {
           baseColor: FBColors.HIDDEN_FUNCTION,
           scale: 0.75,
-          centerX: slotLocation.x,
-          top: slotLocation.y + 65
+          centerX: slotPosition.x,
+          top: slotPosition.y + 65
         } );
         self.revealButtons.push( revealButton );
         self.controlsLayer.addChild( revealButton );

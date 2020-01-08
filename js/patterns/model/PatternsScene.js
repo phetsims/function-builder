@@ -106,7 +106,7 @@ define( require => {
     const builder = new Builder( {
       numberOfSlots: options.numberOfSlots,
       width: builderWidth,
-      location: new Vector2( builderX, FBConstants.BUILDER_Y )
+      position: new Vector2( builderX, FBConstants.BUILDER_Y )
     } );
 
     Scene.call( this, cardContent, functionCreators, builder, options );

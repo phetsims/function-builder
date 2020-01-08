@@ -107,7 +107,7 @@ define( require => {
         // function is in the carousel, pop it out
         container.removeNode( self );
         dragLayer.addChild( self );
-        functionInstance.moveTo( container.carouselLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+        functionInstance.moveTo( container.carouselPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else if ( builderNode.containsFunctionNode( self ) ) {
 
@@ -118,9 +118,9 @@ define( require => {
 
         // pop it out of the builder
         slotNumberRemovedFrom = builderNode.removeFunctionNode( self );
-        const slotLocation = builderNode.builder.getSlotLocation( slotNumberRemovedFrom );
+        const slotPosition = builderNode.builder.getSlotPosition( slotNumberRemovedFrom );
         dragLayer.addChild( self );
-        functionInstance.moveTo( slotLocation.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+        functionInstance.moveTo( slotPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
       }
       else {
         // function was grabbed while in dragLayer, do nothing
@@ -137,7 +137,7 @@ define( require => {
       assert && assert( dragLayer.hasChild( self ), 'endDrag: function should be in dragLayer' );
 
       // Find the closest slot in the builder
-      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.locationProperty.get(),
+      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.positionProperty.get(),
         FBConstants.FUNCTION_DISTANCE_THRESHOLD );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
@@ -194,7 +194,7 @@ define( require => {
       const builder = builderNode.builder;
       const dragLayer = this.dragLayer;
 
-      this.functionInstance.animateTo( builder.getSlotLocation( slotNumber ),
+      this.functionInstance.animateTo( builder.getSlotPosition( slotNumber ),
         function() {
 
           // If the slot is occupied, relocate the occupier.
@@ -244,8 +244,8 @@ define( require => {
       }
 
       // move to builder
-      const slotLocation = this.builderNode.builder.getSlotLocation( slotNumber );
-      this.functionInstance.moveTo( slotLocation );
+      const slotPosition = this.builderNode.builder.getSlotPosition( slotNumber );
+      this.functionInstance.moveTo( slotPosition );
       this.builderNode.addFunctionNode( this, slotNumber );
     },
 
@@ -257,7 +257,7 @@ define( require => {
     animateToCarousel: function() {
       assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
       const self = this;
-      self.functionInstance.animateTo( self.container.carouselLocation,
+      self.functionInstance.animateTo( self.container.carouselPosition,
         function() {
           self.dragLayer.removeChild( self );
           self.container.addNode( self );

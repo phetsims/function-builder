@@ -62,13 +62,13 @@ define( require => {
         'cards must be created in the input carousel' );
       assert && assert( inputContainer.isEmpty() && outputContainer.isEmpty(),
         'did you accidentally call this function twice?' );
-      assert && assert( inputContainer.carouselLocation && outputContainer.carouselLocation,
+      assert && assert( inputContainer.carouselPosition && outputContainer.carouselPosition,
         'did you call this before containers were attached to ScreenView?' );
 
       for ( let i = 0; i < numberOfInstances; i++ ) {
 
         // model element
-        const card = new this.cardConstructor( this.cardContent, { location: inputContainer.carouselLocation } );
+        const card = new this.cardConstructor( this.cardContent, { position: inputContainer.carouselPosition } );
         scene.cards.push( card );
 
         // associated Node
@@ -80,7 +80,7 @@ define( require => {
         // add to 'see inside' layer, for viewing the card through windows
         seeInsideLayer.addCardNode( cardNode );
 
-        // add a 'mole under the carpet' to the builder, synchronizes with the card's location
+        // add a 'mole under the carpet' to the builder, synchronizes with the card's position
         builderNode.addMole( card );
       }
     }

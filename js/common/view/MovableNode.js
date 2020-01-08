@@ -2,7 +2,7 @@
 
 /**
  * Node for a Movable model element.
- * Stays synchronized with the Movable's location and handles dragging.
+ * Stays synchronized with the Movable's position and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,10 +32,10 @@ define( require => {
       endDrag: null, // {function|null} Called at the end of each drag sequence
 
       // {function(Movable, Vector2, Vector2) moves the Movable while dragging
-      translateMovable: function( movable, location, delta ) { movable.moveTo( location ); },
+      translateMovable: function( movable, position, delta ) { movable.moveTo( position ); },
 
-      // {function(Node, Vector2)} moves the Node when the Movable's location changes
-      translateNode: function( node, location ) { node.center = location; }
+      // {function(Node, Vector2)} moves the Node when the Movable's position changes
+      translateNode: function( node, position ) { node.center = position; }
 
     }, options );
 
@@ -48,12 +48,12 @@ define( require => {
     Node.call( this, options );
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    movable.locationProperty.link( function( location ) {
-        options.translateNode( self, location );
+    movable.positionProperty.link( function( position ) {
+        options.translateNode( self, position );
       }
     );
 
-    let startDragOffset; // {Vector2} where the drag started relative to locationProperty, in parent view coordinates
+    let startDragOffset; // {Vector2} where the drag started relative to positionProperty, in parent view coordinates
 
     // @private
     if ( options.draggable ) {
@@ -68,16 +68,16 @@ define( require => {
 
           // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
           const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.locationProperty.get() );
+          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.positionProperty.get() );
         },
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
         drag: function( event, trail ) {
-          const previousLocation = movable.locationProperty.get();
+          const previousPosition = movable.positionProperty.get();
           const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          const location = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
-          const delta = location.minus( previousLocation );
-          options.translateMovable( movable, location, delta );
+          const position = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
+          const delta = position.minus( previousPosition );
+          options.translateMovable( movable, position, delta );
         },
 
         end: function( event, trail ) {

@@ -34,12 +34,12 @@ define( require => {
     const windowsShape = new Shape();
     for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
-      const windowLocation = builder.getWindowLocation( i );
-      const windowLeft = windowLocation.x - ( WINDOW_SIZE.width / 2 );
-      const windowY = windowLocation.y - ( WINDOW_SIZE.height / 2 );
+      const windowPosition = builder.getWindowPosition( i );
+      const windowLeft = windowPosition.x - ( WINDOW_SIZE.width / 2 );
+      const windowY = windowPosition.y - ( WINDOW_SIZE.height / 2 );
       if ( i !== 0 ) {
         // move to center of rounded rect, so we don't see a line at rounded corner
-        windowsShape.moveTo( windowLocation.x, windowY );
+        windowsShape.moveTo( windowPosition.x, windowY );
       }
       windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
     }

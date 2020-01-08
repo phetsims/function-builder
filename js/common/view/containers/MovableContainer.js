@@ -31,8 +31,8 @@ define( require => {
       emptyNode: null // {Node|null} node that's visible when the container is empty
     }, options );
 
-    // @public location of container when it's visible in the carousel. Set after carousel is attached to scene.
-    this.carouselLocation = null;
+    // @public position of container when it's visible in the carousel. Set after carousel is attached to scene.
+    this.carouselPosition = null;
 
     // @private invisible background, so that an empty container has dimensions
     this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -88,7 +88,7 @@ define( require => {
 
       // add the node
       this.contentsParent.addChild( node );
-      node.movable.moveTo( this.carouselLocation );
+      node.movable.moveTo( this.carouselPosition );
       node.center = this.backgroundNode.center;
 
       // update count

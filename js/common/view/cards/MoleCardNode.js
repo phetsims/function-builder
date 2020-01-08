@@ -18,11 +18,11 @@ define( require => {
 
   /**
    * @param {Card} card
-   * @param {Vector2} builderLocation
+   * @param {Vector2} builderPosition
    * @param {Object} [options]
    * @constructor
    */
-  function MoleCardNode( card, builderLocation, options ) {
+  function MoleCardNode( card, builderPosition, options ) {
 
     options = merge( {
       size: FBConstants.CARD_OPTIONS.size,
@@ -38,8 +38,8 @@ define( require => {
     const self = this;
 
     // unlink unnecessary, instances exist for lifetime of the sim
-    card.locationProperty.link( function( location ) {
-      self.center = location.minus( builderLocation );
+    card.positionProperty.link( function( position ) {
+      self.center = position.minus( builderPosition );
     } );
   }
 

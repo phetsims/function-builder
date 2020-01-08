@@ -47,8 +47,8 @@ define( require => {
       // {number} height of the builder at its waist
       waistHeight: FBConstants.FUNCTION_SIZE.height + 20,
 
-      // {Vector2} location of the center of the input
-      location: new Vector2( 0, 0 ),
+      // {Vector2} position of the center of the input
+      position: new Vector2( 0, 0 ),
 
       // {*} color scheme for builder, with these properties:
       // top - top color for vertical gradient
@@ -68,7 +68,7 @@ define( require => {
     this.width = options.width;
     this.endHeight = options.endHeight;
     this.waistHeight = options.waistHeight;
-    this.location = options.location;
+    this.position = options.position;
     this.colorScheme = options.colorScheme;
 
     // width occupied by slots
@@ -80,15 +80,15 @@ define( require => {
 
     // @public {FunctionSlot[]} slots
     this.slots = [];
-    const leftSlotLocation = new Vector2( this.location.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.location.y );
+    const leftSlotPosition = new Vector2( this.position.x + ( this.width - totalWidthOfSlots + FBConstants.FUNCTION_SIZE.width ) / 2, this.position.y );
     for ( let i = 0; i < options.numberOfSlots; i++ ) {
 
-      // location is at slot's center
+      // position is at slot's center
       const dx = i * FBConstants.FUNCTION_SIZE.width - i * FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width;
-      const slotLocation = leftSlotLocation.plusXY( dx, 0 );
+      const slotPosition = leftSlotPosition.plusXY( dx, 0 );
 
       // each slot is initially empty
-      this.slots.push( new FunctionSlot( slotLocation ) );
+      this.slots.push( new FunctionSlot( slotPosition ) );
     }
     assert && assert( this.slots.length === this.numberOfSlots );
 
@@ -96,7 +96,7 @@ define( require => {
     this.functionChangedEmitter = new Emitter();
 
     // @public for layout convenience
-    this.left = this.location.x;
+    this.left = this.position.x;
     this.right = this.left + options.width;
     this.centerX = this.left + ( options.width / 2 );
   }
@@ -215,36 +215,36 @@ define( require => {
     },
 
     /**
-     * Gets the location of the specified slot.
+     * Gets the position of the specified slot.
      *
      * @param {number} slotNumber
-     * @returns {Vector2} location in the global coordinate frame
+     * @returns {Vector2} position in the global coordinate frame
      * @public
      */
-    getSlotLocation: function( slotNumber ) {
+    getSlotPosition: function( slotNumber ) {
       assert && assert( this.isValidSlotNumber( slotNumber ) );
-      return this.slots[ slotNumber ].location;
+      return this.slots[ slotNumber ].position;
     },
 
     /**
-     * Gets the slot that is closest to the specified location.
+     * Gets the slot that is closest to the specified position.
      *
-     * @param {Vector2} location - the location of the function instance
-     * @param {number} distanceThreshold - location must be at least this close to slot's location
+     * @param {Vector2} position - the position of the function instance
+     * @param {number} distanceThreshold - position must be at least this close to slot's position
      * @returns {number} slot number, FunctionSlot.NO_SLOT_NUMBER if no slot is close enough
      * @public
      */
-    getClosestSlot: function( location, distanceThreshold ) {
-      assert && assert( location );
+    getClosestSlot: function( position, distanceThreshold ) {
+      assert && assert( position );
       let slotNumber = FunctionSlot.NO_SLOT_NUMBER;
       for ( let i = 0; i < this.slots.length; i++ ) {
         const slot = this.slots[ i ];
         if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
-          if ( slot.location.distance( location ) < distanceThreshold ) {
+          if ( slot.position.distance( position ) < distanceThreshold ) {
             slotNumber = i;
           }
         }
-        else if ( slot.location.distance( location ) < this.slots[ slotNumber ].location.distance( location ) ) {
+        else if ( slot.position.distance( position ) < this.slots[ slotNumber ].position.distance( position ) ) {
           slotNumber = i;
         }
       }
@@ -263,16 +263,16 @@ define( require => {
     },
 
     /**
-     * Gets the location (center) of a 'see inside' window.
+     * Gets the position (center) of a 'see inside' window.
      *
      * @param {number} windowNumber
      * @returns {Vector2}
      * @public
      */
-    getWindowLocation: function( windowNumber ) {
+    getWindowPosition: function( windowNumber ) {
       assert && assert( this.isValidWindowNumber( windowNumber ) );
       const slot = this.slots[ windowNumber ];
-      return new Vector2( slot.location.x + WINDOW_X_OFFSET, slot.location.y );
+      return new Vector2( slot.position.x + WINDOW_X_OFFSET, slot.position.y );
     },
 
     /**
@@ -284,8 +284,8 @@ define( require => {
      */
     getWindowNumberGreaterThan: function( x ) {
       for ( let i = 0; i < this.slots.length; i++ ) {
-        const windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x > x ) {
+        const windowPosition = this.getWindowPosition( i );
+        if ( windowPosition.x > x ) {
           return i;
         }
       }
@@ -301,8 +301,8 @@ define( require => {
      */
     getWindowNumberLessThanOrEqualTo: function( x ) {
       for ( let i = this.slots.length - 1; i >= 0; i-- ) {
-        const windowLocation = this.getWindowLocation( i );
-        if ( windowLocation.x <= x ) {
+        const windowPosition = this.getWindowPosition( i );
+        if ( windowPosition.x <= x ) {
           return i;
         }
       }

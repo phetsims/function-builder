@@ -87,7 +87,7 @@ define( require => {
       radiusX: 15,
       radiusY: builder.endHeight / 2,
       fill: builder.colorScheme.ends,
-      centerY: builder.location.y
+      centerY: builder.position.y
     };
     const builderLeftEndNode = new BuilderEndNode( 'left', merge( {}, BUILDER_END_OPTIONS, {
       centerX: builder.left
@@ -287,14 +287,14 @@ define( require => {
   functionBuilder.register( 'SceneNode', SceneNode );
 
   /**
-   * For a container that is visible in some carousel, gets the location of the container in the global coordinate frame.
+   * For a container that is visible in some carousel, gets the position of the container in the global coordinate frame.
    *
    * @param {Carousel} carousel
    * @param {MovableContainer} container
    * @param {Node} worldParent
    * @returns {Vector2}
    */
-  const getCarouselLocation = function( carousel, container, worldParent ) {
+  const getCarouselPosition = function( carousel, container, worldParent ) {
     assert && assert( !carousel.animationEnabled );
     carousel.scrollToItem( container );
     return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
@@ -391,7 +391,7 @@ define( require => {
 
     /**
      * Completes initialization of the scene. This cannot be done until the scene is attached
-     * to a ScreenView, because we need to know the location of the containers in the carousels.
+     * to a ScreenView, because we need to know the position of the containers in the carousels.
      *
      * @public
      */
@@ -410,8 +410,8 @@ define( require => {
 
       self.functionCarousel.items.forEach( function( functionContainer ) {
 
-        // function container's location
-        functionContainer.carouselLocation = getCarouselLocation( self.functionCarousel, functionContainer, self.functionsDragLayer );
+        // function container's position
+        functionContainer.carouselPosition = getCarouselPosition( self.functionCarousel, functionContainer, self.functionsDragLayer );
 
         // populate the container with functions
         functionContainer.createFunctions( self.scene.numberOfEachFunction, self.scene, self.builderNode, self.functionsDragLayer );
@@ -435,13 +435,13 @@ define( require => {
 
       for ( let i = 0; i < inputContainers.length; i++ ) {
 
-        // input container's location
+        // input container's position
         const inputContainer = inputContainers[ i ];
-        inputContainer.carouselLocation = getCarouselLocation( this.inputCarousel, inputContainer, this.cardsDragLayer );
+        inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, inputContainer, this.cardsDragLayer );
 
-        // output container's location
+        // output container's position
         const outputContainer = outputContainers[ i ];
-        outputContainer.carouselLocation = getCarouselLocation( this.outputCarousel, outputContainer, this.cardsDragLayer );
+        outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, outputContainer, this.cardsDragLayer );
 
         // populate the input container with cards
         inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,

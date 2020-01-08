@@ -33,7 +33,7 @@ define( require => {
     //--------------------------------------------------------------------------------------------------------
     // Builder
 
-    // all builders have the same y location, so that the builder doesn't move around when switching screens
+    // all builders have the same y position, so that the builder doesn't move around when switching screens
     BUILDER_Y: 285,
 
     //--------------------------------------------------------------------------------------------------------

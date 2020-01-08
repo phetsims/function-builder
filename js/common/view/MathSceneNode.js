@@ -54,7 +54,7 @@ define( require => {
       // @private
       this.tableDrawer = new XYTableDrawer( scene.builder, this.inputContainers, this.outputContainers, {
         tableOptions: options.tableOptions,
-        bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
+        bottom: scene.builder.position.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.tableDrawer );
 
@@ -73,7 +73,7 @@ define( require => {
       // @private Graph drawer
       this.graphDrawer = new XYGraphDrawer( scene.builder, this.outputContainers, {
         graphOptions: options.graphOptions,
-        bottom: scene.builder.location.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
+        bottom: scene.builder.position.y - ( scene.builder.waistHeight / 2 ) + FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.graphDrawer );
 
@@ -93,7 +93,7 @@ define( require => {
       this.equationDrawer = new EquationDrawer( scene.builder, this.slopeInterceptProperty, {
         equationOptions: options.equationOptions,
         centerX: scene.builder.centerX,
-        top: scene.builder.location.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
+        top: scene.builder.position.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
       } );
       this.drawersLayer.addChild( this.equationDrawer );
     }

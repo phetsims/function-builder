@@ -16,13 +16,13 @@ define( require => {
   const NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
 
   /**
-   * @param {Vector2} location - location of the slot in the global coordinate frame
+   * @param {Vector2} position - position of the slot in the global coordinate frame
    * @constructor
    */
-  function FunctionSlot( location ) {
+  function FunctionSlot( position ) {
 
     // @public (read-only)
-    this.location = location;
+    this.position = position;
 
     // @public {AbstractFunction|null} the function instance that occupies the slot, possibly empty
     this.functionInstance = NO_FUNCTION_INSTANCE;
