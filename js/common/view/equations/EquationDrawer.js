@@ -26,7 +26,7 @@ define( require => {
 
     options = merge( {
       open: FBConstants.EQUATION_DRAWER_OPEN,
-      handleLocation: 'bottom',
+      handlePosition: 'bottom',
       equationOptions: null, // {*} options for EquationPanel
 
       // improve performance by disabling updates while the drawer is closed

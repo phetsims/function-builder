@@ -32,7 +32,7 @@ define( require => {
 
     options = merge( {
       open: FBConstants.TABLE_DRAWER_OPEN,
-      handleLocation: 'top',
+      handlePosition: 'top',
       tableOptions: null, // {*} options for XYTableNode
 
       // improve performance by disabling updates while the drawer is closed

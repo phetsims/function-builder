@@ -35,7 +35,7 @@ define( require => {
 
     options = merge( {
       open: FBConstants.GRAPH_DRAWER_OPEN,
-      handleLocation: 'top',
+      handlePosition: 'top',
       graphOptions: null // {*} options for XYGraphNode
     }, FBConstants.DRAWER_OPTIONS, options );
 
