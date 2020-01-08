@@ -1,4 +1,4 @@
-// Copyright 2016-2019, University of Colorado Boulder
+// Copyright 2016-2020, University of Colorado Boulder
 
 /**
  * Layer that implements the 'See Inside' feature. Each function in the builders has a 'window' at its right edge,
