@@ -10,7 +10,7 @@ define( require => {
 
   // modules
   const Animation = require( 'TWIXT/Animation' );
-  const BanNode = require( 'FUNCTION_BUILDER/common/view/BanNode' );
+  const BanNode = require( 'SCENERY_PHET/BanNode' );
   const Easing = require( 'TWIXT/Easing' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
