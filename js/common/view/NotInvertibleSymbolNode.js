@@ -1,7 +1,10 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Adds fade-in/fade-out animation to the BanNode.
+ * Symbol used to indicate that a function is not invertible.
+ * Consists of the universal 'no' symbol (circle with slash).
+ * Displayed on a function when it blocks a card from passing through the builder.
+ * Animation gradually fades it out.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
