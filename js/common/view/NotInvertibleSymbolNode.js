@@ -13,11 +13,11 @@ define( require => {
 
   // modules
   const Animation = require( 'TWIXT/Animation' );
-  const BanNode = require( 'SCENERY_PHET/BanNode' );
+  const BannedNode = require( 'SCENERY_PHET/BannedNode' );
   const Easing = require( 'TWIXT/Easing' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
 
-  class NotInvertibleSymbolNode extends BanNode {
+  class NotInvertibleSymbolNode extends BannedNode {
 
     /**
      * @param {Object} [options]
