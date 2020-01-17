@@ -16,6 +16,7 @@ define( require => {
   const BannedNode = require( 'SCENERY_PHET/BannedNode' );
   const Easing = require( 'TWIXT/Easing' );
   const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
+  const merge = require( 'PHET_CORE/merge' );
 
   class NotInvertibleSymbolNode extends BannedNode {
 
@@ -24,6 +25,10 @@ define( require => {
      * @constructor
      */
     constructor( options ) {
+
+      options = merge( {
+        fill: 'white'
+      }, options );
 
       super( options );
 
