@@ -72,6 +72,7 @@ define( require => {
 
     // @private
     const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
+      fill: 'white',
       center: backgroundNode.center,
       visible: false
     } );
