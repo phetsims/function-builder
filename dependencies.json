@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.2.0-dev.2 Thu Jan 23 2020 16:22:33 GMT-0700 (Mountain Standard Time)",
+  "comment": "# function-builder 1.2.0-dev.3 Thu Jan 23 2020 16:38:45 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "a99a9ce9ee0774bf3ef509bf3e31ca7383f67478",
     "branch": "master"
@@ -13,20 +13,20 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "59869ffad963b65d8999be610cb7283d7d30565b",
-    "branch": "master"
+    "sha": "aea9aeee767080985bf461ace89bacfcaaaca5cd",
+    "branch": "omit-mipmaps"
   },
   "dot": {
     "sha": "8c661a7212b512331091c8bdc2a4b8fa94b8b229",
     "branch": "master"
   },
   "function-builder": {
-    "sha": "f368bc50fd505565aeb6b7fd26a88fa9c9df7d26",
+    "sha": "26325c8d935a1b038544513f124c0d6e00700815",
     "branch": "master"
   },
   "joist": {
-    "sha": "3519ca6e5682a2a2d765a885136061a4a8a3ae0a",
-    "branch": "master"
+    "sha": "67df11f1872365ffd1ced089341d440cc7f4261d",
+    "branch": "omit-mipmaps"
   },
   "kite": {
     "sha": "34828e04f24e584207a6767f1ca9becbce538fd1",
