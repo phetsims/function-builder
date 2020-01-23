@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.2.0-dev.3 Thu Jan 23 2020 16:38:45 GMT-0700 (Mountain Standard Time)",
+  "comment": "# function-builder 1.2.0-dev.4 Thu Jan 23 2020 16:57:41 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "a99a9ce9ee0774bf3ef509bf3e31ca7383f67478",
     "branch": "master"
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "26325c8d935a1b038544513f124c0d6e00700815",
+    "sha": "05ba4959250f94d4e4034b3a5a4ef01e6ec81183",
     "branch": "master"
   },
   "joist": {
-    "sha": "67df11f1872365ffd1ced089341d440cc7f4261d",
+    "sha": "30f354100cea3bc55d1849fc2424f57068f6ee4a",
     "branch": "omit-mipmaps"
   },
   "kite": {
