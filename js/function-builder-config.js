@@ -20,7 +20,7 @@ require.config( {
     // PhET plugins
     sound: '../../chipper/js/requirejs-plugins/sound',
     image: '../../chipper/js/requirejs-plugins/image',
-    mipmap: '../../chipper/js/requirejs-plugins/image',
+    mipmap: '../../chipper/js/requirejs-plugins/mipmap',
     string: '../../chipper/js/requirejs-plugins/string',
     ifphetio: '../../chipper/js/requirejs-plugins/ifphetio',
 
