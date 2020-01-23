@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.2.0-dev.1 Thu Jan 23 2020 16:18:57 GMT-0700 (Mountain Standard Time)",
+  "comment": "# function-builder 1.2.0-dev.2 Thu Jan 23 2020 16:22:33 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "a99a9ce9ee0774bf3ef509bf3e31ca7383f67478",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "function-builder": {
-    "sha": "798e93879882239aee261cabb04d463bf6d4cdf3",
+    "sha": "f368bc50fd505565aeb6b7fd26a88fa9c9df7d26",
     "branch": "master"
   },
   "joist": {
