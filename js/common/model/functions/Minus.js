@@ -16,7 +16,7 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
 
   /**
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function Minus( options ) {

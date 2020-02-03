@@ -45,7 +45,7 @@ define( require => {
 
   /**
    * @param {Builder} builder
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function XYTableNode( builder, options ) {
