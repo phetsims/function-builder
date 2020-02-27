@@ -6,31 +6,28 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FunctionBackgroundNode = require( 'FUNCTION_BUILDER/common/view/functions/FunctionBackgroundNode' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FunctionBackgroundNode from '../functions/FunctionBackgroundNode.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function FunctionSlotNode( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function FunctionSlotNode( options ) {
 
-    options = merge( {
-      fill: null,
-      stroke: 'white',
-      lineDash: [ 4, 4 ]
-    }, options );
+  options = merge( {
+    fill: null,
+    stroke: 'white',
+    lineDash: [ 4, 4 ]
+  }, options );
 
-    FunctionBackgroundNode.call( this, options );
-  }
+  FunctionBackgroundNode.call( this, options );
+}
 
-  functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
+functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
 
-  return inherit( FunctionBackgroundNode, FunctionSlotNode );
-} );
+inherit( FunctionBackgroundNode, FunctionSlotNode );
+export default FunctionSlotNode;

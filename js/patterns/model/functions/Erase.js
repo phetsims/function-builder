@@ -5,53 +5,47 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
+import eraseImage from '../../../../mipmaps/functions/erase_png.js';
+import FBConstants from '../../../common/FBConstants.js';
+import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBCanvasUtils from '../FBCanvasUtils.js';
 
-  // images
-  const eraseImage = require( 'mipmap!FUNCTION_BUILDER/functions/erase.png' );
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Erase( options ) {
+
+  options = options || {};
+  options.name = 'Erase';
+  options.fill = 'rgb( 0, 222, 224 )';
+  options.invertible = false; // lossy, erased image data cannot be restored
+
+  const iconNode = new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+  ImageFunction.call( this, iconNode, options );
+}
+
+functionBuilder.register( 'Erase', Erase );
+
+export default inherit( ImageFunction, Erase, {
 
   /**
-   * @param {Object} [options]
-   * @constructor
+   * Applies this function.
+   *
+   * @param {HTMLCanvasElement} inputCanvas
+   * @returns {HTMLCanvasElement}
+   * @public
+   * @override
    */
-  function Erase( options ) {
+  apply: function( inputCanvas ) {
 
-    options = options || {};
-    options.name = 'Erase';
-    options.fill = 'rgb( 0, 222, 224 )';
-    options.invertible = false; // lossy, erased image data cannot be restored
-
-    const iconNode = new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
+    // blank image data (transparent black pixels), same dimensions as input
+    const imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
+    return FBCanvasUtils.createCanvasWithImageData( imageData );
   }
-
-  functionBuilder.register( 'Erase', Erase );
-
-  return inherit( ImageFunction, Erase, {
-
-    /**
-     * Applies this function.
-     *
-     * @param {HTMLCanvasElement} inputCanvas
-     * @returns {HTMLCanvasElement}
-     * @public
-     * @override
-     */
-    apply: function( inputCanvas ) {
-
-      // blank image data (transparent black pixels), same dimensions as input
-      const imageData = inputCanvas.getContext( '2d' ).createImageData( inputCanvas.width, inputCanvas.height );
-      return FBCanvasUtils.createCanvasWithImageData( imageData );
-    }
-  } );
 } );

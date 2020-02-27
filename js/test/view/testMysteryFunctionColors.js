@@ -6,114 +6,110 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Color = require( 'SCENERY/util/Color' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Shape = require( 'KITE/Shape' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import FBColors from '../../common/FBColors.js';
+import FBFont from '../../common/FBFont.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  /**
-   * @param {Bounds2} layoutBounds
-   * @returns {Node}
-   */
-  function testMysteryFunctionColors( layoutBounds ) {
+/**
+ * @param {Bounds2} layoutBounds
+ * @returns {Node}
+ */
+function testMysteryFunctionColors( layoutBounds ) {
 
-    // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
-    const colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
-    assert && assert( colorSetNames.length === FBColors.MYSTERY_COLOR_SETS.length );
+  // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
+  const colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
+  assert && assert( colorSetNames.length === FBColors.MYSTERY_COLOR_SETS.length );
 
-    const vBoxChildren = [];
+  const vBoxChildren = [];
 
-    for ( let i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
+  for ( let i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
 
-      var hBoxChildren = [];
+    var hBoxChildren = [];
 
-      // label to left of row
-      hBoxChildren.push( new Text( colorSetNames[ i ], {
-        font: new FBFont( 20 )
-      } ) );
+    // label to left of row
+    hBoxChildren.push( new Text( colorSetNames[ i ], {
+      font: new FBFont( 20 )
+    } ) );
 
-      // row of functions
-      const colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
-      colorSet.forEach( function( color ) {
-        hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
-      } );
-
-      vBoxChildren.push( new HBox( {
-        children: hBoxChildren,
-        spacing: 10
-      } ) );
-    }
-
-    return new VBox( {
-      children: vBoxChildren,
-      align: 'right',
-      spacing: 10,
-      centerX: layoutBounds.centerX,
-      centerY: layoutBounds.centerY + 30
+    // row of functions
+    const colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
+    colorSet.forEach( function( color ) {
+      hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
     } );
+
+    vBoxChildren.push( new HBox( {
+      children: hBoxChildren,
+      spacing: 10
+    } ) );
   }
 
-  functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );
+  return new VBox( {
+    children: vBoxChildren,
+    align: 'right',
+    spacing: 10,
+    centerX: layoutBounds.centerX,
+    centerY: layoutBounds.centerY + 30
+  } );
+}
 
-  /**
-   * Use this simplified representation so that this test is not dependent on other sim code.
-   *
-   * @param {Object} [options]
-   * @constructor
-   */
-  function TestFunctionNode( options ) {
+functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );
 
-    options = merge( {
-      size: new Dimension2( 140, 60 ),
-      fill: 'white',
-      stroke: 'black'
-    }, options );
+/**
+ * Use this simplified representation so that this test is not dependent on other sim code.
+ *
+ * @param {Object} [options]
+ * @constructor
+ */
+function TestFunctionNode( options ) {
 
-    const WIDTH = options.size.width;
-    const HEIGHT = options.size.height;
-    const X_INSET = 0.18 * WIDTH;
+  options = merge( {
+    size: new Dimension2( 140, 60 ),
+    fill: 'white',
+    stroke: 'black'
+  }, options );
 
-    // Described from top-left, moving clockwise.
-    const functionShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( WIDTH - X_INSET, 0 )
-      .lineTo( WIDTH, HEIGHT / 2 )
-      .lineTo( WIDTH - X_INSET, HEIGHT )
-      .lineTo( 0, HEIGHT )
-      .lineTo( X_INSET, HEIGHT / 2 )
-      .close();
-    const functionNode = new Path( functionShape, {
-      fill: options.fill,
-      stroke: options.stroke
-    } );
+  const WIDTH = options.size.width;
+  const HEIGHT = options.size.height;
+  const X_INSET = 0.18 * WIDTH;
 
-    const color = Color.toColor( options.fill );
-    const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
-    const rgbTextNode = new Text( rgbString, {
-      font: new FBFont( 14 ),
-      centerX: functionNode.centerX + ( 0.25 * X_INSET ),
-      centerY: functionNode.centerY
-    } );
+  // Described from top-left, moving clockwise.
+  const functionShape = new Shape()
+    .moveTo( 0, 0 )
+    .lineTo( WIDTH - X_INSET, 0 )
+    .lineTo( WIDTH, HEIGHT / 2 )
+    .lineTo( WIDTH - X_INSET, HEIGHT )
+    .lineTo( 0, HEIGHT )
+    .lineTo( X_INSET, HEIGHT / 2 )
+    .close();
+  const functionNode = new Path( functionShape, {
+    fill: options.fill,
+    stroke: options.stroke
+  } );
 
-    options.children = [ functionNode, rgbTextNode ];
+  const color = Color.toColor( options.fill );
+  const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
+  const rgbTextNode = new Text( rgbString, {
+    font: new FBFont( 14 ),
+    centerX: functionNode.centerX + ( 0.25 * X_INSET ),
+    centerY: functionNode.centerY
+  } );
 
-    Node.call( this, options );
-  }
+  options.children = [ functionNode, rgbTextNode ];
 
-  inherit( Node, TestFunctionNode );
+  Node.call( this, options );
+}
 
-  return testMysteryFunctionColors;
-} );
+inherit( Node, TestFunctionNode );
+
+export default testMysteryFunctionColors;

@@ -5,62 +5,56 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
+import grayScaleImage from '../../../../mipmaps/functions/grayscale_png.js';
+import FBConstants from '../../../common/FBConstants.js';
+import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBCanvasUtils from '../FBCanvasUtils.js';
 
-  // images
-  const grayScaleImage = require( 'mipmap!FUNCTION_BUILDER/functions/grayscale.png' );
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Grayscale( options ) {
+
+  options = options || {};
+  options.name = 'Grayscale';
+  options.fill = 'rgb( 232, 232, 232 )';
+  options.invertible = false; // converting to grayscale is lossy
+
+  const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+
+  ImageFunction.call( this, iconNode, options );
+}
+
+functionBuilder.register( 'Grayscale', Grayscale );
+
+export default inherit( ImageFunction, Grayscale, {
 
   /**
-   * @param {Object} [options]
-   * @constructor
+   * Applies this function.
+   *
+   * @param {HTMLCanvasElement} inputCanvas
+   * @returns {HTMLCanvasElement}
+   * @public
+   * @override
    */
-  function Grayscale( options ) {
+  apply: function( inputCanvas ) {
 
-    options = options || {};
-    options.name = 'Grayscale';
-    options.fill = 'rgb( 232, 232, 232 )';
-    options.invertible = false; // converting to grayscale is lossy
+    const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
-    const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
-
-    ImageFunction.call( this, iconNode, options );
-  }
-
-  functionBuilder.register( 'Grayscale', Grayscale );
-
-  return inherit( ImageFunction, Grayscale, {
-
-    /**
-     * Applies this function.
-     *
-     * @param {HTMLCanvasElement} inputCanvas
-     * @returns {HTMLCanvasElement}
-     * @public
-     * @override
-     */
-    apply: function( inputCanvas ) {
-
-      const imageData = FBCanvasUtils.getImageData( inputCanvas );
-
-      // Average the red, green and blue values of each pixel. This drains the color from the image.
-      const data = imageData.data;
-      for ( let i = 0; i < data.length - 4; i += 4 ) {
-        const average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
-        data[ i ] = average;
-        data[ i + 1 ] = average;
-        data[ i + 2 ] = average;
-      }
-
-      return FBCanvasUtils.createCanvasWithImageData( imageData );
+    // Average the red, green and blue values of each pixel. This drains the color from the image.
+    const data = imageData.data;
+    for ( let i = 0; i < data.length - 4; i += 4 ) {
+      const average = ( data[ i ] + data[ i + 1 ] + data[ i + 2 ] ) / 3;
+      data[ i ] = average;
+      data[ i + 1 ] = average;
+      data[ i + 2 ] = average;
     }
-  } );
+
+    return FBCanvasUtils.createCanvasWithImageData( imageData );
+  }
 } );

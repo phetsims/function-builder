@@ -5,46 +5,43 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Drawer = require( 'SCENERY_PHET/Drawer' );
-  const EquationPanel = require( 'FUNCTION_BUILDER/common/view/equations/EquationPanel' );
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import Drawer from '../../../../../scenery-phet/js/Drawer.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBConstants from '../../FBConstants.js';
+import EquationPanel from './EquationPanel.js';
 
-  /**
-   * @param {Builder} builder
-   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EquationDrawer( builder, slopeInterceptProperty, options ) {
+/**
+ * @param {Builder} builder
+ * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
+ * @param {Object} [options]
+ * @constructor
+ */
+function EquationDrawer( builder, slopeInterceptProperty, options ) {
 
-    options = merge( {
-      open: FBConstants.EQUATION_DRAWER_OPEN,
-      handlePosition: 'bottom',
-      equationOptions: null, // {*} options for EquationPanel
+  options = merge( {
+    open: FBConstants.EQUATION_DRAWER_OPEN,
+    handlePosition: 'bottom',
+    equationOptions: null, // {*} options for EquationPanel
 
-      // improve performance by disabling updates while the drawer is closed
-      beforeOpen: function() { equationPanel.updateEnabled = true; },
-      afterClose: function() { equationPanel.updateEnabled = false; }
+    // improve performance by disabling updates while the drawer is closed
+    beforeOpen: function() { equationPanel.updateEnabled = true; },
+    afterClose: function() { equationPanel.updateEnabled = false; }
 
-    }, FBConstants.DRAWER_OPTIONS, options );
+  }, FBConstants.DRAWER_OPTIONS, options );
 
-    var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
-      size: FBConstants.EQUATION_DRAWER_SIZE,
-      updateEnabled: options.open,
-      cornerRadius: options.cornerRadius
-    }, options.equationOptions ) );
+  var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
+    size: FBConstants.EQUATION_DRAWER_SIZE,
+    updateEnabled: options.open,
+    cornerRadius: options.cornerRadius
+  }, options.equationOptions ) );
 
-    Drawer.call( this, equationPanel, options );
-  }
+  Drawer.call( this, equationPanel, options );
+}
 
-  functionBuilder.register( 'EquationDrawer', EquationDrawer );
+functionBuilder.register( 'EquationDrawer', EquationDrawer );
 
-  return inherit( Drawer, EquationDrawer );
-} );
+inherit( Drawer, EquationDrawer );
+export default EquationDrawer;

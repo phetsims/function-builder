@@ -6,90 +6,87 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  /**
-   * @param {Movable} movable
-   * @param {Object} [options]
-   * @constructor
-   */
-  function MovableNode( movable, options ) {
+/**
+ * @param {Movable} movable
+ * @param {Object} [options]
+ * @constructor
+ */
+function MovableNode( movable, options ) {
 
-    options = merge( {
+  options = merge( {
 
-      draggable: true, // {boolean} is this node draggable?
-      allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up
-      cursor: 'pointer',
-      startDrag: null, // {function|null} Called at the start of each drag sequence
-      endDrag: null, // {function|null} Called at the end of each drag sequence
+    draggable: true, // {boolean} is this node draggable?
+    allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up
+    cursor: 'pointer',
+    startDrag: null, // {function|null} Called at the start of each drag sequence
+    endDrag: null, // {function|null} Called at the end of each drag sequence
 
-      // {function(Movable, Vector2, Vector2) moves the Movable while dragging
-      translateMovable: function( movable, position, delta ) { movable.moveTo( position ); },
+    // {function(Movable, Vector2, Vector2) moves the Movable while dragging
+    translateMovable: function( movable, position, delta ) { movable.moveTo( position ); },
 
-      // {function(Node, Vector2)} moves the Node when the Movable's position changes
-      translateNode: function( node, position ) { node.center = position; }
+    // {function(Node, Vector2)} moves the Node when the Movable's position changes
+    translateNode: function( node, position ) { node.center = position; }
 
-    }, options );
+  }, options );
 
-    assert && assert( options.children, 'requires children to specify the look of the Movable' );
+  assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
-    const self = this;
+  const self = this;
 
-    this.movable = movable; // @public
+  this.movable = movable; // @public
 
-    Node.call( this, options );
+  Node.call( this, options );
 
-    // unlink unnecessary, instances exist for lifetime of the sim
-    movable.positionProperty.link( function( position ) {
-        options.translateNode( self, position );
-      }
-    );
-
-    let startDragOffset; // {Vector2} where the drag started relative to positionProperty, in parent view coordinates
-
-    // @private
-    if ( options.draggable ) {
-      const dragHandler = new SimpleDragHandler( {
-
-        allowTouchSnag: options.allowTouchSnag,
-
-        start: function( event, trail ) {
-
-          movable.dragging = true;
-          options.startDrag && options.startDrag();
-
-          // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
-          const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.positionProperty.get() );
-        },
-
-        // No need to constrain drag bounds because Movables return to carousel or builder when released.
-        drag: function( event, trail ) {
-          const previousPosition = movable.positionProperty.get();
-          const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          const position = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
-          const delta = position.minus( previousPosition );
-          options.translateMovable( movable, position, delta );
-        },
-
-        end: function( event, trail ) {
-          movable.dragging = false;
-          options.endDrag && options.endDrag();
-        }
-      } );
-      this.addInputListener( dragHandler );
+  // unlink unnecessary, instances exist for lifetime of the sim
+  movable.positionProperty.link( function( position ) {
+      options.translateNode( self, position );
     }
+  );
+
+  let startDragOffset; // {Vector2} where the drag started relative to positionProperty, in parent view coordinates
+
+  // @private
+  if ( options.draggable ) {
+    const dragHandler = new SimpleDragHandler( {
+
+      allowTouchSnag: options.allowTouchSnag,
+
+      start: function( event, trail ) {
+
+        movable.dragging = true;
+        options.startDrag && options.startDrag();
+
+        // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
+        const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+        startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.positionProperty.get() );
+      },
+
+      // No need to constrain drag bounds because Movables return to carousel or builder when released.
+      drag: function( event, trail ) {
+        const previousPosition = movable.positionProperty.get();
+        const parent = self.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
+        const position = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
+        const delta = position.minus( previousPosition );
+        options.translateMovable( movable, position, delta );
+      },
+
+      end: function( event, trail ) {
+        movable.dragging = false;
+        options.endDrag && options.endDrag();
+      }
+    } );
+    this.addInputListener( dragHandler );
   }
+}
 
-  functionBuilder.register( 'MovableNode', MovableNode );
+functionBuilder.register( 'MovableNode', MovableNode );
 
-  return inherit( Node, MovableNode );
-} );
+inherit( Node, MovableNode );
+export default MovableNode;

@@ -5,28 +5,24 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
+import functionBuilderStrings from '../function-builder-strings.js';
+import functionBuilder from '../functionBuilder.js';
 
-  // strings
-  const xString = require( 'string!FUNCTION_BUILDER/x' );
-  const yString = require( 'string!FUNCTION_BUILDER/y' );
+const xString = functionBuilderStrings.x;
+const yString = functionBuilderStrings.y;
 
-  const FBSymbols = {
-    X: xString,
-    Y: yString,
-    DIVIDE: MathSymbols.DIVIDE,
-    MINUS: MathSymbols.MINUS,
-    PLUS: MathSymbols.PLUS,
-    TIMES: MathSymbols.TIMES,
-    EQUAL_TO: MathSymbols.EQUAL_TO
-  };
+const FBSymbols = {
+  X: xString,
+  Y: yString,
+  DIVIDE: MathSymbols.DIVIDE,
+  MINUS: MathSymbols.MINUS,
+  PLUS: MathSymbols.PLUS,
+  TIMES: MathSymbols.TIMES,
+  EQUAL_TO: MathSymbols.EQUAL_TO
+};
 
-  functionBuilder.register( 'FBSymbols', FBSymbols );
+functionBuilder.register( 'FBSymbols', FBSymbols );
 
-  return FBSymbols;
-} );
+export default FBSymbols;

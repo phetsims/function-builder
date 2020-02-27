@@ -7,23 +7,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EyeCloseNode( options ) {
-    FontAwesomeNode.call( this, 'eye_close', options );
-  }
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function EyeCloseNode( options ) {
+  FontAwesomeNode.call( this, 'eye_close', options );
+}
 
-  functionBuilder.register( 'EyeCloseNode', EyeCloseNode );
+functionBuilder.register( 'EyeCloseNode', EyeCloseNode );
 
-  return inherit( FontAwesomeNode, EyeCloseNode );
-} );
+inherit( FontAwesomeNode, EyeCloseNode );
+export default EyeCloseNode;

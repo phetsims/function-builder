@@ -5,56 +5,52 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Property = require( 'AXON/Property' );
+import Property from '../../../../axon/js/Property.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import functionBuilder from '../../functionBuilder.js';
+
+/**
+ * @param {Scene[]} scenes
+ * @param {Object} [options]
+ * @constructor
+ */
+function FBModel( scenes, options ) {
+
+  options = merge( {
+    defaultScene: scenes[ 0 ]
+  }, options );
+  assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );
+
+  // @public (read-only)
+  this.scenes = scenes;
+
+  // @public {Property.<Scene>} the selected scene
+  this.selectedSceneProperty = new Property( options.defaultScene );
+}
+
+functionBuilder.register( 'FBModel', FBModel );
+
+export default inherit( Object, FBModel, {
+
+  // @public
+  reset: function() {
+    this.selectedSceneProperty.reset();
+    for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+      this.scenes[ sceneIndex ].reset();
+    }
+  },
 
   /**
-   * @param {Scene[]} scenes
-   * @param {Object} [options]
-   * @constructor
+   * Animates the model.
+   *
+   * @param {number} dt - time since the previous step, in seconds
+   * @public
    */
-  function FBModel( scenes, options ) {
-
-    options = merge( {
-      defaultScene: scenes[ 0 ]
-    }, options );
-    assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );
-
-    // @public (read-only)
-    this.scenes = scenes;
-
-    // @public {Property.<Scene>} the selected scene
-    this.selectedSceneProperty = new Property( options.defaultScene );
-  }
-
-  functionBuilder.register( 'FBModel', FBModel );
-
-  return inherit( Object, FBModel, {
-
-    // @public
-    reset: function() {
-      this.selectedSceneProperty.reset();
-      for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].reset();
-      }
-    },
-
-    /**
-     * Animates the model.
-     *
-     * @param {number} dt - time since the previous step, in seconds
-     * @public
-     */
-    step: function( dt ) {
-      for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
-        this.scenes[ sceneIndex ].step( dt );
-      }
+  step: function( dt ) {
+    for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
+      this.scenes[ sceneIndex ].step( dt );
     }
-  } );
+  }
 } );

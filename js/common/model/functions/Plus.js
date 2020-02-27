@@ -5,34 +5,31 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBSymbols from '../../FBSymbols.js';
+import MathFunction from './MathFunction.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Plus( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Plus( options ) {
 
-    options = merge( {
-      fill: 'rgb( 246, 203, 144 )',
-      pickerColor: 'rgb( 227, 114, 42 )'
-    }, options );
+  options = merge( {
+    fill: 'rgb( 246, 203, 144 )',
+    pickerColor: 'rgb( 227, 114, 42 )'
+  }, options );
 
-    MathFunction.call( this,
-      FBSymbols.PLUS,
-      function( input, operand ) { return input.plus( operand ); },
-      options );
-  }
+  MathFunction.call( this,
+    FBSymbols.PLUS,
+    function( input, operand ) { return input.plus( operand ); },
+    options );
+}
 
-  functionBuilder.register( 'Plus', Plus );
+functionBuilder.register( 'Plus', Plus );
 
-  return inherit( MathFunction, Plus );
-} );
+inherit( MathFunction, Plus );
+export default Plus;

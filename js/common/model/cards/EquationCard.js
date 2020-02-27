@@ -5,30 +5,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Card = require( 'FUNCTION_BUILDER/common/model/cards/Card' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import functionBuilder from '../../../functionBuilder.js';
+import Card from './Card.js';
 
-  /**
-   * @param {string} xSymbol - the input symbol, typically 'x'
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EquationCard( xSymbol, options ) {
+/**
+ * @param {string} xSymbol - the input symbol, typically 'x'
+ * @param {Object} [options]
+ * @constructor
+ */
+function EquationCard( xSymbol, options ) {
 
-    assert && assert( typeof xSymbol === 'string' );
+  assert && assert( typeof xSymbol === 'string' );
 
-    // {string} @public (read-only)
-    this.xSymbol = xSymbol;
+  // {string} @public (read-only)
+  this.xSymbol = xSymbol;
 
-    Card.call( this, options );
-  }
+  Card.call( this, options );
+}
 
-  functionBuilder.register( 'EquationCard', EquationCard );
+functionBuilder.register( 'EquationCard', EquationCard );
 
-  return inherit( Card, EquationCard );
-} );
+inherit( Card, EquationCard );
+export default EquationCard;

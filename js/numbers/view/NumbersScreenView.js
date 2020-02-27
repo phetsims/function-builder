@@ -5,25 +5,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBScreenView = require( 'FUNCTION_BUILDER/common/view/FBScreenView' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const NumbersSceneNode = require( 'FUNCTION_BUILDER/numbers/view/NumbersSceneNode' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import FBScreenView from '../../common/view/FBScreenView.js';
+import functionBuilder from '../../functionBuilder.js';
+import NumbersSceneNode from './NumbersSceneNode.js';
 
-  /**
-   * @param {NumbersModel} model
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumbersScreenView( model, options ) {
-    FBScreenView.call( this, model, NumbersSceneNode, options );
-  }
+/**
+ * @param {NumbersModel} model
+ * @param {Object} [options]
+ * @constructor
+ */
+function NumbersScreenView( model, options ) {
+  FBScreenView.call( this, model, NumbersSceneNode, options );
+}
 
-  functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
+functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
 
-  return inherit( FBScreenView, NumbersScreenView );
-} );
+inherit( FBScreenView, NumbersScreenView );
+export default NumbersScreenView;

@@ -12,81 +12,78 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Drawer = require( 'SCENERY_PHET/Drawer' );
-  const EquationCardNode = require( 'FUNCTION_BUILDER/common/view/cards/EquationCardNode' );
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const NumberCardNode = require( 'FUNCTION_BUILDER/common/view/cards/NumberCardNode' );
-  const XYGraphNode = require( 'FUNCTION_BUILDER/common/view/graph/XYGraphNode' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import Drawer from '../../../../../scenery-phet/js/Drawer.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBConstants from '../../FBConstants.js';
+import EquationCardNode from '../cards/EquationCardNode.js';
+import NumberCardNode from '../cards/NumberCardNode.js';
+import XYGraphNode from './XYGraphNode.js';
 
-  /**
-   * @param {Builder} builder
-   * @param {CardContainer[]} outputContainers - card containers in the output carousel
-   * @param {Object} [options]
-   * @constructor
-   */
-  function XYGraphDrawer( builder, outputContainers, options ) {
+/**
+ * @param {Builder} builder
+ * @param {CardContainer[]} outputContainers - card containers in the output carousel
+ * @param {Object} [options]
+ * @constructor
+ */
+function XYGraphDrawer( builder, outputContainers, options ) {
 
-    options = merge( {
-      open: FBConstants.GRAPH_DRAWER_OPEN,
-      handlePosition: 'top',
-      graphOptions: null // {*} options for XYGraphNode
-    }, FBConstants.DRAWER_OPTIONS, options );
+  options = merge( {
+    open: FBConstants.GRAPH_DRAWER_OPEN,
+    handlePosition: 'top',
+    graphOptions: null // {*} options for XYGraphNode
+  }, FBConstants.DRAWER_OPTIONS, options );
 
-    // Graph
-    const graphNode = new XYGraphNode( builder, merge( {
-      visible: options.open,
-      cornerRadius: options.cornerRadius
-    }, options.graphOptions ) );
+  // Graph
+  const graphNode = new XYGraphNode( builder, merge( {
+    visible: options.open,
+    cornerRadius: options.cornerRadius
+  }, options.graphOptions ) );
 
-    Drawer.call( this, graphNode, options );
+  Drawer.call( this, graphNode, options );
 
-    // wire up graph to output containers
-    outputContainers.forEach( function( outputContainer ) {
+  // wire up graph to output containers
+  outputContainers.forEach( function( outputContainer ) {
 
-      // When adding a card to an empty container in the output carousel,
-      // add its corresponding point or line to the graph.
-      // removeListener unnecessary, instances exist for lifetime of the sim.
-      outputContainer.addEmitter.addListener( function( node ) {
-        if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
-          if ( node instanceof NumberCardNode ) {
-            graphNode.addPointAt( node.card.rationalNumber );
-          }
-          else if ( node instanceof EquationCardNode ) {
-            graphNode.setLineVisible( true );
-          }
-          else {
-            throw new Error( 'invalid node type' );
-          }
+    // When adding a card to an empty container in the output carousel,
+    // add its corresponding point or line to the graph.
+    // removeListener unnecessary, instances exist for lifetime of the sim.
+    outputContainer.addEmitter.addListener( function( node ) {
+      if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+        if ( node instanceof NumberCardNode ) {
+          graphNode.addPointAt( node.card.rationalNumber );
         }
-      } );
-
-      // When removing a card from the output carousel makes its output container empty,
-      // remove its corresponding point or line from the graph.
-      // removeListener unnecessary, instances exist for lifetime of the sim.
-      outputContainer.removeEmitter.addListener( function( node ) {
-        if ( outputContainer.isEmpty() ) {
-          if ( node instanceof NumberCardNode ) {
-            graphNode.removePointAt( node.card.rationalNumber );
-          }
-          else if ( node instanceof EquationCardNode ) {
-            graphNode.setLineVisible( false );
-          }
-          else {
-            throw new Error( 'invalid node type' );
-          }
+        else if ( node instanceof EquationCardNode ) {
+          graphNode.setLineVisible( true );
         }
-      } );
+        else {
+          throw new Error( 'invalid node type' );
+        }
+      }
     } );
-  }
 
-  functionBuilder.register( 'XYGraphDrawer', XYGraphDrawer );
+    // When removing a card from the output carousel makes its output container empty,
+    // remove its corresponding point or line from the graph.
+    // removeListener unnecessary, instances exist for lifetime of the sim.
+    outputContainer.removeEmitter.addListener( function( node ) {
+      if ( outputContainer.isEmpty() ) {
+        if ( node instanceof NumberCardNode ) {
+          graphNode.removePointAt( node.card.rationalNumber );
+        }
+        else if ( node instanceof EquationCardNode ) {
+          graphNode.setLineVisible( false );
+        }
+        else {
+          throw new Error( 'invalid node type' );
+        }
+      }
+    } );
+  } );
+}
 
-  return inherit( Drawer, XYGraphDrawer );
-} );
+functionBuilder.register( 'XYGraphDrawer', XYGraphDrawer );
+
+inherit( Drawer, XYGraphDrawer );
+export default XYGraphDrawer;

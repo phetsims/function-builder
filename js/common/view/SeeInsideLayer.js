@@ -6,79 +6,75 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Shape = require( 'KITE/Shape' );
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import functionBuilder from '../../functionBuilder.js';
+import FBConstants from '../FBConstants.js';
 
-  // constants
-  const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
-  const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
+// constants
+const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
+const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
 
-  /**
-   * @param {Builder} builder
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SeeInsideLayer( builder, options ) {
+/**
+ * @param {Builder} builder
+ * @param {Object} [options]
+ * @constructor
+ */
+function SeeInsideLayer( builder, options ) {
 
-    options = options || {};
+  options = options || {};
 
-    // add a window at the right end of each slot
-    const windowsShape = new Shape();
-    for ( let i = 0; i < builder.numberOfSlots; i++ ) {
+  // add a window at the right end of each slot
+  const windowsShape = new Shape();
+  for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
-      const windowPosition = builder.getWindowPosition( i );
-      const windowLeft = windowPosition.x - ( WINDOW_SIZE.width / 2 );
-      const windowY = windowPosition.y - ( WINDOW_SIZE.height / 2 );
-      if ( i !== 0 ) {
-        // move to center of rounded rect, so we don't see a line at rounded corner
-        windowsShape.moveTo( windowPosition.x, windowY );
-      }
-      windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
+    const windowPosition = builder.getWindowPosition( i );
+    const windowLeft = windowPosition.x - ( WINDOW_SIZE.width / 2 );
+    const windowY = windowPosition.y - ( WINDOW_SIZE.height / 2 );
+    if ( i !== 0 ) {
+      // move to center of rounded rect, so we don't see a line at rounded corner
+      windowsShape.moveTo( windowPosition.x, windowY );
     }
-
-    // @private parent for all cards, clip to the windows
-    this.cardsParent = new Node( {
-      clipArea: windowsShape
-    } );
-
-    // background, black because it's dark inside the builder :)
-    const backgroundNode = new Path( windowsShape, {
-      fill: 'black'
-    } );
-
-    // foreground, stroked with builder color, so it looks like we cut out a window
-    const foregroundNode = new Path( windowsShape, {
-      stroke: builder.colorScheme.middle,
-      lineWidth: 2
-    } );
-
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, this.cardsParent, foregroundNode ];
-
-    Node.call( this, options );
+    windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
   }
 
-  functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
-
-  return inherit( Node, SeeInsideLayer, {
-
-    /**
-     * Adds a card to this layer.
-     * Cards are added when they are created, and remain in this layer for the lifetime of the sim.
-     *
-     * @param {CardNode} cardNode
-     * @public
-     */
-    addCardNode: function( cardNode ) {
-      this.cardsParent.addChild( cardNode );
-    }
+  // @private parent for all cards, clip to the windows
+  this.cardsParent = new Node( {
+    clipArea: windowsShape
   } );
+
+  // background, black because it's dark inside the builder :)
+  const backgroundNode = new Path( windowsShape, {
+    fill: 'black'
+  } );
+
+  // foreground, stroked with builder color, so it looks like we cut out a window
+  const foregroundNode = new Path( windowsShape, {
+    stroke: builder.colorScheme.middle,
+    lineWidth: 2
+  } );
+
+  assert && assert( !options.children, 'decoration not supported' );
+  options.children = [ backgroundNode, this.cardsParent, foregroundNode ];
+
+  Node.call( this, options );
+}
+
+functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
+
+export default inherit( Node, SeeInsideLayer, {
+
+  /**
+   * Adds a card to this layer.
+   * Cards are added when they are created, and remain in this layer for the lifetime of the sim.
+   *
+   * @param {CardNode} cardNode
+   * @public
+   */
+  addCardNode: function( cardNode ) {
+    this.cardsParent.addChild( cardNode );
+  }
 } );

@@ -5,34 +5,31 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBSymbols from '../../FBSymbols.js';
+import MathFunction from './MathFunction.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Minus( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Minus( options ) {
 
-    options = merge( {
-      fill: 'rgb( 152, 231, 156 )',
-      pickerColor: 'rgb( 25, 168, 52 )'
-    }, options );
+  options = merge( {
+    fill: 'rgb( 152, 231, 156 )',
+    pickerColor: 'rgb( 25, 168, 52 )'
+  }, options );
 
-    MathFunction.call( this,
-      FBSymbols.MINUS,
-      function( input, operand ) { return input.minus( operand ); },
-      options );
-  }
+  MathFunction.call( this,
+    FBSymbols.MINUS,
+    function( input, operand ) { return input.minus( operand ); },
+    options );
+}
 
-  functionBuilder.register( 'Minus', Minus );
+functionBuilder.register( 'Minus', Minus );
 
-  return inherit( MathFunction, Minus );
-} );
+inherit( MathFunction, Minus );
+export default Minus;

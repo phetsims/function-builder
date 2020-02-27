@@ -5,57 +5,54 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBFont = require( 'FUNCTION_BUILDER/common/FBFont' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MathFunctionNode = require( 'FUNCTION_BUILDER/common/view/functions/MathFunctionNode' );
-  const MathSceneNode = require( 'FUNCTION_BUILDER/common/view/MathSceneNode' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import FBFont from '../../common/FBFont.js';
+import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
+import MathSceneNode from '../../common/view/MathSceneNode.js';
+import functionBuilderStrings from '../../function-builder-strings.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  // strings
-  const inputString = require( 'string!FUNCTION_BUILDER/input' );
-  const outputString = require( 'string!FUNCTION_BUILDER/output' );
+const inputString = functionBuilderStrings.input;
+const outputString = functionBuilderStrings.output;
 
-  /**
-   * @param {NumbersScene} scene - model for this scene
-   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumbersSceneNode( scene, layoutBounds, options ) {
+/**
+ * @param {NumbersScene} scene - model for this scene
+ * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+ * @param {Object} [options]
+ * @constructor
+ */
+function NumbersSceneNode( scene, layoutBounds, options ) {
 
-    options = merge( {
+  options = merge( {
 
-      cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
-      functionsPerPage: 3, // number of functions visible in the carousel
-      hasTableDrawer: true, // include an XY table drawer
-      hasEquationDrawer: true, // include an equation drawer
+    cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
+    functionsPerPage: 3, // number of functions visible in the carousel
+    hasTableDrawer: true, // include an XY table drawer
+    hasEquationDrawer: true, // include an equation drawer
 
-      // options for XYTableNode
-      tableOptions: {
-        xSymbol: inputString, // use 'Input' in place of x
-        ySymbol: outputString, // use 'Output' in place of y
-        headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
-      },
+    // options for XYTableNode
+    tableOptions: {
+      xSymbol: inputString, // use 'Input' in place of x
+      ySymbol: outputString, // use 'Output' in place of y
+      headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
+    },
 
-      // options for EquationPanel
-      equationOptions: {
-        xSymbol: inputString, // use 'Input' in place of x
-        ySymbol: outputString, // use 'Output' in place of y
-        xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
-        xyAsCards: true // card outlines around 'Input' and 'Output'
-      }
+    // options for EquationPanel
+    equationOptions: {
+      xSymbol: inputString, // use 'Input' in place of x
+      ySymbol: outputString, // use 'Output' in place of y
+      xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
+      xyAsCards: true // card outlines around 'Input' and 'Output'
+    }
 
-    }, options );
+  }, options );
 
-    MathSceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
-  }
+  MathSceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
+}
 
-  functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
+functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
 
-  return inherit( MathSceneNode, NumbersSceneNode );
-} );
+inherit( MathSceneNode, NumbersSceneNode );
+export default NumbersSceneNode;

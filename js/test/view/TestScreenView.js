@@ -5,28 +5,25 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const DemosScreenView = require( 'SUN/demo/DemosScreenView' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const ScreenView = require( 'JOIST/ScreenView' );
-  const testImageFunctions = require( 'FUNCTION_BUILDER/test/view/testImageFunctions' );
-  const testMysteryFunctionColors = require( 'FUNCTION_BUILDER/test/view/testMysteryFunctionColors' );
+import ScreenView from '../../../../joist/js/ScreenView.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import DemosScreenView from '../../../../sun/js/demo/DemosScreenView.js';
+import functionBuilder from '../../functionBuilder.js';
+import testImageFunctions from './testImageFunctions.js';
+import testMysteryFunctionColors from './testMysteryFunctionColors.js';
 
-  /**
-   * @constructor
-   */
-  function TestScreenView() {
-    DemosScreenView.call( this, [
-      { label: 'imageFunctions', createNode: testImageFunctions },
-      { label: 'mysteryFunctionColors', createNode: testMysteryFunctionColors }
-    ] );
-  }
+/**
+ * @constructor
+ */
+function TestScreenView() {
+  DemosScreenView.call( this, [
+    { label: 'imageFunctions', createNode: testImageFunctions },
+    { label: 'mysteryFunctionColors', createNode: testMysteryFunctionColors }
+  ] );
+}
 
-  functionBuilder.register( 'TestScreenView', TestScreenView );
+functionBuilder.register( 'TestScreenView', TestScreenView );
 
-  return inherit( ScreenView, TestScreenView );
-} );
+inherit( ScreenView, TestScreenView );
+export default TestScreenView;

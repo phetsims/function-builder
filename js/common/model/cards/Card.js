@@ -6,30 +6,27 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Movable = require( 'FUNCTION_BUILDER/common/model/Movable' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBConstants from '../../FBConstants.js';
+import Movable from '../Movable.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function Card( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Card( options ) {
 
-    options = merge( {
-      animationSpeed: FBConstants.CARD_ANIMATION_SPEED  // {number} distance/second when animating
-    }, options );
+  options = merge( {
+    animationSpeed: FBConstants.CARD_ANIMATION_SPEED  // {number} distance/second when animating
+  }, options );
 
-    Movable.call( this, options );
-  }
+  Movable.call( this, options );
+}
 
-  functionBuilder.register( 'Card', Card );
+functionBuilder.register( 'Card', Card );
 
-  return inherit( Movable, Card );
-} );
+inherit( Movable, Card );
+export default Card;

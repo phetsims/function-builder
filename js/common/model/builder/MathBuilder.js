@@ -6,57 +6,53 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Builder = require( 'FUNCTION_BUILDER/common/model/builder/Builder' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import functionBuilder from '../../../functionBuilder.js';
+import Builder from './Builder.js';
+
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function MathBuilder( options ) {
+
+  Builder.call( this, options );
+
+  // when any function's operand changes, notify listeners
+  const self = this;
+  this.operandObserver = function( operand ) {
+    self.functionChangedEmitter.emit();
+  };
+}
+
+functionBuilder.register( 'MathBuilder', MathBuilder );
+
+export default inherit( Builder, MathBuilder, {
 
   /**
-   * @param {Object} [options]
-   * @constructor
+   * Puts a function instance into a slot. Start observing its operand.
+   *
+   * @param {AbstractFunction} functionInstance
+   * @param {number} slotNumber
+   * @public
+   * @override
    */
-  function MathBuilder( options ) {
+  addFunctionInstance: function( functionInstance, slotNumber ) {
+    Builder.prototype.addFunctionInstance.call( this, functionInstance, slotNumber );
+    functionInstance.operandProperty.link( this.operandObserver ); // unlink handled in removeFunctionInstance
+  },
 
-    Builder.call( this, options );
-
-    // when any function's operand changes, notify listeners
-    const self = this;
-    this.operandObserver = function( operand ) {
-      self.functionChangedEmitter.emit();
-    };
+  /**
+   * Removes a function instance from a slot. Stop observing its operand.
+   *
+   * @param {AbstractFunction} functionInstance
+   * @param {number} slotNumber
+   * @public
+   * @override
+   */
+  removeFunctionInstance: function( functionInstance, slotNumber ) {
+    Builder.prototype.removeFunctionInstance.call( this, functionInstance, slotNumber );
+    functionInstance.operandProperty.unlink( this.operandObserver );
   }
-
-  functionBuilder.register( 'MathBuilder', MathBuilder );
-
-  return inherit( Builder, MathBuilder, {
-
-    /**
-     * Puts a function instance into a slot. Start observing its operand.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @param {number} slotNumber
-     * @public
-     * @override
-     */
-    addFunctionInstance: function( functionInstance, slotNumber ) {
-      Builder.prototype.addFunctionInstance.call( this, functionInstance, slotNumber );
-      functionInstance.operandProperty.link( this.operandObserver ); // unlink handled in removeFunctionInstance
-    },
-
-    /**
-     * Removes a function instance from a slot. Stop observing its operand.
-     *
-     * @param {AbstractFunction} functionInstance
-     * @param {number} slotNumber
-     * @public
-     * @override
-     */
-    removeFunctionInstance: function( functionInstance, slotNumber ) {
-      Builder.prototype.removeFunctionInstance.call( this, functionInstance, slotNumber );
-      functionInstance.operandProperty.unlink( this.operandObserver );
-    }
-  } );
 } );

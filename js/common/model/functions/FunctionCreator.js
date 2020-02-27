@@ -6,38 +6,34 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+
+/**
+ * @param {constructor} functionConstructor - constructor for a function
+ * @param {Object} [functionConstructorOptions] - options that will be passed to functionConstructor
+ * @constructor
+ */
+function FunctionCreator( functionConstructor, functionConstructorOptions ) {
+
+  // @private
+  this.functionConstructor = functionConstructor;
+  this.functionConstructorOptions = functionConstructorOptions;
+}
+
+functionBuilder.register( 'FunctionCreator', FunctionCreator );
+
+export default inherit( Object, FunctionCreator, {
 
   /**
-   * @param {constructor} functionConstructor - constructor for a function
-   * @param {Object} [functionConstructorOptions] - options that will be passed to functionConstructor
-   * @constructor
+   * Creates a function instance.
+   *
+   * @param {Object} [options] - options passed to function constructor
+   * @returns {AbstractFunction}
    */
-  function FunctionCreator( functionConstructor, functionConstructorOptions ) {
-
-    // @private
-    this.functionConstructor = functionConstructor;
-    this.functionConstructorOptions = functionConstructorOptions;
+  createInstance: function( options ) {
+    return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );
   }
-
-  functionBuilder.register( 'FunctionCreator', FunctionCreator );
-
-  return inherit( Object, FunctionCreator, {
-
-    /**
-     * Creates a function instance.
-     *
-     * @param {Object} [options] - options passed to function constructor
-     * @returns {AbstractFunction}
-     */
-    createInstance: function( options ) {
-      return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );
-    }
-  } );
 } );

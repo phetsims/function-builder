@@ -5,33 +5,30 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import RichText from '../../../../../scenery/js/nodes/RichText.js';
+import FBConstants from '../../../common/FBConstants.js';
+import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import functionBuilder from '../../../functionBuilder.js';
 
-  /**
-   * @param {string} mysteryString - string that may contain subscripts and superscripts
-   * @param {Object} [options]
-   * @constructor
-   */
-  function MysteryImageFunction( mysteryString, options ) {
+/**
+ * @param {string} mysteryString - string that may contain subscripts and superscripts
+ * @param {Object} [options]
+ * @constructor
+ */
+function MysteryImageFunction( mysteryString, options ) {
 
-    const iconNode = new RichText( mysteryString, {
-      subScale: 0.4, // subscript scale
-      font: FBConstants.PATTERNS_FUNCTION_FONT,
-      maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
-    } );
+  const iconNode = new RichText( mysteryString, {
+    subScale: 0.4, // subscript scale
+    font: FBConstants.PATTERNS_FUNCTION_FONT,
+    maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width
+  } );
 
-    ImageFunction.call( this, iconNode, options );
-  }
+  ImageFunction.call( this, iconNode, options );
+}
 
-  functionBuilder.register( 'MysteryImageFunction', MysteryImageFunction );
+functionBuilder.register( 'MysteryImageFunction', MysteryImageFunction );
 
-  return inherit( ImageFunction, MysteryImageFunction );
-} );
+inherit( ImageFunction, MysteryImageFunction );
+export default MysteryImageFunction;

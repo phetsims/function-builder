@@ -6,73 +6,69 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const MovableContainer = require( 'FUNCTION_BUILDER/common/view/containers/MovableContainer' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBConstants from '../../FBConstants.js';
+import MovableContainer from './MovableContainer.js';
+
+/**
+ * @param {FunctionCreator} functionCreator - creates function instances
+ * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
+ * @param {Object} [options]
+ * @constructor
+ */
+function FunctionContainer( functionCreator, functionNodeConstructor, options ) {
+
+  options = merge( {
+    size: FBConstants.FUNCTION_SIZE
+  }, options );
+
+  // @private
+  this.functionCreator = functionCreator;
+  this.functionNodeConstructor = functionNodeConstructor;
+
+  MovableContainer.call( this, options );
+}
+
+functionBuilder.register( 'FunctionContainer', FunctionContainer );
+
+export default inherit( MovableContainer, FunctionContainer, {
 
   /**
-   * @param {FunctionCreator} functionCreator - creates function instances
-   * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
-   * @param {Object} [options]
-   * @constructor
+   * Gets the constructor associated with this container.
+   * @returns {constructor} constructor for a subtype of AbstractFunction
    */
-  function FunctionContainer( functionCreator, functionNodeConstructor, options ) {
+  getFunctionConstructor: function() {
+    return this.functionCreator.functionConstructor;
+  },
 
-    options = merge( {
-      size: FBConstants.FUNCTION_SIZE
-    }, options );
+  /**
+   * Creates functions and puts them in the container.
+   *
+   * @param {number} numberOfInstances
+   * @param {Scene} scene
+   * @param {BuilderNode} builderNode
+   * @param {Node} dragLayer
+   * @public
+   */
+  createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
 
-    // @private
-    this.functionCreator = functionCreator;
-    this.functionNodeConstructor = functionNodeConstructor;
+    assert && assert( this.carouselPosition );
+    assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
 
-    MovableContainer.call( this, options );
-  }
+    for ( let i = 0; i < numberOfInstances; i++ ) {
 
-  functionBuilder.register( 'FunctionContainer', FunctionContainer );
+      // model element
+      const functionInstance = this.functionCreator.createInstance( { position: this.carouselPosition } );
+      scene.functionInstances.push( functionInstance );
 
-  return inherit( MovableContainer, FunctionContainer, {
+      // associated Node
+      const functionNode = new this.functionNodeConstructor( functionInstance, this, builderNode, dragLayer );
 
-    /**
-     * Gets the constructor associated with this container.
-     * @returns {constructor} constructor for a subtype of AbstractFunction
-     */
-    getFunctionConstructor: function() {
-      return this.functionCreator.functionConstructor;
-    },
-
-    /**
-     * Creates functions and puts them in the container.
-     *
-     * @param {number} numberOfInstances
-     * @param {Scene} scene
-     * @param {BuilderNode} builderNode
-     * @param {Node} dragLayer
-     * @public
-     */
-    createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
-
-      assert && assert( this.carouselPosition );
-      assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
-
-      for ( let i = 0; i < numberOfInstances; i++ ) {
-
-        // model element
-        const functionInstance = this.functionCreator.createInstance( { position: this.carouselPosition } );
-        scene.functionInstances.push( functionInstance );
-
-        // associated Node
-        const functionNode = new this.functionNodeConstructor( functionInstance, this, builderNode, dragLayer );
-
-        // put the Node in this container
-        this.addNode( functionNode );
-      }
+      // put the Node in this container
+      this.addNode( functionNode );
     }
-  } );
+  }
 } );

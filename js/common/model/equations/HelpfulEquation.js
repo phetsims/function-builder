@@ -9,203 +9,199 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Divide = require( 'FUNCTION_BUILDER/common/model/functions/Divide' );
-  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Plus = require( 'FUNCTION_BUILDER/common/model/functions/Plus' );
-  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Times = require( 'FUNCTION_BUILDER/common/model/functions/Times' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBSymbols from '../../FBSymbols.js';
+import Divide from '../functions/Divide.js';
+import Plus from '../functions/Plus.js';
+import Times from '../functions/Times.js';
+import RationalNumber from '../RationalNumber.js';
 
-  // constants
-  const ZERO = RationalNumber.withInteger( 0 );
+// constants
+const ZERO = RationalNumber.withInteger( 0 );
 
-  /**
-   * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
-   * @param {Object} [options]
-   * @constructor
-   */
-  function HelpfulEquation( mathFunctions, options ) {
+/**
+ * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
+ * @param {Object} [options]
+ * @constructor
+ */
+function HelpfulEquation( mathFunctions, options ) {
 
-    options = merge( {
-      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
-    }, options );
+  options = merge( {
+    xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
+  }, options );
 
-    const stack = []; // {MathFunction[]}
+  const stack = []; // {MathFunction[]}
 
-    // local vars to improve readability
-    let currentFunction = null; // {MathFunction}
-    let currentOperator = null; // {string}
-    let currentOperand = null; // {number}
-    let previousFunction = null; // {MathFunction}
-    let previousOperator = null; // {string}
-    let previousOperand = null; // {number}
-    let rationalNumber = ZERO; // {RationalNumber}
+  // local vars to improve readability
+  let currentFunction = null; // {MathFunction}
+  let currentOperator = null; // {string}
+  let currentOperand = null; // {number}
+  let previousFunction = null; // {MathFunction}
+  let previousOperator = null; // {string}
+  let previousOperand = null; // {number}
+  let rationalNumber = ZERO; // {RationalNumber}
 
-    for ( let i = 0; i < mathFunctions.length; i++ ) {
+  for ( let i = 0; i < mathFunctions.length; i++ ) {
 
-      currentFunction = mathFunctions[ i ];
-      currentOperator = currentFunction.operator;
-      currentOperand = currentFunction.operandProperty.get();
+    currentFunction = mathFunctions[ i ];
+    currentOperator = currentFunction.operator;
+    currentOperand = currentFunction.operandProperty.get();
 
-      if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
+    if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
 
-        if ( currentOperand === 0 ) {
-          // ignore plus or minus zero
-        }
-        else if ( ( stack.length !== 0 ) && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
-
-          // collapse adjacent plus and minus
-          stack.pop();
-
-          rationalNumber = currentFunction.apply( previousFunction.apply( ZERO ) ); // {RandomNumber}
-          if ( rationalNumber.valueOf() !== 0 ) {
-            stack.push( new Plus( {
-              operand: rationalNumber.valueOf(),
-              operandRange: null // disable range checking
-            } ) );
-          }
-        }
-        else {
-          stack.push( currentFunction );
-        }
+      if ( currentOperand === 0 ) {
+        // ignore plus or minus zero
       }
-      else if ( currentOperator === FBSymbols.TIMES ) {
+      else if ( ( stack.length !== 0 ) && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
 
-        if ( previousOperator === FBSymbols.TIMES ) {
+        // collapse adjacent plus and minus
+        stack.pop();
 
-          // collapse adjacent times
-          stack.pop();
-          stack.push( new Times( {
-            operand: previousOperand * currentOperand,
-            operandRange: null
+        rationalNumber = currentFunction.apply( previousFunction.apply( ZERO ) ); // {RandomNumber}
+        if ( rationalNumber.valueOf() !== 0 ) {
+          stack.push( new Plus( {
+            operand: rationalNumber.valueOf(),
+            operandRange: null // disable range checking
           } ) );
-        }
-        else {
-          stack.push( currentFunction );
-        }
-      }
-      else if ( currentOperator === FBSymbols.DIVIDE ) {
-        assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
-
-        if ( previousOperator === FBSymbols.DIVIDE ) {
-
-          // collapse adjacent divide
-          stack.pop();
-          stack.push( new Divide( {
-            operand: previousOperand * currentOperand,
-            operandRange: null
-          } ) );
-        }
-        else {
-          stack.push( currentFunction );
         }
       }
       else {
-        throw new Error( 'invalid operator: ' + currentOperator );
-      }
-
-      if ( stack.length > 0 ) {
-        previousFunction = stack[ stack.length - 1 ];
-        previousOperator = currentOperator;
-        previousOperand = previousFunction.operandProperty.get();
-      }
-      else {
-        previousFunction = null;
-        previousOperator = null;
-        previousOperand = null;
+        stack.push( currentFunction );
       }
     }
+    else if ( currentOperator === FBSymbols.TIMES ) {
 
-    // @private
-    this.xSymbol = options.xSymbol; // {string}
+      if ( previousOperator === FBSymbols.TIMES ) {
 
-    // @public
-    this.mathFunctions = stack; // {MathFunction[]}
+        // collapse adjacent times
+        stack.pop();
+        stack.push( new Times( {
+          operand: previousOperand * currentOperand,
+          operandRange: null
+        } ) );
+      }
+      else {
+        stack.push( currentFunction );
+      }
+    }
+    else if ( currentOperator === FBSymbols.DIVIDE ) {
+      assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
+
+      if ( previousOperator === FBSymbols.DIVIDE ) {
+
+        // collapse adjacent divide
+        stack.pop();
+        stack.push( new Divide( {
+          operand: previousOperand * currentOperand,
+          operandRange: null
+        } ) );
+      }
+      else {
+        stack.push( currentFunction );
+      }
+    }
+    else {
+      throw new Error( 'invalid operator: ' + currentOperator );
+    }
+
+    if ( stack.length > 0 ) {
+      previousFunction = stack[ stack.length - 1 ];
+      previousOperator = currentOperator;
+      previousOperand = previousFunction.operandProperty.get();
+    }
+    else {
+      previousFunction = null;
+      previousOperator = null;
+      previousOperand = null;
+    }
   }
 
-  functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
+  // @private
+  this.xSymbol = options.xSymbol; // {string}
 
-  return inherit( Object, HelpfulEquation, {
+  // @public
+  this.mathFunctions = stack; // {MathFunction[]}
+}
 
-    /**
-     * String representation, for debugging. Do not rely on format!
-     * Note that the logic flow herein is similar to HelpfulEquationNode's constructor, but constructs a string
-     * instead of a Node, and doesn't check logic in case we need to see a malformed equation.
-     *
-     * @returns {string}
-     * @public
-     */
-    toString: function() {
+functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
 
-      let equation = null; // {string}
-      let i = 0; // {number}
+export default inherit( Object, HelpfulEquation, {
 
-      if ( this.mathFunctions.length === 0 ) {
+  /**
+   * String representation, for debugging. Do not rely on format!
+   * Note that the logic flow herein is similar to HelpfulEquationNode's constructor, but constructs a string
+   * instead of a Node, and doesn't check logic in case we need to see a malformed equation.
+   *
+   * @returns {string}
+   * @public
+   */
+  toString: function() {
 
-        // x
-        equation = this.xSymbol;
-      }
-      else {
+    let equation = null; // {string}
+    let i = 0; // {number}
 
-        // local vars to improve readability
-        let currentFunction = null; // {MathFunction}
-        let currentOperator = null; // {string}
-        let currentOperand = null; // {number}
+    if ( this.mathFunctions.length === 0 ) {
 
-        equation = this.xSymbol;
+      // x
+      equation = this.xSymbol;
+    }
+    else {
 
-        for ( i = 0; i < this.mathFunctions.length; i++ ) {
+      // local vars to improve readability
+      let currentFunction = null; // {MathFunction}
+      let currentOperator = null; // {string}
+      let currentOperand = null; // {number}
 
-          currentFunction = this.mathFunctions[ i ];
-          currentOperator = currentFunction.operator;
-          currentOperand = currentFunction.operandProperty.get().valueOf();
+      equation = this.xSymbol;
 
-          if ( currentOperator === FBSymbols.PLUS ) {
+      for ( i = 0; i < this.mathFunctions.length; i++ ) {
 
-            // eg: 2x + 3
-            equation = StringUtils.format( '{0} {1} {2}', equation,
-              ( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS ), Math.abs( currentOperand ) );
-          }
-          else if ( currentOperator === FBSymbols.MINUS ) {
+        currentFunction = this.mathFunctions[ i ];
+        currentOperator = currentFunction.operator;
+        currentOperand = currentFunction.operandProperty.get().valueOf();
 
-            // eg: 2x - 3
-            equation = StringUtils.format( '{0} {1} {2}', equation,
-              ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), Math.abs( currentOperand ) );
-          }
-          else if ( currentOperator === FBSymbols.TIMES ) {
-            if ( equation === this.xSymbol ) {
+        if ( currentOperator === FBSymbols.PLUS ) {
 
-              // eg: 3x
-              equation = StringUtils.format( '{0}{1}', currentOperand, equation );
-            }
-            else {
+          // eg: 2x + 3
+          equation = StringUtils.format( '{0} {1} {2}', equation,
+            ( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS ), Math.abs( currentOperand ) );
+        }
+        else if ( currentOperator === FBSymbols.MINUS ) {
 
-              // eg: 2(x + 2)
-              equation = StringUtils.format( '{0}({1})', currentOperand, equation );
-            }
-          }
-          else if ( currentOperator === FBSymbols.DIVIDE ) {
-            if ( equation !== '0' ) {
+          // eg: 2x - 3
+          equation = StringUtils.format( '{0} {1} {2}', equation,
+            ( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS ), Math.abs( currentOperand ) );
+        }
+        else if ( currentOperator === FBSymbols.TIMES ) {
+          if ( equation === this.xSymbol ) {
 
-              // eq: [2x + 1]/3
-              // square brackets denote a numerator
-              equation = StringUtils.format( '[{0}]/{1}', equation, currentOperand );
-            }
+            // eg: 3x
+            equation = StringUtils.format( '{0}{1}', currentOperand, equation );
           }
           else {
-            throw new Error( 'invalid operator: ' + currentOperator );
+
+            // eg: 2(x + 2)
+            equation = StringUtils.format( '{0}({1})', currentOperand, equation );
           }
         }
-      }
+        else if ( currentOperator === FBSymbols.DIVIDE ) {
+          if ( equation !== '0' ) {
 
-      return equation;
+            // eq: [2x + 1]/3
+            // square brackets denote a numerator
+            equation = StringUtils.format( '[{0}]/{1}', equation, currentOperand );
+          }
+        }
+        else {
+          throw new Error( 'invalid operator: ' + currentOperator );
+        }
+      }
     }
-  } );
+
+    return equation;
+  }
 } );

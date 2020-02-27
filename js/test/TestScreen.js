@@ -5,33 +5,30 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const TestScreenView = require( 'FUNCTION_BUILDER/test/view/TestScreenView' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import functionBuilder from '../functionBuilder.js';
+import TestScreenView from './view/TestScreenView.js';
 
-  /**
-   * @constructor
-   */
-  function TestScreen() {
+/**
+ * @constructor
+ */
+function TestScreen() {
 
-    const options = {
-      name: 'Test',
-      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
-    };
+  const options = {
+    name: 'Test',
+    backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
+  };
 
-    Screen.call( this,
-      function() { return {}; },
-      function( model ) { return new TestScreenView( model ); },
-      options );
-  }
+  Screen.call( this,
+    function() { return {}; },
+    function( model ) { return new TestScreenView( model ); },
+    options );
+}
 
-  functionBuilder.register( 'TestScreen', TestScreen );
+functionBuilder.register( 'TestScreen', TestScreen );
 
-  return inherit( Screen, TestScreen );
-} );
+inherit( Screen, TestScreen );
+export default TestScreen;

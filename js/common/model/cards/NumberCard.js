@@ -5,32 +5,29 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Card = require( 'FUNCTION_BUILDER/common/model/cards/Card' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const RationalNumber = require( 'FUNCTION_BUILDER/common/model/RationalNumber' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import functionBuilder from '../../../functionBuilder.js';
+import RationalNumber from '../RationalNumber.js';
+import Card from './Card.js';
 
-  /**
-   * @param {RationalNumber} rationalNumber - the input number, an integer
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumberCard( rationalNumber, options ) {
+/**
+ * @param {RationalNumber} rationalNumber - the input number, an integer
+ * @param {Object} [options]
+ * @constructor
+ */
+function NumberCard( rationalNumber, options ) {
 
-    assert && assert( rationalNumber instanceof RationalNumber );
-    assert && assert( rationalNumber.isInteger() );
+  assert && assert( rationalNumber instanceof RationalNumber );
+  assert && assert( rationalNumber.isInteger() );
 
-    // {RationalNumber} @public (read-only)
-    this.rationalNumber = rationalNumber;
+  // {RationalNumber} @public (read-only)
+  this.rationalNumber = rationalNumber;
 
-    Card.call( this, options );
-  }
+  Card.call( this, options );
+}
 
-  functionBuilder.register( 'NumberCard', NumberCard );
+functionBuilder.register( 'NumberCard', NumberCard );
 
-  return inherit( Card, NumberCard );
-} );
+inherit( Card, NumberCard );
+export default NumberCard;

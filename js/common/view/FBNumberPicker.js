@@ -5,59 +5,56 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  const Property = require( 'AXON/Property' );
+import Property from '../../../../axon/js/Property.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import NumberPicker from '../../../../scenery-phet/js/NumberPicker.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  /**
-   * @param {Property.<number>} valueProperty
-   * @param {Range} valueRange
-   * @param {Object} [options]
-   * @constructor
-   */
-  function FBNumberPicker( valueProperty, valueRange, options ) {
+/**
+ * @param {Property.<number>} valueProperty
+ * @param {Range} valueRange
+ * @param {Object} [options]
+ * @constructor
+ */
+function FBNumberPicker( valueProperty, valueRange, options ) {
 
-    options = merge( {
-      touchAreaXDilation: 0, // so that it's easier to grab the function's background
-      xMargin: 6,
-      skipZero: false // {boolean} whether to skip zero value
-    }, options );
+  options = merge( {
+    touchAreaXDilation: 0, // so that it's easier to grab the function's background
+    xMargin: 6,
+    skipZero: false // {boolean} whether to skip zero value
+  }, options );
 
-    assert && assert( !( options.skipZero && ( valueRange.min === 0 || valueRange.max === 0 ) ),
-      'cannot skip zero when it is min or max' );
+  assert && assert( !( options.skipZero && ( valueRange.min === 0 || valueRange.max === 0 ) ),
+    'cannot skip zero when it is min or max' );
 
-    // increment, optionally skip zero
-    assert && assert( !options.upFunction );
-    options.upFunction = function( value ) {
-      let newValue = value + 1;
-      if ( newValue === 0 && options.skipZero ) {
-        newValue++;
-      }
-      assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
-      return newValue;
-    };
+  // increment, optionally skip zero
+  assert && assert( !options.upFunction );
+  options.upFunction = function( value ) {
+    let newValue = value + 1;
+    if ( newValue === 0 && options.skipZero ) {
+      newValue++;
+    }
+    assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
+    return newValue;
+  };
 
-    // decrement, optionally skip zero
-    assert && assert( !options.downFunction );
-    options.downFunction = function( value ) {
-      let newValue = value - 1;
-      if ( newValue === 0 && options.skipZero ) {
-        newValue--;
-      }
-      assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
-      return newValue;
-    };
+  // decrement, optionally skip zero
+  assert && assert( !options.downFunction );
+  options.downFunction = function( value ) {
+    let newValue = value - 1;
+    if ( newValue === 0 && options.skipZero ) {
+      newValue--;
+    }
+    assert && assert( !( options.skipZero && newValue === 0 ), 'programming error, zero should be skipped' );
+    return newValue;
+  };
 
-    NumberPicker.call( this, valueProperty, new Property( valueRange ), options );
-  }
+  NumberPicker.call( this, valueProperty, new Property( valueRange ), options );
+}
 
-  functionBuilder.register( 'FBNumberPicker', FBNumberPicker );
+functionBuilder.register( 'FBNumberPicker', FBNumberPicker );
 
-  return inherit( NumberPicker, FBNumberPicker );
-} );
+inherit( NumberPicker, FBNumberPicker );
+export default FBNumberPicker;

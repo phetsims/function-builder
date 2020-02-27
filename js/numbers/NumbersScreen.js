@@ -5,46 +5,43 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const NumbersModel = require( 'FUNCTION_BUILDER/numbers/model/NumbersModel' );
-  const NumbersScreenView = require( 'FUNCTION_BUILDER/numbers/view/NumbersScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import merge from '../../../phet-core/js/merge.js';
+import FBColors from '../common/FBColors.js';
+import FBIconFactory from '../common/view/FBIconFactory.js';
+import functionBuilderStrings from '../function-builder-strings.js';
+import functionBuilder from '../functionBuilder.js';
+import NumbersModel from './model/NumbersModel.js';
+import NumbersScreenView from './view/NumbersScreenView.js';
 
-  // strings
-  const screenNumbersString = require( 'string!FUNCTION_BUILDER/screen.numbers' );
+const screenNumbersString = functionBuilderStrings.screen.numbers;
 
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumbersScreen( tandem, options ) {
+/**
+ * @param {Tandem} tandem
+ * @param {Object} [options]
+ * @constructor
+ */
+function NumbersScreen( tandem, options ) {
 
-    options = merge( {
-      name: screenNumbersString,
-      backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-      homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
-    }, options );
+  options = merge( {
+    name: screenNumbersString,
+    backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+    homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
+  }, options );
 
-    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
-    options.tandem = tandem;
+  assert && assert( !options.tandem, 'tandem is a constructor parameter' );
+  options.tandem = tandem;
 
-    Screen.call( this,
-      function() { return new NumbersModel(); },
-      function( model ) { return new NumbersScreenView( model ); },
-      options );
-  }
+  Screen.call( this,
+    function() { return new NumbersModel(); },
+    function( model ) { return new NumbersScreenView( model ); },
+    options );
+}
 
-  functionBuilder.register( 'NumbersScreen', NumbersScreen );
+functionBuilder.register( 'NumbersScreen', NumbersScreen );
 
-  return inherit( Screen, NumbersScreen );
-} );
+inherit( Screen, NumbersScreen );
+export default NumbersScreen;

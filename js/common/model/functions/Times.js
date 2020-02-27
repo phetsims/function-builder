@@ -5,46 +5,42 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBSymbols = require( 'FUNCTION_BUILDER/common/FBSymbols' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MathFunction = require( 'FUNCTION_BUILDER/common/model/functions/MathFunction' );
-  const merge = require( 'PHET_CORE/merge' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBSymbols from '../../FBSymbols.js';
+import MathFunction from './MathFunction.js';
+
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function Times( options ) {
+
+  options = merge( {
+    fill: 'rgb( 237, 165, 222 )',
+    pickerColor: 'rgb( 223, 17, 213 )'
+  }, options );
+
+  MathFunction.call( this,
+    FBSymbols.TIMES,
+    function( input, operand ) { return input.times( operand ); },
+    options );
+}
+
+functionBuilder.register( 'Times', Times );
+
+export default inherit( MathFunction, Times, {
 
   /**
-   * @param {Object} [options]
-   * @constructor
+   * Is this function invertible for the current value of its operand?
+   * Multiplication by zero is not invertible, since division by zero is undefined.
+   *
+   * @public
+   * @override
    */
-  function Times( options ) {
-
-    options = merge( {
-      fill: 'rgb( 237, 165, 222 )',
-      pickerColor: 'rgb( 223, 17, 213 )'
-    }, options );
-
-    MathFunction.call( this,
-      FBSymbols.TIMES,
-      function( input, operand ) { return input.times( operand ); },
-      options );
+  getInvertible: function() {
+    return ( this.operandProperty.get() !== 0 );
   }
-
-  functionBuilder.register( 'Times', Times );
-
-  return inherit( MathFunction, Times, {
-
-    /**
-     * Is this function invertible for the current value of its operand?
-     * Multiplication by zero is not invertible, since division by zero is undefined.
-     *
-     * @public
-     * @override
-     */
-    getInvertible: function() {
-      return ( this.operandProperty.get() !== 0 );
-    }
-  } );
 } );

@@ -5,56 +5,52 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const MysteryImageFunction = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryImageFunction' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import functionBuilderStrings from '../../../function-builder-strings.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBCanvasUtils from '../FBCanvasUtils.js';
+import MysteryImageFunction from './MysteryImageFunction.js';
 
-  // strings
-  const mysteryAString = require( 'string!FUNCTION_BUILDER/mysteryA' );
+const mysteryAString = functionBuilderStrings.mysteryA;
+
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function MysteryA( options ) {
+  MysteryImageFunction.call( this, mysteryAString, merge( {
+    name: 'MysteryA',
+    fill: 'rgb( 127, 225, 173 )'
+  }, options ) );
+}
+
+functionBuilder.register( 'MysteryA', MysteryA );
+
+export default inherit( MysteryImageFunction, MysteryA, {
 
   /**
-   * @param {Object} [options]
-   * @constructor
+   * Applies this function.
+   *
+   * @param {HTMLCanvasElement} inputCanvas
+   * @returns {HTMLCanvasElement}
+   * @public
+   * @override
    */
-  function MysteryA( options ) {
-    MysteryImageFunction.call( this, mysteryAString, merge( {
-      name: 'MysteryA',
-      fill: 'rgb( 127, 225, 173 )'
-    }, options ) );
+  apply: function( inputCanvas ) {
+
+    // Create the output canvas
+    const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
+    const context = outputCanvas.getContext( '2d' );
+
+    // Reflect about the x axis
+    context.translate( 0, outputCanvas.height );
+    context.scale( 1, -1 );
+
+    // Draw the input canvas to the output canvas
+    context.drawImage( inputCanvas, 0, 0 );
+
+    return outputCanvas;
   }
-
-  functionBuilder.register( 'MysteryA', MysteryA );
-
-  return inherit( MysteryImageFunction, MysteryA, {
-
-    /**
-     * Applies this function.
-     *
-     * @param {HTMLCanvasElement} inputCanvas
-     * @returns {HTMLCanvasElement}
-     * @public
-     * @override
-     */
-    apply: function( inputCanvas ) {
-
-      // Create the output canvas
-      const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-      const context = outputCanvas.getContext( '2d' );
-
-      // Reflect about the x axis
-      context.translate( 0, outputCanvas.height );
-      context.scale( 1, -1 );
-
-      // Draw the input canvas to the output canvas
-      context.drawImage( inputCanvas, 0, 0 );
-
-      return outputCanvas;
-    }
-  } );
 } );

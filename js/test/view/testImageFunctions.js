@@ -6,212 +6,210 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // image function modules
-  const Erase = require( 'FUNCTION_BUILDER/patterns/model/functions/Erase' );
-  const Grayscale = require( 'FUNCTION_BUILDER/patterns/model/functions/Grayscale' );
-  const Identity = require( 'FUNCTION_BUILDER/patterns/model/functions/Identity' );
-  const InvertRGB = require( 'FUNCTION_BUILDER/patterns/model/functions/InvertRGB' );
-  const Mirror = require( 'FUNCTION_BUILDER/patterns/model/functions/Mirror' );
-  const MysteryA = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryA' );
-  const MysteryB = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryB' );
-  const MysteryC = require( 'FUNCTION_BUILDER/patterns/model/functions/MysteryC' );
-  const Rotate180 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate180' );
-  const Rotate90 = require( 'FUNCTION_BUILDER/patterns/model/functions/Rotate90' );
-  const Shrink = require( 'FUNCTION_BUILDER/patterns/model/functions/Shrink' );
-  const Warhol = require( 'FUNCTION_BUILDER/patterns/model/functions/Warhol' );
 
-  // other function-builder modules
-  const FBCanvasUtils = require( 'FUNCTION_BUILDER/patterns/model/FBCanvasUtils' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const ImageFunction = require( 'FUNCTION_BUILDER/common/model/functions/ImageFunction' );
+// image function modules
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Carousel from '../../../../sun/js/Carousel.js';
+import beakerImage from '../../../images/cards/beaker_png.js';
+import butterflyImage from '../../../images/cards/butterfly_png.js';
+import cherriesImage from '../../../images/cards/cherries_png.js';
+import circleImage from '../../../images/cards/circle_png.js';
+import feetImage from '../../../images/cards/feet_png.js';
+import planetImage from '../../../images/cards/planet_png.js';
+import rectangleImage from '../../../images/cards/rectangle_png.js';
+import snowflakeImage from '../../../images/cards/snowflake_png.js';
+import starImage from '../../../images/cards/star_png.js';
+import stickFigureImage from '../../../images/cards/stickFigure_png.js';
+import sunImage from '../../../images/cards/sun_png.js';
+import triangleImage from '../../../images/cards/triangle_png.js';
+import ImageFunction from '../../common/model/functions/ImageFunction.js';
+import functionBuilder from '../../functionBuilder.js';
+import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
+import Erase from '../../patterns/model/functions/Erase.js';
+import Grayscale from '../../patterns/model/functions/Grayscale.js';
+import Identity from '../../patterns/model/functions/Identity.js';
+import InvertRGB from '../../patterns/model/functions/InvertRGB.js';
+import Mirror from '../../patterns/model/functions/Mirror.js';
+import MysteryA from '../../patterns/model/functions/MysteryA.js';
+import MysteryB from '../../patterns/model/functions/MysteryB.js';
+import MysteryC from '../../patterns/model/functions/MysteryC.js';
+import Rotate180 from '../../patterns/model/functions/Rotate180.js';
+import Rotate90 from '../../patterns/model/functions/Rotate90.js';
+import Shrink from '../../patterns/model/functions/Shrink.js';
+import Warhol from '../../patterns/model/functions/Warhol.js';
 
-  // common modules
-  const Carousel = require( 'SUN/Carousel' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Shape = require( 'KITE/Shape' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
+// other function-builder modules
 
-  // images (input cards)
-  const beakerImage = require( 'image!FUNCTION_BUILDER/cards/beaker.png' );
-  const butterflyImage = require( 'image!FUNCTION_BUILDER/cards/butterfly.png' );
-  const cherriesImage = require( 'image!FUNCTION_BUILDER/cards/cherries.png' );
-  const circleImage = require( 'image!FUNCTION_BUILDER/cards/circle.png' );
-  const feetImage = require( 'image!FUNCTION_BUILDER/cards/feet.png' );
-  const planetImage = require( 'image!FUNCTION_BUILDER/cards/planet.png' );
-  const rectangleImage = require( 'image!FUNCTION_BUILDER/cards/rectangle.png' );
-  const snowflakeImage = require( 'image!FUNCTION_BUILDER/cards/snowflake.png' );
-  const starImage = require( 'image!FUNCTION_BUILDER/cards/star.png' );
-  const stickFigureImage = require( 'image!FUNCTION_BUILDER/cards/stickFigure.png' );
-  const sunImage = require( 'image!FUNCTION_BUILDER/cards/sun.png' );
-  const triangleImage = require( 'image!FUNCTION_BUILDER/cards/triangle.png' );
+// common modules
 
-  /**
-   * @param {Bounds2} layoutBounds
-   * @returns {Node}
-   */
-  function testImageFunctions( layoutBounds ) {
+// images (input cards)
 
-    // a canvas for each input image
-    const canvases = [
-      FBCanvasUtils.createCanvasWithImage( feetImage ),
-      FBCanvasUtils.createCanvasWithImage( snowflakeImage ),
-      FBCanvasUtils.createCanvasWithImage( butterflyImage ),
-      FBCanvasUtils.createCanvasWithImage( stickFigureImage ),
-      FBCanvasUtils.createCanvasWithImage( planetImage ),
-      FBCanvasUtils.createCanvasWithImage( sunImage ),
-      FBCanvasUtils.createCanvasWithImage( beakerImage ),
-      FBCanvasUtils.createCanvasWithImage( cherriesImage ),
-      FBCanvasUtils.createCanvasWithImage( rectangleImage ),
-      FBCanvasUtils.createCanvasWithImage( circleImage ),
-      FBCanvasUtils.createCanvasWithImage( triangleImage ),
-      FBCanvasUtils.createCanvasWithImage( starImage )
-    ];
+/**
+ * @param {Bounds2} layoutBounds
+ * @returns {Node}
+ */
+function testImageFunctions( layoutBounds ) {
 
-    // functions to be applied to the images
-    const functions = [
-      new Identity(),
-      new Mirror(),
-      new Rotate90(),
-      new Grayscale(),
-      new Rotate180(),
-      new InvertRGB(),
-      new Erase(),
-      new Shrink(),
-      new Warhol(),
-      new MysteryA(),
-      new MysteryB(),
-      new MysteryC()
-    ];
+  // a canvas for each input image
+  const canvases = [
+    FBCanvasUtils.createCanvasWithImage( feetImage ),
+    FBCanvasUtils.createCanvasWithImage( snowflakeImage ),
+    FBCanvasUtils.createCanvasWithImage( butterflyImage ),
+    FBCanvasUtils.createCanvasWithImage( stickFigureImage ),
+    FBCanvasUtils.createCanvasWithImage( planetImage ),
+    FBCanvasUtils.createCanvasWithImage( sunImage ),
+    FBCanvasUtils.createCanvasWithImage( beakerImage ),
+    FBCanvasUtils.createCanvasWithImage( cherriesImage ),
+    FBCanvasUtils.createCanvasWithImage( rectangleImage ),
+    FBCanvasUtils.createCanvasWithImage( circleImage ),
+    FBCanvasUtils.createCanvasWithImage( triangleImage ),
+    FBCanvasUtils.createCanvasWithImage( starImage )
+  ];
 
-    // a row of function icons
-    const functionNodes = [];
+  // functions to be applied to the images
+  const functions = [
+    new Identity(),
+    new Mirror(),
+    new Rotate90(),
+    new Grayscale(),
+    new Rotate180(),
+    new InvertRGB(),
+    new Erase(),
+    new Shrink(),
+    new Warhol(),
+    new MysteryA(),
+    new MysteryB(),
+    new MysteryC()
+  ];
+
+  // a row of function icons
+  const functionNodes = [];
+  functions.forEach( function( functionInstance ) {
+    functionNodes.push( new TestFunctionNode( functionInstance, {
+      scale: 0.45 // determined empirically, to make functions line up with images in carousel
+    } ) );
+  } );
+  const functionsBox = new HBox( {
+    children: functionNodes,
+    spacing: 21
+  } );
+
+  // carousel items
+  const items = [];
+
+  // A row for each card
+  canvases.forEach( function( canvas ) {
+
+    const hBoxChildren = [];
+
     functions.forEach( function( functionInstance ) {
-      functionNodes.push( new TestFunctionNode( functionInstance, {
-        scale: 0.45 // determined empirically, to make functions line up with images in carousel
-      } ) );
-    } );
-    const functionsBox = new HBox( {
-      children: functionNodes,
-      spacing: 21
+      const outputCanvas = functionInstance.apply( canvas );
+      hBoxChildren.push( new TestCardNode( outputCanvas ) );
     } );
 
-    // carousel items
-    const items = [];
+    items.push( new HBox( {
+      children: hBoxChildren,
+      spacing: 15
+    } ) );
+  } );
 
-    // A row for each card
-    canvases.forEach( function( canvas ) {
+  // vertical carousel to show the output images
+  const carousel = new Carousel( items, {
+    orientation: 'vertical',
+    separatorsVisible: true,
+    itemsPerPage: 4
+  } );
 
-      const hBoxChildren = [];
+  return new VBox( {
+    children: [ functionsBox, carousel ],
+    spacing: 15,
+    center: layoutBounds.center
+  } );
+}
 
-      functions.forEach( function( functionInstance ) {
-        const outputCanvas = functionInstance.apply( canvas );
-        hBoxChildren.push( new TestCardNode( outputCanvas ) );
-      } );
+functionBuilder.register( 'testImageFunctions', testImageFunctions );
 
-      items.push( new HBox( {
-        children: hBoxChildren,
-        spacing: 15
-      } ) );
-    } );
+/**
+ * Use this simplified representation so that this test is not dependent on other sim code.
+ *
+ * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
+ * @param {Object} [options]
+ * @constructor
+ */
+function TestCardNode( canvas, options ) {
 
-    // vertical carousel to show the output images
-    const carousel = new Carousel( items, {
-      orientation: 'vertical',
-      separatorsVisible: true,
-      itemsPerPage: 4
-    } );
+  options = options || {};
 
-    return new VBox( {
-      children: [ functionsBox, carousel ],
-      spacing: 15,
-      center: layoutBounds.center
-    } );
-  }
+  const backgroundNode = new Rectangle( 0, 0, 60, 60, {
+    cornerRadius: 5,
+    fill: 'white',
+    stroke: 'black',
+    lineWidth: 1
+  } );
 
-  functionBuilder.register( 'testImageFunctions', testImageFunctions );
+  const imageNode = new Image( canvas.toDataURL(), {
+    initialWidth: canvas.width,
+    initialHeight: canvas.height,
+    scale: 0.3,  // determined empirically
+    center: backgroundNode.center
+  } );
 
-  /**
-   * Use this simplified representation so that this test is not dependent on other sim code.
-   *
-   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
-   * @param {Object} [options]
-   * @constructor
-   */
-  function TestCardNode( canvas, options ) {
+  assert && assert( !options.children, 'decoration not supported' );
+  options.children = [ backgroundNode, imageNode ];
 
-    options = options || {};
+  Node.call( this, options );
+}
 
-    const backgroundNode = new Rectangle( 0, 0, 60, 60, {
-      cornerRadius: 5,
-      fill: 'white',
-      stroke: 'black',
-      lineWidth: 1
-    } );
+inherit( Node, TestCardNode );
 
-    const imageNode = new Image( canvas.toDataURL(), {
-      initialWidth: canvas.width,
-      initialHeight: canvas.height,
-      scale: 0.3,  // determined empirically
-      center: backgroundNode.center
-    } );
+/**
+ * Use this simplified representation so that this test is not dependent on other sim code.
+ *
+ * @param {ImageFunction} functionInstance
+ * @param {Object} [options]
+ * @constructor
+ */
+function TestFunctionNode( functionInstance, options ) {
 
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, imageNode ];
+  assert && assert( functionInstance instanceof ImageFunction );
 
-    Node.call( this, options );
-  }
+  options = options || {};
 
-  inherit( Node, TestCardNode );
+  const WIDTH = 120;
+  const HEIGHT = 0.6 * WIDTH;
+  const X_INSET = 0.15 * WIDTH;
 
-  /**
-   * Use this simplified representation so that this test is not dependent on other sim code.
-   *
-   * @param {ImageFunction} functionInstance
-   * @param {Object} [options]
-   * @constructor
-   */
-  function TestFunctionNode( functionInstance, options ) {
+  // Described from top-left, moving clockwise.
+  const backgroundShape = new Shape()
+    .moveTo( 0, 0 )
+    .lineTo( WIDTH - X_INSET, 0 )
+    .lineTo( WIDTH, HEIGHT / 2 )
+    .lineTo( WIDTH - X_INSET, HEIGHT )
+    .lineTo( 0, HEIGHT )
+    .lineTo( X_INSET, HEIGHT / 2 )
+    .close();
 
-    assert && assert( functionInstance instanceof ImageFunction );
+  const backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
 
-    options = options || {};
+  const iconNode = new Node( {
+    children: [ functionInstance.iconNode ],
+    center: backgroundNode.center
+  } );
 
-    const WIDTH = 120;
-    const HEIGHT = 0.6 * WIDTH;
-    const X_INSET = 0.15 * WIDTH;
+  assert && assert( !options.children, 'decoration not supported' );
+  options.children = [ backgroundNode, iconNode ];
 
-    // Described from top-left, moving clockwise.
-    const backgroundShape = new Shape()
-      .moveTo( 0, 0 )
-      .lineTo( WIDTH - X_INSET, 0 )
-      .lineTo( WIDTH, HEIGHT / 2 )
-      .lineTo( WIDTH - X_INSET, HEIGHT )
-      .lineTo( 0, HEIGHT )
-      .lineTo( X_INSET, HEIGHT / 2 )
-      .close();
+  Node.call( this, options );
+}
 
-    const backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
+inherit( Node, TestFunctionNode );
 
-    const iconNode = new Node( {
-      children: [ functionInstance.iconNode ],
-      center: backgroundNode.center
-    } );
-
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, iconNode ];
-
-    Node.call( this, options );
-  }
-
-  inherit( Node, TestFunctionNode );
-
-  return testImageFunctions;
-} );
+export default testImageFunctions;

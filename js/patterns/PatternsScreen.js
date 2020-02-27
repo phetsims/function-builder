@@ -5,46 +5,43 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBColors = require( 'FUNCTION_BUILDER/common/FBColors' );
-  const FBIconFactory = require( 'FUNCTION_BUILDER/common/view/FBIconFactory' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const PatternsModel = require( 'FUNCTION_BUILDER/patterns/model/PatternsModel' );
-  const PatternsScreenView = require( 'FUNCTION_BUILDER/patterns/view/PatternsScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import merge from '../../../phet-core/js/merge.js';
+import FBColors from '../common/FBColors.js';
+import FBIconFactory from '../common/view/FBIconFactory.js';
+import functionBuilderStrings from '../function-builder-strings.js';
+import functionBuilder from '../functionBuilder.js';
+import PatternsModel from './model/PatternsModel.js';
+import PatternsScreenView from './view/PatternsScreenView.js';
 
-  // strings
-  const screenPatternsString = require( 'string!FUNCTION_BUILDER/screen.patterns' );
+const screenPatternsString = functionBuilderStrings.screen.patterns;
 
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
-   */
-  function PatternsScreen( tandem, options ) {
+/**
+ * @param {Tandem} tandem
+ * @param {Object} [options]
+ * @constructor
+ */
+function PatternsScreen( tandem, options ) {
 
-    options = merge( {
-      name: screenPatternsString,
-      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-      homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
-    }, options );
+  options = merge( {
+    name: screenPatternsString,
+    backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+    homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
+  }, options );
 
-    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
-    options.tandem = tandem;
+  assert && assert( !options.tandem, 'tandem is a constructor parameter' );
+  options.tandem = tandem;
 
-    Screen.call( this,
-      function() { return new PatternsModel(); },
-      function( model ) { return new PatternsScreenView( model ); },
-      options );
-  }
+  Screen.call( this,
+    function() { return new PatternsModel(); },
+    function( model ) { return new PatternsScreenView( model ); },
+    options );
+}
 
-  functionBuilder.register( 'PatternsScreen', PatternsScreen );
+functionBuilder.register( 'PatternsScreen', PatternsScreen );
 
-  return inherit( Screen, PatternsScreen );
-} );
+inherit( Screen, PatternsScreen );
+export default PatternsScreen;

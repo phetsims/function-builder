@@ -5,23 +5,20 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const NumbersScene = require( 'FUNCTION_BUILDER/numbers/model/NumbersScene' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import FBModel from '../../common/model/FBModel.js';
+import functionBuilder from '../../functionBuilder.js';
+import NumbersScene from './NumbersScene.js';
 
-  /**
-   * @constructor
-   */
-  function NumbersModel() {
-    FBModel.call( this, [ new NumbersScene() ] );
-  }
+/**
+ * @constructor
+ */
+function NumbersModel() {
+  FBModel.call( this, [ new NumbersScene() ] );
+}
 
-  functionBuilder.register( 'NumbersModel', NumbersModel );
+functionBuilder.register( 'NumbersModel', NumbersModel );
 
-  return inherit( FBModel, NumbersModel );
-} );
+inherit( FBModel, NumbersModel );
+export default NumbersModel;

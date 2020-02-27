@@ -5,49 +5,46 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import functionBuilder from '../../functionBuilder.js';
 
-  /**
-   * @param {Property.<Scene>} selectedSceneProperty
-   * @param {Scene[]} scenes
-   * @param {Object} [options]
-   * @constructor
-   */
-  function SceneControl( selectedSceneProperty, scenes, options ) {
+/**
+ * @param {Property.<Scene>} selectedSceneProperty
+ * @param {Scene[]} scenes
+ * @param {Object} [options]
+ * @constructor
+ */
+function SceneControl( selectedSceneProperty, scenes, options ) {
 
-    options = merge( {
-      orientation: 'horizontal',
-      spacing: 20,
-      baseColor: 'white',
-      selectedLineWidth: 2,
-      buttonContentXMargin: 10,
-      buttonContentYMargin: 16
-    }, options );
+  options = merge( {
+    orientation: 'horizontal',
+    spacing: 20,
+    baseColor: 'white',
+    selectedLineWidth: 2,
+    buttonContentXMargin: 10,
+    buttonContentYMargin: 16
+  }, options );
 
-    // touchArea optimized for spacing
-    options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
-    options.touchAreaYDilation = 5;
+  // touchArea optimized for spacing
+  options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
+  options.touchAreaYDilation = 5;
 
-    const content = [];
-    scenes.forEach( function( scene ) {
-      assert && assert( scene.iconNode, 'expected iconNode for scene' );
-      content.push( {
-        value: scene,
-        node: scene.iconNode
-      } );
+  const content = [];
+  scenes.forEach( function( scene ) {
+    assert && assert( scene.iconNode, 'expected iconNode for scene' );
+    content.push( {
+      value: scene,
+      node: scene.iconNode
     } );
+  } );
 
-    RadioButtonGroup.call( this, selectedSceneProperty, content, options );
-  }
+  RadioButtonGroup.call( this, selectedSceneProperty, content, options );
+}
 
-  functionBuilder.register( 'SceneControl', SceneControl );
+functionBuilder.register( 'SceneControl', SceneControl );
 
-  return inherit( RadioButtonGroup, SceneControl );
-} );
+inherit( RadioButtonGroup, SceneControl );
+export default SceneControl;

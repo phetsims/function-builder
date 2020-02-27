@@ -10,87 +10,84 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Drawer = require( 'SCENERY_PHET/Drawer' );
-  const FBConstants = require( 'FUNCTION_BUILDER/common/FBConstants' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const XYTableNode = require( 'FUNCTION_BUILDER/common/view/table/XYTableNode' );
+import inherit from '../../../../../phet-core/js/inherit.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import Drawer from '../../../../../scenery-phet/js/Drawer.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FBConstants from '../../FBConstants.js';
+import XYTableNode from './XYTableNode.js';
 
-  /**
-   * @param {Builder} builder
-   * @param {CardContainer[]} inputContainers - card containers in the input carousel
-   * @param {CardContainer[]} outputContainers - card containers in the output carousel
-   * @param {Object} [options]
-   * @constructor
-   */
-  function XYTableDrawer( builder, inputContainers, outputContainers, options ) {
+/**
+ * @param {Builder} builder
+ * @param {CardContainer[]} inputContainers - card containers in the input carousel
+ * @param {CardContainer[]} outputContainers - card containers in the output carousel
+ * @param {Object} [options]
+ * @constructor
+ */
+function XYTableDrawer( builder, inputContainers, outputContainers, options ) {
 
-    options = merge( {
-      open: FBConstants.TABLE_DRAWER_OPEN,
-      handlePosition: 'top',
-      tableOptions: null, // {*} options for XYTableNode
+  options = merge( {
+    open: FBConstants.TABLE_DRAWER_OPEN,
+    handlePosition: 'top',
+    tableOptions: null, // {*} options for XYTableNode
 
-      // improve performance by disabling updates while the drawer is closed
-      beforeOpen: function() { tableNode.updateEnabled = true; },
-      afterClose: function() { tableNode.updateEnabled = false; }
+    // improve performance by disabling updates while the drawer is closed
+    beforeOpen: function() { tableNode.updateEnabled = true; },
+    afterClose: function() { tableNode.updateEnabled = false; }
 
-    }, FBConstants.DRAWER_OPTIONS, options );
+  }, FBConstants.DRAWER_OPTIONS, options );
 
-    var tableNode = new XYTableNode( builder, merge( {
-      updateEnabled: options.open,
-      cornerRadius: options.cornerRadius
-    }, options.tableOptions ) );
+  var tableNode = new XYTableNode( builder, merge( {
+    updateEnabled: options.open,
+    cornerRadius: options.cornerRadius
+  }, options.tableOptions ) );
 
-    Drawer.call( this, tableNode, options );
+  Drawer.call( this, tableNode, options );
 
-    // wire up table to input containers
-    inputContainers.forEach( function( inputContainer ) {
+  // wire up table to input containers
+  inputContainers.forEach( function( inputContainer ) {
 
-      // When card is removed from input container, add row to table.
-      // removeListener unnecessary, instances exist for lifetime of the sim
-      inputContainer.removeEmitter.addListener( function( node ) {
-        const card = node.card;
-        tableNode.addRow( card );
-        tableNode.scrollToRow( card );
-      } );
-
-      // When card is returned to input container, remove row from table.
-      // removeListener unnecessary, instances exist for lifetime of the sim
-      inputContainer.addEmitter.addListener( function( node ) {
-        const card = node.card;
-        if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
-          tableNode.removeRow( card );
-        }
-      } );
+    // When card is removed from input container, add row to table.
+    // removeListener unnecessary, instances exist for lifetime of the sim
+    inputContainer.removeEmitter.addListener( function( node ) {
+      const card = node.card;
+      tableNode.addRow( card );
+      tableNode.scrollToRow( card );
     } );
 
-    // wire up table to output containers
-    outputContainers.forEach( function( outputContainer ) {
-
-      // When card is added to the output container, show its output in the table.
-      // removeListener unnecessary, instances exist for lifetime of the sim.
-      outputContainer.addEmitter.addListener( function( node ) {
-        const card = node.card;
-        tableNode.setOutputCellVisible( card, true );
-        tableNode.scrollToRow( card );
-      } );
-
-      // When card is removed from output container, hide its output in the table.
-      // removeListener unnecessary, instances exist for lifetime of the sim.
-      outputContainer.removeEmitter.addListener( function( node ) {
-        const card = node.card;
-        tableNode.setOutputCellVisible( card, false );
-        tableNode.scrollToRow( card );
-      } );
+    // When card is returned to input container, remove row from table.
+    // removeListener unnecessary, instances exist for lifetime of the sim
+    inputContainer.addEmitter.addListener( function( node ) {
+      const card = node.card;
+      if ( tableNode.containsRow( card ) ) { // ignore when card is added to inputContainer at startup
+        tableNode.removeRow( card );
+      }
     } );
-  }
+  } );
 
-  functionBuilder.register( 'XYTableDrawer', XYTableDrawer );
+  // wire up table to output containers
+  outputContainers.forEach( function( outputContainer ) {
 
-  return inherit( Drawer, XYTableDrawer );
-} );
+    // When card is added to the output container, show its output in the table.
+    // removeListener unnecessary, instances exist for lifetime of the sim.
+    outputContainer.addEmitter.addListener( function( node ) {
+      const card = node.card;
+      tableNode.setOutputCellVisible( card, true );
+      tableNode.scrollToRow( card );
+    } );
+
+    // When card is removed from output container, hide its output in the table.
+    // removeListener unnecessary, instances exist for lifetime of the sim.
+    outputContainer.removeEmitter.addListener( function( node ) {
+      const card = node.card;
+      tableNode.setOutputCellVisible( card, false );
+      tableNode.scrollToRow( card );
+    } );
+  } );
+}
+
+functionBuilder.register( 'XYTableDrawer', XYTableDrawer );
+
+inherit( Drawer, XYTableDrawer );
+export default XYTableDrawer;

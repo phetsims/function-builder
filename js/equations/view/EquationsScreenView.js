@@ -5,25 +5,22 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const EquationsSceneNode = require( 'FUNCTION_BUILDER/equations/view/EquationsSceneNode' );
-  const FBScreenView = require( 'FUNCTION_BUILDER/common/view/FBScreenView' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import FBScreenView from '../../common/view/FBScreenView.js';
+import functionBuilder from '../../functionBuilder.js';
+import EquationsSceneNode from './EquationsSceneNode.js';
 
-  /**
-   * @param {EquationsModel} model
-   * @param {Object} [options]
-   * @constructor
-   */
-  function EquationsScreenView( model, options ) {
-    FBScreenView.call( this, model, EquationsSceneNode, options );
-  }
+/**
+ * @param {EquationsModel} model
+ * @param {Object} [options]
+ * @constructor
+ */
+function EquationsScreenView( model, options ) {
+  FBScreenView.call( this, model, EquationsSceneNode, options );
+}
 
-  functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
+functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
 
-  return inherit( FBScreenView, EquationsScreenView );
-} );
+inherit( FBScreenView, EquationsScreenView );
+export default EquationsScreenView;

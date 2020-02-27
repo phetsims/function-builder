@@ -5,28 +5,25 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const FBModel = require( 'FUNCTION_BUILDER/common/model/FBModel' );
-  const functionBuilder = require( 'FUNCTION_BUILDER/functionBuilder' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MysteryChallenges = require( 'FUNCTION_BUILDER/mystery/model/MysteryChallenges' );
-  const MysteryScene = require( 'FUNCTION_BUILDER/mystery/model/MysteryScene' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import FBModel from '../../common/model/FBModel.js';
+import functionBuilder from '../../functionBuilder.js';
+import MysteryChallenges from './MysteryChallenges.js';
+import MysteryScene from './MysteryScene.js';
 
-  /**
-   * @constructor
-   */
-  function MysteryModel() {
-    FBModel.call( this, [
-      new MysteryScene( MysteryChallenges.POOL1, { numberOfSlots: 1 } ),
-      new MysteryScene( MysteryChallenges.POOL2, { numberOfSlots: 2 } ),
-      new MysteryScene( MysteryChallenges.POOL3, { numberOfSlots: 3 } )
-    ] );
-  }
+/**
+ * @constructor
+ */
+function MysteryModel() {
+  FBModel.call( this, [
+    new MysteryScene( MysteryChallenges.POOL1, { numberOfSlots: 1 } ),
+    new MysteryScene( MysteryChallenges.POOL2, { numberOfSlots: 2 } ),
+    new MysteryScene( MysteryChallenges.POOL3, { numberOfSlots: 3 } )
+  ] );
+}
 
-  functionBuilder.register( 'MysteryModel', MysteryModel );
+functionBuilder.register( 'MysteryModel', MysteryModel );
 
-  return inherit( FBModel, MysteryModel );
-} );
+inherit( FBModel, MysteryModel );
+export default MysteryModel;
