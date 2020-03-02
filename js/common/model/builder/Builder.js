@@ -115,7 +115,7 @@ export default inherit( Object, Builder, {
     for ( let i = 0; i < numberOfFunctionsToApply; i++ ) {
       const slot = this.slots[ i ];
       if ( !slot.isEmpty() ) {
-        output = slot.functionInstance.apply( output );
+        output = slot.functionInstance.applyFunction( output );
       }
     }
     return output;

@@ -9,7 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-var FBCanvasUtils = {
+const FBCanvasUtils = {
 
   /**
    * Creates a canvas with the specified dimensions.

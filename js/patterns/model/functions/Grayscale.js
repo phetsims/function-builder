@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import grayScaleImage from '../../../../mipmaps/functions/grayscale_png.js';
 import FBConstants from '../../../common/FBConstants.js';
@@ -14,25 +13,22 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Grayscale( options ) {
+class Grayscale extends ImageFunction {
 
-  options = options || {};
-  options.name = 'Grayscale';
-  options.fill = 'rgb( 232, 232, 232 )';
-  options.invertible = false; // converting to grayscale is lossy
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    options = options || {};
+    options.name = 'Grayscale';
+    options.fill = 'rgb( 232, 232, 232 )';
+    options.invertible = false; // converting to grayscale is lossy
 
-  ImageFunction.call( this, iconNode, options );
-}
+    const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
-functionBuilder.register( 'Grayscale', Grayscale );
-
-export default inherit( ImageFunction, Grayscale, {
+    super( iconNode, options );
+  }
 
   /**
    * Applies this function.
@@ -42,7 +38,7 @@ export default inherit( ImageFunction, Grayscale, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
 
     const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
@@ -57,4 +53,8 @@ export default inherit( ImageFunction, Grayscale, {
 
     return FBCanvasUtils.createCanvasWithImageData( imageData );
   }
-} );
+}
+
+functionBuilder.register( 'Grayscale', Grayscale );
+
+export default Grayscale;

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import rotate90Image from '../../../../mipmaps/functions/rotate90_png.js';
 import FBConstants from '../../../common/FBConstants.js';
@@ -14,24 +13,21 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Rotate90( options ) {
+class Rotate90 extends ImageFunction {
 
-  options = options || {};
-  options.name = 'Rotate90';
-  options.fill = 'rgb( 147, 231, 128 )';
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  const iconNode = new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    options = options || {};
+    options.name = 'Rotate90';
+    options.fill = 'rgb( 147, 231, 128 )';
 
-  ImageFunction.call( this, iconNode, options );
-}
+    const iconNode = new Image( rotate90Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
-functionBuilder.register( 'Rotate90', Rotate90 );
-
-export default inherit( ImageFunction, Rotate90, {
+    super( iconNode, options );
+  }
 
   /**
    * Applies this function.
@@ -41,7 +37,7 @@ export default inherit( ImageFunction, Rotate90, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.height, inputCanvas.width ); // swap width and height!
@@ -56,4 +52,8 @@ export default inherit( ImageFunction, Rotate90, {
 
     return outputCanvas;
   }
-} );
+}
+
+functionBuilder.register( 'Rotate90', Rotate90 );
+
+export default Rotate90;

@@ -85,7 +85,7 @@ export default inherit( Movable, AbstractFunction, {
    * @public
    * @abstract
    */
-  apply: function( input ) {
+  applyFunction: function( input ) {
     throw new Error( 'must be implemented by subtype' );
   }
 } );

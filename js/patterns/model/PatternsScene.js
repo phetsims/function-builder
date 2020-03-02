@@ -7,7 +7,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import beakerImage from '../../../images/cards/beaker_png.js';
 import butterflyImage from '../../../images/cards/butterfly_png.js';
@@ -44,72 +43,73 @@ import Warhol from './functions/Warhol.js';
 
 // card images
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function PatternsScene( options ) {
+class PatternsScene extends Scene {
 
-  options = merge( {
-    numberOfSlots: 1, // number of slots in the builder
-    numberOfEachCard: 1, // number of instances of each card type
-    numberOfEachFunction: 1 // number of instances of each function type
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  assert && assert( !options.iconNode );
-  options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
+    options = merge( {
+      numberOfSlots: 1, // number of slots in the builder
+      numberOfEachCard: 1, // number of instances of each card type
+      numberOfEachFunction: 1 // number of instances of each function type
+    }, options );
 
-  // {HTMLImageElement[]} images for the input cards, in the order that they appear in the carousel
-  const cardContent = [
-    feetImage,
-    snowflakeImage,
-    butterflyImage,
-    stickFigureImage,
-    planetImage,
-    sunImage,
-    beakerImage,
-    cherriesImage,
-    rectangleImage,
-    circleImage,
-    triangleImage,
-    starImage
-  ];
+    assert && assert( !options.iconNode );
+    options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
 
-  // All card images must have even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
-  // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
-  assert && cardContent.forEach( function( image ) {
-    assert( ( image.width % 2 === 0 && image.height % 2 === 0 ), 'dimensions must be even! width=' + image.width + ', height=' + image.height );
-  } );
+    // {HTMLImageElement[]} images for the input cards, in the order that they appear in the carousel
+    const cardContent = [
+      feetImage,
+      snowflakeImage,
+      butterflyImage,
+      stickFigureImage,
+      planetImage,
+      sunImage,
+      beakerImage,
+      cherriesImage,
+      rectangleImage,
+      circleImage,
+      triangleImage,
+      starImage
+    ];
 
-  // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-  const functionCreators = [
-    new FunctionCreator( Mirror ),
-    new FunctionCreator( Rotate90 ),
-    new FunctionCreator( Grayscale ),
-    new FunctionCreator( Rotate180 ),
-    new FunctionCreator( Identity ),
-    new FunctionCreator( InvertRGB ),
-    new FunctionCreator( Erase ),
-    new FunctionCreator( Shrink ),
-    new FunctionCreator( Warhol ),
-    new FunctionCreator( MysteryA ),
-    new FunctionCreator( MysteryB ),
-    new FunctionCreator( MysteryC )
-  ];
+    // All card images must have even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
+    // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
+    assert && cardContent.forEach( function( image ) {
+      assert( ( image.width % 2 === 0 && image.height % 2 === 0 ), 'dimensions must be even! width=' + image.width + ', height=' + image.height );
+    } );
 
-  // builder
-  const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
-  const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-  const builder = new Builder( {
-    numberOfSlots: options.numberOfSlots,
-    width: builderWidth,
-    position: new Vector2( builderX, FBConstants.BUILDER_Y )
-  } );
+    // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
+    const functionCreators = [
+      new FunctionCreator( Mirror ),
+      new FunctionCreator( Rotate90 ),
+      new FunctionCreator( Grayscale ),
+      new FunctionCreator( Rotate180 ),
+      new FunctionCreator( Identity ),
+      new FunctionCreator( InvertRGB ),
+      new FunctionCreator( Erase ),
+      new FunctionCreator( Shrink ),
+      new FunctionCreator( Warhol ),
+      new FunctionCreator( MysteryA ),
+      new FunctionCreator( MysteryB ),
+      new FunctionCreator( MysteryC )
+    ];
 
-  Scene.call( this, cardContent, functionCreators, builder, options );
+    // builder
+    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new Builder( {
+      numberOfSlots: options.numberOfSlots,
+      width: builderWidth,
+      position: new Vector2( builderX, FBConstants.BUILDER_Y )
+    } );
+
+    super( cardContent, functionCreators, builder, options );
+  }
 }
 
 functionBuilder.register( 'PatternsScene', PatternsScene );
 
-inherit( Scene, PatternsScene );
 export default PatternsScene;

@@ -15,7 +15,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Color from '../../../../../scenery/js/util/Color.js';
 import warholImage from '../../../../mipmaps/functions/warhol_png.js';
@@ -45,60 +44,27 @@ const RIGHT_TOP_COLOR_MAP = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 4
 const LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
 const RIGHT_BOTTOM_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Warhol( options ) {
+class Warhol extends ImageFunction {
 
-  options = options || {};
-  options.name = 'Warhol';
-  options.fill = 'rgb( 250, 186, 75 )';
-  options.invertible = false; // grayscale conversion and intensity mapping are both lossy
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // @private
-  this.shrink = new Shrink( { scale: 0.5 } );
-  this.grayscale = new Grayscale();
-  this.identity = new Identity();
+    options = options || {};
+    options.name = 'Warhol';
+    options.fill = 'rgb( 250, 186, 75 )';
+    options.invertible = false; // grayscale conversion and intensity mapping are both lossy
 
-  const iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
-  ImageFunction.call( this, iconNode, options );
-}
+    super( iconNode, options );
 
-functionBuilder.register( 'Warhol', Warhol );
-
-/**
- * Applies a color map, based on intensity of the pixels in the input.
- * While it's tempting to implement this as a subtype of ImageFunction,
- * doing so would increase the number of Canvases created when applying Warhol.
- *
- * @param {ImageData} inputData
- * @param {ImageData} outputData
- * @param {Color[]} colorMap
- * @returns {ImageData}
- */
-const applyColorMap = function( inputData, outputData, colorMap ) {
-  assert && assert( inputData.data.length === outputData.data.length );
-  for ( let i = 0; i < inputData.data.length - 4; i += 4 ) {
-
-    // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
-    // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
-    const intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
-    assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
-
-    // map intensity to a color map
-    const colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
-    assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
-
-    // apply the color map
-    const color = colorMap[ colorIndex ];
-    FBCanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
+    // @private
+    this.shrink = new Shrink( { scale: 0.5 } );
+    this.grayscale = new Grayscale();
+    this.identity = new Identity();
   }
-  return outputData;
-};
-
-export default inherit( ImageFunction, Warhol, {
 
   /**
    * Applies this function.
@@ -108,20 +74,21 @@ export default inherit( ImageFunction, Warhol, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
+    assert && assert( this.shrink !== undefined, 'apply was called before constructor completed' );
 
     let outputCanvas = null;
 
     if ( FBCanvasUtils.isBlank( inputCanvas ) ) {
 
       // The input canvas is blank, apply Identity instead of Warhol.
-      outputCanvas = this.identity.apply( inputCanvas );
+      outputCanvas = this.identity.applyFunction( inputCanvas );
     }
     else {
 
       // Shrink the image by 50%.
       // Do this first so that we're processing fewer pixels in subsequent operations.
-      const halfCanvas = this.shrink.apply( inputCanvas );
+      const halfCanvas = this.shrink.applyFunction( inputCanvas );
 
       // Put the image on an opaque background, so we have no transparent pixels.
       const opaqueCanvas = FBCanvasUtils.createCanvasWithImage( halfCanvas, {
@@ -129,7 +96,7 @@ export default inherit( ImageFunction, Warhol, {
       } );
 
       // Convert the image to grayscale
-      const grayscaleCanvas = this.grayscale.apply( opaqueCanvas );
+      const grayscaleCanvas = this.grayscale.applyFunction( opaqueCanvas );
       const grayscaleData = FBCanvasUtils.getImageData( grayscaleCanvas );
 
       // Create the output canvas, with same dimensions as inputCanvas
@@ -154,11 +121,44 @@ export default inherit( ImageFunction, Warhol, {
 
     return outputCanvas;
   }
-}, {
+}
 
-  // @public for use by FBIconFactory.createPatternsScreenIcon
-  LEFT_TOP_COLOR_MAP: LEFT_TOP_COLOR_MAP,
-  RIGHT_TOP_COLOR_MAP: RIGHT_TOP_COLOR_MAP,
-  LEFT_BOTTOM_COLOR_MAP: LEFT_BOTTOM_COLOR_MAP,
-  RIGHT_BOTTOM_COLOR_MAP: RIGHT_BOTTOM_COLOR_MAP
-} );
+/**
+ * Applies a color map, based on intensity of the pixels in the input.
+ * While it's tempting to implement this as a subtype of ImageFunction,
+ * doing so would increase the number of Canvases created when applying Warhol.
+ *
+ * @param {ImageData} inputData
+ * @param {ImageData} outputData
+ * @param {Color[]} colorMap
+ * @returns {ImageData}
+ */
+function applyColorMap( inputData, outputData, colorMap ) {
+  assert && assert( inputData.data.length === outputData.data.length );
+  for ( let i = 0; i < inputData.data.length - 4; i += 4 ) {
+
+    // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
+    // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
+    const intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
+    assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
+
+    // map intensity to a color map
+    const colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
+    assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
+
+    // apply the color map
+    const color = colorMap[ colorIndex ];
+    FBCanvasUtils.setPixelRGBA( outputData, i, color.red, color.green, color.blue, inputData.data[ i + 3 ] );
+  }
+  return outputData;
+}
+
+// @public for use by FBIconFactory.createPatternsScreenIcon
+Warhol.LEFT_TOP_COLOR_MAP = LEFT_TOP_COLOR_MAP;
+Warhol.RIGHT_TOP_COLOR_MAP = RIGHT_TOP_COLOR_MAP;
+Warhol.LEFT_BOTTOM_COLOR_MAP = LEFT_BOTTOM_COLOR_MAP;
+Warhol.RIGHT_BOTTOM_COLOR_MAP = RIGHT_BOTTOM_COLOR_MAP;
+
+functionBuilder.register( 'Warhol', Warhol );
+
+export default Warhol;

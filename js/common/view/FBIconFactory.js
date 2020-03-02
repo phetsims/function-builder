@@ -55,7 +55,7 @@ const FBIconFactory = {
     // apply Warhol to the image
     const warhol = new Warhol();
     const inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
-    const outputCanvas = warhol.apply( inputCanvas );
+    const outputCanvas = warhol.applyFunction( inputCanvas );
 
     // create the icon
     const iconNode = new Image( outputCanvas.toDataURL(), {

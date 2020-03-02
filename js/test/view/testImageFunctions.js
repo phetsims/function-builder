@@ -110,7 +110,7 @@ function testImageFunctions( layoutBounds ) {
     const hBoxChildren = [];
 
     functions.forEach( function( functionInstance ) {
-      const outputCanvas = functionInstance.apply( canvas );
+      const outputCanvas = functionInstance.applyFunction( canvas );
       hBoxChildren.push( new TestCardNode( outputCanvas ) );
     } );
 

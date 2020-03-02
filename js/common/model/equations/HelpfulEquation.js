@@ -61,7 +61,7 @@ function HelpfulEquation( mathFunctions, options ) {
         // collapse adjacent plus and minus
         stack.pop();
 
-        rationalNumber = currentFunction.apply( previousFunction.apply( ZERO ) ); // {RandomNumber}
+        rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
         if ( rationalNumber.valueOf() !== 0 ) {
           stack.push( new Plus( {
             operand: rationalNumber.valueOf(),

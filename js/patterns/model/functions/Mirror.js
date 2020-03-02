@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import mirrorImage from '../../../../mipmaps/functions/mirror_png.js';
 import FBConstants from '../../../common/FBConstants.js';
@@ -14,24 +13,21 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Mirror( options ) {
+class Mirror extends ImageFunction {
 
-  options = options || {};
-  options.name = 'Mirror';
-  options.fill = 'rgb( 128, 197, 237 )';
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  const iconNode = new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    options = options || {};
+    options.name = 'Mirror';
+    options.fill = 'rgb( 128, 197, 237 )';
 
-  ImageFunction.call( this, iconNode, options );
-}
+    const iconNode = new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
-functionBuilder.register( 'Mirror', Mirror );
-
-export default inherit( ImageFunction, Mirror, {
+    super( iconNode, options );
+  }
 
   /**
    * Applies this function.
@@ -41,7 +37,7 @@ export default inherit( ImageFunction, Mirror, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
@@ -56,4 +52,8 @@ export default inherit( ImageFunction, Mirror, {
 
     return outputCanvas;
   }
-} );
+}
+
+functionBuilder.register( 'Mirror', Mirror );
+
+export default Mirror;

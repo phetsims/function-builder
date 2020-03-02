@@ -6,29 +6,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilderStrings from '../../../function-builder-strings.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction from './MysteryImageFunction.js';
 
+// strings
 const mysteryBString = functionBuilderStrings.mysteryB;
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function MysteryB( options ) {
-  MysteryImageFunction.call( this, mysteryBString, merge( {
-    name: 'MysteryB',
-    fill: 'rgb( 249, 144, 99 )'
-  }, options ) );
-}
+class MysteryB extends MysteryImageFunction {
 
-functionBuilder.register( 'MysteryB', MysteryB );
-
-export default inherit( MysteryImageFunction, MysteryB, {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
+    super( mysteryBString, merge( {
+      name: 'MysteryB',
+      fill: 'rgb( 249, 144, 99 )'
+    }, options ) );
+  }
 
   /**
    * Applies this function.
@@ -38,7 +35,7 @@ export default inherit( MysteryImageFunction, MysteryB, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.height, inputCanvas.width ); // swap width and height!
@@ -54,4 +51,8 @@ export default inherit( MysteryImageFunction, MysteryB, {
 
     return outputCanvas;
   }
-} );
+}
+
+functionBuilder.register( 'MysteryB', MysteryB );
+
+export default MysteryB;

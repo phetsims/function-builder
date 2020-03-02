@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import invertRGBImage from '../../../../mipmaps/functions/invertRGB_png.js';
 import FBConstants from '../../../common/FBConstants.js';
@@ -14,24 +13,21 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function InvertRGB( options ) {
+class InvertRGB extends ImageFunction {
 
-  options = options || {};
-  options.name = 'InvertRGB';
-  options.fill = 'black';
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  const iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    options = options || {};
+    options.name = 'InvertRGB';
+    options.fill = 'black';
 
-  ImageFunction.call( this, iconNode, options );
-}
+    const iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
-functionBuilder.register( 'InvertRGB', InvertRGB );
-
-export default inherit( ImageFunction, InvertRGB, {
+    super( iconNode, options );
+  }
 
   /**
    * Applies this function.
@@ -41,7 +37,7 @@ export default inherit( ImageFunction, InvertRGB, {
    * @public
    * @override
    */
-  apply: function( inputCanvas ) {
+  applyFunction( inputCanvas ) {
 
     const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
@@ -58,4 +54,8 @@ export default inherit( ImageFunction, InvertRGB, {
 
     return FBCanvasUtils.createCanvasWithImageData( imageData );
   }
-} );
+}
+
+functionBuilder.register( 'InvertRGB', InvertRGB );
+
+export default InvertRGB;
