@@ -39,8 +39,6 @@ import Rotate90 from './functions/Rotate90.js';
 import Shrink from './functions/Shrink.js';
 import Warhol from './functions/Warhol.js';
 
-// function modules
-
 // card images
 
 class PatternsScene extends Scene {

@@ -26,8 +26,6 @@ import FBIconFactory from '../../common/view/FBIconFactory.js';
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
 
-// function modules
-
 // constants
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 const MAX_SLOTS = 3; // max number of slots in the builder

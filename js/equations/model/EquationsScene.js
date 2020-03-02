@@ -8,7 +8,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FBConstants from '../../common/FBConstants.js';
 import FBSymbols from '../../common/FBSymbols.js';
@@ -22,51 +21,50 @@ import RationalNumber from '../../common/model/RationalNumber.js';
 import Scene from '../../common/model/Scene.js';
 import functionBuilder from '../../functionBuilder.js';
 
-// function modules
-
 // constants
 const CARD_NUMBERS_RANGE = new Range( -4, 6 );
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function EquationsScene( options ) {
+class EquationsScene extends Scene {
 
-  options = merge( {
-    numberOfSlots: 3, // number of slots in the builder
-    numberOfEachCard: 1, // number of instances of each card type
-    numberOfEachFunction: 2, // number of instances of each function type
-    cardSymbol: FBSymbols.X // add 'x' card to the carousels
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // {RationalNumber[]} number cards, in the order that they appear in the carousel
-  const cardContent = [];
-  for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-    cardContent.push( RationalNumber.withInteger( i ) );
+    options = merge( {
+      numberOfSlots: 3, // number of slots in the builder
+      numberOfEachCard: 1, // number of instances of each card type
+      numberOfEachFunction: 2, // number of instances of each function type
+      cardSymbol: FBSymbols.X // add 'x' card to the carousels
+    }, options );
+
+    // {RationalNumber[]} number cards, in the order that they appear in the carousel
+    const cardContent = [];
+    for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
+      cardContent.push( RationalNumber.withInteger( i ) );
+    }
+
+    // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
+    const functionCreators = [
+      new FunctionCreator( Plus ),
+      new FunctionCreator( Minus ),
+      new FunctionCreator( Times ),
+      new FunctionCreator( Divide )
+    ];
+
+    // builder
+    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new MathBuilder( {
+      numberOfSlots: options.numberOfSlots,
+      width: builderWidth,
+      position: new Vector2( builderX, FBConstants.BUILDER_Y )
+    } );
+
+    super( cardContent, functionCreators, builder, options );
   }
-
-  // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-  const functionCreators = [
-    new FunctionCreator( Plus ),
-    new FunctionCreator( Minus ),
-    new FunctionCreator( Times ),
-    new FunctionCreator( Divide )
-  ];
-
-  // builder
-  const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
-  const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-  const builder = new MathBuilder( {
-    numberOfSlots: options.numberOfSlots,
-    width: builderWidth,
-    position: new Vector2( builderX, FBConstants.BUILDER_Y )
-  } );
-
-  Scene.call( this, cardContent, functionCreators, builder, options );
 }
 
 functionBuilder.register( 'EquationsScene', EquationsScene );
 
-inherit( Scene, EquationsScene );
 export default EquationsScene;
