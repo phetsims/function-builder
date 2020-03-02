@@ -1,46 +1,42 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Base type 'model container' for this sim.
+ * Base class 'model container' for this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-/**
- * @param {Scene[]} scenes
- * @param {Object} [options]
- * @constructor
- */
-function FBModel( scenes, options ) {
+class FBModel {
 
-  options = merge( {
-    defaultScene: scenes[ 0 ]
-  }, options );
-  assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );
+  /**
+   * @param {Scene[]} scenes
+   * @param {Object} [options]
+   */
+  constructor( scenes, options ) {
 
-  // @public (read-only)
-  this.scenes = scenes;
+    options = merge( {
+      defaultScene: scenes[ 0 ]
+    }, options );
+    assert && assert( scenes.indexOf( options.defaultScene ) !== -1 );
 
-  // @public {Property.<Scene>} the selected scene
-  this.selectedSceneProperty = new Property( options.defaultScene );
-}
+    // @public (read-only)
+    this.scenes = scenes;
 
-functionBuilder.register( 'FBModel', FBModel );
-
-export default inherit( Object, FBModel, {
+    // @public {Property.<Scene>} the selected scene
+    this.selectedSceneProperty = new Property( options.defaultScene );
+  }
 
   // @public
-  reset: function() {
+  reset() {
     this.selectedSceneProperty.reset();
     for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
       this.scenes[ sceneIndex ].reset();
     }
-  },
+  }
 
   /**
    * Animates the model.
@@ -48,9 +44,13 @@ export default inherit( Object, FBModel, {
    * @param {number} dt - time since the previous step, in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     for ( let sceneIndex = 0; sceneIndex < this.scenes.length; sceneIndex++ ) {
       this.scenes[ sceneIndex ].step( dt );
     }
   }
-} );
+}
+
+functionBuilder.register( 'FBModel', FBModel );
+
+export default FBModel;

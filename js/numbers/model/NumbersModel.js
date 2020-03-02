@@ -6,19 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import NumbersScene from './NumbersScene.js';
 
-/**
- * @constructor
- */
-function NumbersModel() {
-  FBModel.call( this, [ new NumbersScene() ] );
+class NumbersModel extends FBModel {
+
+  constructor() {
+    super( [ new NumbersScene() ] );
+  }
 }
 
 functionBuilder.register( 'NumbersModel', NumbersModel );
 
-inherit( FBModel, NumbersModel );
 export default NumbersModel;

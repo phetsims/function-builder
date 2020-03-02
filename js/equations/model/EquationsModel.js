@@ -6,19 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import EquationsScene from './EquationsScene.js';
 
-/**
- * @constructor
- */
-function EquationsModel() {
-  FBModel.call( this, [ new EquationsScene() ] );
+class EquationsModel extends FBModel {
+
+  constructor() {
+    super( [ new EquationsScene() ] );
+  }
 }
 
 functionBuilder.register( 'EquationsModel', EquationsModel );
 
-inherit( FBModel, EquationsModel );
 export default EquationsModel;
