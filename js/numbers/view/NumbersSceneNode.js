@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FBFont from '../../common/FBFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
@@ -14,45 +13,47 @@ import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilderStrings from '../../function-builder-strings.js';
 import functionBuilder from '../../functionBuilder.js';
 
+// strings
 const inputString = functionBuilderStrings.input;
 const outputString = functionBuilderStrings.output;
 
-/**
- * @param {NumbersScene} scene - model for this scene
- * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
- * @param {Object} [options]
- * @constructor
- */
-function NumbersSceneNode( scene, layoutBounds, options ) {
+class NumbersSceneNode extends MathSceneNode {
 
-  options = merge( {
+  /**
+   * @param {NumbersScene} scene - model for this scene
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {Object} [options]
+   */
+  constructor( scene, layoutBounds, options ) {
 
-    cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
-    functionsPerPage: 3, // number of functions visible in the carousel
-    hasTableDrawer: true, // include an XY table drawer
-    hasEquationDrawer: true, // include an equation drawer
+    options = merge( {
 
-    // options for XYTableNode
-    tableOptions: {
-      xSymbol: inputString, // use 'Input' in place of x
-      ySymbol: outputString, // use 'Output' in place of y
-      headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
-    },
+      cardCarouselDefaultPageNumber: 1,  // show cards 0-3 in input carousel
+      functionsPerPage: 3, // number of functions visible in the carousel
+      hasTableDrawer: true, // include an XY table drawer
+      hasEquationDrawer: true, // include an equation drawer
 
-    // options for EquationPanel
-    equationOptions: {
-      xSymbol: inputString, // use 'Input' in place of x
-      ySymbol: outputString, // use 'Output' in place of y
-      xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
-      xyAsCards: true // card outlines around 'Input' and 'Output'
-    }
+      // options for XYTableNode
+      tableOptions: {
+        xSymbol: inputString, // use 'Input' in place of x
+        ySymbol: outputString, // use 'Output' in place of y
+        headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
+      },
 
-  }, options );
+      // options for EquationPanel
+      equationOptions: {
+        xSymbol: inputString, // use 'Input' in place of x
+        ySymbol: outputString, // use 'Output' in place of y
+        xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
+        xyAsCards: true // card outlines around 'Input' and 'Output'
+      }
 
-  MathSceneNode.call( this, scene, layoutBounds, MathFunctionNode, options );
+    }, options );
+
+    super( scene, layoutBounds, MathFunctionNode, options );
+  }
 }
 
 functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
 
-inherit( MathSceneNode, NumbersSceneNode );
 export default NumbersSceneNode;

@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import RefreshButton from '../../../../scenery-phet/js/buttons/RefreshButton.js';
@@ -20,149 +19,143 @@ import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from '../model/MysteryChallenges.js';
 
-/**
- * @param {MysteryScene} scene - model for this scene
- * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
- * @param {Object} [options]
- * @constructor
- */
-function MysterySceneNode( scene, layoutBounds, options ) {
+class MysterySceneNode extends MathSceneNode {
 
-  options = merge( {
+  /**
+   * @param {MysteryScene} scene - model for this scene
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {Object} [options]
+   */
+  constructor( scene, layoutBounds, options ) {
 
-    /*
-     * Mystery scenes have a hidden function carousel, which is where we get functions for composing challenges.
-     * This approach was necessary because the Mystery screen was added late in the development process, and
-     * the existence of the function carousel was (by that point) required by too many things.
-     */
-    functionCarouselVisible: false,
+    options = merge( {
 
-    cardCarouselDefaultPageNumber: 1, // show cards 0-3 in input carousel
-    functionsPerPage: 2, // functions per page in the functions carousel (which is invisible)
-    hasTableDrawer: true, // include an XY table drawer
-    hasGraphDrawer: true, // include an XY graph drawer
-    hideFunctionsCheckboxVisible: false // hide this feature
+      /*
+       * Mystery scenes have a hidden function carousel, which is where we get functions for composing challenges.
+       * This approach was necessary because the Mystery screen was added late in the development process, and
+       * the existence of the function carousel was (by that point) required by too many things.
+       */
+      functionCarouselVisible: false,
 
-  }, options );
+      cardCarouselDefaultPageNumber: 1, // show cards 0-3 in input carousel
+      functionsPerPage: 2, // functions per page in the functions carousel (which is invisible)
+      hasTableDrawer: true, // include an XY table drawer
+      hasGraphDrawer: true, // include an XY graph drawer
+      hideFunctionsCheckboxVisible: false // hide this feature
 
-  const self = this;
+    }, options );
 
-  MathSceneNode.call( this, scene, layoutBounds, MysteryFunctionNode, options );
+    super( scene, layoutBounds, MysteryFunctionNode, options );
 
-  // Toggle buttons below each builder slot, for revealing identity of functions
-  this.revealProperties = [];  // {Property.<boolean>[]}
-  this.revealButtons = []; // {EyeToggleButton[]}
-  for ( var i = 0; i < scene.builder.numberOfSlots; i++ ) {
+    // Toggle buttons below each builder slot, for revealing identity of functions
+    this.revealProperties = [];  // {Property.<boolean>[]}
+    this.revealButtons = []; // {EyeToggleButton[]}
+    const self = this;
+    for ( var i = 0; i < scene.builder.numberOfSlots; i++ ) {
 
-    // create a closure for slotNumber using an IIFE
-    ( function() {
+      // create a closure for slotNumber using an IIFE
+      ( function() {
 
-      const slotNumber = i;
+        const slotNumber = i;
 
-      // {Property.<boolean>} Property associated with the slot
-      const revealProperty = new BooleanProperty( false );
-      self.revealProperties.push( revealProperty );
+        // {Property.<boolean>} Property associated with the slot
+        const revealProperty = new BooleanProperty( false );
+        self.revealProperties.push( revealProperty );
 
-      // wire up Property to control the function that's in the slot
-      // unlink unnecessary, instances exist for lifetime of the sim
-      revealProperty.link( function( reveal ) {
-        const functionNode = self.builderNode.getFunctionNode( slotNumber );
-        if ( functionNode ) {
-          functionNode.identityVisibleProperty.set( reveal );
-        }
-      } );
+        // wire up Property to control the function that's in the slot
+        // unlink unnecessary, instances exist for lifetime of the sim
+        revealProperty.link( reveal => {
+          const functionNode = self.builderNode.getFunctionNode( slotNumber );
+          if ( functionNode ) {
+            functionNode.identityVisibleProperty.set( reveal );
+          }
+        } );
 
-      // button below the slot
-      const slotPosition = scene.builder.slots[ slotNumber ].position;
-      const revealButton = new EyeToggleButton( revealProperty, {
-        baseColor: FBColors.HIDDEN_FUNCTION,
-        scale: 0.75,
-        centerX: slotPosition.x,
-        top: slotPosition.y + 65
-      } );
-      self.revealButtons.push( revealButton );
-      self.controlsLayer.addChild( revealButton );
+        // button below the slot
+        const slotPosition = scene.builder.slots[ slotNumber ].position;
+        const revealButton = new EyeToggleButton( revealProperty, {
+          baseColor: FBColors.HIDDEN_FUNCTION,
+          scale: 0.75,
+          centerX: slotPosition.x,
+          top: slotPosition.y + 65
+        } );
+        self.revealButtons.push( revealButton );
+        self.controlsLayer.addChild( revealButton );
 
-      // touchArea
-      revealButton.touchArea = revealButton.localBounds.dilatedXY( 25, 15 );
+        // touchArea
+        revealButton.touchArea = revealButton.localBounds.dilatedXY( 25, 15 );
 
-    } )();
-  }
+      } )();
+    }
 
-  // button for generating a new challenge
-  const generateButton = new RefreshButton( {
-    listener: function() { scene.nextChallenge(); },
-    xMargin: 18,
-    yMargin: 10,
-    centerX: this.builderNode.centerX,
-    top: this.builderNode.bottom + 65
-  } );
-  this.addChild( generateButton );
+    // button for generating a new challenge
+    const generateButton = new RefreshButton( {
+      listener: () => scene.nextChallenge(),
+      xMargin: 18,
+      yMargin: 10,
+      centerX: this.builderNode.centerX,
+      top: this.builderNode.bottom + 65
+    } );
+    this.addChild( generateButton );
 
-  // @private shows the answer below the generate button, for debugging, i18n not required
-  this.answerNode = new Text( 'answer', {
-    font: new FBFont( 18 ),
-    centerX: generateButton.centerX,
-    top: generateButton.bottom + 10
-  } );
-  if ( phet.chipper.queryParameters.showAnswers ) {
-    this.addChild( this.answerNode );
-  }
+    // @private shows the answer below the generate button, for debugging, i18n not required
+    this.answerNode = new Text( 'answer', {
+      font: new FBFont( 18 ),
+      centerX: generateButton.centerX,
+      top: generateButton.bottom + 10
+    } );
+    if ( phet.chipper.queryParameters.showAnswers ) {
+      this.addChild( this.answerNode );
+    }
 
-  // @private {Object} maps from operator to function container, created on demand by updateChallenge
-  this.operatorToContainerMap = null;
+    // @private {Object} maps from operator to function container, created on demand by updateChallenge
+    this.operatorToContainerMap = null;
 
-  // Update when the challenge changes.
-  // This can't be executed until the function carousel is populated.
-  // unlink unnecessary, instances exist for lifetime of the sim
-  scene.challengeProperty.lazyLink( function( challenge ) {
-    self.updateChallenge();
-  } );
-
-  // Enable features based on number of cards that have been moved to the output carousel.
-  // unlink unnecessary, instances exist for lifetime of the sim.
-  this.outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
-
-    // enabled function reveal buttons
-    self.revealButtons.forEach( function( revealButton ) {
-      revealButton.enabled = revealButton.enabled || ( numberOfCards === 3 );
+    // Update when the challenge changes.
+    // This can't be executed until the function carousel is populated.
+    // unlink unnecessary, instances exist for lifetime of the sim
+    scene.challengeProperty.lazyLink( challenge => {
+      this.updateChallenge();
     } );
 
-    // enable 'See Inside' checkbox
-    self.seeInsideCheckbox.enabled = self.seeInsideCheckbox.enabled || ( numberOfCards === 1 );
-  } );
+    // Enable features based on number of cards that have been moved to the output carousel.
+    // unlink unnecessary, instances exist for lifetime of the sim.
+    this.outputCarousel.numberOfCardsProperty.link( numberOfCards => {
 
-  // @private
-  this.scene = scene;
-}
+      // enabled function reveal buttons
+      this.revealButtons.forEach( revealButton => {
+        revealButton.enabled = revealButton.enabled || ( numberOfCards === 3 );
+      } );
 
-functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
+      // enable 'See Inside' checkbox
+      this.seeInsideCheckbox.enabled = this.seeInsideCheckbox.enabled || ( numberOfCards === 1 );
+    } );
 
-export default inherit( MathSceneNode, MysterySceneNode, {
+    // @private
+    this.scene = scene;
+  }
 
   /**
    * @public
    * @override
    */
-  reset: function() {
-    MathSceneNode.prototype.reset.call( this );
+  reset() {
+    super.reset();
     this.resetChallengeControls();
-  },
+  }
 
   /**
    * Resets controls that need to be reset each time the challenge changes.
    *
    * @private
    */
-  resetChallengeControls: function() {
+  resetChallengeControls() {
 
     // reset Properties for revealing function identity
-    this.revealProperties.forEach( function( revealProperty ) {
-      revealProperty.reset();
-    } );
+    this.revealProperties.forEach( revealProperty => revealProperty.reset() );
 
     // disable buttons for revealing function identity
-    this.revealButtons.forEach( function( revealButton ) {
+    this.revealButtons.forEach( revealButton => {
       revealButton.enabled = false;
     } );
 
@@ -171,7 +164,7 @@ export default inherit( MathSceneNode, MysterySceneNode, {
 
     // disable 'See Inside' checkbox
     this.seeInsideCheckbox.enabled = false;
-  },
+  }
 
   /**
    * Completes initialization by displaying the first challenge.
@@ -179,19 +172,17 @@ export default inherit( MathSceneNode, MysterySceneNode, {
    * @public
    * @override
    */
-  completeInitialization: function() {
-    MathSceneNode.prototype.completeInitialization.call( this );
+  completeInitialization() {
+    super.completeInitialization();
     this.updateChallenge();
-  },
+  }
 
   /**
    * Synchronizes the displayed challenge with the model.
    *
    * @private
    */
-  updateChallenge: function() {
-
-    const self = this;
+  updateChallenge() {
 
     this.resetCarousels();
     this.builderNode.reset();
@@ -201,27 +192,27 @@ export default inherit( MathSceneNode, MysterySceneNode, {
     // create the map on demand, since it can't be done until the sim has been fully initialized
     if ( !this.operatorToContainerMap ) {
       this.operatorToContainerMap = {};
-      this.functionContainers.forEach( function( functionContainer ) {
+      this.functionContainers.forEach( functionContainer => {
 
         const contents = functionContainer.getContents();
         assert && assert( contents.length > 0, 'empty functionContainer' );
 
         const operator = contents[ 0 ].functionInstance.operator;
-        self.operatorToContainerMap[ operator ] = functionContainer;
+        this.operatorToContainerMap[ operator ] = functionContainer;
       } );
     }
 
     // convert the challenge from a string to an array of {operator: string, operand: number}
-    const challenge = self.scene.challengeProperty.get();
+    const challenge = this.scene.challengeProperty.get();
     const challengeObjects = MysteryChallenges.parseChallenge( challenge );
 
     // transfer functions from carousel to builder, configured to match the challenge
     let slotNumber = 0;
-    const colors = self.scene.getColors(); // {<Color|string>[]}
-    challengeObjects.forEach( function( challengeObject ) {
+    const colors = this.scene.getColors(); // {<Color|string>[]}
+    challengeObjects.forEach( challengeObject => {
 
       // get the container that has functions for this operator
-      const functionContainer = self.operatorToContainerMap[ challengeObject.operator ];
+      const functionContainer = this.operatorToContainerMap[ challengeObject.operator ];
       assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
 
       // get the first item in the container
@@ -246,11 +237,15 @@ export default inherit( MathSceneNode, MysterySceneNode, {
     this.resetChallengeControls();
 
     // show the answer for debugging
-    self.answerNode.text = '#' + ( self.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
-    self.answerNode.centerX = this.builderNode.centerX;
+    this.answerNode.text = '#' + ( this.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
+    this.answerNode.centerX = this.builderNode.centerX;
 
     if ( FBQueryParameters.populateOutput ) {
-      self.populateOutputCarousel();
+      this.populateOutputCarousel();
     }
   }
-} );
+}
+
+functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
+
+export default MysterySceneNode;

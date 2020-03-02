@@ -21,7 +21,9 @@ class TestScreen extends Screen {
     };
 
     super(
-      () => {},
+      () => {
+        return {};
+      },
       model => new TestScreenView( model ),
       options
     );

@@ -10,7 +10,6 @@
 
 // image function modules
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -135,81 +134,82 @@ function testImageFunctions( layoutBounds ) {
   } );
 }
 
+/**
+ * Use this simplified representation of a card, so that this test is not dependent on other sim code.
+ */
+class TestCardNode extends Node {
+
+  /**
+   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
+   * @param {Object} [options]
+   */
+  constructor( canvas, options ) {
+
+    options = options || {};
+
+    const backgroundNode = new Rectangle( 0, 0, 60, 60, {
+      cornerRadius: 5,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1
+    } );
+
+    const imageNode = new Image( canvas.toDataURL(), {
+      initialWidth: canvas.width,
+      initialHeight: canvas.height,
+      scale: 0.3,  // determined empirically
+      center: backgroundNode.center
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, imageNode ];
+
+    super( options );
+  }
+}
+
+/**
+ * Use this simplified representation of a function, so that this test is not dependent on other sim code.
+ */
+class TestFunctionNode extends Node {
+  /**
+   * @param {ImageFunction} functionInstance
+   * @param {Object} [options]
+   */
+  constructor( functionInstance, options ) {
+
+    assert && assert( functionInstance instanceof ImageFunction );
+
+    options = options || {};
+
+    const WIDTH = 120;
+    const HEIGHT = 0.6 * WIDTH;
+    const X_INSET = 0.15 * WIDTH;
+
+    // Described from top-left, moving clockwise.
+    const backgroundShape = new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( WIDTH - X_INSET, 0 )
+      .lineTo( WIDTH, HEIGHT / 2 )
+      .lineTo( WIDTH - X_INSET, HEIGHT )
+      .lineTo( 0, HEIGHT )
+      .lineTo( X_INSET, HEIGHT / 2 )
+      .close();
+
+    const backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
+
+    const iconNode = new Node( {
+      children: [ functionInstance.iconNode ],
+      center: backgroundNode.center
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, iconNode ];
+
+    super( options );
+  }
+}
+
 functionBuilder.register( 'testImageFunctions', testImageFunctions );
-
-/**
- * Use this simplified representation so that this test is not dependent on other sim code.
- *
- * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
- * @param {Object} [options]
- * @constructor
- */
-function TestCardNode( canvas, options ) {
-
-  options = options || {};
-
-  const backgroundNode = new Rectangle( 0, 0, 60, 60, {
-    cornerRadius: 5,
-    fill: 'white',
-    stroke: 'black',
-    lineWidth: 1
-  } );
-
-  const imageNode = new Image( canvas.toDataURL(), {
-    initialWidth: canvas.width,
-    initialHeight: canvas.height,
-    scale: 0.3,  // determined empirically
-    center: backgroundNode.center
-  } );
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ backgroundNode, imageNode ];
-
-  Node.call( this, options );
-}
-
-inherit( Node, TestCardNode );
-
-/**
- * Use this simplified representation so that this test is not dependent on other sim code.
- *
- * @param {ImageFunction} functionInstance
- * @param {Object} [options]
- * @constructor
- */
-function TestFunctionNode( functionInstance, options ) {
-
-  assert && assert( functionInstance instanceof ImageFunction );
-
-  options = options || {};
-
-  const WIDTH = 120;
-  const HEIGHT = 0.6 * WIDTH;
-  const X_INSET = 0.15 * WIDTH;
-
-  // Described from top-left, moving clockwise.
-  const backgroundShape = new Shape()
-    .moveTo( 0, 0 )
-    .lineTo( WIDTH - X_INSET, 0 )
-    .lineTo( WIDTH, HEIGHT / 2 )
-    .lineTo( WIDTH - X_INSET, HEIGHT )
-    .lineTo( 0, HEIGHT )
-    .lineTo( X_INSET, HEIGHT / 2 )
-    .close();
-
-  const backgroundNode = new Path( backgroundShape, functionInstance.viewOptions );
-
-  const iconNode = new Node( {
-    children: [ functionInstance.iconNode ],
-    center: backgroundNode.center
-  } );
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ backgroundNode, iconNode ];
-
-  Node.call( this, options );
-}
-
-inherit( Node, TestFunctionNode );
 
 export default testImageFunctions;

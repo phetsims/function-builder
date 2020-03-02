@@ -9,7 +9,6 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -63,53 +62,53 @@ function testMysteryFunctionColors( layoutBounds ) {
   } );
 }
 
-functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );
+class TestFunctionNode extends Node {
 
-/**
- * Use this simplified representation so that this test is not dependent on other sim code.
- *
- * @param {Object} [options]
- * @constructor
- */
-function TestFunctionNode( options ) {
+  /**
+   * Use this simplified representation so that this test is not dependent on other sim code.
+   *
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  options = merge( {
-    size: new Dimension2( 140, 60 ),
-    fill: 'white',
-    stroke: 'black'
-  }, options );
+    options = merge( {
+      size: new Dimension2( 140, 60 ),
+      fill: 'white',
+      stroke: 'black'
+    }, options );
 
-  const WIDTH = options.size.width;
-  const HEIGHT = options.size.height;
-  const X_INSET = 0.18 * WIDTH;
+    const WIDTH = options.size.width;
+    const HEIGHT = options.size.height;
+    const X_INSET = 0.18 * WIDTH;
 
-  // Described from top-left, moving clockwise.
-  const functionShape = new Shape()
-    .moveTo( 0, 0 )
-    .lineTo( WIDTH - X_INSET, 0 )
-    .lineTo( WIDTH, HEIGHT / 2 )
-    .lineTo( WIDTH - X_INSET, HEIGHT )
-    .lineTo( 0, HEIGHT )
-    .lineTo( X_INSET, HEIGHT / 2 )
-    .close();
-  const functionNode = new Path( functionShape, {
-    fill: options.fill,
-    stroke: options.stroke
-  } );
+    // Described from top-left, moving clockwise.
+    const functionShape = new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( WIDTH - X_INSET, 0 )
+      .lineTo( WIDTH, HEIGHT / 2 )
+      .lineTo( WIDTH - X_INSET, HEIGHT )
+      .lineTo( 0, HEIGHT )
+      .lineTo( X_INSET, HEIGHT / 2 )
+      .close();
+    const functionNode = new Path( functionShape, {
+      fill: options.fill,
+      stroke: options.stroke
+    } );
 
-  const color = Color.toColor( options.fill );
-  const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
-  const rgbTextNode = new Text( rgbString, {
-    font: new FBFont( 14 ),
-    centerX: functionNode.centerX + ( 0.25 * X_INSET ),
-    centerY: functionNode.centerY
-  } );
+    const color = Color.toColor( options.fill );
+    const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
+    const rgbTextNode = new Text( rgbString, {
+      font: new FBFont( 14 ),
+      centerX: functionNode.centerX + ( 0.25 * X_INSET ),
+      centerY: functionNode.centerY
+    } );
 
-  options.children = [ functionNode, rgbTextNode ];
+    options.children = [ functionNode, rgbTextNode ];
 
-  Node.call( this, options );
+    super( options );
+  }
 }
 
-inherit( Node, TestFunctionNode );
+functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );
 
 export default testMysteryFunctionColors;

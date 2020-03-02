@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import ImageCard from '../../common/model/cards/ImageCard.js';
 import ImageCardNode from '../../common/view/cards/ImageCardNode.js';
 import CardContainer from '../../common/view/containers/CardContainer.js';
@@ -14,23 +13,20 @@ import ImageFunctionNode from '../../common/view/functions/ImageFunctionNode.js'
 import SceneNode from '../../common/view/SceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
-/**
- * @param {PatternsScene} scene - model for this scene
- * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
- * @param {Object} [options]
- * @constructor
- */
-function PatternsSceneNode( scene, layoutBounds, options ) {
+class PatternsSceneNode extends SceneNode {
 
-  options = options || {};
-  options.seeInsideIconType = 'image'; // see FBIconFactory.createSeeInsideIcon
+  /**
+   * @param {PatternsScene} scene - model for this scene
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {Object} [options]
+   */
+  constructor( scene, layoutBounds, options ) {
 
-  SceneNode.call( this, scene, layoutBounds, ImageFunctionNode, options );
-}
+    options = options || {};
+    options.seeInsideIconType = 'image'; // see FBIconFactory.createSeeInsideIcon
 
-functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
-
-export default inherit( SceneNode, PatternsSceneNode, {
+    super( scene, layoutBounds, ImageFunctionNode, options );
+  }
 
   /**
    * Creates the card containers that go in the input and output carousels.
@@ -41,11 +37,15 @@ export default inherit( SceneNode, PatternsSceneNode, {
    * @protected
    * @override
    */
-  createCardContainers: function( scene, containerOptions ) {
+  createCardContainers( scene, containerOptions ) {
     const containers = [];
     scene.cardContent.forEach( function( cardImage ) {
       containers.push( new CardContainer( ImageCard, ImageCardNode, cardImage, containerOptions ) );
     } );
     return containers;
   }
-} );
+}
+
+functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
+
+export default PatternsSceneNode;
