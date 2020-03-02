@@ -8,7 +8,6 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import inherit from '../../../phet-core/js/inherit.js';
 import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
@@ -17,31 +16,34 @@ import functionBuilder from '../functionBuilder.js';
 import NumbersModel from './model/NumbersModel.js';
 import NumbersScreenView from './view/NumbersScreenView.js';
 
+// strings
 const screenNumbersString = functionBuilderStrings.screen.numbers;
 
-/**
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function NumbersScreen( tandem, options ) {
+class NumbersScreen extends Screen {
 
-  options = merge( {
-    name: screenNumbersString,
-    backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-    homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
-  }, options );
+  /**
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( tandem, options ) {
 
-  assert && assert( !options.tandem, 'tandem is a constructor parameter' );
-  options.tandem = tandem;
+    options = merge( {
+      name: screenNumbersString,
+      backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+      homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
+    }, options );
 
-  Screen.call( this,
-    function() { return new NumbersModel(); },
-    function( model ) { return new NumbersScreenView( model ); },
-    options );
+    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
+    options.tandem = tandem;
+
+    super(
+      () => new NumbersModel(),
+      model => new NumbersScreenView( model ),
+      options
+    );
+  }
 }
 
 functionBuilder.register( 'NumbersScreen', NumbersScreen );
 
-inherit( Screen, NumbersScreen );
 export default NumbersScreen;

@@ -8,7 +8,6 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import inherit from '../../../phet-core/js/inherit.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilderStrings from '../function-builder-strings.js';
@@ -16,28 +15,31 @@ import functionBuilder from '../functionBuilder.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
 
+// strings
 const screenEquationsString = functionBuilderStrings.screen.equations;
 
-/**
- * @param {Tandem} tandem
- * @constructor
- */
-function EquationsScreen( tandem ) {
+class EquationsScreen extends Screen {
 
-  const options = {
-    name: screenEquationsString,
-    backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-    homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
-    tandem: tandem
-  };
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-  Screen.call( this,
-    function() { return new EquationsModel(); },
-    function( model ) { return new EquationsScreenView( model ); },
-    options );
+    const options = {
+      name: screenEquationsString,
+      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+      homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
+      tandem: tandem
+    };
+
+    super(
+      () => new EquationsModel(),
+      model => new EquationsScreenView( model ),
+      options
+    );
+  }
 }
 
 functionBuilder.register( 'EquationsScreen', EquationsScreen );
 
-inherit( Screen, EquationsScreen );
 export default EquationsScreen;

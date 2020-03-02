@@ -8,27 +8,26 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import inherit from '../../../phet-core/js/inherit.js';
 import functionBuilder from '../functionBuilder.js';
 import TestScreenView from './view/TestScreenView.js';
 
-/**
- * @constructor
- */
-function TestScreen() {
+class TestScreen extends Screen {
 
-  const options = {
-    name: 'Test',
-    backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
-  };
+  constructor() {
 
-  Screen.call( this,
-    function() { return {}; },
-    function( model ) { return new TestScreenView( model ); },
-    options );
+    const options = {
+      name: 'Test',
+      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
+    };
+
+    super(
+      () => {},
+      model => new TestScreenView( model ),
+      options
+    );
+  }
 }
 
 functionBuilder.register( 'TestScreen', TestScreen );
 
-inherit( Screen, TestScreen );
 export default TestScreen;
