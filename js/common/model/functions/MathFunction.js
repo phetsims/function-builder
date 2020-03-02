@@ -10,65 +10,61 @@
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import Utils from '../../../../../dot/js/Utils.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
 import AbstractFunction from './AbstractFunction.js';
 
-/**
- * @param {string} operator - string representation of the operator
- * @param {function(RationalNumber,number):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
- * @param {Object} [options]
- * @constructor
- */
-function MathFunction( operator, applyRationalNumber, options ) {
+class MathFunction extends AbstractFunction {
 
-  options = merge( {
-    operand: 1, // {number} initial value of operandProperty, an integer
-    operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
-    zeroOperandValid: true, // {boolean} is zero a valid operand?
-    pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
-  }, options );
+  /**
+   * @param {string} operator - string representation of the operator
+   * @param {function(RationalNumber,number):RationalNumber} applyRationalNumber - implementation of the apply function for rational numbers
+   * @param {Object} [options]
+   */
+  constructor( operator, applyRationalNumber, options ) {
 
-  assert && assert( Utils.isInteger( options.operand ) );
-  assert && assert( !options.operandRange || options.operandRange.contains( options.operand ) );
-  assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
-    'default value zero is not a valid operand' );
+    options = merge( {
+      operand: 1, // {number} initial value of operandProperty, an integer
+      operandRange: new Range( -3, 3 ), // {Range|null} optional range of operandProperty
+      zeroOperandValid: true, // {boolean} is zero a valid operand?
+      pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
+    }, options );
 
-  // @public (read-only)
-  this.operator = operator;
-  this.operandRange = options.operandRange;
-  this.zeroOperandValid = options.zeroOperandValid;
+    assert && assert( Utils.isInteger( options.operand ) );
+    assert && assert( !options.operandRange || options.operandRange.contains( options.operand ) );
+    assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
+      'default value zero is not a valid operand' );
 
-  // @private
-  this.applyRationalNumber = applyRationalNumber;
+    super( options );
 
-  // @public
-  this.operandProperty = new NumberProperty( options.operand ); // {Property.<number>}
-  // unlink unnecessary, instance owns this Property
-  this.operandProperty.lazyLink( function( operand ) {
+    // @public (read-only)
+    this.operator = operator;
+    this.operandRange = options.operandRange;
+    this.zeroOperandValid = options.zeroOperandValid;
 
-    // validate operand
-    assert && assert( Utils.isInteger( operand ) );
-    assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
-    assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
-  } );
+    // @private
+    this.applyRationalNumber = applyRationalNumber;
 
-  AbstractFunction.call( this, options );
+    // @public
+    this.operandProperty = new NumberProperty( options.operand ); // {Property.<number>}
+    // unlink unnecessary, instance owns this Property
+    this.operandProperty.lazyLink( function( operand ) {
 
-  this.viewOptions.pickerColor = options.pickerColor;
-}
+      // validate operand
+      assert && assert( Utils.isInteger( operand ) );
+      assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
+      assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
+    } );
 
-functionBuilder.register( 'MathFunction', MathFunction );
-
-export default inherit( AbstractFunction, MathFunction, {
+    this.viewOptions.pickerColor = options.pickerColor;
+  }
 
   // @public
-  reset: function() {
+  reset() {
     AbstractFunction.prototype.reset.call( this );
     this.operandProperty.reset();
-  },
+  }
 
   /**
    * Applies this function.
@@ -78,7 +74,7 @@ export default inherit( AbstractFunction, MathFunction, {
    * @public
    * @override
    */
-  apply: function( input ) {
+  applyFunction( input ) {
     if ( input instanceof RationalNumber ) {
       return this.applyRationalNumber( input, this.operandProperty.get() );
     }
@@ -89,4 +85,8 @@ export default inherit( AbstractFunction, MathFunction, {
       throw new Error( 'unsupported input type' );
     }
   }
-} );
+}
+
+functionBuilder.register( 'MathFunction', MathFunction );
+
+export default MathFunction;

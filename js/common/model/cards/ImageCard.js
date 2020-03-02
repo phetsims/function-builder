@@ -6,30 +6,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../../../patterns/model/FBCanvasUtils.js';
 import Card from './Card.js';
 
-/**
- * @param {HTMLImageElement} image - the input image
- * @param {Object} [options]
- * @constructor
- */
-function ImageCard( image, options ) {
+class ImageCard extends Card {
 
-  // {HTMLCanvasElement} @public (read-only)
-  this.image = image;
+  /**
+   * @param {HTMLImageElement} image - the input image
+   * @param {Object} [options]
+   */
+  constructor( image, options ) {
 
-  // @private created on demand by getCanvas
-  this._canvas = null;
+    super( options );
 
-  Card.call( this, options );
-}
+    // {HTMLCanvasElement} @public (read-only)
+    this.image = image;
 
-functionBuilder.register( 'ImageCard', ImageCard );
-
-export default inherit( Card, ImageCard, {
+    // @private created on demand by getCanvas
+    this._canvas = null;
+  }
 
   /**
    * Gets the card's image as a canvas, so that it can be transformed by image functions.
@@ -37,11 +33,16 @@ export default inherit( Card, ImageCard, {
    *
    * @returns {HTMLCanvasElement}
    */
-  getCanvas: function() {
+  getCanvas() {
     if ( !this._canvas ) {
       this._canvas = FBCanvasUtils.createCanvasWithImage( this.image );
     }
     return this._canvas;
-  },
+  }
+
   get canvas() { return this.getCanvas(); }
-} );
+}
+
+functionBuilder.register( 'ImageCard', ImageCard );
+
+export default ImageCard;

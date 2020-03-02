@@ -6,26 +6,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../../functionBuilder.js';
 import Card from './Card.js';
 
-/**
- * @param {string} xSymbol - the input symbol, typically 'x'
- * @param {Object} [options]
- * @constructor
- */
-function EquationCard( xSymbol, options ) {
+class EquationCard extends Card {
 
-  assert && assert( typeof xSymbol === 'string' );
+  /**
+   * @param {string} xSymbol - the input symbol, typically 'x'
+   * @param {Object} [options]
+   */
+  constructor( xSymbol, options ) {
 
-  // {string} @public (read-only)
-  this.xSymbol = xSymbol;
+    assert && assert( typeof xSymbol === 'string' );
 
-  Card.call( this, options );
+    super( options );
+
+    // {string} @public (read-only)
+    this.xSymbol = xSymbol;
+  }
 }
 
 functionBuilder.register( 'EquationCard', EquationCard );
 
-inherit( Card, EquationCard );
 export default EquationCard;

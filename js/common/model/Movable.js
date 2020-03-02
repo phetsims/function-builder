@@ -11,48 +11,43 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Movable( options ) {
+class Movable {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  options = merge( {
-    position: new Vector2( 0, 0 ), // {Vector2} initial position
-    dragging: false, // {boolean} is this instance being dragged by the user?
-    animationSpeed: 100 // {number} distance/second when animating
-  }, options );
+    options = merge( {
+      position: new Vector2( 0, 0 ), // {Vector2} initial position
+      dragging: false, // {boolean} is this instance being dragged by the user?
+      animationSpeed: 100 // {number} distance/second when animating
+    }, options );
 
-  // @public (read-only) DO NOT set this directly! Use moveTo or animateTo.
-  this.positionProperty = new Vector2Property( options.position );
+    // @public (read-only) DO NOT set this directly! Use moveTo or animateTo.
+    this.positionProperty = new Vector2Property( options.position );
 
-  // @public
-  this.dragging = options.dragging;
+    // @public
+    this.dragging = options.dragging;
 
-  // @private
-  this.animationSpeed = options.animationSpeed;
+    // @private
+    this.animationSpeed = options.animationSpeed;
 
-  // @private {Vector2} destination to animate to, set using animateTo
-  this.destination = options.position.copy();
+    // @private {Vector2} destination to animate to, set using animateTo
+    this.destination = options.position.copy();
 
-  // @private {function|null} called when animation to destination completes, set using animateTo
-  this.animationCompletedCallback = null;
-}
-
-functionBuilder.register( 'Movable', Movable );
-
-export default inherit( Object, Movable, {
+    // @private {function|null} called when animation to destination completes, set using animateTo
+    this.animationCompletedCallback = null;
+  }
 
   // @public
-  reset: function() {
+  reset() {
 
     // call moveTo instead of positionProperty.set, so that any animation in progress is cancelled
     this.moveTo( this.positionProperty.initialValue );
-  },
+  }
 
   /**
    * Moves immediately to the specified position, without animation.
@@ -60,11 +55,11 @@ export default inherit( Object, Movable, {
    * @param {Vector2} position
    * @public
    */
-  moveTo: function( position ) {
+  moveTo( position ) {
     this.animationCompletedCallback = null; // cancels any pending callback
     this.destination = position;
     this.positionProperty.set( position );
-  },
+  }
 
   /**
    * Animates to the specified position. When animation is completed, call optional callback.
@@ -73,10 +68,10 @@ export default inherit( Object, Movable, {
    * @param {function} [animationCompletedCallback]
    * @public
    */
-  animateTo: function( destination, animationCompletedCallback ) {
+  animateTo( destination, animationCompletedCallback ) {
     this.destination = destination;
     this.animationCompletedCallback = animationCompletedCallback || null;
-  },
+  }
 
   /**
    * Is the Movable animating?
@@ -84,9 +79,9 @@ export default inherit( Object, Movable, {
    * @returns {boolean}
    * @public
    */
-  isAnimating: function() {
+  isAnimating() {
     return !this.dragging && ( !this.positionProperty.get().equals( this.destination ) || this.animationCompletedCallback );
-  },
+  }
 
   /**
    * Animates position, when not being dragged by the user.
@@ -94,7 +89,7 @@ export default inherit( Object, Movable, {
    * @param {number} dt - time since the previous step, in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     if ( this.isAnimating() ) {
 
       // distance from destination
@@ -126,4 +121,8 @@ export default inherit( Object, Movable, {
       }
     }
   }
-} );
+}
+
+functionBuilder.register( 'Movable', Movable );
+
+export default Movable;

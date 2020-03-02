@@ -7,66 +7,60 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import Movable from '../Movable.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function AbstractFunction( options ) {
+class AbstractFunction extends Movable {
 
-  options = merge( {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-    // {string} optional name, for internal debugging
-    name: null,
+    options = merge( {
 
-    // {boolean} is this function invertible?
-    invertible: true,
+      // {string} optional name, for internal debugging
+      name: null,
 
-    // {number} distance/second when animating
-    animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
+      // {boolean} is this function invertible?
+      invertible: true,
 
-    // properties of associated FunctionNode, in the model for convenience
-    fill: 'white', // {Color|string|null}
-    stroke: 'black', // {Color|string|null}
-    lineWidth: 1, // {number}
-    lineDash: [] // {number[]|null}
+      // {number} distance/second when animating
+      animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
 
-  }, options );
+      // properties of associated FunctionNode, in the model for convenience
+      fill: 'white', // {Color|string|null}
+      stroke: 'black', // {Color|string|null}
+      lineWidth: 1, // {number}
+      lineDash: [] // {number[]|null}
 
-  const self = this;
+    }, options );
 
-  // @private
-  this._invertible = options.invertible;
+    super( options );
 
-  // @public (read-only)
-  this.name = options.name;
+    // @private
+    this._invertible = options.invertible;
 
-  // @public (read-only) properties of FunctionNode, in the model for convenience
-  this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
+    // @public (read-only)
+    this.name = options.name;
 
-  // @public {Property.<Color|string>}
-  this.fillProperty = new Property( options.fill );
-  this.fillProperty.link( function( fill ) {
-    self.viewOptions.fill = fill;
-  } );
+    // @public (read-only) properties of FunctionNode, in the model for convenience
+    this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
-  Movable.call( this, options );
-}
-
-functionBuilder.register( 'AbstractFunction', AbstractFunction );
-
-export default inherit( Movable, AbstractFunction, {
+    // @public {Property.<Color|string>}
+    this.fillProperty = new Property( options.fill );
+    this.fillProperty.link( fill => {
+      this.viewOptions.fill = fill;
+    } );
+  }
 
   // @public @override
-  reset: function() {
-    Movable.prototype.reset.call( this );
+  reset() {
+    super.reset();
     this.fillProperty.reset();
-  },
+  }
 
   /**
    * Is this function invertible?
@@ -74,8 +68,9 @@ export default inherit( Movable, AbstractFunction, {
    * @returns {boolean}
    * @public
    */
-  getInvertible: function() { return this._invertible; },
-  get invertible() { return this.getInvertible(); },
+  getInvertible() { return this._invertible; }
+
+  get invertible() { return this.getInvertible(); }
 
   /**
    * Applies the function to the input, produces the output.
@@ -85,7 +80,11 @@ export default inherit( Movable, AbstractFunction, {
    * @public
    * @abstract
    */
-  applyFunction: function( input ) {
+  applyFunction( input ) {
     throw new Error( 'must be implemented by subtype' );
   }
-} );
+}
+
+functionBuilder.register( 'AbstractFunction', AbstractFunction );
+
+export default AbstractFunction;

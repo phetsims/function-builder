@@ -7,25 +7,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 
-/**
- * @param {constructor} functionConstructor - constructor for a function
- * @param {Object} [functionConstructorOptions] - options that will be passed to functionConstructor
- * @constructor
- */
-function FunctionCreator( functionConstructor, functionConstructorOptions ) {
+class FunctionCreator {
 
-  // @private
-  this.functionConstructor = functionConstructor;
-  this.functionConstructorOptions = functionConstructorOptions;
-}
+  /**
+   * @param {constructor} functionConstructor - constructor for a function
+   * @param {Object} [functionConstructorOptions] - options that will be passed to functionConstructor
+   */
+  constructor( functionConstructor, functionConstructorOptions ) {
 
-functionBuilder.register( 'FunctionCreator', FunctionCreator );
-
-export default inherit( Object, FunctionCreator, {
+    // @private
+    this.functionConstructor = functionConstructor;
+    this.functionConstructorOptions = functionConstructorOptions;
+  }
 
   /**
    * Creates a function instance.
@@ -33,7 +29,11 @@ export default inherit( Object, FunctionCreator, {
    * @param {Object} [options] - options passed to function constructor
    * @returns {AbstractFunction}
    */
-  createInstance: function( options ) {
+  createInstance( options ) {
     return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );
   }
-} );
+}
+
+functionBuilder.register( 'FunctionCreator', FunctionCreator );
+
+export default FunctionCreator;

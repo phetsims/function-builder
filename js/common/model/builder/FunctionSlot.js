@@ -6,28 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../../functionBuilder.js';
 
 // constants
 const NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
 
-/**
- * @param {Vector2} position - position of the slot in the global coordinate frame
- * @constructor
- */
-function FunctionSlot( position ) {
+class FunctionSlot {
 
-  // @public (read-only)
-  this.position = position;
+  /**
+   * @param {Vector2} position - position of the slot in the global coordinate frame
+   */
+  constructor( position ) {
 
-  // @public {AbstractFunction|null} the function instance that occupies the slot, possibly empty
-  this.functionInstance = NO_FUNCTION_INSTANCE;
-}
+    // @public (read-only)
+    this.position = position;
 
-functionBuilder.register( 'FunctionSlot', FunctionSlot );
-
-export default inherit( Object, FunctionSlot, {
+    // @public {AbstractFunction|null} the function instance that occupies the slot, possibly empty
+    this.functionInstance = NO_FUNCTION_INSTANCE;
+  }
 
   /**
    * Is this slot empty?
@@ -35,18 +31,18 @@ export default inherit( Object, FunctionSlot, {
    * @returns {boolean}
    * @public
    */
-  isEmpty: function() {
+  isEmpty() {
     return ( this.functionInstance === NO_FUNCTION_INSTANCE );
-  },
+  }
 
   /**
    * Clears the slot, makes it empty.
    *
    * @public
    */
-  clear: function() {
+  clear() {
     this.functionInstance = NO_FUNCTION_INSTANCE;
-  },
+  }
 
   /**
    * Does this slot contain a specified function instance?
@@ -55,10 +51,10 @@ export default inherit( Object, FunctionSlot, {
    * @returns {boolean}
    * @public
    */
-  contains: function( functionInstance ) {
+  contains( functionInstance ) {
     assert && assert( functionInstance );  // so we don't accidentally test whether the slot is empty
     return ( this.functionInstance === functionInstance );
-  },
+  }
 
   /**
    * Is the slot invertible? Meaning, can a card be dragged backwards through this slot?
@@ -66,11 +62,14 @@ export default inherit( Object, FunctionSlot, {
    * @returns {boolean}
    * @public
    */
-  isInvertible: function() {
+  isInvertible() {
     return ( this.isEmpty() || this.functionInstance.invertible );
   }
-}, {
+}
 
-  // @public @static used to indicate the absence of a valid slot number
-  NO_SLOT_NUMBER: -1
-} );
+// @public @static used to indicate the absence of a valid slot number
+FunctionSlot.NO_SLOT_NUMBER = -1;
+
+functionBuilder.register( 'FunctionSlot', FunctionSlot );
+
+export default FunctionSlot;

@@ -6,32 +6,27 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Times( options ) {
+class Times extends MathFunction {
 
-  options = merge( {
-    fill: 'rgb( 237, 165, 222 )',
-    pickerColor: 'rgb( 223, 17, 213 )'
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  MathFunction.call( this,
-    FBSymbols.TIMES,
-    function( input, operand ) { return input.times( operand ); },
-    options );
-}
+    options = merge( {
+      fill: 'rgb( 237, 165, 222 )',
+      pickerColor: 'rgb( 223, 17, 213 )'
+    }, options );
 
-functionBuilder.register( 'Times', Times );
-
-export default inherit( MathFunction, Times, {
+    super( FBSymbols.TIMES,
+      function( input, operand ) { return input.times( operand ); },
+      options );
+  }
 
   /**
    * Is this function invertible for the current value of its operand?
@@ -40,7 +35,11 @@ export default inherit( MathFunction, Times, {
    * @public
    * @override
    */
-  getInvertible: function() {
+  getInvertible() {
     return ( this.operandProperty.get() !== 0 );
   }
-} );
+}
+
+functionBuilder.register( 'Times', Times );
+
+export default Times;

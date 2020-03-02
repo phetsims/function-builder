@@ -6,60 +6,56 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../RationalNumber.js';
 
-/**
- * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
- * @param {Object} [options]
- * @constructor
- */
-function SlopeInterceptEquation( mathFunctions, options ) {
+class SlopeInterceptEquation {
 
-  options = merge( {
-    xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
-  }, options );
+  /**
+   * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
+   * @param {Object} [options]
+   */
+  constructor( mathFunctions, options ) {
 
-  let slope = new RationalNumber( 1, 1 );
-  let intercept = new RationalNumber( 0, 1 );
+    options = merge( {
+      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
+    }, options );
 
-  for ( let i = 0; i < mathFunctions.length; i++ ) {
+    let slope = new RationalNumber( 1, 1 );
+    let intercept = new RationalNumber( 0, 1 );
 
-    const mathFunction = mathFunctions[ i ];
+    for ( let i = 0; i < mathFunctions.length; i++ ) {
 
-    if ( mathFunction.operator === FBSymbols.PLUS ) {
-      intercept = intercept.plus( mathFunction.operandProperty.get() );
+      const mathFunction = mathFunctions[ i ];
+
+      if ( mathFunction.operator === FBSymbols.PLUS ) {
+        intercept = intercept.plus( mathFunction.operandProperty.get() );
+      }
+      else if ( mathFunction.operator === FBSymbols.MINUS ) {
+        intercept = intercept.minus( mathFunction.operandProperty.get() );
+      }
+      else if ( mathFunction.operator === FBSymbols.TIMES ) {
+        slope = slope.times( mathFunction.operandProperty.get() );
+        intercept = intercept.times( mathFunction.operandProperty.get() );
+      }
+      else if ( mathFunction.operator === FBSymbols.DIVIDE ) {
+        slope = slope.divide( mathFunction.operandProperty.get() );
+        intercept = intercept.divide( mathFunction.operandProperty.get() );
+      }
+      else {
+        throw new Error( 'unsupported operator ' + mathFunction.operator );
+      }
     }
-    else if ( mathFunction.operator === FBSymbols.MINUS ) {
-      intercept = intercept.minus( mathFunction.operandProperty.get() );
-    }
-    else if ( mathFunction.operator === FBSymbols.TIMES ) {
-      slope = slope.times( mathFunction.operandProperty.get() );
-      intercept = intercept.times( mathFunction.operandProperty.get() );
-    }
-    else if ( mathFunction.operator === FBSymbols.DIVIDE ) {
-      slope = slope.divide( mathFunction.operandProperty.get() );
-      intercept = intercept.divide( mathFunction.operandProperty.get() );
-    }
-    else {
-      throw new Error( 'unsupported operator ' + mathFunction.operator );
-    }
+
+    // @private
+    this.xSymbol = options.xSymbol;
+
+    // @public (read-only)
+    this.slope = slope; // {RationalNumber}
+    this.intercept = intercept; // {RationalNumber}
   }
-
-  // @private
-  this.xSymbol = options.xSymbol;
-
-  // @public (read-only)
-  this.slope = slope; // {RationalNumber}
-  this.intercept = intercept; // {RationalNumber}
-}
-
-functionBuilder.register( 'SlopeInterceptEquation', SlopeInterceptEquation );
-
-export default inherit( Object, SlopeInterceptEquation, {
 
   /**
    * String representation, for debugging and (perhaps) PhET-iO.
@@ -69,7 +65,7 @@ export default inherit( Object, SlopeInterceptEquation, {
    * @returns {string}
    * @public
    */
-  toString: function() {
+  toString() {
 
     let equation = '';
 
@@ -106,4 +102,8 @@ export default inherit( Object, SlopeInterceptEquation, {
 
     return equation;
   }
-} );
+}
+
+functionBuilder.register( 'SlopeInterceptEquation', SlopeInterceptEquation );
+
+export default SlopeInterceptEquation;

@@ -6,30 +6,29 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function Plus( options ) {
+class Plus extends MathFunction {
 
-  options = merge( {
-    fill: 'rgb( 246, 203, 144 )',
-    pickerColor: 'rgb( 227, 114, 42 )'
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  MathFunction.call( this,
-    FBSymbols.PLUS,
-    function( input, operand ) { return input.plus( operand ); },
-    options );
+    options = merge( {
+      fill: 'rgb( 246, 203, 144 )',
+      pickerColor: 'rgb( 227, 114, 42 )'
+    }, options );
+
+    super( FBSymbols.PLUS,
+      function( input, operand ) { return input.plus( operand ); },
+      options );
+  }
 }
 
 functionBuilder.register( 'Plus', Plus );
 
-inherit( MathFunction, Plus );
 export default Plus;

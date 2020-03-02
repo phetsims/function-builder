@@ -7,28 +7,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../../functionBuilder.js';
 import Builder from './Builder.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function MathBuilder( options ) {
+class MathBuilder extends Builder {
 
-  Builder.call( this, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // when any function's operand changes, notify listeners
-  const self = this;
-  this.operandObserver = function( operand ) {
-    self.functionChangedEmitter.emit();
-  };
-}
+    super( options );
 
-functionBuilder.register( 'MathBuilder', MathBuilder );
-
-export default inherit( Builder, MathBuilder, {
+    // when any function's operand changes, notify listeners
+    this.operandObserver = () => this.functionChangedEmitter.emit();
+  }
 
   /**
    * Puts a function instance into a slot. Start observing its operand.
@@ -38,10 +31,10 @@ export default inherit( Builder, MathBuilder, {
    * @public
    * @override
    */
-  addFunctionInstance: function( functionInstance, slotNumber ) {
-    Builder.prototype.addFunctionInstance.call( this, functionInstance, slotNumber );
+  addFunctionInstance( functionInstance, slotNumber ) {
+    super.addFunctionInstance( functionInstance, slotNumber );
     functionInstance.operandProperty.link( this.operandObserver ); // unlink handled in removeFunctionInstance
-  },
+  }
 
   /**
    * Removes a function instance from a slot. Stop observing its operand.
@@ -51,8 +44,12 @@ export default inherit( Builder, MathBuilder, {
    * @public
    * @override
    */
-  removeFunctionInstance: function( functionInstance, slotNumber ) {
-    Builder.prototype.removeFunctionInstance.call( this, functionInstance, slotNumber );
+  removeFunctionInstance( functionInstance, slotNumber ) {
+    super.removeFunctionInstance( functionInstance, slotNumber );
     functionInstance.operandProperty.unlink( this.operandObserver );
   }
-} );
+}
+
+functionBuilder.register( 'MathBuilder', MathBuilder );
+
+export default MathBuilder;

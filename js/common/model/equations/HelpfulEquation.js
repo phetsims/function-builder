@@ -10,7 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -23,113 +22,110 @@ import RationalNumber from '../RationalNumber.js';
 // constants
 const ZERO = RationalNumber.withInteger( 0 );
 
-/**
- * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
- * @param {Object} [options]
- * @constructor
- */
-function HelpfulEquation( mathFunctions, options ) {
+class HelpfulEquation {
 
-  options = merge( {
-    xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
-  }, options );
+  /**
+   * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
+   * @param {Object} [options]
+   */
+  constructor( mathFunctions, options ) {
 
-  const stack = []; // {MathFunction[]}
+    options = merge( {
+      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
+    }, options );
 
-  // local vars to improve readability
-  let currentFunction = null; // {MathFunction}
-  let currentOperator = null; // {string}
-  let currentOperand = null; // {number}
-  let previousFunction = null; // {MathFunction}
-  let previousOperator = null; // {string}
-  let previousOperand = null; // {number}
-  let rationalNumber = ZERO; // {RationalNumber}
+    const stack = []; // {MathFunction[]}
 
-  for ( let i = 0; i < mathFunctions.length; i++ ) {
+    // local vars to improve readability
+    let currentFunction = null; // {MathFunction}
+    let currentOperator = null; // {string}
+    let currentOperand = null; // {number}
+    let previousFunction = null; // {MathFunction}
+    let previousOperator = null; // {string}
+    let previousOperand = null; // {number}
+    let rationalNumber = ZERO; // {RationalNumber}
 
-    currentFunction = mathFunctions[ i ];
-    currentOperator = currentFunction.operator;
-    currentOperand = currentFunction.operandProperty.get();
+    for ( let i = 0; i < mathFunctions.length; i++ ) {
 
-    if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
+      currentFunction = mathFunctions[ i ];
+      currentOperator = currentFunction.operator;
+      currentOperand = currentFunction.operandProperty.get();
 
-      if ( currentOperand === 0 ) {
-        // ignore plus or minus zero
+      if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
+
+        if ( currentOperand === 0 ) {
+          // ignore plus or minus zero
+        }
+        else if ( ( stack.length !== 0 ) && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
+
+          // collapse adjacent plus and minus
+          stack.pop();
+
+          rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
+          if ( rationalNumber.valueOf() !== 0 ) {
+            stack.push( new Plus( {
+              operand: rationalNumber.valueOf(),
+              operandRange: null // disable range checking
+            } ) );
+          }
+        }
+        else {
+          stack.push( currentFunction );
+        }
       }
-      else if ( ( stack.length !== 0 ) && ( previousOperator === FBSymbols.PLUS || previousOperator === FBSymbols.MINUS ) ) {
+      else if ( currentOperator === FBSymbols.TIMES ) {
 
-        // collapse adjacent plus and minus
-        stack.pop();
+        if ( previousOperator === FBSymbols.TIMES ) {
 
-        rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
-        if ( rationalNumber.valueOf() !== 0 ) {
-          stack.push( new Plus( {
-            operand: rationalNumber.valueOf(),
-            operandRange: null // disable range checking
+          // collapse adjacent times
+          stack.pop();
+          stack.push( new Times( {
+            operand: previousOperand * currentOperand,
+            operandRange: null
           } ) );
+        }
+        else {
+          stack.push( currentFunction );
+        }
+      }
+      else if ( currentOperator === FBSymbols.DIVIDE ) {
+        assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
+
+        if ( previousOperator === FBSymbols.DIVIDE ) {
+
+          // collapse adjacent divide
+          stack.pop();
+          stack.push( new Divide( {
+            operand: previousOperand * currentOperand,
+            operandRange: null
+          } ) );
+        }
+        else {
+          stack.push( currentFunction );
         }
       }
       else {
-        stack.push( currentFunction );
+        throw new Error( 'invalid operator: ' + currentOperator );
       }
-    }
-    else if ( currentOperator === FBSymbols.TIMES ) {
 
-      if ( previousOperator === FBSymbols.TIMES ) {
-
-        // collapse adjacent times
-        stack.pop();
-        stack.push( new Times( {
-          operand: previousOperand * currentOperand,
-          operandRange: null
-        } ) );
+      if ( stack.length > 0 ) {
+        previousFunction = stack[ stack.length - 1 ];
+        previousOperator = currentOperator;
+        previousOperand = previousFunction.operandProperty.get();
       }
       else {
-        stack.push( currentFunction );
+        previousFunction = null;
+        previousOperator = null;
+        previousOperand = null;
       }
     }
-    else if ( currentOperator === FBSymbols.DIVIDE ) {
-      assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
 
-      if ( previousOperator === FBSymbols.DIVIDE ) {
+    // @private
+    this.xSymbol = options.xSymbol; // {string}
 
-        // collapse adjacent divide
-        stack.pop();
-        stack.push( new Divide( {
-          operand: previousOperand * currentOperand,
-          operandRange: null
-        } ) );
-      }
-      else {
-        stack.push( currentFunction );
-      }
-    }
-    else {
-      throw new Error( 'invalid operator: ' + currentOperator );
-    }
-
-    if ( stack.length > 0 ) {
-      previousFunction = stack[ stack.length - 1 ];
-      previousOperator = currentOperator;
-      previousOperand = previousFunction.operandProperty.get();
-    }
-    else {
-      previousFunction = null;
-      previousOperator = null;
-      previousOperand = null;
-    }
+    // @public
+    this.mathFunctions = stack; // {MathFunction[]}
   }
-
-  // @private
-  this.xSymbol = options.xSymbol; // {string}
-
-  // @public
-  this.mathFunctions = stack; // {MathFunction[]}
-}
-
-functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
-
-export default inherit( Object, HelpfulEquation, {
 
   /**
    * String representation, for debugging. Do not rely on format!
@@ -139,7 +135,7 @@ export default inherit( Object, HelpfulEquation, {
    * @returns {string}
    * @public
    */
-  toString: function() {
+  toString() {
 
     let equation = null; // {string}
     let i = 0; // {number}
@@ -204,4 +200,8 @@ export default inherit( Object, HelpfulEquation, {
 
     return equation;
   }
-} );
+}
+
+functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
+
+export default HelpfulEquation;

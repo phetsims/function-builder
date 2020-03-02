@@ -6,28 +6,28 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
 import Card from './Card.js';
 
-/**
- * @param {RationalNumber} rationalNumber - the input number, an integer
- * @param {Object} [options]
- * @constructor
- */
-function NumberCard( rationalNumber, options ) {
+class NumberCard extends Card {
 
-  assert && assert( rationalNumber instanceof RationalNumber );
-  assert && assert( rationalNumber.isInteger() );
+  /**
+   * @param {RationalNumber} rationalNumber - the input number, an integer
+   * @param {Object} [options]
+   */
+  constructor( rationalNumber, options ) {
 
-  // {RationalNumber} @public (read-only)
-  this.rationalNumber = rationalNumber;
+    assert && assert( rationalNumber instanceof RationalNumber );
+    assert && assert( rationalNumber.isInteger() );
 
-  Card.call( this, options );
+    super( options );
+
+    // {RationalNumber} @public (read-only)
+    this.rationalNumber = rationalNumber;
+  }
 }
 
 functionBuilder.register( 'NumberCard', NumberCard );
 
-inherit( Card, NumberCard );
 export default NumberCard;
