@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import platform from '../../../../phet-core/js/platform.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
@@ -36,247 +35,407 @@ const PAGE_CONTROL_OPTIONS = {
 //TODO revisit this workaround, see https://github.com/phetsims/function-builder/issues/69
 const WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
 
-/**
- * @param {Scene} scene - model for this scene
- * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
- * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
- * @param {Object} [options]
- * @constructor
- */
-function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
+class SceneNode extends Node {
+  
+  /**
+   * @param {Scene} scene - model for this scene
+   * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
+   * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
+   * @param {Object} [options]
+   */
+  constructor( scene, layoutBounds, functionNodeConstructor, options ) {
 
-  phet.log && phet.log( this.constructor.name + '.initialize' );
+    options = merge( {
+      seeInside: false, // {boolean} initial value of seeInsideProperty
+      hideFunctions: false, // {boolean} initial value of hideFunctionsProperty
+      cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
+      cardsPerPage: 4, // {number} cards per page in the input and output carousels
+      functionsPerPage: 3, // {number} functions per page in the functions carousel
+      seeInsideIconType: 'number', // {string} see FBIconFactory.createSeeInsideIcon
+      functionCarouselVisible: true, // {boolean} is the function carousel visible?
+      hideFunctionsCheckboxVisible: true // {boolean} is hideFunctionsCheckbox visible?
+    }, options );
 
-  options = merge( {
-    seeInside: false, // {boolean} initial value of seeInsideProperty
-    hideFunctions: false, // {boolean} initial value of hideFunctionsProperty
-    cardCarouselDefaultPageNumber: 0, // {number} initial page number for card carousels
-    cardsPerPage: 4, // {number} cards per page in the input and output carousels
-    functionsPerPage: 3, // {number} functions per page in the functions carousel
-    seeInsideIconType: 'number', // {string} see FBIconFactory.createSeeInsideIcon
-    functionCarouselVisible: true, // {boolean} is the function carousel visible?
-    hideFunctionsCheckboxVisible: true // {boolean} is hideFunctionsCheckbox visible?
-  }, options );
+    super();
+    phet.log && phet.log( this.constructor.name + '.initialize' );
 
-  // @protected show/hide windows that allow you to 'see inside' the builder
-  this.seeInsideProperty = new BooleanProperty( options.seeInside );
+    // @protected show/hide windows that allow you to 'see inside' the builder
+    this.seeInsideProperty = new BooleanProperty( options.seeInside );
 
-  // @private should the identity of functions in the builder be hidden?
-  this.hideFunctionsProperty = new BooleanProperty( options.hideFunctions );
+    // @private should the identity of functions in the builder be hidden?
+    this.hideFunctionsProperty = new BooleanProperty( options.hideFunctions );
 
-  // cards are in this layer while they are draggable
-  const cardsDragLayer = new Node();
+    // cards are in this layer while they are draggable
+    const cardsDragLayer = new Node();
 
-  // functions are in this layer while they are draggable
-  const functionsDragLayer = new Node();
+    // functions are in this layer while they are draggable
+    const functionsDragLayer = new Node();
 
-  // basic UI controls get added to this layer
-  const controlsLayer = new Node( WORKAROUND_35_OPTIONS );
+    // basic UI controls get added to this layer
+    const controlsLayer = new Node( WORKAROUND_35_OPTIONS );
 
-  // drawers get added to this layer by subtypes
-  const drawersLayer = new Node();
+    // drawers get added to this layer by subtypes
+    const drawersLayer = new Node();
 
-  // Builder, ends are separate nodes to provide illusion of dragging cards through the builder
-  const builder = scene.builder;
-  const BUILDER_END_OPTIONS = {
-    radiusX: 15,
-    radiusY: builder.endHeight / 2,
-    fill: builder.colorScheme.ends,
-    centerY: builder.position.y
-  };
-  const builderLeftEndNode = new BuilderEndNode( 'left', merge( {}, BUILDER_END_OPTIONS, {
-    centerX: builder.left
-  } ) );
-  const builderRightEndNode = new BuilderEndNode( 'right', merge( {}, BUILDER_END_OPTIONS, {
-    centerX: builder.right
-  } ) );
-  const builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
-    endRadiusX: BUILDER_END_OPTIONS.radiusX,
-    slotFill: null
-  } );
-
-  // Input carousel --------------------------------------------------------------------------------------------------
-
-  // Containers in the input carousel
-  const inputContainers = this.createCardContainers( scene );
-
-  // Input carousel, at left
-  const inputCarousel = new Carousel( inputContainers, {
-    orientation: 'vertical',
-    separatorsVisible: true,
-    itemsPerPage: options.cardsPerPage,
-    defaultPageNumber: options.cardCarouselDefaultPageNumber,
-    buttonTouchAreaXDilation: 5,
-    buttonTouchAreaYDilation: 15,
-    left: layoutBounds.left + 30,
-    top: layoutBounds.top + 50
-  } );
-
-  // Page control for input carousel
-  const inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, merge( {
-    orientation: 'vertical',
-    right: inputCarousel.left - PAGE_CONTROL_SPACING,
-    centerY: inputCarousel.centerY
-  }, PAGE_CONTROL_OPTIONS ) );
-  controlsLayer.addChild( inputPageControl );
-
-  // Output carousel ------------------------------------------------------------------------------------------------
-
-  // Containers in the output carousel
-  const outputContainers = this.createCardContainers( scene, {
-    emptyNode: null // don't show anything in empty output containers
-  } );
-
-  // Output carousel, at right
-  const outputCarousel = new OutputCardsCarousel( outputContainers, {
-    orientation: 'vertical',
-    separatorsVisible: true,
-    itemsPerPage: options.cardsPerPage,
-    defaultPageNumber: options.cardCarouselDefaultPageNumber,
-    buttonTouchAreaXDilation: 5,
-    buttonTouchAreaYDilation: 15,
-    right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
-    bottom: inputCarousel.bottom
-  } );
-
-  // Page control for output carousel
-  const outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, merge( {
-    orientation: 'vertical',
-    left: outputCarousel.right + PAGE_CONTROL_SPACING,
-    centerY: outputCarousel.centerY
-  }, PAGE_CONTROL_OPTIONS ) );
-  controlsLayer.addChild( outputPageControl );
-
-  // Eraser button, centered below the output carousel
-  const eraserButton = new EraserButton( {
-    listener: () => this.erase(),
-    iconWidth: 28,
-    centerX: outputCarousel.centerX,
-    top: outputCarousel.bottom + 25
-  } );
-  controlsLayer.addChild( eraserButton );
-  eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
-
-  // Disable the eraser button when the output carousel is empty.
-  // unlink unnecessary, instances exist for lifetime of the sim.
-  outputCarousel.numberOfCardsProperty.link( numberOfCards => {
-    eraserButton.enabled = ( numberOfCards > 0 );
-  } );
-
-  // Function carousel ----------------------------------------------------------------------------------------------
-
-  // Containers in the function carousel
-  const functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
-
-  // Function carousel, centered below bottom builder
-  const functionCarousel = new Carousel( functionContainers, {
-    visible: options.functionCarouselVisible,
-    orientation: 'horizontal',
-    itemsPerPage: options.functionsPerPage,
-    spacing: 12,
-    buttonTouchAreaXDilation: 15,
-    buttonTouchAreaYDilation: 5,
-    centerX: layoutBounds.centerX,
-    bottom: layoutBounds.bottom - 25
-  } );
-
-  // Page control for function carousel
-  const functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, merge( {
-    visible: options.functionCarouselVisible,
-    orientation: 'horizontal',
-    centerX: functionCarousel.centerX,
-    top: functionCarousel.bottom + PAGE_CONTROL_SPACING
-  }, PAGE_CONTROL_OPTIONS ) );
-  controlsLayer.addChild( functionPageControl );
-
-  //------------------------------------------------------------------------------------------------------------------
-
-  // Link the input and output carousels, so that they display the same page number.
-  // unlink unnecessary, instances exist for lifetime of the sim.
-  assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
-  inputCarousel.pageNumberProperty.link( pageNumber => {
-    outputCarousel.pageNumberProperty.set( pageNumber );
-  } );
-  outputCarousel.pageNumberProperty.link( pageNumber => {
-    inputCarousel.pageNumberProperty.set( pageNumber );
-  } );
-
-  // 'Hide Functions' feature ----------------------------------------------------------------------------------------
-
-  const hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
-    visible: options.hideFunctionsCheckboxVisible,
-    spacing: 8,
-    left: inputCarousel.left,
-    top: functionCarousel.top
-  } );
-  controlsLayer.addChild( hideFunctionsCheckbox );
-  hideFunctionsCheckbox.touchArea = hideFunctionsCheckbox.localBounds.dilatedXY( 10, 10 );
-
-  // 'See Inside' feature --------------------------------------------------------------------------------------------
-
-  const seeInsideLayer = new SeeInsideLayer( scene.builder, {
-    visible: this.seeInsideProperty.get()
-  } );
-
-  const seeInsideCheckbox = new Checkbox(
-    FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
-    this.seeInsideProperty, {
-      spacing: 8,
-      left: hideFunctionsCheckbox.left,
-      top: hideFunctionsCheckbox.bottom + 25
+    // Builder, ends are separate nodes to provide illusion of dragging cards through the builder
+    const builder = scene.builder;
+    const BUILDER_END_OPTIONS = {
+      radiusX: 15,
+      radiusY: builder.endHeight / 2,
+      fill: builder.colorScheme.ends,
+      centerY: builder.position.y
+    };
+    const builderLeftEndNode = new BuilderEndNode( 'left', merge( {}, BUILDER_END_OPTIONS, {
+      centerX: builder.left
+    } ) );
+    const builderRightEndNode = new BuilderEndNode( 'right', merge( {}, BUILDER_END_OPTIONS, {
+      centerX: builder.right
+    } ) );
+    const builderNode = new BuilderNode( builder, this.hideFunctionsProperty, {
+      endRadiusX: BUILDER_END_OPTIONS.radiusX,
+      slotFill: null
     } );
-  controlsLayer.addChild( seeInsideCheckbox );
-  seeInsideCheckbox.touchArea = seeInsideCheckbox.localBounds.dilatedXY( 10, 10 );
 
-  // unlink unnecessary, instances exist for lifetime of the sim
-  this.seeInsideProperty.link( seeInside => {
-    seeInsideLayer.visible = seeInside;
-  } );
+    // Input carousel --------------------------------------------------------------------------------------------------
 
-  //------------------------------------------------------------------------------------------------------------------
+    // Containers in the input carousel
+    const inputContainers = this.createCardContainers( scene );
 
-  // rendering order
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [
-    controlsLayer,
-    inputCarousel, // 1 clipArea
-    outputCarousel, // 1 clipArea
-    functionCarousel, // 1 clipArea
-    drawersLayer, // table drawer: 2 clipAreas; graph drawer: 1 clipArea; equation drawer: 1 clipArea
-    builderLeftEndNode,
-    builderRightEndNode,
-    cardsDragLayer, // must be between the builder ends and the builder
-    builderNode, // 1 clipArea
-    seeInsideLayer, // 1 clipArea
-    functionsDragLayer
-  ];
+    // Input carousel, at left
+    const inputCarousel = new Carousel( inputContainers, {
+      orientation: 'vertical',
+      separatorsVisible: true,
+      itemsPerPage: options.cardsPerPage,
+      defaultPageNumber: options.cardCarouselDefaultPageNumber,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 15,
+      left: layoutBounds.left + 30,
+      top: layoutBounds.top + 50
+    } );
 
-  Node.call( this, options );
+    // Page control for input carousel
+    const inputPageControl = new PageControl( inputCarousel.numberOfPages, inputCarousel.pageNumberProperty, merge( {
+      orientation: 'vertical',
+      right: inputCarousel.left - PAGE_CONTROL_SPACING,
+      centerY: inputCarousel.centerY
+    }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( inputPageControl );
 
-  //------------------------------------------------------------------------------------------------------------------
-  // Define properties in one place, so we can see what's available and document visibility
+    // Output carousel ------------------------------------------------------------------------------------------------
 
-  // @private populated by completeInitialization, needed by reset
-  this.functionNodes = []; // {FunctionNode[]}
-  this.cardNodes = []; // {CardNode[]}
+    // Containers in the output carousel
+    const outputContainers = this.createCardContainers( scene, {
+      emptyNode: null // don't show anything in empty output containers
+    } );
 
-  // @private needed by prototype functions
-  this.scene = scene;
-  this.cardsDragLayer = cardsDragLayer;
-  this.seeInsideLayer = seeInsideLayer;
-  this.inputCarousel = inputCarousel;
-  this.outputCarousel = outputCarousel;
+    // Output carousel, at right
+    const outputCarousel = new OutputCardsCarousel( outputContainers, {
+      orientation: 'vertical',
+      separatorsVisible: true,
+      itemsPerPage: options.cardsPerPage,
+      defaultPageNumber: options.cardCarouselDefaultPageNumber,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 15,
+      right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
+      bottom: inputCarousel.bottom
+    } );
 
-  // @protected needed by subtypes
-  this.drawersLayer = drawersLayer;
-  this.controlsLayer = controlsLayer;
-  this.functionsDragLayer = functionsDragLayer;
-  this.builderNode = builderNode;
-  this.functionCarousel = functionCarousel;
-  this.inputContainers = inputContainers;
-  this.outputContainers = outputContainers;
-  this.functionContainers = functionContainers;
-  this.seeInsideCheckbox = seeInsideCheckbox;
+    // Page control for output carousel
+    const outputPageControl = new PageControl( outputCarousel.numberOfPages, outputCarousel.pageNumberProperty, merge( {
+      orientation: 'vertical',
+      left: outputCarousel.right + PAGE_CONTROL_SPACING,
+      centerY: outputCarousel.centerY
+    }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( outputPageControl );
+
+    // Eraser button, centered below the output carousel
+    const eraserButton = new EraserButton( {
+      listener: () => this.erase(),
+      iconWidth: 28,
+      centerX: outputCarousel.centerX,
+      top: outputCarousel.bottom + 25
+    } );
+    controlsLayer.addChild( eraserButton );
+    eraserButton.touchArea = eraserButton.localBounds.dilatedXY( 10, 5 );
+
+    // Disable the eraser button when the output carousel is empty.
+    // unlink unnecessary, instances exist for lifetime of the sim.
+    outputCarousel.numberOfCardsProperty.link( numberOfCards => {
+      eraserButton.enabled = ( numberOfCards > 0 );
+    } );
+
+    // Function carousel ----------------------------------------------------------------------------------------------
+
+    // Containers in the function carousel
+    const functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
+
+    // Function carousel, centered below bottom builder
+    const functionCarousel = new Carousel( functionContainers, {
+      visible: options.functionCarouselVisible,
+      orientation: 'horizontal',
+      itemsPerPage: options.functionsPerPage,
+      spacing: 12,
+      buttonTouchAreaXDilation: 15,
+      buttonTouchAreaYDilation: 5,
+      centerX: layoutBounds.centerX,
+      bottom: layoutBounds.bottom - 25
+    } );
+
+    // Page control for function carousel
+    const functionPageControl = new PageControl( functionCarousel.numberOfPages, functionCarousel.pageNumberProperty, merge( {
+      visible: options.functionCarouselVisible,
+      orientation: 'horizontal',
+      centerX: functionCarousel.centerX,
+      top: functionCarousel.bottom + PAGE_CONTROL_SPACING
+    }, PAGE_CONTROL_OPTIONS ) );
+    controlsLayer.addChild( functionPageControl );
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Link the input and output carousels, so that they display the same page number.
+    // unlink unnecessary, instances exist for lifetime of the sim.
+    assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
+    inputCarousel.pageNumberProperty.link( pageNumber => {
+      outputCarousel.pageNumberProperty.set( pageNumber );
+    } );
+    outputCarousel.pageNumberProperty.link( pageNumber => {
+      inputCarousel.pageNumberProperty.set( pageNumber );
+    } );
+
+    // 'Hide Functions' feature ----------------------------------------------------------------------------------------
+
+    const hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
+      visible: options.hideFunctionsCheckboxVisible,
+      spacing: 8,
+      left: inputCarousel.left,
+      top: functionCarousel.top
+    } );
+    controlsLayer.addChild( hideFunctionsCheckbox );
+    hideFunctionsCheckbox.touchArea = hideFunctionsCheckbox.localBounds.dilatedXY( 10, 10 );
+
+    // 'See Inside' feature --------------------------------------------------------------------------------------------
+
+    const seeInsideLayer = new SeeInsideLayer( scene.builder, {
+      visible: this.seeInsideProperty.get()
+    } );
+
+    const seeInsideCheckbox = new Checkbox(
+      FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
+      this.seeInsideProperty, {
+        spacing: 8,
+        left: hideFunctionsCheckbox.left,
+        top: hideFunctionsCheckbox.bottom + 25
+      } );
+    controlsLayer.addChild( seeInsideCheckbox );
+    seeInsideCheckbox.touchArea = seeInsideCheckbox.localBounds.dilatedXY( 10, 10 );
+
+    // unlink unnecessary, instances exist for lifetime of the sim
+    this.seeInsideProperty.link( seeInside => {
+      seeInsideLayer.visible = seeInside;
+    } );
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    // rendering order
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [
+      controlsLayer,
+      inputCarousel, // 1 clipArea
+      outputCarousel, // 1 clipArea
+      functionCarousel, // 1 clipArea
+      drawersLayer, // table drawer: 2 clipAreas; graph drawer: 1 clipArea; equation drawer: 1 clipArea
+      builderLeftEndNode,
+      builderRightEndNode,
+      cardsDragLayer, // must be between the builder ends and the builder
+      builderNode, // 1 clipArea
+      seeInsideLayer, // 1 clipArea
+      functionsDragLayer
+    ];
+
+    this.mutate( options );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Define properties in one place, so we can see what's available and document visibility
+
+    // @private populated by completeInitialization, needed by reset
+    this.functionNodes = []; // {FunctionNode[]}
+    this.cardNodes = []; // {CardNode[]}
+
+    // @private needed by prototype functions
+    this.scene = scene;
+    this.cardsDragLayer = cardsDragLayer;
+    this.seeInsideLayer = seeInsideLayer;
+    this.inputCarousel = inputCarousel;
+    this.outputCarousel = outputCarousel;
+
+    // @protected needed by subtypes
+    this.drawersLayer = drawersLayer;
+    this.controlsLayer = controlsLayer;
+    this.functionsDragLayer = functionsDragLayer;
+    this.builderNode = builderNode;
+    this.functionCarousel = functionCarousel;
+    this.inputContainers = inputContainers;
+    this.outputContainers = outputContainers;
+    this.functionContainers = functionContainers;
+    this.seeInsideCheckbox = seeInsideCheckbox;
+  }
+
+  // @public
+  reset() {
+    this.seeInsideProperty.reset();
+    this.hideFunctionsProperty.reset();
+    this.resetCarousels();
+    this.builderNode.reset();
+    this.resetFunctions();
+    this.resetCards();
+  }
+
+  /**
+   * Returns all functions to the function carousel
+   *
+   * @protected
+   */
+  resetFunctions() {
+    this.functionNodes.forEach( function( functionNode ) {
+      functionNode.moveToCarousel();
+    } );
+  }
+
+  /**
+   * Returns all cards to the input carousel
+   *
+   * @protected
+   */
+  resetCards() {
+    this.cardNodes.forEach( function( cardNode ) {
+      cardNode.moveToInputCarousel();
+    } );
+  }
+
+  /**
+   * Resets the carousels without animation.
+   *
+   * @protected
+   */
+  resetCarousels() {
+
+    this.functionCarousel.reset( { animationEnabled: false } );
+
+    // Because the input and output carousels are linked, we need to use this approach:
+    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
+    this.inputCarousel.reset();
+    this.outputCarousel.reset();
+    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
+  }
+
+  // @protected called when the 'eraser' button is pressed
+  erase() {
+    this.outputCarousel.erase();
+  }
+
+  /**
+   * Completes initialization of the scene. This cannot be done until the scene is attached
+   * to a ScreenView, because we need to know the position of the containers in the carousels.
+   *
+   * @public
+   */
+  completeInitialization() {
+    assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
+    this.populateFunctionCarousels();
+    this.populateCardCarousels();
+  }
+
+  // @private populates the function carousel
+  populateFunctionCarousels() {
+
+    this.functionCarousel.animationEnabled = false;
+
+    this.functionCarousel.items.forEach( functionContainer => {
+
+      // function container's position
+      functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, functionContainer, this.functionsDragLayer );
+
+      // populate the container with functions
+      functionContainer.createFunctions( this.scene.numberOfEachFunction, this.scene, this.builderNode, this.functionsDragLayer );
+
+      // get the functions that were added, needed for reset
+      this.functionNodes = this.functionNodes.concat( functionContainer.getContents() );
+    } );
+
+    this.functionCarousel.pageNumberProperty.reset();
+    this.functionCarousel.animationEnabled = true;
+  }
+
+  // @private populates the card carousels
+  populateCardCarousels() {
+
+    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
+
+    const inputContainers = this.inputCarousel.items;
+    const outputContainers = this.outputCarousel.items;
+    assert && assert( inputContainers.length === outputContainers.length );
+
+    for ( let i = 0; i < inputContainers.length; i++ ) {
+
+      // input container's position
+      const inputContainer = inputContainers[ i ];
+      inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, inputContainer, this.cardsDragLayer );
+
+      // output container's position
+      const outputContainer = outputContainers[ i ];
+      outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, outputContainer, this.cardsDragLayer );
+
+      // populate the input container with cards
+      inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,
+        this.builderNode, this.cardsDragLayer, this.seeInsideLayer, this.seeInsideProperty );
+
+      // get the cards that were added, needed for reset
+      this.cardNodes = this.cardNodes.concat( inputContainer.getContents() );
+    }
+
+    this.inputCarousel.pageNumberProperty.reset();
+    this.outputCarousel.pageNumberProperty.reset();
+    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
+
+    // move 1 of each card to the output carousel, for testing
+    if ( FBQueryParameters.populateOutput ) {
+      this.populateOutputCarousel();
+    }
+  }
+
+  /**
+   * Moves 1 of each card to the output carousel, used for testing.
+   * If an outputContainer already contains cards, this is a no-op for that container.
+   *
+   * @public
+   */
+  populateOutputCarousel() {
+    for ( let i = 0; i < this.outputCarousel.items.length; i++ ) {
+
+      const outputContainer = this.outputCarousel.items[ i ];
+      if ( outputContainer.isEmpty() ) {
+
+        const inputContainer = this.inputCarousel.items[ i ];
+
+        const cardNode = inputContainer.getContents()[ 0 ];
+        inputContainer.removeNode( cardNode );
+        outputContainer.addNode( cardNode );
+      }
+    }
+  }
+
+  /**
+   * Creates the card containers that go in the card carousels.
+   *
+   * @param {Scene} scene
+   * @param {Object} [containerOptions]
+   * @returns {CardContainer[]}
+   * @protected
+   * @abstract
+   */
+  createCardContainers( scene, containerOptions ) {
+    throw new Error( 'must be implemented by subtype' );
+  }
 }
 
 functionBuilder.register( 'SceneNode', SceneNode );
@@ -329,162 +488,4 @@ function createFunctionContainers( functionCreators, functionNodeConstructor, co
   return functionContainers;
 }
 
-export default inherit( Node, SceneNode, {
-
-  // @public
-  reset: function() {
-    this.seeInsideProperty.reset();
-    this.hideFunctionsProperty.reset();
-    this.resetCarousels();
-    this.builderNode.reset();
-    this.resetFunctions();
-    this.resetCards();
-  },
-
-  /**
-   * Returns all functions to the function carousel
-   *
-   * @protected
-   */
-  resetFunctions: function() {
-    this.functionNodes.forEach( function( functionNode ) {
-      functionNode.moveToCarousel();
-    } );
-  },
-
-  /**
-   * Returns all cards to the input carousel
-   *
-   * @protected
-   */
-  resetCards: function() {
-    this.cardNodes.forEach( function( cardNode ) {
-      cardNode.moveToInputCarousel();
-    } );
-  },
-
-  /**
-   * Resets the carousels without animation.
-   *
-   * @protected
-   */
-  resetCarousels: function() {
-
-    this.functionCarousel.reset( { animationEnabled: false } );
-
-    // Because the input and output carousels are linked, we need to use this approach:
-    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
-    this.inputCarousel.reset();
-    this.outputCarousel.reset();
-    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
-  },
-
-  // @protected called when the 'eraser' button is pressed
-  erase: function() {
-    this.outputCarousel.erase();
-  },
-
-  /**
-   * Completes initialization of the scene. This cannot be done until the scene is attached
-   * to a ScreenView, because we need to know the position of the containers in the carousels.
-   *
-   * @public
-   */
-  completeInitialization: function() {
-    assert && assert( hasScreenViewAncestor( this ), 'call this function after attaching to ScreenView' );
-    this.populateFunctionCarousels();
-    this.populateCardCarousels();
-  },
-
-  // @private populates the function carousel
-  populateFunctionCarousels: function() {
-
-    this.functionCarousel.animationEnabled = false;
-
-    this.functionCarousel.items.forEach( functionContainer => {
-
-      // function container's position
-      functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, functionContainer, this.functionsDragLayer );
-
-      // populate the container with functions
-      functionContainer.createFunctions( this.scene.numberOfEachFunction, this.scene, this.builderNode, this.functionsDragLayer );
-
-      // get the functions that were added, needed for reset
-      this.functionNodes = this.functionNodes.concat( functionContainer.getContents() );
-    } );
-
-    this.functionCarousel.pageNumberProperty.reset();
-    this.functionCarousel.animationEnabled = true;
-  },
-
-  // @private populates the card carousels
-  populateCardCarousels: function() {
-
-    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
-
-    const inputContainers = this.inputCarousel.items;
-    const outputContainers = this.outputCarousel.items;
-    assert && assert( inputContainers.length === outputContainers.length );
-
-    for ( let i = 0; i < inputContainers.length; i++ ) {
-
-      // input container's position
-      const inputContainer = inputContainers[ i ];
-      inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, inputContainer, this.cardsDragLayer );
-
-      // output container's position
-      const outputContainer = outputContainers[ i ];
-      outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, outputContainer, this.cardsDragLayer );
-
-      // populate the input container with cards
-      inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,
-        this.builderNode, this.cardsDragLayer, this.seeInsideLayer, this.seeInsideProperty );
-
-      // get the cards that were added, needed for reset
-      this.cardNodes = this.cardNodes.concat( inputContainer.getContents() );
-    }
-
-    this.inputCarousel.pageNumberProperty.reset();
-    this.outputCarousel.pageNumberProperty.reset();
-    this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
-
-    // move 1 of each card to the output carousel, for testing
-    if ( FBQueryParameters.populateOutput ) {
-      this.populateOutputCarousel();
-    }
-  },
-
-  /**
-   * Moves 1 of each card to the output carousel, used for testing.
-   * If an outputContainer already contains cards, this is a no-op for that container.
-   *
-   * @public
-   */
-  populateOutputCarousel: function() {
-    for ( let i = 0; i < this.outputCarousel.items.length; i++ ) {
-
-      const outputContainer = this.outputCarousel.items[ i ];
-      if ( outputContainer.isEmpty() ) {
-
-        const inputContainer = this.inputCarousel.items[ i ];
-
-        const cardNode = inputContainer.getContents()[ 0 ];
-        inputContainer.removeNode( cardNode );
-        outputContainer.addNode( cardNode );
-      }
-    }
-  },
-
-  /**
-   * Creates the card containers that go in the card carousels.
-   *
-   * @param {Scene} scene
-   * @param {Object} [containerOptions]
-   * @returns {CardContainer[]}
-   * @protected
-   * @abstract
-   */
-  createCardContainers: function( scene, containerOptions ) {
-    throw new Error( 'must be implemented by subtype' );
-  }
-} );
+export default SceneNode;
