@@ -13,7 +13,6 @@
  */
 
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -24,163 +23,160 @@ import FunctionNode from '../functions/FunctionNode.js';
 import BuilderEndNode from './BuilderEndNode.js';
 import FunctionSlotNode from './FunctionSlotNode.js';
 
-/**
- * @param {Builder} builder
- * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the indentity of functions in the builder
- * @param {Object} [options]
- * @constructor
- */
-function BuilderNode( builder, hideFunctionsProperty, options ) {
+class BuilderNode extends Node {
+  
+  /**
+   * @param {Builder} builder
+   * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the indentity of functions in the builder
+   * @param {Object} [options]
+   */
+  constructor( builder, hideFunctionsProperty, options ) {
 
-  options = merge( {
+    options = merge( {
 
-    // body
-    bodyStroke: 'black',
-    bodyLineWidth: 1,
+      // body
+      bodyStroke: 'black',
+      bodyLineWidth: 1,
 
-    // ends
-    endRadiusX: 15,
-    endStroke: 'black',
-    endLineWidth: 1,
+      // ends
+      endRadiusX: 15,
+      endStroke: 'black',
+      endLineWidth: 1,
 
-    // slots
-    slotFill: 'white',
-    slotStroke: 'black',
-    slotLineWidth: 2,
+      // slots
+      slotFill: 'white',
+      slotStroke: 'black',
+      slotLineWidth: 2,
 
-    // function placeholders
-    functionStroke: 'white',
-    functionLineWidth: 1,
-    functionLineDash: [ 3, 3 ]
+      // function placeholders
+      functionStroke: 'white',
+      functionLineWidth: 1,
+      functionLineDash: [ 3, 3 ]
 
-  }, options );
+    }, options );
 
-  assert && assert( !options.x && !options.y, 'position is determined by model' );
-  options.x = builder.position.x;
-  options.y = builder.position.y;
+    assert && assert( !options.x && !options.y, 'position is determined by model' );
+    options.x = builder.position.x;
+    options.y = builder.position.y;
 
-  // To improve readability of shape code
-  const colorScheme = builder.colorScheme;
-  const BODY_WIDTH = builder.width;
-  const END_HEIGHT = builder.endHeight;
-  const X_INSET = 0.15 * BODY_WIDTH;
-  const Y_INSET = ( END_HEIGHT - builder.waistHeight ) / 2;
+    // To improve readability of shape code
+    const colorScheme = builder.colorScheme;
+    const BODY_WIDTH = builder.width;
+    const END_HEIGHT = builder.endHeight;
+    const X_INSET = 0.15 * BODY_WIDTH;
+    const Y_INSET = ( END_HEIGHT - builder.waistHeight ) / 2;
 
-  // Gradient for the body
-  const bodyGradient = new LinearGradient( 0, 0, 1, END_HEIGHT )
-    .addColorStop( 0, colorScheme.top )
-    .addColorStop( 0.5, colorScheme.middle )
-    .addColorStop( 1, colorScheme.bottom );
+    // Gradient for the body
+    const bodyGradient = new LinearGradient( 0, 0, 1, END_HEIGHT )
+      .addColorStop( 0, colorScheme.top )
+      .addColorStop( 0.5, colorScheme.middle )
+      .addColorStop( 1, colorScheme.bottom );
 
-  // Body of the builder, described starting at upper-left and moving clockwise
-  const bodyNode = new Path( new Shape()
-    .moveTo( 0, 0 )
-    .lineTo( X_INSET, Y_INSET )
-    .lineTo( BODY_WIDTH - X_INSET, Y_INSET )
-    .lineTo( BODY_WIDTH, 0 )
-    .lineTo( BODY_WIDTH, END_HEIGHT )
-    .lineTo( BODY_WIDTH - X_INSET, END_HEIGHT - Y_INSET )
-    .lineTo( X_INSET, END_HEIGHT - Y_INSET )
-    .lineTo( 0, END_HEIGHT )
-    .close(), {
-    fill: bodyGradient,
-    stroke: options.bodyStroke,
-    lineWidth: options.bodyLineWidth,
+    // Body of the builder, described starting at upper-left and moving clockwise
+    const bodyNode = new Path( new Shape()
+      .moveTo( 0, 0 )
+      .lineTo( X_INSET, Y_INSET )
+      .lineTo( BODY_WIDTH - X_INSET, Y_INSET )
+      .lineTo( BODY_WIDTH, 0 )
+      .lineTo( BODY_WIDTH, END_HEIGHT )
+      .lineTo( BODY_WIDTH - X_INSET, END_HEIGHT - Y_INSET )
+      .lineTo( X_INSET, END_HEIGHT - Y_INSET )
+      .lineTo( 0, END_HEIGHT )
+      .close(), {
+      fill: bodyGradient,
+      stroke: options.bodyStroke,
+      lineWidth: options.bodyLineWidth,
 
-    // origin at center of input slot
-    x: 0,
-    centerY: 0
-  } );
+      // origin at center of input slot
+      x: 0,
+      centerY: 0
+    } );
 
-  // Options for the ends
-  const END_OPTIONS = {
-    radiusX: options.endRadiusX,
-    radiusY: END_HEIGHT / 2,
-    fill: colorScheme.ends,
-    stroke: options.endStroke,
-    lineWidth: options.endLineWidth,
-    slotFill: options.slotFill,
-    slotStroke: options.slotStroke,
-    slotLineWidth: options.slotLineWidth,
-    centerX: bodyNode.left,
-    centerY: bodyNode.centerY
-  };
-
-  // Left end
-  const leftEndNode = new BuilderEndNode( 'left',
-    merge( {}, END_OPTIONS, {
+    // Options for the ends
+    const END_OPTIONS = {
+      radiusX: options.endRadiusX,
+      radiusY: END_HEIGHT / 2,
+      fill: colorScheme.ends,
+      stroke: options.endStroke,
+      lineWidth: options.endLineWidth,
+      slotFill: options.slotFill,
+      slotStroke: options.slotStroke,
+      slotLineWidth: options.slotLineWidth,
       centerX: bodyNode.left,
       centerY: bodyNode.centerY
-    } ) );
+    };
 
-  // Right end
-  const rightEndNode = new BuilderEndNode( 'right',
-    merge( {}, END_OPTIONS, {
-      centerX: bodyNode.right,
-      centerY: bodyNode.centerY
-    } ) );
+    // Left end
+    const leftEndNode = new BuilderEndNode( 'left',
+      merge( {}, END_OPTIONS, {
+        centerX: bodyNode.left,
+        centerY: bodyNode.centerY
+      } ) );
 
-  // slots and the function nodes that are in the slots
-  const slotNodes = [];
-  const functionNodes = []; // {FunctionNode[]}
-  for ( let i = 0; i < builder.numberOfSlots; i++ ) {
+    // Right end
+    const rightEndNode = new BuilderEndNode( 'right',
+      merge( {}, END_OPTIONS, {
+        centerX: bodyNode.right,
+        centerY: bodyNode.centerY
+      } ) );
 
-    slotNodes.push( new FunctionSlotNode( {
-      // centered at slot positions
-      center: builder.slots[ i ].position.minus( builder.position )
-    } ) );
+    // slots and the function nodes that are in the slots
+    const slotNodes = [];
+    const functionNodes = []; // {FunctionNode[]}
+    for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
-    functionNodes[ i ] = null; // empty functions are null
-  }
-  assert && assert( functionNodes.length === builder.numberOfSlots );
-  const slotsParent = new Node( { children: slotNodes } );
-  const functionsParent = new Node();
+      slotNodes.push( new FunctionSlotNode( {
+        // centered at slot positions
+        center: builder.slots[ i ].position.minus( builder.position )
+      } ) );
 
-  // 'moles under the carpet' that represents a card being dragged through the builder
-  const moleCardsLayer = new Node();
+      functionNodes[ i ] = null; // empty functions are null
+    }
+    assert && assert( functionNodes.length === builder.numberOfSlots );
+    const slotsParent = new Node( { children: slotNodes } );
+    const functionsParent = new Node();
 
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ bodyNode, slotsParent, functionsParent, moleCardsLayer, leftEndNode, rightEndNode ];
+    // 'moles under the carpet' that represents a card being dragged through the builder
+    const moleCardsLayer = new Node();
 
-  assert && assert( !options.clipArea, 'clipArea cannot be customized' );
-  options.clipArea = Shape.rect( 0, -END_HEIGHT / 2, BODY_WIDTH, END_HEIGHT );
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ bodyNode, slotsParent, functionsParent, moleCardsLayer, leftEndNode, rightEndNode ];
 
-  Node.call( this, options );
+    assert && assert( !options.clipArea, 'clipArea cannot be customized' );
+    options.clipArea = Shape.rect( 0, -END_HEIGHT / 2, BODY_WIDTH, END_HEIGHT );
 
-  // Hide/reveal the identify of functions in the builder.
-  // unlink unnecessary, instances exist for lifetime of the sim
-  hideFunctionsProperty.link( function( hideFunctions ) {
-    functionNodes.forEach( function( functionNode ) {
-      if ( functionNode ) {
-        functionNode.identityVisibleProperty.set( !hideFunctions );
-      }
+    super( options );
+
+    // Hide/reveal the identify of functions in the builder.
+    // unlink unnecessary, instances exist for lifetime of the sim
+    hideFunctionsProperty.link( hideFunctions => {
+      functionNodes.forEach( functionNode => {
+        if ( functionNode ) {
+          functionNode.identityVisibleProperty.set( !hideFunctions );
+        }
+      } );
     } );
-  } );
 
-  //------------------------------------------------------------------------------------------------------------------
-  // Define properties in one place, so we can see what's available and document visibility
+    //------------------------------------------------------------------------------------------------------------------
+    // Define properties in one place, so we can see what's available and document visibility
 
-  // @public
-  this.builder = builder; // (read-only)
-  this.hideFunctionsProperty = hideFunctionsProperty;
+    // @public
+    this.builder = builder; // (read-only)
+    this.hideFunctionsProperty = hideFunctionsProperty;
 
-  // @private
-  this.functionNodes = functionNodes;
-  this.functionsParent = functionsParent;
-  this.moleCardsLayer = moleCardsLayer;
-  this.seeInsideCardNode = null; // {CardNode} 1 card that may occupy the 'see inside' windows, see issue #44
-}
-
-functionBuilder.register( 'BuilderNode', BuilderNode );
-
-export default inherit( Node, BuilderNode, {
+    // @private
+    this.functionNodes = functionNodes;
+    this.functionsParent = functionsParent;
+    this.moleCardsLayer = moleCardsLayer;
+    this.seeInsideCardNode = null; // {CardNode} 1 card that may occupy the 'see inside' windows, see issue #44
+  }
 
   /**
    * Returns all functions to the carousel immediately, no animation.
    *
    * @public
    */
-  reset: function() {
+  reset() {
     for ( let i = 0; i < this.functionNodes.length; i++ ) {
       const functionNode = this.functionNodes[ i ];
       if ( functionNode ) {
@@ -188,7 +184,7 @@ export default inherit( Node, BuilderNode, {
         functionNode && functionNode.moveToCarousel();
       }
     }
-  },
+  }
 
   /**
    * Adds a FunctionNode to the builder.
@@ -197,7 +193,7 @@ export default inherit( Node, BuilderNode, {
    * @param {number} slotNumber
    * @public
    */
-  addFunctionNode: function( functionNode, slotNumber ) {
+  addFunctionNode( functionNode, slotNumber ) {
 
     assert && assert( functionNode instanceof FunctionNode );
     assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
@@ -215,7 +211,7 @@ export default inherit( Node, BuilderNode, {
 
     // hide the identity of function in the builder, if feature is enabled
     functionNode.identityVisibleProperty.set( !this.hideFunctionsProperty.get() );
-  },
+  }
 
   /**
    * Removes a FunctionNode from the builder.
@@ -224,7 +220,7 @@ export default inherit( Node, BuilderNode, {
    * @returns {number} slot number that functionNode was removed from
    * @public
    */
-  removeFunctionNode: function( functionNode ) {
+  removeFunctionNode( functionNode ) {
 
     assert && assert( functionNode instanceof FunctionNode );
 
@@ -244,7 +240,7 @@ export default inherit( Node, BuilderNode, {
     functionNode.identityVisibleProperty.set( true );
 
     return slotNumber;
-  },
+  }
 
   /**
    * Gets the FunctionNode in the specified slot.
@@ -253,10 +249,10 @@ export default inherit( Node, BuilderNode, {
    * @returns {FunctionNode} null if the slot is empty
    * @public
    */
-  getFunctionNode: function( slotNumber ) {
+  getFunctionNode( slotNumber ) {
     assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
     return this.functionNodes[ slotNumber ];
-  },
+  }
 
   /**
    * Does the builder contain the specified FunctionNode?
@@ -265,10 +261,10 @@ export default inherit( Node, BuilderNode, {
    * @returns {boolean}
    * @public
    */
-  containsFunctionNode: function( functionNode ) {
+  containsFunctionNode( functionNode ) {
     assert && assert( functionNode instanceof FunctionNode );
     return ( this.functionNodes.indexOf( functionNode ) !== -1 );
-  },
+  }
 
   /**
    * Adds the 'mole under the carpet' representation of a card.
@@ -277,7 +273,11 @@ export default inherit( Node, BuilderNode, {
    * @param {Card} card
    * @public
    */
-  addMole: function( card ) {
+  addMole( card ) {
     this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.position ) );
   }
-} );
+}
+
+functionBuilder.register( 'BuilderNode', BuilderNode );
+
+export default BuilderNode;

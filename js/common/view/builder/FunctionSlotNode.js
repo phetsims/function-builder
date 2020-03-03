@@ -7,27 +7,27 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBackgroundNode from '../functions/FunctionBackgroundNode.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function FunctionSlotNode( options ) {
+class FunctionSlotNode extends FunctionBackgroundNode {
 
-  options = merge( {
-    fill: null,
-    stroke: 'white',
-    lineDash: [ 4, 4 ]
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  FunctionBackgroundNode.call( this, options );
+    options = merge( {
+      fill: null,
+      stroke: 'white',
+      lineDash: [ 4, 4 ]
+    }, options );
+
+    super( options );
+  }
 }
 
 functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
 
-inherit( FunctionBackgroundNode, FunctionSlotNode );
 export default FunctionSlotNode;
