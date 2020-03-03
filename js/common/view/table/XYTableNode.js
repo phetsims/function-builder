@@ -22,7 +22,6 @@
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
@@ -40,166 +39,163 @@ import NumberCard from '../../model/cards/NumberCard.js';
 import XYTableHeading from './XYTableHeading.js';
 import XYTableRow from './XYTableRow.js';
 
-/**
- * @param {Builder} builder
- * @param {Object} [options]
- * @constructor
- */
-function XYTableNode( builder, options ) {
+class XYTableNode extends VBox {
 
-  options = merge( {
+  /**
+   * @param {Builder} builder
+   * @param {Object} [options]
+   */
+  constructor( builder, options ) {
 
-    size: FBConstants.TABLE_DRAWER_SIZE,
-    numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
-    cornerRadius: 0,
-    scrollingRegionFill: 'white',
-    animationEnabled: true, // {boolean} is animation of scrolling enabled?
+    options = merge( {
+
+      size: FBConstants.TABLE_DRAWER_SIZE,
+      numberOfRowsVisible: 3, // {number} number of rows visible in the scrolling area
+      cornerRadius: 0,
+      scrollingRegionFill: 'white',
+      animationEnabled: true, // {boolean} is animation of scrolling enabled?
+      updateEnabled: false, // {boolean} does this node update when the model changes?
+
+      // column headings
+      xSymbol: FBSymbols.X,
+      ySymbol: FBSymbols.Y,
+      headingFont: FBConstants.TABLE_XY_HEADING_FONT,
+      headingYMargin: 2,
+      headingBackground: 'rgb( 144, 226, 252 )'
+
+    }, options );
+
+    // options for scroll buttons
+    const BUTTON_OPTIONS = {
+      fireOnHold: false, // because scrolling is animated
+      minWidth: options.size.width
+    };
+
+    // up button
+    const upButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
+      cornerRadius: 0,
+      arrowDirection: 'up'
+    } ) );
+
+    // down button
+    const downButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
+      cornerRadius: options.cornerRadius,
+      arrowDirection: 'down'
+    } ) );
+
+    // button touchAreas
+    upButton.touchArea = upButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
+    downButton.touchArea = downButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
 
     // column headings
-    xSymbol: FBSymbols.X,
-    ySymbol: FBSymbols.Y,
-    headingFont: FBConstants.TABLE_XY_HEADING_FONT,
-    headingYMargin: 2,
-    headingBackground: 'rgb( 144, 226, 252 )'
+    const headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
+      size: new Dimension2( options.size.width, 30 ),
+      font: options.headingFont,
+      fill: options.headingBackground,
+      cornerRadii: {
+        topLeft: options.cornerRadius,
+        topRight: options.cornerRadius
+      }
+    } );
 
-  }, options );
+    // window that rows scroll in
+    const scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
+    const scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
+      fill: options.scrollingRegionFill
+    } );
+    scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
 
-  const self = this;
+    // parent for all {XYTableRow} rows, children in the same order as this.cards
+    // Do not add anything that is not a XYTableRow to this node!
+    const rowsParent = new VBox();
 
-  // @private
-  this.builder = builder;
-  this.numberOfRowsVisible = options.numberOfRowsVisible;
-  this._animationEnabled = options.animationEnabled;
-  this._updateEnabled = options.updateEnabled;
-  this.gridDirty = true; // {boolean} does the grid need to be updated?
+    // grid is drawn separately so we don't have weirdness with cell strokes overlapping
+    const gridNode = new Path( null, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
 
-  // @private number of rows in the table
-  this.numberOfRowsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    // contents of the scrolling region
+    const scrollingContents = new Node( {
+      children: [ rowsParent, gridNode ]
+    } );
+    scrollingRegion.addChild( scrollingContents ); // add after setting clipArea
 
-  // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
-  this.cards = [];
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ headingNode, upButton, scrollingRegion, downButton ];
 
-  // @private parent for all {XYTableRow} rows, children in the same order as this.cards
-  // Do not add anything that is not a XYTableRow to this node!
-  this.rowsParent = new VBox();
+    super( options );
 
-  // options for scroll buttons
-  const BUTTON_OPTIONS = {
-    fireOnHold: false, // because scrolling is animated
-    minWidth: options.size.width
-  };
+    // @private
+    this.builder = builder;
+    this.numberOfRowsVisible = options.numberOfRowsVisible;
+    this._animationEnabled = options.animationEnabled;
+    this._updateEnabled = options.updateEnabled;
+    this.gridDirty = true; // {boolean} does the grid need to be updated?
+    this.rowsParent = rowsParent;
+    this.gridNode = gridNode;
+    this.rowSize = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
 
-  // up button
-  const upButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
-    cornerRadius: 0,
-    arrowDirection: 'up'
-  } ) );
-
-  // down button
-  const downButton = new CarouselButton( merge( {}, BUTTON_OPTIONS, {
-    cornerRadius: options.cornerRadius,
-    arrowDirection: 'down'
-  } ) );
-
-  // button touchAreas
-  upButton.touchArea = upButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
-  downButton.touchArea = downButton.localBounds.dilatedXY( 10, 5 ).shiftedY( -5 );
-
-  // column headings
-  const headingNode = new XYTableHeading( options.xSymbol, options.ySymbol, {
-    size: new Dimension2( options.size.width, 30 ),
-    font: options.headingFont,
-    fill: options.headingBackground,
-    cornerRadii: {
-      topLeft: options.cornerRadius,
-      topRight: options.cornerRadius
+    if ( options.updateEnabled ) {
+      this.updateGrid();
     }
-  } );
 
-  // window that rows scroll in
-  const scrollingRegionHeight = options.size.height - headingNode.height - upButton.height - downButton.height;
-  const scrollingRegion = new Rectangle( 0, 0, options.size.width, scrollingRegionHeight, {
-    fill: options.scrollingRegionFill
-  } );
-  scrollingRegion.clipArea = Shape.bounds( scrollingRegion.localBounds );
+    // @private number of rows in the table
+    this.numberOfRowsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-  // @private
-  this.rowSize = new Dimension2( options.size.width, scrollingRegionHeight / options.numberOfRowsVisible );
+    // @private {Array.<NumberCard|EquationCard>} cards, in the order that they appear in the table
+    this.cards = [];
 
-  // @private grid is drawn separately so we don't have weirdness with cell strokes overlapping
-  this.gridNode = new Path( null, {
-    stroke: 'black',
-    lineWidth: 0.5
-  } );
-  if ( options.updateEnabled ) {
-    this.updateGrid();
+    // @private {Property.<number>} the row number that appears at the top of the table
+    this.rowNumberAtTopProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+
+    // {Animation} animation that vertically scrolls the rows
+    let animation = null;
+
+    // scroll
+    // unlink unnecessary, instance owns this property
+    this.rowNumberAtTopProperty.link( () => {
+
+      // stop any animation that's in progress
+      animation && animation.stop();
+
+      const scrollY = -( this.rowNumberAtTopProperty.get() * this.rowSize.height );
+      if ( this.visible && this.animationEnabled ) {
+
+        // animate scrolling
+        animation = new Animation( {
+          duration: 0.5, // seconds
+          easing: Easing.QUADRATIC_IN_OUT,
+          object: scrollingContents,
+          attribute: 'y',
+          to: scrollY
+        } );
+        animation.start();
+      }
+      else {
+
+        // move immediately, no animation
+        scrollingContents.y = scrollY;
+      }
+    } );
+
+    // button state is dependent on number of rows and which rows are visible
+    const updateButtonState = () => {
+      upButton.enabled = ( this.rowNumberAtTopProperty.get() !== 0 );
+      downButton.enabled = ( this.numberOfRowsProperty.get() - this.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
+    };
+    // unlink unnecessary, instance owns these properties
+    this.numberOfRowsProperty.link( updateButtonState );
+    this.rowNumberAtTopProperty.link( updateButtonState );
+
+    upButton.addListener( () => {
+      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.get() - 1 );
+    } );
+
+    downButton.addListener( () => {
+      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.get() + 1 );
+    } );
   }
-
-  // contents of the scrolling region
-  const scrollingContents = new Node( {
-    children: [ this.rowsParent, this.gridNode ]
-  } );
-  scrollingRegion.addChild( scrollingContents ); // add after setting clipArea
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ headingNode, upButton, scrollingRegion, downButton ];
-
-  VBox.call( this, options );
-
-  // @private {Property.<number>} the row number that appears at the top of the table
-  this.rowNumberAtTopProperty = new NumberProperty( 0, { numberType: 'Integer' } );
-
-  // {Animation} animation that vertically scrolls the rows
-  let animation = null;
-
-  // scroll
-  // unlink unnecessary, instance owns this property
-  this.rowNumberAtTopProperty.link( function() {
-
-    // stop any animation that's in progress
-    animation && animation.stop();
-
-    const scrollY = -( self.rowNumberAtTopProperty.get() * self.rowSize.height );
-    if ( self.visible && self.animationEnabled ) {
-
-      // animate scrolling
-      animation = new Animation( {
-        duration: 0.5, // seconds
-        easing: Easing.QUADRATIC_IN_OUT,
-        object: scrollingContents,
-        attribute: 'y',
-        to: scrollY
-      } );
-      animation.start();
-    }
-    else {
-
-      // move immediately, no animation
-      scrollingContents.y = scrollY;
-    }
-  } );
-
-  // button state is dependent on number of rows and which rows are visible
-  const updateButtonState = function() {
-    upButton.enabled = ( self.rowNumberAtTopProperty.get() !== 0 );
-    downButton.enabled = ( self.numberOfRowsProperty.get() - self.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
-  };
-  // unlink unnecessary, instance owns these properties
-  this.numberOfRowsProperty.link( updateButtonState );
-  this.rowNumberAtTopProperty.link( updateButtonState );
-
-  upButton.addListener( function() {
-    self.rowNumberAtTopProperty.set( self.rowNumberAtTopProperty.get() - 1 );
-  } );
-
-  downButton.addListener( function() {
-    self.rowNumberAtTopProperty.set( self.rowNumberAtTopProperty.get() + 1 );
-  } );
-}
-
-functionBuilder.register( 'XYTableNode', XYTableNode );
-
-export default inherit( VBox, XYTableNode, {
 
   /**
    * Updates the grid that delineates rows and columns. This grid is drawn separately from cells,
@@ -208,7 +204,7 @@ export default inherit( VBox, XYTableNode, {
    *
    * @private
    */
-  updateGrid: function() {
+  updateGrid() {
 
     assert && assert( this.updateEnabled && this.gridDirty );
 
@@ -230,7 +226,7 @@ export default inherit( VBox, XYTableNode, {
     this.gridNode.shape = gridShape;
 
     this.gridDirty = false;
-  },
+  }
 
   /**
    * Adds a row to the table.
@@ -240,7 +236,7 @@ export default inherit( VBox, XYTableNode, {
    * @param {NumberCard|EquationCard} card - card that's associated with the row
    * @public
    */
-  addRow: function( card ) {
+  addRow( card ) {
 
     assert && assert( !this.containsRow( card ) );
     assert && assert( card instanceof NumberCard || card instanceof EquationCard );
@@ -283,7 +279,7 @@ export default inherit( VBox, XYTableNode, {
     if ( this.updateEnabled ) {
       this.updateGrid();
     }
-  },
+  }
 
   /**
    * Removes a row from the table. Rows below it move up.
@@ -291,7 +287,7 @@ export default inherit( VBox, XYTableNode, {
    * @param {NumberCard|EquationCard} card - card that's associated with the row
    * @public
    */
-  removeRow: function( card ) {
+  removeRow( card ) {
 
     const cardIndex = this.cards.indexOf( card );
     assert && assert( cardIndex !== -1 );
@@ -330,7 +326,7 @@ export default inherit( VBox, XYTableNode, {
     }
 
     this.animationEnabled = wasAnimationEnabled;
-  },
+  }
 
   /**
    * Does the table contain a row for the specified card?
@@ -339,9 +335,9 @@ export default inherit( VBox, XYTableNode, {
    * @returns {boolean}
    * @public
    */
-  containsRow: function( card ) {
+  containsRow( card ) {
     return ( this.cards.indexOf( card ) !== -1 );
-  },
+  }
 
   /**
    * Sets the visibility of the corresponding output cell.
@@ -350,7 +346,7 @@ export default inherit( VBox, XYTableNode, {
    * @param {boolean} visible
    * @public
    */
-  setOutputCellVisible: function( card, visible ) {
+  setOutputCellVisible( card, visible ) {
 
     const cardIndex = this.cards.indexOf( card );
     assert && assert( cardIndex !== -1 );
@@ -358,7 +354,7 @@ export default inherit( VBox, XYTableNode, {
     const rowNode = this.rowsParent.getChildAt( cardIndex );
     assert && assert( rowNode instanceof XYTableRow );
     rowNode.setOutputCellVisible( visible );
-  },
+  }
 
   /**
    * Scrolls the table to make the corresponding row visible.
@@ -367,7 +363,7 @@ export default inherit( VBox, XYTableNode, {
    * @param {NumberCard|EquationCard} card - card that's associated with the row
    * @public
    */
-  scrollToRow: function( card ) {
+  scrollToRow( card ) {
 
     const cardIndex = this.cards.indexOf( card );
     assert && assert( cardIndex !== -1 );
@@ -383,7 +379,7 @@ export default inherit( VBox, XYTableNode, {
     else {
       // row is already visible
     }
-  },
+  }
 
   /**
    * Determines whether animation is enabled for scrolling.
@@ -392,10 +388,11 @@ export default inherit( VBox, XYTableNode, {
    * @public
    *
    */
-  setAnimationEnabled: function( animationEnabled ) {
+  setAnimationEnabled( animationEnabled ) {
     this._animationEnabled = animationEnabled;
-  },
-  set animationEnabled( value ) { this.setAnimationEnabled( value ); },
+  }
+
+  set animationEnabled( value ) { this.setAnimationEnabled( value ); }
 
   /**
    * Is animation enabled for scrolling?
@@ -403,10 +400,11 @@ export default inherit( VBox, XYTableNode, {
    * @returns {boolean}
    * @public
    */
-  getAnimationEnabled: function() {
+  getAnimationEnabled() {
     return this._animationEnabled;
-  },
-  get animationEnabled() { return this.getAnimationEnabled(); },
+  }
+
+  get animationEnabled() { return this.getAnimationEnabled(); }
 
   /**
    * Determines whether updating of this node is enabled.
@@ -415,7 +413,7 @@ export default inherit( VBox, XYTableNode, {
    * @public
    *
    */
-  setUpdateEnabled: function( updateEnabled ) {
+  setUpdateEnabled( updateEnabled ) {
 
     FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
 
@@ -423,7 +421,7 @@ export default inherit( VBox, XYTableNode, {
     this._updateEnabled = updateEnabled;
 
     // set updateEnabled for rows
-    this.rowsParent.getChildren().forEach( function( rowNode ) {
+    this.rowsParent.getChildren().forEach( rowNode => {
       assert && assert( rowNode instanceof XYTableRow, 'did you add something to this.rowsParent that you should not have?' );
       rowNode.updateEnabled = updateEnabled;
     } );
@@ -432,8 +430,9 @@ export default inherit( VBox, XYTableNode, {
     if ( this.gridDirty && !wasUpdateEnabled && updateEnabled ) {
       this.updateGrid();
     }
-  },
-  set updateEnabled( value ) { this.setUpdateEnabled( value ); },
+  }
+
+  set updateEnabled( value ) { this.setUpdateEnabled( value ); }
 
   /**
    * Is updating of this node enabled?
@@ -441,8 +440,13 @@ export default inherit( VBox, XYTableNode, {
    * @returns {boolean}
    * @public
    */
-  getUpdateEnabled: function() {
+  getUpdateEnabled() {
     return this._updateEnabled;
-  },
+  }
+
   get updateEnabled() { return this.getUpdateEnabled(); }
-} );
+}
+
+functionBuilder.register( 'XYTableNode', XYTableNode );
+
+export default XYTableNode;
