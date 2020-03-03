@@ -27,9 +27,8 @@ class OutputCardsCarousel extends Carousel {
     } );
 
     // update numberOfCardsProperty as cards are added/removed
-    const self = this;
-    const containerListener = function() {
-      self.numberOfCardsProperty.set( getNumberOfCards( containers ) );
+    const containerListener = () => {
+      this.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
     containers.forEach( function( container ) {
 

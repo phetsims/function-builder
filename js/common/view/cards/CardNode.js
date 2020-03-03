@@ -38,8 +38,6 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
 
   options = merge( {}, FBConstants.CARD_OPTIONS, options );
 
-  const self = this;
-
   // the basic shape of a blank card
   const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height,
     _.pick( options, 'cornerRadius', 'fill', 'stroke', 'lineWidth', 'lineDash' ) );
@@ -62,7 +60,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
   //-------------------------------------------------------------------------------
   // start a drag cycle
   assert && assert( !options.startDrag );
-  options.startDrag = function() {
+  options.startDrag = () => {
 
     dragDx = 0;
 
@@ -70,22 +68,22 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
     let leftPoint = inputContainer.carouselPosition;
     let rightPoint = outputContainer.carouselPosition;
 
-    if ( inputContainer.containsNode( self ) ) {
+    if ( inputContainer.containsNode( this ) ) {
 
       // card is in the input carousel, pop it out
-      inputContainer.removeNode( self );
+      inputContainer.removeNode( this );
       card.moveTo( inputContainer.carouselPosition.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-      dragLayer.addChild( self );
+      dragLayer.addChild( this );
 
       // adjust for pop-out offset
       leftPoint = card.positionProperty.get();
     }
-    else if ( outputContainer.containsNode( self ) ) {
+    else if ( outputContainer.containsNode( this ) ) {
 
       // card is in the output carousel, pop it out
-      outputContainer.removeNode( self );
+      outputContainer.removeNode( this );
       card.moveTo( outputContainer.carouselPosition.plus( FBConstants.CARD_POP_OUT_OFFSET ) );
-      dragLayer.addChild( self );
+      dragLayer.addChild( this );
 
       // adjust for pop-out offset
       rightPoint = card.positionProperty.get();
@@ -93,12 +91,12 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
     else {
 
       // card was grabbed while animating or while in 'see inside' window
-      self.unregisterAsSeeInsideCard();
+      this.unregisterAsSeeInsideCard();
     }
-    assert && assert( dragLayer.hasChild( self ), 'startDrag must move node to dragLayer' );
+    assert && assert( dragLayer.hasChild( this ), 'startDrag must move node to dragLayer' );
 
     // the card most recently grabbed is in the front
-    self.moveToFront();
+    this.moveToFront();
 
     // slope of line between input carousel and builder's input slot, m = (y2-y1)/(x2-x1)
     slopeLeft = ( leftPoint.y - builder.position.y ) / ( leftPoint.x - INPUT_SLOT_X );
@@ -110,7 +108,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
   //-------------------------------------------------------------------------------
   // constrain dragging
   assert && assert( !options.translateMovable );
-  options.translateMovable = function( card, position, delta ) {
+  options.translateMovable = ( card, position, delta ) => {
 
     blocked = false; // assume we're not blocked, because functions may be changing simultaneously via multi-touch
     dragDx = delta.x;
@@ -140,7 +138,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
             if ( !slot.isInvertible() && position.x < windowPosition.x ) {
 
               blocked = true;
-              self.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
+              this.builderNode.getFunctionNode( i ).startNotInvertibleAnimation();
 
               // allow left edge of card to be dragged slightly past left edge of 'see inside' window
               const blockedX = windowPosition.x - BLOCKED_X_OFFSET;
@@ -175,21 +173,21 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
   //-------------------------------------------------------------------------------
   // end a drag cycle
   assert && assert( !options.endDrag );
-  options.endDrag = function() {
+  options.endDrag = () => {
 
-    assert && assert( dragLayer.hasChild( self ), 'endDrag: card should be in dragLayer' );
+    assert && assert( dragLayer.hasChild( this ), 'endDrag: card should be in dragLayer' );
 
     const cardX = card.positionProperty.get().x;
 
     if ( cardX < INPUT_SLOT_X ) {
 
       // card is to left of builder, animate to input carousel
-      self.animateToCarousel( inputContainer );
+      this.animateToCarousel( inputContainer );
     }
     else if ( cardX > OUTPUT_SLOT_X ) {
 
       // card is to right of builder, animate to output carousel
-      self.animateToCarousel( outputContainer );
+      this.animateToCarousel( outputContainer );
     }
     else { // card is in the builder
 
@@ -200,7 +198,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
           card.moveTo( new Vector2( builder.left, builder.position.y ) );
         }
 
-        self.animateLeftToRight( OUTPUT_SLOT_X );
+        this.animateLeftToRight( OUTPUT_SLOT_X );
       }
       else { // dragging to the left
 
@@ -209,7 +207,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
           card.moveTo( new Vector2( builder.right, builder.position.y ) );
         }
 
-        self.animateRightToLeft( INPUT_SLOT_X, OUTPUT_SLOT_X, BLOCKED_X_OFFSET );
+        this.animateRightToLeft( INPUT_SLOT_X, OUTPUT_SLOT_X, BLOCKED_X_OFFSET );
       }
     }
   };
@@ -217,7 +215,7 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
   // {Property.<number>} Number of functions to apply is based on where the card is located relative to the
   // function slots in the builder
   const numberOfFunctionsToApplyProperty = new DerivedProperty( [ card.positionProperty ],
-    function( position ) {
+    position => {
       for ( let i = builder.numberOfSlots - 1; i >= 0; i-- ) {
         if ( position.x >= builder.slots[ i ].position.x ) {
           return i + 1;
@@ -248,24 +246,24 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
   //------------------------------------------------------------------------------------------------------------------
 
   // unlink unnecessary, instances exist for lifetime of the sim
-  numberOfFunctionsToApplyProperty.link( function( numberOfFunctionsToApply ) {
-    self.updateContent( builder, numberOfFunctionsToApply );
+  numberOfFunctionsToApplyProperty.link( numberOfFunctionsToApply => {
+    this.updateContent( builder, numberOfFunctionsToApply );
   } );
 
   // Updates any cards that are not in the input carousel when any function in the builder changes.
   // removeListener unnecessary, instances exist for the lifetime of the sim.
-  builderNode.builder.functionChangedEmitter.addListener( function() {
-    if ( !inputContainer.containsNode( self ) ) {
-      self.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
+  builderNode.builder.functionChangedEmitter.addListener( () => {
+    if ( !inputContainer.containsNode( this ) ) {
+      this.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
     }
   } );
 
   // When 'See Inside' is turned off, flush out any cards that are stopped in windows.
   // unlink unnecessary, instances exist for lifetime of the sim
-  seeInsideProperty.lazyLink( function( seeInside ) {
-    if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( self ) ) {
-      self.unregisterAsSeeInsideCard();
-      self.animateLeftToRight( OUTPUT_SLOT_X );
+  seeInsideProperty.lazyLink( seeInside => {
+    if ( !seeInside && !card.isAnimating() && dragLayer.hasChild( this ) ) {
+      this.unregisterAsSeeInsideCard();
+      this.animateLeftToRight( OUTPUT_SLOT_X );
     }
   } );
 }
@@ -294,12 +292,10 @@ export default inherit( MovableNode, CardNode, {
    */
   animateToCarousel: function( container ) {
     assert && assert( this.dragLayer.hasChild( this ), 'animateToCarousel: card should be in dragLayer' );
-    const self = this;
-    self.card.animateTo( container.carouselPosition,
-      function() {
-        self.dragLayer.removeChild( self );
-        container.addNode( self );
-      } );
+    this.card.animateTo( container.carouselPosition, () => {
+      this.dragLayer.removeChild( this );
+      container.addNode( this );
+    } );
   },
 
   /**
@@ -339,35 +335,32 @@ export default inherit( MovableNode, CardNode, {
   animateLeftToRight: function( outputSlotX ) {
     assert && assert( this.dragLayer.hasChild( this ), 'animateLeftToRight: card should be in dragLayer' );
 
-    const self = this;
-    const builder = self.builderNode.builder;
-    const windowNumber = builder.getWindowNumberGreaterThan( self.card.positionProperty.get().x );
+    const builder = this.builderNode.builder;
+    const windowNumber = builder.getWindowNumberGreaterThan( this.card.positionProperty.get().x );
 
     if ( builder.isValidWindowNumber( windowNumber ) ) {
 
       // animate to 'See Inside' window to right of card
       const windowPosition = builder.getWindowPosition( windowNumber );
-      self.card.animateTo( windowPosition, function() {
+      this.card.animateTo( windowPosition, () => {
 
-        if ( self.seeInsideProperty.get() ) {
+        if ( this.seeInsideProperty.get() ) {
 
           // stop at this window, register as the 'see inside' card
-          self.registerAsSeeInsideCard( outputSlotX );
+          this.registerAsSeeInsideCard( outputSlotX );
         }
         else {
 
           // continue to next window
-          self.animateLeftToRight( outputSlotX );
+          this.animateLeftToRight( outputSlotX );
         }
       } );
     }
     else {
 
       // animate to output slot, then to output carousel
-      self.card.animateTo( new Vector2( outputSlotX, builder.position.y ),
-        function() {
-          self.animateToCarousel( self.outputContainer );
-        } );
+      this.card.animateTo( new Vector2( outputSlotX, builder.position.y ),
+        () => this.animateToCarousel( this.outputContainer ) );
     }
   },
 
@@ -384,53 +377,48 @@ export default inherit( MovableNode, CardNode, {
   animateRightToLeft: function( inputSlotX, outputSlotX, blockedXOffset ) {
     assert && assert( this.dragLayer.hasChild( this ), 'animateRightToLeft: card should be in dragLayer' );
 
-    const self = this;
-    const builder = self.builderNode.builder;
-    const windowNumber = builder.getWindowNumberLessThanOrEqualTo( self.card.positionProperty.get().x );
+    const builder = this.builderNode.builder;
+    const windowNumber = builder.getWindowNumberLessThanOrEqualTo( this.card.positionProperty.get().x );
 
     if ( builder.isValidWindowNumber( windowNumber ) ) {
 
       // animate to 'See Inside' window to left of card
       const windowPosition = builder.getWindowPosition( windowNumber );
-      self.card.animateTo( windowPosition, function() {
+      this.card.animateTo( windowPosition, () => {
 
         const slot = builder.slots[ windowNumber ];
 
         if ( !slot.isEmpty() && !slot.functionInstance.invertible ) {
 
           // encountered a non-invertible function, go slightly past it, then reverse direction
-          self.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
-          self.card.animateTo( new Vector2( windowPosition.x - blockedXOffset, windowPosition.y ),
-            function() {
-              self.animateLeftToRight( outputSlotX );
-            } );
+          this.builderNode.getFunctionNode( windowNumber ).startNotInvertibleAnimation();
+          this.card.animateTo( new Vector2( windowPosition.x - blockedXOffset, windowPosition.y ),
+            () => this.animateLeftToRight( outputSlotX ) );
         }
-        else if ( self.seeInsideProperty.get() ) {
+        else if ( this.seeInsideProperty.get() ) {
 
           // stop at this window, register as the 'see inside' card
-          self.registerAsSeeInsideCard( outputSlotX );
+          this.registerAsSeeInsideCard( outputSlotX );
         }
         else {
 
           // If a card is exactly centered in a window, it will stop there, regardless of 'see inside' state.
           // So before continuing to the next window, move the card 1 unit to the left.
           // See https://github.com/phetsims/function-builder/issues/107
-          if ( self.card.positionProperty.get().x === windowPosition.x ) {
-            self.card.moveTo( new Vector2( self.card.positionProperty.get().x - 1, builder.position.y ) );
+          if ( this.card.positionProperty.get().x === windowPosition.x ) {
+            this.card.moveTo( new Vector2( this.card.positionProperty.get().x - 1, builder.position.y ) );
           }
 
           // continue to next window
-          self.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
+          this.animateRightToLeft( inputSlotX, outputSlotX, blockedXOffset );
         }
       } );
     }
     else {
 
       // animate to input slot, then to input carousel
-      self.card.animateTo( new Vector2( inputSlotX, builder.position.y ),
-        function() {
-          self.animateToCarousel( self.inputContainer );
-        } );
+      this.card.animateTo( new Vector2( inputSlotX, builder.position.y ),
+        () => this.animateToCarousel( this.inputContainer ) );
     }
   },
 
@@ -447,11 +435,8 @@ export default inherit( MovableNode, CardNode, {
     assert && assert( this.builderNode.seeInsideCardNode === this, 'flushSeeInsideCard: not a See Inside card' );
 
     // animate to output slot, then to output carousel
-    const self = this;
-    self.card.animateTo( new Vector2( outputSlotX, self.builderNode.builder.position.y ),
-      function() {
-        self.animateToCarousel( self.outputContainer );
-      } );
+    this.card.animateTo( new Vector2( outputSlotX, this.builderNode.builder.position.y ),
+      () => this.animateToCarousel( this.outputContainer ) );
   },
 
   /**

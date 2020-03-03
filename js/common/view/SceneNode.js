@@ -58,8 +58,6 @@ function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
     hideFunctionsCheckboxVisible: true // {boolean} is hideFunctionsCheckbox visible?
   }, options );
 
-  const self = this;
-
   // @protected show/hide windows that allow you to 'see inside' the builder
   this.seeInsideProperty = new BooleanProperty( options.seeInside );
 
@@ -151,7 +149,7 @@ function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
   // Eraser button, centered below the output carousel
   const eraserButton = new EraserButton( {
-    listener: function() { self.erase(); },
+    listener: () => this.erase(),
     iconWidth: 28,
     centerX: outputCarousel.centerX,
     top: outputCarousel.bottom + 25
@@ -401,24 +399,22 @@ export default inherit( Node, SceneNode, {
   // @private populates the function carousel
   populateFunctionCarousels: function() {
 
-    const self = this;
+    this.functionCarousel.animationEnabled = false;
 
-    self.functionCarousel.animationEnabled = false;
-
-    self.functionCarousel.items.forEach( function( functionContainer ) {
+    this.functionCarousel.items.forEach( functionContainer => {
 
       // function container's position
-      functionContainer.carouselPosition = getCarouselPosition( self.functionCarousel, functionContainer, self.functionsDragLayer );
+      functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, functionContainer, this.functionsDragLayer );
 
       // populate the container with functions
-      functionContainer.createFunctions( self.scene.numberOfEachFunction, self.scene, self.builderNode, self.functionsDragLayer );
+      functionContainer.createFunctions( this.scene.numberOfEachFunction, this.scene, this.builderNode, this.functionsDragLayer );
 
       // get the functions that were added, needed for reset
-      self.functionNodes = self.functionNodes.concat( functionContainer.getContents() );
+      this.functionNodes = this.functionNodes.concat( functionContainer.getContents() );
     } );
 
-    self.functionCarousel.pageNumberProperty.reset();
-    self.functionCarousel.animationEnabled = true;
+    this.functionCarousel.pageNumberProperty.reset();
+    this.functionCarousel.animationEnabled = true;
   },
 
   // @private populates the card carousels
@@ -453,9 +449,8 @@ export default inherit( Node, SceneNode, {
     this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = true;
 
     // move 1 of each card to the output carousel, for testing
-    const self = this;
     if ( FBQueryParameters.populateOutput ) {
-      self.populateOutputCarousel();
+      this.populateOutputCarousel();
     }
   },
 

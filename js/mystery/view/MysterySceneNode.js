@@ -50,22 +50,23 @@ class MysterySceneNode extends MathSceneNode {
     // Toggle buttons below each builder slot, for revealing identity of functions
     this.revealProperties = [];  // {Property.<boolean>[]}
     this.revealButtons = []; // {EyeToggleButton[]}
-    const self = this;
     for ( var i = 0; i < scene.builder.numberOfSlots; i++ ) {
 
-      // create a closure for slotNumber using an IIFE
-      ( function() {
-
-        const slotNumber = i;
+      /**
+       * Create a closure for slotNumber using an IIFE
+       * @param {MysterySceneNode} mysterySceneNode
+       * @param {number} slotNumber
+       */
+      ( function( mysterySceneNode, slotNumber ) {
 
         // {Property.<boolean>} Property associated with the slot
         const revealProperty = new BooleanProperty( false );
-        self.revealProperties.push( revealProperty );
+        mysterySceneNode.revealProperties.push( revealProperty );
 
         // wire up Property to control the function that's in the slot
         // unlink unnecessary, instances exist for lifetime of the sim
         revealProperty.link( reveal => {
-          const functionNode = self.builderNode.getFunctionNode( slotNumber );
+          const functionNode = mysterySceneNode.builderNode.getFunctionNode( slotNumber );
           if ( functionNode ) {
             functionNode.identityVisibleProperty.set( reveal );
           }
@@ -79,13 +80,13 @@ class MysterySceneNode extends MathSceneNode {
           centerX: slotPosition.x,
           top: slotPosition.y + 65
         } );
-        self.revealButtons.push( revealButton );
-        self.controlsLayer.addChild( revealButton );
+        mysterySceneNode.revealButtons.push( revealButton );
+        mysterySceneNode.controlsLayer.addChild( revealButton );
 
         // touchArea
         revealButton.touchArea = revealButton.localBounds.dilatedXY( 25, 15 );
 
-      } )();
+      } )( this, i );
     }
 
     // button for generating a new challenge
