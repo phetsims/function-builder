@@ -13,7 +13,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Drawer from '../../../../../scenery-phet/js/Drawer.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -22,68 +21,68 @@ import EquationCardNode from '../cards/EquationCardNode.js';
 import NumberCardNode from '../cards/NumberCardNode.js';
 import XYGraphNode from './XYGraphNode.js';
 
-/**
- * @param {Builder} builder
- * @param {CardContainer[]} outputContainers - card containers in the output carousel
- * @param {Object} [options]
- * @constructor
- */
-function XYGraphDrawer( builder, outputContainers, options ) {
+class XYGraphDrawer extends Drawer {
+  /**
+   * @param {Builder} builder
+   * @param {CardContainer[]} outputContainers - card containers in the output carousel
+   * @param {Object} [options]
+   */
+  constructor( builder, outputContainers, options ) {
 
-  options = merge( {
-    open: FBConstants.GRAPH_DRAWER_OPEN,
-    handlePosition: 'top',
-    graphOptions: null // {*} options for XYGraphNode
-  }, FBConstants.DRAWER_OPTIONS, options );
+    options = merge( {
+      open: FBConstants.GRAPH_DRAWER_OPEN,
+      handlePosition: 'top',
+      graphOptions: null // {*} options for XYGraphNode
+    }, FBConstants.DRAWER_OPTIONS, options );
 
-  // Graph
-  const graphNode = new XYGraphNode( builder, merge( {
-    visible: options.open,
-    cornerRadius: options.cornerRadius
-  }, options.graphOptions ) );
+    // Graph
+    const graphNode = new XYGraphNode( builder, merge( {
+      visible: options.open,
+      cornerRadius: options.cornerRadius
+    }, options.graphOptions ) );
 
-  Drawer.call( this, graphNode, options );
+    super( graphNode, options );
 
-  // wire up graph to output containers
-  outputContainers.forEach( function( outputContainer ) {
+    // wire up graph to output containers
+    outputContainers.forEach( outputContainer => {
 
-    // When adding a card to an empty container in the output carousel,
-    // add its corresponding point or line to the graph.
-    // removeListener unnecessary, instances exist for lifetime of the sim.
-    outputContainer.addEmitter.addListener( function( node ) {
-      if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
-        if ( node instanceof NumberCardNode ) {
-          graphNode.addPointAt( node.card.rationalNumber );
+      // When adding a card to an empty container in the output carousel,
+      // add its corresponding point or line to the graph.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
+      outputContainer.addEmitter.addListener( node => {
+        if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+          if ( node instanceof NumberCardNode ) {
+            graphNode.addPointAt( node.card.rationalNumber );
+          }
+          else if ( node instanceof EquationCardNode ) {
+            graphNode.setLineVisible( true );
+          }
+          else {
+            throw new Error( 'invalid node type' );
+          }
         }
-        else if ( node instanceof EquationCardNode ) {
-          graphNode.setLineVisible( true );
+      } );
+
+      // When removing a card from the output carousel makes its output container empty,
+      // remove its corresponding point or line from the graph.
+      // removeListener unnecessary, instances exist for lifetime of the sim.
+      outputContainer.removeEmitter.addListener( node => {
+        if ( outputContainer.isEmpty() ) {
+          if ( node instanceof NumberCardNode ) {
+            graphNode.removePointAt( node.card.rationalNumber );
+          }
+          else if ( node instanceof EquationCardNode ) {
+            graphNode.setLineVisible( false );
+          }
+          else {
+            throw new Error( 'invalid node type' );
+          }
         }
-        else {
-          throw new Error( 'invalid node type' );
-        }
-      }
+      } );
     } );
-
-    // When removing a card from the output carousel makes its output container empty,
-    // remove its corresponding point or line from the graph.
-    // removeListener unnecessary, instances exist for lifetime of the sim.
-    outputContainer.removeEmitter.addListener( function( node ) {
-      if ( outputContainer.isEmpty() ) {
-        if ( node instanceof NumberCardNode ) {
-          graphNode.removePointAt( node.card.rationalNumber );
-        }
-        else if ( node instanceof EquationCardNode ) {
-          graphNode.setLineVisible( false );
-        }
-        else {
-          throw new Error( 'invalid node type' );
-        }
-      }
-    } );
-  } );
+  }
 }
 
 functionBuilder.register( 'XYGraphDrawer', XYGraphDrawer );
 
-inherit( Drawer, XYGraphDrawer );
 export default XYGraphDrawer;

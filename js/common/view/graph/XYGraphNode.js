@@ -16,7 +16,6 @@
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
@@ -43,239 +42,236 @@ const AXIS_OPTIONS = {
   stroke: null
 };
 
-/**
- * @param {Builder} builder
- * @param {Object} [options]
- * @constructor
- */
-function XYGraphNode( builder, options ) {
+class XYGraphNode extends Node {
+  
+  /**
+   * @param {Builder} builder
+   * @param {Object} [options]
+   */
+  constructor( builder, options ) {
 
-  options = merge( {
+    options = merge( {
 
-    size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
-    cornerRadius: 0,
-    background: 'white', // {Color|string} background color of the graph
-    xRange: FBConstants.GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
-    yRange: FBConstants.GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
+      size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
+      cornerRadius: 0,
+      background: 'white', // {Color|string} background color of the graph
+      xRange: FBConstants.GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
+      yRange: FBConstants.GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
 
-    // grid
-    xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates
-    yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
-    gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
-    gridLineWidth: 0.5, // {number} lineWidth of the grid
+      // grid
+      xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates
+      yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
+      gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
+      gridLineWidth: 0.5, // {number} lineWidth of the grid
 
-    // axis labels
-    axisLabelFont: new MathSymbolFont( 16 ),
-    axisLabelColor: 'rgb( 100, 100, 100 )',
+      // axis labels
+      axisLabelFont: new MathSymbolFont( 16 ),
+      axisLabelColor: 'rgb( 100, 100, 100 )',
 
-    // ticks
-    xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
-    yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
-    tickLength: 5, // {number} length of tick lines, in view coordinates
-    tickFont: new FBFont( 12 ), // {Font} font for tick labels
-    tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
-    tickStroke: 'black', // {Color|string}
-    tickLineWidth: 1, // {number}
+      // ticks
+      xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
+      yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
+      tickLength: 5, // {number} length of tick lines, in view coordinates
+      tickFont: new FBFont( 12 ), // {Font} font for tick labels
+      tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
+      tickStroke: 'black', // {Color|string}
+      tickLineWidth: 1, // {number}
 
-    // points
-    pointFill: 'magenta', // {Color|string} point color
-    pointRadius: 3, // {number} point radius, in view coordinates
+      // points
+      pointFill: 'magenta', // {Color|string} point color
+      pointRadius: 3, // {number} point radius, in view coordinates
 
-    // plotted line
-    lineStroke: 'magenta', // {Color|string} color of the plotted line
-    lineWidth: 1 // {number} lineWidth of the plotted line
+      // plotted line
+      lineStroke: 'magenta', // {Color|string} color of the plotted line
+      lineWidth: 1 // {number} lineWidth of the plotted line
 
-  }, options );
+    }, options );
 
-  // model-view transform
-  const xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
-  const yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
-  const xScale = options.size.width / options.xRange.getLength();
-  const yScale = -options.size.height / options.yRange.getLength(); // inverted
-  const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
+    // model-view transform
+    const xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
+    const yOffset = ( 1 - options.yRange.max / options.yRange.getLength() ) * options.size.height;
+    const xScale = options.size.width / options.xRange.getLength();
+    const yScale = -options.size.height / options.yRange.getLength(); // inverted
+    const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( new Vector2( xOffset, yOffset ), xScale, yScale );
 
-  // Perform transforms of common points once
-  const viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
-  const viewMinX = modelViewTransform.modelToViewX( options.xRange.min );
-  const viewMaxX = modelViewTransform.modelToViewX( options.xRange.max );
-  const viewMinY = modelViewTransform.modelToViewY( options.yRange.min );
-  const viewMaxY = modelViewTransform.modelToViewY( options.yRange.max );
+    // Perform transforms of common points once
+    const viewOrigin = modelViewTransform.modelToViewXY( 0, 0 );
+    const viewMinX = modelViewTransform.modelToViewX( options.xRange.min );
+    const viewMaxX = modelViewTransform.modelToViewX( options.xRange.max );
+    const viewMinY = modelViewTransform.modelToViewY( options.yRange.min );
+    const viewMaxY = modelViewTransform.modelToViewY( options.yRange.max );
 
-  const backgroundNode = new Rectangle( viewMinX, viewMaxY,
-    modelViewTransform.modelToViewDeltaX( options.xRange.getLength() ),
-    -modelViewTransform.modelToViewDeltaY( options.yRange.getLength() ), {
-      cornerRadius: options.cornerRadius,
-      fill: options.background
+    const backgroundNode = new Rectangle( viewMinX, viewMaxY,
+      modelViewTransform.modelToViewDeltaX( options.xRange.getLength() ),
+      -modelViewTransform.modelToViewDeltaY( options.yRange.getLength() ), {
+        cornerRadius: options.cornerRadius,
+        fill: options.background
+      } );
+
+    // grid, drawn using one Shape
+    const gridShape = new Shape();
+
+    // vertical lines
+    const xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
+    for ( let modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
+      const viewGridX = modelViewTransform.modelToViewX( modelGridX );
+      gridShape.moveTo( viewGridX, viewMinY );
+      gridShape.lineTo( viewGridX, viewMaxY );
+      modelGridX += options.xGridSpacing;
+    }
+
+    // horizontal lines
+    const yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
+    for ( let modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
+      const viewGridY = modelViewTransform.modelToViewY( modelGridY );
+      gridShape.moveTo( viewMinX, viewGridY );
+      gridShape.lineTo( viewMaxX, viewGridY );
+      modelGridY += options.yGridSpacing;
+    }
+
+    const gridNode = new Path( gridShape, {
+      stroke: options.gridStroke,
+      lineWidth: options.gridLineWidth
     } );
 
-  // grid, drawn using one Shape
-  const gridShape = new Shape();
+    // x axis
+    const xAxisNode = new ArrowNode( viewMinX, viewOrigin.y, viewMaxX, viewOrigin.y, AXIS_OPTIONS );
 
-  // vertical lines
-  const xMinGridLine = options.xRange.min - ( options.xRange.min % options.xGridSpacing );
-  for ( let modelGridX = xMinGridLine; modelGridX <= options.xRange.max; ) {
-    const viewGridX = modelViewTransform.modelToViewX( modelGridX );
-    gridShape.moveTo( viewGridX, viewMinY );
-    gridShape.lineTo( viewGridX, viewMaxY );
-    modelGridX += options.xGridSpacing;
-  }
+    const xAxisLabelNode = new Text( FBSymbols.X, {
+      maxWidth: 0.3 * options.size.width,
+      font: options.axisLabelFont,
+      fill: options.axisLabelColor,
+      right: xAxisNode.right - 4,
+      bottom: xAxisNode.top - 2
+    } );
 
-  // horizontal lines
-  const yMinGridLine = options.yRange.min - ( options.yRange.min % options.yGridSpacing );
-  for ( let modelGridY = yMinGridLine; modelGridY <= options.yRange.max; ) {
-    const viewGridY = modelViewTransform.modelToViewY( modelGridY );
-    gridShape.moveTo( viewMinX, viewGridY );
-    gridShape.lineTo( viewMaxX, viewGridY );
-    modelGridY += options.yGridSpacing;
-  }
+    // y axis
+    const yAxisNode = new ArrowNode( viewOrigin.x, viewMinY, viewOrigin.x, viewMaxY, AXIS_OPTIONS );
 
-  const gridNode = new Path( gridShape, {
-    stroke: options.gridStroke,
-    lineWidth: options.gridLineWidth
-  } );
+    const yAxisLabelNode = new Text( FBSymbols.Y, {
+      maxWidth: 0.3 * options.size.width,
+      font: options.axisLabelFont,
+      fill: options.axisLabelColor,
+      left: yAxisNode.right + 2,
+      top: yAxisNode.top + 1
+    } );
 
-  // x axis
-  const xAxisNode = new ArrowNode( viewMinX, viewOrigin.y, viewMaxX, viewOrigin.y, AXIS_OPTIONS );
+    // tick lines & labels
+    const tickLinesShape = new Shape(); // tick lines are drawn using one Shape
+    const tickLabelsParent = new Node();
 
-  const xAxisLabelNode = new Text( FBSymbols.X, {
-    maxWidth: 0.3 * options.size.width,
-    font: options.axisLabelFont,
-    fill: options.axisLabelColor,
-    right: xAxisNode.right - 4,
-    bottom: xAxisNode.top - 2
-  } );
+    // x tick marks
+    let xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
+    if ( xMinTick === options.xRange.min ) {
+      xMinTick = xMinTick + options.xTickSpacing;
+    }
+    for ( let modelTickX = xMinTick; modelTickX < options.xRange.max; ) {
 
-  // y axis
-  const yAxisNode = new ArrowNode( viewOrigin.x, viewMinY, viewOrigin.x, viewMaxY, AXIS_OPTIONS );
+      if ( modelTickX !== 0 ) {
 
-  const yAxisLabelNode = new Text( FBSymbols.Y, {
-    maxWidth: 0.3 * options.size.width,
-    font: options.axisLabelFont,
-    fill: options.axisLabelColor,
-    left: yAxisNode.right + 2,
-    top: yAxisNode.top + 1
-  } );
+        const viewTickX = modelViewTransform.modelToViewX( modelTickX );
 
-  // tick lines & labels
-  const tickLinesShape = new Shape(); // tick lines are drawn using one Shape
-  const tickLabelsParent = new Node();
+        // line
+        tickLinesShape.moveTo( viewTickX, viewOrigin.y );
+        tickLinesShape.lineTo( viewTickX, viewOrigin.y + options.tickLength );
 
-  // x tick marks
-  let xMinTick = options.xRange.min - ( options.xRange.min % options.xTickSpacing );
-  if ( xMinTick === options.xRange.min ) {
-    xMinTick = xMinTick + options.xTickSpacing;
-  }
-  for ( let modelTickX = xMinTick; modelTickX < options.xRange.max; ) {
+        // label
+        const xTickLabelNode = new Text( modelTickX, {
+          font: options.tickFont,
+          centerX: viewTickX,
+          top: viewOrigin.y + options.tickLength + options.tickLabelSpace
+        } );
+        tickLabelsParent.addChild( xTickLabelNode );
+      }
 
-    if ( modelTickX !== 0 ) {
-
-      const viewTickX = modelViewTransform.modelToViewX( modelTickX );
-
-      // line
-      tickLinesShape.moveTo( viewTickX, viewOrigin.y );
-      tickLinesShape.lineTo( viewTickX, viewOrigin.y + options.tickLength );
-
-      // label
-      const xTickLabelNode = new Text( modelTickX, {
-        font: options.tickFont,
-        centerX: viewTickX,
-        top: viewOrigin.y + options.tickLength + options.tickLabelSpace
-      } );
-      tickLabelsParent.addChild( xTickLabelNode );
+      modelTickX += options.xTickSpacing;
     }
 
-    modelTickX += options.xTickSpacing;
-  }
+    // y tick marks
+    let yMinTick = options.yRange.min - ( options.yRange.min % options.yTickSpacing );
+    if ( yMinTick === options.yRange.min ) {
+      yMinTick = yMinTick + options.yTickSpacing;
+    }
+    for ( let modelTickY = yMinTick; modelTickY < options.yRange.max; ) {
 
-  // y tick marks
-  let yMinTick = options.yRange.min - ( options.yRange.min % options.yTickSpacing );
-  if ( yMinTick === options.yRange.min ) {
-    yMinTick = yMinTick + options.yTickSpacing;
-  }
-  for ( let modelTickY = yMinTick; modelTickY < options.yRange.max; ) {
+      if ( modelTickY !== 0 ) {
 
-    if ( modelTickY !== 0 ) {
+        const viewTickY = modelViewTransform.modelToViewY( modelTickY );
 
-      const viewTickY = modelViewTransform.modelToViewY( modelTickY );
+        // line
+        tickLinesShape.moveTo( viewOrigin.x, viewTickY );
+        tickLinesShape.lineTo( viewOrigin.x - options.tickLength, viewTickY );
 
-      // line
-      tickLinesShape.moveTo( viewOrigin.x, viewTickY );
-      tickLinesShape.lineTo( viewOrigin.x - options.tickLength, viewTickY );
+        // label
+        const yTickLabelNode = new Text( modelTickY, {
+          font: options.tickFont,
+          right: viewOrigin.x - options.tickLength - options.tickLabelSpace,
+          centerY: viewTickY
+        } );
+        tickLabelsParent.addChild( yTickLabelNode );
+      }
 
-      // label
-      const yTickLabelNode = new Text( modelTickY, {
-        font: options.tickFont,
-        right: viewOrigin.x - options.tickLength - options.tickLabelSpace,
-        centerY: viewTickY
-      } );
-      tickLabelsParent.addChild( yTickLabelNode );
+      modelTickY += options.yTickSpacing;
     }
 
-    modelTickY += options.yTickSpacing;
+    const tickLinesNode = new Path( tickLinesShape, {
+      stroke: options.tickStroke,
+      lineWidth: options.tickLineWidth
+    } );
+
+    // @private parent for all points
+    const pointsParent = new Node();
+
+    // @private line that corresponds to the function in the builder
+    const lineNode = new Line( 0, 0, 1, 0, {
+      stroke: options.lineStroke,
+      lineWidth: options.lineWidth,
+      visible: false
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent,
+      xAxisNode, xAxisLabelNode, yAxisNode, yAxisLabelNode, lineNode, pointsParent ];
+
+    super( options );
+
+    // @private property definitions
+    this.builder = builder;
+    this.xRange = options.xRange;
+    this.yRange = options.yRange;
+    this.pointFill = options.pointFill;
+    this.pointRadius = options.pointRadius;
+    this.xCoordinates = []; // {RationalNumber[]} x coordinates (inputs) that are plotted
+    this.modelViewTransform = modelViewTransform;
+    this.pointsParent = pointsParent;
+    this.lineNode = lineNode;
+
+    // Update the graph when the builder functions change.
+    // removeListener unnecessary, instances exist for lifetime of the sim
+    builder.functionChangedEmitter.addListener( this.update.bind( this ) );
+    this.update();
   }
-
-  const tickLinesNode = new Path( tickLinesShape, {
-    stroke: options.tickStroke,
-    lineWidth: options.tickLineWidth
-  } );
-
-  // @private parent for all points
-  const pointsParent = new Node();
-
-  // @private line that corresponds to the function in the builder
-  const lineNode = new Line( 0, 0, 1, 0, {
-    stroke: options.lineStroke,
-    lineWidth: options.lineWidth,
-    visible: false
-  } );
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ backgroundNode, gridNode, tickLinesNode, tickLabelsParent,
-    xAxisNode, xAxisLabelNode, yAxisNode, yAxisLabelNode, lineNode, pointsParent ];
-
-  Node.call( this, options );
-
-  // @private property definitions
-  this.builder = builder;
-  this.xRange = options.xRange;
-  this.yRange = options.yRange;
-  this.pointFill = options.pointFill;
-  this.pointRadius = options.pointRadius;
-  this.xCoordinates = []; // {RationalNumber[]} x coordinates (inputs) that are plotted
-  this.modelViewTransform = modelViewTransform;
-  this.pointsParent = pointsParent;
-  this.lineNode = lineNode;
-
-  // Update the graph when the builder functions change.
-  // removeListener unnecessary, instances exist for lifetime of the sim
-  builder.functionChangedEmitter.addListener( this.update.bind( this ) );
-  this.update();
-}
-
-functionBuilder.register( 'XYGraphNode', XYGraphNode );
-
-inherit( Node, XYGraphNode, {
 
   // @private updates plotted elements
-  update: function() {
+  update() {
     this.updatePoints();
     if ( this.lineNode.visible ) {
       this.updateLine();
     }
-  },
+  }
 
   // @private updates points
-  updatePoints: function() {
+  updatePoints() {
     const xCoordinates = this.xCoordinates.slice( 0 ); // copy
     this.xCoordinates = [];
     this.pointsParent.removeAllChildren();
     for ( let i = 0; i < xCoordinates.length; i++ ) {
       this.addPointAt( xCoordinates[ i ] );
     }
-  },
+  }
 
   // @private updates the line
-  updateLine: function() {
+  updateLine() {
     const yLeft = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.min ) );
     const yRight = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.max ) );
     this.lineNode.setLine(
@@ -283,7 +279,7 @@ inherit( Node, XYGraphNode, {
       this.modelViewTransform.modelToViewY( yLeft ),
       this.modelViewTransform.modelToViewX( this.xRange.max ),
       this.modelViewTransform.modelToViewY( yRight ) );
-  },
+  }
 
   /**
    * Adds a point to the graph.
@@ -291,7 +287,7 @@ inherit( Node, XYGraphNode, {
    * @param {RationalNumber} x
    * @public
    */
-  addPointAt: function( x ) {
+  addPointAt( x ) {
 
     assert && assert( x instanceof RationalNumber );
     assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
@@ -312,7 +308,7 @@ inherit( Node, XYGraphNode, {
       radius: this.pointRadius,
       fill: this.pointFill
     } ) );
-  },
+  }
 
   /**
    * Removes a point from the graph.
@@ -320,7 +316,7 @@ inherit( Node, XYGraphNode, {
    * @param {RationalNumber} x
    * @public
    */
-  removePointAt: function( x ) {
+  removePointAt( x ) {
 
     assert && assert( x instanceof RationalNumber );
     assert && assert( this.xCoordinates.indexOf( x ) !== -1, 'x is not plotted: ' + x );
@@ -341,7 +337,7 @@ inherit( Node, XYGraphNode, {
       }
     }
     assert && assert( removed, 'x not found: ' + x.valueOf() );
-  },
+  }
 
   /**
    * Shows the line that corresponds to the function in the builder.
@@ -349,7 +345,7 @@ inherit( Node, XYGraphNode, {
    * @param {boolean} visible
    * @public
    */
-  setLineVisible: function( visible ) {
+  setLineVisible( visible ) {
 
     // update the line when it becomes visible
     if ( visible && ( this.lineNode.visible !== visible ) ) {
@@ -358,30 +354,34 @@ inherit( Node, XYGraphNode, {
 
     this.lineNode.visible = visible;
   }
-} );
-
-/**
- * @param {Vector2} point
- * @param {ModelViewTransform2} modelViewTransform
- * @param {Object} [options]
- * @constructor
- * @private
- */
-function PointNode( point, modelViewTransform, options ) {
-
-  options = merge( {
-    radius: 1,
-    fill: 'white',
-    stroke: 'black',
-    lineWidth: 0.25
-  }, options );
-
-  this.point = point;
-
-  Circle.call( this, options.radius, options );
-  this.center = modelViewTransform.modelToViewPosition( point );
 }
 
-inherit( Circle, PointNode );
+class PointNode extends Circle {
+
+  /**
+   * @param {Vector2} point
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
+   * @private
+   */
+  constructor( point, modelViewTransform, options ) {
+
+    options = merge( {
+      radius: 1,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 0.25
+    }, options );
+
+    super( options.radius, options );
+
+    // @public
+    this.point = point;
+
+    this.center = modelViewTransform.modelToViewPosition( point );
+  }
+}
+
+functionBuilder.register( 'XYGraphNode', XYGraphNode );
 
 export default XYGraphNode;
