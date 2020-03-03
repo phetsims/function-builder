@@ -39,7 +39,7 @@ class PatternsSceneNode extends SceneNode {
    */
   createCardContainers( scene, containerOptions ) {
     const containers = [];
-    scene.cardContent.forEach( function( cardImage ) {
+    scene.cardContent.forEach( cardImage => {
       containers.push( new CardContainer( ImageCard, ImageCardNode, cardImage, containerOptions ) );
     } );
     return containers;

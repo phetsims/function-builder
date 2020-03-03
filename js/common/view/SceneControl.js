@@ -33,7 +33,7 @@ class SceneControl extends RadioButtonGroup {
     options.touchAreaYDilation = 5;
 
     const content = [];
-    scenes.forEach( function( scene ) {
+    scenes.forEach( scene => {
       assert && assert( scene.iconNode, 'expected iconNode for scene' );
       content.push( {
         value: scene,

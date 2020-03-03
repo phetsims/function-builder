@@ -91,7 +91,7 @@ function testImageFunctions( layoutBounds ) {
 
   // a row of function icons
   const functionNodes = [];
-  functions.forEach( function( functionInstance ) {
+  functions.forEach( functionInstance => {
     functionNodes.push( new TestFunctionNode( functionInstance, {
       scale: 0.45 // determined empirically, to make functions line up with images in carousel
     } ) );
@@ -105,11 +105,11 @@ function testImageFunctions( layoutBounds ) {
   const items = [];
 
   // A row for each card
-  canvases.forEach( function( canvas ) {
+  canvases.forEach( canvas => {
 
     const hBoxChildren = [];
 
-    functions.forEach( function( functionInstance ) {
+    functions.forEach( functionInstance => {
       const outputCanvas = functionInstance.applyFunction( canvas );
       hBoxChildren.push( new TestCardNode( outputCanvas ) );
     } );

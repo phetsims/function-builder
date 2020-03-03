@@ -27,8 +27,8 @@ class EquationDrawer extends Drawer {
       equationOptions: null, // {*} options for EquationPanel
 
       // improve performance by disabling updates while the drawer is closed
-      beforeOpen: function() { equationPanel.updateEnabled = true; },
-      afterClose: function() { equationPanel.updateEnabled = false; }
+      beforeOpen: () => { equationPanel.updateEnabled = true; },
+      afterClose: () => { equationPanel.updateEnabled = false; }
 
     }, FBConstants.DRAWER_OPTIONS, options );
 

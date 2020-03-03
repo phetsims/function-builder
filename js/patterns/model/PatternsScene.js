@@ -75,7 +75,7 @@ class PatternsScene extends Scene {
 
     // All card images must have even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.
     // See https://github.com/phetsims/function-builder/issues/109 and https://github.com/phetsims/function-builder-basics/issues/18
-    assert && cardContent.forEach( function( image ) {
+    assert && cardContent.forEach( image => {
       assert( ( image.width % 2 === 0 && image.height % 2 === 0 ), 'dimensions must be even! width=' + image.width + ', height=' + image.height );
     } );
 

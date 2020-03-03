@@ -43,7 +43,7 @@ function testMysteryFunctionColors( layoutBounds ) {
 
     // row of functions
     const colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
-    colorSet.forEach( function( color ) {
+    colorSet.forEach( color => {
       hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
     } );
 

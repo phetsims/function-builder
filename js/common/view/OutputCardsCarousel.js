@@ -30,7 +30,7 @@ class OutputCardsCarousel extends Carousel {
     const containerListener = () => {
       this.numberOfCardsProperty.set( getNumberOfCards( containers ) );
     };
-    containers.forEach( function( container ) {
+    containers.forEach( container => {
 
       // unlink unnecessary, instances exist for lifetime of the sim
       container.numberOfItemsProperty.link( function( numberOfItems ) {

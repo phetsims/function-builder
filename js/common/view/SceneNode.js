@@ -159,7 +159,7 @@ function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
 
   // Disable the eraser button when the output carousel is empty.
   // unlink unnecessary, instances exist for lifetime of the sim.
-  outputCarousel.numberOfCardsProperty.link( function( numberOfCards ) {
+  outputCarousel.numberOfCardsProperty.link( numberOfCards => {
     eraserButton.enabled = ( numberOfCards > 0 );
   } );
 
@@ -194,10 +194,10 @@ function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
   // Link the input and output carousels, so that they display the same page number.
   // unlink unnecessary, instances exist for lifetime of the sim.
   assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
-  inputCarousel.pageNumberProperty.link( function( pageNumber ) {
+  inputCarousel.pageNumberProperty.link( pageNumber => {
     outputCarousel.pageNumberProperty.set( pageNumber );
   } );
-  outputCarousel.pageNumberProperty.link( function( pageNumber ) {
+  outputCarousel.pageNumberProperty.link( pageNumber => {
     inputCarousel.pageNumberProperty.set( pageNumber );
   } );
 
@@ -229,7 +229,7 @@ function SceneNode( scene, layoutBounds, functionNodeConstructor, options ) {
   seeInsideCheckbox.touchArea = seeInsideCheckbox.localBounds.dilatedXY( 10, 10 );
 
   // unlink unnecessary, instances exist for lifetime of the sim
-  this.seeInsideProperty.link( function( seeInside ) {
+  this.seeInsideProperty.link( seeInside => {
     seeInsideLayer.visible = seeInside;
   } );
 
@@ -289,11 +289,11 @@ functionBuilder.register( 'SceneNode', SceneNode );
  * @param {Node} worldParent
  * @returns {Vector2}
  */
-const getCarouselPosition = function( carousel, container, worldParent ) {
+function getCarouselPosition( carousel, container, worldParent ) {
   assert && assert( !carousel.animationEnabled );
   carousel.scrollToItem( container );
   return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
-};
+}
 
 /**
  * Has this Node been attached beneath a ScreenView?
@@ -302,7 +302,7 @@ const getCarouselPosition = function( carousel, container, worldParent ) {
  * @param {Node} node
  * @returns {boolean}
  */
-const hasScreenViewAncestor = function( node ) {
+function hasScreenViewAncestor( node ) {
   let found = false;
   while ( !found && node !== null ) {
     const parent = node.getParent();
@@ -310,7 +310,7 @@ const hasScreenViewAncestor = function( node ) {
     node = parent; // move up the scene graph by one level
   }
   return found;
-};
+}
 
 /**
  * Creates the function containers that go in the function carousel.
@@ -321,13 +321,13 @@ const hasScreenViewAncestor = function( node ) {
  * @returns {FunctionContainer[]}
  * @private
  */
-var createFunctionContainers = function( functionCreators, functionNodeConstructor, containerOptions ) {
+function createFunctionContainers( functionCreators, functionNodeConstructor, containerOptions ) {
   const functionContainers = [];
-  functionCreators.forEach( function( functionCreator ) {
+  functionCreators.forEach( functionCreator => {
     functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
   } );
   return functionContainers;
-};
+}
 
 export default inherit( Node, SceneNode, {
 
