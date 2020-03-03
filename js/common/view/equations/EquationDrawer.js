@@ -6,42 +6,42 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Drawer from '../../../../../scenery-phet/js/Drawer.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import EquationPanel from './EquationPanel.js';
 
-/**
- * @param {Builder} builder
- * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
- * @param {Object} [options]
- * @constructor
- */
-function EquationDrawer( builder, slopeInterceptProperty, options ) {
+class EquationDrawer extends Drawer {
 
-  options = merge( {
-    open: FBConstants.EQUATION_DRAWER_OPEN,
-    handlePosition: 'bottom',
-    equationOptions: null, // {*} options for EquationPanel
+  /**
+   * @param {Builder} builder
+   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
+   * @param {Object} [options]
+   */
+  constructor( builder, slopeInterceptProperty, options ) {
 
-    // improve performance by disabling updates while the drawer is closed
-    beforeOpen: function() { equationPanel.updateEnabled = true; },
-    afterClose: function() { equationPanel.updateEnabled = false; }
+    options = merge( {
+      open: FBConstants.EQUATION_DRAWER_OPEN,
+      handlePosition: 'bottom',
+      equationOptions: null, // {*} options for EquationPanel
 
-  }, FBConstants.DRAWER_OPTIONS, options );
+      // improve performance by disabling updates while the drawer is closed
+      beforeOpen: function() { equationPanel.updateEnabled = true; },
+      afterClose: function() { equationPanel.updateEnabled = false; }
 
-  var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
-    size: FBConstants.EQUATION_DRAWER_SIZE,
-    updateEnabled: options.open,
-    cornerRadius: options.cornerRadius
-  }, options.equationOptions ) );
+    }, FBConstants.DRAWER_OPTIONS, options );
 
-  Drawer.call( this, equationPanel, options );
+    var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
+      size: FBConstants.EQUATION_DRAWER_SIZE,
+      updateEnabled: options.open,
+      cornerRadius: options.cornerRadius
+    }, options.equationOptions ) );
+
+    super( equationPanel, options );
+  }
 }
 
 functionBuilder.register( 'EquationDrawer', EquationDrawer );
 
-inherit( Drawer, EquationDrawer );
 export default EquationDrawer;

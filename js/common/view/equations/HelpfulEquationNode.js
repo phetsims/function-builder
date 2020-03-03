@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Line from '../../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -19,269 +18,270 @@ import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 
-/**
- * @param {HelpfulEquation} equation
- * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
- * @constructor
- */
-function HelpfulEquationNode( equation, options ) {
+class HelpfulEquationNode extends Node {
 
-  assert && assert( equation instanceof HelpfulEquation );
+  /**
+   * @param {HelpfulEquation} equation
+   * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
+   */
+  constructor( equation, options ) {
 
-  options = merge( {}, FBConstants.EQUATION_OPTIONS, {
-    fractionScale: 0.67 // {number} how much to scale fractions
-  }, options );
+    assert && assert( equation instanceof HelpfulEquation );
 
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [];
+    options = merge( {}, FBConstants.EQUATION_OPTIONS, {
+      fractionScale: 0.67 // {number} how much to scale fractions
+    }, options );
 
-  const mathFunctions = equation.mathFunctions; // {MathFunction[]}
-  let i = 0; // {number} for loop index
-  let xNode = null; // {Node}
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [];
 
-  // y
-  let yNode = new Text( options.ySymbol, {
-    fill: options.yColor,
-    font: options.xyFont,
-    maxWidth: options.xyMaxWidth
-  } );
-  if ( options.xyAsCards ) {
-    yNode = CardNode.createEquationXYNode( yNode );
-  }
+    const mathFunctions = equation.mathFunctions; // {MathFunction[]}
+    let i = 0; // {number} for loop index
+    let xNode = null; // {Node}
 
-  // =
-  const equalToNode = new Text( FBSymbols.EQUAL_TO, {
-    fill: options.color,
-    font: options.symbolFont,
-    left: yNode.right + options.equalsXSpacing,
-    centerY: yNode.centerY
-  } );
-
-  // Create the left-hand side nodes to simplify layout, but add them only if requested
-  if ( options.showLeftHandSide ) {
-    options.children.push( yNode, equalToNode );
-  }
-
-  const RATIONAL_NUMBER_OPTIONS = {
-    fill: options.color,
-    mixedNumber: false, // display as an improper fraction
-    fractionYSpacing: options.fractionYSpacing,
-    signXSpacing: options.signXSpacing,
-    signFont: options.signFont,
-    wholeNumberFont: options.wholeNumberFont,
-    fractionFont: options.fractionFont
-  };
-
-  if ( mathFunctions.length === 0 ) {
-
-    // y = x
-    xNode = new Text( options.xSymbol, {
-      fill: options.xColor,
-      font: options.xyFont,
-      maxWidth: options.xyMaxWidth,
-      left: equalToNode.right + options.equalsXSpacing
-    } );
-    if ( options.xyAsCards ) {
-      xNode = CardNode.createEquationXYNode( xNode );
-    }
-    xNode.left = equalToNode.right + options.equalsXSpacing;
-    xNode.centerY = equalToNode.centerY;
-    options.children.push( xNode );
-  }
-  else {
-
-    // local vars to improve readability
-    let currentFunction = null; // {MathFunction}
-    let currentOperator = null; // {string}
-    let currentOperand = null; // {number}
-    let previousOperator = null; // {string}
-
-    let operatorNode = null; // {Node}
-    let operandNode = null; // {Node}
-    let nextLeft = 0; // {number} left position of next Node added to equation
-    let nextCenterY = 0; // {number} centerY position of next Node added to equation
-
-    // parent node for right-hand side (rhs) of the equation
-    let rhsNode = new Node();
-
-    // x
-    xNode = new Text( options.xSymbol, {
-      fill: options.xColor,
+    // y
+    let yNode = new Text( options.ySymbol, {
+      fill: options.yColor,
       font: options.xyFont,
       maxWidth: options.xyMaxWidth
     } );
     if ( options.xyAsCards ) {
-      xNode = CardNode.createEquationXYNode( xNode );
+      yNode = CardNode.createEquationXYNode( yNode );
     }
-    rhsNode.addChild( xNode );
-    nextLeft = xNode.right + options.operatorXSpacing;
-    nextCenterY = equalToNode.centerY;
 
-    for ( i = 0; i < mathFunctions.length; i++ ) {
+    // =
+    const equalToNode = new Text( FBSymbols.EQUAL_TO, {
+      fill: options.color,
+      font: options.symbolFont,
+      left: yNode.right + options.equalsXSpacing,
+      centerY: yNode.centerY
+    } );
 
-      currentFunction = mathFunctions[ i ];
-      currentOperator = currentFunction.operator;
-      currentOperand = currentFunction.operandProperty.get().valueOf();
+    // Create the left-hand side nodes to simplify layout, but add them only if requested
+    if ( options.showLeftHandSide ) {
+      options.children.push( yNode, equalToNode );
+    }
 
-      if ( currentOperator === FBSymbols.PLUS ) {
+    const RATIONAL_NUMBER_OPTIONS = {
+      fill: options.color,
+      mixedNumber: false, // display as an improper fraction
+      fractionYSpacing: options.fractionYSpacing,
+      signXSpacing: options.signXSpacing,
+      signFont: options.signFont,
+      wholeNumberFont: options.wholeNumberFont,
+      fractionFont: options.fractionFont
+    };
 
-        // PLUS ----------------------------------------------------------------------------
+    if ( mathFunctions.length === 0 ) {
 
-        assert && assert(
-          !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-          `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
-
-        // eg: x + 3
-        operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
-          font: options.symbolFont,
-          left: nextLeft,
-          centerY: nextCenterY
-        } );
-        rhsNode.addChild( operatorNode );
-
-        operandNode = new Text( Math.abs( currentOperand ), {
-          font: options.wholeNumberFont,
-          left: operatorNode.right + options.operatorXSpacing,
-          centerY: operatorNode.centerY
-        } );
-        rhsNode.addChild( operandNode );
-
-        nextLeft = operandNode.right + options.operatorXSpacing;
-        nextCenterY = operandNode.centerY;
+      // y = x
+      xNode = new Text( options.xSymbol, {
+        fill: options.xColor,
+        font: options.xyFont,
+        maxWidth: options.xyMaxWidth,
+        left: equalToNode.right + options.equalsXSpacing
+      } );
+      if ( options.xyAsCards ) {
+        xNode = CardNode.createEquationXYNode( xNode );
       }
-      else if ( currentOperator === FBSymbols.MINUS ) {
+      xNode.left = equalToNode.right + options.equalsXSpacing;
+      xNode.centerY = equalToNode.centerY;
+      options.children.push( xNode );
+    }
+    else {
 
-        // MINUS ----------------------------------------------------------------------------
+      // local vars to improve readability
+      let currentFunction = null; // {MathFunction}
+      let currentOperator = null; // {string}
+      let currentOperand = null; // {number}
+      let previousOperator = null; // {string}
 
-        assert && assert(
-          !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
-          `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
+      let operatorNode = null; // {Node}
+      let operandNode = null; // {Node}
+      let nextLeft = 0; // {number} left position of next Node added to equation
+      let nextCenterY = 0; // {number} centerY position of next Node added to equation
 
-        // eg: x - 3
-        operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
-          font: options.symbolFont,
-          left: nextLeft,
-          centerY: nextCenterY
-        } );
-        rhsNode.addChild( operatorNode );
+      // parent node for right-hand side (rhs) of the equation
+      let rhsNode = new Node();
 
-        operandNode = new Text( Math.abs( currentOperand ), {
-          font: options.wholeNumberFont,
-          left: operatorNode.right + options.operatorXSpacing,
-          centerY: operatorNode.centerY
-        } );
-        rhsNode.addChild( operandNode );
-
-        nextLeft = operandNode.right + options.operatorXSpacing;
-        nextCenterY = operandNode.centerY;
+      // x
+      xNode = new Text( options.xSymbol, {
+        fill: options.xColor,
+        font: options.xyFont,
+        maxWidth: options.xyMaxWidth
+      } );
+      if ( options.xyAsCards ) {
+        xNode = CardNode.createEquationXYNode( xNode );
       }
-      else if ( currentOperator === FBSymbols.TIMES ) {
+      rhsNode.addChild( xNode );
+      nextLeft = xNode.right + options.operatorXSpacing;
+      nextCenterY = equalToNode.centerY;
 
-        // TIMES ----------------------------------------------------------------------------
+      for ( i = 0; i < mathFunctions.length; i++ ) {
 
-        assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
-          `adjacent times should have been collapsed: ${equation.toString()}` );
+        currentFunction = mathFunctions[ i ];
+        currentOperator = currentFunction.operator;
+        currentOperand = currentFunction.operandProperty.get().valueOf();
 
-        // parentheses around term, eg: 2(x + 2)
-        if ( i !== 0 ) {
+        if ( currentOperator === FBSymbols.PLUS ) {
 
-          const leftParenthesisNode = new Text( '(', {
-            font: options.parenthesesFont,
-            right: rhsNode.left - options.parenthesesXSpacing,
+          // PLUS ----------------------------------------------------------------------------
+
+          assert && assert(
+            !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+            `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
+
+          // eg: x + 3
+          operatorNode = new Text( currentOperand >= 0 ? FBSymbols.PLUS : FBSymbols.MINUS, {
+            font: options.symbolFont,
+            left: nextLeft,
             centerY: nextCenterY
           } );
+          rhsNode.addChild( operatorNode );
 
-          const rightParenthesisNode = new Text( ')', {
-            font: options.parenthesesFont,
-            left: rhsNode.right + options.parenthesesXSpacing,
-            centerY: leftParenthesisNode.centerY
+          operandNode = new Text( Math.abs( currentOperand ), {
+            font: options.wholeNumberFont,
+            left: operatorNode.right + options.operatorXSpacing,
+            centerY: operatorNode.centerY
+          } );
+          rhsNode.addChild( operandNode );
+
+          nextLeft = operandNode.right + options.operatorXSpacing;
+          nextCenterY = operandNode.centerY;
+        }
+        else if ( currentOperator === FBSymbols.MINUS ) {
+
+          // MINUS ----------------------------------------------------------------------------
+
+          assert && assert(
+            !previousOperator || ( previousOperator !== FBSymbols.PLUS && previousOperator !== FBSymbols.MINUS ),
+            `adjacent plus and minus should have been collapsed: ${equation.toString()}` );
+
+          // eg: x - 3
+          operatorNode = new Text( currentOperand >= 0 ? FBSymbols.MINUS : FBSymbols.PLUS, {
+            font: options.symbolFont,
+            left: nextLeft,
+            centerY: nextCenterY
+          } );
+          rhsNode.addChild( operatorNode );
+
+          operandNode = new Text( Math.abs( currentOperand ), {
+            font: options.wholeNumberFont,
+            left: operatorNode.right + options.operatorXSpacing,
+            centerY: operatorNode.centerY
+          } );
+          rhsNode.addChild( operandNode );
+
+          nextLeft = operandNode.right + options.operatorXSpacing;
+          nextCenterY = operandNode.centerY;
+        }
+        else if ( currentOperator === FBSymbols.TIMES ) {
+
+          // TIMES ----------------------------------------------------------------------------
+
+          assert && assert( !previousOperator || previousOperator !== FBSymbols.TIMES,
+            `adjacent times should have been collapsed: ${equation.toString()}` );
+
+          // parentheses around term, eg: 2(x + 2)
+          if ( i !== 0 ) {
+
+            const leftParenthesisNode = new Text( '(', {
+              font: options.parenthesesFont,
+              right: rhsNode.left - options.parenthesesXSpacing,
+              centerY: nextCenterY
+            } );
+
+            const rightParenthesisNode = new Text( ')', {
+              font: options.parenthesesFont,
+              left: rhsNode.right + options.parenthesesXSpacing,
+              centerY: leftParenthesisNode.centerY
+            } );
+
+            // scale to fit around term, handling x & y dimensions independently so that parenthesis don't get too heavy
+            const parenthesesScaleX = 1;
+            const parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
+            leftParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
+            rightParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
+
+            rhsNode.addChild( leftParenthesisNode );
+            rhsNode.addChild( rightParenthesisNode );
+
+            nextLeft = rightParenthesisNode.right + options.operatorXSpacing;
+            nextCenterY = rightParenthesisNode.centerY;
+          }
+
+          // multiplier in front of term, eg: 2x or 2(x + 2), use RationalNumberNode so that sign is rendered consistently
+          operandNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
+            merge( {}, RATIONAL_NUMBER_OPTIONS, {
+              right: rhsNode.left - options.multiplierXSpacing,
+              centerY: nextCenterY
+            } ) );
+          rhsNode.addChild( operandNode );
+        }
+        else if ( currentOperator === FBSymbols.DIVIDE ) {
+
+          // DIVIDE ----------------------------------------------------------------------------
+
+          assert && assert( currentOperand !== 0,
+            `divide by zero is not supported: ${equation.toString()}` );
+          assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
+            `adjacent divide should have been collapsed: ${equation.toString()}` );
+
+          // what we've built so far becomes the numerator
+          const numeratorNode = rhsNode;
+
+          // denominator, use RationalNumberNode so that sign is rendered consistently
+          const denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
+            merge( {}, RATIONAL_NUMBER_OPTIONS, {
+              font: options.wholeNumberFont
+            } ) );
+
+          // line dividing numerator and denominator
+          const fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
+          const fractionLineNode = new Line( 0, 0, fractionLineLength, 0, {
+            stroke: options.color,
+            centerX: rhsNode.centerX,
+            top: numeratorNode.bottom + options.fractionYSpacing
           } );
 
-          // scale to fit around term, handling x & y dimensions independently so that parenthesis don't get too heavy
-          const parenthesesScaleX = 1;
-          const parenthesesScaleY = rhsNode.height / leftParenthesisNode.height;
-          leftParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
-          rightParenthesisNode.setScaleMagnitude( parenthesesScaleX, parenthesesScaleY );
+          // fraction layout
+          numeratorNode.centerX = fractionLineNode.centerX;
+          numeratorNode.bottom = fractionLineNode.top - options.fractionYSpacing;
+          denominatorNode.centerX = fractionLineNode.centerX;
+          denominatorNode.top = fractionLineNode.bottom + options.fractionYSpacing;
 
-          rhsNode.addChild( leftParenthesisNode );
-          rhsNode.addChild( rightParenthesisNode );
+          // fraction
+          const fractionNode = new Node( {
+            children: [ numeratorNode, fractionLineNode, denominatorNode ],
+            scale: options.fractionScale
+          } );
 
-          nextLeft = rightParenthesisNode.right + options.operatorXSpacing;
-          nextCenterY = rightParenthesisNode.centerY;
+          // new right-hand side
+          rhsNode = new Node( {
+            children: [ fractionNode ]
+          } );
+          nextLeft = rhsNode.right + options.operatorXSpacing;
+          nextCenterY = rhsNode.centerY;
+        }
+        else {
+
+          // oops! ----------------------------------------------------------------------------
+
+          throw new Error( `invalid operator=${currentOperator}, equation=${equation.toString()}` );
         }
 
-        // multiplier in front of term, eg: 2x or 2(x + 2), use RationalNumberNode so that sign is rendered consistently
-        operandNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
-          merge( {}, RATIONAL_NUMBER_OPTIONS, {
-            right: rhsNode.left - options.multiplierXSpacing,
-            centerY: nextCenterY
-          } ) );
-        rhsNode.addChild( operandNode );
-      }
-      else if ( currentOperator === FBSymbols.DIVIDE ) {
-
-        // DIVIDE ----------------------------------------------------------------------------
-
-        assert && assert( currentOperand !== 0,
-          `divide by zero is not supported: ${equation.toString()}` );
-        assert && assert( !previousOperator || previousOperator !== FBSymbols.DIVIDE,
-          `adjacent divide should have been collapsed: ${equation.toString()}` );
-
-        // what we've built so far becomes the numerator
-        const numeratorNode = rhsNode;
-
-        // denominator, use RationalNumberNode so that sign is rendered consistently
-        const denominatorNode = new RationalNumberNode( RationalNumber.withInteger( currentOperand ),
-          merge( {}, RATIONAL_NUMBER_OPTIONS, {
-            font: options.wholeNumberFont
-          } ) );
-
-        // line dividing numerator and denominator
-        const fractionLineLength = Math.max( numeratorNode.width, denominatorNode.width );
-        const fractionLineNode = new Line( 0, 0, fractionLineLength, 0, {
-          stroke: options.color,
-          centerX: rhsNode.centerX,
-          top: numeratorNode.bottom + options.fractionYSpacing
-        } );
-
-        // fraction layout
-        numeratorNode.centerX = fractionLineNode.centerX;
-        numeratorNode.bottom = fractionLineNode.top - options.fractionYSpacing;
-        denominatorNode.centerX = fractionLineNode.centerX;
-        denominatorNode.top = fractionLineNode.bottom + options.fractionYSpacing;
-
-        // fraction
-        const fractionNode = new Node( {
-          children: [ numeratorNode, fractionLineNode, denominatorNode ],
-          scale: options.fractionScale
-        } );
-
-        // new right-hand side
-        rhsNode = new Node( {
-          children: [ fractionNode ]
-        } );
-        nextLeft = rhsNode.right + options.operatorXSpacing;
-        nextCenterY = rhsNode.centerY;
-      }
-      else {
-
-        // oops! ----------------------------------------------------------------------------
-
-        throw new Error( `invalid operator=${currentOperator}, equation=${equation.toString()}` );
+        previousOperator = currentOperator;
       }
 
-      previousOperator = currentOperator;
+      options.children.push( rhsNode );
+      rhsNode.left = equalToNode.right + options.equalsXSpacing;
+      rhsNode.centerY = equalToNode.centerY;
     }
 
-    options.children.push( rhsNode );
-    rhsNode.left = equalToNode.right + options.equalsXSpacing;
-    rhsNode.centerY = equalToNode.centerY;
+    super( options );
   }
-
-  Node.call( this, options );
 }
 
 functionBuilder.register( 'HelpfulEquationNode', HelpfulEquationNode );
 
-inherit( Node, HelpfulEquationNode );
 export default HelpfulEquationNode;
