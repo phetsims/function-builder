@@ -38,9 +38,9 @@ function MovableNode( movable, options ) {
 
   assert && assert( options.children, 'requires children to specify the look of the Movable' );
 
-  this.movable = movable; // @public
-
   Node.call( this, options );
+
+  this.movable = movable; // @public
 
   // unlink unnecessary, instances exist for lifetime of the sim
   movable.positionProperty.link( position => {
