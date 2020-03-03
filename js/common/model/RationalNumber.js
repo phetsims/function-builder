@@ -11,38 +11,22 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import functionBuilder from '../../functionBuilder.js';
 
-/**
- * @param numerator
- * @param denominator
- * @constructor
- */
-function RationalNumber( numerator, denominator ) {
+class RationalNumber {
+  
+  /**
+   * @param numerator
+   * @param denominator
+   */
+  constructor( numerator, denominator ) {
 
-  assert && assert( Utils.isInteger( numerator ) );
-  assert && assert( Utils.isInteger( denominator ) );
+    assert && assert( Utils.isInteger( numerator ) );
+    assert && assert( Utils.isInteger( denominator ) );
 
-  // @private {BigRational} bigRat is a global created by preloading BigRational.js
-  this.bigRational = bigRat( numerator, denominator );
-}
-
-functionBuilder.register( 'RationalNumber', RationalNumber );
-
-/**
- * Converts a BigRational to a RationalNumber
- * @param {BigRational} bigRational
- * @returns {RationalNumber}
- */
-const toRationalNumber = function( bigRational ) {
-
-  // BigRational.js does not export type BigRational. This verification works only when unminified.
-  assert && assert( bigRational.constructor.name === 'BigRational' );
-  return new RationalNumber( bigRational.numerator.valueOf(), bigRational.denominator.valueOf() );
-};
-
-export default inherit( Object, RationalNumber, {
+    // @private {BigRational} bigRat is a global created by preloading BigRational.js
+    this.bigRational = bigRat( numerator, denominator );
+  }
 
   /**
    * Gets the numerator. Assumes that BigRational stores its value in reduced form.
@@ -50,8 +34,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {number}
    * @public
    */
-  getNumerator: function() { return this.bigRational.numerator.valueOf(); },
-  get numerator() { return this.getNumerator(); },
+  getNumerator() { return this.bigRational.numerator.valueOf(); }
+
+  get numerator() { return this.getNumerator(); }
 
   /**
    * Gets the denominator. Assumes that BigRational stores its value in reduced form.
@@ -59,8 +44,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {number}
    * @public
    */
-  getDenominator: function() { return this.bigRational.denominator.valueOf(); },
-  get denominator() { return this.getDenominator(); },
+  getDenominator() { return this.bigRational.denominator.valueOf(); }
+
+  get denominator() { return this.getDenominator(); }
 
   /**
    * Two rational numbers are equal if their values are equal.
@@ -70,9 +56,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {boolean}
    * @public
    */
-  equals: function( rationalNumber ) {
+  equals( rationalNumber ) {
     return ( rationalNumber.valueOf() === this.valueOf() );
-  },
+  }
 
   /**
    * Gets the value of this RationalNumber.
@@ -80,7 +66,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {number}
    * @public
    */
-  valueOf: function() { return this.bigRational.valueOf(); },
+  valueOf() {
+    return this.bigRational.valueOf();
+  }
 
   /**
    * String representation, do not rely on the format of this!
@@ -88,7 +76,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {string}
    * @public
    */
-  toString: function() { return this.bigRational.toString(); },
+  toString() {
+    return this.bigRational.toString();
+  }
 
   /**
    * Adds this RationalNumber and an integer, returns a new instance.
@@ -97,10 +87,10 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  plus: function( integerValue ) {
+  plus( integerValue ) {
     assert && assert( Utils.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.plus( integerValue ) );
-  },
+  }
 
   /**
    * Subtracts this RationalNumber and an integer, returns a new instance.
@@ -109,10 +99,10 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  minus: function( integerValue ) {
+  minus( integerValue ) {
     assert && assert( Utils.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.minus( integerValue ) );
-  },
+  }
 
   /**
    * Multiplies this RationalNumber and an integer, returns a new instance.
@@ -121,10 +111,10 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  times: function( integerValue ) {
+  times( integerValue ) {
     assert && assert( Utils.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.times( integerValue ) );
-  },
+  }
 
   /**
    * Divides this RationalNumber by an integer, returns a new instance.
@@ -133,10 +123,10 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  divide: function( integerValue ) {
+  divide( integerValue ) {
     assert && assert( Utils.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.divide( integerValue ) );
-  },
+  }
 
   /**
    * Absolute value of this RationalNumber, returns a new instance.
@@ -144,9 +134,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  abs: function() {
+  abs() {
     return toRationalNumber( this.bigRational.abs() );
-  },
+  }
 
   /**
    * Is this RationalNumber an integer?
@@ -154,9 +144,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {boolean}
    * @public
    */
-  isInteger: function() {
+  isInteger() {
     return ( this.valueOf() % 1 === 0 );
-  },
+  }
 
   /**
    * Gets the whole number part of this RationalNumber's value.
@@ -164,10 +154,10 @@ export default inherit( Object, RationalNumber, {
    * @returns {number}
    * @public
    */
-  wholeNumberPart: function() {
+  wholeNumberPart() {
     const value = this.bigRational.valueOf();
     return ( value < 0 ? -1 : 1 ) * Math.floor( Math.abs( value ) );
-  },
+  }
 
   /**
    * Gets the fractional part of this RationalNumber's value, returns a new instance.
@@ -175,10 +165,9 @@ export default inherit( Object, RationalNumber, {
    * @returns {RationalNumber}
    * @public
    */
-  fractionPart: function() {
+  fractionPart() {
     return this.minus( this.wholeNumberPart() );
   }
-}, {
 
   /**
    * Creates a RationalNumber from an integer.
@@ -188,8 +177,23 @@ export default inherit( Object, RationalNumber, {
    * @public
    * @static
    */
-  withInteger: function( integerValue ) {
+  static withInteger( integerValue ) {
     assert && assert( Utils.isInteger( integerValue ) );
     return new RationalNumber( integerValue, 1 );
   }
-} );
+}
+
+/**
+ * Converts a BigRational to a RationalNumber
+ * @param {BigRational} bigRational
+ * @returns {RationalNumber}
+ */
+function toRationalNumber( bigRational ) {
+
+  // BigRational.js does not export type BigRational. This verification works only when unminified.
+  assert && assert( bigRational.constructor.name === 'BigRational' );
+  return new RationalNumber( bigRational.numerator.valueOf(), bigRational.denominator.valueOf() );
+}
+
+functionBuilder.register( 'RationalNumber', RationalNumber );
+export default RationalNumber;

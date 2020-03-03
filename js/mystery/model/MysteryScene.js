@@ -9,7 +9,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FBColors from '../../common/FBColors.js';
 import FBConstants from '../../common/FBConstants.js';
@@ -30,98 +29,95 @@ import MysteryChallenges from './MysteryChallenges.js';
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 const MAX_SLOTS = 3; // max number of slots in the builder
 
-/**
- * @param {string[]} challengePool
- * @param {Object} [options]
- * @constructor
- */
-function MysteryScene( challengePool, options ) {
+class MysteryScene extends Scene {
 
-  options = merge( {
-    numberOfSlots: 1,
-    numberOfEachCard: 1
-  }, options );
-  assert && assert( options.numberOfSlots <= MAX_SLOTS );
+  /**
+   * @param {string[]} challengePool
+   * @param {Object} [options]
+   */
+  constructor( challengePool, options ) {
 
-  // {Node} scene selection icon
-  assert && assert( !options.iconNode );
-  options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
+    options = merge( {
+      numberOfSlots: 1,
+      numberOfEachCard: 1
+    }, options );
+    assert && assert( options.numberOfSlots <= MAX_SLOTS );
 
-  // Create enough instances of each function type to support the case where all functions
-  // in a challenge have the same type.
-  assert && assert( !options.numberOfEachFunction );
-  options.numberOfEachFunction = options.numberOfSlots;
+    // {Node} scene selection icon
+    assert && assert( !options.iconNode );
+    options.iconNode = FBIconFactory.createSceneIcon( options.numberOfSlots );
 
-  // @private
-  this.numberOfSlots = options.numberOfSlots;
+    // Create enough instances of each function type to support the case where all functions
+    // in a challenge have the same type.
+    assert && assert( !options.numberOfEachFunction );
+    options.numberOfEachFunction = options.numberOfSlots;
 
-  // validate the challenge pool
-  if ( assert ) {
+    // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
+    const cardContent = [];
+    for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
+      cardContent.push( RationalNumber.withInteger( i ) );
+    }
 
-    // limit scope of for-loop var using IIFE
-    ( function() {
-      let duplicates = '';
-      for ( let i = 0; i < challengePool.length; i++ ) {
+    // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
+    const functionCreators = [
+      new FunctionCreator( Plus ),
+      new FunctionCreator( Minus ),
+      new FunctionCreator( Times ),
+      new FunctionCreator( Divide )
+    ];
 
-        const challenge = challengePool[ i ];
+    // All builders have the same width, regardless of number of slots
+    const builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
+    const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
+    const builder = new MathBuilder( {
+      numberOfSlots: options.numberOfSlots,
+      width: builderWidth,
+      position: new Vector2( builderX, FBConstants.BUILDER_Y )
+    } );
 
-        // validate challenge
-        const challengeObjects = MysteryChallenges.parseChallenge( challenge );
-        assert && assert( challengeObjects.length === options.numberOfSlots,
-          'incorrect number of functions in challenge: ' + challenge );
+    super( cardContent, functionCreators, builder, options );
 
-        // check for duplicates
-        if ( challengePool.indexOf( challenge, i + 1 ) !== -1 ) {
-          if ( duplicates.length > 0 ) {
-            duplicates += ', ';
+    // @private
+    this.numberOfSlots = options.numberOfSlots;
+
+    // validate the challenge pool
+    if ( assert ) {
+
+      // limit scope of for-loop var using IIFE
+      ( function() {
+        let duplicates = '';
+        for ( let i = 0; i < challengePool.length; i++ ) {
+
+          const challenge = challengePool[ i ];
+
+          // validate challenge
+          const challengeObjects = MysteryChallenges.parseChallenge( challenge );
+          assert && assert( challengeObjects.length === options.numberOfSlots,
+            'incorrect number of functions in challenge: ' + challenge );
+
+          // check for duplicates
+          if ( challengePool.indexOf( challenge, i + 1 ) !== -1 ) {
+            if ( duplicates.length > 0 ) {
+              duplicates += ', ';
+            }
+            duplicates += challenge;
           }
-          duplicates += challenge;
         }
-      }
-      assert && assert( duplicates.length === 0, 'pool contains duplicate challenges: ' + duplicates );
-    } )();
+        assert && assert( duplicates.length === 0, 'pool contains duplicate challenges: ' + duplicates );
+      } )();
+    }
+
+    // @public {Property.<string>} the challenge that is displayed
+    this.challengeProperty = new Property( challengePool[ MysteryChallenges.DEFAULT_CHALLENGE_INDEX ] );
+    this.challengePool = challengePool; // (read-only) for debug only, the original challenge pool, do not modify!
+
+    // @private
+    this.availableChallenges = challengePool.slice( 0 ); // available challenges
+    this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
+    this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
+    this.previousColorSets = []; // pool that was used on previous call to getColors
+    this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
   }
-
-  // @public {Property.<string>} the challenge that is displayed
-  this.challengeProperty = new Property( challengePool[ MysteryChallenges.DEFAULT_CHALLENGE_INDEX ] );
-  this.challengePool = challengePool; // (read-only) for debug only, the original challenge pool, do not modify!
-
-  // @private
-  this.availableChallenges = challengePool.slice( 0 ); // available challenges
-  this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 ); // remove the default challenge
-  this.availableColorSets = FBColors.MYSTERY_COLOR_SETS.slice( 0 ); // pool of available colors
-  this.previousColorSets = []; // pool that was used on previous call to getColors
-  this.nextColorIndexDebug = 0; // debug support for the 'showAllColors' query parameter
-
-  // {RationalNumber[]} rational number cards, in the order that they appear in the carousel
-  const cardContent = [];
-  for ( let i = CARD_NUMBERS_RANGE.min; i <= CARD_NUMBERS_RANGE.max; i++ ) {
-    cardContent.push( RationalNumber.withInteger( i ) );
-  }
-
-  // {FunctionCreator[]} function creators, in the order that functions appear in the carousel
-  const functionCreators = [
-    new FunctionCreator( Plus ),
-    new FunctionCreator( Minus ),
-    new FunctionCreator( Times ),
-    new FunctionCreator( Divide )
-  ];
-
-  // All builders have the same width, regardless of number of slots
-  const builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
-  const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
-  const builder = new MathBuilder( {
-    numberOfSlots: options.numberOfSlots,
-    width: builderWidth,
-    position: new Vector2( builderX, FBConstants.BUILDER_Y )
-  } );
-
-  Scene.call( this, cardContent, functionCreators, builder, options );
-}
-
-functionBuilder.register( 'MysteryScene', MysteryScene );
-
-export default inherit( Scene, MysteryScene, {
 
   /**
    * Resets the scene.
@@ -130,7 +126,7 @@ export default inherit( Scene, MysteryScene, {
    * @public
    * @override
    */
-  reset: function() {
+  reset() {
     Scene.prototype.reset.call( this );
 
     // force notification when initial challenge is displayed
@@ -144,7 +140,7 @@ export default inherit( Scene, MysteryScene, {
     // restock the available challenges, with default challenge removed
     this.availableChallenges = this.challengePool.slice( 0 );
     this.availableChallenges.splice( MysteryChallenges.DEFAULT_CHALLENGE_INDEX, 1 );
-  },
+  }
 
   /**
    * Advances to the next randomly-selected challenge.  After a challenge has been selected, it is not selected
@@ -152,7 +148,7 @@ export default inherit( Scene, MysteryScene, {
    *
    * @public
    */
-  nextChallenge: function() {
+  nextChallenge() {
 
     // available pool is empty
     if ( this.availableChallenges.length === 0 ) {
@@ -177,7 +173,7 @@ export default inherit( Scene, MysteryScene, {
     this.availableChallenges.splice( challengeIndex, 1 );
 
     this.challengeProperty.set( challenge );
-  },
+  }
 
   /**
    * Randomly selects N colors from the pool, where N is equal to the number of functions in challenges.
@@ -187,7 +183,7 @@ export default inherit( Scene, MysteryScene, {
    * @returns {<Color|string>[]}
    * @public
    */
-  getColors: function() {
+  getColors() {
 
     let i;
     let colors = [];
@@ -232,7 +228,7 @@ export default inherit( Scene, MysteryScene, {
 
     assert && assert( colors && colors.length > 0, 'what, no colors?' );
     return colors;
-  },
+  }
 
   /**
    * Gets the next color, in order that they appear in the color pool.
@@ -240,7 +236,7 @@ export default inherit( Scene, MysteryScene, {
    *
    * @private
    */
-  getColorDebug: function() {
+  getColorDebug() {
     const allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
     const color = allColors[ this.nextColorIndexDebug++ ];
     if ( this.nextColorIndexDebug > allColors.length - 1 ) {
@@ -248,4 +244,7 @@ export default inherit( Scene, MysteryScene, {
     }
     return color;
   }
-} );
+}
+
+functionBuilder.register( 'MysteryScene', MysteryScene );
+export default MysteryScene;

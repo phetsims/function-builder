@@ -15,6 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class Movable {
+
   /**
    * @param {Object} [options]
    */

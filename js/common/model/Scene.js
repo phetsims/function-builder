@@ -6,53 +6,49 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 
-/**
- * @param {*[]} cardContent - content that will appear on card, type determined by client
- * @param {FunctionCreator[]} functionCreators - describes how to create functions
- * @param {Builder} builder
- * @param {Object} [options]
- * @constructor
- */
-function Scene( cardContent, functionCreators, builder, options ) {
+class Scene {
 
-  options = merge( {
-    iconNode: null, // {Node|null} icon that represents the scene
-    cardSymbol: null, // {string|null} symbolic input card (e.g. 'x') added to end of card carousel
-    numberOfEachCard: 1, // {number} number of instances of each card type
-    numberOfEachFunction: 1 // {number} number of instances of each function type
-  }, options );
+  /**
+   * @param {*[]} cardContent - content that will appear on card, type determined by client
+   * @param {FunctionCreator[]} functionCreators - describes how to create functions
+   * @param {Builder} builder
+   * @param {Object} [options]
+   */
+  constructor( cardContent, functionCreators, builder, options ) {
 
-  // validate options
-  assert && assert( options.numberOfEachCard > 0 );
-  assert && assert( options.numberOfEachFunction > 0 );
+    options = merge( {
+      iconNode: null, // {Node|null} icon that represents the scene
+      cardSymbol: null, // {string|null} symbolic input card (e.g. 'x') added to end of card carousel
+      numberOfEachCard: 1, // {number} number of instances of each card type
+      numberOfEachFunction: 1 // {number} number of instances of each function type
+    }, options );
 
-  // @public (read-only)
-  this.iconNode = options.iconNode;
-  this.cardContent = cardContent;
-  this.cardSymbol = options.cardSymbol;
-  this.numberOfEachCard = options.numberOfEachCard;
-  this.functionCreators = functionCreators;
-  this.numberOfEachFunction = options.numberOfEachFunction;
-  this.builder = builder;
+    // validate options
+    assert && assert( options.numberOfEachCard > 0 );
+    assert && assert( options.numberOfEachFunction > 0 );
 
-  // @public {Card[]} all cards that exist
-  this.cards = [];
+    // @public (read-only)
+    this.iconNode = options.iconNode;
+    this.cardContent = cardContent;
+    this.cardSymbol = options.cardSymbol;
+    this.numberOfEachCard = options.numberOfEachCard;
+    this.functionCreators = functionCreators;
+    this.numberOfEachFunction = options.numberOfEachFunction;
+    this.builder = builder;
 
-  // @public {AbstractFunction[]} all function instances that exist
-  this.functionInstances = [];
-}
+    // @public {Card[]} all cards that exist
+    this.cards = [];
 
-functionBuilder.register( 'Scene', Scene );
-
-export default inherit( Object, Scene, {
+    // @public {AbstractFunction[]} all function instances that exist
+    this.functionInstances = [];
+  }
 
   // @public
-  reset: function() {
+  reset() {
 
     // function instances
     for ( let functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
@@ -63,7 +59,7 @@ export default inherit( Object, Scene, {
     for ( let cardIndex = 0; cardIndex < this.cards.length; cardIndex++ ) {
       this.cards[ cardIndex ].reset();
     }
-  },
+  }
 
   /**
    * Animates the scene.
@@ -71,7 +67,7 @@ export default inherit( Object, Scene, {
    * @param {number} dt - time since the previous step, in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
     // function instances
     for ( let functionIndex = 0; functionIndex < this.functionInstances.length; functionIndex++ ) {
@@ -83,7 +79,6 @@ export default inherit( Object, Scene, {
       this.cards[ cardIndex ].step( dt );
     }
   }
-}, {
 
   /**
    * Computes the builder width for the specified number of slots.
@@ -93,7 +88,7 @@ export default inherit( Object, Scene, {
    * @public
    * @static
    */
-  computeBuilderWidth: function( numberOfSlots ) {
+  static computeBuilderWidth( numberOfSlots ) {
     if ( numberOfSlots === 1 ) {
 
       // use a bit of extra padding for single slot
@@ -103,4 +98,8 @@ export default inherit( Object, Scene, {
       return ( numberOfSlots * FBConstants.FUNCTION_SIZE.width ) + 70;
     }
   }
-} );
+}
+
+functionBuilder.register( 'Scene', Scene );
+
+export default Scene;
