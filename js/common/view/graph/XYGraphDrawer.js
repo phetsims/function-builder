@@ -22,6 +22,7 @@ import NumberCardNode from '../cards/NumberCardNode.js';
 import XYGraphNode from './XYGraphNode.js';
 
 class XYGraphDrawer extends Drawer {
+
   /**
    * @param {Builder} builder
    * @param {CardContainer[]} outputContainers - card containers in the output carousel

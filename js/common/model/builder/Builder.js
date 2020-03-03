@@ -24,6 +24,7 @@ const WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -
                         ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 );
 
 class Builder {
+
   /**
    * @param {Object} [options]
    */

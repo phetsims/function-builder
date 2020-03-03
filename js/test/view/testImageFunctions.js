@@ -7,8 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-
-// image function modules
 import Shape from '../../../../kite/js/Shape.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -44,12 +42,6 @@ import Rotate180 from '../../patterns/model/functions/Rotate180.js';
 import Rotate90 from '../../patterns/model/functions/Rotate90.js';
 import Shrink from '../../patterns/model/functions/Shrink.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
-
-// other function-builder modules
-
-// common modules
-
-// images (input cards)
 
 /**
  * @param {Bounds2} layoutBounds

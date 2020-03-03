@@ -17,6 +17,7 @@ import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 
 class SlopeInterceptEquationNode extends Node {
+
   /**
    * @param {RationalNumber} slope
    * @param {RationalNumber} intercept
