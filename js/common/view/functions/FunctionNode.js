@@ -9,7 +9,6 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBColors from '../../FBColors.js';
@@ -20,159 +19,154 @@ import MovableNode from '../MovableNode.js';
 import NotInvertibleSymbolNode from '../NotInvertibleSymbolNode.js';
 import FunctionBackgroundNode from './FunctionBackgroundNode.js';
 
-/**
- * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
- * involved in drag handling and animation. I could have reduced the number of parameters by distributing
- * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
- * like a superior solution.  So I chose encapsulation at the expense of some increased coupling.
- * See discussion in https://github.com/phetsims/function-builder/issues/77
- *
- * @param {AbstractFunction} functionInstance - model element associated with this node
- * @param {Node} contentNode - content that appears on the function, specific to functionInstance
- * @param {FunctionContainer} container - container in the function carousel where this node originates
- * @param {BuilderNode} builderNode - BuilderNode that may contain this node
- * @param {Node} dragLayer - parent for this node when it's being dragged or animating
- * @param {Object} [options]
- * @constructor
- */
-function FunctionNode( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
+class FunctionNode extends MovableNode {
 
-  options = merge( {
+  /**
+   * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
+   * involved in drag handling and animation. I could have reduced the number of parameters by distributing
+   * the responsibility for drag handling and animation. But encapsulating all responsibilities here seemed
+   * like a superior solution.  So I chose encapsulation at the expense of some increased coupling.
+   * See discussion in https://github.com/phetsims/function-builder/issues/77
+   *
+   * @param {AbstractFunction} functionInstance - model element associated with this node
+   * @param {Node} contentNode - content that appears on the function, specific to functionInstance
+   * @param {FunctionContainer} container - container in the function carousel where this node originates
+   * @param {BuilderNode} builderNode - BuilderNode that may contain this node
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Object} [options]
+   */
+  constructor( functionInstance, contentNode, container, builderNode, dragLayer, options ) {
 
-    size: FBConstants.FUNCTION_SIZE, // {Dimension2} size of the background
-    identityVisible: true, // {boolean} is the function's identity visible?
-    hiddenNode: null, // {Node} displayed when the function identity is hidden
-    hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
+    options = merge( {
 
-    //TODO remove this workaround, see https://github.com/phetsims/function-builder/issues/49
-    allowTouchSnag: false
-  }, options );
+      size: FBConstants.FUNCTION_SIZE, // {Dimension2} size of the background
+      identityVisible: true, // {boolean} is the function's identity visible?
+      hiddenNode: null, // {Node} displayed when the function identity is hidden
+      hiddenFill: FBColors.HIDDEN_FUNCTION, // {null|Color|string} background color when function identity is hidden
 
-  if ( !options.hiddenNode ) {
-    options.hiddenNode = new EyeCloseNode();
+      //TODO remove this workaround, see https://github.com/phetsims/function-builder/issues/49
+      allowTouchSnag: false
+    }, options );
+
+    if ( !options.hiddenNode ) {
+      options.hiddenNode = new EyeCloseNode();
+    }
+
+    const backgroundNode = new FunctionBackgroundNode( merge( {
+      size: options.size
+    }, functionInstance.viewOptions ) );
+
+    // unlink unnecessary, instances exist for lifetime of the sim
+    functionInstance.fillProperty.link( fill => {
+      backgroundNode.fill = fill;
+    } );
+
+    // center
+    contentNode.center = backgroundNode.center;
+    options.hiddenNode.center = backgroundNode.center;
+
+    // @private
+    const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
+      center: backgroundNode.center,
+      visible: false
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
+
+    // @public
+    const identityVisibleProperty = new BooleanProperty( options.identityVisible );
+    // unlink unnecessary, instance owns this Property
+    identityVisibleProperty.link( identityVisible => {
+
+      contentNode.visible = identityVisible;
+      options.hiddenNode.visible = !identityVisible;
+
+      if ( options.hiddenFill ) {
+        backgroundNode.fill = identityVisible ? functionInstance.fillProperty.get() : options.hiddenFill;
+      }
+    } );
+
+    //-------------------------------------------------------------------------------
+    // start a drag cycle
+
+    let slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
+
+    assert && assert( !options.startDrag );
+    options.startDrag = () => {
+
+      slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;
+
+      if ( container.containsNode( this ) ) {
+
+        // function is in the carousel, pop it out
+        container.removeNode( this );
+        dragLayer.addChild( this );
+        functionInstance.moveTo( container.carouselPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+      }
+      else if ( builderNode.containsFunctionNode( this ) ) {
+
+        // function is in the builder
+
+        // if this node's 'not invertible' animation was running, stop it
+        this.stopNotInvertibleAnimation();
+
+        // pop it out of the builder
+        slotNumberRemovedFrom = builderNode.removeFunctionNode( this );
+        const slotPosition = builderNode.builder.getSlotPosition( slotNumberRemovedFrom );
+        dragLayer.addChild( this );
+        functionInstance.moveTo( slotPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
+      }
+      else {
+        // function was grabbed while in dragLayer, do nothing
+      }
+
+      assert && assert( dragLayer.hasChild( this ), 'startDrag should be in dragLayer' );
+    };
+
+    //-------------------------------------------------------------------------------
+    // end a drag cycle
+    assert && assert( !options.endDrag );
+    options.endDrag = () => {
+
+      assert && assert( dragLayer.hasChild( this ), 'endDrag should be in dragLayer' );
+
+      // Find the closest slot in the builder
+      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.positionProperty.get(),
+        FBConstants.FUNCTION_DISTANCE_THRESHOLD );
+
+      if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
+
+        // no builder slot, animate back to the carousel
+        this.animateToCarousel();
+      }
+      else {
+
+        // put function in builder slot
+        this.animateToBuilder( slotNumber, slotNumberRemovedFrom );
+      }
+    };
+
+    super( functionInstance, options );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Define properties in one place, so we can see what's available and document visibility
+
+    // @public
+    this.functionInstance = functionInstance;
+    this.identityVisibleProperty = identityVisibleProperty;
+
+    // @protected used by subtypes
+    this.backgroundNode = backgroundNode;
+
+    // @private used by prototype functions
+    this.contentNode = contentNode;
+    this.container = container;
+    this.builderNode = builderNode;
+    this.builder = builderNode.builder;
+    this.dragLayer = dragLayer;
+    this.notInvertibleSymbolNode = notInvertibleSymbolNode;
   }
-
-  const self = this;
-
-  const backgroundNode = new FunctionBackgroundNode( merge( {
-    size: options.size
-  }, functionInstance.viewOptions ) );
-
-  // unlink unnecessary, instances exist for lifetime of the sim
-  functionInstance.fillProperty.link( function( fill ) {
-    backgroundNode.fill = fill;
-  } );
-
-  // center
-  contentNode.center = backgroundNode.center;
-  options.hiddenNode.center = backgroundNode.center;
-
-  // @private
-  const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
-    center: backgroundNode.center,
-    visible: false
-  } );
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
-
-  // @public
-  const identityVisibleProperty = new BooleanProperty( options.identityVisible );
-  // unlink unnecessary, instance owns this Property
-  identityVisibleProperty.link( function( identityVisible ) {
-
-    contentNode.visible = identityVisible;
-    options.hiddenNode.visible = !identityVisible;
-
-    if ( options.hiddenFill ) {
-      backgroundNode.fill = identityVisible ? functionInstance.fillProperty.get() : options.hiddenFill;
-    }
-  } );
-
-  //-------------------------------------------------------------------------------
-  // start a drag cycle
-
-  let slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;  // slot number that function was removed from at start of drag
-
-  assert && assert( !options.startDrag );
-  options.startDrag = function() {
-
-    slotNumberRemovedFrom = FunctionSlot.NO_SLOT_NUMBER;
-
-    if ( container.containsNode( self ) ) {
-
-      // function is in the carousel, pop it out
-      container.removeNode( self );
-      dragLayer.addChild( self );
-      functionInstance.moveTo( container.carouselPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
-    }
-    else if ( builderNode.containsFunctionNode( self ) ) {
-
-      // function is in the builder
-
-      // if this node's 'not invertible' animation was running, stop it
-      self.stopNotInvertibleAnimation();
-
-      // pop it out of the builder
-      slotNumberRemovedFrom = builderNode.removeFunctionNode( self );
-      const slotPosition = builderNode.builder.getSlotPosition( slotNumberRemovedFrom );
-      dragLayer.addChild( self );
-      functionInstance.moveTo( slotPosition.plus( FBConstants.FUNCTION_POP_OUT_OFFSET ) );
-    }
-    else {
-      // function was grabbed while in dragLayer, do nothing
-    }
-
-    assert && assert( dragLayer.hasChild( self ), 'startDrag: function should be in dragLayer' );
-  };
-
-  //-------------------------------------------------------------------------------
-  // end a drag cycle
-  assert && assert( !options.endDrag );
-  options.endDrag = function() {
-
-    assert && assert( dragLayer.hasChild( self ), 'endDrag: function should be in dragLayer' );
-
-    // Find the closest slot in the builder
-    const slotNumber = builderNode.builder.getClosestSlot( functionInstance.positionProperty.get(),
-      FBConstants.FUNCTION_DISTANCE_THRESHOLD );
-
-    if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {
-
-      // no builder slot, animate back to the carousel
-      self.animateToCarousel();
-    }
-    else {
-
-      // put function in builder slot
-      self.animateToBuilder( slotNumber, slotNumberRemovedFrom );
-    }
-  };
-
-  MovableNode.call( this, functionInstance, options );
-
-  //------------------------------------------------------------------------------------------------------------------
-  // Define properties in one place, so we can see what's available and document visibility
-
-  // @public
-  this.functionInstance = functionInstance;
-  this.identityVisibleProperty = identityVisibleProperty;
-
-  // @protected used by subtypes
-  this.backgroundNode = backgroundNode;
-
-  // @private used by prototype functions
-  this.contentNode = contentNode;
-  this.container = container;
-  this.builderNode = builderNode;
-  this.builder = builderNode.builder;
-  this.dragLayer = dragLayer;
-  this.notInvertibleSymbolNode = notInvertibleSymbolNode;
-}
-
-functionBuilder.register( 'FunctionNode', FunctionNode );
-
-export default inherit( MovableNode, FunctionNode, {
 
   /**
    * Animates this function to a slot in the builder.
@@ -181,10 +175,8 @@ export default inherit( MovableNode, FunctionNode, {
    * @param {number} slotNumberRemovedFrom - slot number that the function was removed from
    * @private
    */
-  animateToBuilder: function( slotNumber, slotNumberRemovedFrom ) {
+  animateToBuilder( slotNumber, slotNumberRemovedFrom ) {
     assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
-
-    const self = this;
 
     // to improve readability
     const builderNode = this.builderNode;
@@ -192,7 +184,7 @@ export default inherit( MovableNode, FunctionNode, {
     const dragLayer = this.dragLayer;
 
     this.functionInstance.animateTo( builder.getSlotPosition( slotNumber ),
-      function() {
+      () => {
 
         // If the slot is occupied, relocate the occupier.
         const occupierNode = builderNode.getFunctionNode( slotNumber );
@@ -213,10 +205,10 @@ export default inherit( MovableNode, FunctionNode, {
           }
         }
 
-        dragLayer.removeChild( self );
-        builderNode.addFunctionNode( self, slotNumber );
+        dragLayer.removeChild( this );
+        builderNode.addFunctionNode( this, slotNumber );
       } );
-  },
+  }
 
   /**
    * Moves this function immediately to the builder, no animation.
@@ -224,7 +216,7 @@ export default inherit( MovableNode, FunctionNode, {
    * @param {number} slotNumber
    * @public
    */
-  moveToBuilder: function( slotNumber ) {
+  moveToBuilder( slotNumber ) {
 
     assert && assert( !this.builderNode.containsFunctionNode( this ), 'function is already in builder' );
     assert && assert( !this.builderNode.getFunctionNode( slotNumber ), 'slot ' + slotNumber + ' is occupied' );
@@ -244,22 +236,21 @@ export default inherit( MovableNode, FunctionNode, {
     const slotPosition = this.builderNode.builder.getSlotPosition( slotNumber );
     this.functionInstance.moveTo( slotPosition );
     this.builderNode.addFunctionNode( this, slotNumber );
-  },
+  }
 
   /**
    * Animates this function to the carousel.
    *
    * @private
    */
-  animateToCarousel: function() {
+  animateToCarousel() {
     assert && assert( this.dragLayer.hasChild( this ), 'card should be in dragLayer' );
-    const self = this;
-    self.functionInstance.animateTo( self.container.carouselPosition,
-      function() {
-        self.dragLayer.removeChild( self );
-        self.container.addNode( self );
+    this.functionInstance.animateTo( this.container.carouselPosition,
+      () => {
+        this.dragLayer.removeChild( this );
+        this.container.addNode( this );
       } );
-  },
+  }
 
   /**
    * Moves this function immediately to the carousel, no animation.
@@ -267,7 +258,7 @@ export default inherit( MovableNode, FunctionNode, {
    *
    * @public
    */
-  moveToCarousel: function() {
+  moveToCarousel() {
 
     if ( this.dragLayer.hasChild( this ) ) {
 
@@ -286,17 +277,17 @@ export default inherit( MovableNode, FunctionNode, {
     if ( !this.container.containsNode( this ) ) {
       this.container.addNode( this );
     }
-  },
+  }
 
   /**
    * Starts animation showing that a function is not invertible.
    *
    * @public
    */
-  startNotInvertibleAnimation: function() {
+  startNotInvertibleAnimation() {
     assert && assert( !this.functionInstance.invertible );
     this.notInvertibleSymbolNode.startAnimation();
-  },
+  }
 
   /**
    * Stops animation showing that a function is not invertible.
@@ -304,7 +295,11 @@ export default inherit( MovableNode, FunctionNode, {
    *
    * @public
    */
-  stopNotInvertibleAnimation: function() {
+  stopNotInvertibleAnimation() {
     this.notInvertibleSymbolNode.stopAnimation();
   }
-} );
+}
+
+functionBuilder.register( 'FunctionNode', FunctionNode );
+
+export default FunctionNode;
