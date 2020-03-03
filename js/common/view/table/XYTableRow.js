@@ -67,11 +67,10 @@ class XYTableRow extends Node {
     this.outputValueNode = null;
 
     // Update the output value when functions change
-    const self = this;
-    const functionChangedListener = function() {
-      self.dirty = true;
-      if ( self.updateEnabled ) {
-        self.updateOutputValue();
+    const functionChangedListener = () => {
+      this.dirty = true;
+      if ( this.updateEnabled ) {
+        this.updateOutputValue();
       }
     };
     builder.functionChangedEmitter.addListener( functionChangedListener ); // removeListener required by dispose
@@ -91,7 +90,7 @@ class XYTableRow extends Node {
     this.mutate( options );
 
     // @private
-    this.disposeXYTableRow = function() {
+    this.disposeXYTableRow = () => {
       builder.functionChangedEmitter.removeListener( functionChangedListener );
       builder = null; // so things fail if we try to use this instance after dispose is called
     };

@@ -33,8 +33,8 @@ class XYTableDrawer extends Drawer {
       tableOptions: null, // {*} options for XYTableNode
 
       // improve performance by disabling updates while the drawer is closed
-      beforeOpen: function() { tableNode.updateEnabled = true; },
-      afterClose: function() { tableNode.updateEnabled = false; }
+      beforeOpen: () => { tableNode.updateEnabled = true; },
+      afterClose: () => { tableNode.updateEnabled = false; }
 
     }, FBConstants.DRAWER_OPTIONS, options );
 
