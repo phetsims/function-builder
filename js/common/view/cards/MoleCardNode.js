@@ -7,40 +7,38 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
-/**
- * @param {Card} card
- * @param {Vector2} builderPosition
- * @param {Object} [options]
- * @constructor
- */
-function MoleCardNode( card, builderPosition, options ) {
+class MoleCardNode extends Rectangle {
 
-  options = merge( {
-    size: FBConstants.CARD_OPTIONS.size,
-    cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
-    fill: 'white',
-    stroke: 'black',
-    lineWidth: 2,
-    opacity: 0.2
-  }, options );
+  /**
+   * @param {Card} card
+   * @param {Vector2} builderPosition
+   * @param {Object} [options]
+   */
+  constructor( card, builderPosition, options ) {
 
-  Rectangle.call( this, 0, 0, options.size.width, options.size.height, options );
+    options = merge( {
+      size: FBConstants.CARD_OPTIONS.size,
+      cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 2,
+      opacity: 0.2
+    }, options );
 
-  const self = this;
+    super( 0, 0, options.size.width, options.size.height, options );
 
-  // unlink unnecessary, instances exist for lifetime of the sim
-  card.positionProperty.link( function( position ) {
-    self.center = position.minus( builderPosition );
-  } );
+    // unlink unnecessary, instances exist for lifetime of the sim
+    card.positionProperty.link( position => {
+      this.center = position.minus( builderPosition );
+    } );
+  }
 }
 
 functionBuilder.register( 'MoleCardNode', MoleCardNode );
 
-inherit( Rectangle, MoleCardNode );
 export default MoleCardNode;
