@@ -12,6 +12,7 @@ import NumberPicker from '../../../../scenery-phet/js/NumberPicker.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class FBNumberPicker extends NumberPicker {
+
   /**
    * @param {Property.<number>} valueProperty
    * @param {Range} valueRange
