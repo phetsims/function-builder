@@ -13,7 +13,6 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
@@ -32,104 +31,99 @@ import SlopeInterceptEquationNode from './SlopeInterceptEquationNode.js';
 
 const simplifyString = functionBuilderStrings.simplify;
 
-/**
- * @param {Builder} builder
- * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
- * @param {Object} [options]
- * @constructor
- */
-function EquationPanel( builder, slopeInterceptProperty, options ) {
+class EquationPanel extends Node {
 
-  options = merge( {
-    size: FBConstants.EQUATION_DRAWER_SIZE,
-    cornerRadius: 0,
-    xSymbol: FBSymbols.X, // {string} symbol for x, the input
-    ySymbol: FBSymbols.Y, // {string} symbol for y, the output
-    xyFont: FBConstants.EQUATION_OPTIONS.xyFont, // {Font} for x & y symbols
-    xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-    updateEnabled: true // {boolean} does this node update when the model changes?
-  }, options );
+  /**
+   * @param {Builder} builder
+   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
+   * @param {Object} [options]
+   */
+  constructor( builder, slopeInterceptProperty, options ) {
 
-  // @private
-  this.builder = builder;
-  this.slopeInterceptProperty = slopeInterceptProperty;
-  this.xSymbol = options.xSymbol;
-  this.ySymbol = options.ySymbol;
-  this.xyFont = options.xyFont;
-  this.xyAsCards = options.xyAsCards;
-  this._updateEnabled = options.updateEnabled;
-  this.dirty = true; // {boolean} does this node need to be updated?
+    options = merge( {
+      size: FBConstants.EQUATION_DRAWER_SIZE,
+      cornerRadius: 0,
+      xSymbol: FBSymbols.X, // {string} symbol for x, the input
+      ySymbol: FBSymbols.Y, // {string} symbol for y, the output
+      xyFont: FBConstants.EQUATION_OPTIONS.xyFont, // {Font} for x & y symbols
+      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
+      updateEnabled: true // {boolean} does this node update when the model changes?
+    }, options );
 
-  const self = this;
+    // background
+    const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      cornerRadius: options.cornerRadius,
+      fill: 'white'
+    } );
 
-  // @private background
-  this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-    cornerRadius: options.cornerRadius,
-    fill: 'white'
-  } );
+    // 'simplify' checkbox, at bottom center
+    const simplifyLabel = new Text( simplifyString, {
+      font: new FBFont( 16 ),
+      maxWidth: 0.75 * backgroundNode.width
+    } );
+    const simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
+      centerX: backgroundNode.centerX,
+      bottom: backgroundNode.bottom - 10
+    } );
+    simplifyCheckbox.touchArea = simplifyCheckbox.localBounds.dilatedXY( 10, 10 );
 
-  // 'simplify' checkbox, at bottom center
-  const simplifyLabel = new Text( simplifyString, {
-    font: new FBFont( 16 ),
-    maxWidth: 0.75 * this.backgroundNode.width
-  } );
-  const simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
-    centerX: this.backgroundNode.centerX,
-    bottom: this.backgroundNode.bottom - 10
-  } );
-  simplifyCheckbox.touchArea = simplifyCheckbox.localBounds.dilatedXY( 10, 10 );
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, simplifyCheckbox ];
 
-  // @private initialized by updateEquations
-  this.slopeInterceptEquationNode = null;
-  this.helpfulEquationNode = null;
+    super( options );
 
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ this.backgroundNode, simplifyCheckbox ];
+    // @private
+    this.backgroundNode = backgroundNode;
+    this.builder = builder;
+    this.slopeInterceptProperty = slopeInterceptProperty;
+    this.xSymbol = options.xSymbol;
+    this.ySymbol = options.ySymbol;
+    this.xyFont = options.xyFont;
+    this.xyAsCards = options.xyAsCards;
+    this._updateEnabled = options.updateEnabled;
+    this.dirty = true; // {boolean} does this node need to be updated?
 
-  Node.call( this, options );
+    // @private initialized by updateEquations
+    this.slopeInterceptEquationNode = null;
+    this.helpfulEquationNode = null;
 
-  // @private constrain equation to available space in panel
-  this.equationMaxWidth = 0.85 * this.backgroundNode.width;
-  this.equationMaxHeight = 0.9 * ( simplifyCheckbox.top - this.backgroundNode.top );
+    // @private constrain equation to available space in panel
+    this.equationMaxWidth = 0.85 * this.backgroundNode.width;
+    this.equationMaxHeight = 0.9 * ( simplifyCheckbox.top - this.backgroundNode.top );
 
-  // @private center of space available for equations
-  this.equationCenter = new Vector2(
-    this.backgroundNode.centerX,
-    this.backgroundNode.top + ( simplifyCheckbox.top - this.backgroundNode.top ) / 2
-  );
+    // @private center of space available for equations
+    this.equationCenter = new Vector2(
+      this.backgroundNode.centerX,
+      this.backgroundNode.top + ( simplifyCheckbox.top - this.backgroundNode.top ) / 2
+    );
 
-  // Controls which equation is visible.
-  // unlink unnecessary, instances exist for lifetime of the sim
-  slopeInterceptProperty.lazyLink( function( slopeIntercept ) {
-    self.slopeInterceptEquationNode.visible = slopeIntercept;
-    self.helpfulEquationNode.visible = !slopeIntercept;
-  } );
+    // Controls which equation is visible.
+    // unlink unnecessary, instances exist for lifetime of the sim
+    slopeInterceptProperty.lazyLink( slopeIntercept => {
+      this.slopeInterceptEquationNode.visible = slopeIntercept;
+      this.helpfulEquationNode.visible = !slopeIntercept;
+    } );
 
-  // Updates equations when functions in the builder change.
-  // removeListener unnecessary, instances exist for lifetime of the sim
-  builder.functionChangedEmitter.addListener( function() {
-    self.dirty = true;
-    if ( self.updateEnabled ) {
-      self.updateEquations();
+    // Updates equations when functions in the builder change.
+    // removeListener unnecessary, instances exist for lifetime of the sim
+    builder.functionChangedEmitter.addListener( () => {
+      this.dirty = true;
+      if ( this.updateEnabled ) {
+        this.updateEquations();
+      }
+    } );
+
+    if ( this.updateEnabled ) {
+      this.updateEquations();
     }
-  } );
-
-  if ( this.updateEnabled ) {
-    this.updateEquations();
   }
-}
-
-functionBuilder.register( 'EquationPanel', EquationPanel );
-
-export default inherit( Node, EquationPanel, {
 
   /**
    * Updates both equations. Calling this is relatively expensive, since it completely rebuilds the equations
    * and changes the scene graph.
-   *
    * @private
    */
-  updateEquations: function() {
+  updateEquations() {
 
     assert && assert( this.updateEnabled && this.dirty );
 
@@ -180,33 +174,36 @@ export default inherit( Node, EquationPanel, {
     this.addChild( this.slopeInterceptEquationNode );
 
     this.dirty = false;
-  },
+  }
 
   /**
    * Determines whether updating of this node is enabled.
-   *
    * @param {boolean} updateEnabled
    * @public
-   *
    */
-  setUpdateEnabled: function( updateEnabled ) {
+  setUpdateEnabled( updateEnabled ) {
     FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
     const wasUpdateEnabled = this._updateEnabled;
     this._updateEnabled = updateEnabled;
     if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
       this.updateEquations();
     }
-  },
-  set updateEnabled( value ) { this.setUpdateEnabled( value ); },
+  }
+
+  set updateEnabled( value ) { this.setUpdateEnabled( value ); }
 
   /**
    * Is updating of this node enabled?
-   *
    * @returns {boolean}
    * @public
    */
-  getUpdateEnabled: function() {
+  getUpdateEnabled() {
     return this._updateEnabled;
-  },
+  }
+
   get updateEnabled() { return this.getUpdateEnabled(); }
-} );
+}
+
+functionBuilder.register( 'EquationPanel', EquationPanel );
+
+export default EquationPanel;
