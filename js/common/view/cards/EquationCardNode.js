@@ -7,7 +7,6 @@
  */
 
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -22,70 +21,63 @@ const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
   0.75 * FBConstants.CARD_OPTIONS.size.width,
   0.95 * FBConstants.CARD_OPTIONS.size.height );
 
-/**
- * @param {EquationCard} card
- * @param {CardContainer} inputContainer - container in the input carousel
- * @param {CardContainer} outputContainer - container in the output carousel
- * @param {BuilderNode} builderNode
- * @param {Node} dragLayer - parent for this node when it's being dragged or animating
- * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
- * @param {Object} [options]
- * @constructor
- */
-function EquationCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
-
-  assert && assert( card instanceof EquationCard );
-
-  options = merge( {
-    maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
-  }, options );
-
-  // @private
-  this.equationNode = null; // {Node} content that is displayed on the card, set by updateContent
-  this.maxEquationSize = options.maxContentSize;
-
-  CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
-}
-
-functionBuilder.register( 'EquationCardNode', EquationCardNode );
-
-export default inherit( CardNode, EquationCardNode, {
+class EquationCardNode extends CardNode {
 
   /**
-   * Updates the number (value) displayed on the card.
-   *
-   * @param {Builder} builder
-   * @param {number} numberOfFunctionsToApply
-   * @protected
-   * @override
+   * @param {EquationCard} card
+   * @param {CardContainer} inputContainer - container in the input carousel
+   * @param {CardContainer} outputContainer - container in the output carousel
+   * @param {BuilderNode} builderNode
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
+   * @param {Object} [options]
    */
-  updateContent: function( builder, numberOfFunctionsToApply ) {
+  constructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    // remove previous equation
-    if ( this.equationNode ) {
-      this.removeChild( this.equationNode );
+    assert && assert( card instanceof EquationCard );
+
+    options = merge( {
+      maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
+    }, options );
+
+    // {Node} content that is displayed on the card, set by updateContent
+    let equationNode = null;
+
+    /**
+     * Updates the number (value) displayed on the card.
+     * @param {EquationCardNode} cardNode
+     * @param {Builder} builder
+     * @param {number} numberOfFunctionsToApply
+     */
+    function updateContent( cardNode, builder, numberOfFunctionsToApply ) {
+
+      // remove previous equation
+      if ( equationNode ) {
+        cardNode.removeChild( equationNode );
+      }
+
+      /*
+       * Apply functions in the builder. Pass in an empty array, because the functions in the builder
+       * return MathFunction[], and the input is required to be of the same type as the output.
+       */
+      const mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
+
+      // set new equation
+      const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
+      equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
+        showLeftHandSide: false, // hide 'y =' part of equation
+        xSymbol: cardNode.card.xSymbol,
+        maxWidth: options.maxContentSize.width,
+        maxHeight: options.maxContentSize.height
+      } );
+      cardNode.addChild( equationNode );
+
+      // center on the card
+      equationNode.center = cardNode.backgroundNode.center;
     }
 
-    /*
-     * Apply functions in the builder. Pass in an empty array, because the functions in the builder
-     * return MathFunction[], and the input is required to be of the same type as the output.
-     */
-    const mathFunctions = builder.applyFunctions( [], numberOfFunctionsToApply );
-
-    // set new equation
-    const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions );
-    this.equationNode = new SlopeInterceptEquationNode( slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
-      showLeftHandSide: false, // hide 'y =' part of equation
-      xSymbol: this.card.xSymbol,
-      maxWidth: this.maxEquationSize.width,
-      maxHeight: this.maxEquationSize.height
-    } );
-    this.addChild( this.equationNode );
-
-    // center on the card
-    this.equationNode.center = this.backgroundNode.center;
+    super( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, updateContent, options );
   }
-}, {
 
   /**
    * Creates a 'ghost' card that appears in an empty carousel.
@@ -97,7 +89,7 @@ export default inherit( CardNode, EquationCardNode, {
    * @static
    * @override
    */
-  createGhostNode: function( symbol, options ) {
+  static createGhostNode( symbol, options ) {
 
     assert && assert( typeof symbol === 'string' );
 
@@ -112,4 +104,8 @@ export default inherit( CardNode, EquationCardNode, {
     } );
     return CardNode.createGhostNode( contentNode, options );
   }
-} );
+}
+
+functionBuilder.register( 'EquationCardNode', EquationCardNode );
+
+export default EquationCardNode;

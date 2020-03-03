@@ -31,10 +31,13 @@ import MovableNode from '../MovableNode.js';
  * @param {BuilderNode} builderNode
  * @param {Node} dragLayer - parent for this node when it's being dragged or animating
  * @param {Property.<boolean>} seeInsideProperty - are the 'See Inside' windows visible?
+ * @param {function( CardNode, Builder, number )} updateContent - updates the card's content, based on where the card
+ * is relative to the builder slots. Parameters are {CardNode} cardNode, {Builder} builder and {number}
+ * numberOfFunctionsToApply, how many functions to apply from the builder.
  * @param {Object} [options]
  * @constructor
  */
-function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
+function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, updateContent, options ) {
 
   options = merge( {}, FBConstants.CARD_OPTIONS, options );
 
@@ -247,14 +250,14 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
 
   // unlink unnecessary, instances exist for lifetime of the sim
   numberOfFunctionsToApplyProperty.link( numberOfFunctionsToApply => {
-    this.updateContent( builder, numberOfFunctionsToApply );
+    updateContent( this, builder, numberOfFunctionsToApply );
   } );
 
   // Updates any cards that are not in the input carousel when any function in the builder changes.
   // removeListener unnecessary, instances exist for the lifetime of the sim.
   builderNode.builder.functionChangedEmitter.addListener( () => {
     if ( !inputContainer.containsNode( this ) ) {
-      this.updateContent( builder, numberOfFunctionsToApplyProperty.get() );
+      updateContent( this, builder, numberOfFunctionsToApplyProperty.get() );
     }
   } );
 
@@ -271,18 +274,6 @@ function CardNode( card, inputContainer, outputContainer, builderNode, dragLayer
 functionBuilder.register( 'CardNode', CardNode );
 
 export default inherit( MovableNode, CardNode, {
-
-  /**
-   * Updates the card's content, based on where the card is relative the builder slots.
-   *
-   * @param {Builder} builder
-   * @param {number} numberOfFunctionsToApply - how many functions to apply from the builder
-   * @protected
-   * @abstract
-   */
-  updateContent: function( builder, numberOfFunctionsToApply ) {
-    throw new Error( 'must be implemented by subtype' );
-  },
 
   /**
    * Animates this card to a container in a carousel.

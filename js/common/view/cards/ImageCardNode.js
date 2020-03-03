@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -16,70 +15,61 @@ import CardNode from './CardNode.js';
 // constants
 const DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
 
-/**
- * @param {ImageCard} card
- * @param {CardContainer} inputContainer - container in the input carousel
- * @param {CardContainer} outputContainer - container in the output carousel
- * @param {BuilderNode} builderNode
- * @param {Node} dragLayer - parent for this node when it's being dragged or animating
- * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
- * @param {Object} [options]
- * @constructor
- */
-function ImageCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
-
-  assert && assert( card instanceof ImageCard );
-
-  options = merge( {
-    imageScale: DEFAULT_IMAGE_SCALE
-  }, options );
-
-  // @private {Node} content that is displayed on the card, set by updateContent
-  this.imageNode = null;
-
-  // @private scale images uniformly, because using maxWidth/maxHeight could cause an unintended transform
-  this.imageScale = options.imageScale;
-
-  CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
-}
-
-functionBuilder.register( 'ImageCardNode', ImageCardNode );
-
-export default inherit( CardNode, ImageCardNode, {
+class ImageCardNode extends CardNode {
 
   /**
-   * Updates the image displayed on the card.
-   *
-   * @param {Builder} builder
-   * @param {number} numberOfFunctionsToApply
-   * @protected
-   * @override
+   * @param {ImageCard} card
+   * @param {CardContainer} inputContainer - container in the input carousel
+   * @param {CardContainer} outputContainer - container in the output carousel
+   * @param {BuilderNode} builderNode
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
+   * @param {Object} [options]
    */
-  updateContent: function( builder, numberOfFunctionsToApply ) {
+  constructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    // {HTMLCanvasElement} run the input image through the builder
-    const canvas = builder.applyFunctions( this.card.canvas, numberOfFunctionsToApply );
+    assert && assert( card instanceof ImageCard );
 
-    if ( !this.imageNode ) {
+    options = merge( {
+      imageScale: DEFAULT_IMAGE_SCALE
+    }, options );
 
-      // create the node
-      this.imageNode = new Image( canvas.toDataURL(), {
-        initialWidth: canvas.width,
-        initialHeight: canvas.height,
-        scale: this.imageScale
-      } );
-      this.addChild( this.imageNode );
+    // {Node} content that is displayed on the card, set by updateContent
+    let imageNode = null;
+
+    /**
+     * Updates the image displayed on the card.
+     * @param {ImageCardNode} cardNode
+     * @param {Builder} builder
+     * @param {number} numberOfFunctionsToApply
+     */
+    function updateContent( cardNode, builder, numberOfFunctionsToApply ) {
+
+      // {HTMLCanvasElement} run the input image through the builder
+      const canvas = builder.applyFunctions( cardNode.card.canvas, numberOfFunctionsToApply );
+
+      if ( !imageNode ) {
+
+        // create the node
+        imageNode = new Image( canvas.toDataURL(), {
+          initialWidth: canvas.width,
+          initialHeight: canvas.height,
+          scale: options.imageScale
+        } );
+        cardNode.addChild( imageNode );
+      }
+      else {
+
+        // update the node
+        imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
+      }
+
+      // center on the card
+      imageNode.center = cardNode.backgroundNode.center;
     }
-    else {
 
-      // update the node
-      this.imageNode.setImageWithSize( canvas.toDataURL(), canvas.width, canvas.height );
-    }
-
-    // center on the card
-    this.imageNode.center = this.backgroundNode.center;
+    super( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, updateContent, options );
   }
-}, {
 
   /**
    * Creates a 'ghost' card that appears in an empty carousel.
@@ -91,7 +81,7 @@ export default inherit( CardNode, ImageCardNode, {
    * @static
    * @override
    */
-  createGhostNode: function( image, options ) {
+  static createGhostNode( image, options ) {
 
     options = merge( {
       imageScale: DEFAULT_IMAGE_SCALE
@@ -100,4 +90,8 @@ export default inherit( CardNode, ImageCardNode, {
     const contentNode = new Image( image, { scale: options.imageScale } );
     return CardNode.createGhostNode( contentNode, options );
   }
-} );
+}
+
+functionBuilder.register( 'ImageCardNode', ImageCardNode );
+
+export default ImageCardNode;

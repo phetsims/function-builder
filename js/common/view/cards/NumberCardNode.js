@@ -7,7 +7,6 @@
  */
 
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -21,74 +20,67 @@ import CardNode from './CardNode.js';
 // constants
 const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
   0.75 * FBConstants.CARD_OPTIONS.size.width,
-  0.95 * FBConstants.CARD_OPTIONS.size.height );
+  0.95 * FBConstants.CARD_OPTIONS.size.height
+);
 
-/**
- * @param {NumberCard} card
- * @param {CardContainer} inputContainer - container in the input carousel
- * @param {CardContainer} outputContainer - container in the output carousel
- * @param {BuilderNode} builderNode
- * @param {Node} dragLayer - parent for this node when it's being dragged or animating
- * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
- * @param {Object} [options]
- * @constructor
- */
-function NumberCardNode( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
-
-  assert && assert( card instanceof NumberCard );
-
-  options = merge( {
-    maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
-  }, options );
-
-  // @private
-  this.rationalNumberNode = null; // {Node} content that is displayed on the card, set by updateContent
-  this.maxContentSize = options.maxContentSize;
-
-  CardNode.call( this, card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options );
-}
-
-functionBuilder.register( 'NumberCardNode', NumberCardNode );
-
-export default inherit( CardNode, NumberCardNode, {
-
+class NumberCardNode extends CardNode {
   /**
-   * Updates the number (value) displayed on the card.
-   *
-   * @param {Builder} builder
-   * @param {number} numberOfFunctionsToApply
-   * @protected
-   * @override
+   * @param {NumberCard} card
+   * @param {CardContainer} inputContainer - container in the input carousel
+   * @param {CardContainer} outputContainer - container in the output carousel
+   * @param {BuilderNode} builderNode
+   * @param {Node} dragLayer - parent for this node when it's being dragged or animating
+   * @param {Property.<boolean>} seeInsideProperty - for the 'See Inside' feature
+   * @param {Object} [options]
    */
-  updateContent: function( builder, numberOfFunctionsToApply ) {
+  constructor( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, options ) {
 
-    // {RationalNumber} run the input value through the builder
-    const value = builder.applyFunctions( this.card.rationalNumber, numberOfFunctionsToApply );
+    assert && assert( card instanceof NumberCard );
 
-    if ( !this.rationalNumberNode ) {
+    options = merge( {
+      maxContentSize: DEFAULT_MAX_CONTENT_SIZE // {Dimension2} constrain content to fit on card
+    }, options );
 
-      // create the node
-      this.rationalNumberNode = new RationalNumberNode( value, {
-        mixedNumber: false, // display as improper fraction
-        negativeSymbol: FBSymbols.MINUS,
-        signFont: FBConstants.EQUATION_OPTIONS.signFont,
-        wholeNumberFont: FBConstants.EQUATION_OPTIONS.wholeNumberFont,
-        fractionFont: FBConstants.EQUATION_OPTIONS.fractionFont,
-        maxWidth: this.maxContentSize.width,
-        maxHeight: this.maxContentSize.height
-      } );
-      this.addChild( this.rationalNumberNode );
+    // {Node} content that is displayed on the card, set by updateContent
+    let rationalNumberNode = null;
+
+    /**
+     * Updates the number (value) displayed on the card.
+     * @param {NumberCardNode} cardNode
+     * @param {Builder} builder
+     * @param {number} numberOfFunctionsToApply
+     */
+    function updateContent( cardNode, builder, numberOfFunctionsToApply ) {
+
+      // {RationalNumber} run the input value through the builder
+      const value = builder.applyFunctions( cardNode.card.rationalNumber, numberOfFunctionsToApply );
+
+      if ( !rationalNumberNode ) {
+
+        // create the node
+        rationalNumberNode = new RationalNumberNode( value, {
+          mixedNumber: false, // display as improper fraction
+          negativeSymbol: FBSymbols.MINUS,
+          signFont: FBConstants.EQUATION_OPTIONS.signFont,
+          wholeNumberFont: FBConstants.EQUATION_OPTIONS.wholeNumberFont,
+          fractionFont: FBConstants.EQUATION_OPTIONS.fractionFont,
+          maxWidth: options.maxContentSize.width,
+          maxHeight: options.maxContentSize.height
+        } );
+        cardNode.addChild( rationalNumberNode );
+      }
+      else {
+
+        // update the node
+        rationalNumberNode.setValue( value );
+      }
+
+      // center on the card
+      rationalNumberNode.center = cardNode.backgroundNode.center;
     }
-    else {
 
-      // update the node
-      this.rationalNumberNode.setValue( value );
-    }
-
-    // center on the card
-    this.rationalNumberNode.center = this.backgroundNode.center;
+    super( card, inputContainer, outputContainer, builderNode, dragLayer, seeInsideProperty, updateContent, options );
   }
-}, {
 
   /**
    * Creates a 'ghost' card that appears in an empty carousel.
@@ -100,7 +92,7 @@ export default inherit( CardNode, NumberCardNode, {
    * @static
    * @override
    */
-  createGhostNode: function( rationalNumber, options ) {
+  static createGhostNode( rationalNumber, options ) {
 
     assert && assert( rationalNumber instanceof RationalNumber );
 
@@ -115,4 +107,8 @@ export default inherit( CardNode, NumberCardNode, {
     } );
     return CardNode.createGhostNode( contentNode, options );
   }
-} );
+}
+
+functionBuilder.register( 'NumberCardNode', NumberCardNode );
+
+export default NumberCardNode;
