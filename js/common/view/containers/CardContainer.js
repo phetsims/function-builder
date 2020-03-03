@@ -7,37 +7,33 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableContainer from './MovableContainer.js';
 
-/**
- * @param {constructor} cardConstructor
- * @param {constructor} cardNodeConstructor
- * @param {*} cardContent - content displayed on the card, type determined by subtype
- * @param {Object} [options]
- * @constructor
- */
-function CardContainer( cardConstructor, cardNodeConstructor, cardContent, options ) {
+class CardContainer extends MovableContainer {
 
-  options = merge( {
-    size: FBConstants.CARD_OPTIONS.size,
-    emptyNode: cardNodeConstructor.createGhostNode( cardContent ) // {Node} shown when the container is empty
-  }, options );
+  /**
+   * @param {constructor} cardConstructor
+   * @param {constructor} cardNodeConstructor
+   * @param {*} cardContent - content displayed on the card, type determined by subtype
+   * @param {Object} [options]
+   */
+  constructor( cardConstructor, cardNodeConstructor, cardContent, options ) {
 
-  // @private
-  this.cardConstructor = cardConstructor;
-  this.cardNodeConstructor = cardNodeConstructor;
-  this.cardContent = cardContent;
+    options = merge( {
+      size: FBConstants.CARD_OPTIONS.size,
+      emptyNode: cardNodeConstructor.createGhostNode( cardContent ) // {Node} shown when the container is empty
+    }, options );
 
-  MovableContainer.call( this, options );
-}
+    super( options );
 
-functionBuilder.register( 'CardContainer', CardContainer );
-
-export default inherit( MovableContainer, CardContainer, {
+    // @private
+    this.cardConstructor = cardConstructor;
+    this.cardNodeConstructor = cardNodeConstructor;
+    this.cardContent = cardContent;
+  }
 
   /**
    * Creates cards and puts them in the container.
@@ -52,8 +48,8 @@ export default inherit( MovableContainer, CardContainer, {
    * @param {Property.<boolean>} seeInsideProperty
    * @public
    */
-  createCards: function( numberOfInstances, scene, inputContainer, outputContainer, builderNode,
-                         dragLayer, seeInsideLayer, seeInsideProperty ) {
+  createCards( numberOfInstances, scene, inputContainer, outputContainer, builderNode,
+               dragLayer, seeInsideLayer, seeInsideProperty ) {
 
     assert && assert( this === inputContainer,
       'cards must be created in the input carousel' );
@@ -81,4 +77,8 @@ export default inherit( MovableContainer, CardContainer, {
       builderNode.addMole( card );
     }
   }
-} );
+}
+
+functionBuilder.register( 'CardContainer', CardContainer );
+
+export default CardContainer;

@@ -10,59 +10,59 @@
 import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function MovableContainer( options ) {
+class MovableContainer extends Node {
 
-  options = merge( {
-    size: new Dimension2( 100, 100 ), // {Dimension2} size of the container
-    emptyNode: null // {Node|null} node that's visible when the container is empty
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // @public position of container when it's visible in the carousel. Set after carousel is attached to scene.
-  this.carouselPosition = null;
+    options = merge( {
+      size: new Dimension2( 100, 100 ), // {Dimension2} size of the container
+      emptyNode: null // {Node|null} node that's visible when the container is empty
+    }, options );
 
-  // @private invisible background, so that an empty container has dimensions
-  this.backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-    stroke: FBQueryParameters.showContainers ? 'red' : null
-  } );
+    // invisible background, so that an empty container has dimensions
+    const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
+      stroke: FBQueryParameters.showContainers ? 'red' : null
+    } );
 
-  // @private parent for contents of the container
-  this.contentsParent = new Node();
+    // parent for contents of the container
+    const contentsParent = new Node();
 
-  // @public (read-only) number of items in the container
-  this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode ];
+    options.emptyNode && options.children.push( options.emptyNode );
+    options.children.push( contentsParent );
 
-  // @public emit is called when a Node is added
-  this.addEmitter = new Emitter( {
-    parameters: [ { valueType: Node } ]
-  } );
+    super( options );
 
-  // @public emit is called when a Node is removed
-  this.removeEmitter = new Emitter( {
-    parameters: [ { valueType: Node } ]
-  } );
+    // @private
+    this.backgroundNode = backgroundNode;
+    this.contentsParent = contentsParent;
 
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ this.backgroundNode ];
-  options.emptyNode && options.children.push( options.emptyNode );
-  options.children.push( this.contentsParent );
+    // @public position of container when it's visible in the carousel. Set after carousel is attached to scene.
+    this.carouselPosition = null;
 
-  Node.call( this, options );
-}
+    // @public (read-only) number of items in the container
+    this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-functionBuilder.register( 'MovableContainer', MovableContainer );
+    // @public emit is called when a Node is added
+    this.addEmitter = new Emitter( {
+      parameters: [ { valueType: Node } ]
+    } );
 
-export default inherit( Node, MovableContainer, {
+    // @public emit is called when a Node is removed
+    this.removeEmitter = new Emitter( {
+      parameters: [ { valueType: Node } ]
+    } );
+  }
 
   /**
    * Is the specified Node in the container?
@@ -71,9 +71,9 @@ export default inherit( Node, MovableContainer, {
    * @returns {boolean}
    * @public
    */
-  containsNode: function( node ) {
+  containsNode( node ) {
     return ( this.contentsParent.hasChild( node ) );
-  },
+  }
 
   /**
    * Adds a Node to the container.
@@ -81,7 +81,7 @@ export default inherit( Node, MovableContainer, {
    * @param {MovableNode} node
    * @public
    */
-  addNode: function( node ) {
+  addNode( node ) {
 
     // add the node
     this.contentsParent.addChild( node );
@@ -93,7 +93,7 @@ export default inherit( Node, MovableContainer, {
 
     // notify observers
     this.addEmitter.emit( node );
-  },
+  }
 
   /**
    * Removes a Node from the container.
@@ -101,7 +101,7 @@ export default inherit( Node, MovableContainer, {
    * @param {MovableNode} node
    * @public
    */
-  removeNode: function( node ) {
+  removeNode( node ) {
 
     // remove the node
     this.contentsParent.removeChild( node );
@@ -111,7 +111,7 @@ export default inherit( Node, MovableContainer, {
 
     // notify observers
     this.removeEmitter.emit( node );
-  },
+  }
 
   /**
    * Gets the contents of the container.
@@ -119,16 +119,20 @@ export default inherit( Node, MovableContainer, {
    * @returns {MovableNode[]} a copy of the set of Nodes in the container
    * @public
    */
-  getContents: function() {
+  getContents() {
     return this.contentsParent.getChildren();
-  },
+  }
 
   /**
    * Is the container empty?
    *
    * @returns {boolean}
    */
-  isEmpty: function() {
+  isEmpty() {
     return ( this.numberOfItemsProperty.get() === 0 );
   }
-} );
+}
+
+functionBuilder.register( 'MovableContainer', MovableContainer );
+
+export default MovableContainer;

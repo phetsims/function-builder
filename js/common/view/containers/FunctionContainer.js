@@ -7,42 +7,39 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableContainer from './MovableContainer.js';
 
-/**
- * @param {FunctionCreator} functionCreator - creates function instances
- * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
- * @param {Object} [options]
- * @constructor
- */
-function FunctionContainer( functionCreator, functionNodeConstructor, options ) {
+class FunctionContainer extends MovableContainer {
 
-  options = merge( {
-    size: FBConstants.FUNCTION_SIZE
-  }, options );
+  /**
+   * @param {FunctionCreator} functionCreator - creates function instances
+   * @param {constructor} functionNodeConstructor - constructor for subtype of FunctionNode
+   * @param {Object} [options]
+   */
+  constructor( functionCreator, functionNodeConstructor, options ) {
 
-  // @private
-  this.functionCreator = functionCreator;
-  this.functionNodeConstructor = functionNodeConstructor;
+    options = merge( {
+      size: FBConstants.FUNCTION_SIZE
+    }, options );
 
-  MovableContainer.call( this, options );
-}
+    super( options );
 
-functionBuilder.register( 'FunctionContainer', FunctionContainer );
-
-export default inherit( MovableContainer, FunctionContainer, {
+    // @private
+    this.functionCreator = functionCreator;
+    this.functionNodeConstructor = functionNodeConstructor;
+  }
 
   /**
    * Gets the constructor associated with this container.
    * @returns {constructor} constructor for a subtype of AbstractFunction
+   * @public
    */
-  getFunctionConstructor: function() {
+  getFunctionConstructor() {
     return this.functionCreator.functionConstructor;
-  },
+  }
 
   /**
    * Creates functions and puts them in the container.
@@ -53,7 +50,7 @@ export default inherit( MovableContainer, FunctionContainer, {
    * @param {Node} dragLayer
    * @public
    */
-  createFunctions: function( numberOfInstances, scene, builderNode, dragLayer ) {
+  createFunctions( numberOfInstances, scene, builderNode, dragLayer ) {
 
     assert && assert( this.carouselPosition );
     assert && assert( this.isEmpty(), 'did you accidentally call this function twice?' );
@@ -71,4 +68,8 @@ export default inherit( MovableContainer, FunctionContainer, {
       this.addNode( functionNode );
     }
   }
-} );
+}
+
+functionBuilder.register( 'FunctionContainer', FunctionContainer );
+
+export default FunctionContainer;
