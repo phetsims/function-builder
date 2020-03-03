@@ -8,7 +8,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import functionBuilder from '../../functionBuilder.js';
@@ -18,54 +17,54 @@ import FBConstants from '../FBConstants.js';
 const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
 const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
 
-/**
- * @param {Builder} builder
- * @param {Object} [options]
- * @constructor
- */
-function SeeInsideLayer( builder, options ) {
+class SeeInsideLayer extends Node {
 
-  options = options || {};
+  /**
+   * @param {Builder} builder
+   * @param {Object} [options]
+   */
+  constructor( builder, options ) {
 
-  // add a window at the right end of each slot
-  const windowsShape = new Shape();
-  for ( let i = 0; i < builder.numberOfSlots; i++ ) {
+    options = options || {};
 
-    const windowPosition = builder.getWindowPosition( i );
-    const windowLeft = windowPosition.x - ( WINDOW_SIZE.width / 2 );
-    const windowY = windowPosition.y - ( WINDOW_SIZE.height / 2 );
-    if ( i !== 0 ) {
-      // move to center of rounded rect, so we don't see a line at rounded corner
-      windowsShape.moveTo( windowPosition.x, windowY );
+    // add a window at the right end of each slot
+    const windowsShape = new Shape();
+    for ( let i = 0; i < builder.numberOfSlots; i++ ) {
+
+      const windowPosition = builder.getWindowPosition( i );
+      const windowLeft = windowPosition.x - ( WINDOW_SIZE.width / 2 );
+      const windowY = windowPosition.y - ( WINDOW_SIZE.height / 2 );
+      if ( i !== 0 ) {
+        // move to center of rounded rect, so we don't see a line at rounded corner
+        windowsShape.moveTo( windowPosition.x, windowY );
+      }
+      windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
     }
-    windowsShape.roundRect( windowLeft, windowY, WINDOW_SIZE.width, WINDOW_SIZE.height, CORNER_RADIUS, CORNER_RADIUS );
+
+    // parent for all cards, clip to the windows
+    const cardsParent = new Node( {
+      clipArea: windowsShape
+    } );
+
+    // background, black because it's dark inside the builder :)
+    const backgroundNode = new Path( windowsShape, {
+      fill: 'black'
+    } );
+
+    // foreground, stroked with builder color, so it looks like we cut out a window
+    const foregroundNode = new Path( windowsShape, {
+      stroke: builder.colorScheme.middle,
+      lineWidth: 2
+    } );
+
+    assert && assert( !options.children, 'decoration not supported' );
+    options.children = [ backgroundNode, cardsParent, foregroundNode ];
+
+    super( options );
+
+    // @private
+    this.cardsParent = cardsParent;
   }
-
-  // @private parent for all cards, clip to the windows
-  this.cardsParent = new Node( {
-    clipArea: windowsShape
-  } );
-
-  // background, black because it's dark inside the builder :)
-  const backgroundNode = new Path( windowsShape, {
-    fill: 'black'
-  } );
-
-  // foreground, stroked with builder color, so it looks like we cut out a window
-  const foregroundNode = new Path( windowsShape, {
-    stroke: builder.colorScheme.middle,
-    lineWidth: 2
-  } );
-
-  assert && assert( !options.children, 'decoration not supported' );
-  options.children = [ backgroundNode, this.cardsParent, foregroundNode ];
-
-  Node.call( this, options );
-}
-
-functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
-
-export default inherit( Node, SeeInsideLayer, {
 
   /**
    * Adds a card to this layer.
@@ -74,7 +73,11 @@ export default inherit( Node, SeeInsideLayer, {
    * @param {CardNode} cardNode
    * @public
    */
-  addCardNode: function( cardNode ) {
+  addCardNode( cardNode ) {
     this.cardsParent.addChild( cardNode );
   }
-} );
+}
+
+functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
+
+export default SeeInsideLayer;

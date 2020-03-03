@@ -8,19 +8,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function EyeCloseNode( options ) {
-  FontAwesomeNode.call( this, 'eye_close', options );
+class EyeCloseNode extends FontAwesomeNode {
+
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
+    super( 'eye_close', options );
+  }
 }
 
 functionBuilder.register( 'EyeCloseNode', EyeCloseNode );
 
-inherit( FontAwesomeNode, EyeCloseNode );
 export default EyeCloseNode;

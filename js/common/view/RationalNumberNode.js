@@ -11,7 +11,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -20,51 +19,49 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
 
-/**
- * @param {RationalNumber} rationalNumber
- * @param {Object} [options]
- * @constructor
- */
-function RationalNumberNode( rationalNumber, options ) {
+class RationalNumberNode extends Node {
 
-  assert && assert( rationalNumber instanceof RationalNumber );
+  /**
+   * @param {RationalNumber} rationalNumber
+   * @param {Object} [options]
+   */
+  constructor( rationalNumber, options ) {
 
-  options = merge( {
+    assert && assert( rationalNumber instanceof RationalNumber );
 
-    mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
-    color: 'black', // {Color|string} color used for all sub-parts of this node
-    fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
+    options = merge( {
 
-    // sign
-    negativeSymbol: '\u2212', // {string} symbol used for negative sign
-    positiveSymbol: '\u002b', // {string} symbol used for positive sign
-    showPositiveSign: false, // {boolean} show sign on positive numbers?
+      mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
+      color: 'black', // {Color|string} color used for all sub-parts of this node
+      fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
 
-    // fonts
-    signFont: new PhetFont( 22 ),
-    wholeNumberFont: new PhetFont( 30 ),
-    fractionFont: new PhetFont( 20 ),
+      // sign
+      negativeSymbol: '\u2212', // {string} symbol used for negative sign
+      positiveSymbol: '\u002b', // {string} symbol used for positive sign
+      showPositiveSign: false, // {boolean} show sign on positive numbers?
 
-    // spacing
-    signXSpacing: 3, // {number} space to right of sign
-    fractionXSpacing: 3, // {number} space between whole number and fraction
-    fractionYSpacing: 2 // {number} space above and below fraction line
+      // fonts
+      signFont: new PhetFont( 22 ),
+      wholeNumberFont: new PhetFont( 30 ),
+      fractionFont: new PhetFont( 20 ),
 
-  }, options );
+      // spacing
+      signXSpacing: 3, // {number} space to right of sign
+      fractionXSpacing: 3, // {number} space between whole number and fraction
+      fractionYSpacing: 2 // {number} space above and below fraction line
 
-  assert && assert( !options.children, 'decoration is not supported' );
+    }, options );
 
-  // @private options used by setValue
-  this.options = options;
+    assert && assert( !options.children, 'decoration is not supported' );
 
-  Node.call( this );
-  this.setValue( rationalNumber );
-  this.mutate( options );
-}
+    super();
 
-functionBuilder.register( 'RationalNumberNode', RationalNumberNode );
+    // @private options used by setValue
+    this.options = options;
 
-export default inherit( Node, RationalNumberNode, {
+    this.setValue( rationalNumber );
+    this.mutate( options );
+  }
 
   /**
    * Sets the value displayed by this node.
@@ -73,7 +70,7 @@ export default inherit( Node, RationalNumberNode, {
    * @param {RationalNumber} rationalNumber
    * @public
    */
-  setValue: function( rationalNumber ) {
+  setValue( rationalNumber ) {
 
     assert && assert( rationalNumber instanceof RationalNumber );
 
@@ -148,4 +145,8 @@ export default inherit( Node, RationalNumberNode, {
       denominatorNode.top = lineNode.bottom + this.options.fractionYSpacing;
     }
   }
-} );
+}
+
+functionBuilder.register( 'RationalNumberNode', RationalNumberNode );
+
+export default RationalNumberNode;
