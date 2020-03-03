@@ -24,6 +24,7 @@ const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
 );
 
 class NumberCardNode extends CardNode {
+
   /**
    * @param {NumberCard} card
    * @param {CardContainer} inputContainer - container in the input carousel
