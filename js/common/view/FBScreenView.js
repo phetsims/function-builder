@@ -119,9 +119,9 @@ class FBScreenView extends ScreenView {
           to: 0
         } );
 
-        oldFadeOut.finishEmitter.addListener( function finishListener() {
+        oldFadeOut.endedEmitter.addListener( function endedListener() {
 
-          oldFadeOut.finishEmitter.removeListener( finishListener );
+          oldFadeOut.endedEmitter.removeListener( endedListener );
 
           // fade in the new scene
           newFadeIn = new Animation( {
