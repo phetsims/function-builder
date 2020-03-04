@@ -24,7 +24,7 @@ class Minus extends MathFunction {
     }, options );
 
     super( FBSymbols.MINUS,
-      function( input, operand ) { return input.minus( operand ); },
+      ( input, operand ) => input.minus( operand ),
       options );
   }
 }

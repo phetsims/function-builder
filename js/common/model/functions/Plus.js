@@ -24,7 +24,7 @@ class Plus extends MathFunction {
     }, options );
 
     super( FBSymbols.PLUS,
-      function( input, operand ) { return input.plus( operand ); },
+      ( input, operand ) => input.plus( operand ),
       options );
   }
 }

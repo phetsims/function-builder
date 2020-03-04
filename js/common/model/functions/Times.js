@@ -24,7 +24,7 @@ class Times extends MathFunction {
     }, options );
 
     super( FBSymbols.TIMES,
-      function( input, operand ) { return input.times( operand ); },
+      ( input, operand ) => input.times( operand ),
       options );
   }
 

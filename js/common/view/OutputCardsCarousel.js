@@ -33,9 +33,7 @@ class OutputCardsCarousel extends Carousel {
     containers.forEach( container => {
 
       // unlink unnecessary, instances exist for lifetime of the sim
-      container.numberOfItemsProperty.link( function( numberOfItems ) {
-        containerListener();
-      } );
+      container.numberOfItemsProperty.link( numberOfItems => containerListener() );
     } );
   }
 
@@ -51,8 +49,8 @@ class OutputCardsCarousel extends Carousel {
    * @public
    */
   erase() {
-    this.items.forEach( function( container ) {
-      container.getContents().forEach( function( cardNode ) {
+    this.items.forEach( container => {
+      container.getContents().forEach( cardNode => {
         container.removeNode( cardNode );
         cardNode.moveToInputCarousel();
       } );
@@ -69,7 +67,7 @@ class OutputCardsCarousel extends Carousel {
  */
 function getNumberOfCards( containers ) {
   let numberOfCards = 0;
-  containers.forEach( function( container ) {
+  containers.forEach( container => {
     numberOfCards += container.numberOfItemsProperty.get();
   } );
   return numberOfCards;

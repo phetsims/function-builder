@@ -296,9 +296,7 @@ class SceneNode extends Node {
    * @protected
    */
   resetFunctions() {
-    this.functionNodes.forEach( function( functionNode ) {
-      functionNode.moveToCarousel();
-    } );
+    this.functionNodes.forEach( functionNode => functionNode.moveToCarousel() );
   }
 
   /**
@@ -307,9 +305,7 @@ class SceneNode extends Node {
    * @protected
    */
   resetCards() {
-    this.cardNodes.forEach( function( cardNode ) {
-      cardNode.moveToInputCarousel();
-    } );
+    this.cardNodes.forEach( cardNode => cardNode.moveToInputCarousel() );
   }
 
   /**

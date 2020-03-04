@@ -25,7 +25,7 @@ class Divide extends MathFunction {
     options.zeroOperandValid = false; // zero is not a valid operand, since division by zero is undefined
 
     super( FBSymbols.DIVIDE,
-      function( input, operand ) { return input.divide( operand ); },
+      ( input, operand ) => input.divide( operand ),
       options );
   }
 }

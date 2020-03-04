@@ -52,14 +52,14 @@ class FBScreenView extends ScreenView {
         this.interruptSubtreeInput();
 
         // reset view before model, or we'll see animation that's not desired
-        sceneNodes.forEach( function( sceneNode ) {
+        sceneNodes.forEach( sceneNode => {
           sceneNode && sceneNode.reset();
         } );
         model.reset();
 
         // move 1 of each card to the output carousel, for testing
         if ( FBQueryParameters.populateOutput ) {
-          sceneNodes.forEach( function( sceneNode ) {
+          sceneNodes.forEach( sceneNode => {
             sceneNode && sceneNode.populateOutputCarousel();
           } );
         }

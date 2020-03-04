@@ -49,7 +49,7 @@ class MathFunction extends AbstractFunction {
     // @public
     this.operandProperty = new NumberProperty( options.operand ); // {Property.<number>}
     // unlink unnecessary, instance owns this Property
-    this.operandProperty.lazyLink( function( operand ) {
+    this.operandProperty.lazyLink( operand => {
 
       // validate operand
       assert && assert( Utils.isInteger( operand ) );
