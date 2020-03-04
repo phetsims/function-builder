@@ -99,7 +99,7 @@ class XYTableRow extends Node {
   // @public
   dispose() {
     this.disposeXYTableRow();
-    Node.prototype.dispose.call( this );
+    super.dispose();
   }
 
   /**

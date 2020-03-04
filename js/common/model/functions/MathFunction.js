@@ -60,9 +60,12 @@ class MathFunction extends AbstractFunction {
     this.viewOptions.pickerColor = options.pickerColor;
   }
 
-  // @public
+  /**
+   * @public
+   * @override
+   */
   reset() {
-    AbstractFunction.prototype.reset.call( this );
+    super.reset();
     this.operandProperty.reset();
   }
 

@@ -127,7 +127,7 @@ class MysteryScene extends Scene {
    * @override
    */
   reset() {
-    Scene.prototype.reset.call( this );
+    super.reset();
 
     // force notification when initial challenge is displayed
     if ( this.challengeProperty.get() === this.challengeProperty.initialValue ) {
