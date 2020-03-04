@@ -32,7 +32,7 @@ class EquationDrawer extends Drawer {
 
     }, FBConstants.DRAWER_OPTIONS, options );
 
-    var equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
+    const equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       updateEnabled: options.open,
       cornerRadius: options.cornerRadius

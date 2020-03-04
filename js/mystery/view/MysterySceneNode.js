@@ -50,7 +50,7 @@ class MysterySceneNode extends MathSceneNode {
     // Toggle buttons below each builder slot, for revealing identity of functions
     this.revealProperties = [];  // {Property.<boolean>[]}
     this.revealButtons = []; // {EyeToggleButton[]}
-    for ( var i = 0; i < scene.builder.numberOfSlots; i++ ) {
+    for ( let i = 0; i < scene.builder.numberOfSlots; i++ ) {
 
       /**
        * Create a closure for slotNumber using an IIFE

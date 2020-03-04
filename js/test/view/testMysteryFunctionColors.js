@@ -34,7 +34,7 @@ function testMysteryFunctionColors( layoutBounds ) {
 
   for ( let i = 0; i < FBColors.MYSTERY_COLOR_SETS.length; i++ ) {
 
-    var hBoxChildren = [];
+    const hBoxChildren = [];
 
     // label to left of row
     hBoxChildren.push( new Text( colorSetNames[ i ], {

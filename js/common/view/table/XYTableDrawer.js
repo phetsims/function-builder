@@ -38,7 +38,7 @@ class XYTableDrawer extends Drawer {
 
     }, FBConstants.DRAWER_OPTIONS, options );
 
-    var tableNode = new XYTableNode( builder, merge( {
+    const tableNode = new XYTableNode( builder, merge( {
       updateEnabled: options.open,
       cornerRadius: options.cornerRadius
     }, options.tableOptions ) );

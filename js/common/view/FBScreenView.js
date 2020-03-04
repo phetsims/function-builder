@@ -72,7 +72,7 @@ class FBScreenView extends ScreenView {
     this.addChild( scenesParent );
 
     // Scene Nodes
-    var sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
+    const sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
     model.scenes.forEach( scene => {
       const sceneNode = new sceneNodeConstructor( scene, this.layoutBounds, { visible: false } );
       sceneNodes.push( sceneNode );
