@@ -11,7 +11,7 @@ import SimLauncher from '../../joist/js/SimLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import FBQueryParameters from './common/FBQueryParameters.js';
 import EquationsScreen from './equations/EquationsScreen.js';
-import functionBuilderStrings from './function-builder-strings.js';
+import functionBuilderStrings from './functionBuilderStrings.js';
 import MysteryScreen from './mystery/MysteryScreen.js';
 import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';

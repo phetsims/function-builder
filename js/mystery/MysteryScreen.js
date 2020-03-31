@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilderStrings from '../function-builder-strings.js';
+import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
 import MysteryModel from './model/MysteryModel.js';
 import MysteryScreenView from './view/MysteryScreenView.js';

@@ -7,7 +7,7 @@
  */
 
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
-import functionBuilderStrings from '../function-builder-strings.js';
+import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
 
 const xString = functionBuilderStrings.x;

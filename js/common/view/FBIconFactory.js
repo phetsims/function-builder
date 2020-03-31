@@ -15,7 +15,7 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import butterflyHiRes from '../../../images/cards/butterfly-hires_png.js';
 import stickFigureImage from '../../../images/cards/stickFigure_png.js';
-import functionBuilderStrings from '../../function-builder-strings.js';
+import functionBuilderStrings from '../../functionBuilderStrings.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';

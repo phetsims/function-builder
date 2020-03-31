@@ -10,7 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import FBFont from '../../common/FBFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
-import functionBuilderStrings from '../../function-builder-strings.js';
+import functionBuilderStrings from '../../functionBuilderStrings.js';
 import functionBuilder from '../../functionBuilder.js';
 
 // strings
