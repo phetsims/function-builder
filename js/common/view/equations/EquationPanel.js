@@ -18,8 +18,8 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
-import functionBuilderStrings from '../../../functionBuilderStrings.js';
 import functionBuilder from '../../../functionBuilder.js';
+import functionBuilderStrings from '../../../functionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import FBFont from '../../FBFont.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
@@ -28,8 +28,6 @@ import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
 import SlopeInterceptEquation from '../../model/equations/SlopeInterceptEquation.js';
 import HelpfulEquationNode from './HelpfulEquationNode.js';
 import SlopeInterceptEquationNode from './SlopeInterceptEquationNode.js';
-
-const simplifyString = functionBuilderStrings.simplify;
 
 class EquationPanel extends Node {
 
@@ -57,7 +55,7 @@ class EquationPanel extends Node {
     } );
 
     // 'simplify' checkbox, at bottom center
-    const simplifyLabel = new Text( simplifyString, {
+    const simplifyLabel = new Text( functionBuilderStrings.simplify, {
       font: new FBFont( 16 ),
       maxWidth: 0.75 * backgroundNode.width
     } );

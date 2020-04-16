@@ -10,12 +10,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import FBFont from '../../common/FBFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
-import functionBuilderStrings from '../../functionBuilderStrings.js';
 import functionBuilder from '../../functionBuilder.js';
-
-// strings
-const inputString = functionBuilderStrings.input;
-const outputString = functionBuilderStrings.output;
+import functionBuilderStrings from '../../functionBuilderStrings.js';
 
 class NumbersSceneNode extends MathSceneNode {
 
@@ -35,15 +31,15 @@ class NumbersSceneNode extends MathSceneNode {
 
       // options for XYTableNode
       tableOptions: {
-        xSymbol: inputString, // use 'Input' in place of x
-        ySymbol: outputString, // use 'Output' in place of y
+        xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
+        ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
         headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
       },
 
       // options for EquationPanel
       equationOptions: {
-        xSymbol: inputString, // use 'Input' in place of x
-        ySymbol: outputString, // use 'Output' in place of y
+        xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
+        ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
         xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
         xyAsCards: true // card outlines around 'Input' and 'Output'
       }

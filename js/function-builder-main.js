@@ -17,8 +17,6 @@ import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
 import TestScreen from './test/TestScreen.js';
 
-const functionBuilderTitleString = functionBuilderStrings[ 'function-builder' ].title;
-
 // constants
 const tandem = Tandem.ROOT;
 
@@ -44,6 +42,6 @@ SimLauncher.launch( () => {
     screens.push( new TestScreen() );
   }
 
-  const sim = new Sim( functionBuilderTitleString, screens, options );
+  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].title, screens, options );
   sim.start();
 } );

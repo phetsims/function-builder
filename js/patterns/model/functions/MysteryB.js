@@ -7,13 +7,10 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilderStrings from '../../../functionBuilderStrings.js';
 import functionBuilder from '../../../functionBuilder.js';
+import functionBuilderStrings from '../../../functionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction from './MysteryImageFunction.js';
-
-// strings
-const mysteryBString = functionBuilderStrings.mysteryB;
 
 class MysteryB extends MysteryImageFunction {
 
@@ -21,7 +18,7 @@ class MysteryB extends MysteryImageFunction {
    * @param {Object} [options]
    */
   constructor( options ) {
-    super( mysteryBString, merge( {
+    super( functionBuilderStrings.mysteryB, merge( {
       name: 'MysteryB',
       fill: 'rgb( 249, 144, 99 )'
     }, options ) );

@@ -15,8 +15,8 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import butterflyHiRes from '../../../images/cards/butterfly-hires_png.js';
 import stickFigureImage from '../../../images/cards/stickFigure_png.js';
-import functionBuilderStrings from '../../functionBuilderStrings.js';
 import functionBuilder from '../../functionBuilder.js';
+import functionBuilderStrings from '../../functionBuilderStrings.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
 import FBColors from '../FBColors.js';
@@ -27,8 +27,6 @@ import RationalNumber from '../model/RationalNumber.js';
 import SlopeInterceptEquationNode from './equations/SlopeInterceptEquationNode.js';
 import EyeCloseNode from './EyeCloseNode.js';
 import FunctionBackgroundNode from './functions/FunctionBackgroundNode.js';
-
-const mysteryCharacterString = functionBuilderStrings.mysteryCharacter;
 
 // constants
 const RADIO_BUTTON_ICON_SCALE = 0.35;
@@ -150,7 +148,7 @@ const FBIconFactory = {
       fill: options.functionFill
     } );
 
-    const textNode = new Text( mysteryCharacterString, {
+    const textNode = new Text( functionBuilderStrings.mysteryCharacter, {
       font: new FBFont( { size: 80, weight: 'bold' } ),
       fill: options.questionMarkFill,
       maxWidth: 0.5 * functionNode.width,

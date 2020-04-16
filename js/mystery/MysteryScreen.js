@@ -11,13 +11,10 @@ import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
+import functionBuilderStrings from '../functionBuilderStrings.js';
 import MysteryModel from './model/MysteryModel.js';
 import MysteryScreenView from './view/MysteryScreenView.js';
-
-// strings
-const screenMysteryString = functionBuilderStrings.screen.mystery;
 
 class MysteryScreen extends Screen {
 
@@ -28,7 +25,7 @@ class MysteryScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: screenMysteryString,
+      name: functionBuilderStrings.screen.mystery,
       backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon()
     }, options );

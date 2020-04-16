@@ -11,13 +11,10 @@ import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
+import functionBuilderStrings from '../functionBuilderStrings.js';
 import PatternsModel from './model/PatternsModel.js';
 import PatternsScreenView from './view/PatternsScreenView.js';
-
-// strings
-const screenPatternsString = functionBuilderStrings.screen.patterns;
 
 class PatternsScreen extends Screen {
 
@@ -28,7 +25,7 @@ class PatternsScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: screenPatternsString,
+      name: functionBuilderStrings.screen.patterns,
       backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
     }, options );

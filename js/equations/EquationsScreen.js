@@ -10,13 +10,10 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
+import functionBuilderStrings from '../functionBuilderStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
-
-// strings
-const screenEquationsString = functionBuilderStrings.screen.equations;
 
 class EquationsScreen extends Screen {
 
@@ -26,7 +23,7 @@ class EquationsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: screenEquationsString,
+      name: functionBuilderStrings.screen.equations,
       backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem

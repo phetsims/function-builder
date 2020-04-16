@@ -7,15 +7,12 @@
  */
 
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
 import functionBuilder from '../functionBuilder.js';
-
-const xString = functionBuilderStrings.x;
-const yString = functionBuilderStrings.y;
+import functionBuilderStrings from '../functionBuilderStrings.js';
 
 const FBSymbols = {
-  X: xString,
-  Y: yString,
+  X: functionBuilderStrings.x,
+  Y: functionBuilderStrings.y,
   DIVIDE: MathSymbols.DIVIDE,
   MINUS: MathSymbols.MINUS,
   PLUS: MathSymbols.PLUS,
