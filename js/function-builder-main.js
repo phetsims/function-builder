@@ -17,9 +17,6 @@ import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
 import TestScreen from './test/TestScreen.js';
 
-// constants
-const tandem = Tandem.ROOT;
-
 const options = {
   credits: {
     leadDesign: 'Amanda McGarry',
@@ -32,10 +29,10 @@ const options = {
 SimLauncher.launch( () => {
 
   const screens = [
-    new PatternsScreen( tandem.createTandem( 'patternsScreen' ) ),
-    new NumbersScreen( tandem.createTandem( 'numbersScreen' ) ),
-    new EquationsScreen( tandem.createTandem( 'equationsScreen' ) ),
-    new MysteryScreen( tandem.createTandem( 'mysteryScreen' ) )
+    new PatternsScreen( Tandem.ROOT.createTandem( 'patternsScreen' ) ),
+    new NumbersScreen( Tandem.ROOT.createTandem( 'numbersScreen' ) ),
+    new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) ),
+    new MysteryScreen( Tandem.ROOT.createTandem( 'mysteryScreen' ) )
   ];
 
   if ( FBQueryParameters.testScreen ) {
