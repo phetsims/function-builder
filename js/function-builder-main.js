@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import FBQueryParameters from './common/FBQueryParameters.js';
 import EquationsScreen from './equations/EquationsScreen.js';
@@ -26,7 +26,7 @@ const options = {
   }
 };
 
-SimLauncher.launch( () => {
+simLauncher.launch( () => {
 
   const screens = [
     new PatternsScreen( Tandem.ROOT.createTandem( 'patternsScreen' ) ),
