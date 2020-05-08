@@ -30,8 +30,8 @@ class ImageCard extends Card {
   /**
    * Gets the card's image as a canvas, so that it can be transformed by image functions.
    * The canvas is created on demand.
-   *
    * @returns {HTMLCanvasElement}
+   * @public
    */
   getCanvas() {
     if ( !this._canvas ) {

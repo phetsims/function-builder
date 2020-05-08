@@ -25,9 +25,9 @@ class FunctionCreator {
 
   /**
    * Creates a function instance.
-   *
    * @param {Object} [options] - options passed to function constructor
    * @returns {AbstractFunction}
+   * @public
    */
   createInstance( options ) {
     return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );

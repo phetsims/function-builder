@@ -104,6 +104,7 @@ class Builder {
    * @param {*} input - input, type is specific to the functions
    * @param {number} numberOfFunctionsToApply - how many functions to apply (empty slots are effectively identity functions)
    * @returns {*} output, with same type as input
+   * @public
    */
   applyFunctions( input, numberOfFunctionsToApply ) {
     assert && assert( ( numberOfFunctionsToApply >= 0 ) && ( numberOfFunctionsToApply <= this.numberOfSlots ) );
@@ -122,6 +123,7 @@ class Builder {
    *
    * @param {*} input - input, type is specific to the functions
    * @returns {*} output, with same type as input
+   * @public
    */
   applyAllFunctions( input ) {
     return this.applyFunctions( input, this.numberOfSlots );

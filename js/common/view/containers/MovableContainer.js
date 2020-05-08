@@ -66,7 +66,6 @@ class MovableContainer extends Node {
 
   /**
    * Is the specified Node in the container?
-   *
    * @param {MovableNode} node
    * @returns {boolean}
    * @public
@@ -77,7 +76,6 @@ class MovableContainer extends Node {
 
   /**
    * Adds a Node to the container.
-   *
    * @param {MovableNode} node
    * @public
    */
@@ -97,7 +95,6 @@ class MovableContainer extends Node {
 
   /**
    * Removes a Node from the container.
-   *
    * @param {MovableNode} node
    * @public
    */
@@ -115,7 +112,6 @@ class MovableContainer extends Node {
 
   /**
    * Gets the contents of the container.
-   *
    * @returns {MovableNode[]} a copy of the set of Nodes in the container
    * @public
    */
@@ -125,8 +121,8 @@ class MovableContainer extends Node {
 
   /**
    * Is the container empty?
-   *
    * @returns {boolean}
+   * @public
    */
   isEmpty() {
     return ( this.numberOfItemsProperty.get() === 0 );
