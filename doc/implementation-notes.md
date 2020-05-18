@@ -49,7 +49,7 @@ observer indicate whether a corresponding unregister call is required. For examp
 
 ```js
 // unlink unnecessary, instances exist for lifetime of the sim
-movable.locationProperty.link( ... );
+movable.positionProperty.link( ... );
 ```
 
 ## Model
