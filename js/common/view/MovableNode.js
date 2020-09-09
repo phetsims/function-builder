@@ -52,7 +52,7 @@ class MovableNode extends Node {
 
     // @private
     if ( options.draggable ) {
-      const dragHandler = new DragListener( {
+      const dragListener = new DragListener( {
 
         allowTouchSnag: options.allowTouchSnag,
 
@@ -80,7 +80,7 @@ class MovableNode extends Node {
           options.endDrag && options.endDrag();
         }
       } );
-      this.addInputListener( dragHandler );
+      this.addInputListener( dragListener );
     }
   }
 }
