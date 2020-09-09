@@ -8,7 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import functionBuilder from '../../functionBuilder.js';
 
@@ -52,7 +52,7 @@ class MovableNode extends Node {
 
     // @private
     if ( options.draggable ) {
-      const dragHandler = new SimpleDragHandler( {
+      const dragHandler = new DragListener( {
 
         allowTouchSnag: options.allowTouchSnag,
 
