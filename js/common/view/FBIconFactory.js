@@ -8,6 +8,7 @@
 
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -21,7 +22,6 @@ import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
 import FBColors from '../FBColors.js';
 import FBConstants from '../FBConstants.js';
-import FBFont from '../FBFont.js';
 import FBSymbols from '../FBSymbols.js';
 import RationalNumber from '../model/RationalNumber.js';
 import SlopeInterceptEquationNode from './equations/SlopeInterceptEquationNode.js';
@@ -85,14 +85,14 @@ const FBIconFactory = {
 
     // handle operator separately, so we can control spacing
     const operatorNode = new Text( FBSymbols.PLUS, {
-      font: new FBFont( 80 ),
+      font: new PhetFont( 80 ),
       maxWidth: 0.5 * functionNode.width,
       maxHeight: 0.95 * functionNode.height,
       center: functionNode.center
     } );
 
     const operandNode = new Text( '3', {
-      font: new FBFont( 80 ),
+      font: new PhetFont( 80 ),
       maxWidth: 0.5 * functionNode.width,
       maxHeight: 0.95 * functionNode.height,
       center: functionNode.center
@@ -149,7 +149,7 @@ const FBIconFactory = {
     } );
 
     const textNode = new Text( functionBuilderStrings.mysteryCharacter, {
-      font: new FBFont( { size: 80, weight: 'bold' } ),
+      font: new PhetFont( { size: 80, weight: 'bold' } ),
       fill: options.questionMarkFill,
       maxWidth: 0.5 * functionNode.width,
       maxHeight: 0.95 * functionNode.height,
@@ -231,7 +231,7 @@ const FBIconFactory = {
 
       // number '2'
       contentNode = new Text( '2', {
-        font: new FBFont( 20 ),
+        font: new PhetFont( 20 ),
         maxHeight: 0.85 * windowNode.height
       } );
     }

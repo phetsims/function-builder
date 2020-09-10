@@ -10,9 +10,9 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import RefreshButton from '../../../../scenery-phet/js/buttons/RefreshButton.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import FBColors from '../../common/FBColors.js';
-import FBFont from '../../common/FBFont.js';
 import FBQueryParameters from '../../common/FBQueryParameters.js';
 import MysteryFunctionNode from '../../common/view/functions/MysteryFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
@@ -101,7 +101,7 @@ class MysterySceneNode extends MathSceneNode {
 
     // @private shows the answer below the generate button, for debugging, i18n not required
     this.answerNode = new Text( 'answer', {
-      font: new FBFont( 18 ),
+      font: new PhetFont( 18 ),
       centerX: generateButton.centerX,
       top: generateButton.bottom + 10
     } );

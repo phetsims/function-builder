@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import FBFont from '../../common/FBFont.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
@@ -33,14 +33,14 @@ class NumbersSceneNode extends MathSceneNode {
       tableOptions: {
         xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
         ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
-        headingFont: new FBFont( 18 ) // different font for 'Input' and 'Output'
+        headingFont: new PhetFont( 18 ) // different font for 'Input' and 'Output'
       },
 
       // options for EquationPanel
       equationOptions: {
         xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
         ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
-        xyFont: new FBFont( 24 ), // different font for 'Input' and 'Output'
+        xyFont: new PhetFont( 24 ), // different font for 'Input' and 'Output'
         xyAsCards: true // card outlines around 'Input' and 'Output'
       }
 

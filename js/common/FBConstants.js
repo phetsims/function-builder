@@ -11,8 +11,8 @@ import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import functionBuilder from '../functionBuilder.js';
-import FBFont from './FBFont.js';
 import FBSymbols from './FBSymbols.js';
 
 // constants that are used to compute other constants
@@ -74,17 +74,17 @@ const FBConstants = {
   PATTERNS_FUNCTION_ICON_SCALE: 0.3,
 
   // font for functions in Patterns screen
-  PATTERNS_FUNCTION_FONT: new FBFont( 44 ),
+  PATTERNS_FUNCTION_FONT: new PhetFont( 44 ),
 
   // font for functions in Numbers screen
-  NUMBERS_FUNCTION_FONT: new FBFont( 30 ),
+  NUMBERS_FUNCTION_FONT: new PhetFont( 30 ),
 
   // fonts for functions in Equations screen
-  EQUATIONS_FUNCTION_PICKER_FONT: new FBFont( 30 ),
-  EQUATIONS_FUNCTION_OPERATOR_FONT: new FBFont( 30 ),
+  EQUATIONS_FUNCTION_PICKER_FONT: new PhetFont( 30 ),
+  EQUATIONS_FUNCTION_OPERATOR_FONT: new PhetFont( 30 ),
 
   // font for hidden functions in Mystery screen
-  MYSTERY_FUNCTION_FONT: new FBFont( { size: 70, weight: 'bold' } ),
+  MYSTERY_FUNCTION_FONT: new PhetFont( { size: 70, weight: 'bold' } ),
 
   //--------------------------------------------------------------------------------------------------------
   // Drawers
@@ -137,11 +137,11 @@ const FBConstants = {
 
     // fonts
     xyFont: new MathSymbolFont( 30 ), // {Font} font for x & y symbols
-    symbolFont: new FBFont( 30 ), // {Font} font for math symbols (equals, plus, minus)
-    wholeNumberFont: new FBFont( 30 ), // {Font} font for whole numbers
-    fractionFont: new FBFont( 20 ), // {Font} font for fractions
-    signFont: new FBFont( 22 ), // {Font} font for negative sign
-    parenthesesFont: new FBFont( 30 ), // {Font} font for parentheses
+    symbolFont: new PhetFont( 30 ), // {Font} font for math symbols (equals, plus, minus)
+    wholeNumberFont: new PhetFont( 30 ), // {Font} font for whole numbers
+    fractionFont: new PhetFont( 20 ), // {Font} font for fractions
+    signFont: new PhetFont( 22 ), // {Font} font for negative sign
+    parenthesesFont: new PhetFont( 30 ), // {Font} font for parentheses
 
     // x spacing
     equalsXSpacing: 8, // {number} x space on both sides of equals sign

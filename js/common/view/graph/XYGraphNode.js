@@ -20,6 +20,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbolFont from '../../../../../scenery-phet/js/MathSymbolFont.js';
+import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -28,7 +29,6 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import FBFont from '../../FBFont.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../../model/RationalNumber.js';
 
@@ -72,7 +72,7 @@ class XYGraphNode extends Node {
       xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
       yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
       tickLength: 5, // {number} length of tick lines, in view coordinates
-      tickFont: new FBFont( 12 ), // {Font} font for tick labels
+      tickFont: new PhetFont( 12 ), // {Font} font for tick labels
       tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
       tickStroke: 'black', // {Color|string}
       tickLineWidth: 1, // {number}

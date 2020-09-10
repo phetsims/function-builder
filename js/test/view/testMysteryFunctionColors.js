@@ -10,6 +10,7 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -17,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import FBColors from '../../common/FBColors.js';
-import FBFont from '../../common/FBFont.js';
 import functionBuilder from '../../functionBuilder.js';
 
 /**
@@ -38,7 +38,7 @@ function testMysteryFunctionColors( layoutBounds ) {
 
     // label to left of row
     hBoxChildren.push( new Text( colorSetNames[ i ], {
-      font: new FBFont( 20 )
+      font: new PhetFont( 20 )
     } ) );
 
     // row of functions
@@ -98,7 +98,7 @@ class TestFunctionNode extends Node {
     const color = Color.toColor( options.fill );
     const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
     const rgbTextNode = new Text( rgbString, {
-      font: new FBFont( 14 ),
+      font: new PhetFont( 14 ),
       centerX: functionNode.centerX + ( 0.25 * X_INSET ),
       centerY: functionNode.centerY
     } );
