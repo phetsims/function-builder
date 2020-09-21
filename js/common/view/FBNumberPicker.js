@@ -30,8 +30,8 @@ class FBNumberPicker extends NumberPicker {
       'cannot skip zero when it is min or max' );
 
     // increment, optionally skip zero
-    assert && assert( !options.upFunction );
-    options.upFunction = value => {
+    assert && assert( !options.incrementFunction );
+    options.incrementFunction = value => {
       let newValue = value + 1;
       if ( newValue === 0 && options.skipZero ) {
         newValue++;
@@ -41,8 +41,8 @@ class FBNumberPicker extends NumberPicker {
     };
 
     // decrement, optionally skip zero
-    assert && assert( !options.downFunction );
-    options.downFunction = value => {
+    assert && assert( !options.decrementFunction );
+    options.decrementFunction = value => {
       let newValue = value - 1;
       if ( newValue === 0 && options.skipZero ) {
         newValue--;
