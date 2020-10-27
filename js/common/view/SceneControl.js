@@ -7,10 +7,10 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class SceneControl extends RadioButtonGroup {
+class SceneControl extends RectangularRadioButtonGroup {
 
   /**
    * @param {Property.<Scene>} selectedSceneProperty
