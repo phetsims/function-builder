@@ -141,7 +141,7 @@ and thus visible when they pass a window.
 [SceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneNode.js) and
 its subtypes display a scene.  Each screen has 1 or more scenes.  If a screen has more than 1 scene, it
 also has a control for selecting a scene (see
-[SceneControl](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneControl.js)).
+[SceneRadioButtonGroup](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneRadioButtonGroup.js)).
 
 **Carousels and containers**: Cards and functions are not put directly into carousels. Rather, cards and functions
 are put into *containers*, which are then put into the carousels. See

@@ -15,7 +15,7 @@ import Easing from '../../../../twixt/js/Easing.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import FBQueryParameters from '../FBQueryParameters.js';
-import SceneControl from './SceneControl.js';
+import SceneRadioButtonGroup from './SceneRadioButtonGroup.js';
 
 class FBScreenView extends ScreenView {
 
@@ -28,18 +28,18 @@ class FBScreenView extends ScreenView {
 
     options = merge( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
-      sceneControlYOffset: 20 // offset of scene control's top from top of screen
+      sceneRadioButtonGroupYOffset: 20 // offset of SceneRadioButtonGroup from top of screen
     }, options );
 
     super( options );
 
     // If there's more than one scene, add a control for switching between scenes
     if ( model.scenes.length > 1 ) {
-      const sceneControl = new SceneControl( model.selectedSceneProperty, model.scenes, {
+      const sceneRadioButtonGroup = new SceneRadioButtonGroup( model.selectedSceneProperty, model.scenes, {
         centerX: this.layoutBounds.centerX,
-        top: this.layoutBounds.top + options.sceneControlYOffset
+        top: this.layoutBounds.top + options.sceneRadioButtonGroupYOffset
       } );
-      this.addChild( sceneControl );
+      this.addChild( sceneRadioButtonGroup );
     }
 
     // Reset All button at bottom-right
