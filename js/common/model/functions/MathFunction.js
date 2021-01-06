@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
-import Utils from '../../../../../dot/js/Utils.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
@@ -31,7 +30,7 @@ class MathFunction extends AbstractFunction {
       pickerColor: 'white' // {Color|string} color used for NumberPicker UI component
     }, options );
 
-    assert && assert( Utils.isInteger( options.operand ) );
+    assert && assert( Number.isInteger( options.operand ) );
     assert && assert( !options.operandRange || options.operandRange.contains( options.operand ) );
     assert && assert( !( options.operand === 0 && !options.zeroOperandValid ),
       'default value zero is not a valid operand' );
@@ -52,7 +51,7 @@ class MathFunction extends AbstractFunction {
     this.operandProperty.lazyLink( operand => {
 
       // validate operand
-      assert && assert( Utils.isInteger( operand ) );
+      assert && assert( Number.isInteger( operand ) );
       assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
       assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
     } );

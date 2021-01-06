@@ -10,19 +10,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class RationalNumber {
-  
+
   /**
    * @param numerator
    * @param denominator
    */
   constructor( numerator, denominator ) {
 
-    assert && assert( Utils.isInteger( numerator ) );
-    assert && assert( Utils.isInteger( denominator ) );
+    assert && assert( Number.isInteger( numerator ) );
+    assert && assert( Number.isInteger( denominator ) );
 
     // @private {BigRational} bigRat is a global created by preloading BigRational.js
     this.bigRational = bigRat( numerator, denominator );
@@ -88,7 +87,7 @@ class RationalNumber {
    * @public
    */
   plus( integerValue ) {
-    assert && assert( Utils.isInteger( integerValue ) );
+    assert && assert( Number.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.plus( integerValue ) );
   }
 
@@ -100,7 +99,7 @@ class RationalNumber {
    * @public
    */
   minus( integerValue ) {
-    assert && assert( Utils.isInteger( integerValue ) );
+    assert && assert( Number.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.minus( integerValue ) );
   }
 
@@ -112,7 +111,7 @@ class RationalNumber {
    * @public
    */
   times( integerValue ) {
-    assert && assert( Utils.isInteger( integerValue ) );
+    assert && assert( Number.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.times( integerValue ) );
   }
 
@@ -124,7 +123,7 @@ class RationalNumber {
    * @public
    */
   divide( integerValue ) {
-    assert && assert( Utils.isInteger( integerValue ) );
+    assert && assert( Number.isInteger( integerValue ) );
     return toRationalNumber( this.bigRational.divide( integerValue ) );
   }
 
@@ -178,7 +177,7 @@ class RationalNumber {
    * @static
    */
   static withInteger( integerValue ) {
-    assert && assert( Utils.isInteger( integerValue ) );
+    assert && assert( Number.isInteger( integerValue ) );
     return new RationalNumber( integerValue, 1 );
   }
 }

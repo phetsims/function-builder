@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
 import FBSymbols from '../../common/FBSymbols.js';
 import functionBuilder from '../../functionBuilder.js';
 
@@ -146,7 +145,7 @@ const MysteryChallenges = {
 
       // validation
       assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
-      assert && assert( Utils.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
+      assert && assert( Number.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
       assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS ),
         'negative operand not allowed with plus in challenge: ' + challenge );
       assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
