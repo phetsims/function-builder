@@ -7,6 +7,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -165,7 +166,7 @@ class MysteryScene extends Scene {
     }
 
     // randomly select a challenge from the available pool
-    const challengeIndex = FBQueryParameters.playAll ? 0 : phet.joist.random.nextInt( this.availableChallenges.length );
+    const challengeIndex = FBQueryParameters.playAll ? 0 : dotRandom.nextInt( this.availableChallenges.length );
     assert && assert( challengeIndex >= 0 && challengeIndex < this.availableChallenges.length );
     const challenge = this.availableChallenges[ challengeIndex ];
 
@@ -206,7 +207,7 @@ class MysteryScene extends Scene {
       for ( i = 0; i < this.numberOfSlots; i++ ) {
 
         // select a color set
-        const colorSetIndex = phet.joist.random.nextInt( this.availableColorSets.length );
+        const colorSetIndex = dotRandom.nextInt( this.availableColorSets.length );
         const colorSet = this.availableColorSets[ colorSetIndex ];
         colorSets.push( colorSet );
 
@@ -214,7 +215,7 @@ class MysteryScene extends Scene {
         this.availableColorSets.splice( colorSetIndex, 1 );
 
         // select a color from the set
-        const colorIndex = phet.joist.random.nextInt( colorSet.length );
+        const colorIndex = dotRandom.nextInt( colorSet.length );
         const color = colorSet[ colorIndex ];
         colors.push( color );
       }
