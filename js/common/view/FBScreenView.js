@@ -21,10 +21,10 @@ class FBScreenView extends ScreenView {
 
   /**
    * @param {FBModel} model
-   * @param {constructor} sceneNodeConstructor - constructor for SceneNode subtype
+   * @param {constructor} SceneNodeConstructor - constructor for SceneNode subtype
    * @param {Object} [options]
    */
-  constructor( model, sceneNodeConstructor, options ) {
+  constructor( model, SceneNodeConstructor, options ) {
 
     options = merge( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
@@ -74,7 +74,7 @@ class FBScreenView extends ScreenView {
     // Scene Nodes
     const sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
     model.scenes.forEach( scene => {
-      const sceneNode = new sceneNodeConstructor( scene, this.layoutBounds, { visible: false } );
+      const sceneNode = new SceneNodeConstructor( scene, this.layoutBounds, { visible: false } );
       sceneNodes.push( sceneNode );
       scenesParent.addChild( sceneNode );
     } );
