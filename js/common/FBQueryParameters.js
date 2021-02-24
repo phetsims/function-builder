@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import logGlobal from '../../../phet-core/js/logGlobal.js';
 import functionBuilder from '../functionBuilder.js';
 
 const FBQueryParameters = QueryStringMachine.getAll( {
@@ -33,7 +34,9 @@ const FBQueryParameters = QueryStringMachine.getAll( {
 
 functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
 
-// log the values of all sim-specific query parameters
-phet.log && phet.log( 'query parameters: ' + JSON.stringify( FBQueryParameters, null, 2 ) );
+// Log query parameters
+logGlobal( 'phet.chipper.queryParameters' );
+logGlobal( 'phet.preloads.phetio.queryParameters' );
+logGlobal( 'phet.functionBuilder.FBQueryParameters' );
 
 export default FBQueryParameters;
