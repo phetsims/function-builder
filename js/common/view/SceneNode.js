@@ -36,7 +36,7 @@ const PAGE_CONTROL_OPTIONS = {
 const WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
 
 class SceneNode extends Node {
-  
+
   /**
    * @param {Scene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView

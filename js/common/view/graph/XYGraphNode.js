@@ -43,7 +43,7 @@ const AXIS_OPTIONS = {
 };
 
 class XYGraphNode extends Node {
-  
+
   /**
    * @param {Builder} builder
    * @param {Object} [options]

@@ -19,7 +19,7 @@ import SlopeInterceptEquationNode from '../equations/SlopeInterceptEquationNode.
 import RationalNumberNode from '../RationalNumberNode.js';
 
 class XYTableRow extends Node {
-  
+
   /**
    * @param {NumberCard|EquationCard} card - card that's associated with the row
    * @param {Builder} builder
@@ -156,7 +156,7 @@ class XYTableRow extends Node {
       this.updateOutputValue();
     }
   }
-  
+
   set updateEnabled( value ) { this.setUpdateEnabled( value ); }
 
   /**
@@ -168,7 +168,7 @@ class XYTableRow extends Node {
   getUpdateEnabled() {
     return this._updateEnabled;
   }
-  
+
   get updateEnabled() { return this.getUpdateEnabled(); }
 }
 

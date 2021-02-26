@@ -470,7 +470,7 @@ class CardNode extends MovableNode {
    */
   static createGhostNode( contentNode, options ) {
 
-    options = merge( {}, FBConstants.CARD_OPTIONS, options);
+    options = merge( {}, FBConstants.CARD_OPTIONS, options );
     options.lineDash = [ 4, 4 ];
     options.opacity = 0.5;
 

@@ -24,7 +24,7 @@ import BuilderEndNode from './BuilderEndNode.js';
 import FunctionSlotNode from './FunctionSlotNode.js';
 
 class BuilderNode extends Node {
-  
+
   /**
    * @param {Builder} builder
    * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the indentity of functions in the builder
