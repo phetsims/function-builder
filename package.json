@@ -28,7 +28,7 @@
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
     "globals": {
-      "bigRat": false
+      "bigRat": "readonly"
     }
   }
 }
