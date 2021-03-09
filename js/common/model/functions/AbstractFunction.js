@@ -10,9 +10,9 @@ import Property from '../../../../../axon/js/Property.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import Movable from '../Movable.js';
+import FBMovable from '../FBMovable.js';
 
-class AbstractFunction extends Movable {
+class AbstractFunction extends FBMovable {
 
   /**
    * @param {Object} [options]

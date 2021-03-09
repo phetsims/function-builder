@@ -10,9 +10,9 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import Movable from '../Movable.js';
+import FBMovable from '../FBMovable.js';
 
-class Card extends Movable {
+class Card extends FBMovable {
 
   /**
    * @param {Object} [options]

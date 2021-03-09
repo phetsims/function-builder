@@ -1,8 +1,8 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Node for a Movable model element.
- * Stays synchronized with the Movable's position and handles dragging.
+ * Node for a FBMovable model element.
+ * Stays synchronized with the FBMovable's position and handles dragging.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,15 +28,15 @@ class MovableNode extends Node {
       startDrag: null, // {function|null} Called at the start of each drag sequence
       endDrag: null, // {function|null} Called at the end of each drag sequence
 
-      // {function(Movable, Vector2, Vector2) moves the Movable while dragging
+      // {function(FBMovable, Vector2, Vector2) moves the FBMovable while dragging
       translateMovable: ( movable, position, delta ) => movable.moveTo( position ),
 
-      // {function(Node, Vector2)} moves the Node when the Movable's position changes
+      // {function(Node, Vector2)} moves the Node when the FBMovable's position changes
       translateNode: ( node, position ) => { node.center = position; }
 
     }, options );
 
-    assert && assert( options.children, 'requires children to specify the look of the Movable' );
+    assert && assert( options.children, 'requires children to specify the look of the FBMovable' );
 
     super( options );
 

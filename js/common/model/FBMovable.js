@@ -14,7 +14,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class Movable {
+class FBMovable {
 
   /**
    * @param {Object} [options]
@@ -75,7 +75,7 @@ class Movable {
   }
 
   /**
-   * Is the Movable animating?
+   * Is the FBMovable animating?
    *
    * @returns {boolean}
    * @public
@@ -124,6 +124,6 @@ class Movable {
   }
 }
 
-functionBuilder.register( 'Movable', Movable );
+functionBuilder.register( 'FBMovable', FBMovable );
 
-export default Movable;
+export default FBMovable;

@@ -1,7 +1,7 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Base type for Movable containers.
+ * Base type for FBMovable containers.
  * A container is intended to be put in a carousel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
