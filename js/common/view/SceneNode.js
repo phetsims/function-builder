@@ -57,7 +57,7 @@ class SceneNode extends Node {
     }, options );
 
     super();
-    phet.log && phet.log( this.constructor.name + '.initialize' );
+    phet.log && phet.log( `${this.constructor.name}.initialize` );
 
     // @protected show/hide windows that allow you to 'see inside' the builder
     this.seeInsideProperty = new BooleanProperty( options.seeInside );

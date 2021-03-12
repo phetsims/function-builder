@@ -134,7 +134,7 @@ const MysteryChallenges = {
     const challengeObjects = [];
 
     const tokens = challenge.split( ' ' );
-    assert && assert( tokens.length % 2 === 0, 'malformed challenge: ' + challenge );
+    assert && assert( tokens.length % 2 === 0, `malformed challenge: ${challenge}` );
 
     for ( let i = 0; i < tokens.length; i = i + 2 ) {
 
@@ -144,14 +144,14 @@ const MysteryChallenges = {
       };
 
       // validation
-      assert && assert( challengeObject.operator, 'bad operator in challenge: ' + challenge );
-      assert && assert( Number.isInteger( challengeObject.operand ), 'bad operand in challenge: ' + challenge );
+      assert && assert( challengeObject.operator, `bad operator in challenge: ${challenge}` );
+      assert && assert( Number.isInteger( challengeObject.operand ), `bad operand in challenge: ${challenge}` );
       assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.PLUS ),
-        'negative operand not allowed with plus in challenge: ' + challenge );
+        `negative operand not allowed with plus in challenge: ${challenge}` );
       assert && assert( !( challengeObject.operand < 0 && challengeObject.operator === FBSymbols.MINUS ),
-        'negative operand not allowed with minus in challenge: ' + challenge );
+        `negative operand not allowed with minus in challenge: ${challenge}` );
       assert && assert( !( challengeObject.operand === 0 && challengeObject.operator === FBSymbols.DIVIDE ),
-        'division by zero not allowed in challenge: ' + challenge );
+        `division by zero not allowed in challenge: ${challenge}` );
 
       challengeObjects.push( challengeObject );
     }

@@ -214,11 +214,11 @@ class MysterySceneNode extends MathSceneNode {
 
       // get the container that has functions for this operator
       const functionContainer = this.operatorToContainerMap[ challengeObject.operator ];
-      assert && assert( functionContainer, 'no functionContainer for operator ' + challengeObject.operator );
+      assert && assert( functionContainer, `no functionContainer for operator ${challengeObject.operator}` );
 
       // get the first item in the container
       const functionNode = functionContainer.getContents()[ 0 ];
-      assert && assert( functionNode, 'no function for operator ' + challengeObject.operator );
+      assert && assert( functionNode, `no function for operator ${challengeObject.operator}` );
       const functionInstance = functionNode.functionInstance;
 
       // configure the function to match the challenge
@@ -238,7 +238,7 @@ class MysterySceneNode extends MathSceneNode {
     this.resetChallengeControls();
 
     // show the answer for debugging
-    this.answerNode.text = '#' + ( this.scene.challengePool.indexOf( challenge ) + 1 ) + ': ' + challenge;
+    this.answerNode.text = `#${this.scene.challengePool.indexOf( challenge ) + 1}: ${challenge}`;
     this.answerNode.centerX = this.builderNode.centerX;
 
     if ( FBQueryParameters.populateOutput ) {

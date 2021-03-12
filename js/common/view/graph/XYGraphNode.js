@@ -290,7 +290,7 @@ class XYGraphNode extends Node {
   addPointAt( x ) {
 
     assert && assert( x instanceof RationalNumber );
-    assert && assert( this.xCoordinates.indexOf( x ) === -1, 'x is already plotted: ' + x );
+    assert && assert( this.xCoordinates.indexOf( x ) === -1, `x is already plotted: ${x}` );
 
     // add x to list
     this.xCoordinates.push( x );
@@ -301,7 +301,7 @@ class XYGraphNode extends Node {
     // verify that the point is in range
     const point = new Vector2( x.valueOf(), y.valueOf() );
     assert && assert( this.xRange.contains( point.x ) && this.yRange.contains( point.y ),
-      'graphed point out of range: ' + point.toString() );
+      `graphed point out of range: ${point.toString()}` );
 
     // create the PointNode
     this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
@@ -319,7 +319,7 @@ class XYGraphNode extends Node {
   removePointAt( x ) {
 
     assert && assert( x instanceof RationalNumber );
-    assert && assert( this.xCoordinates.indexOf( x ) !== -1, 'x is not plotted: ' + x );
+    assert && assert( this.xCoordinates.indexOf( x ) !== -1, `x is not plotted: ${x}` );
 
     // remove x from list
     this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
@@ -336,7 +336,7 @@ class XYGraphNode extends Node {
         removed = true;
       }
     }
-    assert && assert( removed, 'x not found: ' + x.valueOf() );
+    assert && assert( removed, `x not found: ${x.valueOf()}` );
   }
 
   /**

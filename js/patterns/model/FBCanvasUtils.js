@@ -103,11 +103,11 @@ const FBCanvasUtils = {
    */
   setPixelRGBA: function( imageData, pixelIndex, red, green, blue, alpha ) {
 
-    assert && assert( pixelIndex >= 0 && pixelIndex < imageData.data.length - 4, 'pixelIndex out of range: ' + pixelIndex );
-    assert && assert( red >= 0 && red <= 255, 'red out of range: ' + red );
-    assert && assert( green >= 0 && green <= 255, 'green out of range: ' + green );
-    assert && assert( blue >= 0 && blue <= 255, 'blue out of range: ' + blue );
-    assert && assert( alpha >= 0 && alpha <= 255, 'alpha out of range: ' + alpha );
+    assert && assert( pixelIndex >= 0 && pixelIndex < imageData.data.length - 4, `pixelIndex out of range: ${pixelIndex}` );
+    assert && assert( red >= 0 && red <= 255, `red out of range: ${red}` );
+    assert && assert( green >= 0 && green <= 255, `green out of range: ${green}` );
+    assert && assert( blue >= 0 && blue <= 255, `blue out of range: ${blue}` );
+    assert && assert( alpha >= 0 && alpha <= 255, `alpha out of range: ${alpha}` );
 
     imageData.data[ pixelIndex ] = red;
     imageData.data[ pixelIndex + 1 ] = green;

@@ -180,7 +180,7 @@ class EquationPanel extends Node {
    * @public
    */
   setUpdateEnabled( updateEnabled ) {
-    FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
+    FBQueryParameters.log && console.log( `${this.constructor.name}.setUpdateEnabled ${updateEnabled}` );
     const wasUpdateEnabled = this._updateEnabled;
     this._updateEnabled = updateEnabled;
     if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {

@@ -45,7 +45,7 @@ class SlopeInterceptEquation {
         intercept = intercept.divide( mathFunction.operandProperty.get() );
       }
       else {
-        throw new Error( 'unsupported operator ' + mathFunction.operator );
+        throw new Error( `unsupported operator ${mathFunction.operator}` );
       }
     }
 
@@ -78,7 +78,7 @@ class SlopeInterceptEquation {
         equation = this.slope.valueOf() + this.xSymbol;
       }
       else {
-        equation = '(' + this.slope.numerator + '/' + this.slope.denominator + ')' + this.xSymbol;
+        equation = `(${this.slope.numerator}/${this.slope.denominator})${this.xSymbol}`;
       }
     }
 
@@ -86,17 +86,17 @@ class SlopeInterceptEquation {
     if ( this.intercept.valueOf() !== 0 ) {
 
       if ( this.intercept.valueOf() > 0 ) {
-        equation = equation + ' ' + FBSymbols.PLUS;
+        equation = `${equation} ${FBSymbols.PLUS}`;
       }
       else {
-        equation = equation + ' ' + FBSymbols.MINUS;
+        equation = `${equation} ${FBSymbols.MINUS}`;
       }
 
       if ( this.intercept.isInteger() ) {
-        equation = equation + ' ' + Math.abs( this.intercept.valueOf() );
+        equation = `${equation} ${Math.abs( this.intercept.valueOf() )}`;
       }
       else {
-        equation = equation + ' ' + Math.abs( this.intercept.numerator ) + '/' + Math.abs( this.intercept.denominator );
+        equation = `${equation} ${Math.abs( this.intercept.numerator )}/${Math.abs( this.intercept.denominator )}`;
       }
     }
 

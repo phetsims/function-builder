@@ -52,7 +52,7 @@ class MathFunction extends AbstractFunction {
 
       // validate operand
       assert && assert( Number.isInteger( operand ) );
-      assert && assert( !options.operandRange || options.operandRange.contains( operand ), 'operand out of range: ' + operand );
+      assert && assert( !options.operandRange || options.operandRange.contains( operand ), `operand out of range: ${operand}` );
       assert && assert( !( operand === 0 && !options.zeroOperandValid ), 'zero operand not valid' );
     } );
 

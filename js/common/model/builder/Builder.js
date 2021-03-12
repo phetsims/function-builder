@@ -143,7 +143,7 @@ class Builder {
     assert && assert( !this.containsFunctionInstance( functionInstance ), 'function is already in builder' );
 
     const slot = this.slots[ slotNumber ];
-    assert && assert( slot.isEmpty(), 'slot ' + slotNumber + ' is occupied' );
+    assert && assert( slot.isEmpty(), `slot ${slotNumber} is occupied` );
 
     slot.functionInstance = functionInstance;
     this.functionChangedEmitter.emit();
@@ -162,7 +162,7 @@ class Builder {
     assert && assert( this.isValidSlotNumber( slotNumber ) );
 
     const slot = this.slots[ slotNumber ];
-    assert && assert( slot.contains( functionInstance ), 'functionInstance is not in slot ' + slotNumber );
+    assert && assert( slot.contains( functionInstance ), `functionInstance is not in slot ${slotNumber}` );
 
     slot.clear();
     this.functionChangedEmitter.emit();

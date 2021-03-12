@@ -105,7 +105,7 @@ class HelpfulEquation {
         }
       }
       else {
-        throw new Error( 'invalid operator: ' + currentOperator );
+        throw new Error( `invalid operator: ${currentOperator}` );
       }
 
       if ( stack.length > 0 ) {
@@ -193,7 +193,7 @@ class HelpfulEquation {
           }
         }
         else {
-          throw new Error( 'invalid operator: ' + currentOperator );
+          throw new Error( `invalid operator: ${currentOperator}` );
         }
       }
     }

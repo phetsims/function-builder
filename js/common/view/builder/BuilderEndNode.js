@@ -41,7 +41,7 @@ class BuilderEndNode extends Node {
     }, options );
 
     assert && assert( orientation === 'left' || orientation === 'right',
-      'invalid value for orientation: ' + orientation );
+      `invalid value for orientation: ${orientation}` );
 
     // ellipse
     const ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {

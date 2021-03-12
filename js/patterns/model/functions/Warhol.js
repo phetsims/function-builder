@@ -140,11 +140,11 @@ function applyColorMap( inputData, outputData, colorMap ) {
     // Convert RGB (0-255) to intensity (0-255), using the non-linear luma coding scheme employed in video systems
     // (e.g. NTSC, PAL, SECAM).  See https://en.wikipedia.org/wiki/Grayscale or the NTSC CCIR 601 specification.
     const intensity = 0.2989 * inputData.data[ i ] + 0.5870 * inputData.data[ i + 1 ] + 0.1140 * inputData.data[ i + 2 ];
-    assert && assert( intensity >= 0 && intensity <= 255, 'intensity out of range: ' + intensity );
+    assert && assert( intensity >= 0 && intensity <= 255, `intensity out of range: ${intensity}` );
 
     // map intensity to a color map
     const colorIndex = Math.floor( intensity / ( 256 / colorMap.length ) );
-    assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, 'colorIndex out of range: ' + colorIndex );
+    assert && assert( colorIndex >= 0 && colorIndex < colorMap.length, `colorIndex out of range: ${colorIndex}` );
 
     // apply the color map
     const color = colorMap[ colorIndex ];

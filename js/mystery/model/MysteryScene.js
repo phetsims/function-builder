@@ -94,7 +94,7 @@ class MysteryScene extends Scene {
           // validate challenge
           const challengeObjects = MysteryChallenges.parseChallenge( challenge );
           assert && assert( challengeObjects.length === options.numberOfSlots,
-            'incorrect number of functions in challenge: ' + challenge );
+            `incorrect number of functions in challenge: ${challenge}` );
 
           // check for duplicates
           if ( challengePool.indexOf( challenge, i + 1 ) !== -1 ) {
@@ -104,7 +104,7 @@ class MysteryScene extends Scene {
             duplicates += challenge;
           }
         }
-        assert && assert( duplicates.length === 0, 'pool contains duplicate challenges: ' + duplicates );
+        assert && assert( duplicates.length === 0, `pool contains duplicate challenges: ${duplicates}` );
       } )();
     }
 

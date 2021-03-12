@@ -219,7 +219,7 @@ class FunctionNode extends MovableNode {
   moveToBuilder( slotNumber ) {
 
     assert && assert( !this.builderNode.containsFunctionNode( this ), 'function is already in builder' );
-    assert && assert( !this.builderNode.getFunctionNode( slotNumber ), 'slot ' + slotNumber + ' is occupied' );
+    assert && assert( !this.builderNode.getFunctionNode( slotNumber ), `slot ${slotNumber} is occupied` );
 
     // remove from drag layer
     if ( this.dragLayer.hasChild( this ) ) {

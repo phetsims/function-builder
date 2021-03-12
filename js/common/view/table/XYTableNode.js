@@ -415,7 +415,7 @@ class XYTableNode extends VBox {
    */
   setUpdateEnabled( updateEnabled ) {
 
-    FBQueryParameters.log && console.log( this.constructor.name + '.setUpdateEnabled ' + updateEnabled );
+    FBQueryParameters.log && console.log( `${this.constructor.name}.setUpdateEnabled ${updateEnabled}` );
 
     const wasUpdateEnabled = this._updateEnabled;
     this._updateEnabled = updateEnabled;

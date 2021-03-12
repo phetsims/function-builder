@@ -96,7 +96,7 @@ class TestFunctionNode extends Node {
     } );
 
     const color = Color.toColor( options.fill );
-    const rgbString = color.red + ', ' + color.green + ', ' + color.blue;
+    const rgbString = `${color.red}, ${color.green}, ${color.blue}`;
     const rgbTextNode = new Text( rgbString, {
       font: new PhetFont( 14 ),
       centerX: functionNode.centerX + ( 0.25 * X_INSET ),
