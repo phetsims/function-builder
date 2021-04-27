@@ -27,6 +27,15 @@ const FBConstants = {
   // offset of the Reset All button from the lower-right corner of the screen
   RESET_ALL_BUTTON_OFFSET: new Vector2( -50, -20 ),
 
+  // Credits shared by all sims in the function-builder family.
+  CREDITS: {
+    leadDesign: 'Amanda McGarry',
+    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
+    team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Sam Reid, Beth Stade, David Webb',
+    qualityAssurance: 'Steele Dalton, Amanda Davis, Bryce Griebenow, Ethan Johnson, Andrea Lin, Ben Roberts, ' +
+                      'Maggie Wiseman'
+  },
+
   //--------------------------------------------------------------------------------------------------------
   // Builder
 

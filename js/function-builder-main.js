@@ -9,6 +9,7 @@
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
+import FBConstants from './common/FBConstants.js';
 import FBQueryParameters from './common/FBQueryParameters.js';
 import EquationsScreen from './equations/EquationsScreen.js';
 import functionBuilderStrings from './functionBuilderStrings.js';
@@ -16,15 +17,6 @@ import MysteryScreen from './mystery/MysteryScreen.js';
 import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
 import TestScreen from './test/TestScreen.js';
-
-const options = {
-  credits: {
-    leadDesign: 'Amanda McGarry',
-    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Sam Reid, Beth Stade, David Webb',
-    qualityAssurance: 'Steele Dalton, Amanda Davis, Andrea Lin, Ben Roberts'
-  }
-};
 
 simLauncher.launch( () => {
 
@@ -39,6 +31,8 @@ simLauncher.launch( () => {
     screens.push( new TestScreen() );
   }
 
-  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].title, screens, options );
+  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].title, screens, {
+    credits: FBConstants.CREDITS
+  } );
   sim.start();
 } );
