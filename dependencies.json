@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.0.23 Mon May 10 2021 15:11:52 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.0.24-rc.1 Fri May 14 2021 04:41:45 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "ed916f8fad7edc3a7de609fb0dfba6862724f2e0",
+    "sha": "dc08a6e6f05bcd3096f102859a1bf0c52d9703ad",
     "branch": "1.0"
   },
   "joist": {
@@ -46,7 +46,7 @@
   },
   "scenery": {
     "sha": "9f1bbb37df677936e88973eb77a8b3f529375cb2",
-    "branch": "function-builder-1.0"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "512f6f77e73ba3226d9b47be4536c7759e52952c",
