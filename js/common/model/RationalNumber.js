@@ -1,4 +1,4 @@
-// Copyright 2016-2020, University of Colorado Boulder
+// Copyright 2016-2021, University of Colorado Boulder
 
 /**
  * A wrapper around BigRational.js. Since this wraps only the portion of BigRational.js needed by this simulation,
