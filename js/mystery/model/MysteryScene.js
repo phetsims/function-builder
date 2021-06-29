@@ -238,7 +238,7 @@ class MysteryScene extends Scene {
    * @private
    */
   getColorDebug() {
-    const allColors = [].concat.apply( [], FBColors.MYSTERY_COLOR_SETS ); // flatten the color pool
+    const allColors = FBColors.MYSTERY_COLOR_SETS;
     const color = allColors[ this.nextColorIndexDebug++ ];
     if ( this.nextColorIndexDebug > allColors.length - 1 ) {
       this.nextColorIndexDebug = 0;
