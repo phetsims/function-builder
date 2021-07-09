@@ -49,7 +49,9 @@ class FunctionNode extends MovableNode {
     }, options );
 
     if ( !options.hiddenNode ) {
-      options.hiddenNode = new EyeCloseNode();
+      options.hiddenNode = new EyeCloseNode( {
+        maxHeight: 0.5 * options.size.height
+      } );
     }
 
     const backgroundNode = new FunctionBackgroundNode( merge( {

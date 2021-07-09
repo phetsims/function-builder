@@ -8,16 +8,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class EyeCloseNode extends FontAwesomeNode {
+class EyeCloseNode extends Path {
 
   /**
    * @param {Object} [options]
    */
   constructor( options ) {
-    super( 'eye_close', options );
+    options = merge( {
+      fill: 'black'
+    }, options );
+    super( eyeSlashRegularShape, options );
   }
 }
 
