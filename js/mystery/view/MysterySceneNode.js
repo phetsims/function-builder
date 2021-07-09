@@ -92,6 +92,7 @@ class MysterySceneNode extends MathSceneNode {
     // button for generating a new challenge
     const generateButton = new RefreshButton( {
       listener: () => scene.nextChallenge(),
+      iconHeight: 38,
       xMargin: 18,
       yMargin: 10,
       centerX: this.builderNode.centerX,
