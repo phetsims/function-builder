@@ -2,7 +2,7 @@
 
 /**
  * Node that displays the fontawesome 'eye_close' icon.
- * Wrapper around FontAwesomeNode to guard against changes that were made in
+ * Wrapper around Font Awesome to guard against changes that were made in
  * https://github.com/phetsims/function-builder/issues/102
  *
  * @author Chris Malley (PixelZoom, Inc.)
