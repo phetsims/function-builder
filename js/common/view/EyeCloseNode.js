@@ -10,7 +10,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
+import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class EyeCloseNode extends Path {
@@ -22,7 +22,7 @@ class EyeCloseNode extends Path {
     options = merge( {
       fill: 'black'
     }, options );
-    super( eyeSlashRegularShape, options );
+    super( eyeSlashSolidShape, options );
   }
 }
 
