@@ -7,7 +7,7 @@
  */
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import grayScaleImage from '../../../../mipmaps/functions/grayscale_png.js';
+import grayscale_png from '../../../../mipmaps/functions/grayscale_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -25,7 +25,7 @@ class Grayscale extends ImageFunction {
     options.fill = 'rgb( 232, 232, 232 )';
     options.invertible = false; // converting to grayscale is lossy
 
-    const iconNode = new Image( grayScaleImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( grayscale_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }

@@ -7,7 +7,7 @@
  */
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import mirrorImage from '../../../../mipmaps/functions/mirror_png.js';
+import mirror_png from '../../../../mipmaps/functions/mirror_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -24,7 +24,7 @@ class Mirror extends ImageFunction {
     options.name = 'Mirror';
     options.fill = 'rgb( 128, 197, 237 )';
 
-    const iconNode = new Image( mirrorImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( mirror_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }

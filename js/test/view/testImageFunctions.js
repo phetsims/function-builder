@@ -15,18 +15,18 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Carousel from '../../../../sun/js/Carousel.js';
-import beakerImage from '../../../images/cards/beaker_png.js';
-import butterflyImage from '../../../images/cards/butterfly_png.js';
-import cherriesImage from '../../../images/cards/cherries_png.js';
-import circleImage from '../../../images/cards/circle_png.js';
-import feetImage from '../../../images/cards/feet_png.js';
-import planetImage from '../../../images/cards/planet_png.js';
-import rectangleImage from '../../../images/cards/rectangle_png.js';
-import snowflakeImage from '../../../images/cards/snowflake_png.js';
-import starImage from '../../../images/cards/star_png.js';
-import stickFigureImage from '../../../images/cards/stickFigure_png.js';
-import sunImage from '../../../images/cards/sun_png.js';
-import triangleImage from '../../../images/cards/triangle_png.js';
+import beaker_png from '../../../images/cards/beaker_png.js';
+import butterfly_png from '../../../images/cards/butterfly_png.js';
+import cherries_png from '../../../images/cards/cherries_png.js';
+import circle_png from '../../../images/cards/circle_png.js';
+import feet_png from '../../../images/cards/feet_png.js';
+import planet_png from '../../../images/cards/planet_png.js';
+import rectangle_png from '../../../images/cards/rectangle_png.js';
+import snowflake_png from '../../../images/cards/snowflake_png.js';
+import star_png from '../../../images/cards/star_png.js';
+import stickFigure_png from '../../../images/cards/stickFigure_png.js';
+import sun_png from '../../../images/cards/sun_png.js';
+import triangle_png from '../../../images/cards/triangle_png.js';
 import ImageFunction from '../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
@@ -51,18 +51,18 @@ function testImageFunctions( layoutBounds ) {
 
   // a canvas for each input image
   const canvases = [
-    FBCanvasUtils.createCanvasWithImage( feetImage ),
-    FBCanvasUtils.createCanvasWithImage( snowflakeImage ),
-    FBCanvasUtils.createCanvasWithImage( butterflyImage ),
-    FBCanvasUtils.createCanvasWithImage( stickFigureImage ),
-    FBCanvasUtils.createCanvasWithImage( planetImage ),
-    FBCanvasUtils.createCanvasWithImage( sunImage ),
-    FBCanvasUtils.createCanvasWithImage( beakerImage ),
-    FBCanvasUtils.createCanvasWithImage( cherriesImage ),
-    FBCanvasUtils.createCanvasWithImage( rectangleImage ),
-    FBCanvasUtils.createCanvasWithImage( circleImage ),
-    FBCanvasUtils.createCanvasWithImage( triangleImage ),
-    FBCanvasUtils.createCanvasWithImage( starImage )
+    FBCanvasUtils.createCanvasWithImage( feet_png ),
+    FBCanvasUtils.createCanvasWithImage( snowflake_png ),
+    FBCanvasUtils.createCanvasWithImage( butterfly_png ),
+    FBCanvasUtils.createCanvasWithImage( stickFigure_png ),
+    FBCanvasUtils.createCanvasWithImage( planet_png ),
+    FBCanvasUtils.createCanvasWithImage( sun_png ),
+    FBCanvasUtils.createCanvasWithImage( beaker_png ),
+    FBCanvasUtils.createCanvasWithImage( cherries_png ),
+    FBCanvasUtils.createCanvasWithImage( rectangle_png ),
+    FBCanvasUtils.createCanvasWithImage( circle_png ),
+    FBCanvasUtils.createCanvasWithImage( triangle_png ),
+    FBCanvasUtils.createCanvasWithImage( star_png )
   ];
 
   // functions to be applied to the images

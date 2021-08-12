@@ -7,7 +7,7 @@
  */
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import rotate180Image from '../../../../mipmaps/functions/rotate180_png.js';
+import rotate180_png from '../../../../mipmaps/functions/rotate180_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -24,7 +24,7 @@ class Rotate180 extends ImageFunction {
     options.name = 'Rotate180';
     options.fill = 'rgb( 147, 231, 128 )';
 
-    const iconNode = new Image( rotate180Image, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( rotate180_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }

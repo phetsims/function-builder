@@ -9,7 +9,7 @@
 import Utils from '../../../../../dot/js/Utils.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import shrinkImage from '../../../../mipmaps/functions/shrink_png.js';
+import shrink_png from '../../../../mipmaps/functions/shrink_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -30,7 +30,7 @@ class Shrink extends ImageFunction {
 
     assert && assert( options.scale > 0 && options.scale < 1 );
 
-    const iconNode = new Image( shrinkImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( shrink_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
 

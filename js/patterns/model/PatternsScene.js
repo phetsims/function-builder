@@ -8,18 +8,18 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import beakerImage from '../../../images/cards/beaker_png.js';
-import butterflyImage from '../../../images/cards/butterfly_png.js';
-import cherriesImage from '../../../images/cards/cherries_png.js';
-import circleImage from '../../../images/cards/circle_png.js';
-import feetImage from '../../../images/cards/feet_png.js';
-import planetImage from '../../../images/cards/planet_png.js';
-import rectangleImage from '../../../images/cards/rectangle_png.js';
-import snowflakeImage from '../../../images/cards/snowflake_png.js';
-import starImage from '../../../images/cards/star_png.js';
-import stickFigureImage from '../../../images/cards/stickFigure_png.js';
-import sunImage from '../../../images/cards/sun_png.js';
-import triangleImage from '../../../images/cards/triangle_png.js';
+import beaker_png from '../../../images/cards/beaker_png.js';
+import butterfly_png from '../../../images/cards/butterfly_png.js';
+import cherries_png from '../../../images/cards/cherries_png.js';
+import circle_png from '../../../images/cards/circle_png.js';
+import feet_png from '../../../images/cards/feet_png.js';
+import planet_png from '../../../images/cards/planet_png.js';
+import rectangle_png from '../../../images/cards/rectangle_png.js';
+import snowflake_png from '../../../images/cards/snowflake_png.js';
+import star_png from '../../../images/cards/star_png.js';
+import stickFigure_png from '../../../images/cards/stickFigure_png.js';
+import sun_png from '../../../images/cards/sun_png.js';
+import triangle_png from '../../../images/cards/triangle_png.js';
 import FBConstants from '../../common/FBConstants.js';
 import Builder from '../../common/model/builder/Builder.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
@@ -57,18 +57,18 @@ class PatternsScene extends Scene {
 
     // {HTMLImageElement[]} images for the input cards, in the order that they appear in the carousel
     const cardContent = [
-      feetImage,
-      snowflakeImage,
-      butterflyImage,
-      stickFigureImage,
-      planetImage,
-      sunImage,
-      beakerImage,
-      cherriesImage,
-      rectangleImage,
-      circleImage,
-      triangleImage,
-      starImage
+      feet_png,
+      snowflake_png,
+      butterfly_png,
+      stickFigure_png,
+      planet_png,
+      sun_png,
+      beaker_png,
+      cherries_png,
+      rectangle_png,
+      circle_png,
+      triangle_png,
+      star_png
     ];
 
     // All card images must have even dimensions, so that functions exhibit symmetry where expected, and to prevent anti-aliasing artifacts.

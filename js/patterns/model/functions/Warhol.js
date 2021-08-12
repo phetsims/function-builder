@@ -17,7 +17,7 @@
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
 import Color from '../../../../../scenery/js/util/Color.js';
-import warholImage from '../../../../mipmaps/functions/warhol_png.js';
+import warhol_png from '../../../../mipmaps/functions/warhol_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -56,7 +56,7 @@ class Warhol extends ImageFunction {
     options.fill = 'rgb( 250, 186, 75 )';
     options.invertible = false; // grayscale conversion and intensity mapping are both lossy
 
-    const iconNode = new Image( warholImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( warhol_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
 

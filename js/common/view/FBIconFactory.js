@@ -14,8 +14,8 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import butterflyHiRes from '../../../images/cards/butterfly-hires_png.js';
-import stickFigureImage from '../../../images/cards/stickFigure_png.js';
+import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
+import stickFigure_png from '../../../images/cards/stickFigure_png.js';
 import functionBuilder from '../../functionBuilder.js';
 import functionBuilderStrings from '../../functionBuilderStrings.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
@@ -52,7 +52,7 @@ const FBIconFactory = {
 
     // apply Warhol to the image
     const warhol = new Warhol();
-    const inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyHiRes );
+    const inputCanvas = FBCanvasUtils.createCanvasWithImage( butterflyBig_png );
     const outputCanvas = warhol.applyFunction( inputCanvas );
 
     // create the icon
@@ -238,7 +238,7 @@ const FBIconFactory = {
     else {
 
       // image
-      contentNode = new Image( stickFigureImage, {
+      contentNode = new Image( stickFigure_png, {
         maxHeight: 0.75 * windowNode.height
       } );
     }

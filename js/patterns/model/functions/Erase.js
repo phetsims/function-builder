@@ -7,7 +7,7 @@
  */
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import eraseImage from '../../../../mipmaps/functions/erase_png.js';
+import erase_png from '../../../../mipmaps/functions/erase_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -25,7 +25,7 @@ class Erase extends ImageFunction {
     options.fill = 'rgb( 0, 222, 224 )';
     options.invertible = false; // lossy, erased image data cannot be restored
 
-    const iconNode = new Image( eraseImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( erase_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }

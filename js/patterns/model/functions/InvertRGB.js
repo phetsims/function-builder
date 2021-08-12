@@ -7,7 +7,7 @@
  */
 
 import Image from '../../../../../scenery/js/nodes/Image.js';
-import invertRGBImage from '../../../../mipmaps/functions/invertRGB_png.js';
+import invertRGB_png from '../../../../mipmaps/functions/invertRGB_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
@@ -24,7 +24,7 @@ class InvertRGB extends ImageFunction {
     options.name = 'InvertRGB';
     options.fill = 'black';
 
-    const iconNode = new Image( invertRGBImage, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
+    const iconNode = new Image( invertRGB_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }
