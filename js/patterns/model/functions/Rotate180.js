@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Image from '../../../../../scenery/js/nodes/Image.js';
+import { Image } from '../../../../../scenery/js/imports.js';
 import rotate180_png from '../../../../mipmaps/functions/rotate180_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';

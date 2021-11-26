@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import Image from '../../../../../scenery/js/nodes/Image.js';
+import { Image } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import ImageCard from '../../model/cards/ImageCard.js';
 import CardNode from './CardNode.js';

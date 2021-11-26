@@ -11,7 +11,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import platform from '../../../../phet-core/js/platform.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import Carousel from '../../../../sun/js/Carousel.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import PageControl from '../../../../sun/js/PageControl.js';

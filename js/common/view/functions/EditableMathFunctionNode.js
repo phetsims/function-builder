@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import HBox from '../../../../../scenery/js/nodes/HBox.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
+import { HBox } from '../../../../../scenery/js/imports.js';
+import { Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MathFunction from '../../model/functions/MathFunction.js';

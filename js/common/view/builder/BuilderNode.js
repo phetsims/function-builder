@@ -14,9 +14,9 @@
 
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
-import LinearGradient from '../../../../../scenery/js/util/LinearGradient.js';
+import { Node } from '../../../../../scenery/js/imports.js';
+import { Path } from '../../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import MoleCardNode from '../cards/MoleCardNode.js';
 import FunctionNode from '../functions/FunctionNode.js';

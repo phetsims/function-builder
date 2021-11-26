@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RichText from '../../../../../scenery/js/nodes/RichText.js';
+import { RichText } from '../../../../../scenery/js/imports.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';

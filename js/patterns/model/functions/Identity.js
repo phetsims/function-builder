@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
+import { Rectangle } from '../../../../../scenery/js/imports.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';

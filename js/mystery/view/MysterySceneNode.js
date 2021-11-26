@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import RefreshButton from '../../../../scenery-phet/js/buttons/RefreshButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import FBColors from '../../common/FBColors.js';
 import FBQueryParameters from '../../common/FBQueryParameters.js';
 import MysteryFunctionNode from '../../common/view/functions/MysteryFunctionNode.js';

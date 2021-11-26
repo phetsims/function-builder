@@ -21,12 +21,12 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbolFont from '../../../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
-import Circle from '../../../../../scenery/js/nodes/Circle.js';
-import Line from '../../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
+import { Circle } from '../../../../../scenery/js/imports.js';
+import { Line } from '../../../../../scenery/js/imports.js';
+import { Node } from '../../../../../scenery/js/imports.js';
+import { Path } from '../../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../../scenery/js/imports.js';
+import { Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';

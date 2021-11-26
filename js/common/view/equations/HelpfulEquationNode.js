@@ -7,9 +7,9 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import Line from '../../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../../scenery/js/nodes/Text.js';
+import { Line } from '../../../../../scenery/js/imports.js';
+import { Node } from '../../../../../scenery/js/imports.js';
+import { Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';

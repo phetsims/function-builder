@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Image from '../../../../../scenery/js/nodes/Image.js';
+import { Image } from '../../../../../scenery/js/imports.js';
 import mirror_png from '../../../../mipmaps/functions/mirror_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
