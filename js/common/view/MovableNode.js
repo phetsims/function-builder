@@ -64,6 +64,14 @@ class MovableNode extends Node {
           // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
           const parent = this.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
           startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.positionProperty.get() );
+
+          // We need to provide the bounds for the Node to keep in view because this implementation uses DAG and
+          // the AnimatedPanZoomListener cannot find the unique Trail to keep in view.
+          // TODO: This can likely be removed if https://github.com/phetsims/scenery/issues/1361 is addressed.
+          const uniqueTrails = _.filter( this.getTrails(), trail => trail.containsNode( parent ) );
+          assert && assert( uniqueTrails.length === 1, 'No trail found through parent, or no unique trail found' );
+          assert && assert( event.pointer.attachedListener, 'The PressListener should have attached an IInputListener' );
+          event.pointer.attachedListener.getDragPanTargetBounds = () => uniqueTrails[ 0 ].localToGlobalBounds( this.localBounds );
         },
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
