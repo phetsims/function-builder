@@ -83,7 +83,7 @@ class MovableNode extends Node {
           options.translateMovable( movable, position, delta );
         },
 
-        end: ( event, trail ) => {
+        end: () => {
           movable.dragging = false;
           options.endDrag && options.endDrag();
         }
