@@ -8,8 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Node } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class MovableNode extends Node {
@@ -70,8 +69,7 @@ class MovableNode extends Node {
           // TODO: This can likely be removed if https://github.com/phetsims/scenery/issues/1361 is addressed.
           const uniqueTrails = _.filter( this.getTrails(), trail => trail.containsNode( parent ) );
           assert && assert( uniqueTrails.length === 1, 'No trail found through parent, or no unique trail found' );
-          assert && assert( event.pointer.attachedListener, 'The PressListener should have attached an IInputListener' );
-          event.pointer.attachedListener.getDragPanTargetBounds = () => uniqueTrails[ 0 ].localToGlobalBounds( this.localBounds );
+          dragListener.setCreatePanTargetBoundsFromTrail( uniqueTrails[ 0 ] );
         },
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
