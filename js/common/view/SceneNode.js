@@ -315,7 +315,7 @@ class SceneNode extends Node {
    */
   resetCarousels() {
 
-    this.functionCarousel.reset( { animationEnabled: false } );
+    this.functionCarousel.reset();
 
     // Because the input and output carousels are linked, we need to use this approach:
     this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
