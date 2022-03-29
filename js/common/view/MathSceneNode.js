@@ -107,10 +107,10 @@ class MathSceneNode extends SceneNode {
     this.tableDrawer && ( this.tableDrawer.contentsNode.animationEnabled = true );
 
     // reset drawers with animation disabled
-    const drawerResetOptions = { animationEnabled: false };
-    this.equationDrawer && this.equationDrawer.reset( drawerResetOptions );
-    this.tableDrawer && this.tableDrawer.reset( drawerResetOptions );
-    this.graphDrawer && this.graphDrawer && this.graphDrawer.reset( drawerResetOptions );
+    const animationEnabled = false;
+    this.equationDrawer && this.equationDrawer.reset( animationEnabled );
+    this.tableDrawer && this.tableDrawer.reset( animationEnabled );
+    this.graphDrawer && this.graphDrawer && this.graphDrawer.reset( animationEnabled );
   }
 
   /**
