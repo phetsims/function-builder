@@ -9,23 +9,23 @@ import functionBuilder from './functionBuilder.js';
 
 type StringsType = {
   'function-builder': {
-    'title': string
-  },
+    'title': string;
+  };
   'screen': {
-    'patterns': string,
-    'numbers': string,
-    'equations': string,
-    'mystery': string
-  },
-  'simplify': string,
-  'input': string,
-  'output': string,
-  'x': string,
-  'y': string,
-  'mysteryA': string,
-  'mysteryB': string,
-  'mysteryC': string,
-  'mysteryCharacter': string
+    'patterns': string;
+    'numbers': string;
+    'equations': string;
+    'mystery': string;
+  };
+  'simplify': string;
+  'input': string;
+  'output': string;
+  'x': string;
+  'y': string;
+  'mysteryA': string;
+  'mysteryB': string;
+  'mysteryC': string;
+  'mysteryCharacter': string;
 };
 
 const functionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
