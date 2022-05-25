@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
-import platform from '../../../../phet-core/js/platform.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import Carousel from '../../../../sun/js/Carousel.js';
@@ -31,9 +30,6 @@ const PAGE_CONTROL_OPTIONS = {
   dotTouchAreaDilation: 4,
   dotMouseAreaDilation: 4
 };
-
-//TODO revisit this workaround, see https://github.com/phetsims/function-builder/issues/69
-const WORKAROUND_35_OPTIONS = platform.mobileSafari ? { renderer: 'canvas' } : {};
 
 class SceneNode extends Node {
 
@@ -72,7 +68,7 @@ class SceneNode extends Node {
     const functionsDragLayer = new Node();
 
     // basic UI controls get added to this layer
-    const controlsLayer = new Node( WORKAROUND_35_OPTIONS );
+    const controlsLayer = new Node();
 
     // drawers get added to this layer by subtypes
     const drawersLayer = new Node();
