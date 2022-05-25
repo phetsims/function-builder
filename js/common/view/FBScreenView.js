@@ -28,7 +28,11 @@ class FBScreenView extends ScreenView {
 
     options = merge( {
       layoutBounds: FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS,
-      sceneRadioButtonGroupYOffset: 20 // offset of SceneRadioButtonGroup from top of screen
+      sceneRadioButtonGroupYOffset: 20, // offset of SceneRadioButtonGroup from top of screen
+
+      // Workaround for things shifting around while cards are dragging or animating.
+      // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/function-builder/issues/146
+      preventFit: true
     }, options );
 
     super( options );
