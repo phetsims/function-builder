@@ -27,6 +27,7 @@ class HelpfulEquationNode extends Node {
   constructor( equation, options ) {
 
     assert && assert( equation instanceof HelpfulEquation );
+    phet.log && phet.log( `HelpfulEquation=${equation.toString()}` );
 
     options = merge( {}, FBConstants.EQUATION_OPTIONS, {
       fractionScale: 0.67 // {number} how much to scale fractions
