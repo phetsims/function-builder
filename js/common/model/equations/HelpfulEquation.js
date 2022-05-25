@@ -36,20 +36,15 @@ class HelpfulEquation {
 
     const stack = []; // {MathFunction[]}
 
-    // local vars to improve readability
-    let currentFunction = null; // {MathFunction}
-    let currentOperator = null; // {string}
-    let currentOperand = null; // {number}
-    let previousFunction = null; // {MathFunction}
-    let previousOperator = null; // {string}
-    let previousOperand = null; // {number}
-    let rationalNumber = ZERO; // {RationalNumber}
+    let previousFunction = null; // {MathFunction|null}
 
-    for ( let i = 0; i < mathFunctions.length; i++ ) {
+    mathFunctions.forEach( currentFunction => {
 
-      currentFunction = mathFunctions[ i ];
-      currentOperator = currentFunction.operator;
-      currentOperand = currentFunction.operandProperty.get();
+      // to improve readability
+      const currentOperator = currentFunction.operator;
+      const currentOperand = currentFunction.operandProperty.get();
+      const previousOperator = previousFunction ? previousFunction.operator : null;
+      const previousOperand = previousFunction ? previousFunction.operandProperty.get() : null;
 
       if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
 
@@ -61,7 +56,7 @@ class HelpfulEquation {
           // collapse adjacent plus and minus
           stack.pop();
 
-          rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
+          const rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
           if ( rationalNumber.valueOf() !== 0 ) {
             stack.push( new Plus( {
               operand: rationalNumber.valueOf(),
@@ -110,15 +105,11 @@ class HelpfulEquation {
 
       if ( stack.length > 0 ) {
         previousFunction = stack[ stack.length - 1 ];
-        previousOperator = currentOperator;
-        previousOperand = previousFunction.operandProperty.get();
       }
       else {
         previousFunction = null;
-        previousOperator = null;
-        previousOperand = null;
       }
-    }
+    } );
 
     // @private
     this.xSymbol = options.xSymbol; // {string}
