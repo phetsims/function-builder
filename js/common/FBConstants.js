@@ -32,8 +32,8 @@ const FBConstants = {
     leadDesign: 'Amanda McGarry',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
     team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Sam Reid, Beth Stade, David Webb',
-    qualityAssurance: 'Steele Dalton, Amanda Davis, Bryce Griebenow, Ethan Johnson, Andrea Lin, Emily Miller, ' +
-                      'Ben Roberts, Nancy Salpepi, Maggie Wiseman, Kathryn Woessner'
+    qualityAssurance: 'Steele Dalton, Amanda Davis, Bryce Griebenow, Clifford Hardin, Ethan Johnson, Andrea Lin, ' +
+                      'Emily Miller, Ben Roberts, Nancy Salpepi, Maggie Wiseman, Kathryn Woessner'
   },
 
   //--------------------------------------------------------------------------------------------------------
