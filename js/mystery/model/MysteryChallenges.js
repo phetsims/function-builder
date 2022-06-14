@@ -140,7 +140,7 @@ const MysteryChallenges = {
 
       const challengeObject = {
         operator: OPERATOR_MAP[ tokens[ i ] ],
-        operand: parseInt( tokens[ i + 1 ], 10 )
+        operand: Number( tokens[ i + 1 ] )
       };
 
       // validation
