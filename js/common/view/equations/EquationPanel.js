@@ -59,7 +59,7 @@ class EquationPanel extends Node {
       font: new PhetFont( 16 ),
       maxWidth: 0.75 * backgroundNode.width
     } );
-    const simplifyCheckbox = new Checkbox( simplifyLabel, slopeInterceptProperty, {
+    const simplifyCheckbox = new Checkbox( slopeInterceptProperty, simplifyLabel, {
       centerX: backgroundNode.centerX,
       bottom: backgroundNode.bottom - 10
     } );

@@ -200,7 +200,7 @@ class SceneNode extends Node {
 
     // 'Hide Functions' feature ----------------------------------------------------------------------------------------
 
-    const hideFunctionsCheckbox = new Checkbox( FBIconFactory.createHideFunctionsIcon(), this.hideFunctionsProperty, {
+    const hideFunctionsCheckbox = new Checkbox( this.hideFunctionsProperty, FBIconFactory.createHideFunctionsIcon(), {
       visible: options.hideFunctionsCheckboxVisible,
       spacing: 8,
       left: inputCarousel.left,
@@ -215,13 +215,11 @@ class SceneNode extends Node {
       visible: this.seeInsideProperty.get()
     } );
 
-    const seeInsideCheckbox = new Checkbox(
-      FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ),
-      this.seeInsideProperty, {
-        spacing: 8,
-        left: hideFunctionsCheckbox.left,
-        top: hideFunctionsCheckbox.bottom + 25
-      } );
+    const seeInsideCheckbox = new Checkbox( this.seeInsideProperty, FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ), {
+      spacing: 8,
+      left: hideFunctionsCheckbox.left,
+      top: hideFunctionsCheckbox.bottom + 25
+    } );
     controlsLayer.addChild( seeInsideCheckbox );
     seeInsideCheckbox.touchArea = seeInsideCheckbox.localBounds.dilatedXY( 10, 10 );
 
