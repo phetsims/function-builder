@@ -8,7 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import NumberPicker from '../../../../scenery-phet/js/NumberPicker.js';
+import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import functionBuilder from '../../functionBuilder.js';
 
 class FBNumberPicker extends NumberPicker {
