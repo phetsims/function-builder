@@ -9,8 +9,7 @@
 
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../../scenery/js/imports.js';
+import { Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import EquationCard from '../../model/cards/EquationCard.js';
 import NumberCard from '../../model/cards/NumberCard.js';

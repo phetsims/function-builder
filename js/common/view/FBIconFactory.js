@@ -9,11 +9,7 @@
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { HBox, Image, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
 import stickFigure_png from '../../../images/cards/stickFigure_png.js';
 import functionBuilder from '../../functionBuilder.js';

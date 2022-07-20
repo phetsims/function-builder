@@ -15,8 +15,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Image } from '../../../../../scenery/js/imports.js';
-import { Color } from '../../../../../scenery/js/imports.js';
+import { Color, Image } from '../../../../../scenery/js/imports.js';
 import warhol_png from '../../../../mipmaps/functions/warhol_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';

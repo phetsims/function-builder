@@ -8,12 +8,7 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { HBox, Image, Node, Path, Rectangle, VBox } from '../../../../scenery/js/imports.js';
 import Carousel from '../../../../sun/js/Carousel.js';
 import beaker_png from '../../../images/cards/beaker_png.js';
 import butterfly_png from '../../../images/cards/butterfly_png.js';
