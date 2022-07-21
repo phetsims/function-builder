@@ -24,9 +24,11 @@ class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
       spacing: 20,
       radioButtonOptions: {
         baseColor: 'white',
-        selectedLineWidth: 2,
         xMargin: 10,
-        yMargin: 16
+        yMargin: 16,
+        buttonAppearanceStrategyOptions: {
+          selectedLineWidth: 2
+        }
       }
     }, options );
 
