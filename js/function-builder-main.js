@@ -31,7 +31,7 @@ simLauncher.launch( () => {
     screens.push( new TestScreen() );
   }
 
-  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].title, screens, {
+  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].titleStringProperty, screens, {
     credits: FBConstants.CREDITS
   } );
   sim.start();
