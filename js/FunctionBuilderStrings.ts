@@ -43,8 +43,8 @@ type StringsType = {
   'mysteryCharacterStringProperty': TReadOnlyProperty<string>;
 };
 
-const functionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
+const FunctionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
 
-functionBuilder.register( 'functionBuilderStrings', functionBuilderStrings );
+functionBuilder.register( 'FunctionBuilderStrings', FunctionBuilderStrings );
 
-export default functionBuilderStrings;
+export default FunctionBuilderStrings;

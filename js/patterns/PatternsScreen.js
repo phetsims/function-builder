@@ -12,7 +12,7 @@ import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import PatternsModel from './model/PatternsModel.js';
 import PatternsScreenView from './view/PatternsScreenView.js';
 
@@ -25,7 +25,7 @@ class PatternsScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: functionBuilderStrings.screen.patterns,
+      name: FunctionBuilderStrings.screen.patterns,
       backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
     }, options );

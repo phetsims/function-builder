@@ -13,7 +13,7 @@ import { HBox, Image, Node, Rectangle, Text } from '../../../../scenery/js/impor
 import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
 import stickFigure_png from '../../../images/cards/stickFigure_png.js';
 import functionBuilder from '../../functionBuilder.js';
-import functionBuilderStrings from '../../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
 import FBColors from '../FBColors.js';
@@ -144,7 +144,7 @@ const FBIconFactory = {
       fill: options.functionFill
     } );
 
-    const textNode = new Text( functionBuilderStrings.mysteryCharacter, {
+    const textNode = new Text( FunctionBuilderStrings.mysteryCharacter, {
       font: new PhetFont( { size: 80, weight: 'bold' } ),
       fill: options.questionMarkFill,
       maxWidth: 0.5 * functionNode.width,

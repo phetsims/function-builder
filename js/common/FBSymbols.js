@@ -8,11 +8,11 @@
 
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
 import functionBuilder from '../functionBuilder.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 
 const FBSymbols = {
-  X: functionBuilderStrings.x,
-  Y: functionBuilderStrings.y,
+  X: FunctionBuilderStrings.x,
+  Y: FunctionBuilderStrings.y,
   DIVIDE: MathSymbols.DIVIDE,
   MINUS: MathSymbols.MINUS,
   PLUS: MathSymbols.PLUS,

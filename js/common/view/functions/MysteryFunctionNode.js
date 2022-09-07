@@ -9,7 +9,7 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import { Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
-import functionBuilderStrings from '../../../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import MathFunctionNode from './MathFunctionNode.js';
 
@@ -33,7 +33,7 @@ class MysteryFunctionNode extends MathFunctionNode {
 
     // Node that is displayed when the function's identity is hidden
     assert && assert( !options.hiddenNode );
-    options.hiddenNode = new Text( functionBuilderStrings.mysteryCharacter, {
+    options.hiddenNode = new Text( FunctionBuilderStrings.mysteryCharacter, {
       font: FBConstants.MYSTERY_FUNCTION_FONT,
       maxWidth: 0.35 * options.size.width,
       maxHeight: 0.9 * options.size.height

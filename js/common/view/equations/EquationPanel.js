@@ -18,7 +18,7 @@ import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import { Node, Rectangle, Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import functionBuilder from '../../../functionBuilder.js';
-import functionBuilderStrings from '../../../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 import FBSymbols from '../../FBSymbols.js';
@@ -53,7 +53,7 @@ class EquationPanel extends Node {
     } );
 
     // 'simplify' checkbox, at bottom center
-    const simplifyLabel = new Text( functionBuilderStrings.simplify, {
+    const simplifyLabel = new Text( FunctionBuilderStrings.simplify, {
       font: new PhetFont( 16 ),
       maxWidth: 0.75 * backgroundNode.width
     } );

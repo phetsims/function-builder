@@ -11,7 +11,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
-import functionBuilderStrings from '../../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../../FunctionBuilderStrings.js';
 
 class NumbersSceneNode extends MathSceneNode {
 
@@ -31,15 +31,15 @@ class NumbersSceneNode extends MathSceneNode {
 
       // options for XYTableNode
       tableOptions: {
-        xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
-        ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
+        xSymbol: FunctionBuilderStrings.input, // use 'Input' in place of x
+        ySymbol: FunctionBuilderStrings.output, // use 'Output' in place of y
         headingFont: new PhetFont( 18 ) // different font for 'Input' and 'Output'
       },
 
       // options for EquationPanel
       equationOptions: {
-        xSymbol: functionBuilderStrings.input, // use 'Input' in place of x
-        ySymbol: functionBuilderStrings.output, // use 'Output' in place of y
+        xSymbol: FunctionBuilderStrings.input, // use 'Input' in place of x
+        ySymbol: FunctionBuilderStrings.output, // use 'Output' in place of y
         xyFont: new PhetFont( 24 ), // different font for 'Input' and 'Output'
         xyAsCards: true // card outlines around 'Input' and 'Output'
       }

@@ -12,7 +12,7 @@ import Tandem from '../../tandem/js/Tandem.js';
 import FBConstants from './common/FBConstants.js';
 import FBQueryParameters from './common/FBQueryParameters.js';
 import EquationsScreen from './equations/EquationsScreen.js';
-import functionBuilderStrings from './functionBuilderStrings.js';
+import FunctionBuilderStrings from './FunctionBuilderStrings.js';
 import MysteryScreen from './mystery/MysteryScreen.js';
 import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
@@ -31,7 +31,7 @@ simLauncher.launch( () => {
     screens.push( new TestScreen() );
   }
 
-  const sim = new Sim( functionBuilderStrings[ 'function-builder' ].titleStringProperty, screens, {
+  const sim = new Sim( FunctionBuilderStrings[ 'function-builder' ].titleStringProperty, screens, {
     credits: FBConstants.CREDITS
   } );
   sim.start();

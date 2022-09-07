@@ -12,7 +12,7 @@ import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
-import functionBuilderStrings from '../functionBuilderStrings.js';
+import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import NumbersModel from './model/NumbersModel.js';
 import NumbersScreenView from './view/NumbersScreenView.js';
 
@@ -25,7 +25,7 @@ class NumbersScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: functionBuilderStrings.screen.numbers,
+      name: FunctionBuilderStrings.screen.numbers,
       backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
     }, options );
