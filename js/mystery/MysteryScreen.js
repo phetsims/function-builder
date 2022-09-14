@@ -25,7 +25,7 @@ class MysteryScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: FunctionBuilderStrings.screen.mystery,
+      name: FunctionBuilderStrings.screen.mysteryStringProperty,
       backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon()
     }, options );

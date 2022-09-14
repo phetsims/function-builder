@@ -23,7 +23,7 @@ class EquationsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: FunctionBuilderStrings.screen.equations,
+      name: FunctionBuilderStrings.screen.equationsStringProperty,
       backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem

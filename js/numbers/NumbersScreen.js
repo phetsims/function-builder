@@ -25,7 +25,7 @@ class NumbersScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: FunctionBuilderStrings.screen.numbers,
+      name: FunctionBuilderStrings.screen.numbersStringProperty,
       backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon()
     }, options );

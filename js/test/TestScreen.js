@@ -16,7 +16,7 @@ class TestScreen extends Screen {
   constructor() {
 
     const options = {
-      name: 'Test',
+      name: new Property( 'Test' ),
       backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
     };
 

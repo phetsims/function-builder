@@ -25,7 +25,7 @@ class PatternsScreen extends Screen {
   constructor( tandem, options ) {
 
     options = merge( {
-      name: FunctionBuilderStrings.screen.patterns,
+      name: FunctionBuilderStrings.screen.patternsStringProperty,
       backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
     }, options );
