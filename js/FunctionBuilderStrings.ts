@@ -5,42 +5,42 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import functionBuilder from './functionBuilder.js';
 
 type StringsType = {
   'function-builder': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
     'patterns': string;
-    'patternsStringProperty': TReadOnlyProperty<string>;
+    'patternsStringProperty': LinkableProperty<string>;
     'numbers': string;
-    'numbersStringProperty': TReadOnlyProperty<string>;
+    'numbersStringProperty': LinkableProperty<string>;
     'equations': string;
-    'equationsStringProperty': TReadOnlyProperty<string>;
+    'equationsStringProperty': LinkableProperty<string>;
     'mystery': string;
-    'mysteryStringProperty': TReadOnlyProperty<string>;
+    'mysteryStringProperty': LinkableProperty<string>;
   };
   'simplify': string;
-  'simplifyStringProperty': TReadOnlyProperty<string>;
+  'simplifyStringProperty': LinkableProperty<string>;
   'input': string;
-  'inputStringProperty': TReadOnlyProperty<string>;
+  'inputStringProperty': LinkableProperty<string>;
   'output': string;
-  'outputStringProperty': TReadOnlyProperty<string>;
+  'outputStringProperty': LinkableProperty<string>;
   'x': string;
-  'xStringProperty': TReadOnlyProperty<string>;
+  'xStringProperty': LinkableProperty<string>;
   'y': string;
-  'yStringProperty': TReadOnlyProperty<string>;
+  'yStringProperty': LinkableProperty<string>;
   'mysteryA': string;
-  'mysteryAStringProperty': TReadOnlyProperty<string>;
+  'mysteryAStringProperty': LinkableProperty<string>;
   'mysteryB': string;
-  'mysteryBStringProperty': TReadOnlyProperty<string>;
+  'mysteryBStringProperty': LinkableProperty<string>;
   'mysteryC': string;
-  'mysteryCStringProperty': TReadOnlyProperty<string>;
+  'mysteryCStringProperty': LinkableProperty<string>;
   'mysteryCharacter': string;
-  'mysteryCharacterStringProperty': TReadOnlyProperty<string>;
+  'mysteryCharacterStringProperty': LinkableProperty<string>;
 };
 
 const FunctionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
