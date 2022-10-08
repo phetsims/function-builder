@@ -41,7 +41,7 @@ class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
       assert && assert( scene.iconNode, 'expected iconNode for scene' );
       content.push( {
         value: scene,
-        node: scene.iconNode
+        createNode: tandem => scene.iconNode
       } );
     } );
 
