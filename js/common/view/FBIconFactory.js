@@ -144,7 +144,7 @@ const FBIconFactory = {
       fill: options.functionFill
     } );
 
-    const textNode = new Text( FunctionBuilderStrings.mysteryCharacter, {
+    const textNode = new Text( FunctionBuilderStrings.mysteryCharacterStringProperty, {
       font: new PhetFont( { size: 80, weight: 'bold' } ),
       fill: options.questionMarkFill,
       maxWidth: 0.5 * functionNode.width,

@@ -53,7 +53,7 @@ class EquationPanel extends Node {
     } );
 
     // 'simplify' checkbox, at bottom center
-    const simplifyLabel = new Text( FunctionBuilderStrings.simplify, {
+    const simplifyLabel = new Text( FunctionBuilderStrings.simplifyStringProperty, {
       font: new PhetFont( 16 ),
       maxWidth: 0.75 * backgroundNode.width
     } );

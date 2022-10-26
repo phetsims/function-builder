@@ -14,12 +14,12 @@ import functionBuilder from '../../../functionBuilder.js';
 class MysteryImageFunction extends ImageFunction {
 
   /**
-   * @param {string} mysteryString - string that may contain subscripts and superscripts
+   * @param {TReadOnlyProperty.<string>} mysteryStringProperty - string that may contain subscripts and superscripts
    * @param {Object} [options]
    */
-  constructor( mysteryString, options ) {
+  constructor( mysteryStringProperty, options ) {
 
-    const iconNode = new RichText( mysteryString, {
+    const iconNode = new RichText( mysteryStringProperty, {
       subScale: 0.4, // subscript scale
       font: FBConstants.PATTERNS_FUNCTION_FONT,
       maxWidth: 0.35 * FBConstants.FUNCTION_SIZE.width

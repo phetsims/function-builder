@@ -44,6 +44,11 @@ class FBMovable {
   }
 
   // @public
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  }
+
+  // @public
   reset() {
 
     // call moveTo instead of positionProperty.set, so that any animation in progress is cancelled

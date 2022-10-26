@@ -18,7 +18,7 @@ class MysteryC extends MysteryImageFunction {
    * @param {Object} [options]
    */
   constructor( options ) {
-    super( FunctionBuilderStrings.mysteryC, merge( {
+    super( FunctionBuilderStrings.mysteryCStringProperty, merge( {
       name: 'MysteryC',
       fill: 'rgb( 222, 186, 247 )'
     }, options ) );

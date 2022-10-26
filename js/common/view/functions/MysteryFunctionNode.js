@@ -33,7 +33,7 @@ class MysteryFunctionNode extends MathFunctionNode {
 
     // Node that is displayed when the function's identity is hidden
     assert && assert( !options.hiddenNode );
-    options.hiddenNode = new Text( FunctionBuilderStrings.mysteryCharacter, {
+    options.hiddenNode = new Text( FunctionBuilderStrings.mysteryCharacterStringProperty, {
       font: FBConstants.MYSTERY_FUNCTION_FONT,
       maxWidth: 0.35 * options.size.width,
       maxHeight: 0.9 * options.size.height

@@ -64,8 +64,12 @@ class FunctionNode extends MovableNode {
     } );
 
     // center
-    contentNode.center = backgroundNode.center;
-    options.hiddenNode.center = backgroundNode.center;
+    contentNode.boundsProperty.link( bounds => {
+      contentNode.center = backgroundNode.center;
+    } );
+    options.hiddenNode.boundsProperty.link( bounds => {
+      options.hiddenNode.center = backgroundNode.center;
+    } );
 
     // @private
     const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {

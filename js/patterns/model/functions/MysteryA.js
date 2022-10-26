@@ -18,7 +18,7 @@ class MysteryA extends MysteryImageFunction {
    * @param {Object} [options]
    */
   constructor( options ) {
-    super( FunctionBuilderStrings.mysteryA, merge( {
+    super( FunctionBuilderStrings.mysteryAStringProperty, merge( {
       name: 'MysteryA',
       fill: 'rgb( 127, 225, 173 )'
     }, options ) );
