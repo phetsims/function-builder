@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Bounds2 from '../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import Vector2 from '../../../dot/js/Vector2.js';
+import ScreenView from '../../../joist/js/ScreenView.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import functionBuilder from '../functionBuilder.js';
@@ -21,8 +21,9 @@ const FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
 
 const FBConstants = {
 
-  // layoutBounds for all ScreenView subtypes
-  SCREEN_VIEW_LAYOUT_BOUNDS: new Bounds2( 0, 0, 1024, 618 ),
+  // layoutBounds for all ScreenView subtypes. We define this constant here because it's needed in computations,
+  // and we should not make assumptions about what the value is.
+  SCREEN_VIEW_LAYOUT_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
 
   // offset of the Reset All button from the lower-right corner of the screen
   RESET_ALL_BUTTON_OFFSET: new Vector2( -50, -20 ),
