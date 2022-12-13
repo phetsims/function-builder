@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "55f8c1bb12a12b281c6509df99e83f8e6cd8d29b",
+    "sha": "8519b9565917a080e64782038f68d64e00826d79",
     "branch": "1.2"
   },
   "joist": {
@@ -33,7 +33,7 @@
     "branch": "HEAD"
   },
   "perennial-alias": {
-    "sha": "d1738bf4682756d45425518b408075ced68cca62",
+    "sha": "ca0ad6bace8fc5f003fad8eca770ef6a44598b2c",
     "branch": "HEAD"
   },
   "phet-core": {
