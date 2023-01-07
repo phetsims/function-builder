@@ -110,7 +110,7 @@ class SceneNode extends Node {
     } );
 
     // Page control for input carousel
-    const inputPageControl = new PageControl( inputCarousel.pageNumberProperty, inputCarousel.numberOfPages, merge( {
+    const inputPageControl = new PageControl( inputCarousel.pageNumberProperty, inputCarousel.numberOfPagesProperty, merge( {
       orientation: 'vertical',
       right: inputCarousel.left - PAGE_CONTROL_SPACING,
       centerY: inputCarousel.centerY
@@ -137,7 +137,7 @@ class SceneNode extends Node {
     } );
 
     // Page control for output carousel
-    const outputPageControl = new PageControl( outputCarousel.pageNumberProperty, outputCarousel.numberOfPages, merge( {
+    const outputPageControl = new PageControl( outputCarousel.pageNumberProperty, outputCarousel.numberOfPagesProperty, merge( {
       orientation: 'vertical',
       left: outputCarousel.right + PAGE_CONTROL_SPACING,
       centerY: outputCarousel.centerY
@@ -178,7 +178,7 @@ class SceneNode extends Node {
     } );
 
     // Page control for function carousel
-    const functionPageControl = new PageControl( functionCarousel.pageNumberProperty, functionCarousel.numberOfPages, merge( {
+    const functionPageControl = new PageControl( functionCarousel.pageNumberProperty, functionCarousel.numberOfPagesProperty, merge( {
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       centerX: functionCarousel.centerX,
