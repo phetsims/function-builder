@@ -21,6 +21,9 @@ class OutputCardsCarousel extends Carousel {
 
     super( containers, options );
 
+    // @private
+    this.containers = containers;
+
     // @public (read-only) {Property.<number>} of cards in the carousel
     this.numberOfCardsProperty = new NumberProperty( getNumberOfCards( containers ), {
       numberType: 'Integer'
@@ -49,7 +52,7 @@ class OutputCardsCarousel extends Carousel {
    * @public
    */
   erase() {
-    this.items.forEach( container => {
+    this.containers.forEach( container => {
       container.getContents().forEach( cardNode => {
         container.removeNode( cardNode );
         cardNode.moveToInputCarousel();
