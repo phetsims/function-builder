@@ -94,11 +94,8 @@ class SceneNode extends Node {
 
     // Input carousel --------------------------------------------------------------------------------------------------
 
-    // Containers in the input carousel
-    const inputContainers = this.createCardContainers( scene );
-
     // Input carousel, at left
-    const inputCarousel = new Carousel( inputContainers, {
+    const inputCarousel = new Carousel( this.createCardContainers( scene ), {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
@@ -108,6 +105,9 @@ class SceneNode extends Node {
       left: layoutBounds.left + 30,
       top: layoutBounds.top + 50
     } );
+
+    // Containers in the input carousel
+    const inputContainers = inputCarousel.items;
 
     // Page control for input carousel
     const inputPageControl = new PageControl( inputCarousel.pageNumberProperty, inputCarousel.numberOfPagesProperty, merge( {

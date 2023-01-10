@@ -140,12 +140,16 @@ class MathSceneNode extends SceneNode {
 
     // numbers
     scene.cardContent.forEach( value => {
-      containers.push( new CardContainer( NumberCard, NumberCardNode, value, containerOptions ) );
+      containers.push( {
+        createNode: tandem => new CardContainer( NumberCard, NumberCardNode, value, containerOptions )
+      } );
     } );
 
     // symbol (eg 'x') is put in the carousel last
     if ( scene.cardSymbol ) {
-      containers.push( new CardContainer( EquationCard, EquationCardNode, scene.cardSymbol, containerOptions ) );
+      containers.push( {
+        createNode: tandem => new CardContainer( EquationCard, EquationCardNode, scene.cardSymbol, containerOptions )
+      } );
     }
 
     return containers;
