@@ -134,7 +134,7 @@ class MathSceneNode extends SceneNode {
    * @protected
    * @override
    */
-  createCardContainers( scene, containerOptions ) {
+  createCardCarouselItems( scene, containerOptions ) {
 
     const containers = [];
 

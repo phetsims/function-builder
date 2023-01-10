@@ -14,26 +14,26 @@ import functionBuilder from '../../functionBuilder.js';
 class OutputCardsCarousel extends Carousel {
 
   /**
-   * @param {CardContainer[]} containers - containers in the carousel
+   * @param {CarouselItem[]} carouselItems
    * @param {Object} [options]
    */
-  constructor( containers, options ) {
+  constructor( carouselItems, options ) {
 
-    super( containers, options );
+    super( carouselItems, options );
 
-    // @private
-    this.containers = containers;
+    // @private - the containers are the nodes created by the Carousel
+    this.containers = this.carouselItemNodes;
 
     // @public (read-only) {Property.<number>} of cards in the carousel
-    this.numberOfCardsProperty = new NumberProperty( getNumberOfCards( containers ), {
+    this.numberOfCardsProperty = new NumberProperty( getNumberOfCards( this.containers ), {
       numberType: 'Integer'
     } );
 
     // update numberOfCardsProperty as cards are added/removed
     const containerListener = () => {
-      this.numberOfCardsProperty.set( getNumberOfCards( containers ) );
+      this.numberOfCardsProperty.set( getNumberOfCards( this.containers ) );
     };
-    containers.forEach( container => {
+    this.containers.forEach( container => {
 
       // unlink unnecessary, instances exist for lifetime of the sim
       container.numberOfItemsProperty.link( numberOfItems => containerListener() );
@@ -58,7 +58,7 @@ class OutputCardsCarousel extends Carousel {
         cardNode.moveToInputCarousel();
       } );
     } );
-    assert && assert( getNumberOfCards( this.items ) === 0 );
+    assert && assert( getNumberOfCards( this.carouselItemNodes ) === 0 );
   }
 }
 

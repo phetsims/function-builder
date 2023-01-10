@@ -95,19 +95,18 @@ class SceneNode extends Node {
     // Input carousel --------------------------------------------------------------------------------------------------
 
     // Input carousel, at left
-    const inputCarousel = new Carousel( this.createCardContainers( scene ), {
+    const inputCarousel = new Carousel( this.createCardCarouselItems( scene ), {
       orientation: 'vertical',
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
+      spacing: 20,
+      margin: 10,
       left: layoutBounds.left + 30,
       top: layoutBounds.top + 50
     } );
-
-    // Containers in the input carousel
-    const inputContainers = inputCarousel.items;
 
     // Page control for input carousel
     const inputPageControl = new PageControl( inputCarousel.pageNumberProperty, inputCarousel.numberOfPagesProperty, merge( {
@@ -120,7 +119,7 @@ class SceneNode extends Node {
     // Output carousel ------------------------------------------------------------------------------------------------
 
     // Containers in the output carousel
-    const outputContainers = this.createCardContainers( scene, {
+    const outputContainers = this.createCardCarouselItems( scene, {
       emptyNode: null // don't show anything in empty output containers
     } );
 
@@ -132,6 +131,8 @@ class SceneNode extends Node {
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
       buttonTouchAreaXDilation: 5,
       buttonTouchAreaYDilation: 15,
+      spacing: 20,
+      margin: 10,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
     } );
@@ -163,14 +164,15 @@ class SceneNode extends Node {
     // Function carousel ----------------------------------------------------------------------------------------------
 
     // Containers in the function carousel
-    const functionContainers = createFunctionContainers( scene.functionCreators, functionNodeConstructor );
+    const functionCarouselItems = createFunctionCarouselItems( scene.functionCreators, functionNodeConstructor );
 
     // Function carousel, centered below bottom builder
-    const functionCarousel = new Carousel( functionContainers, {
+    const functionCarousel = new Carousel( functionCarouselItems, {
       visible: options.functionCarouselVisible,
       orientation: 'horizontal',
       itemsPerPage: options.functionsPerPage,
       spacing: 12,
+      margin: 10,
       buttonTouchAreaXDilation: 15,
       buttonTouchAreaYDilation: 5,
       centerX: layoutBounds.centerX,
@@ -190,7 +192,7 @@ class SceneNode extends Node {
 
     // Link the input and output carousels, so that they display the same page number.
     // unlink unnecessary, instances exist for lifetime of the sim.
-    assert && assert( inputCarousel.numberOfPages === outputCarousel.numberOfPages );
+    assert && assert( inputCarousel.numberOfPagesProperty.value === outputCarousel.numberOfPagesProperty.value );
     inputCarousel.pageNumberProperty.link( pageNumber => {
       outputCarousel.pageNumberProperty.set( pageNumber );
     } );
@@ -268,10 +270,10 @@ class SceneNode extends Node {
     this.functionsDragLayer = functionsDragLayer;
     this.builderNode = builderNode;
     this.functionCarousel = functionCarousel;
-    this.inputContainers = inputContainers;
-    this.outputContainers = outputContainers;
+    this.inputContainers = inputCarousel.carouselItemNodes;
+    this.outputContainers = outputCarousel.carouselItemNodes;
     assert && assert( this.inputContainers.length === this.outputContainers.length );
-    this.functionContainers = functionContainers;
+    this.functionContainers = functionCarousel.carouselItemNodes;
     this.seeInsideCheckbox = seeInsideCheckbox;
   }
 
@@ -341,10 +343,10 @@ class SceneNode extends Node {
 
     this.functionCarousel.animationEnabled = false;
 
-    this.functionContainers.forEach( functionContainer => {
+    this.functionContainers.forEach( ( functionContainer, i ) => {
 
       // function container's position
-      functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, functionContainer, this.functionsDragLayer );
+      functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, this.functionCarousel.items[ i ], this.functionsDragLayer );
 
       // populate the container with functions
       functionContainer.createFunctions( this.scene.numberOfEachFunction, this.scene, this.builderNode, this.functionsDragLayer );
@@ -366,11 +368,11 @@ class SceneNode extends Node {
 
       // input container's position
       const inputContainer = this.inputContainers[ i ];
-      inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, inputContainer, this.cardsDragLayer );
+      inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, this.inputCarousel.items[ i ], this.cardsDragLayer );
 
       // output container's position
       const outputContainer = this.outputContainers[ i ];
-      outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, outputContainer, this.cardsDragLayer );
+      outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, this.outputCarousel.items[ i ], this.cardsDragLayer );
 
       // populate the input container with cards
       inputContainer.createCards( this.scene.numberOfEachCard, this.scene, inputContainer, outputContainer,
@@ -397,12 +399,12 @@ class SceneNode extends Node {
    * @public
    */
   populateOutputCarousel() {
-    for ( let i = 0; i < this.outputCarousel.items.length; i++ ) {
+    for ( let i = 0; i < this.outputCarousel.carouselItemNodes.length; i++ ) {
 
-      const outputContainer = this.outputCarousel.items[ i ];
+      const outputContainer = this.outputCarousel.carouselItemNodes[ i ];
       if ( outputContainer.isEmpty() ) {
 
-        const inputContainer = this.inputCarousel.items[ i ];
+        const inputContainer = this.inputCarousel.carouselItemNodes[ i ];
 
         const cardNode = inputContainer.getContents()[ 0 ];
         inputContainer.removeNode( cardNode );
@@ -416,11 +418,11 @@ class SceneNode extends Node {
    *
    * @param {Scene} scene
    * @param {Object} [containerOptions]
-   * @returns {CardContainer[]}
+   * @returns {CarouselItem[]}
    * @protected
    * @abstract
    */
-  createCardContainers( scene, containerOptions ) {
+  createCardCarouselItems( scene, containerOptions ) {
     throw new Error( 'must be implemented by subtype' );
   }
 }
@@ -431,14 +433,15 @@ functionBuilder.register( 'SceneNode', SceneNode );
  * For a container that is visible in some carousel, gets the position of the container in the global coordinate frame.
  *
  * @param {Carousel} carousel
- * @param {MovableContainer} container
+ * @param {CarouselItem} carouselItem
  * @param {Node} worldParent
  * @returns {Vector2}
  */
-function getCarouselPosition( carousel, container, worldParent ) {
+function getCarouselPosition( carousel, carouselItem, worldParent ) {
   assert && assert( !carousel.animationEnabled );
-  carousel.scrollToItem( container );
-  return worldParent.globalToLocalPoint( container.parentToGlobalPoint( container.center ) );
+  carousel.scrollToItem( carouselItem );
+  const node = carousel.getCreatedNodeForItem( carouselItem );
+  return worldParent.globalToLocalPoint( node.parentToGlobalPoint( node.center ) );
 }
 
 /**
@@ -467,12 +470,12 @@ function hasScreenViewAncestor( node ) {
  * @returns {FunctionContainer[]}
  * @private
  */
-function createFunctionContainers( functionCreators, functionNodeConstructor, containerOptions ) {
-  const functionContainers = [];
-  functionCreators.forEach( functionCreator => {
-    functionContainers.push( new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions ) );
+function createFunctionCarouselItems( functionCreators, functionNodeConstructor, containerOptions ) {
+  return functionCreators.map( functionCreator => {
+    return {
+      createNode: () => new FunctionContainer( functionCreator, functionNodeConstructor, containerOptions )
+    };
   } );
-  return functionContainers;
 }
 
 export default SceneNode;

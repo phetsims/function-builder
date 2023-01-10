@@ -11,7 +11,7 @@ import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Node, Rectangle } from '../../../../../scenery/js/imports.js';
+import { Color, Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 
@@ -29,7 +29,9 @@ class MovableContainer extends Node {
 
     // invisible background, so that an empty container has dimensions
     const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
-      stroke: FBQueryParameters.showContainers ? 'red' : null
+
+      // transparent instead of null because we need bounds for the items in the Carousels
+      stroke: FBQueryParameters.showContainers ? 'red' : Color.transparent
     } );
 
     // parent for contents of the container

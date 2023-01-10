@@ -101,10 +101,12 @@ function testImageFunctions( layoutBounds ) {
       hBoxChildren.push( new TestCardNode( outputCanvas ) );
     } );
 
-    items.push( new HBox( {
-      children: hBoxChildren,
-      spacing: 15
-    } ) );
+    items.push( {
+      createNode: () => new HBox( {
+        children: hBoxChildren,
+        spacing: 15
+      } )
+    } );
   } );
 
   // vertical carousel to show the output images
