@@ -270,6 +270,7 @@ class SceneNode extends Node {
     this.functionCarousel = functionCarousel;
     this.inputContainers = inputContainers;
     this.outputContainers = outputContainers;
+    assert && assert( this.inputContainers.length === this.outputContainers.length );
     this.functionContainers = functionContainers;
     this.seeInsideCheckbox = seeInsideCheckbox;
   }
@@ -340,7 +341,7 @@ class SceneNode extends Node {
 
     this.functionCarousel.animationEnabled = false;
 
-    this.functionCarousel.items.forEach( functionContainer => {
+    this.functionContainers.forEach( functionContainer => {
 
       // function container's position
       functionContainer.carouselPosition = getCarouselPosition( this.functionCarousel, functionContainer, this.functionsDragLayer );
@@ -361,18 +362,14 @@ class SceneNode extends Node {
 
     this.inputCarousel.animationEnabled = this.outputCarousel.animationEnabled = false;
 
-    const inputContainers = this.inputCarousel.items;
-    const outputContainers = this.outputCarousel.items;
-    assert && assert( inputContainers.length === outputContainers.length );
-
-    for ( let i = 0; i < inputContainers.length; i++ ) {
+    for ( let i = 0; i < this.inputContainers.length; i++ ) {
 
       // input container's position
-      const inputContainer = inputContainers[ i ];
+      const inputContainer = this.inputContainers[ i ];
       inputContainer.carouselPosition = getCarouselPosition( this.inputCarousel, inputContainer, this.cardsDragLayer );
 
       // output container's position
-      const outputContainer = outputContainers[ i ];
+      const outputContainer = this.outputContainers[ i ];
       outputContainer.carouselPosition = getCarouselPosition( this.outputCarousel, outputContainer, this.cardsDragLayer );
 
       // populate the input container with cards
