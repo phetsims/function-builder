@@ -130,7 +130,7 @@ const FBIconFactory = {
    * Creates the icon for the 'Mystery' screen.
    *
    * @param {Object} [options]
-   * @returns {Node}
+   * @returns {ScreenIcon}
    */
   createMysteryScreenIcon: function( options ) {
 
