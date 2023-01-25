@@ -100,8 +100,10 @@ class SceneNode extends Node {
       separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
-      buttonTouchAreaXDilation: 5,
-      buttonTouchAreaYDilation: 15,
+      buttonOptions: {
+        touchAreaXDilation: 5,
+        touchAreaYDilation: 15
+      },
       spacing: 20,
       margin: 10,
       left: layoutBounds.left + 30,
