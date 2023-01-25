@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2023, University of Colorado Boulder
 
 /**
  * Control for selecting a scene.
@@ -41,7 +41,7 @@ class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
       assert && assert( scene.iconNode, 'expected iconNode for scene' );
       content.push( {
         value: scene,
-        createNode: tandem => scene.iconNode
+        createNode: () => scene.iconNode
       } );
     } );
 
