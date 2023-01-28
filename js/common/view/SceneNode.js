@@ -442,7 +442,7 @@ functionBuilder.register( 'SceneNode', SceneNode );
 function getCarouselPosition( carousel, carouselItem, worldParent ) {
   assert && assert( !carousel.animationEnabled );
   carousel.scrollToItem( carouselItem );
-  const node = carousel.getCreatedNodeForItem( carouselItem );
+  const node = carousel.getNodeForItem( carouselItem );
   return worldParent.globalToLocalPoint( node.parentToGlobalPoint( node.center ) );
 }
 
