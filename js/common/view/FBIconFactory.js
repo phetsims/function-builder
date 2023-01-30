@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2015-2023, University of Colorado Boulder
 
 /**
  * Functions that create icons for this sim.
@@ -130,7 +130,7 @@ const FBIconFactory = {
    * Creates the icon for the 'Mystery' screen.
    *
    * @param {Object} [options]
-   * @returns {Node}
+   * @returns {ScreenIcon}
    */
   createMysteryScreenIcon: function( options ) {
 
