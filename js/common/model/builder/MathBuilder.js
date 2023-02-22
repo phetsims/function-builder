@@ -10,7 +10,7 @@
 import functionBuilder from '../../../functionBuilder.js';
 import Builder from './Builder.js';
 
-class MathBuilder extends Builder {
+export default class MathBuilder extends Builder {
 
   /**
    * @param {Object} [options]
@@ -51,5 +51,3 @@ class MathBuilder extends Builder {
 }
 
 functionBuilder.register( 'MathBuilder', MathBuilder );
-
-export default MathBuilder;

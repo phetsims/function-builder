@@ -10,7 +10,7 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 
-class FunctionCreator {
+export default class FunctionCreator {
 
   /**
    * @param {constructor} functionConstructor - constructor for a function
@@ -35,5 +35,3 @@ class FunctionCreator {
 }
 
 functionBuilder.register( 'FunctionCreator', FunctionCreator );
-
-export default FunctionCreator;

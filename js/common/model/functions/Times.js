@@ -11,7 +11,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
-class Times extends MathFunction {
+export default class Times extends MathFunction {
 
   /**
    * @param {Object} [options]
@@ -41,5 +41,3 @@ class Times extends MathFunction {
 }
 
 functionBuilder.register( 'Times', Times );
-
-export default Times;

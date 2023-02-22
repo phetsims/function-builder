@@ -14,7 +14,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
 import AbstractFunction from './AbstractFunction.js';
 
-class MathFunction extends AbstractFunction {
+export default class MathFunction extends AbstractFunction {
 
   /**
    * @param {string} operator - string representation of the operator
@@ -90,5 +90,3 @@ class MathFunction extends AbstractFunction {
 }
 
 functionBuilder.register( 'MathFunction', MathFunction );
-
-export default MathFunction;

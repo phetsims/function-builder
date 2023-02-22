@@ -12,7 +12,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable from '../FBMovable.js';
 
-class AbstractFunction extends FBMovable {
+export default class AbstractFunction extends FBMovable {
 
   /**
    * @param {Object} [options]
@@ -86,5 +86,3 @@ class AbstractFunction extends FBMovable {
 }
 
 functionBuilder.register( 'AbstractFunction', AbstractFunction );
-
-export default AbstractFunction;

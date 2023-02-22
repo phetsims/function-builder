@@ -10,7 +10,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
 import Card from './Card.js';
 
-class NumberCard extends Card {
+export default class NumberCard extends Card {
 
   /**
    * @param {RationalNumber} rationalNumber - the input number, an integer
@@ -29,5 +29,3 @@ class NumberCard extends Card {
 }
 
 functionBuilder.register( 'NumberCard', NumberCard );
-
-export default NumberCard;

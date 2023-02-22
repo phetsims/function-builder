@@ -12,7 +12,7 @@
 
 import functionBuilder from '../../functionBuilder.js';
 
-class RationalNumber {
+export default class RationalNumber {
 
   /**
    * @param numerator
@@ -195,4 +195,3 @@ function toRationalNumber( bigRational ) {
 }
 
 functionBuilder.register( 'RationalNumber', RationalNumber );
-export default RationalNumber;

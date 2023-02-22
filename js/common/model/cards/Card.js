@@ -12,7 +12,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable from '../FBMovable.js';
 
-class Card extends FBMovable {
+export default class Card extends FBMovable {
 
   /**
    * @param {Object} [options]
@@ -28,5 +28,3 @@ class Card extends FBMovable {
 }
 
 functionBuilder.register( 'Card', Card );
-
-export default Card;

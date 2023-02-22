@@ -11,7 +11,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
-class Minus extends MathFunction {
+export default class Minus extends MathFunction {
 
   /**
    * @param {Object} [options]
@@ -30,5 +30,3 @@ class Minus extends MathFunction {
 }
 
 functionBuilder.register( 'Minus', Minus );
-
-export default Minus;

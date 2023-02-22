@@ -9,7 +9,7 @@
 import functionBuilder from '../../../functionBuilder.js';
 import Card from './Card.js';
 
-class EquationCard extends Card {
+export default class EquationCard extends Card {
 
   /**
    * @param {string} xSymbol - the input symbol, typically 'x'
@@ -27,5 +27,3 @@ class EquationCard extends Card {
 }
 
 functionBuilder.register( 'EquationCard', EquationCard );
-
-export default EquationCard;

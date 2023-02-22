@@ -22,7 +22,7 @@ import RationalNumber from '../RationalNumber.js';
 // constants
 const ZERO = RationalNumber.withInteger( 0 );
 
-class HelpfulEquation {
+export default class HelpfulEquation {
 
   /**
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
@@ -194,5 +194,3 @@ class HelpfulEquation {
 }
 
 functionBuilder.register( 'HelpfulEquation', HelpfulEquation );
-
-export default HelpfulEquation;

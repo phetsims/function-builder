@@ -11,7 +11,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
-class Divide extends MathFunction {
+export default class Divide extends MathFunction {
 
   /**
    * @param {Object} [options]
@@ -31,5 +31,3 @@ class Divide extends MathFunction {
 }
 
 functionBuilder.register( 'Divide', Divide );
-
-export default Divide;

@@ -10,7 +10,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../../../patterns/model/FBCanvasUtils.js';
 import Card from './Card.js';
 
-class ImageCard extends Card {
+export default class ImageCard extends Card {
 
   /**
    * @param {HTMLImageElement} image - the input image
@@ -44,5 +44,3 @@ class ImageCard extends Card {
 }
 
 functionBuilder.register( 'ImageCard', ImageCard );
-
-export default ImageCard;

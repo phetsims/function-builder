@@ -14,7 +14,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class FBMovable {
+export default class FBMovable {
 
   /**
    * @param {Object} [options]
@@ -130,5 +130,3 @@ class FBMovable {
 }
 
 functionBuilder.register( 'FBMovable', FBMovable );
-
-export default FBMovable;

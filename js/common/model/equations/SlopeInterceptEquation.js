@@ -11,7 +11,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../RationalNumber.js';
 
-class SlopeInterceptEquation {
+export default class SlopeInterceptEquation {
 
   /**
    * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
@@ -105,5 +105,3 @@ class SlopeInterceptEquation {
 }
 
 functionBuilder.register( 'SlopeInterceptEquation', SlopeInterceptEquation );
-
-export default SlopeInterceptEquation;

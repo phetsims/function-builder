@@ -23,7 +23,7 @@ import FunctionSlot from './FunctionSlot.js';
 const WINDOW_X_OFFSET = ( FBConstants.FUNCTION_SIZE.width / 2 ) -
                         ( FBConstants.FUNCTION_X_INSET_FACTOR * FBConstants.FUNCTION_SIZE.width / 2 );
 
-class Builder {
+export default class Builder {
 
   /**
    * @param {Object} [options]
@@ -306,5 +306,3 @@ class Builder {
 }
 
 functionBuilder.register( 'Builder', Builder );
-
-export default Builder;

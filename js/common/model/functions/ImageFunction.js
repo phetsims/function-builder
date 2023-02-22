@@ -9,7 +9,7 @@
 import functionBuilder from '../../../functionBuilder.js';
 import AbstractFunction from './AbstractFunction.js';
 
-class ImageFunction extends AbstractFunction {
+export default class ImageFunction extends AbstractFunction {
 
   /**
    * @param {Node} iconNode - icon that represents the function type
@@ -22,5 +22,3 @@ class ImageFunction extends AbstractFunction {
 }
 
 functionBuilder.register( 'ImageFunction', ImageFunction );
-
-export default ImageFunction;

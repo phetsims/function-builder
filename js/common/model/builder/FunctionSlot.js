@@ -11,7 +11,7 @@ import functionBuilder from '../../../functionBuilder.js';
 // constants
 const NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
 
-class FunctionSlot {
+export default class FunctionSlot {
 
   /**
    * @param {Vector2} position - position of the slot in the global coordinate frame
@@ -71,5 +71,3 @@ class FunctionSlot {
 FunctionSlot.NO_SLOT_NUMBER = -1;
 
 functionBuilder.register( 'FunctionSlot', FunctionSlot );
-
-export default FunctionSlot;

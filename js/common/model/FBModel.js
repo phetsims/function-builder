@@ -10,7 +10,7 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class FBModel {
+export default class FBModel {
 
   /**
    * @param {Scene[]} scenes
@@ -52,5 +52,3 @@ class FBModel {
 }
 
 functionBuilder.register( 'FBModel', FBModel );
-
-export default FBModel;

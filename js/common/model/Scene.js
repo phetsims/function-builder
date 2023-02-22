@@ -10,7 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 
-class Scene {
+export default class Scene {
 
   /**
    * @param {*[]} cardContent - content that will appear on card, type determined by client
@@ -101,5 +101,3 @@ class Scene {
 }
 
 functionBuilder.register( 'Scene', Scene );
-
-export default Scene;
