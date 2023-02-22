@@ -19,7 +19,7 @@ import functionBuilder from '../../functionBuilder.js';
  * @param {Bounds2} layoutBounds
  * @returns {Node}
  */
-function testMysteryFunctionColors( layoutBounds ) {
+export default function testMysteryFunctionColors( layoutBounds ) {
 
   // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
   const colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
@@ -105,5 +105,3 @@ class TestFunctionNode extends Node {
 }
 
 functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );
-
-export default testMysteryFunctionColors;

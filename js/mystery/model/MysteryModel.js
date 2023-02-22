@@ -11,7 +11,7 @@ import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
 import MysteryScene from './MysteryScene.js';
 
-class MysteryModel extends FBModel {
+export default class MysteryModel extends FBModel {
 
   constructor() {
     super( [
@@ -23,5 +23,3 @@ class MysteryModel extends FBModel {
 }
 
 functionBuilder.register( 'MysteryModel', MysteryModel );
-
-export default MysteryModel;

@@ -37,7 +37,7 @@ const AXIS_OPTIONS = {
   stroke: null
 };
 
-class XYGraphNode extends Node {
+export default class XYGraphNode extends Node {
 
   /**
    * @param {Builder} builder
@@ -378,5 +378,3 @@ class PointNode extends Circle {
 }
 
 functionBuilder.register( 'XYGraphNode', XYGraphNode );
-
-export default XYGraphNode;

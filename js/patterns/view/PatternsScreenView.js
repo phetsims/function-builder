@@ -10,7 +10,7 @@ import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
 import PatternsSceneNode from './PatternsSceneNode.js';
 
-class PatternsScreenView extends FBScreenView {
+export default class PatternsScreenView extends FBScreenView {
 
   /**
    * @param {PatternsModel} model
@@ -22,5 +22,3 @@ class PatternsScreenView extends FBScreenView {
 }
 
 functionBuilder.register( 'PatternsScreenView', PatternsScreenView );
-
-export default PatternsScreenView;

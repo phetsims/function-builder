@@ -13,7 +13,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class Erase extends ImageFunction {
+export default class Erase extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -47,5 +47,3 @@ class Erase extends ImageFunction {
 }
 
 functionBuilder.register( 'Erase', Erase );
-
-export default Erase;

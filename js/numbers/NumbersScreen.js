@@ -16,7 +16,7 @@ import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import NumbersModel from './model/NumbersModel.js';
 import NumbersScreenView from './view/NumbersScreenView.js';
 
-class NumbersScreen extends Screen {
+export default class NumbersScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -42,5 +42,3 @@ class NumbersScreen extends Screen {
 }
 
 functionBuilder.register( 'NumbersScreen', NumbersScreen );
-
-export default NumbersScreen;

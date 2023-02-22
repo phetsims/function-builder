@@ -17,7 +17,7 @@ import SlopeInterceptEquation from '../../model/equations/SlopeInterceptEquation
 import SlopeInterceptEquationNode from '../equations/SlopeInterceptEquationNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 
-class XYTableRow extends Node {
+export default class XYTableRow extends Node {
 
   /**
    * @param {NumberCard|EquationCard} card - card that's associated with the row
@@ -204,5 +204,3 @@ function createCellValueNode( card, builder, options ) {
 }
 
 functionBuilder.register( 'XYTableRow', XYTableRow );
-
-export default XYTableRow;

@@ -10,7 +10,7 @@ import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import NumbersScene from './NumbersScene.js';
 
-class NumbersModel extends FBModel {
+export default class NumbersModel extends FBModel {
 
   constructor() {
     super( [ new NumbersScene() ] );
@@ -18,5 +18,3 @@ class NumbersModel extends FBModel {
 }
 
 functionBuilder.register( 'NumbersModel', NumbersModel );
-
-export default NumbersModel;

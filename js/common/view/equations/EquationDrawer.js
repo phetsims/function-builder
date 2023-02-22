@@ -12,7 +12,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import EquationPanel from './EquationPanel.js';
 
-class EquationDrawer extends Drawer {
+export default class EquationDrawer extends Drawer {
 
   /**
    * @param {Builder} builder
@@ -43,5 +43,3 @@ class EquationDrawer extends Drawer {
 }
 
 functionBuilder.register( 'EquationDrawer', EquationDrawer );
-
-export default EquationDrawer;

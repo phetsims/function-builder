@@ -19,7 +19,7 @@ import MovableNode from '../MovableNode.js';
 import NotInvertibleSymbolNode from '../NotInvertibleSymbolNode.js';
 import FunctionBackgroundNode from './FunctionBackgroundNode.js';
 
-class FunctionNode extends MovableNode {
+export default class FunctionNode extends MovableNode {
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
@@ -307,5 +307,3 @@ class FunctionNode extends MovableNode {
 }
 
 functionBuilder.register( 'FunctionNode', FunctionNode );
-
-export default FunctionNode;

@@ -36,7 +36,7 @@ import NumberCard from '../../model/cards/NumberCard.js';
 import XYTableHeading from './XYTableHeading.js';
 import XYTableRow from './XYTableRow.js';
 
-class XYTableNode extends VBox {
+export default class XYTableNode extends VBox {
 
   /**
    * @param {Builder} builder
@@ -445,5 +445,3 @@ class XYTableNode extends VBox {
 }
 
 functionBuilder.register( 'XYTableNode', XYTableNode );
-
-export default XYTableNode;

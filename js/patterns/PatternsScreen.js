@@ -16,7 +16,7 @@ import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import PatternsModel from './model/PatternsModel.js';
 import PatternsScreenView from './view/PatternsScreenView.js';
 
-class PatternsScreen extends Screen {
+export default class PatternsScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -42,5 +42,3 @@ class PatternsScreen extends Screen {
 }
 
 functionBuilder.register( 'PatternsScreen', PatternsScreen );
-
-export default PatternsScreen;

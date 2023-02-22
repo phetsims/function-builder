@@ -17,7 +17,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import XYTableNode from './XYTableNode.js';
 
-class XYTableDrawer extends Drawer {
+export default class XYTableDrawer extends Drawer {
 
   /**
    * @param {Builder} builder
@@ -89,5 +89,3 @@ class XYTableDrawer extends Drawer {
 }
 
 functionBuilder.register( 'XYTableDrawer', XYTableDrawer );
-
-export default XYTableDrawer;

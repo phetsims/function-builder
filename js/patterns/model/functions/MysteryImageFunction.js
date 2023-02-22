@@ -11,7 +11,7 @@ import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 
-class MysteryImageFunction extends ImageFunction {
+export default class MysteryImageFunction extends ImageFunction {
 
   /**
    * @param {TReadOnlyProperty.<string>} mysteryStringProperty - string that may contain subscripts and superscripts
@@ -30,5 +30,3 @@ class MysteryImageFunction extends ImageFunction {
 }
 
 functionBuilder.register( 'MysteryImageFunction', MysteryImageFunction );
-
-export default MysteryImageFunction;

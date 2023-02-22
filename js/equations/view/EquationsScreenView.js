@@ -10,7 +10,7 @@ import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 
-class EquationsScreenView extends FBScreenView {
+export default class EquationsScreenView extends FBScreenView {
 
   /**
    * @param {EquationsModel} model
@@ -22,5 +22,3 @@ class EquationsScreenView extends FBScreenView {
 }
 
 functionBuilder.register( 'EquationsScreenView', EquationsScreenView );
-
-export default EquationsScreenView;

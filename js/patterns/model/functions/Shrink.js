@@ -15,7 +15,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class Shrink extends ImageFunction {
+export default class Shrink extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -74,5 +74,3 @@ function toEvenInteger( value ) {
 }
 
 functionBuilder.register( 'Shrink', Shrink );
-
-export default Shrink;

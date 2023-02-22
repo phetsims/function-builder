@@ -21,7 +21,7 @@ import EquationCardNode from '../cards/EquationCardNode.js';
 import NumberCardNode from '../cards/NumberCardNode.js';
 import XYGraphNode from './XYGraphNode.js';
 
-class XYGraphDrawer extends Drawer {
+export default class XYGraphDrawer extends Drawer {
 
   /**
    * @param {Builder} builder
@@ -85,5 +85,3 @@ class XYGraphDrawer extends Drawer {
 }
 
 functionBuilder.register( 'XYGraphDrawer', XYGraphDrawer );
-
-export default XYGraphDrawer;

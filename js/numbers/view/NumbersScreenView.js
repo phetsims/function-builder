@@ -10,7 +10,7 @@ import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
 import NumbersSceneNode from './NumbersSceneNode.js';
 
-class NumbersScreenView extends FBScreenView {
+export default class NumbersScreenView extends FBScreenView {
 
   /**
    * @param {NumbersModel} model
@@ -22,5 +22,3 @@ class NumbersScreenView extends FBScreenView {
 }
 
 functionBuilder.register( 'NumbersScreenView', NumbersScreenView );
-
-export default NumbersScreenView;

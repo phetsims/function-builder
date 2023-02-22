@@ -13,7 +13,7 @@ import MathFunction from '../../model/functions/MathFunction.js';
 import FBNumberPicker from '../FBNumberPicker.js';
 import FunctionNode from './FunctionNode.js';
 
-class EditableMathFunctionNode extends FunctionNode {
+export default class EditableMathFunctionNode extends FunctionNode {
 
   /**
    * @param {MathFunction} functionInstance
@@ -55,5 +55,3 @@ class EditableMathFunctionNode extends FunctionNode {
 }
 
 functionBuilder.register( 'EditableMathFunctionNode', EditableMathFunctionNode );
-
-export default EditableMathFunctionNode;

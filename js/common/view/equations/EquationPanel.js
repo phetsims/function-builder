@@ -27,7 +27,7 @@ import SlopeInterceptEquation from '../../model/equations/SlopeInterceptEquation
 import HelpfulEquationNode from './HelpfulEquationNode.js';
 import SlopeInterceptEquationNode from './SlopeInterceptEquationNode.js';
 
-class EquationPanel extends Node {
+export default class EquationPanel extends Node {
 
   /**
    * @param {Builder} builder
@@ -201,5 +201,3 @@ class EquationPanel extends Node {
 }
 
 functionBuilder.register( 'EquationPanel', EquationPanel );
-
-export default EquationPanel;

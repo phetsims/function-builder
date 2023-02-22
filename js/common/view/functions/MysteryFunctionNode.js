@@ -13,7 +13,7 @@ import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import MathFunctionNode from './MathFunctionNode.js';
 
-class MysteryFunctionNode extends MathFunctionNode {
+export default class MysteryFunctionNode extends MathFunctionNode {
 
   /**
    * @param {MathFunction} functionInstance
@@ -44,5 +44,3 @@ class MysteryFunctionNode extends MathFunctionNode {
 }
 
 functionBuilder.register( 'MysteryFunctionNode', MysteryFunctionNode );
-
-export default MysteryFunctionNode;

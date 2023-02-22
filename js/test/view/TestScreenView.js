@@ -11,7 +11,7 @@ import functionBuilder from '../../functionBuilder.js';
 import testImageFunctions from './testImageFunctions.js';
 import testMysteryFunctionColors from './testMysteryFunctionColors.js';
 
-class TestScreenView extends DemosScreenView {
+export default class TestScreenView extends DemosScreenView {
   constructor() {
     super( [
       { label: 'imageFunctions', createNode: testImageFunctions },
@@ -21,5 +21,3 @@ class TestScreenView extends DemosScreenView {
 }
 
 functionBuilder.register( 'TestScreenView', TestScreenView );
-
-export default TestScreenView;

@@ -10,7 +10,7 @@ import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import EquationsScene from './EquationsScene.js';
 
-class EquationsModel extends FBModel {
+export default class EquationsModel extends FBModel {
 
   constructor() {
     super( [ new EquationsScene() ] );
@@ -18,5 +18,3 @@ class EquationsModel extends FBModel {
 }
 
 functionBuilder.register( 'EquationsModel', EquationsModel );
-
-export default EquationsModel;

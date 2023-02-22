@@ -43,7 +43,7 @@ const RIGHT_TOP_COLOR_MAP = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 4
 const LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
 const RIGHT_BOTTOM_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
 
-class Warhol extends ImageFunction {
+export default class Warhol extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -159,5 +159,3 @@ Warhol.LEFT_BOTTOM_COLOR_MAP = LEFT_BOTTOM_COLOR_MAP;
 Warhol.RIGHT_BOTTOM_COLOR_MAP = RIGHT_BOTTOM_COLOR_MAP;
 
 functionBuilder.register( 'Warhol', Warhol );
-
-export default Warhol;

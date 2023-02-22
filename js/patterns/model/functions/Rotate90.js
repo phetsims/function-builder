@@ -13,7 +13,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class Rotate90 extends ImageFunction {
+export default class Rotate90 extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -55,5 +55,3 @@ class Rotate90 extends ImageFunction {
 }
 
 functionBuilder.register( 'Rotate90', Rotate90 );
-
-export default Rotate90;

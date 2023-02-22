@@ -23,7 +23,7 @@ import functionBuilder from '../../functionBuilder.js';
 // constants
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 
-class NumbersScene extends Scene {
+export default class NumbersScene extends Scene {
 
   /**
    * @param {Object} [options]
@@ -72,5 +72,3 @@ class NumbersScene extends Scene {
 }
 
 functionBuilder.register( 'NumbersScene', NumbersScene );
-
-export default NumbersScene;

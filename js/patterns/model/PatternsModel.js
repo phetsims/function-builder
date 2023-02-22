@@ -10,7 +10,7 @@ import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import PatternsScene from './PatternsScene.js';
 
-class PatternsModel extends FBModel {
+export default class PatternsModel extends FBModel {
 
   constructor() {
     super( [
@@ -33,5 +33,3 @@ class PatternsModel extends FBModel {
 }
 
 functionBuilder.register( 'PatternsModel', PatternsModel );
-
-export default PatternsModel;

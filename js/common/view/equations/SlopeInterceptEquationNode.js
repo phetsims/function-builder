@@ -15,7 +15,7 @@ import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 
-class SlopeInterceptEquationNode extends Node {
+export default class SlopeInterceptEquationNode extends Node {
 
   /**
    * @param {RationalNumber} slope
@@ -180,5 +180,3 @@ class SlopeInterceptEquationNode extends Node {
 }
 
 functionBuilder.register( 'SlopeInterceptEquationNode', SlopeInterceptEquationNode );
-
-export default SlopeInterceptEquationNode;

@@ -13,7 +13,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class InvertRGB extends ImageFunction {
+export default class InvertRGB extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -57,5 +57,3 @@ class InvertRGB extends ImageFunction {
 }
 
 functionBuilder.register( 'InvertRGB', InvertRGB );
-
-export default InvertRGB;

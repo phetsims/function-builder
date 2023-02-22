@@ -11,7 +11,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class Identity extends ImageFunction {
+export default class Identity extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -46,5 +46,3 @@ class Identity extends ImageFunction {
 }
 
 functionBuilder.register( 'Identity', Identity );
-
-export default Identity;

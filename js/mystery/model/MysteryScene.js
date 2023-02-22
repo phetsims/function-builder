@@ -30,7 +30,7 @@ import MysteryChallenges from './MysteryChallenges.js';
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 const MAX_SLOTS = 3; // max number of slots in the builder
 
-class MysteryScene extends Scene {
+export default class MysteryScene extends Scene {
 
   /**
    * @param {string[]} challengePool
@@ -248,4 +248,3 @@ class MysteryScene extends Scene {
 }
 
 functionBuilder.register( 'MysteryScene', MysteryScene );
-export default MysteryScene;

@@ -13,7 +13,7 @@ import { Line, Node, Path, Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
-class XYTableHeading extends Node {
+export default class XYTableHeading extends Node {
 
   /**
    * @param {string} xSymbol - label for the x (input) column
@@ -73,5 +73,3 @@ class XYTableHeading extends Node {
 }
 
 functionBuilder.register( 'XYTableHeading', XYTableHeading );
-
-export default XYTableHeading;

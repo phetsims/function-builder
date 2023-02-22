@@ -15,7 +15,7 @@ import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
 
-class EquationsScreen extends Screen {
+export default class EquationsScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -38,5 +38,3 @@ class EquationsScreen extends Screen {
 }
 
 functionBuilder.register( 'EquationsScreen', EquationsScreen );
-
-export default EquationsScreen;

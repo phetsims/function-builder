@@ -13,7 +13,7 @@ import ImageFunctionNode from '../../common/view/functions/ImageFunctionNode.js'
 import SceneNode from '../../common/view/SceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class PatternsSceneNode extends SceneNode {
+export default class PatternsSceneNode extends SceneNode {
 
   /**
    * @param {PatternsScene} scene - model for this scene
@@ -47,5 +47,3 @@ class PatternsSceneNode extends SceneNode {
 }
 
 functionBuilder.register( 'PatternsSceneNode', PatternsSceneNode );
-
-export default PatternsSceneNode;

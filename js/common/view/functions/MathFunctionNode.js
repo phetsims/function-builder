@@ -13,7 +13,7 @@ import FBConstants from '../../FBConstants.js';
 import MathFunction from '../../model/functions/MathFunction.js';
 import FunctionNode from './FunctionNode.js';
 
-class MathFunctionNode extends FunctionNode {
+export default class MathFunctionNode extends FunctionNode {
 
   /**
    * @param {MathFunction} functionInstance
@@ -43,5 +43,3 @@ class MathFunctionNode extends FunctionNode {
 }
 
 functionBuilder.register( 'MathFunctionNode', MathFunctionNode );
-
-export default MathFunctionNode;

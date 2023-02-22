@@ -11,7 +11,7 @@ import EditableMathFunctionNode from '../../common/view/functions/EditableMathFu
 import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class EquationsSceneNode extends MathSceneNode {
+export default class EquationsSceneNode extends MathSceneNode {
 
   /**
    * @param {EquationsScene} scene - model for this scene
@@ -33,5 +33,3 @@ class EquationsSceneNode extends MathSceneNode {
 }
 
 functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );
-
-export default EquationsSceneNode;

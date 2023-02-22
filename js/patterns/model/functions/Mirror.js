@@ -13,7 +13,7 @@ import ImageFunction from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
-class Mirror extends ImageFunction {
+export default class Mirror extends ImageFunction {
 
   /**
    * @param {Object} [options]
@@ -55,5 +55,3 @@ class Mirror extends ImageFunction {
 }
 
 functionBuilder.register( 'Mirror', Mirror );
-
-export default Mirror;

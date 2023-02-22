@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import functionBuilder from '../functionBuilder.js';
 import TestScreenView from './view/TestScreenView.js';
 
-class TestScreen extends Screen {
+export default class TestScreen extends Screen {
 
   constructor() {
 
@@ -31,5 +31,3 @@ class TestScreen extends Screen {
 }
 
 functionBuilder.register( 'TestScreen', TestScreen );
-
-export default TestScreen;

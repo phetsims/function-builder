@@ -16,7 +16,7 @@ import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 
-class HelpfulEquationNode extends Node {
+export default class HelpfulEquationNode extends Node {
 
   /**
    * @param {HelpfulEquation} equation
@@ -282,5 +282,3 @@ class HelpfulEquationNode extends Node {
 }
 
 functionBuilder.register( 'HelpfulEquationNode', HelpfulEquationNode );
-
-export default HelpfulEquationNode;

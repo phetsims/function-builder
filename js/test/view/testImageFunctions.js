@@ -42,7 +42,7 @@ import Warhol from '../../patterns/model/functions/Warhol.js';
  * @param {Bounds2} layoutBounds
  * @returns {Node}
  */
-function testImageFunctions( layoutBounds ) {
+export default function testImageFunctions( layoutBounds ) {
 
   // a canvas for each input image
   const canvases = [
@@ -200,5 +200,3 @@ class TestFunctionNode extends Node {
 }
 
 functionBuilder.register( 'testImageFunctions', testImageFunctions );
-
-export default testImageFunctions;

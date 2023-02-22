@@ -19,7 +19,7 @@ import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from '../model/MysteryChallenges.js';
 
-class MysterySceneNode extends MathSceneNode {
+export default class MysterySceneNode extends MathSceneNode {
 
   /**
    * @param {MysteryScene} scene - model for this scene
@@ -249,5 +249,3 @@ class MysterySceneNode extends MathSceneNode {
 }
 
 functionBuilder.register( 'MysterySceneNode', MysterySceneNode );
-
-export default MysterySceneNode;

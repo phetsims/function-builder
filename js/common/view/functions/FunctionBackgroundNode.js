@@ -17,7 +17,7 @@ import { Path } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
-class FunctionBackgroundNode extends Path {
+export default class FunctionBackgroundNode extends Path {
 
   /**
    * @param {Object} [options]
@@ -59,5 +59,3 @@ class FunctionBackgroundNode extends Path {
 }
 
 functionBuilder.register( 'FunctionBackgroundNode', FunctionBackgroundNode );
-
-export default FunctionBackgroundNode;

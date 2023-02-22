@@ -13,7 +13,7 @@ import MathSceneNode from '../../common/view/MathSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 import FunctionBuilderStrings from '../../FunctionBuilderStrings.js';
 
-class NumbersSceneNode extends MathSceneNode {
+export default class NumbersSceneNode extends MathSceneNode {
 
   /**
    * @param {NumbersScene} scene - model for this scene
@@ -51,5 +51,3 @@ class NumbersSceneNode extends MathSceneNode {
 }
 
 functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );
-
-export default NumbersSceneNode;

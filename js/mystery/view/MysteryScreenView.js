@@ -11,7 +11,7 @@ import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
 import MysterySceneNode from './MysterySceneNode.js';
 
-class MysteryScreenView extends FBScreenView {
+export default class MysteryScreenView extends FBScreenView {
 
   /**
    * @param {MysteryModel} model
@@ -28,5 +28,3 @@ class MysteryScreenView extends FBScreenView {
 }
 
 functionBuilder.register( 'MysteryScreenView', MysteryScreenView );
-
-export default MysteryScreenView;

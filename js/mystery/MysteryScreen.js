@@ -16,7 +16,7 @@ import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import MysteryModel from './model/MysteryModel.js';
 import MysteryScreenView from './view/MysteryScreenView.js';
 
-class MysteryScreen extends Screen {
+export default class MysteryScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -42,5 +42,3 @@ class MysteryScreen extends Screen {
 }
 
 functionBuilder.register( 'MysteryScreen', MysteryScreen );
-
-export default MysteryScreen;

@@ -39,7 +39,7 @@ import Rotate90 from './functions/Rotate90.js';
 import Shrink from './functions/Shrink.js';
 import Warhol from './functions/Warhol.js';
 
-class PatternsScene extends Scene {
+export default class PatternsScene extends Scene {
 
   /**
    * @param {Object} [options]
@@ -107,5 +107,3 @@ class PatternsScene extends Scene {
 }
 
 functionBuilder.register( 'PatternsScene', PatternsScene );
-
-export default PatternsScene;

@@ -12,7 +12,7 @@ import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction from './MysteryImageFunction.js';
 
-class MysteryC extends MysteryImageFunction {
+export default class MysteryC extends MysteryImageFunction {
 
   /**
    * @param {Object} [options]
@@ -73,5 +73,3 @@ class MysteryC extends MysteryImageFunction {
 }
 
 functionBuilder.register( 'MysteryC', MysteryC );
-
-export default MysteryC;

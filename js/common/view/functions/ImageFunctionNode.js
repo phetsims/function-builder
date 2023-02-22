@@ -10,7 +10,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import ImageFunction from '../../model/functions/ImageFunction.js';
 import FunctionNode from './FunctionNode.js';
 
-class ImageFunctionNode extends FunctionNode {
+export default class ImageFunctionNode extends FunctionNode {
 
   /**
    * @param {ImageFunction} functionInstance
@@ -26,5 +26,3 @@ class ImageFunctionNode extends FunctionNode {
 }
 
 functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );
-
-export default ImageFunctionNode;
