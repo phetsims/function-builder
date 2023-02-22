@@ -16,7 +16,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableNode from '../MovableNode.js';
 
-class CardNode extends MovableNode {
+export default class CardNode extends MovableNode {
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
@@ -519,5 +519,3 @@ class CardNode extends MovableNode {
 }
 
 functionBuilder.register( 'CardNode', CardNode );
-
-export default CardNode;

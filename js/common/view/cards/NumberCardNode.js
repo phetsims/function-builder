@@ -23,7 +23,7 @@ const DEFAULT_MAX_CONTENT_SIZE = new Dimension2(
   0.95 * FBConstants.CARD_OPTIONS.size.height
 );
 
-class NumberCardNode extends CardNode {
+export default class NumberCardNode extends CardNode {
 
   /**
    * @param {NumberCard} card
@@ -111,5 +111,3 @@ class NumberCardNode extends CardNode {
 }
 
 functionBuilder.register( 'NumberCardNode', NumberCardNode );
-
-export default NumberCardNode;

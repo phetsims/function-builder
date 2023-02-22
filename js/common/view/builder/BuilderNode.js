@@ -21,7 +21,7 @@ import FunctionNode from '../functions/FunctionNode.js';
 import BuilderEndNode from './BuilderEndNode.js';
 import FunctionSlotNode from './FunctionSlotNode.js';
 
-class BuilderNode extends Node {
+export default class BuilderNode extends Node {
 
   /**
    * @param {Builder} builder
@@ -277,5 +277,3 @@ class BuilderNode extends Node {
 }
 
 functionBuilder.register( 'BuilderNode', BuilderNode );
-
-export default BuilderNode;

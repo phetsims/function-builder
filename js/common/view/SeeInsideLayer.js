@@ -16,7 +16,7 @@ import FBConstants from '../FBConstants.js';
 const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
 const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
 
-class SeeInsideLayer extends Node {
+export default class SeeInsideLayer extends Node {
 
   /**
    * @param {Builder} builder
@@ -78,5 +78,3 @@ class SeeInsideLayer extends Node {
 }
 
 functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );
-
-export default SeeInsideLayer;

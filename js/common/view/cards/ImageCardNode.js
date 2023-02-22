@@ -15,7 +15,7 @@ import CardNode from './CardNode.js';
 // constants
 const DEFAULT_IMAGE_SCALE = 0.4; // how much to scale images that appear on cards
 
-class ImageCardNode extends CardNode {
+export default class ImageCardNode extends CardNode {
 
   /**
    * @param {ImageCard} card
@@ -93,5 +93,3 @@ class ImageCardNode extends CardNode {
 }
 
 functionBuilder.register( 'ImageCardNode', ImageCardNode );
-
-export default ImageCardNode;

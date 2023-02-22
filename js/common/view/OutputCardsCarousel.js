@@ -11,7 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Carousel from '../../../../sun/js/Carousel.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class OutputCardsCarousel extends Carousel {
+export default class OutputCardsCarousel extends Carousel {
 
   /**
    * @param {CarouselItem[]} carouselItems
@@ -77,5 +77,3 @@ function getNumberOfCards( containers ) {
 }
 
 functionBuilder.register( 'OutputCardsCarousel', OutputCardsCarousel );
-
-export default OutputCardsCarousel;

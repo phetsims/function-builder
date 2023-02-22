@@ -17,7 +17,7 @@ import FBConstants from '../FBConstants.js';
 import FBQueryParameters from '../FBQueryParameters.js';
 import SceneRadioButtonGroup from './SceneRadioButtonGroup.js';
 
-class FBScreenView extends ScreenView {
+export default class FBScreenView extends ScreenView {
 
   /**
    * @param {FBModel} model
@@ -154,5 +154,3 @@ class FBScreenView extends ScreenView {
 }
 
 functionBuilder.register( 'FBScreenView', FBScreenView );
-
-export default FBScreenView;

@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { DragListener, Node } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class MovableNode extends Node {
+export default class MovableNode extends Node {
 
   /**
    * @param {Movable} movable
@@ -92,5 +92,3 @@ class MovableNode extends Node {
 }
 
 functionBuilder.register( 'MovableNode', MovableNode );
-
-export default MovableNode;

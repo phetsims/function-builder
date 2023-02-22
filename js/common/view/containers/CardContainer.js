@@ -12,7 +12,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableContainer from './MovableContainer.js';
 
-class CardContainer extends MovableContainer {
+export default class CardContainer extends MovableContainer {
 
   /**
    * @param {constructor} cardConstructor
@@ -80,5 +80,3 @@ class CardContainer extends MovableContainer {
 }
 
 functionBuilder.register( 'CardContainer', CardContainer );
-
-export default CardContainer;

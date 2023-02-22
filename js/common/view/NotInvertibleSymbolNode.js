@@ -15,7 +15,7 @@ import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class NotInvertibleSymbolNode extends BannedNode {
+export default class NotInvertibleSymbolNode extends BannedNode {
 
   /**
    * @param {Object} [options]
@@ -79,5 +79,3 @@ class NotInvertibleSymbolNode extends BannedNode {
 }
 
 functionBuilder.register( 'NotInvertibleSymbolNode', NotInvertibleSymbolNode );
-
-export default NotInvertibleSymbolNode;

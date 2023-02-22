@@ -21,7 +21,7 @@ import XYGraphDrawer from './graph/XYGraphDrawer.js';
 import SceneNode from './SceneNode.js';
 import XYTableDrawer from './table/XYTableDrawer.js';
 
-class MathSceneNode extends SceneNode {
+export default class MathSceneNode extends SceneNode {
 
   /**
    * @param {Scene} scene - model for this scene
@@ -157,5 +157,3 @@ class MathSceneNode extends SceneNode {
 }
 
 functionBuilder.register( 'MathSceneNode', MathSceneNode );
-
-export default MathSceneNode;

@@ -31,7 +31,7 @@ const PAGE_CONTROL_OPTIONS = {
   dotMouseAreaDilation: 4
 };
 
-class SceneNode extends Node {
+export default class SceneNode extends Node {
 
   /**
    * @param {Scene} scene - model for this scene
@@ -429,8 +429,6 @@ class SceneNode extends Node {
   }
 }
 
-functionBuilder.register( 'SceneNode', SceneNode );
-
 /**
  * For a container that is visible in some carousel, gets the position of the container in the global coordinate frame.
  *
@@ -480,4 +478,4 @@ function createFunctionCarouselItems( functionCreators, functionNodeConstructor,
   } );
 }
 
-export default SceneNode;
+functionBuilder.register( 'SceneNode', SceneNode );

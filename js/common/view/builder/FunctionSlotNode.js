@@ -11,7 +11,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBackgroundNode from '../functions/FunctionBackgroundNode.js';
 
-class FunctionSlotNode extends FunctionBackgroundNode {
+export default class FunctionSlotNode extends FunctionBackgroundNode {
 
   /**
    * @param {Object} [options]
@@ -29,5 +29,3 @@ class FunctionSlotNode extends FunctionBackgroundNode {
 }
 
 functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );
-
-export default FunctionSlotNode;

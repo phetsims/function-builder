@@ -13,7 +13,7 @@ import { Path } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class EyeCloseNode extends Path {
+export default class EyeCloseNode extends Path {
 
   /**
    * @param {Object} [options]
@@ -27,5 +27,3 @@ class EyeCloseNode extends Path {
 }
 
 functionBuilder.register( 'EyeCloseNode', EyeCloseNode );
-
-export default EyeCloseNode;

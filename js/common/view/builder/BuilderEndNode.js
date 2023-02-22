@@ -15,7 +15,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import { Node, Path } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 
-class BuilderEndNode extends Node {
+export default class BuilderEndNode extends Node {
 
   /**
    * @param {string} orientation - which way the end faces, 'left'|'right'
@@ -83,5 +83,3 @@ class BuilderEndNode extends Node {
 }
 
 functionBuilder.register( 'BuilderEndNode', BuilderEndNode );
-
-export default BuilderEndNode;

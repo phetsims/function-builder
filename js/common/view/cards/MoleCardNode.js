@@ -12,7 +12,7 @@ import { Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
-class MoleCardNode extends Rectangle {
+export default class MoleCardNode extends Rectangle {
 
   /**
    * @param {Card} card
@@ -40,5 +40,3 @@ class MoleCardNode extends Rectangle {
 }
 
 functionBuilder.register( 'MoleCardNode', MoleCardNode );
-
-export default MoleCardNode;

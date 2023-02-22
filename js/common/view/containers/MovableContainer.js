@@ -15,7 +15,7 @@ import { Color, Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 
-class MovableContainer extends Node {
+export default class MovableContainer extends Node {
 
   /**
    * @param {Object} [options]
@@ -131,5 +131,3 @@ class MovableContainer extends Node {
 }
 
 functionBuilder.register( 'MovableContainer', MovableContainer );
-
-export default MovableContainer;

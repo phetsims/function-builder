@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import functionBuilder from '../../functionBuilder.js';
 
-class FBNumberPicker extends NumberPicker {
+export default class FBNumberPicker extends NumberPicker {
 
   /**
    * @param {Property.<number>} valueProperty
@@ -56,5 +56,3 @@ class FBNumberPicker extends NumberPicker {
 }
 
 functionBuilder.register( 'FBNumberPicker', FBNumberPicker );
-
-export default FBNumberPicker;

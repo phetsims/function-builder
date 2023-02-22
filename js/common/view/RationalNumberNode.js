@@ -17,7 +17,7 @@ import { Line, Node, Text } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
 
-class RationalNumberNode extends Node {
+export default class RationalNumberNode extends Node {
 
   /**
    * @param {RationalNumber} rationalNumber
@@ -146,5 +146,3 @@ class RationalNumberNode extends Node {
 }
 
 functionBuilder.register( 'RationalNumberNode', RationalNumberNode );
-
-export default RationalNumberNode;

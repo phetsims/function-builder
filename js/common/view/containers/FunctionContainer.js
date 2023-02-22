@@ -12,7 +12,7 @@ import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableContainer from './MovableContainer.js';
 
-class FunctionContainer extends MovableContainer {
+export default class FunctionContainer extends MovableContainer {
 
   /**
    * @param {FunctionCreator} functionCreator - creates function instances
@@ -71,5 +71,3 @@ class FunctionContainer extends MovableContainer {
 }
 
 functionBuilder.register( 'FunctionContainer', FunctionContainer );
-
-export default FunctionContainer;
