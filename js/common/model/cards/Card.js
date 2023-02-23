@@ -1,4 +1,4 @@
-// Copyright 2015-2021, University of Colorado Boulder
+// Copyright 2015-2023, University of Colorado Boulder
 
 /**
  * Base class for cards. Other than providing 'input' information to the builder, cards have no responsibility

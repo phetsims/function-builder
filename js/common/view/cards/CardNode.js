@@ -1,4 +1,4 @@
-// Copyright 2016-2022, University of Colorado Boulder
+// Copyright 2016-2023, University of Colorado Boulder
 
 /**
  * Abstract base class for card nodes. Provides a background shape for the card. Subtypes are responsible for the
