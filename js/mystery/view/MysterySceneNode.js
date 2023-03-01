@@ -239,7 +239,7 @@ export default class MysterySceneNode extends MathSceneNode {
     this.resetChallengeControls();
 
     // show the answer for debugging
-    this.answerNode.text = `#${this.scene.challengePool.indexOf( challenge ) + 1}: ${challenge}`;
+    this.answerNode.string = `#${this.scene.challengePool.indexOf( challenge ) + 1}: ${challenge}`;
     this.answerNode.centerX = this.builderNode.centerX;
 
     if ( FBQueryParameters.populateOutput ) {

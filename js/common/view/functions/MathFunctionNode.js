@@ -36,7 +36,7 @@ export default class MathFunctionNode extends FunctionNode {
     // synchronize operand with model.
     // unlink unnecessary, instances exist for lifetime of the sim
     functionInstance.operandProperty.link( operand => {
-      contentNode.text = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
+      contentNode.string = StringUtils.format( '{0} {1}', functionInstance.operator, operand );
       contentNode.center = this.backgroundNode.center;
     } );
   }
