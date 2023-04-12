@@ -26,9 +26,7 @@ import SeeInsideLayer from './SeeInsideLayer.js';
 // constants
 const PAGE_CONTROL_SPACING = 8; // space between page controls and their associated carousels
 const PAGE_CONTROL_OPTIONS = {
-  interactive: true,
-  dotTouchAreaDilation: 4,
-  dotMouseAreaDilation: 4
+  interactive: true
 };
 
 export default class SceneNode extends Node {
