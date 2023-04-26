@@ -18,6 +18,8 @@ import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
 import TestScreen from './test/TestScreen.js';
 
+const titleStringProperty = FunctionBuilderStrings[ 'function-builder' ].titleStringProperty;
+
 simLauncher.launch( () => {
 
   const screens = [
@@ -31,7 +33,7 @@ simLauncher.launch( () => {
     screens.push( new TestScreen() );
   }
 
-  const sim = new Sim( FunctionBuilderStrings[ 'function-builder' ].titleStringProperty, screens, {
+  const sim = new Sim( titleStringProperty, screens, {
     credits: FBConstants.CREDITS
   } );
   sim.start();
