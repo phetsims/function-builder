@@ -47,13 +47,38 @@
         ],
         "simulation": true,
         "supportsOutputJS": true,
-        "published": true
+        "published": true,
+        "screenNameKeys": [
+          "FUNCTION_BUILDER/screen.patterns",
+          "FUNCTION_BUILDER/screen.numbers",
+          "FUNCTION_BUILDER/screen.equations",
+          "FUNCTION_BUILDER/screen.mystery"
+        ]
       },
       "eslintConfig": {
         "extends": "../chipper/eslint/sim_eslintrc.js",
         "globals": {
           "bigRat": "readonly"
-        }
+        },
+        "overrides": [
+          {
+            "files": [
+              "**/*.ts"
+            ],
+            "rules": {
+              "@typescript-eslint/no-explicit-any": "error",
+              "@typescript-eslint/ban-ts-comment": [
+                "error",
+                {
+                  "ts-expect-error": true,
+                  "ts-ignore": true,
+                  "ts-check": true,
+                  "ts-nocheck": true
+                }
+              ]
+            }
+          }
+        ]
       }
     };
   window.phet.chipper.stringRepos =
