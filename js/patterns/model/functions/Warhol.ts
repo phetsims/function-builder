@@ -18,12 +18,13 @@
 import { Color, Image } from '../../../../../scenery/js/imports.js';
 import warhol_png from '../../../../mipmaps/functions/warhol_png.js';
 import FBConstants from '../../../common/FBConstants.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import Grayscale from './Grayscale.js';
 import Identity from './Identity.js';
 import Shrink from './Shrink.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 /**
  * Color maps, for mapping grayscale intensity to RGB.
@@ -35,45 +36,45 @@ import Shrink from './Shrink.js';
  * For example, if COLOR_MAP has 4 colors, then there will be 4 intensity bands (0-64, 65-127, 128-192, 193-255)
  * which map to indices 0-3 (respectively) of the map.  If a pixel's intensity is 68, then COLOR_MAP[1] will
  * be used as the color for the pixel.
- *
- * @type {Color[]}
  */
-const LEFT_TOP_COLOR_MAP = [ new Color( 0, 0, 255 ), new Color( 0, 255, 0 ), new Color( 255, 0, 0 ), new Color( 255, 255, 0 ) ];
-const RIGHT_TOP_COLOR_MAP = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 40, 40, 255 ) ];
-const LEFT_BOTTOM_COLOR_MAP = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
-const RIGHT_BOTTOM_COLOR_MAP = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
+type ColorMap = Color[];
+
+type SelfOptions = EmptySelfOptions;
+type WarholOptions = SelfOptions;
 
 export default class Warhol extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  // Warhol is implemented using these other ImageFunction subclasses.
+  private readonly shrink: Shrink;
+  private readonly grayscale: Grayscale;
+  private readonly identity: Identity;
 
-    options = options || {};
-    options.name = 'Warhol';
-    options.fill = 'rgb( 250, 186, 75 )';
-    options.invertible = false; // grayscale conversion and intensity mapping are both lossy
+  // public for use by FBIconFactory.createPatternsScreenIcon
+  public static readonly LEFT_TOP_COLOR_MAP: ColorMap = [ new Color( 0, 0, 255 ), new Color( 0, 255, 0 ), new Color( 255, 0, 0 ), new Color( 255, 255, 0 ) ];
+  public static readonly RIGHT_TOP_COLOR_MAP: ColorMap = [ Color.YELLOW, Color.RED, Color.GREEN, new Color( 40, 40, 255 ) ];
+  public static readonly LEFT_BOTTOM_COLOR_MAP: ColorMap = [ new Color( 19, 31, 24 ), new Color( 76, 76, 76 ), Color.YELLOW, Color.MAGENTA ];
+  public static readonly RIGHT_BOTTOM_COLOR_MAP: ColorMap = [ new Color( 0, 100, 255 ), new Color( 165, 255, 0 ), new Color( 255, 0, 132 ), new Color( 255, 215, 140 ) ];
+
+  public constructor( providedOptions?: WarholOptions ) {
+
+    const options = optionize<WarholOptions, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'Warhol',
+      fill: 'rgb( 250, 186, 75 )',
+      invertible: false // grayscale conversion and intensity mapping are both lossy
+    }, providedOptions );
 
     const iconNode = new Image( warhol_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
 
-    // @private
     this.shrink = new Shrink( { scale: 0.5 } );
     this.grayscale = new Grayscale();
     this.identity = new Identity();
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
     assert && assert( this.shrink !== undefined, 'apply was called before constructor completed' );
 
     let outputCanvas = null;
@@ -88,6 +89,8 @@ export default class Warhol extends ImageFunction {
       // Shrink the image by 50%.
       // Do this first so that we're processing fewer pixels in subsequent operations.
       const halfCanvas = this.shrink.applyFunction( inputCanvas );
+      const halfContext = halfCanvas.getContext( '2d' )!;
+      assert && assert( halfContext );
 
       // Put the image on an opaque background, so we have no transparent pixels.
       const opaqueCanvas = FBCanvasUtils.createCanvasWithImage( halfCanvas, {
@@ -100,21 +103,22 @@ export default class Warhol extends ImageFunction {
 
       // Create the output canvas, with same dimensions as inputCanvas
       outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-      const outputContext = outputCanvas.getContext( '2d' );
+      const outputContext = outputCanvas.getContext( '2d' )!;
+      assert && assert( outputContext );
 
       // Create a 'scratch' ImageData that will hold the result of mapping grayscale to colors.
       // This gets reused for each color mapping, so be sure to draw the data to the output canvas
       // before proceeding with the next mapping.
-      const scratchData = halfCanvas.getContext( '2d' ).createImageData( halfCanvas.width, halfCanvas.height );
+      const scratchData = halfContext.createImageData( halfCanvas.width, halfCanvas.height );
 
       // Draw a color-mapped image to each quadrant of the output canvas, using a different map in each quadrant.
-      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_TOP_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, Warhol.LEFT_TOP_COLOR_MAP ),
         0, 0 );
-      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, RIGHT_TOP_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, Warhol.RIGHT_TOP_COLOR_MAP ),
         outputCanvas.width / 2, 0 );
-      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, LEFT_BOTTOM_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, Warhol.LEFT_BOTTOM_COLOR_MAP ),
         0, outputCanvas.height / 2 );
-      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, RIGHT_BOTTOM_COLOR_MAP ),
+      outputContext.putImageData( applyColorMap( grayscaleData, scratchData, Warhol.RIGHT_BOTTOM_COLOR_MAP ),
         outputCanvas.width / 2, outputCanvas.height / 2 );
     }
 
@@ -126,13 +130,8 @@ export default class Warhol extends ImageFunction {
  * Applies a color map, based on intensity of the pixels in the input.
  * While it's tempting to implement this as a subtype of ImageFunction,
  * doing so would increase the number of Canvases created when applying Warhol.
- *
- * @param {ImageData} inputData
- * @param {ImageData} outputData
- * @param {Color[]} colorMap
- * @returns {ImageData}
  */
-function applyColorMap( inputData, outputData, colorMap ) {
+function applyColorMap( inputData: ImageData, outputData: ImageData, colorMap: Color[] ): ImageData {
   assert && assert( inputData.data.length === outputData.data.length );
   for ( let i = 0; i < inputData.data.length - 4; i += 4 ) {
 
@@ -151,11 +150,5 @@ function applyColorMap( inputData, outputData, colorMap ) {
   }
   return outputData;
 }
-
-// @public for use by FBIconFactory.createPatternsScreenIcon
-Warhol.LEFT_TOP_COLOR_MAP = LEFT_TOP_COLOR_MAP;
-Warhol.RIGHT_TOP_COLOR_MAP = RIGHT_TOP_COLOR_MAP;
-Warhol.LEFT_BOTTOM_COLOR_MAP = LEFT_BOTTOM_COLOR_MAP;
-Warhol.RIGHT_BOTTOM_COLOR_MAP = RIGHT_BOTTOM_COLOR_MAP;
 
 functionBuilder.register( 'Warhol', Warhol );

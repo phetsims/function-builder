@@ -7,20 +7,25 @@
  */
 
 import { Rectangle } from '../../../../../scenery/js/imports.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type IdentityOptions = SelfOptions;
 
 export default class Identity extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: IdentityOptions ) {
 
-    options = options || {};
-    options.name = 'Identity';
-    options.fill = 'rgb( 255, 246, 146 )';
+    const options = optionize<IdentityOptions, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'Identity',
+      fill: 'rgb( 255, 246, 146 )',
+      invertible: true
+    }, providedOptions );
 
     // The identify function has no visible icon. See https://github.com/phetsims/function-builder/issues/91
     // This decision was made late in development, and it was easier to use an invisible Rectangle than to
@@ -30,15 +35,7 @@ export default class Identity extends ImageFunction {
     super( iconNode, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     // copy the input canvas to the output canvas
     return FBCanvasUtils.createCanvasWithImage( inputCanvas );

@@ -9,39 +9,37 @@
 import { Image } from '../../../../../scenery/js/imports.js';
 import rotate180_png from '../../../../mipmaps/functions/rotate180_png.js';
 import FBConstants from '../../../common/FBConstants.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type Rotate180Options = SelfOptions;
 
 export default class Rotate180 extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: Rotate180Options ) {
 
-    options = options || {};
-    options.name = 'Rotate180';
-    options.fill = 'rgb( 147, 231, 128 )';
+    const options = optionize<Rotate180Options, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'Rotate180',
+      fill: 'rgb( 147, 231, 128 )',
+      invertible: true
+    }, providedOptions );
 
     const iconNode = new Image( rotate180_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-    const context = outputCanvas.getContext( '2d' );
+    const context = outputCanvas.getContext( '2d' )!;
+    assert && assert( context );
 
     // Rotate 180 degrees
     context.translate( outputCanvas.width, outputCanvas.height );

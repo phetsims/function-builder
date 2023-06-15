@@ -13,10 +13,9 @@ import ImageFunction, { ImageFunctionOptions } from '../../../common/model/funct
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
-type EraseOptions = SelfOptions & StrictOmit<ImageFunctionOptions, 'name' | 'fill' | 'invertible'>;
+type EraseOptions = SelfOptions;
 
 export default class Erase extends ImageFunction {
 

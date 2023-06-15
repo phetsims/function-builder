@@ -15,15 +15,15 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 
 // properties of associated FunctionNode, in the model for convenience
 type ViewOptions = {
-  fill?: TColor;
+  fill: TColor;
   stroke?: TColor;
   lineWidth?: number;
   lineDash?: number[] | null;
 };
 
 type SelfOptions = {
-  name?: string | null; // optional name, for internal debugging
-  invertible?: boolean; // is this function invertible?
+  name: string; // optional name, for internal debugging
+  invertible: boolean; // is this function invertible?
 } & ViewOptions;
 
 export type AbstractFunctionOptions = SelfOptions & FBMovableOptions;
@@ -31,7 +31,7 @@ export type AbstractFunctionOptions = SelfOptions & FBMovableOptions;
 export default abstract class AbstractFunction<T> extends FBMovable {
 
   private readonly _invertible: boolean;
-  public readonly name: string | null;
+  public readonly name: string;
   public readonly viewOptions: ViewOptions; // properties of FunctionNode, in the model for convenience
   public readonly fillProperty: Property<TColor>;
 
@@ -40,9 +40,6 @@ export default abstract class AbstractFunction<T> extends FBMovable {
     const options = optionize<AbstractFunctionOptions, SelfOptions, FBMovableOptions>()( {
 
       // SelfOptions
-      name: null,
-      invertible: true,
-      fill: 'white',
       stroke: 'black',
       lineWidth: 1,
       lineDash: [],

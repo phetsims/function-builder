@@ -11,10 +11,9 @@ import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction, { MysteryImageFunctionOptions } from './MysteryImageFunction.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
-type MysteryCOptions = SelfOptions & StrictOmit<MysteryImageFunctionOptions, 'name' | 'fill'>;
+type MysteryCOptions = SelfOptions;
 
 export default class MysteryC extends MysteryImageFunction {
 
@@ -23,7 +22,8 @@ export default class MysteryC extends MysteryImageFunction {
 
       // MysteryImageFunctionOptions
       name: 'MysteryC',
-      fill: 'rgb( 222, 186, 247 )'
+      fill: 'rgb( 222, 186, 247 )',
+      invertible: true
     }, providedOptions );
     super( FunctionBuilderStrings.mysteryCStringProperty, options );
   }

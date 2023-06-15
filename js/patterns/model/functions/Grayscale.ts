@@ -9,36 +9,32 @@
 import { Image } from '../../../../../scenery/js/imports.js';
 import grayscale_png from '../../../../mipmaps/functions/grayscale_png.js';
 import FBConstants from '../../../common/FBConstants.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type GrayscaleOptions = SelfOptions;
 
 export default class Grayscale extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: GrayscaleOptions ) {
 
-    options = options || {};
-    options.name = 'Grayscale';
-    options.fill = 'rgb( 232, 232, 232 )';
-    options.invertible = false; // converting to grayscale is lossy
+    const options = optionize<GrayscaleOptions, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'Grayscale',
+      fill: 'rgb( 232, 232, 232 )',
+      invertible: false // converting to grayscale is lossy
+    }, providedOptions );
 
     const iconNode = new Image( grayscale_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     const imageData = FBCanvasUtils.getImageData( inputCanvas );
 

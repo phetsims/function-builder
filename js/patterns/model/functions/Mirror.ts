@@ -9,41 +9,39 @@
 import { Image } from '../../../../../scenery/js/imports.js';
 import mirror_png from '../../../../mipmaps/functions/mirror_png.js';
 import FBConstants from '../../../common/FBConstants.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type MirrorOptions = SelfOptions;
 
 export default class Mirror extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: MirrorOptions ) {
 
-    options = options || {};
-    options.name = 'Mirror';
-    options.fill = 'rgb( 128, 197, 237 )';
+    const options = optionize<MirrorOptions, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'Mirror',
+      fill: 'rgb( 128, 197, 237 )',
+      invertible: true
+    }, providedOptions );
 
     const iconNode = new Image( mirror_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-    const context = outputCanvas.getContext( '2d' );
+    const context = outputCanvas.getContext( '2d' )!;
+    assert && assert( context );
 
-    // Reflect about the y axis
+    // Reflect about the y-axis
     context.translate( outputCanvas.width, 0 );
     context.scale( -1, 1 );
 

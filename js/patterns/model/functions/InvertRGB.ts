@@ -9,35 +9,32 @@
 import { Image } from '../../../../../scenery/js/imports.js';
 import invertRGB_png from '../../../../mipmaps/functions/invertRGB_png.js';
 import FBConstants from '../../../common/FBConstants.js';
-import ImageFunction from '../../../common/model/functions/ImageFunction.js';
+import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type InvertRGBOptions = SelfOptions;
 
 export default class InvertRGB extends ImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: InvertRGBOptions ) {
 
-    options = options || {};
-    options.name = 'InvertRGB';
-    options.fill = 'black';
+    const options = optionize<InvertRGBOptions, SelfOptions, ImageFunctionOptions>()( {
+
+      // ImageFunctionOptions
+      name: 'InvertRGB',
+      fill: 'black',
+      invertible: true
+    }, providedOptions );
 
     const iconNode = new Image( invertRGB_png, { scale: FBConstants.PATTERNS_FUNCTION_ICON_SCALE } );
 
     super( iconNode, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     const imageData = FBCanvasUtils.getImageData( inputCanvas );
 
