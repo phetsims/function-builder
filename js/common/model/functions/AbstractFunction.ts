@@ -7,82 +7,81 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
-import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import FBMovable from '../FBMovable.js';
+import FBMovable, { FBMovableOptions } from '../FBMovable.js';
+import { TColor } from '../../../../../scenery/js/imports.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
-export default class AbstractFunction extends FBMovable {
+// properties of associated FunctionNode, in the model for convenience
+type ViewOptions = {
+  fill?: TColor;
+  stroke?: TColor;
+  lineWidth?: number;
+  lineDash?: number[] | null;
+};
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+type SelfOptions = {
+  name?: string | null; // optional name, for internal debugging
+  invertible?: boolean; // is this function invertible?
+} & ViewOptions;
 
-    options = merge( {
+export type AbstractFunctionOptions = SelfOptions & FBMovableOptions;
 
-      // {string} optional name, for internal debugging
+export default abstract class AbstractFunction<T> extends FBMovable {
+
+  private readonly _invertible: boolean;
+  public readonly name: string | null;
+  public readonly viewOptions: ViewOptions; // properties of FunctionNode, in the model for convenience
+  public readonly fillProperty: Property<TColor>;
+
+  protected constructor( providedOptions?: AbstractFunctionOptions ) {
+
+    const options = optionize<AbstractFunctionOptions, SelfOptions, FBMovableOptions>()( {
+
+      // SelfOptions
       name: null,
-
-      // {boolean} is this function invertible?
       invertible: true,
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: [],
 
-      // {number} distance/second when animating
-      animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED,
-
-      // properties of associated FunctionNode, in the model for convenience
-      fill: 'white', // {Color|string|null}
-      stroke: 'black', // {Color|string|null}
-      lineWidth: 1, // {number}
-      lineDash: [] // {number[]|null}
-
-    }, options );
+      // FBMovableOptions
+      animationSpeed: FBConstants.FUNCTION_ANIMATION_SPEED
+    }, providedOptions );
 
     super( options );
 
-    // @private
     this._invertible = options.invertible;
 
-    // @public (read-only)
     this.name = options.name;
-
-    // @public (read-only) properties of FunctionNode, in the model for convenience
     this.viewOptions = _.pick( options, 'fill', 'stroke', 'lineWidth', 'lineDash' );
 
-    // @public {Property.<Color|string>}
     this.fillProperty = new Property( options.fill );
     this.fillProperty.link( fill => {
       this.viewOptions.fill = fill;
     } );
   }
 
-  // @public @override
-  reset() {
+  public override reset(): void {
     super.reset();
     this.fillProperty.reset();
   }
 
   /**
    * Is this function invertible?
-   *
-   * @returns {boolean}
-   * @public
    */
-  getInvertible() { return this._invertible; }
+  public getInvertible(): boolean { return this._invertible; }
 
-  get invertible() { return this.getInvertible(); }
+  public get invertible(): boolean { return this.getInvertible(); }
 
   /**
    * Applies the function to the input, produces the output.
-   *
-   * @param {*} input - the input, which should not be modified
-   * @returns {*} output, of the same type as input
-   * @public
-   * @abstract
+   * @param input - the input, which should not be modified
+   * @returns output, of the same type as input
    */
-  applyFunction( input ) {
-    throw new Error( 'must be implemented by subtype' );
-  }
+  public abstract applyFunction( input: T ): T;
 }
 
 functionBuilder.register( 'AbstractFunction', AbstractFunction );

@@ -7,17 +7,25 @@
  */
 
 import functionBuilder from '../../../functionBuilder.js';
-import AbstractFunction from './AbstractFunction.js';
+import AbstractFunction, { AbstractFunctionOptions } from './AbstractFunction.js';
+import { Node } from '../../../../../scenery/js/imports.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
-export default class ImageFunction extends AbstractFunction {
+type SelfOptions = EmptySelfOptions;
+
+export type ImageFunctionOptions = SelfOptions & AbstractFunctionOptions;
+
+export default abstract class ImageFunction extends AbstractFunction<HTMLCanvasElement> {
+
+  public readonly iconNode: Node;
 
   /**
-   * @param {Node} iconNode - icon that represents the function type
-   * @param {Object} [options]
+   * @param iconNode - icon that represents the function type
+   * @param [providedOptions]
    */
-  constructor( iconNode, options ) {
-    super( options );
-    this.iconNode = iconNode; // @public (read-only)
+  protected constructor( iconNode: Node, providedOptions?: ImageFunctionOptions ) {
+    super( providedOptions );
+    this.iconNode = iconNode;
   }
 }
 

@@ -21,7 +21,7 @@ type SelfOptions = {
   animationSpeed?: number; // distance/second when animating
 };
 
-type FBMovableOptions = SelfOptions;
+export type FBMovableOptions = SelfOptions;
 
 export default class FBMovable {
 
