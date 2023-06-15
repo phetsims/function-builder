@@ -6,37 +6,34 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
-import MysteryImageFunction from './MysteryImageFunction.js';
+import MysteryImageFunction, { MysteryImageFunctionOptions } from './MysteryImageFunction.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+
+type SelfOptions = EmptySelfOptions;
+type MysteryCOptions = SelfOptions & StrictOmit<MysteryImageFunctionOptions, 'name' | 'fill'>;
 
 export default class MysteryC extends MysteryImageFunction {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-    super( FunctionBuilderStrings.mysteryCStringProperty, merge( {
+  public constructor( providedOptions?: MysteryCOptions ) {
+    const options = optionize<MysteryCOptions, SelfOptions, MysteryImageFunctionOptions>()( {
+
+      // MysteryImageFunctionOptions
       name: 'MysteryC',
       fill: 'rgb( 222, 186, 247 )'
-    }, options ) );
+    }, providedOptions );
+    super( FunctionBuilderStrings.mysteryCStringProperty, options );
   }
 
-  /**
-   * Applies this function.
-   *
-   * @param {HTMLCanvasElement} inputCanvas
-   * @returns {HTMLCanvasElement}
-   * @public
-   * @override
-   */
-  applyFunction( inputCanvas ) {
+  public override applyFunction( inputCanvas: HTMLCanvasElement ): HTMLCanvasElement {
 
     // Create the output canvas
     const outputCanvas = FBCanvasUtils.createCanvas( inputCanvas.width, inputCanvas.height );
-    const context = outputCanvas.getContext( '2d' );
+    const context = outputCanvas.getContext( '2d' )!;
+    assert && assert( context );
 
     // Divide into 4 quadrants and shift clockwise
 
