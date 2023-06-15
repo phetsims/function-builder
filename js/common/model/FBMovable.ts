@@ -11,45 +11,52 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import functionBuilder from '../../functionBuilder.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+
+type SelfOptions = {
+  position?: Vector2; // initial position
+  dragging?: boolean; // Is this instance being dragged by the user?
+  animationSpeed?: number; // distance/second when animating
+};
+
+type FBMovableOptions = SelfOptions;
 
 export default class FBMovable {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  // DO NOT set this directly! Use moveTo or animateTo.
+  public readonly positionProperty: Property<Vector2>;
 
-    options = merge( {
-      position: new Vector2( 0, 0 ), // {Vector2} initial position
-      dragging: false, // {boolean} is this instance being dragged by the user?
-      animationSpeed: 100 // {number} distance/second when animating
-    }, options );
+  public dragging: boolean; // Is this instance being dragged by the user?
+  private readonly animationSpeed: number; // distance/second when animating
+  private destination: Vector2; // destination to animate to, set using animateTo
+  private animationCompletedCallback: ( () => void ) | null; // called when animation to destination completes, set using animateTo
 
-    // @public (read-only) DO NOT set this directly! Use moveTo or animateTo.
+  protected constructor( providedOptions?: FBMovableOptions ) {
+
+    const options = optionize<FBMovableOptions, SelfOptions>()( {
+
+      // SelfOptions
+      position: new Vector2( 0, 0 ),
+      dragging: false,
+      animationSpeed: 100
+    }, providedOptions );
+
     this.positionProperty = new Vector2Property( options.position );
 
-    // @public
     this.dragging = options.dragging;
 
-    // @private
     this.animationSpeed = options.animationSpeed;
-
-    // @private {Vector2} destination to animate to, set using animateTo
     this.destination = options.position.copy();
-
-    // @private {function|null} called when animation to destination completes, set using animateTo
     this.animationCompletedCallback = null;
   }
 
-  // @public
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
-  // @public
-  reset() {
+  public reset(): void {
 
     // call moveTo instead of positionProperty.set, so that any animation in progress is cancelled
     this.moveTo( this.positionProperty.initialValue );
@@ -57,11 +64,8 @@ export default class FBMovable {
 
   /**
    * Moves immediately to the specified position, without animation.
-   *
-   * @param {Vector2} position
-   * @public
    */
-  moveTo( position ) {
+  public moveTo( position: Vector2 ): void {
     this.animationCompletedCallback = null; // cancels any pending callback
     this.destination = position;
     this.positionProperty.set( position );
@@ -69,33 +73,24 @@ export default class FBMovable {
 
   /**
    * Animates to the specified position. When animation is completed, call optional callback.
-   *
-   * @param {Vector2} destination
-   * @param {function} [animationCompletedCallback]
-   * @public
    */
-  animateTo( destination, animationCompletedCallback ) {
+  public animateTo( destination: Vector2, animationCompletedCallback?: () => void ): void {
     this.destination = destination;
     this.animationCompletedCallback = animationCompletedCallback || null;
   }
 
   /**
    * Is the FBMovable animating?
-   *
-   * @returns {boolean}
-   * @public
    */
-  isAnimating() {
-    return !this.dragging && ( !this.positionProperty.get().equals( this.destination ) || this.animationCompletedCallback );
+  public isAnimating(): boolean {
+    return !this.dragging && ( !this.positionProperty.get().equals( this.destination ) || !!this.animationCompletedCallback );
   }
 
   /**
    * Animates position, when not being dragged by the user.
-   *
-   * @param {number} dt - time since the previous step, in seconds
-   * @public
+   * @param dt - time since the previous step, in seconds
    */
-  step( dt ) {
+  public step( dt: number ): void {
     if ( this.isAnimating() ) {
 
       // distance from destination
