@@ -32,8 +32,8 @@ export default class MoleCardNode extends Rectangle {
 
     super( 0, 0, options.size.width, options.size.height, options );
 
-    // unlink unnecessary, instances exist for lifetime of the sim
-    card.positionProperty.link( position => {
+    // removePositionListener is unnecessary, because instances exist for lifetime of the sim.
+    card.addPositionListener( position => {
       this.center = position.minus( builderPosition );
     } );
   }

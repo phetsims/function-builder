@@ -138,7 +138,7 @@ export default class FunctionNode extends MovableNode {
       assert && assert( dragLayer.hasChild( this ), 'endDrag should be in dragLayer' );
 
       // Find the closest slot in the builder
-      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.positionProperty.get(),
+      const slotNumber = builderNode.builder.getClosestSlot( functionInstance.position,
         FBConstants.FUNCTION_DISTANCE_THRESHOLD );
 
       if ( slotNumber === FunctionSlot.NO_SLOT_NUMBER ) {

@@ -228,7 +228,7 @@ export default class BuilderNode extends Node {
     // remove from view, restore position in model coordinate frame
     this.functionNodes[ slotNumber ] = null;
     this.functionsParent.removeChild( functionNode );
-    functionNode.center = functionNode.functionInstance.positionProperty.get();
+    functionNode.center = functionNode.functionInstance.position;
 
     // remove from model
     this.builder.removeFunctionInstance( functionNode.functionInstance, slotNumber );

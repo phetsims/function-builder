@@ -25,8 +25,8 @@ export type FBMovableOptions = SelfOptions;
 
 export default class FBMovable {
 
-  // DO NOT set this directly! Use moveTo or animateTo.
-  public readonly positionProperty: Property<Vector2>;
+  // Use moveTo or animateTo to set position.
+  private readonly positionProperty: Property<Vector2>;
 
   public dragging: boolean; // Is this instance being dragged by the user?
   private readonly animationSpeed: number; // distance/second when animating
@@ -60,6 +60,17 @@ export default class FBMovable {
 
     // call moveTo instead of positionProperty.set, so that any animation in progress is cancelled
     this.moveTo( this.positionProperty.initialValue );
+  }
+
+  public get position(): Vector2 {
+    return this.positionProperty.get();
+  }
+
+  /**
+   * Adds a listener that is notified when this FBMovable's position changes.
+   */
+  public addPositionListener( listener: ( position: Vector2 ) => void ): void {
+    this.positionProperty.link( listener );
   }
 
   /**

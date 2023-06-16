@@ -14,7 +14,7 @@ import functionBuilder from '../../functionBuilder.js';
 export default class MovableNode extends Node {
 
   /**
-   * @param {Movable} movable
+   * @param {FBMovable} movable
    * @param {Object} [options]
    */
   constructor( movable, options ) {
@@ -41,8 +41,8 @@ export default class MovableNode extends Node {
 
     this.movable = movable; // @public
 
-    // unlink unnecessary, instances exist for lifetime of the sim
-    movable.positionProperty.link( position => {
+    // removePositionListener is unnecessary, because instances exist for lifetime of the sim.
+    movable.addPositionListener( position => {
         options.translateNode( this, position );
       }
     );
@@ -62,7 +62,7 @@ export default class MovableNode extends Node {
 
           // compute startDragOffset after calling options.startDrag, since options.startDrag may change parent
           const parent = this.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
-          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.positionProperty.get() );
+          startDragOffset = parent.globalToLocalPoint( event.pointer.point ).minus( movable.position );
 
           // We need to provide the bounds for the Node to keep in view because this implementation uses DAG and
           // the AnimatedPanZoomListener cannot find the unique Trail to keep in view.
@@ -74,7 +74,7 @@ export default class MovableNode extends Node {
 
         // No need to constrain drag bounds because Movables return to carousel or builder when released.
         drag: ( event, trail ) => {
-          const previousPosition = movable.positionProperty.get();
+          const previousPosition = movable.position;
           const parent = this.getParents()[ 0 ]; // MovableNode can have multiple parents, can't use globalToParentPoint
           const position = parent.globalToLocalPoint( event.pointer.point ).minus( startDragOffset );
           const delta = position.minus( previousPosition );

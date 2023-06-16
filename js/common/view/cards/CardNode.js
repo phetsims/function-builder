@@ -78,7 +78,7 @@ export default class CardNode extends MovableNode {
         dragLayer.addChild( this );
 
         // adjust for pop-out offset
-        leftPoint = card.positionProperty.get();
+        leftPoint = card.position;
       }
       else if ( outputContainer.containsNode( this ) ) {
 
@@ -88,7 +88,7 @@ export default class CardNode extends MovableNode {
         dragLayer.addChild( this );
 
         // adjust for pop-out offset
-        rightPoint = card.positionProperty.get();
+        rightPoint = card.position;
       }
       else {
 
@@ -132,7 +132,7 @@ export default class CardNode extends MovableNode {
             const slot = builder.slots[ i ];
 
             // if slot is to the left of where the card currently is ...
-            if ( card.positionProperty.get().x > slot.position.x ) {
+            if ( card.position.x > slot.position.x ) {
 
               const windowPosition = builder.getWindowPosition( i );
 
@@ -179,7 +179,7 @@ export default class CardNode extends MovableNode {
 
       assert && assert( dragLayer.hasChild( this ), 'endDrag: card should be in dragLayer' );
 
-      const cardX = card.positionProperty.get().x;
+      const cardX = card.position.x;
 
       if ( cardX < INPUT_SLOT_X ) {
 
@@ -322,7 +322,7 @@ export default class CardNode extends MovableNode {
     assert && assert( this.dragLayer.hasChild( this ), 'animateLeftToRight: card should be in dragLayer' );
 
     const builder = this.builderNode.builder;
-    const windowNumber = builder.getWindowNumberGreaterThan( this.card.positionProperty.get().x );
+    const windowNumber = builder.getWindowNumberGreaterThan( this.card.position.x );
 
     if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -364,7 +364,7 @@ export default class CardNode extends MovableNode {
     assert && assert( this.dragLayer.hasChild( this ), 'animateRightToLeft: card should be in dragLayer' );
 
     const builder = this.builderNode.builder;
-    const windowNumber = builder.getWindowNumberLessThanOrEqualTo( this.card.positionProperty.get().x );
+    const windowNumber = builder.getWindowNumberLessThanOrEqualTo( this.card.position.x );
 
     if ( builder.isValidWindowNumber( windowNumber ) ) {
 
@@ -391,8 +391,8 @@ export default class CardNode extends MovableNode {
           // If a card is exactly centered in a window, it will stop there, regardless of 'see inside' state.
           // So before continuing to the next window, move the card 1 unit to the left.
           // See https://github.com/phetsims/function-builder/issues/107
-          if ( this.card.positionProperty.get().x === windowPosition.x ) {
-            this.card.moveTo( new Vector2( this.card.positionProperty.get().x - 1, builder.position.y ) );
+          if ( this.card.position.x === windowPosition.x ) {
+            this.card.moveTo( new Vector2( this.card.position.x - 1, builder.position.y ) );
           }
 
           // continue to next window
