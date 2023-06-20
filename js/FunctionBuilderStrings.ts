@@ -5,42 +5,42 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import functionBuilder from './functionBuilder.js';
 
 type StringsType = {
   'function-builder': {
     'title': string;
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
     'patterns': string;
-    'patternsStringProperty': LinkableProperty<string>;
+    'patternsStringProperty': LocalizedStringProperty;
     'numbers': string;
-    'numbersStringProperty': LinkableProperty<string>;
+    'numbersStringProperty': LocalizedStringProperty;
     'equations': string;
-    'equationsStringProperty': LinkableProperty<string>;
+    'equationsStringProperty': LocalizedStringProperty;
     'mystery': string;
-    'mysteryStringProperty': LinkableProperty<string>;
+    'mysteryStringProperty': LocalizedStringProperty;
   };
   'simplify': string;
-  'simplifyStringProperty': LinkableProperty<string>;
+  'simplifyStringProperty': LocalizedStringProperty;
   'input': string;
-  'inputStringProperty': LinkableProperty<string>;
+  'inputStringProperty': LocalizedStringProperty;
   'output': string;
-  'outputStringProperty': LinkableProperty<string>;
+  'outputStringProperty': LocalizedStringProperty;
   'x': string;
-  'xStringProperty': LinkableProperty<string>;
+  'xStringProperty': LocalizedStringProperty;
   'y': string;
-  'yStringProperty': LinkableProperty<string>;
+  'yStringProperty': LocalizedStringProperty;
   'mysteryA': string;
-  'mysteryAStringProperty': LinkableProperty<string>;
+  'mysteryAStringProperty': LocalizedStringProperty;
   'mysteryB': string;
-  'mysteryBStringProperty': LinkableProperty<string>;
+  'mysteryBStringProperty': LocalizedStringProperty;
   'mysteryC': string;
-  'mysteryCStringProperty': LinkableProperty<string>;
+  'mysteryCStringProperty': LocalizedStringProperty;
   'mysteryCharacter': string;
-  'mysteryCharacterStringProperty': LinkableProperty<string>;
+  'mysteryCharacterStringProperty': LocalizedStringProperty;
 };
 
 const FunctionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
