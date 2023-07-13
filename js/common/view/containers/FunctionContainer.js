@@ -45,7 +45,7 @@ export default class FunctionContainer extends MovableContainer {
    * Creates functions and puts them in the container.
    *
    * @param {number} numberOfInstances
-   * @param {Scene} scene
+   * @param {FBScene} scene
    * @param {BuilderNode} builderNode
    * @param {Node} dragLayer
    * @public

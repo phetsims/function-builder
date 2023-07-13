@@ -17,13 +17,13 @@ import Minus from '../../common/model/functions/Minus.js';
 import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
-import Scene from '../../common/model/Scene.js';
+import FBScene from '../../common/model/FBScene.js';
 import functionBuilder from '../../functionBuilder.js';
 
 // constants
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 
-export default class NumbersScene extends Scene {
+export default class NumbersScene extends FBScene {
 
   /**
    * @param {Object} [options]
@@ -59,7 +59,7 @@ export default class NumbersScene extends Scene {
     ];
 
     // builder
-    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderWidth = FBScene.computeBuilderWidth( options.numberOfSlots );
     const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     const builder = new MathBuilder( {
       numberOfSlots: options.numberOfSlots,

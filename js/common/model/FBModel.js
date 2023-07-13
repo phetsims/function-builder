@@ -13,7 +13,7 @@ import functionBuilder from '../../functionBuilder.js';
 export default class FBModel {
 
   /**
-   * @param {Scene[]} scenes
+   * @param {FBScene[]} scenes
    * @param {Object} [options]
    */
   constructor( scenes, options ) {

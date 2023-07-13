@@ -39,7 +39,7 @@ export default class CardContainer extends MovableContainer {
    * Creates cards and puts them in the container.
    *
    * @param {number} numberOfInstances - number of instances of the card to create
-   * @param {Scene} scene
+   * @param {FBScene} scene
    * @param {CardContainer} inputContainer - container in the input carousel
    * @param {CardContainer} outputContainer - container in the output carousel
    * @param {BuilderNode} builderNode

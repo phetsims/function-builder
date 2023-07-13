@@ -21,7 +21,7 @@ import Minus from '../../common/model/functions/Minus.js';
 import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
-import Scene from '../../common/model/Scene.js';
+import FBScene from '../../common/model/FBScene.js';
 import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line no-view-imported-from-model
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
@@ -30,7 +30,7 @@ import MysteryChallenges from './MysteryChallenges.js';
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
 const MAX_SLOTS = 3; // max number of slots in the builder
 
-export default class MysteryScene extends Scene {
+export default class MysteryScene extends FBScene {
 
   /**
    * @param {string[]} challengePool
@@ -68,7 +68,7 @@ export default class MysteryScene extends Scene {
     ];
 
     // All builders have the same width, regardless of number of slots
-    const builderWidth = Scene.computeBuilderWidth( MAX_SLOTS );
+    const builderWidth = FBScene.computeBuilderWidth( MAX_SLOTS );
     const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     const builder = new MathBuilder( {
       numberOfSlots: options.numberOfSlots,

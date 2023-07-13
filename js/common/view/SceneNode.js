@@ -32,7 +32,7 @@ const PAGE_CONTROL_OPTIONS = {
 export default class SceneNode extends Node {
 
   /**
-   * @param {Scene} scene - model for this scene
+   * @param {FBScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
    * @param {Object} [options]
@@ -416,7 +416,7 @@ export default class SceneNode extends Node {
   /**
    * Creates the card containers that go in the card carousels.
    *
-   * @param {Scene} scene
+   * @param {FBScene} scene
    * @param {Object} [containerOptions]
    * @returns {CarouselItem[]}
    * @protected

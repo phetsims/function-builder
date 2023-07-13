@@ -13,8 +13,8 @@ import functionBuilder from '../../functionBuilder.js';
 export default class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
-   * @param {Property.<Scene>} selectedSceneProperty
-   * @param {Scene[]} scenes
+   * @param {Property.<FBScene>} selectedSceneProperty
+   * @param {FBScene[]} scenes
    * @param {Object} [options]
    */
   constructor( selectedSceneProperty, scenes, options ) {

@@ -24,7 +24,7 @@ import XYTableDrawer from './table/XYTableDrawer.js';
 export default class MathSceneNode extends SceneNode {
 
   /**
-   * @param {Scene} scene - model for this scene
+   * @param {FBScene} scene - model for this scene
    * @param {Bounds2} layoutBounds - layoutBounds of the parent ScreenView
    * @param {constructor} functionNodeConstructor - constructor for FunctionNode subtype
    * @param {Object} [options]
@@ -128,7 +128,7 @@ export default class MathSceneNode extends SceneNode {
   /**
    * Creates the card containers that go in the card carousels.
    *
-   * @param {Scene} scene
+   * @param {FBScene} scene
    * @param {Object} [containerOptions] - see CardContainer options
    * @returns {CardContainer[]}
    * @protected

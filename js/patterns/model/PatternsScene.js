@@ -23,7 +23,7 @@ import triangle_png from '../../../images/cards/triangle_png.js';
 import FBConstants from '../../common/FBConstants.js';
 import Builder from '../../common/model/builder/Builder.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
-import Scene from '../../common/model/Scene.js';
+import FBScene from '../../common/model/FBScene.js';
 import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line no-view-imported-from-model
 import functionBuilder from '../../functionBuilder.js';
 import Erase from './functions/Erase.js';
@@ -39,7 +39,7 @@ import Rotate90 from './functions/Rotate90.js';
 import Shrink from './functions/Shrink.js';
 import Warhol from './functions/Warhol.js';
 
-export default class PatternsScene extends Scene {
+export default class PatternsScene extends FBScene {
 
   /**
    * @param {Object} [options]
@@ -94,7 +94,7 @@ export default class PatternsScene extends Scene {
     ];
 
     // builder
-    const builderWidth = Scene.computeBuilderWidth( options.numberOfSlots );
+    const builderWidth = FBScene.computeBuilderWidth( options.numberOfSlots );
     const builderX = ( FBConstants.SCREEN_VIEW_LAYOUT_BOUNDS.width / 2 ) - ( builderWidth / 2 );
     const builder = new Builder( {
       numberOfSlots: options.numberOfSlots,

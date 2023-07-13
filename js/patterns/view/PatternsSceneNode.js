@@ -31,7 +31,7 @@ export default class PatternsSceneNode extends SceneNode {
   /**
    * Creates the card containers that go in the input and output carousels.
    *
-   * @param {Scene} scene
+   * @param {FBScene} scene
    * @param {Object} [containerOptions] - see CardContainer options
    * @returns {CarouselItem[]}
    * @protected
