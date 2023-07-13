@@ -7,32 +7,25 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
 import { Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
+import Card from '../../model/cards/Card.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
 
 export default class MoleCardNode extends Rectangle {
 
-  /**
-   * @param {Card} card
-   * @param {Vector2} builderPosition
-   * @param {Object} [options]
-   */
-  constructor( card, builderPosition, options ) {
+  public constructor( card: Card, builderPosition: Vector2 ) {
 
-    options = merge( {
-      size: FBConstants.CARD_OPTIONS.size,
+    super( 0, 0, FBConstants.CARD_OPTIONS.size.width, FBConstants.CARD_OPTIONS.size.height, {
       cornerRadius: FBConstants.CARD_OPTIONS.cornerRadius,
       fill: 'white',
       stroke: 'black',
       lineWidth: 2,
-      opacity: 0.2
-    }, options );
+      opacity: 0.2,
+      isDisposable: false
+    } );
 
-    super( 0, 0, options.size.width, options.size.height, options );
-
-    // removePositionListener is unnecessary, because instances exist for lifetime of the sim.
     card.addPositionListener( position => {
       this.center = position.minus( builderPosition );
     } );
