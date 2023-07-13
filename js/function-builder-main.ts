@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { AnyScreen } from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
@@ -18,11 +19,11 @@ import NumbersScreen from './numbers/NumbersScreen.js';
 import PatternsScreen from './patterns/PatternsScreen.js';
 import TestScreen from './test/TestScreen.js';
 
-const titleStringProperty = FunctionBuilderStrings[ 'function-builder' ].titleStringProperty;
-
 simLauncher.launch( () => {
 
-  const screens = [
+  const titleStringProperty = FunctionBuilderStrings[ 'function-builder' ].titleStringProperty;
+
+  const screens: AnyScreen[] = [
     new PatternsScreen( Tandem.ROOT.createTandem( 'patternsScreen' ) ),
     new NumbersScreen( Tandem.ROOT.createTandem( 'numbersScreen' ) ),
     new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) ),

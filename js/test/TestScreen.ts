@@ -7,26 +7,33 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import functionBuilder from '../functionBuilder.js';
 import TestScreenView from './view/TestScreenView.js';
+import TModel from '../../../joist/js/TModel.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class TestScreen extends Screen {
+export default class TestScreen extends Screen<TestModel, TestScreenView> {
 
-  constructor() {
+  public constructor() {
 
-    const options = {
+    const options: ScreenOptions = {
       name: new Property( 'Test' ),
-      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' )  // {Property.<Color|string>}
+      backgroundColorProperty: new Property( 'rgb( 255, 247, 234 )' ),
+      tandem: Tandem.OPT_OUT
     };
 
     super(
-      () => {
-        return {};
-      },
-      model => new TestScreenView( model ),
+      () => new TestModel(),
+      model => new TestScreenView(),
       options
     );
+  }
+}
+
+class TestModel implements TModel {
+  public reset(): void {
+    // do nothing
   }
 }
 

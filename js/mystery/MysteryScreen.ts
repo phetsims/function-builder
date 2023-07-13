@@ -7,31 +7,25 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
-import merge from '../../../phet-core/js/merge.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import MysteryModel from './model/MysteryModel.js';
 import MysteryScreenView from './view/MysteryScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class MysteryScreen extends Screen {
+export default class MysteryScreen extends Screen<MysteryModel, MysteryScreenView> {
 
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( tandem, options ) {
+  public constructor( tandem: Tandem ) {
 
-    options = merge( {
+    const options: ScreenOptions = {
       name: FunctionBuilderStrings.screen.mysteryStringProperty,
-      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-      homeScreenIcon: FBIconFactory.createMysteryScreenIcon()
-    }, options );
-
-    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
-    options.tandem = tandem;
+      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ),
+      homeScreenIcon: FBIconFactory.createMysteryScreenIcon(),
+      tandem: tandem
+    };
 
     super(
       () => new MysteryModel(),

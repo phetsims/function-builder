@@ -7,24 +7,22 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class EquationsScreen extends Screen {
+export default class EquationsScreen extends Screen<EquationsModel, EquationsScreenView> {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
-    const options = {
+    const options: ScreenOptions = {
       name: FunctionBuilderStrings.screen.equationsStringProperty,
-      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ),
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem
     };

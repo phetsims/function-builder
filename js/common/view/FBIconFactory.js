@@ -38,7 +38,7 @@ const FBIconFactory = {
    * size of the home screen icon.
    *
    * @param {Object} [options]
-   * @returns {Node}
+   * @returns {ScreenIcon}
    */
   createPatternsScreenIcon: function( options ) {
 
@@ -67,7 +67,7 @@ const FBIconFactory = {
    * Creates the icon for the 'Numbers' screen, a function piece with '+ 3' on it.
    *
    * @param {Object} [options]
-   * @returns {Node}
+   * @returns {ScreenIcon}
    */
   createNumbersScreenIcon: function( options ) {
 
@@ -112,7 +112,7 @@ const FBIconFactory = {
    * Creates the icon for the 'Equations' screen, the equation y = 2x + 1
    *
    * @param {Object} [options]
-   * @returns {Node}
+   * @returns {ScreenIcon}
    */
   createEquationsScreenIcon: function( options ) {
 

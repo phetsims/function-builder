@@ -8,30 +8,24 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import merge from '../../../phet-core/js/merge.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import PatternsModel from './model/PatternsModel.js';
 import PatternsScreenView from './view/PatternsScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class PatternsScreen extends Screen {
+export default class PatternsScreen extends Screen<PatternsModel, PatternsScreenView> {
 
-  /**
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( tandem, options ) {
+  public constructor( tandem: Tandem ) {
 
-    options = merge( {
+    const options = {
       name: FunctionBuilderStrings.screen.patternsStringProperty,
-      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
-      homeScreenIcon: FBIconFactory.createPatternsScreenIcon()
-    }, options );
-
-    assert && assert( !options.tandem, 'tandem is a constructor parameter' );
-    options.tandem = tandem;
+      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ),
+      homeScreenIcon: FBIconFactory.createPatternsScreenIcon(),
+      tandem: tandem
+    };
 
     super(
       () => new PatternsModel(),
