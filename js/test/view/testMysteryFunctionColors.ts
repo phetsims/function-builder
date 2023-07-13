@@ -7,19 +7,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, HBox, Node, Path, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Color, HBox, Node, Path, TColor, Text, VBox } from '../../../../scenery/js/imports.js';
 import FBColors from '../../common/FBColors.js';
 import functionBuilder from '../../functionBuilder.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-/**
- * @param {Bounds2} layoutBounds
- * @returns {Node}
- */
-export default function testMysteryFunctionColors( layoutBounds ) {
+export default function testMysteryFunctionColors( layoutBounds: Bounds2 ): Node {
 
   // These names are hard coded to correspond to the pools in FBColors.MYSTERY_COLOR_SETS
   const colorSetNames = [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'magenta' ];
@@ -39,7 +34,7 @@ export default function testMysteryFunctionColors( layoutBounds ) {
     // row of functions
     const colorSet = FBColors.MYSTERY_COLOR_SETS[ i ];
     colorSet.forEach( color => {
-      hBoxChildren.push( new TestFunctionNode( { fill: color } ) );
+      hBoxChildren.push( new TestFunctionNode( color ) );
     } );
 
     vBoxChildren.push( new HBox( {
@@ -57,23 +52,15 @@ export default function testMysteryFunctionColors( layoutBounds ) {
   } );
 }
 
+/**
+ * Use this simplified representation so that this test is not dependent on other sim code.
+ */
 class TestFunctionNode extends Node {
 
-  /**
-   * Use this simplified representation so that this test is not dependent on other sim code.
-   *
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( fill: TColor ) {
 
-    options = merge( {
-      size: new Dimension2( 140, 60 ),
-      fill: 'white',
-      stroke: 'black'
-    }, options );
-
-    const WIDTH = options.size.width;
-    const HEIGHT = options.size.height;
+    const WIDTH = 140;
+    const HEIGHT = 60;
     const X_INSET = 0.18 * WIDTH;
 
     // Described from top-left, moving clockwise.
@@ -86,11 +73,11 @@ class TestFunctionNode extends Node {
       .lineTo( X_INSET, HEIGHT / 2 )
       .close();
     const functionNode = new Path( functionShape, {
-      fill: options.fill,
-      stroke: options.stroke
+      fill: fill,
+      stroke: 'black'
     } );
 
-    const color = Color.toColor( options.fill );
+    const color = Color.toColor( fill );
     const rgbString = `${color.red}, ${color.green}, ${color.blue}`;
     const rgbTextNode = new Text( rgbString, {
       font: new PhetFont( 14 ),
@@ -98,9 +85,9 @@ class TestFunctionNode extends Node {
       centerY: functionNode.centerY
     } );
 
-    options.children = [ functionNode, rgbTextNode ];
-
-    super( options );
+    super( {
+      children: [ functionNode, rgbTextNode ]
+    } );
   }
 }
 

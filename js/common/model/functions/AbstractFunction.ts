@@ -18,7 +18,7 @@ type ViewOptions = {
   fill: TColor;
   stroke?: TColor;
   lineWidth?: number;
-  lineDash?: number[] | null;
+  lineDash?: number[];
 };
 
 type SelfOptions = {

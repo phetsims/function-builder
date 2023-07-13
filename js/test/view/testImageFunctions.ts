@@ -9,7 +9,7 @@
 
 import { Shape } from '../../../../kite/js/imports.js';
 import { HBox, Image, Node, Path, Rectangle, VBox } from '../../../../scenery/js/imports.js';
-import Carousel from '../../../../sun/js/Carousel.js';
+import Carousel, { CarouselItem } from '../../../../sun/js/Carousel.js';
 import beaker_png from '../../../images/cards/beaker_png.js';
 import butterfly_png from '../../../images/cards/butterfly_png.js';
 import cherries_png from '../../../images/cards/cherries_png.js';
@@ -37,12 +37,9 @@ import Rotate180 from '../../patterns/model/functions/Rotate180.js';
 import Rotate90 from '../../patterns/model/functions/Rotate90.js';
 import Shrink from '../../patterns/model/functions/Shrink.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-/**
- * @param {Bounds2} layoutBounds
- * @returns {Node}
- */
-export default function testImageFunctions( layoutBounds ) {
+export default function testImageFunctions( layoutBounds: Bounds2 ): Node {
 
   // a canvas for each input image
   const canvases = [
@@ -75,38 +72,25 @@ export default function testImageFunctions( layoutBounds ) {
     new MysteryB(),
     new MysteryC()
   ];
+  assert && assert( canvases.length === functions.length );
 
   // a row of function icons
-  const functionNodes = [];
-  functions.forEach( functionInstance => {
-    functionNodes.push( new TestFunctionNode( functionInstance, {
-      scale: 0.45 // determined empirically, to make functions line up with images in carousel
-    } ) );
-  } );
   const functionsBox = new HBox( {
-    children: functionNodes,
+    children: functions.map( functionInstance => new TestFunctionNode( functionInstance ) ),
     spacing: 21
   } );
 
-  // carousel items
-  const items = [];
-
-  // A row for each card
-  canvases.forEach( canvas => {
-
-    const hBoxChildren = [];
-
-    functions.forEach( functionInstance => {
-      const outputCanvas = functionInstance.applyFunction( canvas );
-      hBoxChildren.push( new TestCardNode( outputCanvas ) );
-    } );
-
-    items.push( {
+  // carousel items, a row for each card
+  const items: CarouselItem[] = canvases.map( canvas => {
+    return {
       createNode: () => new HBox( {
-        children: hBoxChildren,
-        spacing: 15
+        spacing: 15,
+        children: functions.map( functionInstance => {
+          const outputCanvas = functionInstance.applyFunction( canvas );
+          return new TestCardNode( outputCanvas );
+        } )
       } )
-    } );
+    };
   } );
 
   // vertical carousel to show the output images
@@ -129,12 +113,9 @@ export default function testImageFunctions( layoutBounds ) {
 class TestCardNode extends Node {
 
   /**
-   * @param {HTMLCanvasElement} canvas - canvas that contains the card's image
-   * @param {Object} [options]
+   * @param canvas - canvas that contains the card's image
    */
-  constructor( canvas, options ) {
-
-    options = options || {};
+  public constructor( canvas: HTMLCanvasElement ) {
 
     const backgroundNode = new Rectangle( 0, 0, 60, 60, {
       cornerRadius: 5,
@@ -150,10 +131,9 @@ class TestCardNode extends Node {
       center: backgroundNode.center
     } );
 
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, imageNode ];
-
-    super( options );
+    super( {
+      children: [ backgroundNode, imageNode ]
+    } );
   }
 }
 
@@ -161,15 +141,8 @@ class TestCardNode extends Node {
  * Use this simplified representation of a function, so that this test is not dependent on other sim code.
  */
 class TestFunctionNode extends Node {
-  /**
-   * @param {ImageFunction} functionInstance
-   * @param {Object} [options]
-   */
-  constructor( functionInstance, options ) {
 
-    assert && assert( functionInstance instanceof ImageFunction );
-
-    options = options || {};
+  public constructor( functionInstance: ImageFunction ) {
 
     const WIDTH = 120;
     const HEIGHT = 0.6 * WIDTH;
@@ -192,10 +165,10 @@ class TestFunctionNode extends Node {
       center: backgroundNode.center
     } );
 
-    assert && assert( !options.children, 'decoration not supported' );
-    options.children = [ backgroundNode, iconNode ];
-
-    super( options );
+    super( {
+      children: [ backgroundNode, iconNode ],
+      scale: 0.45 // determined empirically, to make functions line up with images in carousel
+    } );
   }
 }
 
