@@ -476,4 +476,4 @@ function createFunctionCarouselItems( functionCreators, functionNodeConstructor,
   } );
 }
 
-functionBuilder.register( 'SceneNode', FBSceneNode );
+functionBuilder.register( 'FBSceneNode', FBSceneNode );
