@@ -25,7 +25,7 @@ export default class BuilderNode extends Node {
 
   /**
    * @param {Builder} builder
-   * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the indentity of functions in the builder
+   * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the identity of functions in the builder
    * @param {Object} [options]
    */
   constructor( builder, hideFunctionsProperty, options ) {
