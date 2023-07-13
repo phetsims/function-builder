@@ -14,46 +14,75 @@
 
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { LinearGradient, Node, Path } from '../../../../../scenery/js/imports.js';
+import { LinearGradient, Node, NodeOptions, Path, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import MoleCardNode from '../cards/MoleCardNode.js';
 import FunctionNode from '../functions/FunctionNode.js';
 import BuilderEndNode from './BuilderEndNode.js';
 import FunctionSlotNode from './FunctionSlotNode.js';
+import Builder from '../../model/builder/Builder.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import CardNode from '../cards/CardNode.js';
+import Card from '../../model/cards/Card.js';
+
+type SelfOptions = {
+
+  // body
+  bodyStroke?: TPaint;
+  bodyLineWidth?: number;
+
+  // ends
+  endRadiusX?: number;
+  endStroke?: TPaint;
+  endLineWidth?: number;
+
+  // slots
+  slotFill?: TPaint;
+  slotStroke?: TPaint;
+  slotLineWidth?: number;
+
+  // function placeholders
+  functionStroke?: TPaint;
+  functionLineWidth?: number;
+  functionLineDash?: number[];
+};
+
+type BuilderNodeOptions = SelfOptions;
 
 export default class BuilderNode extends Node {
 
+  public readonly builder: Builder;
+  public readonly hideFunctionsProperty: TReadOnlyProperty<boolean>;
+
+  private readonly functionNodes: ( FunctionNode | null )[];
+  private readonly functionsParent: Node;
+  private readonly moleCardsLayer: Node;
+  private seeInsideCardNode: CardNode | null; // 1 card that may occupy the 'see inside' windows, see issue #44
+
   /**
-   * @param {Builder} builder
-   * @param {Property.<boolean>} hideFunctionsProperty - whether to hide the identity of functions in the builder
-   * @param {Object} [options]
+   * @param builder
+   * @param hideFunctionsProperty - whether to hide the identity of functions in the builder
+   * @param [providedOptions]
    */
-  constructor( builder, hideFunctionsProperty, options ) {
+  public constructor( builder: Builder, hideFunctionsProperty: TReadOnlyProperty<boolean>, providedOptions?: BuilderNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<BuilderNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // body
+      // SelfOptions
       bodyStroke: 'black',
       bodyLineWidth: 1,
-
-      // ends
       endRadiusX: 15,
       endStroke: 'black',
       endLineWidth: 1,
-
-      // slots
       slotFill: 'white',
       slotStroke: 'black',
       slotLineWidth: 2,
-
-      // function placeholders
       functionStroke: 'white',
       functionLineWidth: 1,
       functionLineDash: [ 3, 3 ]
+    }, providedOptions );
 
-    }, options );
-
-    assert && assert( !options.x && !options.y, 'position is determined by model' );
     options.x = builder.position.x;
     options.y = builder.position.y;
 
@@ -119,8 +148,8 @@ export default class BuilderNode extends Node {
       } ) );
 
     // slots and the function nodes that are in the slots
-    const slotNodes = [];
-    const functionNodes = []; // {FunctionNode[]}
+    const slotNodes: FunctionSlotNode[] = [];
+    const functionNodes: ( FunctionNode | null )[] = [];
     for ( let i = 0; i < builder.numberOfSlots; i++ ) {
 
       slotNodes.push( new FunctionSlotNode( {
@@ -158,11 +187,8 @@ export default class BuilderNode extends Node {
     //------------------------------------------------------------------------------------------------------------------
     // Define properties in one place, so we can see what's available and document visibility
 
-    // @public
     this.builder = builder; // (read-only)
     this.hideFunctionsProperty = hideFunctionsProperty;
-
-    // @private
     this.functionNodes = functionNodes;
     this.functionsParent = functionsParent;
     this.moleCardsLayer = moleCardsLayer;
@@ -171,10 +197,8 @@ export default class BuilderNode extends Node {
 
   /**
    * Returns all functions to the carousel immediately, no animation.
-   *
-   * @public
    */
-  reset() {
+  public reset(): void {
     for ( let i = 0; i < this.functionNodes.length; i++ ) {
       const functionNode = this.functionNodes[ i ];
       if ( functionNode ) {
@@ -186,14 +210,9 @@ export default class BuilderNode extends Node {
 
   /**
    * Adds a FunctionNode to the builder.
-   *
-   * @param {FunctionNode} functionNode
-   * @param {number} slotNumber
-   * @public
    */
-  addFunctionNode( functionNode, slotNumber ) {
+  public addFunctionNode( functionNode: FunctionNode, slotNumber: number ): void {
 
-    assert && assert( functionNode instanceof FunctionNode );
     assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
     assert && assert( !this.containsFunctionNode( functionNode ), 'function is already in builder' );
     assert && assert( !this.functionNodes[ slotNumber ], `slot ${slotNumber} is occupied` );
@@ -213,14 +232,9 @@ export default class BuilderNode extends Node {
 
   /**
    * Removes a FunctionNode from the builder.
-   *
-   * @param {FunctionNode} functionNode
-   * @returns {number} slot number that functionNode was removed from
-   * @public
+   * @returns slot number that functionNode was removed from
    */
-  removeFunctionNode( functionNode ) {
-
-    assert && assert( functionNode instanceof FunctionNode );
+  public removeFunctionNode( functionNode: FunctionNode ): number {
 
     const slotNumber = this.functionNodes.indexOf( functionNode );
     assert && assert( slotNumber !== -1, 'functionNode is not in builder' );
@@ -241,37 +255,25 @@ export default class BuilderNode extends Node {
   }
 
   /**
-   * Gets the FunctionNode in the specified slot.
-   *
-   * @param {number} slotNumber
-   * @returns {FunctionNode} null if the slot is empty
-   * @public
+   * Gets the FunctionNode in the specified slot. Returns null if the slot is empty.
    */
-  getFunctionNode( slotNumber ) {
+  public getFunctionNode( slotNumber: number ): FunctionNode | null {
     assert && assert( this.builder.isValidSlotNumber( slotNumber ) );
     return this.functionNodes[ slotNumber ];
   }
 
   /**
    * Does the builder contain the specified FunctionNode?
-   *
-   * @param {FunctionNode} functionNode
-   * @returns {boolean}
-   * @public
    */
-  containsFunctionNode( functionNode ) {
-    assert && assert( functionNode instanceof FunctionNode );
-    return ( this.functionNodes.indexOf( functionNode ) !== -1 );
+  public containsFunctionNode( functionNode: FunctionNode ): boolean {
+    return this.functionNodes.includes( functionNode );
   }
 
   /**
    * Adds the 'mole under the carpet' representation of a card.
    * Moles are added when cards are created, and persist for the lifetime of the sim.
-   *
-   * @param {Card} card
-   * @public
    */
-  addMole( card ) {
+  public addMole( card: Card ): void {
     this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.position ) );
   }
 }
