@@ -8,20 +8,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import functionBuilder from '../../functionBuilder.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type EyeCloseNodeOptions = SelfOptions & NodeTranslationOptions & PickOptional<PathOptions, 'maxHeight'>;
 
 export default class EyeCloseNode extends Path {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-    options = merge( {
+  public constructor( providedOptions?: EyeCloseNodeOptions ) {
+    const options = optionize<EyeCloseNodeOptions, SelfOptions, PathOptions>()( {
+
+      // PathOptions
       fill: 'black'
-    }, options );
+    }, providedOptions );
     super( eyeSlashSolidShape, options );
   }
 }
