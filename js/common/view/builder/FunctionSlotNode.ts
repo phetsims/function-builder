@@ -7,22 +7,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
-import FunctionBackgroundNode from '../functions/FunctionBackgroundNode.js';
+import FunctionBackgroundNode, { FunctionBackgroundNodeOptions } from '../functions/FunctionBackgroundNode.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type FunctionSlotNodeOptions = SelfOptions & NodeTranslationOptions & FunctionBackgroundNodeOptions;
 
 export default class FunctionSlotNode extends FunctionBackgroundNode {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions?: FunctionSlotNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<FunctionSlotNodeOptions, SelfOptions, FunctionBackgroundNodeOptions>()( {
+
+      // FunctionBackgroundNodeOptions
       fill: null,
       stroke: 'white',
       lineDash: [ 4, 4 ]
-    }, options );
+    }, providedOptions );
 
     super( options );
   }

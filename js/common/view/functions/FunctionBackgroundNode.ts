@@ -12,30 +12,37 @@
  */
 
 import { Shape } from '../../../../../kite/js/imports.js';
-import merge from '../../../../../phet-core/js/merge.js';
-import { Path } from '../../../../../scenery/js/imports.js';
+import { Path, PathOptions } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  size?: Dimension2;
+};
+
+export type FunctionBackgroundNodeOptions = SelfOptions &
+  PickOptional<PathOptions, 'fill' | 'stroke' | 'lineWidth' | 'lineDash' | 'scale'>;
 
 export default class FunctionBackgroundNode extends Path {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public readonly xInset: number; // needed for layout
 
-    options = merge( {
+  public constructor( providedOptions?: FunctionBackgroundNodeOptions ) {
 
-      // Shape
-      size: FBConstants.FUNCTION_SIZE, // {Dimensions2}
+    const options = optionize<FunctionBackgroundNodeOptions, SelfOptions, PathOptions>()( {
 
-      // Path
-      fill: 'white', // {Color|string}
-      stroke: 'black', // {Color|string}
-      lineWidth: 1, // {number}
-      lineDash: [] // {number[]}
+      // SelfOptions
+      size: FBConstants.FUNCTION_SIZE,
 
-    }, options );
+      // PathOptions
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: 1,
+      lineDash: []
+    }, providedOptions );
 
     // To improve readability of shape code
     const WIDTH = options.size.width;
@@ -54,7 +61,7 @@ export default class FunctionBackgroundNode extends Path {
 
     super( backgroundShape, options );
 
-    this.xInset = X_INSET; // @public (read-only) needed for layout
+    this.xInset = X_INSET;
   }
 }
 
