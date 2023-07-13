@@ -10,10 +10,10 @@ import ImageCard from '../../common/model/cards/ImageCard.js';
 import ImageCardNode from '../../common/view/cards/ImageCardNode.js';
 import CardContainer from '../../common/view/containers/CardContainer.js';
 import ImageFunctionNode from '../../common/view/functions/ImageFunctionNode.js';
-import SceneNode from '../../common/view/SceneNode.js';
+import FBSceneNode from '../../common/view/FBSceneNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
-export default class PatternsSceneNode extends SceneNode {
+export default class PatternsSceneNode extends FBSceneNode {
 
   /**
    * @param {PatternsScene} scene - model for this scene

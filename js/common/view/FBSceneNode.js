@@ -29,7 +29,7 @@ const PAGE_CONTROL_OPTIONS = {
   interactive: true
 };
 
-export default class SceneNode extends Node {
+export default class FBSceneNode extends Node {
 
   /**
    * @param {FBScene} scene - model for this scene
@@ -476,4 +476,4 @@ function createFunctionCarouselItems( functionCreators, functionNodeConstructor,
   } );
 }
 
-functionBuilder.register( 'SceneNode', SceneNode );
+functionBuilder.register( 'SceneNode', FBSceneNode );

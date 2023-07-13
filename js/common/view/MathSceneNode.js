@@ -18,10 +18,10 @@ import NumberCardNode from './cards/NumberCardNode.js';
 import CardContainer from './containers/CardContainer.js';
 import EquationDrawer from './equations/EquationDrawer.js';
 import XYGraphDrawer from './graph/XYGraphDrawer.js';
-import SceneNode from './SceneNode.js';
+import FBSceneNode from './FBSceneNode.js';
 import XYTableDrawer from './table/XYTableDrawer.js';
 
-export default class MathSceneNode extends SceneNode {
+export default class MathSceneNode extends FBSceneNode {
 
   /**
    * @param {FBScene} scene - model for this scene
