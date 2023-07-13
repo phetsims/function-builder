@@ -11,36 +11,47 @@
 
 import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import { Shape } from '../../../../../kite/js/imports.js';
-import merge from '../../../../../phet-core/js/merge.js';
-import { Node, Path } from '../../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Path, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+
+  // ellipse
+  radiusX?: number;
+  radiusY?: number;
+  fill?: TPaint;
+  stroke?: TPaint;
+  lineWidth?: number;
+
+  // slot
+  slotFill?: TPaint;
+  slotStroke?: TPaint;
+  slotLineWidth?: number;
+};
+
+type BuilderEndNodeOptions = SelfOptions & NodeTranslationOptions;
 
 export default class BuilderEndNode extends Node {
 
   /**
-   * @param {string} orientation - which way the end faces, 'left'|'right'
-   * @param {Object} [options]
+   * @param orientation - which way the end faces
+   * @param [providedOptions]
    */
-  constructor( orientation, options ) {
+  public constructor( orientation: 'left' | 'right', providedOptions?: BuilderEndNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<BuilderEndNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // ellipse
+      // SelfOptions
       radiusX: 15,
       radiusY: 30,
       fill: 'white',
       stroke: 'black',
       lineWidth: 1,
-
-      // slot
       slotFill: 'white',
       slotStroke: 'black',
       slotLineWidth: 2
-
-    }, options );
-
-    assert && assert( orientation === 'left' || orientation === 'right',
-      `invalid value for orientation: ${orientation}` );
+    }, providedOptions );
 
     // ellipse
     const ellipseNode = new Path( Shape.ellipse( 0, 0, options.radiusX, options.radiusY, 0 ), {
@@ -75,7 +86,6 @@ export default class BuilderEndNode extends Node {
       center: ellipseNode.center
     } );
 
-    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ ellipseNode, slotNode ];
 
     super( options );
