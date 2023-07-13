@@ -100,4 +100,4 @@ export default class FBScene {
   }
 }
 
-functionBuilder.register( 'Scene', FBScene );
+functionBuilder.register( 'FBScene', FBScene );
