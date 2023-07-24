@@ -7,29 +7,44 @@
  */
 
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import { Shape } from '../../../../../kite/js/imports.js';
+import { CornerRadiiOptions, Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Line, Node, Path, Text } from '../../../../../scenery/js/imports.js';
+import { Line, Node, NodeOptions, Path, Text, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
+import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  size?: Dimension2;
+  font?: PhetFont;
+  xMargin?: number;
+  yMargin?: number;
+  fill?: TPaint;
+  cornerRadii?: Partial<CornerRadiiOptions>; // see Shape.roundedRectangleWithRadii
+};
+
+type XYTableHeadingOptions = SelfOptions;
 
 export default class XYTableHeading extends Node {
 
   /**
-   * @param {string} xSymbol - label for the x (input) column
-   * @param {string} ySymbol - label for the y (output) column
-   * @param {Object} [options]
+   * @param xSymbol - label for the x (input) column
+   * @param ySymbol - label for the y (output) column
+   * @param [providedOptions]
    */
-  constructor( xSymbol, ySymbol, options ) {
+  public constructor( xSymbol: string, ySymbol: string, providedOptions?: XYTableHeadingOptions ) {
 
-    options = merge( {
+    const options = optionize<XYTableHeadingOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       size: new Dimension2( 100, 25 ),
       font: FBConstants.TABLE_XY_HEADING_FONT,
       xMargin: 10,
       yMargin: 4,
       fill: 'rgb( 144, 226, 252 )',
-      cornerRadii: null // {Object} see Shape.roundedRectangleWithRadii
-    }, options );
+      cornerRadii: {}
+    }, providedOptions );
 
     const backgroundShape = Shape.roundedRectangleWithRadii( 0, 0, options.size.width, options.size.height, options.cornerRadii );
     const backgroundNode = new Path( backgroundShape, {
@@ -65,7 +80,6 @@ export default class XYTableHeading extends Node {
       center: backgroundNode.center
     } );
 
-    assert && assert( !options.children );
     options.children = [ backgroundNode, verticalLine, xLabelNode, yLabelNode ];
 
     super( options );
