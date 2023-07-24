@@ -34,7 +34,6 @@ export default class EditableMathFunctionNode extends FunctionNode {
     const picker = new FBNumberPicker( functionInstance.operandProperty, functionInstance.operandRange, {
       color: functionInstance.viewOptions.pickerColor,
       font: FBConstants.EQUATIONS_FUNCTION_PICKER_FONT,
-      arrowLineWidth: 0.5,
       skipZero: !functionInstance.zeroOperandValid
     } );
 

@@ -6,31 +6,38 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
-import NumberPicker from '../../../../sun/js/NumberPicker.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import functionBuilder from '../../functionBuilder.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  skipZero?: boolean; // whether to skip zero value
+};
+
+type FBNumberPickerOptions = SelfOptions & PickOptional<NumberPickerOptions, 'color' | 'font'>;
 
 export default class FBNumberPicker extends NumberPicker {
 
-  /**
-   * @param {Property.<number>} valueProperty
-   * @param {Range} valueRange
-   * @param {Object} [options]
-   */
-  constructor( valueProperty, valueRange, options ) {
+  public constructor( valueProperty: Property<number>, valueRange: Range, providedOptions?: FBNumberPickerOptions ) {
 
-    options = merge( {
+    const options = optionize<FBNumberPickerOptions, SelfOptions, NumberPickerOptions>()( {
+
+      // SelfOptions
+      skipZero: false,
+
+      // NumberPickerOptions
       touchAreaXDilation: 0, // so that it's easier to grab the function's background
       xMargin: 6,
-      skipZero: false // {boolean} whether to skip zero value
-    }, options );
+      arrowLineWidth: 0.5
+    }, providedOptions );
 
     assert && assert( !( options.skipZero && ( valueRange.min === 0 || valueRange.max === 0 ) ),
       'cannot skip zero when it is min or max' );
 
     // increment, optionally skip zero
-    assert && assert( !options.incrementFunction );
     options.incrementFunction = value => {
       let newValue = value + 1;
       if ( newValue === 0 && options.skipZero ) {
@@ -41,7 +48,6 @@ export default class FBNumberPicker extends NumberPicker {
     };
 
     // decrement, optionally skip zero
-    assert && assert( !options.decrementFunction );
     options.decrementFunction = value => {
       let newValue = value - 1;
       if ( newValue === 0 && options.skipZero ) {
