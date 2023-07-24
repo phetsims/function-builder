@@ -3,8 +3,8 @@
 /**
  * XY graph for the 'Equations' screen.
  *
- * The graph has a fixed scale for the x & y axis; zoom in/out is not supported.
- * By default (and after many design discussions) the axes have different scales.
+ * The graph has a fixed scale for the x-axis & y-axis; zoom in/out is not supported.
+ * By default, (and after many design discussions) the axes have different scales.
  * This was deemed preferable to the usability and implementation issues introduced by adding zoom support.
  *
  * Since changing the graph is relatively inexpensive, this node updates even when it's not visible.
@@ -14,18 +14,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../../dot/js/Range.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
-import merge from '../../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbolFont from '../../../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
-import { Circle, Line, Node, Path, Rectangle, Text } from '../../../../../scenery/js/imports.js';
+import { Circle, Color, Line, Node, NodeOptions, Path, Rectangle, Text, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../../model/RationalNumber.js';
+import Builder from '../../model/builder/Builder.js';
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -37,50 +40,84 @@ const AXIS_OPTIONS = {
   stroke: null
 };
 
+type SelfOptions = {
+
+  size?: Dimension2; // dimensions of the graph, in view coordinates
+  cornerRadius?: number;
+  background?: Color | string; // background color of the graph
+  xRange?: Range; // range of the x-axis, in model coordinates
+  yRange?: Range; // range of the y-axis, in model coordinates
+
+  // grid
+  xGridSpacing?: number; // spacing of vertical grid lines, in model coordinates
+  yGridSpacing?: number; // spacing of horizontal grid lines, in model coordinates
+  gridStroke?: Color | string; // color of the grid
+  gridLineWidth?: number; // lineWidth of the grid
+
+  // axis labels
+  axisLabelFont?: MathSymbolFont;
+  axisLabelColor?: Color | string;
+
+  // ticks
+  xTickSpacing?: number; // spacing of x-axis tick marks, in model coordinates
+  yTickSpacing?: number; // spacing of y-axis tick marks, in model coordinates
+  tickLength?: number; // length of tick lines, in view coordinates
+  tickFont?: PhetFont; // font for tick labels
+  tickLabelSpace?: number; // space between tick label and line, in view coordinates
+  tickStroke?: Color | string;
+  tickLineWidth?: number;
+
+  // points
+  pointFill?: Color | string; // point color
+  pointRadius?: number; // point radius, in view coordinates
+
+  // plotted line
+  lineStroke?: Color | string; // color of the plotted line
+  lineWidth?: number; // lineWidth of the plotted line
+};
+
+export type XYGraphNodeOptions = SelfOptions;
+
 export default class XYGraphNode extends Node {
 
-  /**
-   * @param {Builder} builder
-   * @param {Object} [options]
-   */
-  constructor( builder, options ) {
+  private readonly builder: Builder;
+  private readonly xRange: Range;
+  private readonly yRange: Range;
+  private readonly pointFill: Color | string;
+  private readonly pointRadius: number;
+  private xCoordinates: RationalNumber[]; // x coordinates (inputs) that are plotted
+  private readonly modelViewTransform: ModelViewTransform2;
+  private readonly pointsParent: Node;
+  private readonly lineNode: Line;
 
-    options = merge( {
+  public constructor( builder: Builder, providedOptions?: XYGraphNodeOptions ) {
 
-      size: FBConstants.GRAPH_DRAWER_SIZE, // {Dimension2} dimensions of the graph, in view coordinates
+    const options = optionize<XYGraphNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      size: FBConstants.GRAPH_DRAWER_SIZE,
       cornerRadius: 0,
-      background: 'white', // {Color|string} background color of the graph
-      xRange: FBConstants.GRAPH_X_RANGE, // {Range} of the x axis, in model coordinates
-      yRange: FBConstants.GRAPH_Y_RANGE, // {Range} of the y axis, in model coordinates
-
-      // grid
-      xGridSpacing: 1, // {number} spacing of vertical grid lines, in model coordinates
-      yGridSpacing: 10, // {number} spacing of horizontal grid lines, in model coordinates
-      gridStroke: 'rgb( 200, 200, 200 )', // {Color|string} color of the grid
-      gridLineWidth: 0.5, // {number} lineWidth of the grid
-
-      // axis labels
+      background: 'white',
+      xRange: FBConstants.GRAPH_X_RANGE,
+      yRange: FBConstants.GRAPH_Y_RANGE,
+      xGridSpacing: 1,
+      yGridSpacing: 10,
+      gridStroke: 'rgb( 200, 200, 200 )',
+      gridLineWidth: 0.5,
       axisLabelFont: new MathSymbolFont( 16 ),
       axisLabelColor: 'rgb( 100, 100, 100 )',
-
-      // ticks
-      xTickSpacing: 5, // {number} spacing of x-axis tick marks, in model coordinates
-      yTickSpacing: 50, // {number} spacing of y-axis tick marks, in model coordinates
-      tickLength: 5, // {number} length of tick lines, in view coordinates
-      tickFont: new PhetFont( 12 ), // {Font} font for tick labels
-      tickLabelSpace: 2, // {number} space between tick label and line, in view coordinates
-      tickStroke: 'black', // {Color|string}
-      tickLineWidth: 1, // {number}
-
-      // points
-      pointFill: 'magenta', // {Color|string} point color
-      pointRadius: 3, // {number} point radius, in view coordinates
-
-      // plotted line
-      lineStroke: 'magenta', // {Color|string} color of the plotted line
-      lineWidth: 1 // {number} lineWidth of the plotted line
-
-    }, options );
+      xTickSpacing: 5,
+      yTickSpacing: 50,
+      tickLength: 5,
+      tickFont: new PhetFont( 12 ),
+      tickLabelSpace: 2,
+      tickStroke: 'black',
+      tickLineWidth: 1,
+      pointFill: 'magenta',
+      pointRadius: 3,
+      lineStroke: 'magenta',
+      lineWidth: 1
+    }, providedOptions );
 
     // model-view transform
     const xOffset = ( 1 - options.xRange.max / options.xRange.getLength() ) * options.size.width;
@@ -214,10 +251,10 @@ export default class XYGraphNode extends Node {
       lineWidth: options.tickLineWidth
     } );
 
-    // @private parent for all points
+    // parent for all points
     const pointsParent = new Node();
 
-    // @private line that corresponds to the function in the builder
+    // line that corresponds to the function in the builder
     const lineNode = new Line( 0, 0, 1, 0, {
       stroke: options.lineStroke,
       lineWidth: options.lineWidth,
@@ -230,7 +267,6 @@ export default class XYGraphNode extends Node {
 
     super( options );
 
-    // @private property definitions
     this.builder = builder;
     this.xRange = options.xRange;
     this.yRange = options.yRange;
@@ -247,16 +283,16 @@ export default class XYGraphNode extends Node {
     this.update();
   }
 
-  // @private updates plotted elements
-  update() {
+  // Updates plotted elements.
+  private update(): void {
     this.updatePoints();
     if ( this.lineNode.visible ) {
       this.updateLine();
     }
   }
 
-  // @private updates points
-  updatePoints() {
+  // Updates points.
+  private updatePoints(): void {
     const xCoordinates = this.xCoordinates.slice( 0 ); // copy
     this.xCoordinates = [];
     this.pointsParent.removeAllChildren();
@@ -265,8 +301,8 @@ export default class XYGraphNode extends Node {
     }
   }
 
-  // @private updates the line
-  updateLine() {
+  // Updates the line.
+  private updateLine(): void {
     const yLeft = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.min ) );
     const yRight = this.builder.applyAllFunctions( RationalNumber.withInteger( this.xRange.max ) );
     this.lineNode.setLine(
@@ -278,14 +314,10 @@ export default class XYGraphNode extends Node {
 
   /**
    * Adds a point to the graph.
-   *
-   * @param {RationalNumber} x
-   * @public
    */
-  addPointAt( x ) {
+  public addPointAt( x: RationalNumber ): void {
 
-    assert && assert( x instanceof RationalNumber );
-    assert && assert( this.xCoordinates.indexOf( x ) === -1, `x is already plotted: ${x}` );
+    assert && assert( !this.xCoordinates.includes( x ), `x is already plotted: ${x}` );
 
     // add x to list
     this.xCoordinates.push( x );
@@ -299,22 +331,15 @@ export default class XYGraphNode extends Node {
       `graphed point out of range: ${point.toString()}` );
 
     // create the PointNode
-    this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, {
-      radius: this.pointRadius,
-      fill: this.pointFill
-    } ) );
+    this.pointsParent.addChild( new PointNode( point, this.modelViewTransform, this.pointRadius, this.pointFill ) );
   }
 
   /**
    * Removes a point from the graph.
-   *
-   * @param {RationalNumber} x
-   * @public
    */
-  removePointAt( x ) {
+  public removePointAt( x: RationalNumber ): void {
 
-    assert && assert( x instanceof RationalNumber );
-    assert && assert( this.xCoordinates.indexOf( x ) !== -1, `x is not plotted: ${x}` );
+    assert && assert( this.xCoordinates.includes( x ), `x is not plotted: ${x}` );
 
     // remove x from list
     this.xCoordinates.splice( this.xCoordinates.indexOf( x ), 1 );
@@ -323,8 +348,8 @@ export default class XYGraphNode extends Node {
     let removed = false;
     for ( let i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
 
-      const pointNode = this.pointsParent.getChildAt( i );
-      assert && assert( pointNode instanceof PointNode );
+      const pointNode = this.pointsParent.getChildAt( i ) as PointNode;
+      assert && assert( pointNode instanceof PointNode ); // eslint-disable-line no-simple-type-checking-assertions
 
       if ( pointNode.point.x.valueOf() === x.valueOf() ) {
         this.pointsParent.removeChild( pointNode );
@@ -336,11 +361,8 @@ export default class XYGraphNode extends Node {
 
   /**
    * Shows the line that corresponds to the function in the builder.
-   *
-   * @param {boolean} visible
-   * @public
    */
-  setLineVisible( visible ) {
+  public setLineVisible( visible: boolean ): void {
 
     // update the line when it becomes visible
     if ( visible && ( this.lineNode.visible !== visible ) ) {
@@ -353,26 +375,18 @@ export default class XYGraphNode extends Node {
 
 class PointNode extends Circle {
 
-  /**
-   * @param {Vector2} point
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
-   * @private
-   */
-  constructor( point, modelViewTransform, options ) {
+  public readonly point: Vector2;
 
-    options = merge( {
-      radius: 1,
-      fill: 'white',
+  public constructor( point: Vector2, modelViewTransform: ModelViewTransform2, radius: number, fill: TPaint ) {
+
+    super( {
+      radius: radius,
+      fill: fill,
       stroke: 'black',
       lineWidth: 0.25
-    }, options );
+    } );
 
-    super( options.radius, options );
-
-    // @public
     this.point = point;
-
     this.center = modelViewTransform.modelToViewPosition( point );
   }
 }
