@@ -7,39 +7,53 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { DragListener, Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
+import FBMovable from '../model/FBMovable.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  draggable?: boolean; // is this node draggable?
+  allowTouchSnag?: boolean; // allow touch swipes across this Node to pick it up
+  startDrag?: ( () => void ) | null; // Called at the start of each drag sequence
+  endDrag?: ( () => void ) | null;  // Called at the end of each drag sequence
+
+  // moves the FBMovable while dragging
+  translateMovable?: ( movable: FBMovable, position: Vector2, delta: Vector2 ) => void;
+
+  // moves the Node when the FBMovable's position changes
+  translateNode?: ( node: Node, position: Vector2 ) => void;
+};
+
+export type MovableNodeOptions = SelfOptions;
 
 export default class MovableNode extends Node {
 
-  /**
-   * @param {FBMovable} movable
-   * @param {Object} [options]
-   */
-  constructor( movable, options ) {
+  public readonly movable: FBMovable;
 
-    options = merge( {
+  public constructor( movable: FBMovable, providedOptions?: MovableNodeOptions ) {
 
-      draggable: true, // {boolean} is this node draggable?
-      allowTouchSnag: true, // {boolean} allow touch swipes across this Node to pick it up
-      cursor: 'pointer',
-      startDrag: null, // {function|null} Called at the start of each drag sequence
-      endDrag: null, // {function|null} Called at the end of each drag sequence
+    const options = optionize<MovableNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // {function(FBMovable, Vector2, Vector2) moves the FBMovable while dragging
-      translateMovable: ( movable, position, delta ) => movable.moveTo( position ),
+      // SelfOptions
+      draggable: true,
+      allowTouchSnag: true,
+      startDrag: null,
+      endDrag: null,
+      translateMovable: ( movable: FBMovable, position: Vector2, delta: Vector2 ) => movable.moveTo( position ),
+      translateNode: ( node: Node, position: Vector2 ) => { node.center = position; },
 
-      // {function(Node, Vector2)} moves the Node when the FBMovable's position changes
-      translateNode: ( node, position ) => { node.center = position; }
+      // NodeOptions
+      cursor: 'pointer'
 
-    }, options );
+    }, providedOptions );
 
     assert && assert( options.children, 'requires children to specify the look of the FBMovable' );
 
     super( options );
 
-    this.movable = movable; // @public
+    this.movable = movable;
 
     // removePositionListener is unnecessary, because instances exist for lifetime of the sim.
     movable.addPositionListener( position => {
@@ -47,10 +61,11 @@ export default class MovableNode extends Node {
       }
     );
 
-    let startDragOffset; // {Vector2} where the drag started relative to positionProperty, in parent view coordinates
-
-    // @private
     if ( options.draggable ) {
+
+      // where the drag started relative to positionProperty, in parent view coordinates
+      let startDragOffset: Vector2;
+
       const dragListener = new DragListener( {
 
         allowTouchSnag: options.allowTouchSnag,
