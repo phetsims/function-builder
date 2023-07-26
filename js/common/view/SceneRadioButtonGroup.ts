@@ -6,20 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import functionBuilder from '../../functionBuilder.js';
+import FBScene from '../model/FBScene.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 
-export default class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
+type SelfOptions = EmptySelfOptions;
 
-  /**
-   * @param {Property.<FBScene>} selectedSceneProperty
-   * @param {FBScene[]} scenes
-   * @param {Object} [options]
-   */
-  constructor( selectedSceneProperty, scenes, options ) {
+type SceneRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-    options = merge( {
+export default class SceneRadioButtonGroup extends RectangularRadioButtonGroup<FBScene> {
+
+  public constructor( selectedSceneProperty: Property<FBScene>, scenes: FBScene[], providedOptions?: SceneRadioButtonGroupOptions ) {
+
+    const options = optionize<SceneRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()( {
+
+      // RectangularRadioButtonGroupOptions
       orientation: 'horizontal',
       spacing: 20,
       radioButtonOptions: {
@@ -30,19 +34,18 @@ export default class SceneRadioButtonGroup extends RectangularRadioButtonGroup {
           selectedLineWidth: 2
         }
       }
-    }, options );
+    }, providedOptions );
 
     // touchArea optimized for spacing
     options.touchAreaXDilation = ( options.spacing / 2 ) - 1;
     options.touchAreaYDilation = 5;
 
-    const content = [];
-    scenes.forEach( scene => {
+    const content: RectangularRadioButtonGroupItem<FBScene>[] = scenes.map( scene => {
       assert && assert( scene.iconNode, 'expected iconNode for scene' );
-      content.push( {
+      return {
         value: scene,
         createNode: () => scene.iconNode
-      } );
+      };
     } );
 
     super( selectedSceneProperty, content, options );
