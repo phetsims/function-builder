@@ -8,23 +8,29 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { Node, Path } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
+import Builder from '../model/builder/Builder.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import CardNode from './cards/CardNode.js';
 
 // constants
 const WINDOW_SIZE = FBConstants.CARD_OPTIONS.size;
 const CORNER_RADIUS = FBConstants.CARD_OPTIONS.cornerRadius;
 
+type SelfOptions = EmptySelfOptions;
+
+type SeeInsideLayerOptions = SelfOptions & PickOptional<NodeOptions, 'visible'>;
+
 export default class SeeInsideLayer extends Node {
 
-  /**
-   * @param {Builder} builder
-   * @param {Object} [options]
-   */
-  constructor( builder, options ) {
+  private readonly cardsParent: Node;
 
-    options = options || {};
+  public constructor( builder: Builder, providedOptions?: SeeInsideLayerOptions ) {
+
+    const options = optionize<SeeInsideLayerOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // add a window at the right end of each slot
     const windowsShape = new Shape();
@@ -56,23 +62,18 @@ export default class SeeInsideLayer extends Node {
       lineWidth: 2
     } );
 
-    assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, cardsParent, foregroundNode ];
 
     super( options );
 
-    // @private
     this.cardsParent = cardsParent;
   }
 
   /**
    * Adds a card to this layer.
    * Cards are added when they are created, and remain in this layer for the lifetime of the sim.
-   *
-   * @param {CardNode} cardNode
-   * @public
    */
-  addCardNode( cardNode ) {
+  public addCardNode( cardNode: CardNode ): void {
     this.cardsParent.addChild( cardNode );
   }
 }
