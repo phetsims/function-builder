@@ -67,7 +67,7 @@ export default class MovableContainer extends Node {
 
   /**
    * Is the specified Node in the container?
-   * @param {MovableNode} node
+   * @param {FBMovableNode} node
    * @returns {boolean}
    * @public
    */
@@ -77,7 +77,7 @@ export default class MovableContainer extends Node {
 
   /**
    * Adds a Node to the container.
-   * @param {MovableNode} node
+   * @param {FBMovableNode} node
    * @public
    */
   addNode( node ) {
@@ -96,7 +96,7 @@ export default class MovableContainer extends Node {
 
   /**
    * Removes a Node from the container.
-   * @param {MovableNode} node
+   * @param {FBMovableNode} node
    * @public
    */
   removeNode( node ) {
@@ -113,7 +113,7 @@ export default class MovableContainer extends Node {
 
   /**
    * Gets the contents of the container.
-   * @returns {MovableNode[]} a copy of the set of Nodes in the container
+   * @returns {FBMovableNode[]} a copy of the set of Nodes in the container
    * @public
    */
   getContents() {

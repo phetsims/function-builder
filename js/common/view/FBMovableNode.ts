@@ -28,7 +28,7 @@ type SelfOptions = {
 
 export type MovableNodeOptions = SelfOptions;
 
-export default class MovableNode extends Node {
+export default class FBMovableNode extends Node {
 
   public readonly movable: FBMovable;
 
@@ -106,4 +106,4 @@ export default class MovableNode extends Node {
   }
 }
 
-functionBuilder.register( 'MovableNode', MovableNode );
+functionBuilder.register( 'MovableNode', FBMovableNode );

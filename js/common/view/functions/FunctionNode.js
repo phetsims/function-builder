@@ -15,11 +15,11 @@ import FBColors from '../../FBColors.js';
 import FBConstants from '../../FBConstants.js';
 import FunctionSlot from '../../model/builder/FunctionSlot.js';
 import EyeCloseNode from '../EyeCloseNode.js';
-import MovableNode from '../MovableNode.js';
+import FBMovableNode from '../FBMovableNode.ts';
 import NotInvertibleSymbolNode from '../NotInvertibleSymbolNode.js';
 import FunctionBackgroundNode from './FunctionBackgroundNode.js';
 
-export default class FunctionNode extends MovableNode {
+export default class FunctionNode extends FBMovableNode {
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things

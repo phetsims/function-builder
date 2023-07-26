@@ -14,9 +14,9 @@ import merge from '../../../../../phet-core/js/merge.js';
 import { Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import MovableNode from '../MovableNode.js';
+import FBMovableNode from '../FBMovableNode.ts';
 
-export default class CardNode extends MovableNode {
+export default class CardNode extends FBMovableNode {
 
   /**
    * NOTE: The relatively large number of constructor parameters here is a trade-off. There are many things
