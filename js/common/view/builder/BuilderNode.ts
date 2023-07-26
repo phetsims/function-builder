@@ -179,7 +179,7 @@ export default class BuilderNode extends Node {
     hideFunctionsProperty.link( hideFunctions => {
       functionNodes.forEach( functionNode => {
         if ( functionNode ) {
-          functionNode.identityVisibleProperty.set( !hideFunctions );
+          functionNode.identityVisibleProperty.value = !hideFunctions;
         }
       } );
     } );
@@ -227,7 +227,7 @@ export default class BuilderNode extends Node {
     assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
 
     // hide the identity of function in the builder, if feature is enabled
-    functionNode.identityVisibleProperty.set( !this.hideFunctionsProperty.value );
+    functionNode.identityVisibleProperty.value = !this.hideFunctionsProperty.value;
   }
 
   /**
@@ -249,7 +249,7 @@ export default class BuilderNode extends Node {
     assert && assert( !this.builder.containsFunctionInstance( functionNode.functionInstance ) );
 
     // reveal function's identity
-    functionNode.identityVisibleProperty.set( true );
+    functionNode.identityVisibleProperty.value = true;
 
     return slotNumber;
   }

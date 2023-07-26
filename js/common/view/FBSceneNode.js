@@ -194,10 +194,10 @@ export default class FBSceneNode extends Node {
     // unlink unnecessary, instances exist for lifetime of the sim.
     assert && assert( inputCarousel.numberOfPagesProperty.value === outputCarousel.numberOfPagesProperty.value );
     inputCarousel.pageNumberProperty.link( pageNumber => {
-      outputCarousel.pageNumberProperty.set( pageNumber );
+      outputCarousel.pageNumberProperty.value = pageNumber;
     } );
     outputCarousel.pageNumberProperty.link( pageNumber => {
-      inputCarousel.pageNumberProperty.set( pageNumber );
+      inputCarousel.pageNumberProperty.value = pageNumber;
     } );
 
     // 'Hide Functions' feature ----------------------------------------------------------------------------------------

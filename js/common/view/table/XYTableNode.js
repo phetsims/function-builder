@@ -186,11 +186,11 @@ export default class XYTableNode extends VBox {
     this.rowNumberAtTopProperty.link( updateButtonState );
 
     upButton.addListener( () => {
-      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.value - 1 );
+      this.rowNumberAtTopProperty.value = this.rowNumberAtTopProperty.value - 1;
     } );
 
     downButton.addListener( () => {
-      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.value + 1 );
+      this.rowNumberAtTopProperty.value = this.rowNumberAtTopProperty.value + 1;
     } );
   }
 
@@ -269,7 +269,7 @@ export default class XYTableNode extends VBox {
       throw new Error( 'invalid card type' );
     }
 
-    this.numberOfRowsProperty.set( this.numberOfRowsProperty.value + 1 );
+    this.numberOfRowsProperty.value = this.numberOfRowsProperty.value + 1;
 
     // update the grid
     this.gridDirty = true;
@@ -305,7 +305,7 @@ export default class XYTableNode extends VBox {
     assert && assert( rowNode instanceof XYTableRow );
     this.rowsParent.removeChild( rowNode );
     rowNode.dispose();
-    this.numberOfRowsProperty.set( this.numberOfRowsProperty.value - 1 );
+    this.numberOfRowsProperty.value = this.numberOfRowsProperty.value - 1;
 
     // update the grid
     this.gridDirty = true;
@@ -318,7 +318,7 @@ export default class XYTableNode extends VBox {
 
       // if there's an empty row at the bottom of the table, move all rows down
       if ( this.numberOfRowsProperty.value - this.numberOfRowsVisible < this.rowNumberAtTopProperty.value ) {
-        this.rowNumberAtTopProperty.set( this.numberOfRowsProperty.value - this.numberOfRowsVisible );
+        this.rowNumberAtTopProperty.value = this.numberOfRowsProperty.value - this.numberOfRowsVisible;
       }
     }
 
@@ -368,10 +368,10 @@ export default class XYTableNode extends VBox {
     const rowNumberAtTop = this.rowNumberAtTopProperty.value;
 
     if ( cardIndex < rowNumberAtTop ) {
-      this.rowNumberAtTopProperty.set( cardIndex );
+      this.rowNumberAtTopPropertyvalue = cardIndex;
     }
     else if ( cardIndex > rowNumberAtTop + this.numberOfRowsVisible - 1 ) {
-      this.rowNumberAtTopProperty.set( cardIndex - this.numberOfRowsVisible + 1 );
+      this.rowNumberAtTopProperty.value = cardIndex - this.numberOfRowsVisible + 1;
     }
     else {
       // row is already visible

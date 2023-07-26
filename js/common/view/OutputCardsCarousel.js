@@ -31,7 +31,7 @@ export default class OutputCardsCarousel extends Carousel {
 
     // update numberOfCardsProperty as cards are added/removed
     const containerListener = () => {
-      this.numberOfCardsProperty.set( getNumberOfCards( this.containers ) );
+      this.numberOfCardsProperty.value = getNumberOfCards( this.containers );
     };
     this.containers.forEach( container => {
 

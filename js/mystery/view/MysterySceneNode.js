@@ -68,7 +68,7 @@ export default class MysterySceneNode extends MathSceneNode {
         revealProperty.link( reveal => {
           const functionNode = mysterySceneNode.builderNode.getFunctionNode( slotNumber );
           if ( functionNode ) {
-            functionNode.identityVisibleProperty.set( reveal );
+            functionNode.identityVisibleProperty.value = reveal;
           }
         } );
 
@@ -223,14 +223,14 @@ export default class MysterySceneNode extends MathSceneNode {
       const functionInstance = functionNode.functionInstance;
 
       // configure the function to match the challenge
-      functionInstance.operandProperty.set( challengeObject.operand );
-      functionInstance.fillProperty.set( colors[ slotNumber ] );
+      functionInstance.operandProperty.value = challengeObject.operand;
+      functionInstance.fillProperty.value = colors[ slotNumber ];
 
       // move the function to the builder
       functionNode.moveToBuilder( slotNumber );
 
       // hide the function's identity
-      functionNode.identityVisibleProperty.set( false );
+      functionNode.identityVisibleProperty.value = false;
 
       slotNumber++;
     } );

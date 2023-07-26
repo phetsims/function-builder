@@ -80,7 +80,7 @@ export default class FBMovable {
   public moveTo( position: Vector2 ): void {
     this.animationCompletedCallback = null; // cancels any pending callback
     this.destination = position;
-    this.positionProperty.set( position );
+    this.positionProperty.value = position;
   }
 
   /**
@@ -114,7 +114,7 @@ export default class FBMovable {
       if ( totalDistance <= stepDistance ) {
 
         // move directly to the destination
-        this.positionProperty.set( this.destination );
+        this.positionProperty.value = this.destination;
 
         // callback, which may set a new callback
         const saveAnimationCompletedCallback = this.animationCompletedCallback;
@@ -130,7 +130,7 @@ export default class FBMovable {
           this.destination.y - this.positionProperty.value.y,
           this.destination.x - this.positionProperty.value.x );
         const stepVector = Vector2.createPolar( stepDistance, stepAngle );
-        this.positionProperty.set( this.positionProperty.value.plus( stepVector ) );
+        this.positionProperty.value = this.positionProperty.value.plus( stepVector );
       }
     }
   }

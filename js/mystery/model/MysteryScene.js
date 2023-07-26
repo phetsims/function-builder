@@ -173,7 +173,7 @@ export default class MysteryScene extends FBScene {
     // remove the challenge from the available pool
     this.availableChallenges.splice( challengeIndex, 1 );
 
-    this.challengeProperty.set( challenge );
+    this.challengeProperty.value = challenge;
   }
 
   /**
