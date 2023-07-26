@@ -156,7 +156,7 @@ export default class XYTableNode extends VBox {
       // stop any animation that's in progress
       animation && animation.stop();
 
-      const scrollY = -( this.rowNumberAtTopProperty.get() * this.rowSize.height );
+      const scrollY = -( this.rowNumberAtTopProperty.value * this.rowSize.height );
       if ( this.visible && this.animationEnabled ) {
 
         // animate scrolling
@@ -178,19 +178,19 @@ export default class XYTableNode extends VBox {
 
     // button state is dependent on number of rows and which rows are visible
     const updateButtonState = () => {
-      upButton.enabled = ( this.rowNumberAtTopProperty.get() !== 0 );
-      downButton.enabled = ( this.numberOfRowsProperty.get() - this.rowNumberAtTopProperty.get() ) > options.numberOfRowsVisible;
+      upButton.enabled = ( this.rowNumberAtTopProperty.value !== 0 );
+      downButton.enabled = ( this.numberOfRowsProperty.value - this.rowNumberAtTopProperty.value ) > options.numberOfRowsVisible;
     };
     // unlink unnecessary, instance owns these properties
     this.numberOfRowsProperty.link( updateButtonState );
     this.rowNumberAtTopProperty.link( updateButtonState );
 
     upButton.addListener( () => {
-      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.get() - 1 );
+      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.value - 1 );
     } );
 
     downButton.addListener( () => {
-      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.get() + 1 );
+      this.rowNumberAtTopProperty.set( this.rowNumberAtTopProperty.value + 1 );
     } );
   }
 
@@ -206,7 +206,7 @@ export default class XYTableNode extends VBox {
     assert && assert( this.updateEnabled && this.gridDirty );
 
     // always show 1 page of cells, even if some are empty
-    const numberOfRows = Math.max( this.numberOfRowsVisible, this.numberOfRowsProperty.get() );
+    const numberOfRows = Math.max( this.numberOfRowsVisible, this.numberOfRowsProperty.value );
 
     const gridShape = new Shape();
 
@@ -269,7 +269,7 @@ export default class XYTableNode extends VBox {
       throw new Error( 'invalid card type' );
     }
 
-    this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() + 1 );
+    this.numberOfRowsProperty.set( this.numberOfRowsProperty.value + 1 );
 
     // update the grid
     this.gridDirty = true;
@@ -296,7 +296,7 @@ export default class XYTableNode extends VBox {
     // This prevents a situation that looks a little odd: rows will move up to reveal an empty
     // row at the bottom, then rows will scroll down.
     const wasAnimationEnabled = this.animationEnabled;
-    if ( this.rowNumberAtTopProperty.get() === this.numberOfRowsProperty.get() - this.numberOfRowsVisible ) {
+    if ( this.rowNumberAtTopProperty.value === this.numberOfRowsProperty.value - this.numberOfRowsVisible ) {
       this.animationEnabled = false;
     }
 
@@ -305,7 +305,7 @@ export default class XYTableNode extends VBox {
     assert && assert( rowNode instanceof XYTableRow );
     this.rowsParent.removeChild( rowNode );
     rowNode.dispose();
-    this.numberOfRowsProperty.set( this.numberOfRowsProperty.get() - 1 );
+    this.numberOfRowsProperty.set( this.numberOfRowsProperty.value - 1 );
 
     // update the grid
     this.gridDirty = true;
@@ -314,11 +314,11 @@ export default class XYTableNode extends VBox {
     }
 
     // if we're not on the first page, which allows empty rows...
-    if ( this.rowNumberAtTopProperty.get() !== 0 ) {
+    if ( this.rowNumberAtTopProperty.value !== 0 ) {
 
       // if there's an empty row at the bottom of the table, move all rows down
-      if ( this.numberOfRowsProperty.get() - this.numberOfRowsVisible < this.rowNumberAtTopProperty.get() ) {
-        this.rowNumberAtTopProperty.set( this.numberOfRowsProperty.get() - this.numberOfRowsVisible );
+      if ( this.numberOfRowsProperty.value - this.numberOfRowsVisible < this.rowNumberAtTopProperty.value ) {
+        this.rowNumberAtTopProperty.set( this.numberOfRowsProperty.value - this.numberOfRowsVisible );
       }
     }
 
@@ -365,7 +365,7 @@ export default class XYTableNode extends VBox {
     const cardIndex = this.cards.indexOf( card );
     assert && assert( cardIndex !== -1 );
 
-    const rowNumberAtTop = this.rowNumberAtTopProperty.get();
+    const rowNumberAtTop = this.rowNumberAtTopProperty.value;
 
     if ( cardIndex < rowNumberAtTop ) {
       this.rowNumberAtTopProperty.set( cardIndex );

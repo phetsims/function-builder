@@ -144,7 +144,7 @@ export default class EquationPanel extends Node {
       maxWidth: this.equationMaxWidth,
       maxHeight: this.equationMaxHeight,
       center: this.equationCenter,
-      visible: !this.slopeInterceptProperty.get()
+      visible: !this.slopeInterceptProperty.value
     } );
     this.addChild( this.helpfulEquationNode );
 
@@ -165,7 +165,7 @@ export default class EquationPanel extends Node {
         maxWidth: this.equationMaxWidth,
         maxHeight: this.equationMaxHeight,
         center: this.equationCenter,
-        visible: this.slopeInterceptProperty.get()
+        visible: this.slopeInterceptProperty.value
       } );
     this.addChild( this.slopeInterceptEquationNode );
 

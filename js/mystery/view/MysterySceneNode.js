@@ -205,7 +205,7 @@ export default class MysterySceneNode extends MathSceneNode {
     }
 
     // convert the challenge from a string to an array of {operator: string, operand: number}
-    const challenge = this.scene.challengeProperty.get();
+    const challenge = this.scene.challengeProperty.value;
     const challengeObjects = MysteryChallenges.parseChallenge( challenge );
 
     // transfer functions from carousel to builder, configured to match the challenge

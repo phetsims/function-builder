@@ -131,7 +131,7 @@ export default class MysteryScene extends FBScene {
     super.reset();
 
     // force notification when initial challenge is displayed
-    if ( this.challengeProperty.get() === this.challengeProperty.initialValue ) {
+    if ( this.challengeProperty.value === this.challengeProperty.initialValue ) {
       this.challengeProperty.notifyListenersStatic();
     }
     else {
@@ -159,7 +159,7 @@ export default class MysteryScene extends FBScene {
 
       // remove the current challenge, so we don't select it twice in a row
       if ( !FBQueryParameters.playAll ) {
-        const currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.get() );
+        const currentChallengeIndex = this.availableChallenges.indexOf( this.challengeProperty.value );
         this.availableChallenges.splice( currentChallengeIndex, 1 );
         assert && assert( this.availableChallenges.length === this.challengePool.length - 1 );
       }
@@ -194,7 +194,7 @@ export default class MysteryScene extends FBScene {
         colors.push( this.getColorDebug() );
       }
     }
-    else if ( this.challengePool.indexOf( this.challengeProperty.get() ) === MysteryChallenges.DEFAULT_CHALLENGE_INDEX ) {
+    else if ( this.challengePool.indexOf( this.challengeProperty.value ) === MysteryChallenges.DEFAULT_CHALLENGE_INDEX ) {
 
       // Always use the same colors for the default challenge. This provides a reproducible challenge for the teacher.
       colors = FBColors.MYSTERY_DEFAULT_CHALLENGE_COLORS[ this.numberOfSlots - 1 ];

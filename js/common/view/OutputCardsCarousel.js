@@ -71,7 +71,7 @@ export default class OutputCardsCarousel extends Carousel {
 function getNumberOfCards( containers ) {
   let numberOfCards = 0;
   containers.forEach( container => {
-    numberOfCards += container.numberOfItemsProperty.get();
+    numberOfCards += container.numberOfItemsProperty.value;
   } );
   return numberOfCards;
 }

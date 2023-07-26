@@ -88,7 +88,7 @@ export default class MovableContainer extends Node {
     node.center = this.backgroundNode.center;
 
     // update count
-    this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() + 1 );
+    this.numberOfItemsProperty.set( this.numberOfItemsProperty.value + 1 );
 
     // notify observers
     this.addEmitter.emit( node );
@@ -105,7 +105,7 @@ export default class MovableContainer extends Node {
     this.contentsParent.removeChild( node );
 
     // update count
-    this.numberOfItemsProperty.set( this.numberOfItemsProperty.get() - 1 );
+    this.numberOfItemsProperty.set( this.numberOfItemsProperty.value - 1 );
 
     // notify observers
     this.removeEmitter.emit( node );
@@ -126,7 +126,7 @@ export default class MovableContainer extends Node {
    * @public
    */
   isEmpty() {
-    return ( this.numberOfItemsProperty.get() === 0 );
+    return ( this.numberOfItemsProperty.value === 0 );
   }
 }
 

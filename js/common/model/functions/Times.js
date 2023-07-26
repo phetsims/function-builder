@@ -36,7 +36,7 @@ export default class Times extends MathFunction {
    * @override
    */
   getInvertible() {
-    return ( this.operandProperty.get() !== 0 );
+    return ( this.operandProperty.value !== 0 );
   }
 }
 

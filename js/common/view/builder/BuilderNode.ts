@@ -227,7 +227,7 @@ export default class BuilderNode extends Node {
     assert && assert( this.builder.containsFunctionInstance( functionNode.functionInstance ) );
 
     // hide the identity of function in the builder, if feature is enabled
-    functionNode.identityVisibleProperty.set( !this.hideFunctionsProperty.get() );
+    functionNode.identityVisibleProperty.set( !this.hideFunctionsProperty.value );
   }
 
   /**

@@ -89,7 +89,7 @@ export default class FunctionNode extends FBMovableNode {
       options.hiddenNode.visible = !identityVisible;
 
       if ( options.hiddenFill ) {
-        backgroundNode.fill = identityVisible ? functionInstance.fillProperty.get() : options.hiddenFill;
+        backgroundNode.fill = identityVisible ? functionInstance.fillProperty.value : options.hiddenFill;
       }
     } );
 

@@ -64,7 +64,7 @@ export default class FBMovable {
   }
 
   public get position(): Vector2 {
-    return this.positionProperty.get();
+    return this.positionProperty.value;
   }
 
   /**
@@ -95,7 +95,7 @@ export default class FBMovable {
    * Is the FBMovable animating?
    */
   public isAnimating(): boolean {
-    return !this.dragging && ( !this.positionProperty.get().equals( this.destination ) || !!this.animationCompletedCallback );
+    return !this.dragging && ( !this.positionProperty.value.equals( this.destination ) || !!this.animationCompletedCallback );
   }
 
   /**
@@ -106,7 +106,7 @@ export default class FBMovable {
     if ( this.isAnimating() ) {
 
       // distance from destination
-      const totalDistance = this.positionProperty.get().distance( this.destination );
+      const totalDistance = this.positionProperty.value.distance( this.destination );
 
       // distance to move on this step
       const stepDistance = this.animationSpeed * dt;
@@ -127,10 +127,10 @@ export default class FBMovable {
 
         // move one step towards the destination
         const stepAngle = Math.atan2(
-          this.destination.y - this.positionProperty.get().y,
-          this.destination.x - this.positionProperty.get().x );
+          this.destination.y - this.positionProperty.value.y,
+          this.destination.x - this.positionProperty.value.x );
         const stepVector = Vector2.createPolar( stepDistance, stepAngle );
-        this.positionProperty.set( this.positionProperty.get().plus( stepVector ) );
+        this.positionProperty.set( this.positionProperty.value.plus( stepVector ) );
       }
     }
   }

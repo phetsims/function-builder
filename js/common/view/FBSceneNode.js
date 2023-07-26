@@ -214,7 +214,7 @@ export default class FBSceneNode extends Node {
     // 'See Inside' feature --------------------------------------------------------------------------------------------
 
     const seeInsideLayer = new SeeInsideLayer( scene.builder, {
-      visible: this.seeInsideProperty.get()
+      visible: this.seeInsideProperty.value
     } );
 
     const seeInsideCheckbox = new Checkbox( this.seeInsideProperty, FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ), {

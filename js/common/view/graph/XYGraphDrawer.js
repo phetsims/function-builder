@@ -51,7 +51,7 @@ export default class XYGraphDrawer extends Drawer {
       // add its corresponding point or line to the graph.
       // removeListener unnecessary, instances exist for lifetime of the sim.
       outputContainer.addEmitter.addListener( node => {
-        if ( outputContainer.numberOfItemsProperty.get() === 1 ) {
+        if ( outputContainer.numberOfItemsProperty.value === 1 ) {
           if ( node instanceof NumberCardNode ) {
             graphNode.addPointAt( node.card.rationalNumber );
           }

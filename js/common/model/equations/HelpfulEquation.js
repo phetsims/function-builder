@@ -42,9 +42,9 @@ export default class HelpfulEquation {
 
       // to improve readability
       const currentOperator = currentFunction.operator;
-      const currentOperand = currentFunction.operandProperty.get();
+      const currentOperand = currentFunction.operandProperty.value;
       const previousOperator = previousFunction ? previousFunction.operator : null;
-      const previousOperand = previousFunction ? previousFunction.operandProperty.get() : null;
+      const previousOperand = previousFunction ? previousFunction.operandProperty.value : null;
 
       if ( currentOperator === FBSymbols.PLUS || currentOperator === FBSymbols.MINUS ) {
 
@@ -149,7 +149,7 @@ export default class HelpfulEquation {
 
         currentFunction = this.mathFunctions[ i ];
         currentOperator = currentFunction.operator;
-        currentOperand = currentFunction.operandProperty.get().valueOf();
+        currentOperand = currentFunction.operandProperty.value.valueOf();
 
         if ( currentOperator === FBSymbols.PLUS ) {
 

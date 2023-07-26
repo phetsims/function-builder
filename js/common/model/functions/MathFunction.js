@@ -78,7 +78,7 @@ export default class MathFunction extends AbstractFunction {
    */
   applyFunction( input ) {
     if ( input instanceof RationalNumber ) {
-      return this.applyRationalNumber( input, this.operandProperty.get() );
+      return this.applyRationalNumber( input, this.operandProperty.value );
     }
     else if ( Array.isArray( input ) ) {
       return input.concat( this );

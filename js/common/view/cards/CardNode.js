@@ -256,7 +256,7 @@ export default class CardNode extends FBMovableNode {
     // removeListener unnecessary, instances exist for the lifetime of the sim.
     builderNode.builder.functionChangedEmitter.addListener( () => {
       if ( !inputContainer.containsNode( this ) ) {
-        updateContent( this, builder, numberOfFunctionsToApplyProperty.get() );
+        updateContent( this, builder, numberOfFunctionsToApplyProperty.value );
       }
     } );
 
@@ -330,7 +330,7 @@ export default class CardNode extends FBMovableNode {
       const windowPosition = builder.getWindowPosition( windowNumber );
       this.card.animateTo( windowPosition, () => {
 
-        if ( this.seeInsideProperty.get() ) {
+        if ( this.seeInsideProperty.value ) {
 
           // stop at this window, register as the 'see inside' card
           this.registerAsSeeInsideCard( outputSlotX );
@@ -381,7 +381,7 @@ export default class CardNode extends FBMovableNode {
           this.card.animateTo( new Vector2( windowPosition.x - blockedXOffset, windowPosition.y ),
             () => this.animateLeftToRight( outputSlotX ) );
         }
-        else if ( this.seeInsideProperty.get() ) {
+        else if ( this.seeInsideProperty.value ) {
 
           // stop at this window, register as the 'see inside' card
           this.registerAsSeeInsideCard( outputSlotX );

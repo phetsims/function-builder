@@ -120,7 +120,7 @@ export default class HelpfulEquationNode extends Node {
 
         currentFunction = mathFunctions[ i ];
         currentOperator = currentFunction.operator;
-        currentOperand = currentFunction.operandProperty.get().valueOf();
+        currentOperand = currentFunction.operandProperty.value.valueOf();
 
         if ( currentOperator === FBSymbols.PLUS ) {
 

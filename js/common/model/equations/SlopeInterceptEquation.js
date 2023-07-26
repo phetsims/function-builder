@@ -31,18 +31,18 @@ export default class SlopeInterceptEquation {
       const mathFunction = mathFunctions[ i ];
 
       if ( mathFunction.operator === FBSymbols.PLUS ) {
-        intercept = intercept.plus( mathFunction.operandProperty.get() );
+        intercept = intercept.plus( mathFunction.operandProperty.value );
       }
       else if ( mathFunction.operator === FBSymbols.MINUS ) {
-        intercept = intercept.minus( mathFunction.operandProperty.get() );
+        intercept = intercept.minus( mathFunction.operandProperty.value );
       }
       else if ( mathFunction.operator === FBSymbols.TIMES ) {
-        slope = slope.times( mathFunction.operandProperty.get() );
-        intercept = intercept.times( mathFunction.operandProperty.get() );
+        slope = slope.times( mathFunction.operandProperty.value );
+        intercept = intercept.times( mathFunction.operandProperty.value );
       }
       else if ( mathFunction.operator === FBSymbols.DIVIDE ) {
-        slope = slope.divide( mathFunction.operandProperty.get() );
-        intercept = intercept.divide( mathFunction.operandProperty.get() );
+        slope = slope.divide( mathFunction.operandProperty.value );
+        intercept = intercept.divide( mathFunction.operandProperty.value );
       }
       else {
         throw new Error( `unsupported operator ${mathFunction.operator}` );
