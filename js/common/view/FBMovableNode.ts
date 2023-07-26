@@ -106,4 +106,4 @@ export default class FBMovableNode extends Node {
   }
 }
 
-functionBuilder.register( 'MovableNode', FBMovableNode );
+functionBuilder.register( 'FBMovableNode', FBMovableNode );

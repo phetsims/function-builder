@@ -15,7 +15,7 @@ import FBColors from '../../FBColors.js';
 import FBConstants from '../../FBConstants.js';
 import FunctionSlot from '../../model/builder/FunctionSlot.js';
 import EyeCloseNode from '../EyeCloseNode.js';
-import FBMovableNode from '../FBMovableNode.ts';
+import FBMovableNode from '../FBMovableNode.js';
 import NotInvertibleSymbolNode from '../NotInvertibleSymbolNode.js';
 import FunctionBackgroundNode from './FunctionBackgroundNode.js';
 

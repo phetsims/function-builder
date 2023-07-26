@@ -14,7 +14,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import { Node, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import FBMovableNode from '../FBMovableNode.ts';
+import FBMovableNode from '../FBMovableNode.js';
 
 export default class CardNode extends FBMovableNode {
 
