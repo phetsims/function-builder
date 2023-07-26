@@ -14,10 +14,26 @@ import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import functionBuilder from '../functionBuilder.js';
 import FBSymbols from './FBSymbols.js';
+import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import { DrawerOptions } from '../../../scenery-phet/js/Drawer.js';
 
 // constants that are used to compute other constants
 const CARD_SIZE = new Dimension2( 70, 70 );
 const FUNCTION_SIZE = new Dimension2( 165, CARD_SIZE.height + 8 );
+
+const CREDITS: CreditsData = {
+  leadDesign: 'Amanda McGarry',
+  softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
+  team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Sam Reid, Beth Stade, David Webb',
+  qualityAssurance: 'Steele Dalton, Amanda Davis, Bryce Griebenow, Clifford Hardin, Ethan Johnson, Andrea Lin, ' +
+                    'Emily Miller, Ben Roberts, Nancy Salpepi, Maggie Wiseman, Kathryn Woessner'
+};
+
+const DRAWER_OPTIONS: DrawerOptions = {
+  handleTouchAreaXDilation: 25, // x dilation of the drawer's handle
+  handleTouchAreaYDilation: 8, // y dilation of the drawer's handle
+  cornerRadius: 4
+};
 
 const FBConstants = {
 
@@ -29,13 +45,7 @@ const FBConstants = {
   RESET_ALL_BUTTON_OFFSET: new Vector2( -50, -20 ),
 
   // Credits shared by all sims in the function-builder family.
-  CREDITS: {
-    leadDesign: 'Amanda McGarry',
-    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Amy Hanson, Karina K. R. Hensberry, Ariel Paul, Kathy Perkins, Sam Reid, Beth Stade, David Webb',
-    qualityAssurance: 'Steele Dalton, Amanda Davis, Bryce Griebenow, Clifford Hardin, Ethan Johnson, Andrea Lin, ' +
-                      'Emily Miller, Ben Roberts, Nancy Salpepi, Maggie Wiseman, Kathryn Woessner'
-  },
+  CREDITS: CREDITS,
 
   //--------------------------------------------------------------------------------------------------------
   // Builder
@@ -102,11 +112,7 @@ const FBConstants = {
   DRAWER_Y_OVERLAP: 1, // how much drawers overlap the builder
 
   // default option values used by all Drawers
-  DRAWER_OPTIONS: {
-    handleTouchAreaXDilation: 25, // x dilation of the drawer's handle
-    handleTouchAreaYDilation: 8, // y dilation of the drawer's handle
-    cornerRadius: 4
-  },
+  DRAWER_OPTIONS: DRAWER_OPTIONS,
 
   //--------------------------------------------------------------------------------------------------------
   // Table
