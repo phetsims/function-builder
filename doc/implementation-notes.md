@@ -4,9 +4,9 @@ This document contains miscellaneous notes related to the implementation of Func
 supplements the internal (source code) documentation, and (hopefully) provides insight into
 "big picture" implementation issues.  The audience for this document is software developers who are familiar
 with JavaScript and PhET simulation development (as described in [PhET Development Overview]
-(https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)).
+(https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)).
 
-First, read [model.md](https://github.com/phetsims/function-builder/blob/master/doc/model.md), which provides
+First, read [model.md](https://github.com/phetsims/function-builder/blob/main/doc/model.md), which provides
 a high-level description of the simulation model.
 
 ## Terminology
@@ -39,7 +39,7 @@ are treated as equivalent, and no transform is required. (If you don't understan
 
 **Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. All such query parameters are documented in
-[FBQueryParameters](https://github.com/phetsims/function-builder/blob/master/js/common/FBQueryParameters.js).
+[FBQueryParameters](https://github.com/phetsims/function-builder/blob/main/js/common/FBQueryParameters.js).
 
 **Memory management**: All objects created in this simulation exist for the lifetime of the simulation, so there
 is no need to call `dispose`.  Since there is no need to call `dispose`, it is generally not implemented for
@@ -57,17 +57,17 @@ movable.positionProperty.link( ... );
 This section provides an overview of the most important model elements, and some miscellaneous topics
 related to the model.
 
-[FBMovable](https://github.com/phetsims/function-builder/blob/master/js/common/model/FBMovable.js)
+[FBMovable](https://github.com/phetsims/function-builder/blob/main/js/common/model/FBMovable.js)
 is the base type for anything that can be moved (ie, cards and functions).
 It is responsible for an object's location and animation to a desired location.
 
-[Card](https://github.com/phetsims/function-builder/blob/master/js/common/model/cards/Card.js)
+[Card](https://github.com/phetsims/function-builder/blob/main/js/common/model/cards/Card.js)
 and its subtypes implement the card model. Cards provide the input to the builder, but have no responsibility
 for what is displayed on them. What is actually displayed on a card is the responsibility of the view (see
-[CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
+[CardNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/cards/CardNode.js)
 and its subtypes).
 
-[AbstractFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/AbstractFunction.js)
+[AbstractFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/AbstractFunction.js)
 and its subtypes implement the function model. The function model is responsible for applying the function to an
 input and producing an output. For programming convenience, it also carries some view-specific information
 (e.g., the color of the function's background, the icon to display on the function to identify it).
@@ -78,28 +78,28 @@ dragged backwards through non-invertible functions.
 
 There are two primary types of functions:
 * image functions: These functions perform an image transform using Canvas.  See
-[ImageFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/ImageFunction.js)
+[ImageFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/ImageFunction.js)
 and its subtypes.
 * numeric functions: These functions perform mathematical functions using rational numbers. See
-[MathFunction](https://github.com/phetsims/function-builder/blob/master/js/common/model/functions/MathFunction.js)
+[MathFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/MathFunction.js)
 and its subtypes.
 
-[RationalNumber](https://github.com/phetsims/function-builder/blob/master/js/common/model/RationalNumber.js)
+[RationalNumber](https://github.com/phetsims/function-builder/blob/main/js/common/model/RationalNumber.js)
 implements support for rational numbers. This is a thin wrapper around the 3rd-party library
 [BigRational.js](https://github.com/peterolson/BigRational.js).
 It exposes only the functionality required for this simulation, so is not likely to be useful in other
 simulations.
 
-[Builder](https://github.com/phetsims/function-builder/blob/master/js/common/model/builder/Builder.js)
+[Builder](https://github.com/phetsims/function-builder/blob/main/js/common/model/builder/Builder.js)
 and its subtypes implement the builder model. It is responsible for managing the functions in its slots, and
 applying those functions to cards. For programming convenience, it also carries some view-specific information
 (e.g., the builder's dimensions, the color scheme applied to the builder).
 
-[Scene](https://github.com/phetsims/function-builder/blob/master/js/common/model/Scene.js)
+[Scene](https://github.com/phetsims/function-builder/blob/main/js/common/model/Scene.js)
 and its subtypes implement a specific configuration that is to be displayed to the user.
 The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
 Subtypes of Scene add additional elements to the basic scene. For example,
-[MysteryScene](https://github.com/phetsims/function-builder/blob/master/js/mystery/model/MysteryScene.js)
+[MysteryScene](https://github.com/phetsims/function-builder/blob/main/js/mystery/model/MysteryScene.js)
 adds a pool of challenges for the "Mystery" screen.
 
 **Two-phase model initialization**: Most PhET simulations create a model, then a corresponding view.
@@ -110,51 +110,51 @@ their carousels are created. Initialization of this simulation's model therefore
 scenes are created without cards and functions. The view is then initialized, which creates the carousels. In
 the second phase, the scenes are then populated with cards and functions. To investigate this further, see
 `completeInitialization` in
-[SceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneNode.js).
+[SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js).
 
 ## View
 
 This section provides an overview of the most important view components, and some miscellaneous topics
 related to the view.
 
-[MovableNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MovableNode.js)
+[MovableNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/MovableNode.js)
 is the base type for all nodes that move or animate (i.e., cards and functions).
 
-[CardNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/cards/CardNode.js)
+[CardNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/cards/CardNode.js)
 and its subtypes are responsible for what appears on the cards, based on their location
 relative to the functions in the builder. CardNode encapsulates all drag handling and animation behavior
 for cards.
 
-[FunctionNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/functions/FunctionNode.js)
+[FunctionNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/functions/FunctionNode.js)
 and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling 
 and animation behavior for functions.
 
-[BuilderNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/builder/BuilderNode.js)
+[BuilderNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/builder/BuilderNode.js)
 implements the view of the builder, with a pseudo-3D perspective. It uses scenery's `clipArea` feature
 to provide the illusion of cards are being dragged through the builder.
 
-[SeeInsideLayer](https://github.com/phetsims/function-builder/blob/master/js/common/view/SeeInsideLayer.js)
+[SeeInsideLayer](https://github.com/phetsims/function-builder/blob/main/js/common/view/SeeInsideLayer.js)
 uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the
 illusion of being able to "see inside" the builder. All instances of CardNode are descendants of this node,
 and thus visible when they pass a window.
 
-[SceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneNode.js) and
+[SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js) and
 its subtypes display a scene.  Each screen has 1 or more scenes.  If a screen has more than 1 scene, it
 also has a control for selecting a scene (see
-[SceneRadioButtonGroup](https://github.com/phetsims/function-builder/blob/master/js/common/view/SceneRadioButtonGroup.js)).
+[SceneRadioButtonGroup](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneRadioButtonGroup.js)).
 
 **Carousels and containers**: Cards and functions are not put directly into carousels. Rather, cards and functions
 are put into *containers*, which are then put into the carousels. See
-[MovableContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/MovableContainer.js)
+[MovableContainer](https://github.com/phetsims/function-builder/blob/main/js/common/view/containers/MovableContainer.js)
 and its subtypes.
-[CardContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/CardContainer.js)
+[CardContainer](https://github.com/phetsims/function-builder/blob/main/js/common/view/containers/CardContainer.js)
 has responsibility for creating the model and view of cards.
-[FunctionContainer](https://github.com/phetsims/function-builder/blob/master/js/common/view/containers/FunctionContainer.js)
+[FunctionContainer](https://github.com/phetsims/function-builder/blob/main/js/common/view/containers/FunctionContainer.js)
 has responsibility for creating the model and view of functions.
 
 **Drawers**: A drawer is a user-interface component for showing/hiding a feature. Drawers appear on the top and bottom
 edges of the builder in scenes that involve mathematical functions.
-[MathSceneNode](https://github.com/phetsims/function-builder/blob/master/js/common/view/MathSceneNode.js)
+[MathSceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/MathSceneNode.js)
 optionally adds drawers for these 3 features:
 * Table - a table of input and output values
 * Graph - a graph of (x,y) points and the line that represents the functions in the builder
@@ -162,7 +162,7 @@ optionally adds drawers for these 3 features:
 
 **Animation**: The view is responsible only for fading between scenes (using Tween.js). All other animation is the
 responsibility of the model
-(see `step` in [FBMovable](https://github.com/phetsims/function-builder/blob/master/js/common/model/Movable.js)).
+(see `step` in [FBMovable](https://github.com/phetsims/function-builder/blob/main/js/common/model/Movable.js)).
 
 **Mystery screen notes**: The Mystery screen was added late in the development process. This had a few unfortunate (but
 not tragic) consequences for its implementation, which are worth describing here. The Mystery screen has 3 scenes, but (
