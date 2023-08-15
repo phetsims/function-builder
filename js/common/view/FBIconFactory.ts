@@ -6,10 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
-import merge from '../../../../phet-core/js/merge.js';
+import ScreenIcon, { ScreenIconOptions } from '../../../../joist/js/ScreenIcon.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Image, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { HBox, Image, Node, Rectangle, Text, TPaint } from '../../../../scenery/js/imports.js';
 import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
 import stickFigure_png from '../../../images/cards/stickFigure_png.js';
 import functionBuilder from '../../functionBuilder.js';
@@ -23,6 +22,7 @@ import RationalNumber from '../model/RationalNumber.js';
 import SlopeInterceptEquationNode from './equations/SlopeInterceptEquationNode.js';
 import EyeCloseNode from './EyeCloseNode.js';
 import FunctionBackgroundNode from './functions/FunctionBackgroundNode.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const RADIO_BUTTON_ICON_SCALE = 0.35;
@@ -30,21 +30,28 @@ const RADIO_BUTTON_ICON_LINE_WIDTH = 3;
 const CHECKBOX_ICON_SCALE = 0.45;
 const CHECKBOX_ICON_LINE_WIDTH = 3;
 
+// see createMysteryScreenIcon
+type MysteryScreenIconSelfOptions = {
+  functionFill?: TPaint;
+  questionMarkFill?: TPaint;
+};
+type MysteryScreenIconOptions = MysteryScreenIconSelfOptions & ScreenIconOptions;
+
+// see createSeeInsideIcon
+type SeeInsideIconType = 'number' | 'image';
+
 const FBIconFactory = {
 
   /**
    * Creates the icon for the 'Patterns' screen, the Warhol function applied to an image.
    * Be sure to use a higher resolution version of the image or it will look lousy at the
    * size of the home screen icon.
-   *
-   * @param {Object} [options]
-   * @returns {ScreenIcon}
    */
-  createPatternsScreenIcon: function( options ) {
+  createPatternsScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
-    options = merge( {
+    const options = combineOptions<ScreenIconOptions>( {
       fill: FBColors.PATTERNS_SCREEN_BACKGROUND
-    }, options );
+    }, providedOptions );
 
     // apply Warhol to the image
     const warhol = new Warhol();
@@ -65,15 +72,12 @@ const FBIconFactory = {
 
   /**
    * Creates the icon for the 'Numbers' screen, a function piece with '+ 3' on it.
-   *
-   * @param {Object} [options]
-   * @returns {ScreenIcon}
    */
-  createNumbersScreenIcon: function( options ) {
+  createNumbersScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
-    options = merge( {
+    const options = combineOptions<ScreenIconOptions>( {
       fill: FBColors.NUMBERS_SCREEN_BACKGROUND
-    }, options );
+    }, providedOptions );
 
     const functionNode = new FunctionBackgroundNode( {
       fill: 'rgb( 255, 120, 120 )'
@@ -110,16 +114,13 @@ const FBIconFactory = {
 
   /**
    * Creates the icon for the 'Equations' screen, the equation y = 2x + 1
-   *
-   * @param {Object} [options]
-   * @returns {ScreenIcon}
    */
-  createEquationsScreenIcon: function( options ) {
+  createEquationsScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
-    options = merge( {
+    const options = combineOptions<ScreenIconOptions>( {
       fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
       maxIconWidthProportion: 0.75
-    }, options );
+    }, providedOptions );
 
     const iconNode = new SlopeInterceptEquationNode( new RationalNumber( 2, 3 ), RationalNumber.withInteger( 0 ) );
 
@@ -128,17 +129,18 @@ const FBIconFactory = {
 
   /**
    * Creates the icon for the 'Mystery' screen.
-   *
-   * @param {Object} [options]
-   * @returns {ScreenIcon}
    */
-  createMysteryScreenIcon: function( options ) {
+  createMysteryScreenIcon( providedOptions?: MysteryScreenIconOptions ): ScreenIcon {
 
-    options = merge( {
-      fill: FBColors.MYSTERY_SCREEN_BACKGROUND,
+    const options = optionize<MysteryScreenIconOptions, MysteryScreenIconSelfOptions, ScreenIconOptions>()( {
+
+      // MysteryScreenIconSelfOptions
       functionFill: 'rgb( 147, 231, 128 )',
-      questionMarkFill: 'black'
-    }, options );
+      questionMarkFill: 'black',
+
+      // ScreenIconOptions
+      fill: FBColors.MYSTERY_SCREEN_BACKGROUND
+    }, providedOptions );
 
     const functionNode = new FunctionBackgroundNode( {
       fill: options.functionFill
@@ -160,51 +162,37 @@ const FBIconFactory = {
   /**
    * Creates the icon for a scene selection radio button.
    * It consists of N functions in series.
-   *
-   * @param {number} numberOfFunctions
-   * @param {Object} [options]
-   * @returns {Node}
    */
-  createSceneIcon: function( numberOfFunctions, options ) {
+  createSceneIcon( numberOfFunctions: number ): Node {
 
-    options = merge( {
-      colors: [ 'rgb( 147, 231, 129 )', 'rgb( 205, 175, 230 )', 'rgb( 255, 120, 120 )' ],
-      scale: RADIO_BUTTON_ICON_SCALE,
-      lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH
-    }, options );
-    assert && assert( options.colors.length >= numberOfFunctions );
+    const colors = [ 'rgb( 147, 231, 129 )', 'rgb( 205, 175, 230 )', 'rgb( 255, 120, 120 )' ];
+    assert && assert( colors.length >= numberOfFunctions );
 
-    assert && assert( !options.children );
-    options.children = [];
+    const children: Node[] = [];
     let previousFunctionNode = null;
 
     for ( let i = 0; i < numberOfFunctions; i++ ) {
       const functionNode = new FunctionBackgroundNode( {
-        fill: options.colors[ i ],
-        lineWidth: options.lineWidth
+        fill: colors[ i ],
+        lineWidth: RADIO_BUTTON_ICON_LINE_WIDTH
       } );
       if ( previousFunctionNode ) {
         functionNode.left = previousFunctionNode.right - previousFunctionNode.xInset - ( 2 * RADIO_BUTTON_ICON_LINE_WIDTH );
       }
-      options.children.push( functionNode );
+      children.push( functionNode );
       previousFunctionNode = functionNode;
     }
 
-    return new Node( options );
+    return new Node( {
+      scale: RADIO_BUTTON_ICON_SCALE,
+      children: children
+    } );
   },
 
   /**
    * Creates the icon for the 'see inside' checkbox, which shows/hides windows in the builder.
-   *
-   * @param {Object} [options]
-   * @returns {Node}
    */
-  createSeeInsideIcon: function( options ) {
-
-    options = merge( {
-      iconType: 'number' // {string} whether to show a 'number' or 'image' on the card in the window
-    }, options );
-    assert && assert( options.iconType === 'number' || options.iconType === 'image' );
+  createSeeInsideIcon( iconType: SeeInsideIconType ): Node {
 
     const functionNode = new FunctionBackgroundNode( {
       fill: 'rgb( 147, 231, 129 )',
@@ -223,7 +211,7 @@ const FBIconFactory = {
     } );
 
     let contentNode = null;
-    if ( options.iconType === 'number' ) {
+    if ( iconType === 'number' ) {
 
       // number '2'
       contentNode = new Text( '2', {
@@ -247,10 +235,8 @@ const FBIconFactory = {
 
   /**
    * Creates the icon for the 'hide functions' checkbox, which hides the identity of functions in the builder.
-   *
-   * @returns {Node}
    */
-  createHideFunctionsIcon: function() {
+  createHideFunctionsIcon(): Node {
 
     const functionNode = new FunctionBackgroundNode( {
       fill: FBColors.HIDDEN_FUNCTION,

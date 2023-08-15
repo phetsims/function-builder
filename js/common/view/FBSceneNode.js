@@ -217,7 +217,7 @@ export default class FBSceneNode extends Node {
       visible: this.seeInsideProperty.value
     } );
 
-    const seeInsideCheckbox = new Checkbox( this.seeInsideProperty, FBIconFactory.createSeeInsideIcon( { iconType: options.seeInsideIconType } ), {
+    const seeInsideCheckbox = new Checkbox( this.seeInsideProperty, FBIconFactory.createSeeInsideIcon( options.seeInsideIconType ), {
       spacing: 8,
       left: hideFunctionsCheckbox.left,
       top: hideFunctionsCheckbox.bottom + 25
