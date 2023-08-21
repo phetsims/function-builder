@@ -2,7 +2,7 @@
 
 This document contains miscellaneous notes related to the implementation of Function Builder. It
 supplements the internal (source code) documentation, and (hopefully) provides insight into
-"big picture" implementation issues.  The audience for this document is software developers who are familiar
+"big picture" implementation issues. The audience for this document is software developers who are familiar
 with JavaScript and PhET simulation development (as described in [PhET Development Overview]
 (https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)).
 
@@ -16,15 +16,20 @@ In alphabetical order:
 
 * builder - the apparatus in the center of the screen
 * cards - the things in the input and output carousel, that you drag through the builder
-* challenge - a series of 1 or more functions in Mystery screen's builder. The user's tasks is to guess the function(s) in the challenge.
+* challenge - a series of 1 or more functions in Mystery screen's builder. The user's tasks is to guess the function(s)
+  in the challenge.
 * container - an item in a carousel, which contains cards or functions
 * drawers - things that slide out of the top & bottom of the builder, to reveal additional representations
 * functions - the things in the functions carousel, that you drag into slots in the builder
 * function carousel - horizontal carousel at bottom of screen
-* generate button - the yellow button centered below the builder in the Mystery screen. Pressing it selects a challenge randomly from the pool.
+* generate button - the yellow button centered below the builder in the Mystery screen. Pressing it selects a challenge
+  randomly from the pool.
 * input carousel - vertical carousel on the left side of the screen
 * output carousel - vertical carousel on the right side of the screen
-* reveal buttons - toggle buttons below the functions in the Mystery screen (they have eyeball icons on them). Pressing a reveal button shows/hides the identity of the function directly above it. These buttons are initially disabled for a challenge. They are enabled when the output carousel contains 3 cards, and they remain enabled until a new challenge is generated.
+* reveal buttons - toggle buttons below the functions in the Mystery screen (they have eyeball icons on them). Pressing
+  a reveal button shows/hides the identity of the function directly above it. These buttons are initially disabled for a
+  challenge. They are enabled when the output carousel contains 3 cards, and they remain enabled until a new challenge
+  is generated.
 * scene - a builder, set of cards and set of functions. Each screen has 1 or more scenes
 * "see inside" windows - windows that appear in the builder to display intermediate results
 * slots - places where you can drop functions in the builder
@@ -42,9 +47,9 @@ testing. All such query parameters are documented in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/main/js/common/FBQueryParameters.js).
 
 **Memory management**: All objects created in this simulation exist for the lifetime of the simulation, so there
-is no need to call `dispose`.  Since there is no need to call `dispose`, it is generally not implemented for
+is no need to call `dispose`. Since there is no need to call `dispose`, it is generally not implemented for
 sim-specific types. Likewise, when an observer is registered (e.g. via `link` or `addListener`), there is no need
-to unregister that observer (e.g. via `unlink` or `removeListener`).  For clarity, all calls that register an
+to unregister that observer (e.g. via `unlink` or `removeListener`). For clarity, all calls that register an
 observer indicate whether a corresponding unregister call is required. For example:
 
 ```js
@@ -77,12 +82,13 @@ to a function. A card's location is constrained based on whether a function is i
 dragged backwards through non-invertible functions.
 
 There are two primary types of functions:
-* image functions: These functions perform an image transform using Canvas.  See
-[ImageFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/ImageFunction.js)
-and its subtypes.
+
+* image functions: These functions perform an image transform using Canvas. See
+  [ImageFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/ImageFunction.js)
+  and its subtypes.
 * numeric functions: These functions perform mathematical functions using rational numbers. See
-[MathFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/MathFunction.js)
-and its subtypes.
+  [MathFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/MathFunction.js)
+  and its subtypes.
 
 [RationalNumber](https://github.com/phetsims/function-builder/blob/main/js/common/model/RationalNumber.js)
 implements support for rational numbers. This is a thin wrapper around the 3rd-party library
@@ -97,7 +103,8 @@ applying those functions to cards. For programming convenience, it also carries 
 
 [Scene](https://github.com/phetsims/function-builder/blob/main/js/common/model/Scene.js)
 and its subtypes implement a specific configuration that is to be displayed to the user.
-The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of functions.
+The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of
+functions.
 Subtypes of Scene add additional elements to the basic scene. For example,
 [MysteryScene](https://github.com/phetsims/function-builder/blob/main/js/mystery/model/MysteryScene.js)
 adds a pool of challenges for the "Mystery" screen.
@@ -105,7 +112,7 @@ adds a pool of challenges for the "Mystery" screen.
 **Two-phase model initialization**: Most PhET simulations create a model, then a corresponding view.
 This simulation is a bit different; the
 model cannot be fully instantiated without creating the view. The initial location of cards and functions is their
-location in their respective carousels, which are view components.  So we cannot create cards and functions until
+location in their respective carousels, which are view components. So we cannot create cards and functions until
 their carousels are created. Initialization of this simulation's model therefore occurs in 2 phases. In the first phase,
 scenes are created without cards and functions. The view is then initialized, which creates the carousels. In
 the second phase, the scenes are then populated with cards and functions. To investigate this further, see
@@ -126,7 +133,7 @@ relative to the functions in the builder. CardNode encapsulates all drag handlin
 for cards.
 
 [FunctionNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/functions/FunctionNode.js)
-and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling 
+and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling
 and animation behavior for functions.
 
 [BuilderNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/builder/BuilderNode.js)
@@ -139,7 +146,7 @@ illusion of being able to "see inside" the builder. All instances of CardNode ar
 and thus visible when they pass a window.
 
 [SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js) and
-its subtypes display a scene.  Each screen has 1 or more scenes.  If a screen has more than 1 scene, it
+its subtypes display a scene. Each screen has 1 or more scenes. If a screen has more than 1 scene, it
 also has a control for selecting a scene (see
 [SceneRadioButtonGroup](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneRadioButtonGroup.js)).
 
@@ -156,6 +163,7 @@ has responsibility for creating the model and view of functions.
 edges of the builder in scenes that involve mathematical functions.
 [MathSceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/MathSceneNode.js)
 optionally adds drawers for these 3 features:
+
 * Table - a table of input and output values
 * Graph - a graph of (x,y) points and the line that represents the functions in the builder
 * Equation - equation (in 2 forms) that represents the functions in the builder
