@@ -10,22 +10,41 @@
 import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import merge from '../../../../../phet-core/js/merge.js';
-import { Color, Node, Rectangle } from '../../../../../scenery/js/imports.js';
+import { Color, Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import Property from '../../../../../axon/js/Property.js';
+import FBMovableNode from '../FBMovableNode.js';
+
+type SelfOptions = {
+  size?: Dimension2; // size of the container
+  emptyNode?: Node | null; // node that's visible when the container is empty
+};
+export type MovableContainerOptions = SelfOptions & NodeTranslationOptions;
+
 
 export default class MovableContainer extends Node {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private backgroundNode: Node; // for layout
+  private contentsParent: Node;
 
-    options = merge( {
-      size: new Dimension2( 100, 100 ), // {Dimension2} size of the container
-      emptyNode: null // {Node|null} node that's visible when the container is empty
-    }, options );
+  // The position of the container when it's visible in the carousel. This is set after carousel is attached to scene.
+  public carouselPosition: Vector2 | null;
+
+  public numberOfItemsProperty: Property<number>; // number of items in the container
+  public addEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is added
+  public removeEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is removed
+
+  protected constructor( providedOptions?: MovableContainerOptions ) {
+
+    const options = optionize<MovableContainerOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      size: new Dimension2( 100, 100 ),
+      emptyNode: null
+    }, providedOptions );
 
     // invisible background, so that an empty container has dimensions
     const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -44,22 +63,16 @@ export default class MovableContainer extends Node {
 
     super( options );
 
-    // @private
     this.backgroundNode = backgroundNode;
     this.contentsParent = contentsParent;
-
-    // @public position of container when it's visible in the carousel. Set after carousel is attached to scene.
     this.carouselPosition = null;
 
-    // @public (read-only) number of items in the container
     this.numberOfItemsProperty = new NumberProperty( 0, { numberType: 'Integer' } );
 
-    // @public emit is called when a Node is added
     this.addEmitter = new Emitter( {
       parameters: [ { valueType: Node } ]
     } );
 
-    // @public emit is called when a Node is removed
     this.removeEmitter = new Emitter( {
       parameters: [ { valueType: Node } ]
     } );
@@ -67,24 +80,22 @@ export default class MovableContainer extends Node {
 
   /**
    * Is the specified Node in the container?
-   * @param {FBMovableNode} node
-   * @returns {boolean}
-   * @public
    */
-  containsNode( node ) {
+  public containsNode( node: FBMovableNode ): boolean {
     return ( this.contentsParent.hasChild( node ) );
   }
 
   /**
    * Adds a Node to the container.
-   * @param {FBMovableNode} node
-   * @public
    */
-  addNode( node ) {
+  public addNode( node: FBMovableNode ): void {
+
+    const carouselPosition = this.carouselPosition!;
+    assert && assert( carouselPosition, 'addNode was called before carouselPosition was set' );
 
     // add the node
     this.contentsParent.addChild( node );
-    node.movable.moveTo( this.carouselPosition );
+    node.movable.moveTo( carouselPosition );
     node.center = this.backgroundNode.center;
 
     // update count
@@ -96,10 +107,8 @@ export default class MovableContainer extends Node {
 
   /**
    * Removes a Node from the container.
-   * @param {FBMovableNode} node
-   * @public
    */
-  removeNode( node ) {
+  public removeNode( node: FBMovableNode ): void {
 
     // remove the node
     this.contentsParent.removeChild( node );
@@ -112,20 +121,18 @@ export default class MovableContainer extends Node {
   }
 
   /**
-   * Gets the contents of the container.
-   * @returns {FBMovableNode[]} a copy of the set of Nodes in the container
-   * @public
+   * Returns a copy of the contents of the container.
    */
-  getContents() {
-    return this.contentsParent.getChildren();
+  public getContents(): FBMovableNode[] {
+    const nodes = this.contentsParent.getChildren() as FBMovableNode[];
+    assert && assert( _.every( nodes, node => node instanceof FBMovableNode ), 'expected all contents to be FBMovableNode' );
+    return nodes;
   }
 
   /**
    * Is the container empty?
-   * @returns {boolean}
-   * @public
    */
-  isEmpty() {
+  public isEmpty(): boolean {
     return ( this.numberOfItemsProperty.value === 0 );
   }
 }

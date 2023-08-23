@@ -5,7 +5,7 @@
  *
  * The drawer is responsible for adding/removing things from the graph as cards are added/removed
  * from the output carousel, subject to the following requirements:
- *  - A point or line is added to the graph when the *first* instance of its corresponding card
+ * - A point or line is added to the graph when the *first* instance of its corresponding card
  *   is added to the output container.
  * - A point or line is removed from the graph when the *last* instance of its corresponding card
  *   is removed from the output container.
@@ -13,31 +13,39 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
-import Drawer from '../../../../../scenery-phet/js/Drawer.js';
+import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import EquationCardNode from '../cards/EquationCardNode.js';
 import NumberCardNode from '../cards/NumberCardNode.js';
-import XYGraphNode from './XYGraphNode.js';
+import XYGraphNode, { XYGraphNodeOptions } from './XYGraphNode.js';
+import Builder from '../../model/builder/Builder.js';
+import CardContainer from '../containers/CardContainer.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+import { combineOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  graphOptions?: XYGraphNodeOptions; // options for XYGraphNode
+};
+
+type XYGraphDrawerOptions = SelfOptions & NodeTranslationOptions;
 
 export default class XYGraphDrawer extends Drawer {
 
-  /**
-   * @param {Builder} builder
-   * @param {CardContainer[]} outputContainers - card containers in the output carousel
-   * @param {Object} [options]
-   */
-  constructor( builder, outputContainers, options ) {
+  public constructor( builder: Builder, outputContainers: CardContainer[], providedOptions?: XYGraphDrawerOptions ) {
 
-    options = merge( {
+    const options = optionize4<XYGraphDrawerOptions, SelfOptions, DrawerOptions>()( {}, FBConstants.DRAWER_OPTIONS, {
+
+      // SelfOptions
+      graphOptions: {},
+
+      // DrawerOptions
       open: FBConstants.GRAPH_DRAWER_OPEN,
-      handlePosition: 'top',
-      graphOptions: null // {*} options for XYGraphNode
-    }, FBConstants.DRAWER_OPTIONS, options );
+      handlePosition: 'top'
+    }, providedOptions );
 
     // Graph
-    const graphNode = new XYGraphNode( builder, merge( {
+    const graphNode = new XYGraphNode( builder, combineOptions<XYGraphNodeOptions>( {
       visible: options.open,
       cornerRadius: options.cornerRadius
     }, options.graphOptions ) );

@@ -29,6 +29,7 @@ import RationalNumber from '../../model/RationalNumber.js';
 import Builder from '../../model/builder/Builder.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -76,7 +77,7 @@ type SelfOptions = {
   lineWidth?: number; // lineWidth of the plotted line
 };
 
-export type XYGraphNodeOptions = SelfOptions;
+export type XYGraphNodeOptions = SelfOptions & PickOptional<Node, 'visible'>;
 
 export default class XYGraphNode extends Node {
 
