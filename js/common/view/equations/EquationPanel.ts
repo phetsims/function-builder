@@ -181,9 +181,7 @@ export default class EquationPanel extends Node {
     if ( this.slopeInterceptEquationNode ) {
       this.removeChild( this.slopeInterceptEquationNode );
     }
-    const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions, {
-      xSymbol: this.xSymbol
-    } );
+    const slopeInterceptEquation = new SlopeInterceptEquation( mathFunctions, this.xSymbol );
     this.slopeInterceptEquationNode = new SlopeInterceptEquationNode(
       slopeInterceptEquation.slope, slopeInterceptEquation.intercept, {
         showLeftHandSide: true, // show 'y =' part of equation

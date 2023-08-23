@@ -6,22 +6,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../RationalNumber.js';
+import MathFunction from '../functions/MathFunction.js';
 
 export default class SlopeInterceptEquation {
 
-  /**
-   * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
-   * @param {Object} [options]
-   */
-  constructor( mathFunctions, options ) {
+  public readonly slope: RationalNumber;
+  public readonly intercept: RationalNumber;
+  private readonly xSymbol: string;
 
-    options = merge( {
-      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
-    }, options );
+  /**
+   * @param mathFunctions - the set of linear functions, in the order that they are applied
+   * @param xSymbol - string to use for input symbol, appears only in toString
+   */
+  public constructor( mathFunctions: MathFunction[], xSymbol = FBSymbols.X ) {
 
     let slope = new RationalNumber( 1, 1 );
     let intercept = new RationalNumber( 0, 1 );
@@ -49,23 +49,17 @@ export default class SlopeInterceptEquation {
       }
     }
 
-    // @private
-    this.xSymbol = options.xSymbol;
-
-    // @public (read-only)
-    this.slope = slope; // {RationalNumber}
-    this.intercept = intercept; // {RationalNumber}
+    this.slope = slope;
+    this.intercept = intercept;
+    this.xSymbol = xSymbol;
   }
 
   /**
    * String representation, for debugging and (perhaps) PhET-iO.
    * Note that the logic flow herein is similar to SlopeInterceptEquationNode's constructor,
    * but constructs a string instead of a Node.
-   *
-   * @returns {string}
-   * @public
    */
-  toString() {
+  public toString(): string {
 
     let equation = '';
 
