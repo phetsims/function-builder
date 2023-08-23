@@ -8,22 +8,26 @@
 
 import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
-import Card from './Card.js';
+import Card, { CardOptions } from './Card.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type NumberCardOptions = SelfOptions & CardOptions;
 
 export default class NumberCard extends Card {
 
-  /**
-   * @param {RationalNumber} rationalNumber - the input number, an integer
-   * @param {Object} [options]
-   */
-  constructor( rationalNumber, options ) {
+  public readonly rationalNumber: RationalNumber;
 
-    assert && assert( rationalNumber instanceof RationalNumber );
+  /**
+   * @param rationalNumber - the input number, an integer
+   * @param [providedOptions]
+   */
+  public constructor( rationalNumber: RationalNumber, providedOptions?: NumberCardOptions ) {
+
     assert && assert( rationalNumber.isInteger() );
 
-    super( options );
+    super( providedOptions );
 
-    // {RationalNumber} @public (read-only)
     this.rationalNumber = rationalNumber;
   }
 }

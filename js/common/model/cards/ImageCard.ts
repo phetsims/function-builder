@@ -8,39 +8,41 @@
 
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../../../patterns/model/FBCanvasUtils.js';
-import Card from './Card.js';
+import Card, { CardOptions } from './Card.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type ImageCardOptions = SelfOptions & CardOptions;
 
 export default class ImageCard extends Card {
 
+  public readonly image: HTMLImageElement;
+  private _canvas: HTMLCanvasElement | null; // created on demand by getCanvas
+
   /**
-   * @param {HTMLImageElement} image - the input image
-   * @param {Object} [options]
+   * @param image - the input image
+   * @param [providedOptions]
    */
-  constructor( image, options ) {
+  public constructor( image: HTMLImageElement, providedOptions?: ImageCardOptions ) {
 
-    super( options );
+    super( providedOptions );
 
-    // {HTMLCanvasElement} @public (read-only)
     this.image = image;
-
-    // @private created on demand by getCanvas
     this._canvas = null;
   }
 
   /**
    * Gets the card's image as a canvas, so that it can be transformed by image functions.
    * The canvas is created on demand.
-   * @returns {HTMLCanvasElement}
-   * @public
    */
-  getCanvas() {
+  public getCanvas(): HTMLCanvasElement {
     if ( !this._canvas ) {
       this._canvas = FBCanvasUtils.createCanvasWithImage( this.image );
     }
     return this._canvas;
   }
 
-  get canvas() { return this.getCanvas(); }
+  public get canvas(): HTMLCanvasElement { return this.getCanvas(); }
 }
 
 functionBuilder.register( 'ImageCard', ImageCard );

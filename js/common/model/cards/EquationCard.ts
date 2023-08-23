@@ -7,21 +7,24 @@
  */
 
 import functionBuilder from '../../../functionBuilder.js';
-import Card from './Card.js';
+import Card, { CardOptions } from './Card.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type EquationCardOptions = SelfOptions & CardOptions;
 
 export default class EquationCard extends Card {
 
+  public readonly xSymbol: string;
+
   /**
-   * @param {string} xSymbol - the input symbol, typically 'x'
-   * @param {Object} [options]
+   * @param xSymbol - the input symbol, typically 'x'
+   * @param [providedOptions]
    */
-  constructor( xSymbol, options ) {
+  public constructor( xSymbol: string, providedOptions?: EquationCardOptions ) {
 
-    assert && assert( typeof xSymbol === 'string' );
+    super( providedOptions );
 
-    super( options );
-
-    // {string} @public (read-only)
     this.xSymbol = xSymbol;
   }
 }
