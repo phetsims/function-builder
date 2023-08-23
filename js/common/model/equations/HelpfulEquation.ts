@@ -10,7 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
@@ -18,25 +17,24 @@ import Divide from '../functions/Divide.js';
 import Plus from '../functions/Plus.js';
 import Times from '../functions/Times.js';
 import RationalNumber from '../RationalNumber.js';
+import MathFunction from '../functions/MathFunction.js';
 
 // constants
 const ZERO = RationalNumber.withInteger( 0 );
 
 export default class HelpfulEquation {
 
+  public readonly mathFunctions: MathFunction[];
+  private readonly xSymbol: string;
+
   /**
-   * @param {MathFunction[]} mathFunctions - the set of linear functions, in the order that they are applied
-   * @param {Object} [options]
+   * @param mathFunctions - the set of linear functions, in the order that they are applied
+   * @param xSymbol string to use for input symbol, appears only in toString
    */
-  constructor( mathFunctions, options ) {
+  public constructor( mathFunctions: MathFunction[], xSymbol: string ) {
 
-    options = merge( {
-      xSymbol: FBSymbols.X // {string} string to use for input symbol, appears only in toString
-    }, options );
-
-    const stack = []; // {MathFunction[]}
-
-    let previousFunction = null; // {MathFunction|null}
+    const stack: MathFunction[] = [];
+    let previousFunction: MathFunction | null = null;
 
     mathFunctions.forEach( currentFunction => {
 
@@ -56,7 +54,8 @@ export default class HelpfulEquation {
           // collapse adjacent plus and minus
           stack.pop();
 
-          const rationalNumber = currentFunction.applyFunction( previousFunction.applyFunction( ZERO ) ); // {RandomNumber}
+          assert && assert( previousFunction );
+          const rationalNumber = currentFunction.applyFunction( previousFunction!.applyFunction( ZERO ) ); // {RandomNumber}
           if ( rationalNumber.valueOf() !== 0 ) {
             stack.push( new Plus( {
               operand: rationalNumber.valueOf(),
@@ -71,11 +70,12 @@ export default class HelpfulEquation {
       else if ( currentOperator === FBSymbols.TIMES ) {
 
         if ( previousOperator === FBSymbols.TIMES ) {
+          assert && assert( previousOperand );
 
           // collapse adjacent times
           stack.pop();
           stack.push( new Times( {
-            operand: previousOperand * currentOperand,
+            operand: previousOperand! * currentOperand,
             operandRange: null
           } ) );
         }
@@ -87,11 +87,12 @@ export default class HelpfulEquation {
         assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
 
         if ( previousOperator === FBSymbols.DIVIDE ) {
+          assert && assert( previousOperand );
 
           // collapse adjacent divide
           stack.pop();
           stack.push( new Divide( {
-            operand: previousOperand * currentOperand,
+            operand: previousOperand! * currentOperand,
             operandRange: null
           } ) );
         }
@@ -111,22 +112,16 @@ export default class HelpfulEquation {
       }
     } );
 
-    // @private
-    this.xSymbol = options.xSymbol; // {string}
-
-    // @public
-    this.mathFunctions = stack; // {MathFunction[]}
+    this.mathFunctions = stack;
+    this.xSymbol = xSymbol;
   }
 
   /**
    * String representation, for debugging. Do not rely on format!
    * Note that the logic flow herein is similar to HelpfulEquationNode's constructor, but constructs a string
    * instead of a Node, and doesn't check logic in case we need to see a malformed equation.
-   *
-   * @returns {string}
-   * @public
    */
-  toString() {
+  public toString(): string {
 
     let equation = null; // {string}
     let i = 0; // {number}

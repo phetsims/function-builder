@@ -164,9 +164,7 @@ export default class EquationPanel extends Node {
     if ( this.helpfulEquationNode ) {
       this.removeChild( this.helpfulEquationNode );
     }
-    const helpfulEquation = new HelpfulEquation( mathFunctions, {
-      xSymbol: this.xSymbol
-    } );
+    const helpfulEquation = new HelpfulEquation( mathFunctions, this.xSymbol );
     this.helpfulEquationNode = new HelpfulEquationNode( helpfulEquation, {
       xSymbol: this.xSymbol,
       ySymbol: this.ySymbol,
