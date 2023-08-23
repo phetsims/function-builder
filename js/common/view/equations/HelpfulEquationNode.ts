@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import { Line, Node, Text } from '../../../../../scenery/js/imports.js';
+import { Line, Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
@@ -15,23 +15,27 @@ import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
 import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
+import { EquationNodeOptions } from './EquationNodeOptions.js';
+
+type SelfOptions = EquationNodeOptions;
+
+type HelpfulEquationNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<NodeOptions, 'visible' | 'maxWidth' | 'maxHeight'>;
 
 export default class HelpfulEquationNode extends Node {
 
-  /**
-   * @param {HelpfulEquation} equation
-   * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
-   */
-  constructor( equation, options ) {
+  public constructor( equation: HelpfulEquation, providedOptions?: HelpfulEquationNodeOptions ) {
 
-    assert && assert( equation instanceof HelpfulEquation );
     phet.log && phet.log( `HelpfulEquation=${equation.toString()}` );
 
-    options = merge( {}, FBConstants.EQUATION_OPTIONS, {
-      fractionScale: 0.67 // {number} how much to scale fractions
-    }, options );
+    const options = optionize4<HelpfulEquationNodeOptions, SelfOptions, NodeOptions>()(
+      // @ts-expect-error TS2559: Type 'Required ' has no properties in common with type 'Partial '.
+      {}, FBConstants.EQUATION_OPTIONS, {
+        fractionScale: 0.67
+      }, providedOptions );
 
-    assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
     const mathFunctions = equation.mathFunctions; // {MathFunction[]}
@@ -39,7 +43,7 @@ export default class HelpfulEquationNode extends Node {
     let xNode = null; // {Node}
 
     // y
-    let yNode = new Text( options.ySymbol, {
+    let yNode: Node = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
       maxWidth: options.xyMaxWidth

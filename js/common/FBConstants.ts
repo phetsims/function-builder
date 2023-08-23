@@ -16,6 +16,7 @@ import functionBuilder from '../functionBuilder.js';
 import FBSymbols from './FBSymbols.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import { DrawerOptions } from '../../../scenery-phet/js/Drawer.js';
+import { EquationNodeOptions } from './view/equations/EquationNodeOptions.js';
 
 // constants that are used to compute other constants
 const CARD_SIZE = new Dimension2( 70, 70 );
@@ -33,6 +34,48 @@ const DRAWER_OPTIONS: DrawerOptions = {
   handleTouchAreaXDilation: 25, // x dilation of the drawer's handle
   handleTouchAreaYDilation: 8, // y dilation of the drawer's handle
   cornerRadius: 4
+};
+
+// A full set of default values for equation Nodes
+const EQUATION_NODE_OPTIONS: Required<EquationNodeOptions> = {
+
+  xSymbol: FBSymbols.X, // {string} symbol for input
+  ySymbol: FBSymbols.Y, // {string} symbol for output
+  xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
+  xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
+  showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
+
+  // colors
+  xColor: 'black', // {Color|string} for x symbol
+  yColor: 'black', // {Color|string} for y symbol
+  color: 'black', // {Color|string} for everything else
+
+  // fonts
+  xyFont: new MathSymbolFont( 30 ), // {Font} font for x & y symbols
+  symbolFont: new PhetFont( 30 ), // {Font} font for math symbols (equals, plus, minus)
+  wholeNumberFont: new PhetFont( 30 ), // {Font} font for whole numbers
+  fractionFont: new PhetFont( 20 ), // {Font} font for fractions
+  signFont: new PhetFont( 22 ), // {Font} font for negative sign
+  parenthesesFont: new PhetFont( 30 ), // {Font} font for parentheses
+
+  // x spacing
+  equalsXSpacing: 8, // {number} x space on both sides of equals sign
+  signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
+  operatorXSpacing: 8, // {number} x space on both sides of an operator
+  integerSlopeXSpacing: 3, // {number} x space between integer slope and x
+  multiplierXSpacing: 3, // {number} x space following multiplier
+  fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
+  parenthesesXSpacing: 3, // {number} x space inside of parentheses
+
+  // y spacing
+  fractionYSpacing: 2, // {number} y space above and below fraction line
+  fractionScale: 1, // how much to scale fractions
+
+  // y offsets. Positive is down, everything is relative to the equals sign.
+  xyYOffset: 0, // {number} vertical offset of x & y symbols
+  slopeYOffset: 0, // {number} vertical offset of slope
+  interceptYOffset: 0, // {number} vertical offset of intercept
+  operatorYOffset: 0 // {number} vertical offset of operators (plus, minus)
 };
 
 const FBConstants = {
@@ -136,48 +179,7 @@ const FBConstants = {
 
   EQUATION_DRAWER_SIZE: new Dimension2( 300, 120 ),
   EQUATION_DRAWER_OPEN: false,
-
-  // default option values shared by SlopeInterceptEquationNode and HelpfulEquationNode
-  EQUATION_OPTIONS: {
-
-    showLeftHandSide: true, // {boolean} whether to show left-hand side of the equation
-    xSymbol: FBSymbols.X, // {string} symbol for input
-    ySymbol: FBSymbols.Y, // {string} symbol for output
-    xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-    xyMaxWidth: 100, // {number} maxWidth of x & y symbols, for i18n, determined empirically
-
-    // colors
-    xColor: 'black', // {Color|string} for x symbol
-    yColor: 'black', // {Color|string} for y symbol
-    color: 'black', // {Color|string} for everything else
-
-    // fonts
-    xyFont: new MathSymbolFont( 30 ), // {Font} font for x & y symbols
-    symbolFont: new PhetFont( 30 ), // {Font} font for math symbols (equals, plus, minus)
-    wholeNumberFont: new PhetFont( 30 ), // {Font} font for whole numbers
-    fractionFont: new PhetFont( 20 ), // {Font} font for fractions
-    signFont: new PhetFont( 22 ), // {Font} font for negative sign
-    parenthesesFont: new PhetFont( 30 ), // {Font} font for parentheses
-
-    // x spacing
-    equalsXSpacing: 8, // {number} x space on both sides of equals sign
-    signXSpacing: 3, // {number} x spacing between a negative sign and the number that follows it
-    operatorXSpacing: 8, // {number} x space on both sides of an operator
-    integerSlopeXSpacing: 3, // {number} x space between integer slope and x
-    multiplierXSpacing: 3, // {number} x space following multiplier
-    fractionSlopeXSpacing: 6, // {number} x space between fractional slope and x
-    parenthesesXSpacing: 3, // {number} x space inside of parentheses
-
-    // y spacing
-    fractionYSpacing: 2, // {number} y space above and below fraction line
-
-    //NOTE: These options are not currently implemented by HelpfulEquationNode.
-    // y offsets, positive is down, everything is relative to the equals sign
-    xyYOffset: 0, // {number} vertical offset of x & y symbols
-    slopeYOffset: 0, // {number} vertical offset of slope
-    interceptYOffset: 0, // {number} vertical offset of intercept
-    operatorYOffset: 0 // {number} vertical offset of operators (plus, minus)
-  }
+  EQUATION_OPTIONS: EQUATION_NODE_OPTIONS
 };
 
 functionBuilder.register( 'FBConstants', FBConstants );

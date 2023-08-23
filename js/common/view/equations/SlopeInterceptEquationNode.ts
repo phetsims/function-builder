@@ -6,34 +6,33 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../../phet-core/js/merge.js';
-import { Node, Text } from '../../../../../scenery/js/imports.js';
+import { Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
+import { EquationNodeOptions } from './EquationNodeOptions.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import { optionize3 } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EquationNodeOptions;
+
+type SlopeInterceptEquationNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<NodeOptions, 'visible' | 'maxWidth' | 'maxHeight'>;
 
 export default class SlopeInterceptEquationNode extends Node {
 
-  /**
-   * @param {RationalNumber} slope
-   * @param {RationalNumber} intercept
-   * @param {Object} [options] - see FBConstants.EQUATION_OPTIONS
-   */
-  constructor( slope, intercept, options ) {
+  public constructor( slope: RationalNumber, intercept: RationalNumber, providedOptions?: SlopeInterceptEquationNodeOptions ) {
 
-    assert && assert( slope instanceof RationalNumber );
-    assert && assert( intercept instanceof RationalNumber );
+    const options = optionize3<SlopeInterceptEquationNodeOptions, SelfOptions, NodeOptions>()(
+      {}, FBConstants.EQUATION_OPTIONS, providedOptions );
 
-    options = merge( {}, FBConstants.EQUATION_OPTIONS, options );
-
-    assert && assert( !options.children, 'decoration not supported' );
     options.children = [];
 
     // y
-    let yNode = new Text( options.ySymbol, {
+    let yNode: Node = new Text( options.ySymbol, {
       fill: options.yColor,
       font: options.xyFont,
       maxWidth: options.xyMaxWidth
@@ -125,7 +124,7 @@ export default class SlopeInterceptEquationNode extends Node {
       // x
       if ( slope.valueOf() !== 0 ) {
 
-        let xNode = new Text( options.xSymbol, {
+        let xNode: Node = new Text( options.xSymbol, {
           fill: options.xColor,
           font: options.xyFont,
           maxWidth: options.xyMaxWidth
