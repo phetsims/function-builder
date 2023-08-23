@@ -27,15 +27,15 @@ export type MovableContainerOptions = SelfOptions & NodeTranslationOptions;
 
 export default class MovableContainer extends Node {
 
-  private backgroundNode: Node; // for layout
-  private contentsParent: Node;
+  private readonly backgroundNode: Node; // for layout
+  private readonly contentsParent: Node;
 
   // The position of the container when it's visible in the carousel. This is set after carousel is attached to scene.
   public carouselPosition: Vector2 | null;
 
-  public numberOfItemsProperty: Property<number>; // number of items in the container
-  public addEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is added
-  public removeEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is removed
+  public readonly numberOfItemsProperty: Property<number>; // number of items in the container
+  public readonly addEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is added
+  public readonly removeEmitter: Emitter<[ FBMovableNode ]>; // emit is called when a Node is removed
 
   protected constructor( providedOptions?: MovableContainerOptions ) {
 

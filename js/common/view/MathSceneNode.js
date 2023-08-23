@@ -37,7 +37,7 @@ export default class MathSceneNode extends FBSceneNode {
       hasEquationDrawer: false, // show equation drawer
       tableOptions: null, // {*} options for XYTableNode
       graphOptions: null, // {*} options for XYGraphNode
-      equationOptions: null // {*} options for EquationPanel
+      equationPanelOptions: null // {*} options for EquationPanel
     }, options );
 
     super( scene, layoutBounds, functionNodeConstructor, options );
@@ -88,7 +88,7 @@ export default class MathSceneNode extends FBSceneNode {
 
       // @private
       this.equationDrawer = new EquationDrawer( scene.builder, this.slopeInterceptProperty, {
-        equationOptions: options.equationOptions,
+        equationPanelOptions: options.equationPanelOptions,
         centerX: scene.builder.centerX,
         top: scene.builder.position.y + ( scene.builder.waistHeight / 2 ) - FBConstants.DRAWER_Y_OVERLAP
       } );

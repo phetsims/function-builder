@@ -7,36 +7,45 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import Drawer from '../../../../../scenery-phet/js/Drawer.js';
+import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import EquationPanel from './EquationPanel.js';
+import EquationPanel, { EquationPanelOptions } from './EquationPanel.js';
+import Builder from '../../model/builder/Builder.js';
+import Property from '../../../../../axon/js/Property.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  equationPanelOptions?: EquationPanelOptions;
+};
+type EquationDrawerOptions = SelfOptions & NodeTranslationOptions;
 
 export default class EquationDrawer extends Drawer {
 
-  /**
-   * @param {Builder} builder
-   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
-   * @param {Object} [options]
-   */
-  constructor( builder, slopeInterceptProperty, options ) {
+  public constructor( builder: Builder, slopeInterceptProperty: Property<boolean>, providedOptions?: EquationDrawerOptions ) {
 
-    options = merge( {
+    const options = optionize4<EquationDrawerOptions, SelfOptions, DrawerOptions>()( {}, FBConstants.DRAWER_OPTIONS, {
+
+      // SelfOptions
+      equationPanelOptions: {},
+
+      // DrawerOptions
       open: FBConstants.EQUATION_DRAWER_OPEN,
       handlePosition: 'bottom',
-      equationOptions: null, // {*} options for EquationPanel
+
 
       // improve performance by disabling updates while the drawer is closed
       beforeOpen: () => { equationPanel.updateEnabled = true; },
       afterClose: () => { equationPanel.updateEnabled = false; }
 
-    }, FBConstants.DRAWER_OPTIONS, options );
+    }, providedOptions );
 
     const equationPanel = new EquationPanel( builder, slopeInterceptProperty, merge( {
       size: FBConstants.EQUATION_DRAWER_SIZE,
       updateEnabled: options.open,
       cornerRadius: options.cornerRadius
-    }, options.equationOptions ) );
+    }, options.equationPanelOptions ) );
 
     super( equationPanel, options );
   }

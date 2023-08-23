@@ -13,38 +13,70 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import merge from '../../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
-import { Node, Rectangle, Text } from '../../../../../scenery/js/imports.js';
+import { Font, Node, NodeOptions, Rectangle, Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
-import FBQueryParameters from '../../FBQueryParameters.js';
 import FBSymbols from '../../FBSymbols.js';
 import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
 import SlopeInterceptEquation from '../../model/equations/SlopeInterceptEquation.js';
 import HelpfulEquationNode from './HelpfulEquationNode.js';
 import SlopeInterceptEquationNode from './SlopeInterceptEquationNode.js';
+import Builder from '../../model/builder/Builder.js';
+import Property from '../../../../../axon/js/Property.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
+
+type SelfOptions = {
+  size?: Dimension2;
+  cornerRadius?: number;
+  xSymbol?: string; // symbol for x, the input
+  ySymbol?: string; // symbol for y, the output
+  xyFont?: Font; // font for x & y symbols
+  xyAsCards?: boolean; // put x & y symbols on a rectangle background, like a card?
+  updateEnabled?: boolean; // does this node update when the model changes?
+};
+
+export type EquationPanelOptions = SelfOptions;
 
 export default class EquationPanel extends Node {
 
-  /**
-   * @param {Builder} builder
-   * @param {Property.<boolean>} slopeInterceptProperty - display the equation in slope-intercept form?
-   * @param {Object} [options]
-   */
-  constructor( builder, slopeInterceptProperty, options ) {
+  private readonly backgroundNode: Node;
+  private readonly builder: Builder;
+  private readonly slopeInterceptProperty: Property<boolean>;
+  private readonly xSymbol: string;
+  private readonly ySymbol: string;
+  private readonly xyFont: Font;
+  private readonly xyAsCards: boolean;
+  private _updateEnabled: boolean;
+  private dirty: boolean; // does this node need to be updated?
 
-    options = merge( {
+  // Used to constrain equation to available space in panel
+  private readonly equationMaxWidth: number;
+  private readonly equationMaxHeight: number;
+
+  // center of space available for equations
+  private readonly equationCenter: Vector2;
+
+  // null until initialized by updateEquations
+  private slopeInterceptEquationNode: Node | null;
+  private helpfulEquationNode: Node | null;
+
+  public constructor( builder: Builder, slopeInterceptProperty: Property<boolean>, providedOptions?: EquationPanelOptions ) {
+
+    const options = optionize<EquationPanelOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       size: FBConstants.EQUATION_DRAWER_SIZE,
       cornerRadius: 0,
-      xSymbol: FBSymbols.X, // {string} symbol for x, the input
-      ySymbol: FBSymbols.Y, // {string} symbol for y, the output
-      xyFont: FBConstants.EQUATION_OPTIONS.xyFont, // {Font} for x & y symbols
-      xyAsCards: false, // {boolean} put x & y symbols on a rectangle background, like a card?
-      updateEnabled: true // {boolean} does this node update when the model changes?
-    }, options );
+      xSymbol: FBSymbols.X,
+      ySymbol: FBSymbols.Y,
+      xyFont: FBConstants.EQUATION_OPTIONS.xyFont,
+      xyAsCards: false,
+      updateEnabled: true
+    }, providedOptions );
 
     // background
     const backgroundNode = new Rectangle( 0, 0, options.size.width, options.size.height, {
@@ -68,7 +100,6 @@ export default class EquationPanel extends Node {
 
     super( options );
 
-    // @private
     this.backgroundNode = backgroundNode;
     this.builder = builder;
     this.slopeInterceptProperty = slopeInterceptProperty;
@@ -79,15 +110,12 @@ export default class EquationPanel extends Node {
     this._updateEnabled = options.updateEnabled;
     this.dirty = true; // {boolean} does this node need to be updated?
 
-    // @private initialized by updateEquations
     this.slopeInterceptEquationNode = null;
     this.helpfulEquationNode = null;
 
-    // @private constrain equation to available space in panel
     this.equationMaxWidth = 0.85 * this.backgroundNode.width;
     this.equationMaxHeight = 0.9 * ( simplifyCheckbox.top - this.backgroundNode.top );
 
-    // @private center of space available for equations
     this.equationCenter = new Vector2(
       this.backgroundNode.centerX,
       this.backgroundNode.top + ( simplifyCheckbox.top - this.backgroundNode.top ) / 2
@@ -96,8 +124,12 @@ export default class EquationPanel extends Node {
     // Controls which equation is visible.
     // unlink unnecessary, instances exist for lifetime of the sim
     slopeInterceptProperty.lazyLink( slopeIntercept => {
-      this.slopeInterceptEquationNode.visible = slopeIntercept;
-      this.helpfulEquationNode.visible = !slopeIntercept;
+
+      assert && assert( this.slopeInterceptEquationNode );
+      this.slopeInterceptEquationNode!.visible = slopeIntercept;
+
+      assert && assert( this.helpfulEquationNode );
+      this.helpfulEquationNode!.visible = !slopeIntercept;
     } );
 
     // Updates equations when functions in the builder change.
@@ -117,9 +149,8 @@ export default class EquationPanel extends Node {
   /**
    * Updates both equations. Calling this is relatively expensive, since it completely rebuilds the equations
    * and changes the scene graph.
-   * @private
    */
-  updateEquations() {
+  private updateEquations(): void {
 
     assert && assert( this.updateEnabled && this.dirty );
 
@@ -174,11 +205,9 @@ export default class EquationPanel extends Node {
 
   /**
    * Determines whether updating of this node is enabled.
-   * @param {boolean} updateEnabled
-   * @public
    */
-  setUpdateEnabled( updateEnabled ) {
-    FBQueryParameters.log && console.log( `${this.constructor.name}.setUpdateEnabled ${updateEnabled}` );
+  public setUpdateEnabled( updateEnabled: boolean ): void {
+    phet.log && phet.log( `${this.constructor.name}.setUpdateEnabled ${updateEnabled}` );
     const wasUpdateEnabled = this._updateEnabled;
     this._updateEnabled = updateEnabled;
     if ( this.dirty && !wasUpdateEnabled && updateEnabled ) {
@@ -186,18 +215,15 @@ export default class EquationPanel extends Node {
     }
   }
 
-  set updateEnabled( value ) { this.setUpdateEnabled( value ); }
-
   /**
    * Is updating of this node enabled?
-   * @returns {boolean}
-   * @public
    */
-  getUpdateEnabled() {
+  public getUpdateEnabled(): boolean {
     return this._updateEnabled;
   }
 
-  get updateEnabled() { return this.getUpdateEnabled(); }
+  public set updateEnabled( value: boolean ) { this.setUpdateEnabled( value ); }
+  public get updateEnabled(): boolean { return this.getUpdateEnabled(); }
 }
 
 functionBuilder.register( 'EquationPanel', EquationPanel );

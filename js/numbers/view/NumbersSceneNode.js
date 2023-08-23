@@ -37,7 +37,7 @@ export default class NumbersSceneNode extends MathSceneNode {
       },
 
       // options for EquationPanel
-      equationOptions: {
+      equationPanelOptions: {
         xSymbol: FunctionBuilderStrings.input, // use 'Input' in place of x
         ySymbol: FunctionBuilderStrings.output, // use 'Output' in place of y
         xyFont: new PhetFont( 24 ), // different font for 'Input' and 'Output'
