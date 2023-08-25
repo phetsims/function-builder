@@ -28,8 +28,8 @@ export default class NumbersScreen extends Screen<NumbersModel, NumbersScreenVie
     };
 
     super(
-      () => new NumbersModel(),
-      model => new NumbersScreenView( model ),
+      () => new NumbersModel( options.tandem.createTandem( 'model' ) ),
+      model => new NumbersScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }

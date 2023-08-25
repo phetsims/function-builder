@@ -9,10 +9,11 @@
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import PatternsScene from './PatternsScene.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class PatternsModel extends FBModel {
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
     super( [
 
       // builder with 1 slot, for exploring application of 1 function

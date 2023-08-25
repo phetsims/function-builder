@@ -6,18 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
+import PatternsModel from '../model/PatternsModel.js';
 import PatternsSceneNode from './PatternsSceneNode.js';
 
 export default class PatternsScreenView extends FBScreenView {
 
   /**
    * @param {PatternsModel} model
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, options ) {
-    super( model, PatternsSceneNode, options );
+  constructor( model, tandem ) {
+    assert && assert( model instanceof PatternsModel );
+    assert && assert( tandem instanceof Tandem );
+    super( model, PatternsSceneNode, {
+      tandem: tandem
+    } );
   }
 }
 

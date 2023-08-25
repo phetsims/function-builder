@@ -6,18 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FBScreenView from '../../common/view/FBScreenView.js';
 import functionBuilder from '../../functionBuilder.js';
+import EquationsModel from '../model/EquationsModel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 
 export default class EquationsScreenView extends FBScreenView {
 
   /**
    * @param {EquationsModel} model
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, options ) {
-    super( model, EquationsSceneNode, options );
+  constructor( model, tandem ) {
+    assert && assert( model instanceof EquationsModel );
+    assert && assert( tandem instanceof Tandem );
+    super( model, EquationsSceneNode, {
+      tandem: tandem
+    } );
   }
 }
 

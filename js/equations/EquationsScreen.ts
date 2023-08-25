@@ -28,8 +28,8 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
     };
 
     super(
-      () => new EquationsModel(),
-      model => new EquationsScreenView( model ),
+      () => new EquationsModel( options.tandem.createTandem( 'model' ) ),
+      model => new EquationsScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }

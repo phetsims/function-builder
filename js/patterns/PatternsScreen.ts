@@ -28,8 +28,8 @@ export default class PatternsScreen extends Screen<PatternsModel, PatternsScreen
     };
 
     super(
-      () => new PatternsModel(),
-      model => new PatternsScreenView( model ),
+      () => new PatternsModel( options.tandem.createTandem( 'model' ) ),
+      model => new PatternsScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }

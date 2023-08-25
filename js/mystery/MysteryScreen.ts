@@ -28,8 +28,8 @@ export default class MysteryScreen extends Screen<MysteryModel, MysteryScreenVie
     };
 
     super(
-      () => new MysteryModel(),
-      model => new MysteryScreenView( model ),
+      () => new MysteryModel( options.tandem.createTandem( 'model' ) ),
+      model => new MysteryScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }

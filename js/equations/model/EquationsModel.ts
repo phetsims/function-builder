@@ -9,10 +9,11 @@
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import EquationsScene from './EquationsScene.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class EquationsModel extends FBModel {
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
     super( [ new EquationsScene() ] );
   }
 }
