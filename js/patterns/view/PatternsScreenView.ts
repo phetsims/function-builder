@@ -14,13 +14,7 @@ import PatternsSceneNode from './PatternsSceneNode.js';
 
 export default class PatternsScreenView extends FBScreenView {
 
-  /**
-   * @param {PatternsModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof PatternsModel );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: PatternsModel, tandem: Tandem ) {
     super( model, PatternsSceneNode, {
       tandem: tandem
     } );
