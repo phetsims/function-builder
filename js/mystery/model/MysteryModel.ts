@@ -13,7 +13,7 @@ import MysteryScene from './MysteryScene.js';
 
 export default class MysteryModel extends FBModel {
 
-  constructor() {
+  public constructor() {
     super( [
       new MysteryScene( MysteryChallenges.POOL1, { numberOfSlots: 1 } ),
       new MysteryScene( MysteryChallenges.POOL2, { numberOfSlots: 2 } ),
