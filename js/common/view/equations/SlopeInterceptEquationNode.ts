@@ -100,7 +100,7 @@ export default class SlopeInterceptEquationNode extends Node {
 
           // whole number or fractional slope
           const slopeNode = new RationalNumberNode( slope, {
-            fill: options.color,
+            color: options.color,
             mixedNumber: false, // display as an improper fraction
             fractionYSpacing: options.fractionYSpacing,
             signXSpacing: options.signXSpacing,
@@ -160,7 +160,7 @@ export default class SlopeInterceptEquationNode extends Node {
       // intercept
       if ( intercept.valueOf() !== 0 ) {
         const interceptNode = new RationalNumberNode( ( slope.valueOf() === 0 ) ? intercept : intercept.abs(), {
-          fill: options.color,
+          color: options.color,
           mixedNumber: false, // display as an improper fraction
           fractionYSpacing: options.fractionYSpacing,
           signXSpacing: options.signXSpacing,

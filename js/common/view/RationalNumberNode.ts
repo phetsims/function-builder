@@ -11,50 +11,66 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Line, Node, Text } from '../../../../scenery/js/imports.js';
+import { Line, Node, NodeOptions, NodeTranslationOptions, TColor, Text } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+const DEFAULT_SIGN_FONT = new PhetFont( 22 );
+const DEFAULT_WHOLE_NUMBER_FONT = new PhetFont( 30 );
+const DEFAULT_FRACTION_FONT = new PhetFont( 20 );
+
+type SelfOptions = {
+  mixedNumber?: boolean; // true: display as mixed number, false: display as improper fraction
+  color?: TColor; // {color used for all sub-parts of this node
+  fractionLineWidth?: number; // lineWidth for the line that separates numerator and denominator
+
+  // sign
+  negativeSymbol?: string; // symbol used for negative sign
+  positiveSymbol?: string; // symbol used for positive sign
+  showPositiveSign?: boolean; // show sign on positive numbers?
+
+  // fonts
+  signFont?: PhetFont;
+  wholeNumberFont?: PhetFont;
+  fractionFont?: PhetFont;
+
+  // spacing
+  signXSpacing?: number; // space to right of sign
+  fractionXSpacing?: number; // space between whole number and fraction
+  fractionYSpacing?: number; // space above and below fraction line
+};
+
+type RationalNumberNodeOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<NodeOptions, 'maxWidth' | 'maxHeight'>;
 
 export default class RationalNumberNode extends Node {
 
-  /**
-   * @param {RationalNumber} rationalNumber
-   * @param {Object} [options]
-   */
-  constructor( rationalNumber, options ) {
+  private readonly options: Required<SelfOptions>;
 
-    assert && assert( rationalNumber instanceof RationalNumber );
+  public constructor( rationalNumber: RationalNumber, providedOptions?: RationalNumberNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<RationalNumberNodeOptions, SelfOptions, NodeOptions>()( {
 
-      mixedNumber: false, // {boolean} true: display as mixed number, false: display as improper fraction
-      color: 'black', // {Color|string} color used for all sub-parts of this node
-      fractionLineWidth: 1, // {number} lineWidth for the line that separates numerator and denominator
-
-      // sign
-      negativeSymbol: '\u2212', // {string} symbol used for negative sign
-      positiveSymbol: '\u002b', // {string} symbol used for positive sign
-      showPositiveSign: false, // {boolean} show sign on positive numbers?
-
-      // fonts
-      signFont: new PhetFont( 22 ),
-      wholeNumberFont: new PhetFont( 30 ),
-      fractionFont: new PhetFont( 20 ),
-
-      // spacing
-      signXSpacing: 3, // {number} space to right of sign
-      fractionXSpacing: 3, // {number} space between whole number and fraction
-      fractionYSpacing: 2 // {number} space above and below fraction line
-
-    }, options );
-
-    assert && assert( !options.children, 'decoration is not supported' );
+      // SelfOptions
+      mixedNumber: false,
+      color: 'black',
+      fractionLineWidth: 1,
+      negativeSymbol: '\u2212',
+      positiveSymbol: '\u002b',
+      showPositiveSign: false,
+      signFont: DEFAULT_SIGN_FONT,
+      wholeNumberFont: DEFAULT_WHOLE_NUMBER_FONT,
+      fractionFont: DEFAULT_FRACTION_FONT,
+      signXSpacing: 3,
+      fractionXSpacing: 3,
+      fractionYSpacing: 2
+    }, providedOptions );
 
     super();
 
-    // @private options used by setValue
     this.options = options;
 
     this.setValue( rationalNumber );
@@ -64,13 +80,8 @@ export default class RationalNumberNode extends Node {
   /**
    * Sets the value displayed by this node.
    * This is relatively expensive, because it rebuilds then node.
-   *
-   * @param {RationalNumber} rationalNumber
-   * @public
    */
-  setValue( rationalNumber ) {
-
-    assert && assert( rationalNumber instanceof RationalNumber );
+  public setValue( rationalNumber: RationalNumber ): void {
 
     this.removeAllChildren();
 
@@ -122,15 +133,15 @@ export default class RationalNumberNode extends Node {
         fill: this.options.color,
         font: this.options.fractionFont
       };
-      const numeratorNode = new Text( fraction.numerator, FRACTION_OPTIONS ); // @private
+      const numeratorNode = new Text( fraction.numerator, FRACTION_OPTIONS );
       this.addChild( numeratorNode );
-      const denominatorNode = new Text( fraction.denominator, FRACTION_OPTIONS ); // @private
+      const denominatorNode = new Text( fraction.denominator, FRACTION_OPTIONS );
       this.addChild( denominatorNode );
 
       // horizontal line separating numerator and denominator
       const lineNode = new Line( 0, 0, Math.max( numeratorNode.width, denominatorNode.width ), 0, {
         stroke: this.options.color,
-        lineWidth: this.options.lineWidth,
+        lineWidth: this.options.fractionLineWidth,
         left: left,
         centerY: centerY
       } );
