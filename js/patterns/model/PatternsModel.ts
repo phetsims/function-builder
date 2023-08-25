@@ -12,7 +12,7 @@ import PatternsScene from './PatternsScene.js';
 
 export default class PatternsModel extends FBModel {
 
-  constructor() {
+  public constructor() {
     super( [
 
       // builder with 1 slot, for exploring application of 1 function
