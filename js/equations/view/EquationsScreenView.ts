@@ -14,13 +14,7 @@ import EquationsSceneNode from './EquationsSceneNode.js';
 
 export default class EquationsScreenView extends FBScreenView {
 
-  /**
-   * @param {EquationsModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof EquationsModel );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: EquationsModel, tandem: Tandem ) {
     super( model, EquationsSceneNode, {
       tandem: tandem
     } );

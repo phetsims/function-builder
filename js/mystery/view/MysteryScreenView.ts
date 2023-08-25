@@ -14,13 +14,7 @@ import MysterySceneNode from './MysterySceneNode.js';
 
 export default class MysteryScreenView extends FBScreenView {
 
-  /**
-   * @param {MysteryModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof MysteryModel );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: MysteryModel, tandem: Tandem ) {
     super( model, MysterySceneNode, {
       sceneRadioButtonGroupYOffset: 535, // offset of SceneRadioButtonGroup from top of screen
       tandem: tandem

@@ -14,13 +14,7 @@ import NumbersSceneNode from './NumbersSceneNode.js';
 
 export default class NumbersScreenView extends FBScreenView {
 
-  /**
-   * @param {NumbersModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof NumbersModel );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: NumbersModel, tandem: Tandem ) {
     super( model, NumbersSceneNode, {
       tandem: tandem
     } );
