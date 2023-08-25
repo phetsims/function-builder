@@ -12,7 +12,7 @@ import NumbersScene from './NumbersScene.js';
 
 export default class NumbersModel extends FBModel {
 
-  constructor() {
+  public constructor() {
     super( [ new NumbersScene() ] );
   }
 }

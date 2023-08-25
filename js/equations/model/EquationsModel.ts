@@ -12,7 +12,7 @@ import EquationsScene from './EquationsScene.js';
 
 export default class EquationsModel extends FBModel {
 
-  constructor() {
+  public constructor() {
     super( [ new EquationsScene() ] );
   }
 }
