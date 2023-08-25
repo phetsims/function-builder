@@ -125,14 +125,8 @@ export default class FBSceneNode extends Node {
 
     // Output carousel, at right
     const outputCarousel = new OutputCardsCarousel( outputContainers, {
-      orientation: 'vertical',
-      separatorsVisible: true,
       itemsPerPage: options.cardsPerPage,
       defaultPageNumber: options.cardCarouselDefaultPageNumber,
-      buttonTouchAreaXDilation: 5,
-      buttonTouchAreaYDilation: 15,
-      spacing: 20,
-      margin: 10,
       right: layoutBounds.right - ( inputCarousel.left - layoutBounds.left ),
       bottom: inputCarousel.bottom
     } );
