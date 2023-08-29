@@ -71,7 +71,6 @@ export default class FunctionNode extends FBMovableNode {
       options.hiddenNode.center = backgroundNode.center;
     } );
 
-    // @private
     const notInvertibleSymbolNode = new NotInvertibleSymbolNode( {
       center: backgroundNode.center,
       visible: false
@@ -80,7 +79,6 @@ export default class FunctionNode extends FBMovableNode {
     assert && assert( !options.children, 'decoration not supported' );
     options.children = [ backgroundNode, contentNode, options.hiddenNode, notInvertibleSymbolNode ];
 
-    // @public
     const identityVisibleProperty = new BooleanProperty( options.identityVisible );
     // unlink unnecessary, instance owns this Property
     identityVisibleProperty.link( identityVisible => {
