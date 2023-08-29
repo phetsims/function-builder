@@ -8,9 +8,6 @@
 
 import functionBuilder from '../../../functionBuilder.js';
 
-// constants
-const NO_FUNCTION_INSTANCE = null; // used to indicate the absence of function instance
-
 export default class FunctionSlot {
 
   /**
@@ -21,8 +18,8 @@ export default class FunctionSlot {
     // @public (read-only)
     this.position = position;
 
-    // @public {AbstractFunction|null} the function instance that occupies the slot, possibly empty
-    this.functionInstance = NO_FUNCTION_INSTANCE;
+    // @public {AbstractFunction|null} the function instance that occupies the slot, null if the slot is empty.
+    this.functionInstance = null;
   }
 
   /**
@@ -32,7 +29,7 @@ export default class FunctionSlot {
    * @public
    */
   isEmpty() {
-    return ( this.functionInstance === NO_FUNCTION_INSTANCE );
+    return ( this.functionInstance === null );
   }
 
   /**
@@ -41,7 +38,7 @@ export default class FunctionSlot {
    * @public
    */
   clear() {
-    this.functionInstance = NO_FUNCTION_INSTANCE;
+    this.functionInstance = null;
   }
 
   /**
