@@ -70,7 +70,7 @@ export default class HelpfulEquation {
       else if ( currentOperator === FBSymbols.TIMES ) {
 
         if ( previousOperator === FBSymbols.TIMES ) {
-          assert && assert( previousOperand );
+          assert && assert( previousOperand, `unexpected previousOperator: ${previousOperator}` );
 
           // collapse adjacent times
           stack.pop();
