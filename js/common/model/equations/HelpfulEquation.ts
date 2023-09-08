@@ -70,7 +70,7 @@ export default class HelpfulEquation {
       else if ( currentOperator === FBSymbols.TIMES ) {
 
         if ( previousOperator === FBSymbols.TIMES ) {
-          assert && assert( previousOperand, `unexpected previousOperand: ${previousOperand}` );
+          assert && assert( previousOperand !== null );
 
           // collapse adjacent times
           stack.pop();
@@ -87,7 +87,7 @@ export default class HelpfulEquation {
         assert && assert( currentOperand !== 0, 'divide by zero is not supported' );
 
         if ( previousOperator === FBSymbols.DIVIDE ) {
-          assert && assert( previousOperand );
+          assert && assert( previousOperand !== null );
 
           // collapse adjacent divide
           stack.pop();
