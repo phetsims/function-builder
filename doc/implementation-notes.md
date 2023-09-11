@@ -1,18 +1,18 @@
 # Function Builder - implementation notes
 
-This document contains miscellaneous notes related to the implementation of Function Builder. It
-supplements the internal (source code) documentation, and (hopefully) provides insight into
-"big picture" implementation issues. The audience for this document is software developers who are familiar
-with JavaScript and PhET simulation development (as described in [PhET Development Overview]
+This document contains miscellaneous notes related to the implementation of Function Builder. It supplements the
+internal (source code) documentation, and (hopefully) provides insight into
+"big picture" implementation issues. The audience for this document is software developers who are familiar with
+JavaScript and PhET simulation development (as described in [PhET Development Overview]
 (https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)).
 
-First, read [model.md](https://github.com/phetsims/function-builder/blob/main/doc/model.md), which provides
-a high-level description of the simulation model.
+First, read [model.md](https://github.com/phetsims/function-builder/blob/main/doc/model.md), which provides a high-level
+description of the simulation model.
 
 ## Terminology
 
-This section enumerates terms that you'll see used throughout the internal and external documentation.
-In alphabetical order:
+This section enumerates terms that you'll see used throughout the internal and external documentation. In alphabetical
+order:
 
 * builder - the apparatus in the center of the screen
 * cards - the things in the input and output carousel, that you drag through the builder
@@ -42,15 +42,15 @@ This section describes how this simulation uses patterns that are common to most
 frames. The domain of this simulation has no need for a model coordinate frame, so the model and view coordinate frames
 are treated as equivalent, and no transform is required. (If you don't understand that, don't worry about it.)
 
-**Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
-testing. All such query parameters are documented in
+**Query parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and testing. All
+such query parameters are documented in
 [FBQueryParameters](https://github.com/phetsims/function-builder/blob/main/js/common/FBQueryParameters.js).
 
-**Memory management**: All objects created in this simulation exist for the lifetime of the simulation, so there
-is no need to call `dispose`. Since there is no need to call `dispose`, it is generally not implemented for
-sim-specific types. Likewise, when an observer is registered (e.g. via `link` or `addListener`), there is no need
-to unregister that observer (e.g. via `unlink` or `removeListener`). For clarity, all calls that register an
-observer indicate whether a corresponding unregister call is required. For example:
+**Memory management**: All objects created in this simulation exist for the lifetime of the simulation, so there is no
+need to call `dispose`. Since there is no need to call `dispose`, it is generally not implemented for sim-specific
+types. Likewise, when an observer is registered (e.g. via `link` or `addListener`), there is no need to unregister that
+observer (e.g. via `unlink` or `removeListener`). For clarity, all calls that register an observer indicate whether a
+corresponding unregister call is required. For example:
 
 ```js
 // unlink unnecessary, instances exist for lifetime of the sim
@@ -59,27 +59,26 @@ movable.positionProperty.link( ... );
 
 ## Model
 
-This section provides an overview of the most important model elements, and some miscellaneous topics
-related to the model.
+This section provides an overview of the most important model elements, and some miscellaneous topics related to the
+model.
 
 [FBMovable](https://github.com/phetsims/function-builder/blob/main/js/common/model/FBMovable.js)
-is the base type for anything that can be moved (ie, cards and functions).
-It is responsible for an object's location and animation to a desired location.
+is the base type for anything that can be moved (ie, cards and functions). It is responsible for an object's location
+and animation to a desired location.
 
 [Card](https://github.com/phetsims/function-builder/blob/main/js/common/model/cards/Card.js)
-and its subtypes implement the card model. Cards provide the input to the builder, but have no responsibility
-for what is displayed on them. What is actually displayed on a card is the responsibility of the view (see
+and its subtypes implement the card model. Cards provide the input to the builder, but have no responsibility for what
+is displayed on them. What is actually displayed on a card is the responsibility of the view (see
 [CardNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/cards/CardNode.js)
 and its subtypes).
 
 [AbstractFunction](https://github.com/phetsims/function-builder/blob/main/js/common/model/functions/AbstractFunction.js)
-and its subtypes implement the function model. The function model is responsible for applying the function to an
-input and producing an output. For programming convenience, it also carries some view-specific information
-(e.g., the color of the function's background, the icon to display on the function to identify it).
-For invertible functions, an explicit inverse function is not implemented.
-Instead, all computations are performed in the forward direction, based on an input's location relative
-to a function. A card's location is constrained based on whether a function is invertible; cards cannot be
-dragged backwards through non-invertible functions.
+and its subtypes implement the function model. The function model is responsible for applying the function to an input
+and producing an output. For programming convenience, it also carries some view-specific information
+(e.g., the color of the function's background, the icon to display on the function to identify it). For invertible
+functions, an explicit inverse function is not implemented. Instead, all computations are performed in the forward
+direction, based on an input's location relative to a function. A card's location is constrained based on whether a
+function is invertible; cards cannot be dragged backwards through non-invertible functions.
 
 There are two primary types of functions:
 
@@ -92,66 +91,61 @@ There are two primary types of functions:
 
 [RationalNumber](https://github.com/phetsims/function-builder/blob/main/js/common/model/RationalNumber.js)
 implements support for rational numbers. This is a thin wrapper around the 3rd-party library
-[BigRational.js](https://github.com/peterolson/BigRational.js).
-It exposes only the functionality required for this simulation, so is not likely to be useful in other
-simulations.
+[BigRational.js](https://github.com/peterolson/BigRational.js). It exposes only the functionality required for this
+simulation, so is not likely to be useful in other simulations.
 
 [Builder](https://github.com/phetsims/function-builder/blob/main/js/common/model/builder/Builder.js)
-and its subtypes implement the builder model. It is responsible for managing the functions in its slots, and
-applying those functions to cards. For programming convenience, it also carries some view-specific information
+and its subtypes implement the builder model. It is responsible for managing the functions in its slots, and applying
+those functions to cards. For programming convenience, it also carries some view-specific information
 (e.g., the builder's dimensions, the color scheme applied to the builder).
 
 [Scene](https://github.com/phetsims/function-builder/blob/main/js/common/model/Scene.js)
-and its subtypes implement a specific configuration that is to be displayed to the user.
-The model for each screen contains one or more scenes. A scene consists of a builder, a set of cards, and a set of
-functions.
-Subtypes of Scene add additional elements to the basic scene. For example,
+and its subtypes implement a specific configuration that is to be displayed to the user. The model for each screen
+contains one or more scenes. A scene consists of a builder, a set of cards, and a set of functions. Subtypes of Scene
+add additional elements to the basic scene. For example,
 [MysteryScene](https://github.com/phetsims/function-builder/blob/main/js/mystery/model/MysteryScene.js)
 adds a pool of challenges for the "Mystery" screen.
 
-**Two-phase model initialization**: Most PhET simulations create a model, then a corresponding view.
-This simulation is a bit different; the
-model cannot be fully instantiated without creating the view. The initial location of cards and functions is their
-location in their respective carousels, which are view components. So we cannot create cards and functions until
-their carousels are created. Initialization of this simulation's model therefore occurs in 2 phases. In the first phase,
-scenes are created without cards and functions. The view is then initialized, which creates the carousels. In
-the second phase, the scenes are then populated with cards and functions. To investigate this further, see
+**Two-phase model initialization**: Most PhET simulations create a model, then a corresponding view. This simulation is
+a bit different; the model cannot be fully instantiated without creating the view. The initial location of cards and
+functions is their location in their respective carousels, which are view components. So we cannot create cards and
+functions until their carousels are created. Initialization of this simulation's model therefore occurs in 2 phases. In
+the first phase, scenes are created without cards and functions. The view is then initialized, which creates the
+carousels. In the second phase, the scenes are then populated with cards and functions. To investigate this further, see
 `completeInitialization` in
 [SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js).
 
 ## View
 
-This section provides an overview of the most important view components, and some miscellaneous topics
-related to the view.
+This section provides an overview of the most important view components, and some miscellaneous topics related to the
+view.
 
 [MovableNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/MovableNode.js)
 is the base type for all nodes that move or animate (i.e., cards and functions).
 
 [CardNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/cards/CardNode.js)
-and its subtypes are responsible for what appears on the cards, based on their location
-relative to the functions in the builder. CardNode encapsulates all drag handling and animation behavior
-for cards.
+and its subtypes are responsible for what appears on the cards, based on their location relative to the functions in the
+builder. CardNode encapsulates all drag handling and animation behavior for cards.
 
 [FunctionNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/functions/FunctionNode.js)
-and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling
-and animation behavior for functions.
+and its subtypes implement the view of functions. FunctionNode encapsulates all drag handling and animation behavior for
+functions.
 
 [BuilderNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/builder/BuilderNode.js)
-implements the view of the builder, with a pseudo-3D perspective. It uses scenery's `clipArea` feature
-to provide the illusion of cards are being dragged through the builder.
+implements the view of the builder, with a pseudo-3D perspective. It uses scenery's `clipArea` feature to provide the
+illusion of cards are being dragged through the builder.
 
 [SeeInsideLayer](https://github.com/phetsims/function-builder/blob/main/js/common/view/SeeInsideLayer.js)
-uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the
-illusion of being able to "see inside" the builder. All instances of CardNode are descendants of this node,
-and thus visible when they pass a window.
+uses scenery's `clipArea` and DAG (Directed Acyclic Graph) features to provide the illusion of being able to "see
+inside" the builder. All instances of CardNode are descendants of this node, and thus visible when they pass a window.
 
-[SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js) and
-its subtypes display a scene. Each screen has 1 or more scenes. If a screen has more than 1 scene, it
-also has a control for selecting a scene (see
+[SceneNode](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneNode.js) and its subtypes display
+a scene. Each screen has 1 or more scenes. If a screen has more than 1 scene, it also has a control for selecting a
+scene (see
 [SceneRadioButtonGroup](https://github.com/phetsims/function-builder/blob/main/js/common/view/SceneRadioButtonGroup.js)).
 
-**Carousels and containers**: Cards and functions are not put directly into carousels. Rather, cards and functions
-are put into *containers*, which are then put into the carousels. See
+**Carousels and containers**: Cards and functions are not put directly into carousels. Rather, cards and functions are
+put into *containers*, which are then put into the carousels. See
 [MovableContainer](https://github.com/phetsims/function-builder/blob/main/js/common/view/containers/MovableContainer.js)
 and its subtypes.
 [CardContainer](https://github.com/phetsims/function-builder/blob/main/js/common/view/containers/CardContainer.js)
@@ -179,6 +173,6 @@ scenes, and couldn't be removed without a great deal of redesign and destablizat
 done for other screens, the function carousel exists in the Mystery scenes, but is made invisible. And while the
 function carousel is invisible, it continues to play an important role, as a source of functions. The function carousel
 is populated with enough functions to handle all challenges. When a challenge is generated, functions are moved between
-the (invisible) carousel and the builder, and the functions are configured to match
-the challenge. Had this screen been included from the beginning, this is *not* how things would have been
-implemented. But this solution does work well, and is not unreasonably complicated to understand.
+the (invisible) carousel and the builder, and the functions are configured to match the challenge. Had this screen been
+included from the beginning, this is *not* how things would have been implemented. But this solution does work well, and
+is not unreasonably complicated to understand.
