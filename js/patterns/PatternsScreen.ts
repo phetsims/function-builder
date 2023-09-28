@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
@@ -22,7 +21,7 @@ export default class PatternsScreen extends Screen<PatternsModel, PatternsScreen
 
     const options = {
       name: FunctionBuilderStrings.screen.patternsStringProperty,
-      backgroundColorProperty: new Property( FBColors.PATTERNS_SCREEN_BACKGROUND ),
+      backgroundColorProperty: FBColors.patternScreenBackgroundColorProperty,
       homeScreenIcon: FBIconFactory.createPatternsScreenIcon(),
       tandem: tandem
     };

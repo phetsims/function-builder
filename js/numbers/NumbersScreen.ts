@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
@@ -22,7 +21,7 @@ export default class NumbersScreen extends Screen<NumbersModel, NumbersScreenVie
 
     const options: ScreenOptions = {
       name: FunctionBuilderStrings.screen.numbersStringProperty,
-      backgroundColorProperty: new Property( FBColors.NUMBERS_SCREEN_BACKGROUND ), // {Property.<Color|string>}
+      backgroundColorProperty: FBColors.numbersScreenBackgroundColorProperty,
       homeScreenIcon: FBIconFactory.createNumbersScreenIcon(),
       tandem: tandem
     };

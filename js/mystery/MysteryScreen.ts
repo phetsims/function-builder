@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
@@ -22,7 +21,7 @@ export default class MysteryScreen extends Screen<MysteryModel, MysteryScreenVie
 
     const options: ScreenOptions = {
       name: FunctionBuilderStrings.screen.mysteryStringProperty,
-      backgroundColorProperty: new Property( FBColors.MYSTERY_SCREEN_BACKGROUND ),
+      backgroundColorProperty: FBColors.mysteryScreenBackgroundColorProperty,
       homeScreenIcon: FBIconFactory.createMysteryScreenIcon(),
       tandem: tandem
     };

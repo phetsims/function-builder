@@ -7,14 +7,23 @@
  */
 
 import functionBuilder from '../functionBuilder.js';
+import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 
 const FBColors = {
 
   // background colors for Screens
-  PATTERNS_SCREEN_BACKGROUND: 'rgb( 255, 247, 234 )',
-  NUMBERS_SCREEN_BACKGROUND: 'rgb( 239, 255, 249 )',
-  EQUATIONS_SCREEN_BACKGROUND: 'rgb( 255, 255, 226 )',
-  MYSTERY_SCREEN_BACKGROUND: 'rgb( 255, 240, 255 )',
+  patternScreenBackgroundColorProperty: new ProfileColorProperty( functionBuilder, 'patternScreenBackgroundColor', {
+    default: 'rgb( 255, 247, 234 )'
+  } ),
+  numbersScreenBackgroundColorProperty: new ProfileColorProperty( functionBuilder, 'numbersScreenBackgroundColor', {
+    default: 'rgb( 239, 255, 249 )'
+  } ),
+  equationsScreenBackgroundColorProperty: new ProfileColorProperty( functionBuilder, 'equationsScreenBackgroundColor', {
+    default: 'rgb( 255, 255, 226 )'
+  } ),
+  mysteryScreenBackgroundColorProperty: new ProfileColorProperty( functionBuilder, 'mysteryScreenBackgroundColor', {
+    default: 'rgb( 255, 240, 255 )'
+  } ),
 
   // color for a function whose icon is hidden
   HIDDEN_FUNCTION: 'rgb( 220, 220, 220 )',

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
@@ -22,7 +21,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
 
     const options: ScreenOptions = {
       name: FunctionBuilderStrings.screen.equationsStringProperty,
-      backgroundColorProperty: new Property( FBColors.EQUATIONS_SCREEN_BACKGROUND ),
+      backgroundColorProperty: FBColors.equationsScreenBackgroundColorProperty,
       homeScreenIcon: FBIconFactory.createEquationsScreenIcon(),
       tandem: tandem
     };

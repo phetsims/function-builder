@@ -50,7 +50,7 @@ const FBIconFactory = {
   createPatternsScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
     const options = combineOptions<ScreenIconOptions>( {
-      fill: FBColors.PATTERNS_SCREEN_BACKGROUND
+      fill: FBColors.patternScreenBackgroundColorProperty
     }, providedOptions );
 
     // apply Warhol to the image
@@ -76,7 +76,7 @@ const FBIconFactory = {
   createNumbersScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
     const options = combineOptions<ScreenIconOptions>( {
-      fill: FBColors.NUMBERS_SCREEN_BACKGROUND
+      fill: FBColors.numbersScreenBackgroundColorProperty
     }, providedOptions );
 
     const functionNode = new FunctionBackgroundNode( {
@@ -118,7 +118,7 @@ const FBIconFactory = {
   createEquationsScreenIcon( providedOptions?: ScreenIconOptions ): ScreenIcon {
 
     const options = combineOptions<ScreenIconOptions>( {
-      fill: FBColors.EQUATIONS_SCREEN_BACKGROUND,
+      fill: FBColors.equationsScreenBackgroundColorProperty,
       maxIconWidthProportion: 0.75
     }, providedOptions );
 
@@ -139,7 +139,7 @@ const FBIconFactory = {
       questionMarkFill: 'black',
 
       // ScreenIconOptions
-      fill: FBColors.MYSTERY_SCREEN_BACKGROUND
+      fill: FBColors.mysteryScreenBackgroundColorProperty
     }, providedOptions );
 
     const functionNode = new FunctionBackgroundNode( {
