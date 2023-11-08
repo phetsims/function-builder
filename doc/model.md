@@ -26,7 +26,7 @@ in this case is an equation in
 In the Mystery screen, the objective is to guess the identity of a set of 1 or more functions. Each such set of
 functions is referred to as a *challenge*. The simulation has a set of predefined challenges, from which a challenge is
 selected at random. If you don't mind reading JavaScript code, you can view the sets of challenges in
-[MysteryChallenges.js](https://github.com/phetsims/function-builder/blob/main/js/mystery/model/MysteryChallenges.js).
+[MysteryChallenges](https://github.com/phetsims/function-builder/blob/main/js/mystery/model/MysteryChallenges.ts).
 
 In all screens, the notion of *non-invertible* functions is supported. A function is not invertible if it's output
 cannot be run backwards through the function to produce the original input. Examples: Multiplication by zero is a
