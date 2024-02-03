@@ -37,13 +37,15 @@ export default class FBScreenView extends ScreenView {
 
     super( options );
 
+    const screenViewChildren = []; // Node[]
+
     // If there's more than one scene, add a control for switching between scenes
     if ( model.scenes.length > 1 ) {
       const sceneRadioButtonGroup = new SceneRadioButtonGroup( model.selectedSceneProperty, model.scenes, {
         centerX: this.layoutBounds.centerX,
         top: this.layoutBounds.top + options.sceneRadioButtonGroupYOffset
       } );
-      this.addChild( sceneRadioButtonGroup );
+      screenViewChildren.push( sceneRadioButtonGroup );
     }
 
     // Reset All button at bottom-right
@@ -69,11 +71,11 @@ export default class FBScreenView extends ScreenView {
         }
       }
     } );
-    this.addChild( resetAllButton );
+    screenViewChildren.push( resetAllButton );
 
     // Parent for scenes
     const scenesParent = new Node();
-    this.addChild( scenesParent );
+    screenViewChildren.push( scenesParent );
 
     // Scene Nodes
     const sceneNodes = []; // {PatternsSceneNode[]}, with same order as scenes
@@ -82,6 +84,11 @@ export default class FBScreenView extends ScreenView {
       sceneNodes.push( sceneNode );
       scenesParent.addChild( sceneNode );
     } );
+
+    const screenViewRootNode = new Node( {
+      children: screenViewChildren
+    } );
+    this.addChild( screenViewRootNode );
 
     /**
      * After the scene graph is fully constructed, populate parts of the model that
