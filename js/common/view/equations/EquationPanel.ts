@@ -219,6 +219,7 @@ export default class EquationPanel extends Node {
   }
 
   public set updateEnabled( value: boolean ) { this.setUpdateEnabled( value ); }
+
   public get updateEnabled(): boolean { return this.getUpdateEnabled(); }
 }
 
