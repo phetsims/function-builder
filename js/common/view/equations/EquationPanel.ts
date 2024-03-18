@@ -125,11 +125,13 @@ export default class EquationPanel extends Node {
     // unlink unnecessary, instances exist for lifetime of the sim
     slopeInterceptProperty.lazyLink( slopeIntercept => {
 
-      assert && assert( this.slopeInterceptEquationNode, 'expected slopeInterceptEquationNode to exist' );
-      this.slopeInterceptEquationNode!.visible = slopeIntercept;
+      if ( this.slopeInterceptEquationNode ) {
+        this.slopeInterceptEquationNode.visible = slopeIntercept;
+      }
 
-      assert && assert( this.helpfulEquationNode );
-      this.helpfulEquationNode!.visible = !slopeIntercept;
+      if ( this.helpfulEquationNode ) {
+        this.helpfulEquationNode.visible = !slopeIntercept;
+      }
     } );
 
     // Updates equations when functions in the builder change.
