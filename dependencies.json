@@ -1,5 +1,5 @@
 {
-  "comment": "# function-builder 1.2.12 Mon Mar 11 2024 11:19:26 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# function-builder 1.2.13-rc.1 Wed Mar 20 2024 14:53:00 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "d1a151c9c0291bcdd1916bb2f4c77c33422957e0",
+    "sha": "7de6961cbd9960e3b8e8c12dcbad75843503b690",
     "branch": "1.2"
   },
   "joist": {
