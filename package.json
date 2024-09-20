@@ -58,6 +58,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../function-builder/tsconfig.json"
+          ]
         }
       }
     ]
