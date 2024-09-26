@@ -24,7 +24,7 @@ import FBConstants from '../../common/FBConstants.js';
 import Builder from '../../common/model/builder/Builder.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
 import FBScene from '../../common/model/FBScene.js';
-import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line no-view-imported-from-model
+import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line phet/no-view-imported-from-model
 import functionBuilder from '../../functionBuilder.js';
 import Erase from './functions/Erase.js';
 import Grayscale from './functions/Grayscale.js';

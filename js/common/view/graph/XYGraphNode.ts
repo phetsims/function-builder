@@ -350,7 +350,7 @@ export default class XYGraphNode extends Node {
     for ( let i = 0; i < this.pointsParent.getChildrenCount() && !removed; i++ ) {
 
       const pointNode = this.pointsParent.getChildAt( i ) as PointNode;
-      assert && assert( pointNode instanceof PointNode ); // eslint-disable-line no-simple-type-checking-assertions
+      assert && assert( pointNode instanceof PointNode ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
       if ( pointNode.point.x.valueOf() === x.valueOf() ) {
         this.pointsParent.removeChild( pointNode );

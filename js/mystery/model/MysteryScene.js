@@ -22,7 +22,7 @@ import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
 import FBScene from '../../common/model/FBScene.js';
-import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line no-view-imported-from-model
+import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line phet/no-view-imported-from-model
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
 
