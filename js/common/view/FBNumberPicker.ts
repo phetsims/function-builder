@@ -6,12 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import functionBuilder from '../../functionBuilder.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   skipZero?: boolean; // whether to skip zero value

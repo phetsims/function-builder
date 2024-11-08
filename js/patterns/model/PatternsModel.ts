@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import PatternsScene from './PatternsScene.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class PatternsModel extends FBModel {
 

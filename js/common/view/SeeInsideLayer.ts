@@ -8,12 +8,12 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import Builder from '../model/builder/Builder.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import CardNode from './cards/CardNode.js';
 
 // constants

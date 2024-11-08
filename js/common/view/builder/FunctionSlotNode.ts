@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../../functionBuilder.js';
-import FunctionBackgroundNode, { FunctionBackgroundNodeOptions } from '../functions/FunctionBackgroundNode.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+import functionBuilder from '../../../functionBuilder.js';
+import FunctionBackgroundNode, { FunctionBackgroundNodeOptions } from '../functions/FunctionBackgroundNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

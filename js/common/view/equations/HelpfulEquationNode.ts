@@ -7,6 +7,8 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import { Line, Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
@@ -15,8 +17,6 @@ import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
 import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import { EquationNodeOptions } from './EquationNodeOptions.js';
 
 type SelfOptions = EquationNodeOptions;

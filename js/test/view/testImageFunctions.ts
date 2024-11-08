@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import { HBox, Image, Node, Path, Rectangle, VBox } from '../../../../scenery/js/imports.js';
 import Carousel, { CarouselItem } from '../../../../sun/js/Carousel.js';
@@ -37,7 +38,6 @@ import Rotate180 from '../../patterns/model/functions/Rotate180.js';
 import Rotate90 from '../../patterns/model/functions/Rotate90.js';
 import Shrink from '../../patterns/model/functions/Shrink.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default function testImageFunctions( layoutBounds: Bounds2 ): Node {
 

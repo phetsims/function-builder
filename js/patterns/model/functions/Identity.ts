@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { Rectangle } from '../../../../../scenery/js/imports.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 type IdentityOptions = SelfOptions;

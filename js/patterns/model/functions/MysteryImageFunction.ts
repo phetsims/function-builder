@@ -6,12 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { RichText } from '../../../../../scenery/js/imports.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 export type MysteryImageFunctionOptions = SelfOptions & ImageFunctionOptions;

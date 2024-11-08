@@ -7,11 +7,11 @@
  */
 
 import Property from '../../../../../axon/js/Property.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import { TColor } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable, { FBMovableOptions } from '../FBMovable.js';
-import { TColor } from '../../../../../scenery/js/imports.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
 
 // properties of associated FunctionNode, in the model for convenience
 type ViewOptions = {

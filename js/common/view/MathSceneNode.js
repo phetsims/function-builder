@@ -17,8 +17,8 @@ import EquationCardNode from './cards/EquationCardNode.js';
 import NumberCardNode from './cards/NumberCardNode.js';
 import CardContainer from './containers/CardContainer.js';
 import EquationDrawer from './equations/EquationDrawer.js';
-import XYGraphDrawer from './graph/XYGraphDrawer.js';
 import FBSceneNode from './FBSceneNode.js';
+import XYGraphDrawer from './graph/XYGraphDrawer.js';
 import XYTableDrawer from './table/XYTableDrawer.js';
 
 export default class MathSceneNode extends FBSceneNode {

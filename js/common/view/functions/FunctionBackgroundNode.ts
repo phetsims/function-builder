@@ -11,13 +11,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import { Path, PathOptions } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   size?: Dimension2;

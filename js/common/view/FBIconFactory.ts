@@ -7,6 +7,7 @@
  */
 
 import ScreenIcon, { ScreenIconOptions } from '../../../../joist/js/ScreenIcon.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Image, Node, Rectangle, Text, TPaint } from '../../../../scenery/js/imports.js';
 import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
@@ -22,7 +23,6 @@ import RationalNumber from '../model/RationalNumber.js';
 import SlopeInterceptEquationNode from './equations/SlopeInterceptEquationNode.js';
 import EyeCloseNode from './EyeCloseNode.js';
 import FunctionBackgroundNode from './functions/FunctionBackgroundNode.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const RADIO_BUTTON_ICON_SCALE = 0.35;

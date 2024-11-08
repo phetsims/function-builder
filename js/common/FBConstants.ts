@@ -9,13 +9,13 @@
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
 import Vector2 from '../../../dot/js/Vector2.js';
+import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import ScreenView from '../../../joist/js/ScreenView.js';
+import { DrawerOptions } from '../../../scenery-phet/js/Drawer.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import functionBuilder from '../functionBuilder.js';
 import FBSymbols from './FBSymbols.js';
-import { CreditsData } from '../../../joist/js/CreditsNode.js';
-import { DrawerOptions } from '../../../scenery-phet/js/Drawer.js';
 import { EquationNodeOptions } from './view/equations/EquationNodeOptions.js';
 
 // constants that are used to compute other constants

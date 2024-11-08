@@ -12,19 +12,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import { LinearGradient, Node, NodeOptions, Path, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
+import Builder from '../../model/builder/Builder.js';
+import Card from '../../model/cards/Card.js';
+import CardNode from '../cards/CardNode.js';
 import MoleCardNode from '../cards/MoleCardNode.js';
 import FunctionNode from '../functions/FunctionNode.js';
 import BuilderEndNode from './BuilderEndNode.js';
 import FunctionSlotNode from './FunctionSlotNode.js';
-import Builder from '../../model/builder/Builder.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import CardNode from '../cards/CardNode.js';
-import Card from '../../model/cards/Card.js';
 
 type SelfOptions = {
 

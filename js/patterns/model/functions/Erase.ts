@@ -6,13 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { Image } from '../../../../../scenery/js/imports.js';
 import erase_png from '../../../../mipmaps/functions/erase_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 type EraseOptions = SelfOptions;

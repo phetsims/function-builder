@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction, { MysteryImageFunctionOptions } from './MysteryImageFunction.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 type MysteryBOptions = SelfOptions;

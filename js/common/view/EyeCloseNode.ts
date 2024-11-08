@@ -8,11 +8,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import functionBuilder from '../../functionBuilder.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = EmptySelfOptions;
 

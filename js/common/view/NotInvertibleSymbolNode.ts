@@ -9,11 +9,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import BannedNode, { BannedNodeOptions } from '../../../../scenery-phet/js/BannedNode.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import functionBuilder from '../../functionBuilder.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 

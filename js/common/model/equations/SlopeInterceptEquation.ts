@@ -8,8 +8,8 @@
 
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
-import RationalNumber from '../RationalNumber.js';
 import MathFunction from '../functions/MathFunction.js';
+import RationalNumber from '../RationalNumber.js';
 
 export default class SlopeInterceptEquation {
 

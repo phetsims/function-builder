@@ -7,13 +7,13 @@
  */
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
 import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 
 export default class EquationsScreen extends Screen<EquationsModel, EquationsScreenView> {
 

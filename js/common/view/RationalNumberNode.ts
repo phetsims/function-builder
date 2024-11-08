@@ -11,12 +11,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Line, Node, NodeOptions, NodeTranslationOptions, TColor, Text } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 const DEFAULT_SIGN_FONT = new PhetFont( 22 );
 const DEFAULT_WHOLE_NUMBER_FONT = new PhetFont( 30 );

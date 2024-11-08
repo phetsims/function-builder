@@ -9,13 +9,13 @@
 
 import Emitter from '../../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
+import Property from '../../../../../axon/js/Property.js';
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import { Color, Node, NodeOptions, NodeTranslationOptions, Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import Property from '../../../../../axon/js/Property.js';
 import FBMovableNode from '../FBMovableNode.js';
 
 type SelfOptions = {

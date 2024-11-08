@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../functionBuilder.js';
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
+import functionBuilder from '../functionBuilder.js';
 
 const FBColors = {
 

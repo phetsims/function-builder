@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable, { FBMovableOptions } from '../FBMovable.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 export type CardOptions = SelfOptions & FBMovableOptions;

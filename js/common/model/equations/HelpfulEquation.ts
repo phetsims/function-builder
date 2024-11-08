@@ -14,10 +14,10 @@ import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import Divide from '../functions/Divide.js';
+import MathFunction from '../functions/MathFunction.js';
 import Plus from '../functions/Plus.js';
 import Times from '../functions/Times.js';
 import RationalNumber from '../RationalNumber.js';
-import MathFunction from '../functions/MathFunction.js';
 
 // constants
 const ZERO = RationalNumber.withInteger( 0 );

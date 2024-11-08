@@ -10,11 +10,11 @@
  */
 
 import Disposable from '../../../../axon/js/Disposable.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import functionBuilder from '../../functionBuilder.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Property from '../../../../axon/js/Property.js';
+import functionBuilder from '../../functionBuilder.js';
 
 type SelfOptions = {
   position?: Vector2; // initial position

@@ -15,6 +15,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { Color, Image } from '../../../../../scenery/js/imports.js';
 import warhol_png from '../../../../mipmaps/functions/warhol_png.js';
 import FBConstants from '../../../common/FBConstants.js';
@@ -24,7 +25,6 @@ import FBCanvasUtils from '../FBCanvasUtils.js';
 import Grayscale from './Grayscale.js';
 import Identity from './Identity.js';
 import Shrink from './Shrink.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 /**
  * Color maps, for mapping grayscale intensity to RGB.

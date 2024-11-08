@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import { Node } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import AbstractFunction, { AbstractFunctionOptions } from './AbstractFunction.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 

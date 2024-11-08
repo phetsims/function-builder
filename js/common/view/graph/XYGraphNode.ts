@@ -14,9 +14,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import Range from '../../../../../dot/js/Range.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbolFont from '../../../../../scenery-phet/js/MathSymbolFont.js';
@@ -25,11 +28,8 @@ import { Circle, Color, Line, Node, NodeOptions, Path, Rectangle, Text, TPaint }
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
-import RationalNumber from '../../model/RationalNumber.js';
 import Builder from '../../model/builder/Builder.js';
-import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import RationalNumber from '../../model/RationalNumber.js';
 
 // constants
 const AXIS_OPTIONS = {

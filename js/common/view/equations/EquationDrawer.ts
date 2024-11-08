@@ -6,15 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../../axon/js/Property.js';
 import merge from '../../../../../phet-core/js/merge.js';
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import EquationPanel, { EquationPanelOptions } from './EquationPanel.js';
 import Builder from '../../model/builder/Builder.js';
-import Property from '../../../../../axon/js/Property.js';
-import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
-import { optionize4 } from '../../../../../phet-core/js/optionize.js';
+import EquationPanel, { EquationPanelOptions } from './EquationPanel.js';
 
 type SelfOptions = {
   equationPanelOptions?: EquationPanelOptions;

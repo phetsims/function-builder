@@ -9,11 +9,11 @@
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import { CornerRadiiOptions, Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import { Line, Node, NodeOptions, Path, Text, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
-import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   size?: Dimension2;

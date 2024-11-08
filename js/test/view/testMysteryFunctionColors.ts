@@ -7,12 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Color, HBox, Node, Path, TColor, Text, VBox } from '../../../../scenery/js/imports.js';
 import FBColors from '../../common/FBColors.js';
 import functionBuilder from '../../functionBuilder.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default function testMysteryFunctionColors( layoutBounds: Bounds2 ): Node {
 

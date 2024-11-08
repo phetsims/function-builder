@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FBModel from '../../common/model/FBModel.js';
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
 import MysteryScene from './MysteryScene.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class MysteryModel extends FBModel {
 

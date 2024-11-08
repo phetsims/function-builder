@@ -12,7 +12,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../../axon/js/Property.js';
+import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import { Font, Node, NodeOptions, Rectangle, Text } from '../../../../../scenery/js/imports.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
@@ -20,14 +23,11 @@ import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
+import Builder from '../../model/builder/Builder.js';
 import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
 import SlopeInterceptEquation from '../../model/equations/SlopeInterceptEquation.js';
 import HelpfulEquationNode from './HelpfulEquationNode.js';
 import SlopeInterceptEquationNode from './SlopeInterceptEquationNode.js';
-import Builder from '../../model/builder/Builder.js';
-import Property from '../../../../../axon/js/Property.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import Dimension2 from '../../../../../dot/js/Dimension2.js';
 
 type SelfOptions = {
   size?: Dimension2;

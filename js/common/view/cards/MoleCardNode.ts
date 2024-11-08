@@ -7,11 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Rectangle } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import Card from '../../model/cards/Card.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
 
 export default class MoleCardNode extends Rectangle {
 

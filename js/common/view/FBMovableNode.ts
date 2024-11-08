@@ -7,11 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import { DragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBMovable from '../model/FBMovable.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   draggable?: boolean; // is this node draggable?

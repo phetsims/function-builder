@@ -11,9 +11,9 @@
 
 import Matrix3 from '../../../../../dot/js/Matrix3.js';
 import { Shape } from '../../../../../kite/js/imports.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 import { Node, NodeOptions, NodeTranslationOptions, Path, TPaint } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
 

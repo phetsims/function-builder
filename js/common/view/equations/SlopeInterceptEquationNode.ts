@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { optionize3 } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import { Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
@@ -14,8 +16,6 @@ import RationalNumber from '../../model/RationalNumber.js';
 import CardNode from '../cards/CardNode.js';
 import RationalNumberNode from '../RationalNumberNode.js';
 import { EquationNodeOptions } from './EquationNodeOptions.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import { optionize3 } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EquationNodeOptions;
 

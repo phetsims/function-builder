@@ -15,13 +15,13 @@ import FBColors from '../../common/FBColors.js';
 import FBConstants from '../../common/FBConstants.js';
 import FBQueryParameters from '../../common/FBQueryParameters.js';
 import MathBuilder from '../../common/model/builder/MathBuilder.js';
+import FBScene from '../../common/model/FBScene.js';
 import Divide from '../../common/model/functions/Divide.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
 import Minus from '../../common/model/functions/Minus.js';
 import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
-import FBScene from '../../common/model/FBScene.js';
 import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line phet/no-view-imported-from-model
 import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';

@@ -13,16 +13,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { combineOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
 import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
+import Builder from '../../model/builder/Builder.js';
 import EquationCardNode from '../cards/EquationCardNode.js';
 import NumberCardNode from '../cards/NumberCardNode.js';
-import XYGraphNode, { XYGraphNodeOptions } from './XYGraphNode.js';
-import Builder from '../../model/builder/Builder.js';
 import CardContainer from '../containers/CardContainer.js';
-import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
-import { combineOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
+import XYGraphNode, { XYGraphNodeOptions } from './XYGraphNode.js';
 
 type SelfOptions = {
   graphOptions?: XYGraphNodeOptions; // options for XYGraphNode

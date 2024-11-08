@@ -9,8 +9,8 @@
 import ImageCard from '../../common/model/cards/ImageCard.js';
 import ImageCardNode from '../../common/view/cards/ImageCardNode.js';
 import CardContainer from '../../common/view/containers/CardContainer.js';
-import ImageFunctionNode from '../../common/view/functions/ImageFunctionNode.js';
 import FBSceneNode from '../../common/view/FBSceneNode.js';
+import ImageFunctionNode from '../../common/view/functions/ImageFunctionNode.js';
 import functionBuilder from '../../functionBuilder.js';
 
 export default class PatternsSceneNode extends FBSceneNode {
