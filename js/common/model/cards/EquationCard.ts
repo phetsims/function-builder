@@ -1,4 +1,4 @@
-// Copyright 2016-2023, University of Colorado Boulder
+// Copyright 2016-2024, University of Colorado Boulder
 
 /**
  * A card with the right-hand side of an equation on it, e.g. 'x' or '2x'.
