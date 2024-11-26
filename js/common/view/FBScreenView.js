@@ -54,9 +54,6 @@ export default class FBScreenView extends ScreenView {
       bottom: this.layoutBounds.maxY + FBConstants.RESET_ALL_BUTTON_OFFSET.y,
       listener: () => {
 
-        // cancel drags that may be in progress
-        this.interruptSubtreeInput();
-
         // reset view before model, or we'll see animation that's not desired
         sceneNodes.forEach( sceneNode => {
           sceneNode && sceneNode.reset();
