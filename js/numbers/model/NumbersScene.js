@@ -11,13 +11,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FBConstants from '../../common/FBConstants.js';
 import MathBuilder from '../../common/model/builder/MathBuilder.js';
+import FBScene from '../../common/model/FBScene.js';
 import Divide from '../../common/model/functions/Divide.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
 import Minus from '../../common/model/functions/Minus.js';
 import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
-import FBScene from '../../common/model/FBScene.js';
 import functionBuilder from '../../functionBuilder.js';
 
 // constants
