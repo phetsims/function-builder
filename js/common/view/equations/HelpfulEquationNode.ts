@@ -31,7 +31,7 @@ export default class HelpfulEquationNode extends Node {
     phet.log && phet.log( `HelpfulEquation=${equation.toString()}` );
 
     const options = optionize4<HelpfulEquationNodeOptions, SelfOptions, NodeOptions>()(
-      // @ts-expect-error TS2559: Type 'Required ' has no properties in common with type 'Partial '.
+      // @ts-expect-error TS2559: Type 'Required ' has no properties in common with type 'Partial'.
       {}, FBConstants.EQUATION_OPTIONS, {
         fractionScale: 0.67
       }, providedOptions );
