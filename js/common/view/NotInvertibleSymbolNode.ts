@@ -48,8 +48,7 @@ export default class NotInvertibleSymbolNode extends BannedNode {
     this.animation = new Animation( {
       duration: 1.5, // seconds
       easing: Easing.QUADRATIC_IN_OUT,
-      object: this,
-      // @ts-expect-error TODO https://github.com/phetsims/twixt/issues/31
+      object: this as NotInvertibleSymbolNode, // Unfortunate need to cast, see https://github.com/phetsims/twixt/issues/31
       attribute: 'opacity',
       from: 0.85,
       to: 0
