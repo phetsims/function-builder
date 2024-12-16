@@ -39,7 +39,8 @@ export default class RationalNumber {
     assert && assert( Number.isInteger( numerator ) );
     assert && assert( Number.isInteger( denominator ) );
 
-    // @ts-expect-error bigRat is a global created by preloading BigRational.js
+    // @ts-expect-error bigRat is a global created by preloading BigRational.js.
+    // PhET does not currently have a way to address this.
     this.bigRational = bigRat( numerator, denominator );
   }
 
