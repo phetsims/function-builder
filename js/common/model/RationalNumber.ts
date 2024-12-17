@@ -1,4 +1,4 @@
-// Copyright 2016-2023, University of Colorado Boulder
+// Copyright 2016-2024, University of Colorado Boulder
 
 /**
  * RationalNumber is a wrapper around BigRational.js. Since this wraps only the portion of BigRational.js needed by
