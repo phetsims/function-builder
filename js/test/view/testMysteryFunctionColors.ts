@@ -8,9 +8,15 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Color, HBox, Node, Path, TColor, Text, VBox } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import FBColors from '../../common/FBColors.js';
 import functionBuilder from '../../functionBuilder.js';
 

@@ -7,11 +7,15 @@
  */
 
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
-import { CornerRadiiOptions, Shape } from '../../../../../kite/js/imports.js';
+import Shape, { CornerRadiiOptions } from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
-import { Line, Node, NodeOptions, Path, Text, TPaint } from '../../../../../scenery/js/imports.js';
+import Line from '../../../../../scenery/js/nodes/Line.js';
+import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
+import Text from '../../../../../scenery/js/nodes/Text.js';
+import TPaint from '../../../../../scenery/js/util/TPaint.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 

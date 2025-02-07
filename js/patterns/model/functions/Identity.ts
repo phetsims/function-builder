@@ -7,7 +7,7 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import { Rectangle } from '../../../../../scenery/js/imports.js';
+import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';

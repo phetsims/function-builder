@@ -8,7 +8,7 @@
 
 import Utils from '../../../../../dot/js/Utils.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { Image } from '../../../../../scenery/js/imports.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
 import shrink_png from '../../../../mipmaps/functions/shrink_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';

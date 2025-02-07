@@ -7,7 +7,7 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import { Image } from '../../../../../scenery/js/imports.js';
+import Image from '../../../../../scenery/js/nodes/Image.js';
 import rotate90_png from '../../../../mipmaps/functions/rotate90_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';

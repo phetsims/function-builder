@@ -8,7 +8,7 @@
  */
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Rectangle } from '../../../../../scenery/js/imports.js';
+import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import Card from '../../model/cards/Card.js';

@@ -13,10 +13,13 @@
  */
 
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import { Shape } from '../../../../../kite/js/imports.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { LinearGradient, Node, NodeOptions, Path, TPaint } from '../../../../../scenery/js/imports.js';
+import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
+import LinearGradient from '../../../../../scenery/js/util/LinearGradient.js';
+import TPaint from '../../../../../scenery/js/util/TPaint.js';
 import functionBuilder from '../../../functionBuilder.js';
 import Builder from '../../model/builder/Builder.js';
 import Card from '../../model/cards/Card.js';

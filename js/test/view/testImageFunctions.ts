@@ -8,8 +8,13 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { Shape } from '../../../../kite/js/imports.js';
-import { HBox, Image, Node, Path, Rectangle, VBox } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Carousel, { CarouselItem } from '../../../../sun/js/Carousel.js';
 import beaker_png from '../../../images/cards/beaker_png.js';
 import butterfly_png from '../../../images/cards/butterfly_png.js';

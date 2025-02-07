@@ -8,7 +8,7 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FunctionBackgroundNode, { FunctionBackgroundNodeOptions } from '../functions/FunctionBackgroundNode.js';
 

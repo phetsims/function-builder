@@ -8,7 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBScene from '../model/FBScene.js';

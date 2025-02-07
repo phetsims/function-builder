@@ -14,7 +14,10 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Line, Node, NodeOptions, NodeTranslationOptions, TColor, Text } from '../../../../scenery/js/imports.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
+import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
 

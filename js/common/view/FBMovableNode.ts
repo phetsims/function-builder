@@ -9,7 +9,8 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { DragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBMovable from '../model/FBMovable.js';
 

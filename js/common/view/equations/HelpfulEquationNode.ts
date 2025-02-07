@@ -9,7 +9,9 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
-import { Line, Node, NodeOptions, NodeTranslationOptions, Text } from '../../../../../scenery/js/imports.js';
+import Line from '../../../../../scenery/js/nodes/Line.js';
+import Node, { NodeOptions, NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../../scenery/js/nodes/Text.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';

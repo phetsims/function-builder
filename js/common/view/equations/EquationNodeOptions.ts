@@ -6,7 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Font, TColor } from '../../../../../scenery/js/imports.js';
+import Font from '../../../../../scenery/js/util/Font.js';
+import TColor from '../../../../../scenery/js/util/TColor.js';
 
 export type EquationNodeOptions = {
 

@@ -8,7 +8,7 @@
 
 import Property from '../../../../../axon/js/Property.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { TColor } from '../../../../../scenery/js/imports.js';
+import TColor from '../../../../../scenery/js/util/TColor.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable, { FBMovableOptions } from '../FBMovable.js';

@@ -15,7 +15,7 @@
 
 import { combineOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
 import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
-import { NodeTranslationOptions } from '../../../../../scenery/js/imports.js';
+import { NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
 import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import Builder from '../../model/builder/Builder.js';

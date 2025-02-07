@@ -7,10 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import Builder from '../model/builder/Builder.js';
