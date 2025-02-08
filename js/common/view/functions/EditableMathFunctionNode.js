@@ -1,4 +1,4 @@
-// Copyright 2016-2023, University of Colorado Boulder
+// Copyright 2016-2025, University of Colorado Boulder
 
 /**
  * Node that synchronizes with a MathFunction, and supports changing its operand via a NumberPicker.

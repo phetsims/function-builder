@@ -1,4 +1,4 @@
-// Copyright 2023, University of Colorado Boulder
+// Copyright 2023-2025, University of Colorado Boulder
 
 /**
  * EquationNodeOptions is the set of options for various equation Node types. Not all of these options may be applicable.

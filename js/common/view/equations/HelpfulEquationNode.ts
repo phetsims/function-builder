@@ -1,4 +1,4 @@
-// Copyright 2016-2024, University of Colorado Boulder
+// Copyright 2016-2025, University of Colorado Boulder
 
 /**
  * Displays an equation in "helpful" format. See HelpfulEquation for backstory on name and specification.
