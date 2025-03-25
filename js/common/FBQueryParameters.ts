@@ -7,6 +7,7 @@
  */
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
+import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import functionBuilder from '../functionBuilder.js';
 
 const FBQueryParameters = QueryStringMachine.getAll( {
