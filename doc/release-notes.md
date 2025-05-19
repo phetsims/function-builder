@@ -31,4 +31,6 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 
 ## 1.2 (2022-06-13)
 
+## 1.1 (skipped, see https://github.com/phetsims/function-builder/issues/140)
+
 ## 1.0 (2016-07-13)
