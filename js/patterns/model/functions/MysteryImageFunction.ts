@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import RichText from '../../../../../scenery/js/nodes/RichText.js';
 import FBConstants from '../../../common/FBConstants.js';
