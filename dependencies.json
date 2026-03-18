@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "function-builder": {
-    "sha": "e78d56d6e9958d41e33261ade24e8eca2d8e1142",
+    "sha": "40b1b3165f6e4bc6033593513dcc0b055e981e11",
     "branch": "1.2"
   },
   "joist": {
-    "sha": "590edd2e92e74849d6979b8319c2b53edd97d7fc",
+    "sha": "3834542e96c59809bdfd062d5228f87e9d4cf3c1",
     "branch": "HEAD"
   },
   "kite": {
