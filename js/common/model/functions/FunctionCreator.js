@@ -8,7 +8,6 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 
 export default class FunctionCreator {
 
@@ -33,5 +32,3 @@ export default class FunctionCreator {
     return new this.functionConstructor( merge( {}, this.functionConstructorOptions, options ) );
   }
 }
-
-functionBuilder.register( 'FunctionCreator', FunctionCreator );

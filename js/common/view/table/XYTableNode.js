@@ -30,7 +30,6 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import CarouselButton from '../../../../../sun/js/buttons/CarouselButton.js';
 import Animation from '../../../../../twixt/js/Animation.js';
 import Easing from '../../../../../twixt/js/Easing.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 import FBSymbols from '../../FBSymbols.js';
@@ -446,5 +445,3 @@ export default class XYTableNode extends VBox {
 
   get updateEnabled() { return this.getUpdateEnabled(); }
 }
-
-functionBuilder.register( 'XYTableNode', XYTableNode );

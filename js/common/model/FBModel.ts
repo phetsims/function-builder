@@ -9,7 +9,6 @@
 import Property from '../../../../axon/js/Property.js';
 import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBScene from './FBScene.js';
 
 type SelfOptions = {
@@ -53,5 +52,3 @@ export default class FBModel implements TModel {
     }
   }
 }
-
-functionBuilder.register( 'FBModel', FBModel );

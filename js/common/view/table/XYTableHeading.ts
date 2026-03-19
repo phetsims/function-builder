@@ -16,7 +16,6 @@ import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import TPaint from '../../../../../scenery/js/util/TPaint.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
 type SelfOptions = {
@@ -89,5 +88,3 @@ export default class XYTableHeading extends Node {
     super( options );
   }
 }
-
-functionBuilder.register( 'XYTableHeading', XYTableHeading );

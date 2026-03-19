@@ -13,7 +13,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Carousel, { CarouselItem, CarouselOptions } from '../../../../sun/js/Carousel.js';
-import functionBuilder from '../../functionBuilder.js';
 import CardContainer from './containers/CardContainer.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -89,5 +88,3 @@ function getNumberOfCards( containers: CardContainer[] ): number {
   } );
   return numberOfCards;
 }
-
-functionBuilder.register( 'OutputCardsCarousel', OutputCardsCarousel );

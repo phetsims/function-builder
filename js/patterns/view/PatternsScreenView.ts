@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBScreenView from '../../common/view/FBScreenView.js';
-import functionBuilder from '../../functionBuilder.js';
 import PatternsModel from '../model/PatternsModel.js';
 import PatternsSceneNode from './PatternsSceneNode.js';
 
@@ -20,5 +19,3 @@ export default class PatternsScreenView extends FBScreenView {
     } );
   }
 }
-
-functionBuilder.register( 'PatternsScreenView', PatternsScreenView );

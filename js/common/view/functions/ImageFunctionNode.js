@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../../functionBuilder.js';
 import ImageFunction from '../../model/functions/ImageFunction.js';
 import FunctionNode from './FunctionNode.js';
 
@@ -24,5 +23,3 @@ export default class ImageFunctionNode extends FunctionNode {
     super( functionInstance, functionInstance.iconNode, container, builderNode, dragLayer, options );
   }
 }
-
-functionBuilder.register( 'ImageFunctionNode', ImageFunctionNode );

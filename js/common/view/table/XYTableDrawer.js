@@ -13,7 +13,6 @@
 
 import merge from '../../../../../phet-core/js/merge.js';
 import Drawer from '../../../../../scenery-phet/js/Drawer.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import XYTableNode from './XYTableNode.js';
 
@@ -87,5 +86,3 @@ export default class XYTableDrawer extends Drawer {
     } );
   }
 }
-
-functionBuilder.register( 'XYTableDrawer', XYTableDrawer );

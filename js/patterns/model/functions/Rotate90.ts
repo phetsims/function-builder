@@ -11,7 +11,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import rotate90_png from '../../../../mipmaps/functions/rotate90_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -51,5 +50,3 @@ export default class Rotate90 extends ImageFunction {
     return outputCanvas;
   }
 }
-
-functionBuilder.register( 'Rotate90', Rotate90 );

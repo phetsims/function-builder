@@ -16,7 +16,6 @@ import Shape from '../../../../../kite/js/Shape.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import Path, { PathOptions } from '../../../../../scenery/js/nodes/Path.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 
 type SelfOptions = {
@@ -64,5 +63,3 @@ export default class FunctionBackgroundNode extends Path {
     this.xInset = X_INSET;
   }
 }
-
-functionBuilder.register( 'FunctionBackgroundNode', FunctionBackgroundNode );

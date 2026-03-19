@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from '../functions/MathFunction.js';
 import RationalNumber from '../RationalNumber.js';
@@ -97,5 +96,3 @@ export default class SlopeInterceptEquation {
     return equation;
   }
 }
-
-functionBuilder.register( 'SlopeInterceptEquation', SlopeInterceptEquation );

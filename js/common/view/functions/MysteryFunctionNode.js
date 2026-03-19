@@ -8,7 +8,6 @@
 
 import merge from '../../../../../phet-core/js/merge.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import MathFunctionNode from './MathFunctionNode.js';
@@ -42,5 +41,3 @@ export default class MysteryFunctionNode extends MathFunctionNode {
     super( functionInstance, container, builderNode, dragLayer, options );
   }
 }
-
-functionBuilder.register( 'MysteryFunctionNode', MysteryFunctionNode );

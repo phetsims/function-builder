@@ -13,7 +13,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import functionBuilder from '../../functionBuilder.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,5 +29,3 @@ export default class EyeCloseNode extends Path {
     super( eyeSlashSolidShape, options );
   }
 }
-
-functionBuilder.register( 'EyeCloseNode', EyeCloseNode );

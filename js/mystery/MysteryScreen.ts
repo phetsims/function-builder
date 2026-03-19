@@ -10,7 +10,6 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import MysteryModel from './model/MysteryModel.js';
 import MysteryScreenView from './view/MysteryScreenView.js';
@@ -33,5 +32,3 @@ export default class MysteryScreen extends Screen<MysteryModel, MysteryScreenVie
     );
   }
 }
-
-functionBuilder.register( 'MysteryScreen', MysteryScreen );

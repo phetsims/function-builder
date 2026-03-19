@@ -7,7 +7,6 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 
 export default class FBScene {
@@ -99,5 +98,3 @@ export default class FBScene {
     }
   }
 }
-
-functionBuilder.register( 'FBScene', FBScene );

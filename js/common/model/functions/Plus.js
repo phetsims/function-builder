@@ -7,7 +7,6 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
@@ -28,5 +27,3 @@ export default class Plus extends MathFunction {
       options );
   }
 }
-
-functionBuilder.register( 'Plus', Plus );

@@ -7,7 +7,6 @@
  */
 
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
-import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 
 const FBSymbols = {
@@ -19,7 +18,5 @@ const FBSymbols = {
   TIMES: MathSymbols.TIMES,
   EQUAL_TO: MathSymbols.EQUAL_TO
 };
-
-functionBuilder.register( 'FBSymbols', FBSymbols );
 
 export default FBSymbols;

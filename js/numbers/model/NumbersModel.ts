@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBModel from '../../common/model/FBModel.js';
-import functionBuilder from '../../functionBuilder.js';
 import NumbersScene from './NumbersScene.js';
 
 export default class NumbersModel extends FBModel {
@@ -17,5 +16,3 @@ export default class NumbersModel extends FBModel {
     super( [ new NumbersScene() ] );
   }
 }
-
-functionBuilder.register( 'NumbersModel', NumbersModel );

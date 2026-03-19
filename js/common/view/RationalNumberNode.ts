@@ -18,7 +18,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import functionBuilder from '../../functionBuilder.js';
 import RationalNumber from '../model/RationalNumber.js';
 
 const DEFAULT_SIGN_FONT = new PhetFont( 22 );
@@ -158,5 +157,3 @@ export default class RationalNumberNode extends Node {
     }
   }
 }
-
-functionBuilder.register( 'RationalNumberNode', RationalNumberNode );

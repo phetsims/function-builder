@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../../functionBuilder.js';
 import Builder from './Builder.js';
 
 export default class MathBuilder extends Builder {
@@ -49,5 +48,3 @@ export default class MathBuilder extends Builder {
     functionInstance.operandProperty.unlink( this.operandObserver );
   }
 }
-
-functionBuilder.register( 'MathBuilder', MathBuilder );

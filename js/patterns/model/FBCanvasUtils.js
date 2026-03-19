@@ -7,7 +7,6 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import functionBuilder from '../../functionBuilder.js';
 
 const FBCanvasUtils = {
 
@@ -115,7 +114,5 @@ const FBCanvasUtils = {
     imageData.data[ pixelIndex + 3 ] = alpha;
   }
 };
-
-functionBuilder.register( 'FBCanvasUtils', FBCanvasUtils );
 
 export default FBCanvasUtils;

@@ -11,7 +11,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import mirror_png from '../../../../mipmaps/functions/mirror_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -51,5 +50,3 @@ export default class Mirror extends ImageFunction {
     return outputCanvas;
   }
 }
-
-functionBuilder.register( 'Mirror', Mirror );

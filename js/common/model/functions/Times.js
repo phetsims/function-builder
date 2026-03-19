@@ -7,7 +7,6 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import MathFunction from './MathFunction.js';
 
@@ -39,5 +38,3 @@ export default class Times extends MathFunction {
     return ( this.operandProperty.value !== 0 );
   }
 }
-
-functionBuilder.register( 'Times', Times );

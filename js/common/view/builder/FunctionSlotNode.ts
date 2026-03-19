@@ -9,7 +9,6 @@
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FunctionBackgroundNode, { FunctionBackgroundNodeOptions } from '../functions/FunctionBackgroundNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -31,5 +30,3 @@ export default class FunctionSlotNode extends FunctionBackgroundNode {
     super( options );
   }
 }
-
-functionBuilder.register( 'FunctionSlotNode', FunctionSlotNode );

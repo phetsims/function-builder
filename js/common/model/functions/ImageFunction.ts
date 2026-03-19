@@ -8,7 +8,6 @@
 
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
-import functionBuilder from '../../../functionBuilder.js';
 import AbstractFunction, { AbstractFunctionOptions } from './AbstractFunction.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -28,5 +27,3 @@ export default abstract class ImageFunction extends AbstractFunction<HTMLCanvasE
     this.iconNode = iconNode;
   }
 }
-
-functionBuilder.register( 'ImageFunction', ImageFunction );

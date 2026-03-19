@@ -12,7 +12,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import shrink_png from '../../../../mipmaps/functions/shrink_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
 type SelfOptions = {
@@ -73,5 +72,3 @@ function toEvenInteger( value: number ): number {
   }
   return newValue;
 }
-
-functionBuilder.register( 'Shrink', Shrink );

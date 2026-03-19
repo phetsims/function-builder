@@ -8,7 +8,6 @@
  */
 
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MovableContainer from './MovableContainer.js';
 
@@ -78,5 +77,3 @@ export default class CardContainer extends MovableContainer {
     }
   }
 }
-
-functionBuilder.register( 'CardContainer', CardContainer );

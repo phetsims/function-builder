@@ -12,7 +12,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import Builder from '../model/builder/Builder.js';
 import CardNode from './cards/CardNode.js';
@@ -78,5 +77,3 @@ export default class SeeInsideLayer extends Node {
     this.cardsParent.addChild( cardNode );
   }
 }
-
-functionBuilder.register( 'SeeInsideLayer', SeeInsideLayer );

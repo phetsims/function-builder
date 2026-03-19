@@ -11,7 +11,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import grayscale_png from '../../../../mipmaps/functions/grayscale_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -50,5 +49,3 @@ export default class Grayscale extends ImageFunction {
     return FBCanvasUtils.createCanvasWithImageData( imageData );
   }
 }
-
-functionBuilder.register( 'Grayscale', Grayscale );

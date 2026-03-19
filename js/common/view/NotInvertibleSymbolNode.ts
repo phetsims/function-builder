@@ -13,7 +13,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import BannedNode, { BannedNodeOptions } from '../../../../scenery-phet/js/BannedNode.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
-import functionBuilder from '../../functionBuilder.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -76,5 +75,3 @@ export default class NotInvertibleSymbolNode extends BannedNode {
     }
   }
 }
-
-functionBuilder.register( 'NotInvertibleSymbolNode', NotInvertibleSymbolNode );

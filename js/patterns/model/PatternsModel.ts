@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBModel from '../../common/model/FBModel.js';
-import functionBuilder from '../../functionBuilder.js';
 import PatternsScene from './PatternsScene.js';
 
 export default class PatternsModel extends FBModel {
@@ -32,5 +31,3 @@ export default class PatternsModel extends FBModel {
     ] );
   }
 }
-
-functionBuilder.register( 'PatternsModel', PatternsModel );

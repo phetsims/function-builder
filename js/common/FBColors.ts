@@ -75,6 +75,4 @@ const FBColors = {
   ]
 };
 
-functionBuilder.register( 'FBColors', FBColors );
-
 export default FBColors;

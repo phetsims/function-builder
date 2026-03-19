@@ -14,7 +14,6 @@ import ScreenView from '../../../joist/js/ScreenView.js';
 import { DrawerOptions } from '../../../scenery-phet/js/Drawer.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import functionBuilder from '../functionBuilder.js';
 import FBSymbols from './FBSymbols.js';
 import { EquationNodeOptions } from './view/equations/EquationNodeOptions.js';
 
@@ -181,7 +180,5 @@ const FBConstants = {
   EQUATION_DRAWER_OPEN: false,
   EQUATION_OPTIONS: EQUATION_NODE_OPTIONS
 };
-
-functionBuilder.register( 'FBConstants', FBConstants );
 
 export default FBConstants;

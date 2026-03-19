@@ -10,7 +10,6 @@
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Range from '../../../../../dot/js/Range.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import RationalNumber from '../RationalNumber.js';
 import AbstractFunction from './AbstractFunction.js';
 
@@ -88,5 +87,3 @@ export default class MathFunction extends AbstractFunction {
     }
   }
 }
-
-functionBuilder.register( 'MathFunction', MathFunction );

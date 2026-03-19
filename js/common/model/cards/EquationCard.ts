@@ -7,7 +7,6 @@
  */
 
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../../functionBuilder.js';
 import Card, { CardOptions } from './Card.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -28,5 +27,3 @@ export default class EquationCard extends Card {
     this.xSymbol = xSymbol;
   }
 }
-
-functionBuilder.register( 'EquationCard', EquationCard );

@@ -10,7 +10,6 @@ import { optionize3 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import RationalNumber from '../../model/RationalNumber.js';
@@ -178,5 +177,3 @@ export default class SlopeInterceptEquationNode extends Node {
     super( options );
   }
 }
-
-functionBuilder.register( 'SlopeInterceptEquationNode', SlopeInterceptEquationNode );

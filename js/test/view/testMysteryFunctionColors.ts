@@ -18,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import FBColors from '../../common/FBColors.js';
-import functionBuilder from '../../functionBuilder.js';
 
 export default function testMysteryFunctionColors( layoutBounds: Bounds2 ): Node {
 
@@ -96,5 +95,3 @@ class TestFunctionNode extends Node {
     } );
   }
 }
-
-functionBuilder.register( 'testMysteryFunctionColors', testMysteryFunctionColors );

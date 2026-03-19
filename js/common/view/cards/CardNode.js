@@ -13,7 +13,6 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovableNode from '../FBMovableNode.js';
 
@@ -518,5 +517,3 @@ export default class CardNode extends FBMovableNode {
     return new Node( options );
   }
 }
-
-functionBuilder.register( 'CardNode', CardNode );

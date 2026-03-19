@@ -14,7 +14,6 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../functionBuilder.js';
 
 type SelfOptions = {
   position?: Vector2; // initial position
@@ -135,5 +134,3 @@ export default class FBMovable {
     }
   }
 }
-
-functionBuilder.register( 'FBMovable', FBMovable );

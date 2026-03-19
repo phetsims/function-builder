@@ -11,7 +11,6 @@ import Image from '../../../../../scenery/js/nodes/Image.js';
 import invertRGB_png from '../../../../mipmaps/functions/invertRGB_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -52,5 +51,3 @@ export default class InvertRGB extends ImageFunction {
     return FBCanvasUtils.createCanvasWithImageData( imageData );
   }
 }
-
-functionBuilder.register( 'InvertRGB', InvertRGB );

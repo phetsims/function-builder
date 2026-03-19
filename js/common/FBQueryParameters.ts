@@ -8,7 +8,6 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import functionBuilder from '../functionBuilder.js';
 
 const FBQueryParameters = QueryStringMachine.getAll( {
 
@@ -32,8 +31,6 @@ const FBQueryParameters = QueryStringMachine.getAll( {
   // For internal use only.
   showAllColors: { type: 'flag' }
 } );
-
-functionBuilder.register( 'FBQueryParameters', FBQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

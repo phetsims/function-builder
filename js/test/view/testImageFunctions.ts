@@ -29,7 +29,6 @@ import stickFigure_png from '../../../images/cards/stickFigure_png.js';
 import sun_png from '../../../images/cards/sun_png.js';
 import triangle_png from '../../../images/cards/triangle_png.js';
 import ImageFunction from '../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Erase from '../../patterns/model/functions/Erase.js';
 import Grayscale from '../../patterns/model/functions/Grayscale.js';
@@ -176,5 +175,3 @@ class TestFunctionNode extends Node {
     } );
   }
 }
-
-functionBuilder.register( 'testImageFunctions', testImageFunctions );

@@ -12,7 +12,6 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import FBQueryParameters from '../FBQueryParameters.js';
 import SceneRadioButtonGroup from './SceneRadioButtonGroup.js';
@@ -156,5 +155,3 @@ export default class FBScreenView extends ScreenView {
     } );
   }
 }
-
-functionBuilder.register( 'FBScreenView', FBScreenView );

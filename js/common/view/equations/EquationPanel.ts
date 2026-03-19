@@ -22,7 +22,6 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Font from '../../../../../scenery/js/util/Font.js';
 import Checkbox from '../../../../../sun/js/Checkbox.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
@@ -227,5 +226,3 @@ export default class EquationPanel extends Node {
 
   public get updateEnabled(): boolean { return this.getUpdateEnabled(); }
 }
-
-functionBuilder.register( 'EquationPanel', EquationPanel );

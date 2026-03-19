@@ -11,7 +11,6 @@
  */
 
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBSymbols from '../../FBSymbols.js';
 import Divide from '../functions/Divide.js';
 import MathFunction from '../functions/MathFunction.js';
@@ -187,5 +186,3 @@ export default class HelpfulEquation {
     return equation;
   }
 }
-
-functionBuilder.register( 'HelpfulEquation', HelpfulEquation );

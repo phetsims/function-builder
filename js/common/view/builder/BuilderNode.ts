@@ -20,7 +20,6 @@ import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import LinearGradient from '../../../../../scenery/js/util/LinearGradient.js';
 import TPaint from '../../../../../scenery/js/util/TPaint.js';
-import functionBuilder from '../../../functionBuilder.js';
 import Builder from '../../model/builder/Builder.js';
 import Card from '../../model/cards/Card.js';
 import CardNode from '../cards/CardNode.js';
@@ -280,5 +279,3 @@ export default class BuilderNode extends Node {
     this.moleCardsLayer.addChild( new MoleCardNode( card, this.builder.position ) );
   }
 }
-
-functionBuilder.register( 'BuilderNode', BuilderNode );

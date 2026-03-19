@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBModel from '../../common/model/FBModel.js';
-import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from './MysteryChallenges.js';
 import MysteryScene from './MysteryScene.js';
 
@@ -22,5 +21,3 @@ export default class MysteryModel extends FBModel {
     ] );
   }
 }
-
-functionBuilder.register( 'MysteryModel', MysteryModel );

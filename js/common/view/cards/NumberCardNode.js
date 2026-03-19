@@ -9,7 +9,6 @@
 import Dimension2 from '../../../../../dot/js/Dimension2.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import NumberCard from '../../model/cards/NumberCard.js';
@@ -109,5 +108,3 @@ export default class NumberCardNode extends CardNode {
     return CardNode.createGhostNode( contentNode, options );
   }
 }
-
-functionBuilder.register( 'NumberCardNode', NumberCardNode );

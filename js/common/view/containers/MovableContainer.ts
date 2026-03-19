@@ -16,7 +16,6 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../../scenery/js/util/Color.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBQueryParameters from '../../FBQueryParameters.js';
 import FBMovableNode from '../FBMovableNode.js';
 
@@ -138,5 +137,3 @@ export default class MovableContainer extends Node {
     return ( this.numberOfItemsProperty.value === 0 );
   }
 }
-
-functionBuilder.register( 'MovableContainer', MovableContainer );

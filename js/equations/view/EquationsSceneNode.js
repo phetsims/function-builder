@@ -9,7 +9,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import EditableMathFunctionNode from '../../common/view/functions/EditableMathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
-import functionBuilder from '../../functionBuilder.js';
 
 export default class EquationsSceneNode extends MathSceneNode {
 
@@ -31,5 +30,3 @@ export default class EquationsSceneNode extends MathSceneNode {
     super( scene, layoutBounds, EditableMathFunctionNode, options );
   }
 }
-
-functionBuilder.register( 'EquationsSceneNode', EquationsSceneNode );

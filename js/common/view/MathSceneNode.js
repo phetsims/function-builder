@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBConstants from '../FBConstants.js';
 import EquationCard from '../model/cards/EquationCard.js';
 import NumberCard from '../model/cards/NumberCard.js';
@@ -155,5 +154,3 @@ export default class MathSceneNode extends FBSceneNode {
     return containers;
   }
 }
-
-functionBuilder.register( 'MathSceneNode', MathSceneNode );

@@ -10,7 +10,6 @@ import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import TModel from '../../../joist/js/TModel.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import functionBuilder from '../functionBuilder.js';
 import TestScreenView from './view/TestScreenView.js';
 
 export default class TestScreen extends Screen<TestModel, TestScreenView> {
@@ -36,5 +35,3 @@ class TestModel implements TModel {
     // do nothing
   }
 }
-
-functionBuilder.register( 'TestScreen', TestScreen );

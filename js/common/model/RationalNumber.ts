@@ -10,8 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../functionBuilder.js';
-
 // The subset of the BigInteger API that we are using.
 type BigInteger = {
   valueOf: () => number;
@@ -159,5 +157,3 @@ function toRationalNumber( bigRational: BigRational ): RationalNumber {
   assert && assert( bigRational.constructor.name === 'BigRational' );
   return new RationalNumber( bigRational.numerator.valueOf(), bigRational.denominator.valueOf() );
 }
-
-functionBuilder.register( 'RationalNumber', RationalNumber );

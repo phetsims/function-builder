@@ -11,7 +11,6 @@ import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
-import functionBuilder from '../../functionBuilder.js';
 
 type SelfOptions = {
   skipZero?: boolean; // whether to skip zero value
@@ -60,5 +59,3 @@ export default class FBNumberPicker extends NumberPicker {
     super( valueProperty, new Property( valueRange ), options );
   }
 }
-
-functionBuilder.register( 'FBNumberPicker', FBNumberPicker );

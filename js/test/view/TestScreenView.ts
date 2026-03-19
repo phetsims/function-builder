@@ -7,7 +7,6 @@
  */
 
 import DemosScreenView from '../../../../sun/js/demo/DemosScreenView.js';
-import functionBuilder from '../../functionBuilder.js';
 import testImageFunctions from './testImageFunctions.js';
 import testMysteryFunctionColors from './testMysteryFunctionColors.js';
 
@@ -20,5 +19,3 @@ export default class TestScreenView extends DemosScreenView {
     ] );
   }
 }
-
-functionBuilder.register( 'TestScreenView', TestScreenView );

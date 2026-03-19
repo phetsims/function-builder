@@ -18,7 +18,6 @@ import Minus from '../../common/model/functions/Minus.js';
 import Plus from '../../common/model/functions/Plus.js';
 import Times from '../../common/model/functions/Times.js';
 import RationalNumber from '../../common/model/RationalNumber.js';
-import functionBuilder from '../../functionBuilder.js';
 
 // constants
 const CARD_NUMBERS_RANGE = new Range( -4, 7 );
@@ -70,5 +69,3 @@ export default class NumbersScene extends FBScene {
     super( cardContent, functionCreators, builder, options );
   }
 }
-
-functionBuilder.register( 'NumbersScene', NumbersScene );

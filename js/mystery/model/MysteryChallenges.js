@@ -9,7 +9,6 @@
  */
 
 import FBSymbols from '../../common/FBSymbols.js';
-import functionBuilder from '../../functionBuilder.js';
 
 // maps operator tokens used in challenges to operator symbols used in functions
 const OPERATOR_MAP = {
@@ -159,7 +158,5 @@ const MysteryChallenges = {
     return challengeObjects;
   }
 };
-
-functionBuilder.register( 'MysteryChallenges', MysteryChallenges );
 
 export default MysteryChallenges;

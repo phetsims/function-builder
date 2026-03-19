@@ -14,7 +14,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Carousel from '../../../../sun/js/Carousel.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import PageControl from '../../../../sun/js/PageControl.js';
-import functionBuilder from '../../functionBuilder.js';
 import FBQueryParameters from '../FBQueryParameters.js';
 import BuilderEndNode from './builder/BuilderEndNode.js';
 import BuilderNode from './builder/BuilderNode.js';
@@ -469,5 +468,3 @@ function createFunctionCarouselItems( functionCreators, functionNodeConstructor,
     };
   } );
 }
-
-functionBuilder.register( 'FBSceneNode', FBSceneNode );

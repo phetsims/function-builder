@@ -16,7 +16,6 @@ import FBColors from '../../common/FBColors.js';
 import FBQueryParameters from '../../common/FBQueryParameters.js';
 import MysteryFunctionNode from '../../common/view/functions/MysteryFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
-import functionBuilder from '../../functionBuilder.js';
 import MysteryChallenges from '../model/MysteryChallenges.js';
 
 export default class MysterySceneNode extends MathSceneNode {
@@ -247,5 +246,3 @@ export default class MysterySceneNode extends MathSceneNode {
     }
   }
 }
-
-functionBuilder.register( 'MysterySceneNode', MysterySceneNode );

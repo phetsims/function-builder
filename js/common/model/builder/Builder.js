@@ -14,7 +14,6 @@
 import Emitter from '../../../../../axon/js/Emitter.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBColors from '../../FBColors.js';
 import FBConstants from '../../FBConstants.js';
 import FunctionSlot from './FunctionSlot.js';
@@ -304,5 +303,3 @@ export default class Builder {
     return FunctionSlot.NO_SLOT_NUMBER;
   }
 }
-
-functionBuilder.register( 'Builder', Builder );

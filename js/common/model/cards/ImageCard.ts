@@ -7,7 +7,6 @@
  */
 
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../../../patterns/model/FBCanvasUtils.js';
 import Card, { CardOptions } from './Card.js';
 
@@ -44,5 +43,3 @@ export default class ImageCard extends Card {
 
   public get canvas(): HTMLCanvasElement { return this.getCanvas(); }
 }
-
-functionBuilder.register( 'ImageCard', ImageCard );

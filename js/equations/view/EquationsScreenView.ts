@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBScreenView from '../../common/view/FBScreenView.js';
-import functionBuilder from '../../functionBuilder.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 
@@ -20,5 +19,3 @@ export default class EquationsScreenView extends FBScreenView {
     } );
   }
 }
-
-functionBuilder.register( 'EquationsScreenView', EquationsScreenView );

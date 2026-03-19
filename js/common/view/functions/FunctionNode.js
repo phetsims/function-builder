@@ -10,7 +10,6 @@
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBColors from '../../FBColors.js';
 import FBConstants from '../../FBConstants.js';
 import FunctionSlot from '../../model/builder/FunctionSlot.js';
@@ -303,5 +302,3 @@ export default class FunctionNode extends FBMovableNode {
     this.notInvertibleSymbolNode.stopAnimation();
   }
 }
-
-functionBuilder.register( 'FunctionNode', FunctionNode );

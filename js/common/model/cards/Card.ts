@@ -8,7 +8,6 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBMovable, { FBMovableOptions } from '../FBMovable.js';
 
@@ -28,5 +27,3 @@ export default class Card extends FBMovable {
     super( options );
   }
 }
-
-functionBuilder.register( 'Card', Card );

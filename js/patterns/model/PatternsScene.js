@@ -25,7 +25,6 @@ import Builder from '../../common/model/builder/Builder.js';
 import FBScene from '../../common/model/FBScene.js';
 import FunctionCreator from '../../common/model/functions/FunctionCreator.js';
 import FBIconFactory from '../../common/view/FBIconFactory.js'; // eslint-disable-line phet/no-view-imported-from-model
-import functionBuilder from '../../functionBuilder.js';
 import Erase from './functions/Erase.js';
 import Grayscale from './functions/Grayscale.js';
 import Identity from './functions/Identity.js';
@@ -105,5 +104,3 @@ export default class PatternsScene extends FBScene {
     super( cardContent, functionCreators, builder, options );
   }
 }
-
-functionBuilder.register( 'PatternsScene', PatternsScene );

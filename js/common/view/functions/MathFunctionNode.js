@@ -8,7 +8,6 @@
 
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import MathFunction from '../../model/functions/MathFunction.js';
 import FunctionNode from './FunctionNode.js';
@@ -41,5 +40,3 @@ export default class MathFunctionNode extends FunctionNode {
     } );
   }
 }
-
-functionBuilder.register( 'MathFunctionNode', MathFunctionNode );

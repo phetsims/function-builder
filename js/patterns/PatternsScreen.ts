@@ -10,7 +10,6 @@ import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FBColors from '../common/FBColors.js';
 import FBIconFactory from '../common/view/FBIconFactory.js';
-import functionBuilder from '../functionBuilder.js';
 import FunctionBuilderStrings from '../FunctionBuilderStrings.js';
 import PatternsModel from './model/PatternsModel.js';
 import PatternsScreenView from './view/PatternsScreenView.js';
@@ -33,5 +32,3 @@ export default class PatternsScreen extends Screen<PatternsModel, PatternsScreen
     );
   }
 }
-
-functionBuilder.register( 'PatternsScreen', PatternsScreen );

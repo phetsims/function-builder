@@ -32,7 +32,6 @@ import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../../scenery/js/util/Color.js';
 import TPaint from '../../../../../scenery/js/util/TPaint.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import Builder from '../../model/builder/Builder.js';
@@ -398,5 +397,3 @@ class PointNode extends Circle {
     this.center = modelViewTransform.modelToViewPosition( point );
   }
 }
-
-functionBuilder.register( 'XYGraphNode', XYGraphNode );

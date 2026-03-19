@@ -10,7 +10,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import MathFunctionNode from '../../common/view/functions/MathFunctionNode.js';
 import MathSceneNode from '../../common/view/MathSceneNode.js';
-import functionBuilder from '../../functionBuilder.js';
 import FunctionBuilderStrings from '../../FunctionBuilderStrings.js';
 
 export default class NumbersSceneNode extends MathSceneNode {
@@ -49,5 +48,3 @@ export default class NumbersSceneNode extends MathSceneNode {
     super( scene, layoutBounds, MathFunctionNode, options );
   }
 }
-
-functionBuilder.register( 'NumbersSceneNode', NumbersSceneNode );

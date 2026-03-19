@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import functionBuilder from '../../../functionBuilder.js';
-
 export default class FunctionSlot {
 
   /**
@@ -66,5 +64,3 @@ export default class FunctionSlot {
 
 // @public @static used to indicate the absence of a valid slot number
 FunctionSlot.NO_SLOT_NUMBER = -1;
-
-functionBuilder.register( 'FunctionSlot', FunctionSlot );

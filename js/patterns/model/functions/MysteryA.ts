@@ -7,7 +7,6 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FunctionBuilderStrings from '../../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import MysteryImageFunction, { MysteryImageFunctionOptions } from './MysteryImageFunction.js';
@@ -45,5 +44,3 @@ export default class MysteryA extends MysteryImageFunction {
     return outputCanvas;
   }
 }
-
-functionBuilder.register( 'MysteryA', MysteryA );

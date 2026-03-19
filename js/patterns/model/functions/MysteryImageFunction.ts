@@ -11,7 +11,6 @@ import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import RichText from '../../../../../scenery/js/nodes/RichText.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 
 type SelfOptions = EmptySelfOptions;
 export type MysteryImageFunctionOptions = SelfOptions & ImageFunctionOptions;
@@ -33,5 +32,3 @@ export default abstract class MysteryImageFunction extends ImageFunction {
     super( iconNode, providedOptions );
   }
 }
-
-functionBuilder.register( 'MysteryImageFunction', MysteryImageFunction );

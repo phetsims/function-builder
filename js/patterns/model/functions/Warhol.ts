@@ -21,7 +21,6 @@ import Color from '../../../../../scenery/js/util/Color.js';
 import warhol_png from '../../../../mipmaps/functions/warhol_png.js';
 import FBConstants from '../../../common/FBConstants.js';
 import ImageFunction, { ImageFunctionOptions } from '../../../common/model/functions/ImageFunction.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBCanvasUtils from '../FBCanvasUtils.js';
 import Grayscale from './Grayscale.js';
 import Identity from './Identity.js';
@@ -151,5 +150,3 @@ function applyColorMap( inputData: ImageData, outputData: ImageData, colorMap: C
   }
   return outputData;
 }
-
-functionBuilder.register( 'Warhol', Warhol );

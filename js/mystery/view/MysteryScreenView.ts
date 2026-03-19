@@ -8,7 +8,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FBScreenView from '../../common/view/FBScreenView.js';
-import functionBuilder from '../../functionBuilder.js';
 import MysteryModel from '../model/MysteryModel.js';
 import MysterySceneNode from './MysterySceneNode.js';
 
@@ -21,5 +20,3 @@ export default class MysteryScreenView extends FBScreenView {
     } );
   }
 }
-
-functionBuilder.register( 'MysteryScreenView', MysteryScreenView );

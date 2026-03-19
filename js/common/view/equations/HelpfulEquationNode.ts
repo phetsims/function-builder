@@ -12,7 +12,6 @@ import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import Line from '../../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions, NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import FBSymbols from '../../FBSymbols.js';
 import HelpfulEquation from '../../model/equations/HelpfulEquation.js';
@@ -286,5 +285,3 @@ export default class HelpfulEquationNode extends Node {
     super( options );
   }
 }
-
-functionBuilder.register( 'HelpfulEquationNode', HelpfulEquationNode );

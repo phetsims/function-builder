@@ -17,7 +17,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import TPaint from '../../../../scenery/js/util/TPaint.js';
 import butterflyBig_png from '../../../images/cards/butterflyBig_png.js';
 import stickFigure_png from '../../../images/cards/stickFigure_png.js';
-import functionBuilder from '../../functionBuilder.js';
 import FunctionBuilderStrings from '../../FunctionBuilderStrings.js';
 import FBCanvasUtils from '../../patterns/model/FBCanvasUtils.js';
 import Warhol from '../../patterns/model/functions/Warhol.js';
@@ -259,7 +258,5 @@ const FBIconFactory = {
     } );
   }
 };
-
-functionBuilder.register( 'FBIconFactory', FBIconFactory );
 
 export default FBIconFactory;

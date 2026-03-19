@@ -11,7 +11,6 @@ import merge from '../../../../../phet-core/js/merge.js';
 import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import Drawer, { DrawerOptions } from '../../../../../scenery-phet/js/Drawer.js';
 import { NodeTranslationOptions } from '../../../../../scenery/js/nodes/Node.js';
-import functionBuilder from '../../../functionBuilder.js';
 import FBConstants from '../../FBConstants.js';
 import Builder from '../../model/builder/Builder.js';
 import EquationPanel, { EquationPanelOptions } from './EquationPanel.js';
@@ -50,5 +49,3 @@ export default class EquationDrawer extends Drawer {
     super( equationPanel, options );
   }
 }
-
-functionBuilder.register( 'EquationDrawer', EquationDrawer );
