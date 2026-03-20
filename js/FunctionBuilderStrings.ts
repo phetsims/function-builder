@@ -48,4 +48,6 @@ type StringsType = {
 
 const FunctionBuilderStrings = getStringModule( 'FUNCTION_BUILDER' ) as StringsType;
 
+functionBuilder.register( 'FunctionBuilderStrings', FunctionBuilderStrings );
+
 export default FunctionBuilderStrings;
