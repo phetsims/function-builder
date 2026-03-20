@@ -35,6 +35,6 @@ const FBQueryParameters = QueryStringMachine.getAll( {
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.functionBuilder.FBQueryParameters' );
+phet.log && phet.log( `FBQueryParameters: ${JSON.stringify( FBQueryParameters, null, 2 )}` );
 
 export default FBQueryParameters;
