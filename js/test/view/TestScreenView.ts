@@ -1,4 +1,4 @@
-// Copyright 2015-2023, University of Colorado Boulder
+// Copyright 2015-2026, University of Colorado Boulder
 
 /**
  * ScreenView for the 'Test' screen. This screen is added via the 'testScreen' query parameter.
